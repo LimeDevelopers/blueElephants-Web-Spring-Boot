@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+    <script type="text/javascript">
+        var userId;
+        var userPw;
+        var msg;
+        var errormsg;
+
+        var loginId;
+        $(function () {
+            msg = $('#msg');
+            if (msg.val()) {
+                alert(msg.val());
+            }
+
+            errormsg = $('#errormsg');
+            if (errormsg.val()) {
+                alert(errormsg.val());
+            }
+        });
+
+        function fn_chkLogin() {
+            var btnLogin = $("#btnLogin");
+            userId = $("#userId");
+            userPw = $("#userPw");
+
+            if (userId.val() != 'admin') {
+                if (!loginIdCheck(userId, btnLogin)) {
+                    return false;
+                }
+            }
+            if (!pwdCheck(userPw, btnLogin)) {
+                userPw.val("");
+                userPw.focus();
+                return false;
+            }
+
+            var frm = $('#form1');
+            frm.prop("action", "/login");
+            frm.submit();
+        }
+
+        function fn_mailAuthResend() {
+            var mailAuthResendLoginId = $("#mailAuthResendLoginId");
+            loginId = $("#loginId");
+
+            if (!loginIdCheck(loginId, mailAuthResendLoginId)) {
+                return false;
+            }
+
+            var frm = $('#form2');
+            frm.prop("action", "/api/member/mailAuthResend");
+            frm.submit();
+
+            loginId = $('#loginId');
+            loginId.val('');
+        }
+    </script>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+
+        <div class="contents">
+            <div class="page_top">
+                <h3 class="page_tit">로그인</h3>
+                <span>서비스 이용을 위하여 아이디와 비밀번호를 입력해주세요.</span>
+            </div>
+            <div class="page_cont">
+                <div class="login_area">
+                    <form id="form1" name="form1" method="post">
+                        <input type="hidden" id="msg" th:value="${msg}"/>
+                        <input type="hidden" id="errormsg" th:value="${errormsg}"/>
+                        <fieldset>
+                            <legend>로그인</legend>
+                            <div class="login_form">
+                                <div class="row icon_id" id="userIdRow">
+                                    <label for="userId" class="blind">아이디를 입력하세요.</label>
+                                    <input type="text" name="userId" id="userId" placeholder="아이디를 입력하세요.">
+                                </div>
+                                <div class="row icon_pw" id="userPwRow">
+                                    <label for="userPw" class="blind">비밀번호를 입력하세요.</label>
+                                    <input type="password" name="userPw" id="userPw" placeholder="비밀번호를 입력하세요.">
+                                </div>
+                                <button type="submit" class="btn_login" onclick="return fn_chkLogin();" id="btnLogin">로그인</button>
+                                <!--<button type="button" class="btn_login" onclick="layerShow('popLoginTemp')">Login</button>-->
+                            </div>
+                            <div class="chk_area clearfix">
+                                <div class="checkbox txt">
+                                    <input type="checkbox" name="remember-me" id="remember-me" checked="checked">
+                                    <label for="remember-me">자동로그인</label>
+                                </div>
+                                <ul class="id_pw_find clearfix">
+                                    <li><a href="/pages/member/idFind">아이디 찾기</a></li>
+                                    <li><a href="/pages/member/pwFind">비밀번호 찾기</a></li>
+                                </ul>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+                <div class="join_area">
+                    <div class="clearfix">
+                        <span>아직 <strong>푸른코끼리</strong> 회원이 아니세요?</span>
+                        <a href="/pages/member/joinAgree" class="btn btn_lg btn_line_blue btn_pill_10">회원가입</a>
+                    </div>
+                    <div class="mt clearfix">
+                        <span><strong>이메일 인증 시간</strong>이 초과하셨나요?</span>
+                        <a href="javascript:layerShow('popMailAuthResend');" class="btn btn_lg btn_skyblue btn_pill_10">재발송</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="popLoginTemp" class="layer_popup">
+        <div class="dim"></div>
+        <div class="popup_area">
+            <a href="javascript:layerHide('popLoginTemp')" class="btn_close"><span class="blind">팝업닫기</span></a>
+            <div class="popup">
+                <div class="pop_txt">로그인 되었습니다.<br/>임시 비밀번호를 발급 받으신 경우<br/>반드시 <strong class="fc_blue">신규 비밀번호로 변경</strong>하신 후 사용해 주세요.</div>
+                <div class="btn_area">
+                    <a href="javascript:;" class="btn btn_lg btn_blue btn_pill_10">회원정보 수정</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="popMailAuthResend" class="layer_popup">
+        <div class="dim"></div>
+        <div class="popup_area">
+            <a href="javascript:layerHide('popMailAuthResend')" class="btn_close"><span class="blind">팝업닫기</span></a>
+            <div class="popup">
+                <div class="login_form">
+                    <form id="form2" name="form2" method="post">
+                        <div class="login_area">
+                            <fieldset>
+                                <legend>인증링크 재발송</legend>
+                                <div class="login_form">
+                                    <div class="row icon_id" id="mailAuthResendLoginId">
+                                        <label for="loginId" class="blind">아이디를 입력하세요.</label>
+                                        <input type="text" name="loginId" id="loginId" placeholder="아이디를 입력하세요.">
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </form>
+                </div>
+                <div class="pop_txt">인증 링크는 발송 후 <strong class="fc_red">1시간</strong>동안 유효합니다.<br/>인증 링크를 재발송 하신 경우 반드시 <strong class="fc_blue">재발송 된 메일</strong>의 인증링크로 인증 후 로그인 해주세요.</div>
+                <div class="btn_area">
+                    <button id="btnMailAuthResend" class="btn btn_lg btn_blue btn_pill_10" onclick="return fn_mailAuthResend();">재발송</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

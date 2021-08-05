@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+
+        <form id="form1" name="form1" method="post" th:object="${searchForm}">
+
+            <div class="contents">
+                <div class="page_top pc">
+                    <h3 class="page_tit">이메일무단수집거부</h3>
+                </div>
+                <div class="page_cont policy_area">
+                    <div class="agree_area">
+                        <div class="desc_box scrollbar mail">
+                            <p>푸른코끼리는 홈페이지 내 게시된 이메일 주소가 전자우편 수집 프로그램이나 그 밖의 기술적 장치 또는 비 기술적 방법으로 무단 수집되는 것을 거부하며, 이를 위반할 경우 개인정보보호법에 위반되어 형사처벌 될 수 있음을 유념하시기 바랍니다.</p>
+                            <p>시행일자: 2020년 11월 11일</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

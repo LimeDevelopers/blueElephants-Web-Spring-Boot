@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="soulGod/fragments/header"></th:block>
+    <script type="text/javascript">
+
+        function fn_chkItemField() {
+            var crssqPid = $('#crssqPid');
+            var ttl = $('#ttl');
+            var cn = $('#cn');
+            var cntntsUrl = $('#cntntsUrl');
+            var sno = $('#sno');
+            var sumImgFl = $('#sumImgFl');
+
+            if (!$.trim(ttl.val())) {
+                alert('제목은 필수입니다.');
+                ttl.focus();
+                return false;
+            }
+
+            if (!$.trim(cntntsUrl.val())) {
+                alert('URL은 필수입니다.');
+                cntntsUrl.focus();
+                return false;
+            }
+
+            if (!$.trim(sno.val())) {
+                alert('순번은 필수입니다.');
+                sno.focus();
+                return false;
+            }
+
+            if (!$.trim(cn.val())) {
+                alert('강좌내용은 필수입니다.');
+                cn.focus();
+                return false;
+            }
+
+            if (!sumImgFl.val()) {
+                if ($('input[name=attachImgFl]').length == 1) {
+                    alert('썸네일은 필수입니다.');
+                    return false;
+                }
+            }
+
+            if (crssqPid.val() == '') {
+                crssqPid.val('0');
+            }
+
+            return true;
+        }
+
+        function fn_itemLoad(id) {
+            var jsonData = {
+                'id' : id
+            }
+            $.ajax({
+                type: 'post',
+                url: '/api/soulGod/courseItem/load',
+                contentType: "application/json",
+                data: JSON.stringify(jsonData),
+                datatype: 'json',
+                success: function (data) {
+                    var html = '';
+                    if (data != null) {
+                        $('#ttl').val(data.ttl);
+                        $('#cn').val(data.cn);
+                        $('#sno').val(data.sno);
+                        $('#crssqPid').val(data.id);
+                        $('#cntntsDvTy_' + data.cntntsDvTy).prop('checked', true);
+                        $('#cntntsUrl').val(data.cntntsUrl);
+                        //$('#cntntsLen').val(data.cntntsLen);
+
+                        html += '<p class="file">';
+                        html += '<span>'+data.imgFl+'</span>';
+                        html += '<a href="'+ '[[${filePath}]]' + '/' + data.imgFl + '" class="btn_down" download><span class="blind">다운로드</span></a>';
+                        html += '</p>';
+                        $('#imgFl').html(html);
+                        $('#sumImgFl').val(data.imgFl);
+
+                        fn_setFileLoad(data.id);
+
+                        layerShow('courseItem');
+                    }
+                },
+                error: function (error) {
+                    //alert('save error!!!');
+                    alert('error::' + error.statusText);
+                }
+            });
+
+        }
+
+        function fn_setFileLoad(id){
+            var jsonData = {
+                'dataPid':id,
+                'tableNm':'TBL_COUSE_ITEM'
+            }
+            $.ajax({
+                type: 'post',
+                url: '/api/common/file/list',
+                contentType: "application/json",
+                data: JSON.stringify(jsonData),
+                datatype: 'json',
+                success: function (data) {
+                    var html = '';
+                    $.each(data, function (index, item) {
+                        html += '<p class="file">';
+                        html += '<span>' + item.flNm + '</span>';
+                        html += '<a href="javascript:;" class="btn_del" onclick="fn_deleteFile(' + item.id + ', this)">';
+                        html += '<span class="blind">삭제</span>';
+                        html += '</a>';
+                        html += '</p>';
+                    });
+
+                    $('#fileArea').html(html);
+                },
+                error: function (error) {
+                    //alert('save error!!!');
+                    alert('error::' + error.statusText);
+                }
+            });
+        }
+
+        function fn_video(id) {
+            winPop('/courseItem/video/'+id, '강좌미리보기', 1425, 800);
+        }
+
+        function fn_itemRegister(){
+            fn_reset();
+            layerShow('courseItem')
+        }
+
+        function fn_reset() {
+            $('#ttl').val('');
+            $('#cn').val('');
+            $('#sno').val('');
+            $('#crssqPid').val('');
+            $('#imgFl').html('');
+            $('#cntntsDvTy_CDN').prop('checked', true);
+            $('#cntntsUrl').val('');
+        }
+
+        $(function () {
+
+            $('#btnItemSave').click(function () {
+                if (!fn_chkItemField()) {
+                    return;
+                }
+
+                if (!confirm('저장하시겠습니까?')) {
+                    return;
+                }
+
+                var crssqPid = $('#crssqPid');
+
+                var frm = $('#form1');
+
+                if (crssqPid.val() == '0') {
+                    frm.prop('action', '/soulGod/courseItem/register');
+                } else {
+                    frm.prop('action', '/soulGod/courseItem/modify');
+                }
+
+                frm.submit();
+            });
+
+            $('#btnItemDelete').click(function () {
+
+                var mstRelCnt = '[[${masterRelCnt}]]'
+
+                if (mstRelCnt != 0) {
+                    alert('마스터에 추가된 과정의 강좌는 삭제 할 수 없습니다.');
+                    return false;
+                }
+
+                if (!confirm('삭제하시겠습니까?')) {
+                    return;
+                }
+
+                var frm = $('#form1');
+                frm.prop('action', '/soulGod/courseItem/delete');
+                frm.submit();
+            });
+        });
+    </script>
+</head>
+<body>
+<div id="wrap">
+    <th:block th:include="soulGod/fragments/menu"></th:block>
+
+    <div id="container">
+        <div class="container_box">
+            <form id="form1" name="form1" method="post" enctype="multipart/form-data" th:object="${form}">
+                <input type="hidden" th:field="*{id}"/>
+                <div class="contents">
+
+                    <ul class="breadcrumb">
+                        <li><i class="material-icons">home</i></li>
+                        <li>교육관리</li>
+                        <li>과정관리</li>
+                    </ul>
+
+                    <div class="board_detail clearfix">
+                        <div class="sec">
+                            <div class="board_top clearfix">
+                                <div class="fl">
+                                    <h4 class="sec_tit">상세정보</h4>
+                                </div>
+                            </div>
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert"
+                                 th:if="${message}">
+                                <strong th:text="${message}">message!</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <table class="tbl_write">
+                                <colgroup>
+                                    <col style="width:10%"/>
+                                    <col style="width:auto"/>
+                                </colgroup>
+                                <tbody>
+                                <tr>
+                                    <th scope="row"><label>과정명</label></th>
+                                    <td th:text="*{crsNm}"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>단계</label></th>
+                                    <td th:text="*{T(kr.or.btf.web.domain.web.enums.StepType).valueOf(stepTy).getName()}"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>과정내용</label></th>
+                                    <td>
+                                        <div class="scrollbar h100 editor"
+                                             th:utext="*{#strings.replace(crsCn, T(System).getProperty('line.separator'), '&lt;br /&gt;')}">
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>대상</label></th>
+                                    <td th:text="*{T(kr.or.btf.web.domain.web.enums.MberDvType).valueOf(mberDvTy).getName()}">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>대표이미지</label></th>
+                                    <td>
+                                        <div class="file_form" th:if="*{imgFl ne null}">
+                                            <p class="file">
+                                                <span th:text="*{imgFl}"></span>
+                                                <a th:href="${filePath+'/'+ form.imgFl}" class="btn_down" download><span class="blind">다운로드</span></a>
+                                            </p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="btn_area">
+                                <!--<button id="btnDelete" class="btn btn_sm btn_red" type="button">
+                                    <i class="material-icons">delete</i>삭제
+                                </button>-->
+                                <th:block th:if="${#authentication.principal.account.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).ADMIN or
+                                #authentication.principal.account.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).MASTER}">
+                                    <a class="btn btn_sm btn_blue"th:href="|/soulGod/course/modify/*{id}|">
+                                        <i class="material-icons fz17">done</i>수정
+                                    </a>
+                                </th:block>
+                                <a class="btn btn_sm btn_lightgray" href="/soulGod/course/list">
+                                    <i class="material-icons">list</i>목록
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="sec">
+                            <div class="board_top clearfix">
+                                <div class="fl">
+                                    <h4 class="sec_tit">강좌 리스트</h4>
+                                </div>
+                                <div class="fr">
+                                    <th:block th:if="${#authentication.principal.account.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).ADMIN or
+                                        #authentication.principal.account.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).MASTER}">
+                                        <a href="#" onclick="return fn_itemRegister();" class="btn btn_sm btn_blue">
+                                            <i class="material-icons mt0">add</i>강좌 추가
+                                        </a>
+                                    </th:block>
+                                </div>
+                            </div>
+                            <div class="board_detail clearfix">
+                                <table class="tbl_list" id="resultList">
+                                    <colgroup>
+                                        <col style="width: 5%"/>
+                                        <col style="width: auto"/>
+                                        <col style="width: 15%"/>
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th>순번</th>
+                                        <th>강좌명</th>
+                                        <th>미리보기</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <!-- 등록된 데이터가 없을 때만 노출 : s -->
+                                    <tr th:if="${courseItems == null or courseItems.isEmpty()}">
+                                        <td colspan="3">등록된 콘텐츠가 없습니다.</td>
+                                    </tr>
+                                     <!--등록된 이벤트가 없을 때만 노출 : e-->
+                                    <tr th:each="item,idx:${courseItems}">
+                                        <td th:text="${item.sno}"></td>
+
+                                        <td>
+                                            <th:block th:if="${#authentication.principal.account.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).ADMIN or
+                                                #authentication.principal.account.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).MASTER}">
+                                                <a href="#" th:onclick="|return fn_itemLoad(${item.id})|">
+                                                    <b th:text="${item.ttl}"></b>
+                                                </a>
+                                            </th:block>
+                                            <th:block th:unless="${#authentication.principal.account.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).ADMIN or
+                                                #authentication.principal.account.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).MASTER}">
+                                                <b th:text="${item.ttl}"></b>
+                                            </th:block>
+                                        </td>
+                                        <td>
+                                            <a href="#" class="btn btn_sm btn_blue" th:onclick="|return fn_video(${item.id})|">
+                                                <i class="material-icons">play_arrow</i>미리보기
+                                            </a>
+                                        </td>
+                                        <!--<td th:text="${#temporals.format(item.regDtm,'yyyy-MM-dd')}"></td>
+                                        <td th:text="${item.regPsNm}"></td>-->
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 강좌 추가 팝업 s -->
+                <div id="courseItem" class="pop_layer" style="height:500px">
+                    <input type="hidden" name="crssqPid" id="crssqPid" />
+                    <button type="button" class="btn_close" onclick="layerHide('courseItem')"><span class="blind">팝업 닫기</span></button>
+                    <div class="popup">
+                        <strong class="pop_tit">강좌관리</strong>
+                        <div class="pop_cont">
+                            <table class="tbl_write">
+                                <caption>강좌관리</caption>
+                                <colgroup>
+                                    <col style="width:136px" />
+                                    <col style="width:auto" />
+                                </colgroup>
+                                <tbody>
+                                <tr>
+                                    <th scope="row">제목<span class="aster">*</span></th>
+                                    <td>
+                                        <input type="text" name="ttl" id="ttl" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>CDN/유튜브<span class="aster">*</span></label></th>
+                                    <td>
+                                        <th:block th:each="tp,idx : ${T(kr.or.btf.web.domain.web.enums.ContentsDvType).values()}">
+                                            <input type="radio" th:id="|cntntsDvTy_${tp.name()}|" name="cntntsDvTy" th:value="${tp.name()}" />
+                                            <label th:for="${tp.name()}" th:text="${tp.getName()}"></label>
+                                        </th:block>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">컨텐츠URL<span class="aster">*</span></th>
+                                    <td>
+                                        <input type="text" id="cntntsUrl" name="cntntsUrl" />
+                                    </td>
+                                </tr>
+                                <!--<tr>
+                                    <th scope="row">컨텐츠길이</th>
+                                    <td>
+                                        <input type="number" id="cntntsLen" name="cntntsLen" />
+                                    </td>
+                                </tr>-->
+                                <tr>
+                                    <th scope="row">순번<span class="aster">*</span></th>
+                                    <td>
+                                        <input type="text" name="sno" id="sno" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">개요<span class="aster">*</span></th>
+                                    <td>
+                                        <textarea id="cn" name="cn" ></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">썸네일<span class="aster">*</span></th>
+                                    <td>
+                                        <div class="file_form">
+                                            <div id="imgFl"></div>
+                                            <input type="hidden" id="sumImgFl" />
+                                            <input type="file" name="attachImgFl" id="attachImgFl" class="multi" maxlength="1" th:accept="${imageAccept}" />
+                                            <label for="attachedFile">파일찾기</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">첨부파일</th>
+                                    <td>
+                                        <div class="file_form">
+                                            <div id="fileArea">
+
+                                            </div>
+                                            <input type="file" name="attachedFile" id="attachedFile" class="multi" th:accept="${allAccept}" />
+                                            <label for="attachedFile">파일찾기</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="pop_btn_area" id="certi_btn_area">
+                            <a href="#" id="btnItemSave" class="btn btn_sm btn_blue w60">
+                                <i class="material-icons">add</i>저장
+                            </a>
+                            <a href="#" id="btnItemDelete" class="btn btn_sm btn_red w60">
+                                <i class="material-icons">delete</i>삭제
+                            </a>
+                            <a href="javascript:;" class="btn btn_sm btn_lightgray w60" onclick="layerHide('courseItem')">나가기
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- 강좌 추가 팝업 e -->
+            </form>
+        </div>
+    </div>
+    <th:block th:replace="soulGod/fragments/footer"></th:block>
+</div>
+</body>
+</html>

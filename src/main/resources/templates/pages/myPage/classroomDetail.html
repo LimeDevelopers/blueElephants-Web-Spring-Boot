@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+
+        <form id="form1" name="form1" method="post">
+            <div class="contents">
+                <div class="page_top pc">
+                    <h3 class="page_tit">My 강의실</h3>
+                    <span>회원정보를 최신정보로 관리해주세요. 새로운 푸코소식과 보안을 위해 회원정보를 최신으로 업데이트 해주세요.</span>
+                </div>
+                <div class="page_cont">
+                    <div class="tab_ico_area">
+                        <a href="javascript:;" class="tit">수강내역</a>
+                        <ul class="tab_type_ico">
+                            <li class="lecture active"><a href="/pages/myPage/classroom">수강내역</a></li>
+                            <li class="mydataroom"><a href="/pages/myPage/eduDataRoom">내 교육자료실</a></li>
+                            <li class="certificate"><a href="/pages/myPage/certificate">교육이수증발급</a></li>
+                        </ul>
+                        <p class="mo_page_txt">회원정보를 최신정보로 관리해주세요. <br class="mo" />새로운 푸코소식과 보안을 위해 회원정보를 최신으로 업데이트 해주세요.</p>
+                    </div>
+                    <h4 class="subtit pc">수강내역</h4>
+                    <p class="tip_tbl mb">※ 강의 제목을 클릭하시면, 해당 페이지로 이동합니다.</p>
+                    <ul class="board_tbl_list">
+                        <li class="thead">
+                            <strong class="no">No</strong>
+                            <strong class="tit">강의 제목</strong>
+                            <strong class="activity">활동</strong>
+                            <strong class="state">수강상태</strong>
+                            <strong class="progress">진도율</strong>
+                        </li>
+                        <!--수강 중인 강의가 없을경우 : s-->
+                        <li class="nodata" th:if="${courseRequestCompletes == null or courseRequestCompletes.isEmpty()}">
+                            <div>수강 중인 강의가 없습니다.</div>
+                        </li>
+                        <!--수강 중인 강의가 없을경우 : e-->
+                        <li th:each="item,idx : ${courseRequestCompletes}">
+                            <div class="no" th:text="${idx.count}">4</div>
+                            <div class="tit">
+                                <th:block th:if="${item.sn eq 1}">
+                                    <a th:href="|/pages/activity/eduTasteDetail/${item.crsMstPid}/${item.crsPid}|">
+                                </th:block>
+                                <th:block th:if="${item.sn eq 2}">
+                                    <th:block th:if="${item.procNm eq T(kr.or.btf.web.domain.web.enums.CompleteStatusType).COMPLETE.name()}">
+                                        <a href="javascript:alert('이미 사전검사를 완료하였습니다.');">
+                                        <em class="fc_oceanblue">[사전검사]</em>
+                                    </th:block>
+                                    <th:block th:unless="${item.procNm eq T(kr.or.btf.web.domain.web.enums.CompleteStatusType).COMPLETE.name()}">
+                                        <a th:href="|/pages/activity/preInspection/${item.crsMstPid}/${item.sn}|">
+                                        <em class="fc_oceanblue">[사전검사]</em>
+                                    </th:block>
+                                </th:block>
+                                <th:block th:if="${item.sn eq 3}">
+                                    <a th:href="|/pages/activity/eduClassDetail/${item.crsMstPid}/${item.crssqPid}/${item.sn}|">
+                                </th:block>
+                                <th:block th:if="${item.sn eq 4}">
+                                    <a th:href="|/pages/activity/eduClassDetail/${item.crsMstPid}/${item.crssqPid}/${item.sn}|">
+                                </th:block>
+                                <th:block th:if="${item.sn eq 5}">
+                                    <a th:href="|/pages/activity/eduClassDetail/${item.crsMstPid}/${item.crssqPid}/${item.sn}|">
+                                </th:block>
+                                <th:block th:if="${item.sn eq 6}">
+                                    <th:block th:if="${item.procNm eq T(kr.or.btf.web.domain.web.enums.CompleteStatusType).COMPLETE.name()}">
+                                        <a href="javascript:alert('이미 사후검사를 완료하였습니다.');">
+                                        <em class="fc_green">[사후검사]</em>
+                                    </th:block>
+                                    <th:block th:unless="${item.procNm eq T(kr.or.btf.web.domain.web.enums.CompleteStatusType).COMPLETE.name()}">
+                                        <a th:href="|/pages/activity/preInspection/${item.crsMstPid}/${item.sn}|">
+                                        <em class="fc_green">[사후검사]</em>
+                                    </th:block>
+                                </th:block>
+                                <th:block th:if="${item.sn eq 7}">
+                                    <th:block th:if="${item.procNm eq T(kr.or.btf.web.domain.web.enums.CompleteStatusType).COMPLETE.name()}">
+                                        <a href="javascript:alert('이미 만족도검사를 완료하였습니다.');">
+                                    </th:block>
+                                    <th:block th:unless="${item.procNm eq T(kr.or.btf.web.domain.web.enums.CompleteStatusType).COMPLETE.name()}">
+                                        <a th:href="|/pages/activity/satisfactionTest/${item.crsMstPid}|">
+                                    </th:block>
+                                </th:block>
+                                    <em class="fc_oceanblue" th:if="${item.sn eq 3}">[사전]</em>
+                                    <em class="fc_red" th:if="${item.sn eq 4}">[현장]</em>
+                                    <em class="fc_green" th:if="${item.sn eq 5}">[사후]</em>
+                                    <th:block th:text="${item.crsNm}"></th:block>
+                                </a>
+                            </div>
+                            <div class="activity" th:if="${item.ttl ne null}"><span class="th">활동 : </span><th:block th:text="${item.ttl}"></th:block></div>
+                            <div class="state" th:if="${item.procNm eq T(kr.or.btf.web.domain.web.enums.CompleteStatusType).APPLY.name()}">수강중</div>
+                            <div class="state" th:if="${item.procNm eq T(kr.or.btf.web.domain.web.enums.CompleteStatusType).COMPLETE.name()}">수강완료</div>
+                            <div class="state" th:if="${item.procNm ne T(kr.or.btf.web.domain.web.enums.CompleteStatusType).COMPLETE.name() and item.procNm ne T(kr.or.btf.web.domain.web.enums.CompleteStatusType).APPLY.name()}">-</div>
+                            <div class="progress"><span class="th">진도율 : </span>
+                                <th:block th:text="|${item.procPer eq '-' ? '-' : item.procNm eq T(kr.or.btf.web.domain.web.enums.CompleteStatusType).COMPLETE.name() ? '100%' : #numbers.formatDecimal(item.procPer, 1, 0)+'%'}|"></th:block>
+                            </div>
+                        </li>
+                    </ul>
+                    <th:block th:replace="/fragments/paging :: pagingbody(list=${courseRequestCompletes}, link='/pages/myPage/classroomDetail/' + ${atnlcReqPid}, formId='form1')"></th:block>
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

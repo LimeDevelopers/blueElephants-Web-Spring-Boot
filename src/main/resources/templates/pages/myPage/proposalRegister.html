@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+    <script type="text/javascript">
+        $(function () {
+
+        })
+        function fn_policyProposalSave() {
+            var ttl = $('#ttl');
+            var cn = $('#cn');
+
+            if(!$.trim(ttl.val())){
+                alert("제목을 입력하세요.");
+                ttl.focus();
+                return false;
+            }
+
+            if(!$.trim(cn.val())){
+                alert("내용을 입력하세요.");
+                cn.focus();
+                return false;
+            }
+
+            var frm = $('#form1');
+            frm.prop("action", "/api/myPage/proposal/register");
+            frm.submit();
+        }
+    </script>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+
+        <form id="form1" name="form1" method="post" enctype="multipart/form-data" th:object="${form}">
+            <input type="hidden" id="mstPid" name="mstPid" th:value="${mstPid}">
+            <input type="hidden" th:field="*{id}">
+            <div class="contents">
+                <div class="page_top pc">
+                    <h3 class="page_tit">제안</h3>
+                    <span>연구결과를 바탕으로 국내법 개정과 정책 입안을 이끌어 갑니다.</span>
+                </div>
+                <div class="page_cont">
+                    <div class="tab_ico_area">
+                        <a href="javascript:;" class="tit">정책제안</a>
+                        <p class="mo_page_txt">연구결과를 바탕으로 국내법 개정과 정책 입안을 이끌어 갑니다.</p>
+                    </div>
+                    <h4 class="subtit pc">정책제안 글쓰기</h4>
+                    <div class="detail_cont">
+                        <div class="tbl_write">
+                            <ul>
+                                <li>
+                                    <div class="th"><label th:for="*{ttl}">제목</label><span class="aster">*</span></div>
+                                    <div class="td">
+                                        <input type="text" th:field="*{ttl}" />
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="th"><label th:for="*{cn}">내용</label><span class="aster">*</span></div>
+                                    <div class="td">
+                                        <textarea th:field="*{cn}" class="h170"></textarea>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="th">첨부파일</div>
+                                    <div class="td">
+                                        <div class="file_form clearfix">
+                                            <div class="file_name" th:text="${fileList eq null ? '첨부파일 등록' : fileList[0].flNm}">첨부파일 등록</div>
+                                            <input type="file" name="attachedFile" id="attachedFile" onchange="uploadChange(this)" th:accept="${allAccept}"/>
+                                            <label for="attachedFile">찾아보기</label>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="btn_area btn_num02">
+                        <a href="javascript:;" onclick="fn_policyProposalSave()" class="btn btn_lg btn_blue btn_pill_10">저장</a>
+                        <a href="/pages/activity/proposal" class="btn btn_lg btn_line_blue btn_pill_10">목록</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

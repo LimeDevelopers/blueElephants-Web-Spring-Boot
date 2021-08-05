@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+    <script type="text/javascript">
+        $(function () {
+            $("#pwd").keydown(function(key) {
+                if (key.keyCode == 13) {
+                    fn_checkPw();
+                }
+            });
+        });
+
+        function fn_openLayer(id){
+            $('#id').val(id);
+            $('#pwd').val('');
+            layerShow('popPw');
+            $('#pwd').focus();
+        }
+
+        function fn_moveDetail() {
+            var id = $("#id").val();
+            var frm = $('#form2');
+            frm.prop("action", "/pages/customerCenter/qnaDetail/"+id);
+            frm.submit();
+        }
+        function fn_checkPw() {
+            var id = $('#id').val();
+            var pwd = $('#pwd').val();
+            var jsonData = {
+                'id' : id,
+                'pwd': pwd
+            }
+            $.ajax({
+                type: 'post',
+                url: '/api/openData/qna/checkPwd',
+                contentType: "application/json",
+                data: JSON.stringify(jsonData),
+                datatype: 'text',
+                success: function (data) {
+                    if (data === 'ok') {
+                        fn_moveDetail(id);
+                    } else {
+                        alert('비밀번호가 다릅니다.');
+                        $('#pwd').val('');
+                        $('#pwd').focus();
+                    }
+                },
+                error: function (error) {
+                    //alert('save error!!!');
+                    alert('error::' + error.statusText);
+                }
+            });
+        }
+    </script>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+
+        <form id="form1" name="form1" method="post" th:object="${searchForm}">
+
+            <div class="contents">
+                <div class="page_top pc">
+                    <h3 class="page_tit">고객센터</h3>
+                    <span>푸코를 이용하시는데 어려움이 있으시다면, 고객센터에 문의하세요.</span>
+                </div>
+                <div class="page_cont">
+                    <div class="tab_ico_area">
+                        <a href="javascript:;" class="tit">1:1 문의</a>
+                        <ul class="tab_type_ico">
+                            <li class="qna active"><a href="/pages/customerCenter/qna">1:1 문의</a></li>
+                            <li class="faq"><a href="/pages/customerCenter/faq">FAQ</a></li>
+                            <li class="policy"><a href="/pages/customerCenter/policy">이용약관</a></li>
+                            <!--<li class="cshelp"><a href="/pages/customerCenter/help">도움말</a></li>-->
+                        </ul>
+                        <p class="mo_page_txt">푸코를 이용하시는데 어려움이 있으시다면, <br>고객센터에 문의하세요.</p>
+                    </div>
+                    <h4 class="subtit pc">1:1 문의</h4>
+                    <div class="board_top type01">
+                        <div class="select w160">
+                            <label th:for="sntncHead">
+                                <th:block th:if="*{sntncHead eq null or sntncHead eq ''}">전체</th:block>
+                                <th:block th:each="item: ${#strings.arraySplit(boardMaster.sntncHead,',')}">
+                                    <th:block th:if="${searchForm.sntncHead eq item}" th:text="${item}"></th:block>
+                                </th:block>
+                            </label>
+                            <select th:field="*{sntncHead}">
+                                <option value="">전체</option>
+                                <option th:each="item : ${#strings.arraySplit(boardMaster.sntncHead,',')}"
+                                        th:text="${item}" th:value="${item}" ></option>
+                            </select>
+                        </div>
+                        <div class="search qna">
+                            <input type="search" th:field="*{srchWord}" placeholder="검색어를 입력해 주세요" />
+                        </div>
+                        <button type="submit" class="btn btn_blue btn_pill_10">검색</button>
+                        <a href="/pages/customerCenter/qnaRegister" class="btn btn_skyblue btn_pill_10">문의하기</a>
+                    </div>
+                    <ul class="board_tbl_list">
+                        <li class="thead">
+                            <strong class="no">No</strong>
+                            <strong class="tit">제목</strong>
+                            <strong class="date02">등록/답변일</strong>
+                            <strong class="state">상태</strong>
+                        </li>
+                        <!--등록된 글 없을경우 : s-->
+                        <th:block th:if="${boardDatas == null or boardDatas.isEmpty()}">
+                            <li class="nodata">
+                                <div>등록된 게시글이 없습니다.</div>
+                            </li>
+                        </th:block>
+                        <!--등록된 글 없을경우 : e-->
+                        <li th:each="item,idx:${boardDatas}">
+                            <div class="no" th:text="${boardDatas.content.size() - idx.count + 1}"></div>
+                            <div class="tit ico_lock" th:onclick="|fn_openLayer(${item.id})|">
+                                <th:block th:if="${item.sntncHead ne ''}">
+                                    <a href="javascript:;" th:text="|[${item.sntncHead}]  ${item.ttl}|">문의합니다</a>
+                                </th:block>
+                                <th:block th:unless="${item.sntncHead ne ''}">
+                                    <a href="javascript:;" th:text="${item.ttl}">문의합니다</a>
+                                </th:block>
+                            </div>
+                            <div class="date02">
+                                <span class="th">등록/답변일 : </span>
+                                <th:block th:text="${#temporals.format(item.regDtm,'yyyy.MM.dd')}"></th:block>
+                                <th:block th:if="${item.likeCnt > 0}">
+                                    <th:block th:text="${'/ ' + #temporals.format(item.commentDtm,'yyyy.MM.dd')}"></th:block>
+                                </th:block>
+                            </div>
+                            <div class="state">
+                                <th:block th:if="${item.likeCnt > 0}">
+                                    <b class="fc_blue">답변완료</b>
+                                </th:block>
+                                <th:block th:unless="${item.likeCnt > 0}">
+                                    대기
+                                </th:block>
+                            </div>
+                        </li>
+                    </ul>
+                    <p class="tip_tbl">※ 1:1 문의하기 게시판은 로그인 없이 누구나 이용할 수 있습니다.</p>
+                </div>
+                <th:block th:replace="/fragments/paging :: pagingbody(list=${boardDatas}, link='/pages/customerCenter/qna', formId='form1')"></th:block>
+            </div>
+        </form>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+<div id="popPw" class="layer_popup">
+    <div class="dim"></div>
+    <div class="popup_area">
+        <a href="javascript:layerHide('popPw')" class="btn_close"><span class="blind">팝업닫기</span></a>
+        <div class="popup">
+            <form id="form2" name="form2" method="post" th:object="${searchForm}">
+                <input type="hidden" id="id"/>
+                <input type="hidden" id="page" name="page" th:value="${boardDatas.pageable.getPageNumber()+1}"/>
+                <input type="text" style="display: none"/>
+                <div class="pop_txt"><label for="pwd">비밀번호 4자리를 입력해 주세요.</label></div>
+                <div class="inp_pw"><input type="password" id="pwd" name="pwd" maxlength="4" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/></div>
+                <div class="btn_area">
+                    <a href="javascript:;" onclick="fn_checkPw()" class="btn btn_lg btn_blue btn_pill_10">확인</a>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

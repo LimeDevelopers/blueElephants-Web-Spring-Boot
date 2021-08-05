@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="soulGod/fragments/header"></th:block>
+    <script type="text/javascript">
+        ////-------- page load
+        $(function () {
+        });
+    </script>
+</head>
+<body>
+<div id="wrap">
+    <th:block th:include="soulGod/fragments/menu"></th:block>
+
+    <div id="container">
+        <div class="container_box">
+
+            <script type="text/javascript">
+                function fn_select(id) {
+                    $("#id").val(id);
+                    //$('#tr_' + id + ' td').css('background', '#efefef');
+                    $('#btnDelete').show();
+
+                    var jsonData = {
+                        'id': '' + id + ''
+                    };
+
+                    $.ajax({
+                        url: '/api/soulGod/mngMenu/load', // 요청 할 주소
+                        //async:true, // false 일 경우 동기 요청으로 변경
+                        type: 'POST', // GET, POST
+                        contentType: "application/json",
+                        data: JSON.stringify(jsonData), // 전송할 데이터
+                        dataType: 'json',// xml, json, script, html
+                        success: function (data) {
+                            //$('#id').val(data['id']);
+                            $('#menuNm').val(data['menuNm']);
+                            $('#menuUrl').val(data['menuUrl']);
+                            $('#newwinAt').val(data['newwinAt']).niceSelect('update');
+                            $('#menuGroupCdPid').val(data['menuGroupCdPid']).niceSelect('update');
+                            $('#menuSn').val(data['menuSn']);
+                        },// 요청 완료 시
+                        error: function (xhr, status, err) {
+                            if (xhr.status == 401) {
+                                alert("인증에 실패 했습니다.");
+                            } else if (xhr.status == 403) {
+                                alert("세션이 만료가 되었습니다.");
+                            }
+                        }// 요청 실패.
+                        //complete:function(msg) {console.log('complete :' + msg.toString());}// 요청의 실패, 성공과 상관 없이 완료 될 경우 호출
+                    });
+                    return;
+                }
+
+                var id;
+                var menuNm;
+                var menuUrl;
+                var newwinAt;
+                var menuGroupCdPid;
+                var menuSn;
+
+                function fn_chkField() {
+
+                    id = $('#id');
+                    menuNm = $("#menuNm");
+                    menuUrl = $("#menuUrl");
+                    newwinAt = $("#newwinAt");
+                    menuGroupCdPid = $('#menuGroupCdPid');
+                    menuSn = $('#menuSn');
+
+                    if (!$.trim(menuNm.val())) {
+                        alert('메뉴명을 입력하세요');
+                        menuNm.focus();
+                        return false;
+                    }
+
+                    if (!$.trim(menuUrl.val())) {
+                        alert('경로를 입력하세요');
+                        menuUrl.focus();
+                        return false;
+                    }
+
+                    if (!$.trim(menuSn.val())) {
+                        alert('메뉴순번을 입력하세요');
+                        menuSn.focus();
+                        return false;
+                    }
+
+                    return true;
+                }
+
+
+                function fn_resetForm() {
+                    $('#id').val('');
+                    $('#menuNm').val('');
+                    $('#menuUrl').val('');
+                    $('#newwinAt').val('N').niceSelect('update');
+                    $('#menuGroupCdPid').val('').niceSelect('update');
+                    $('#menuSn').val('')
+
+                    $('#btnDelete').hide();
+                    //$('#btnModify').hide()
+                }
+
+                $(function () {
+                    fn_resetForm();
+
+                    $('#btnSave').click(function () {
+                        if (!fn_chkField()) {
+                            return;
+                        }
+
+                        var frm = $('#form1');
+                        frm.prop('action', '/api/soulGod/mngMenu/save');
+                        frm.submit();
+                    });
+
+                    $('#btnDelete').click(function () {
+                        if (!confirm('삭제하시겠습니까?')) {
+                            return;
+                        }
+
+                        var frm = $('#form1');
+                        frm.prop('action', '/api/soulGod/mngMenu/delete');
+                        frm.submit();
+                    });
+                    $("#srchMnGbnCdPid").change(function () {
+                        var frm = $('#form1');
+                        frm.prop('action', '?');
+                        frm.submit();
+                    });
+                });
+            </script>
+
+            <form id="form1" name="form1" method="post" th:object="${form}">
+                <input type="hidden" id="id" name="id"/>
+                <div class="contents">
+
+                    <ul class="breadcrumb">
+                        <li><i class="material-icons">home</i></li>
+                        <li>시스템관리</li>
+                        <li>메뉴관리</li>
+                    </ul>
+
+                    <div class="search_area clearfix">
+                        <!--
+                        <div class="col">
+                            <select th:field="*{skey}" class="w120">
+                                <option value="1" selected>전체</option>
+                                <option value="2">사업명</option>
+                                <option value="3">요청부서</option>
+                                <option value="4">요청자</option>
+                                <option value="5">감사인</option>
+                            </select>
+                            <input type="text" th:field="*{sword}" placeholder="검색어를 입력하세요." style="width:313px"  />
+                            <button type="button" class="btn btn_sm btn_gray" onclick="fn_search()"><i class="material-icons">search</i>조회</button>
+                        </div>
+                        -->
+                    </div>
+
+                    <div class="board_list">
+                        <div class="board_detail clearfix line_l70">
+                            <div class="fl w70p">
+                                <div class="sec">
+                                    <div class="fl">
+                                        <h4 class="sec_tit">목록</h4>
+                                    </div>
+                                    <div class="fr">
+                                        <button type="button" class="btn btn_sm btn_blue" onclick="fn_resetForm()">
+                                            <i class="material-icons">add</i>메뉴추가
+                                        </button>
+                                    </div>
+                                    <table class="tbl_list" id="resultList">
+                                        <colgroup>
+                                            <col style="width:60px"/>
+                                            <col style="width:220px"/>
+                                            <col style="width:60px"/>
+                                            <col style="width:250px"/>
+                                            <col style="width:auto"/>
+                                        </colgroup>
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">No</th>
+                                            <th scope="col">
+                                                <select th:field="*{srchMnGbnCdPid}" class="w140">
+                                                    <option value="">전체</option>
+                                                    <option th:each="item:${menuGroupCodes}" th:text="${item.codeNm}"
+                                                            th:value="${item.id}"></option>
+                                                </select>
+                                            </th>
+                                            <th scope="col">순번</th>
+                                            <th scope="col">메뉴명</th>
+                                            <th scope="col">경로</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <!-- 등록된 데이터가 없을 때만 노출 : s -->
+                                        <tr th:if="${mngMenus == null or mngMenus.isEmpty()}">
+                                            <td colspan="5">등록된 정보 없습니다.</td>
+                                        </tr>
+                                        <!-- 등록된 이벤트가 없을 때만 노출 : e -->
+                                        <tr th:each="item,idx:${mngMenus}">
+                                            <td th:text="${item.id}"></td>
+                                            <td th:text="${item.menuGroupNm}"></td>
+                                            <td th:text="${item.menuSn}"></td>
+                                            <td>
+                                                <a href="#" th:onclick="|fn_select('${item.id}')|"
+                                                   th:text="${item.menuNm}"></a>
+                                            </td>
+                                            <td th:text="${item.menuUrl}"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <!--<th:block th:replace="fragments/paging :: pagingbody(list=${list}, link='/pages/systemMenu/menuMst', formId='form1')"></th:block>-->
+                                </div>
+                            </div>
+                            <div class="fr w30p">
+                                <div class="sec">
+                                    <div class="board_top clearfix">
+                                        <div class="fl">
+                                            <h4 class="sec_tit">상세정보</h4>
+                                        </div>
+                                    </div>
+                                    <table class="tbl_write">
+                                        <colgroup>
+                                            <col style="width:120px"/>
+                                        </colgroup>
+                                        <tbody>
+                                        <tr>
+                                            <th scope="row"><label for="menuGroupCdPid">메뉴구분*</label></th>
+                                            <td>
+                                                <select id="menuGroupCdPid" name="menuGroupCdPid">
+                                                    <option value="">선택</option>
+                                                    <option th:each="item:${menuGroupCodes}" th:text="${item.codeNm}"
+                                                            th:value="${item.id}"></option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><label for="menuNm">메뉴명*</label></th>
+                                            <td>
+                                                <input type="text" id="menuNm" name="menuNm"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><label for="menuUrl">메뉴경로*</label></th>
+                                            <td>
+                                                <input type="text" id="menuUrl" name="menuUrl"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><label for="newwinAt">메뉴타켓*</label></th>
+                                            <td>
+                                                <select id="newwinAt" name="newwinAt">
+                                                    <option value="N">_self</option>
+                                                    <option value="Y">_blank</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><label for="menuSn">메뉴순번*</label></th>
+                                            <td>
+                                                <input type="number" id="menuSn" name="menuSn"/>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <div class="btn_area">
+                                        <button id="btnDelete" class="btn btn_sm btn_red" type="button">
+                                            <i class="material-icons">delete</i>삭제
+                                        </button>
+                                        <button id="btnSave" class="btn btn_sm btn_blue" type="button">
+                                            <i class="material-icons fz17">done</i>저장
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!--<div class="sec">
+                                    <div class="board_top clearfix">
+                                        <div class="fl">
+                                            <h4 class="sec_tit">메뉴별사용자</h4>
+                                        </div>
+                                    </div>
+                                    <table class="tbl_list">
+                                        <colgroup>
+                                            <col style="width:10%"/>
+                                            <col style="width:45%"/>
+                                            <col style="width:45%"/>
+                                        </colgroup>
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">선택</th>
+                                            <th scope="col">관리자구분</th>
+                                            <th scope="col">성명</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" id="mngPid" name="mngPid"/>
+                                            </td>
+                                            <td>
+                                                usrDvTy
+                                            </td>
+                                            <td>
+                                                nm
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>-->
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <th:block th:replace="soulGod/fragments/footer"></th:block>
+</div>
+</body>
+</html>

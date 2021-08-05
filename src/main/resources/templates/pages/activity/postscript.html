@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+    <script type="text/javascript">
+        function fn_codeList(obj) {
+            var option = '<option value="">전체</option>';
+            if ($(obj).val() != '') {
+                var jsonData = {
+                    'prntCodePid' : $(obj).val()
+                }
+                $.ajax({
+                    type: 'post',
+                    url: '/api/commonCode/listForUppCdPid',
+                    contentType: "application/json",
+                    data: JSON.stringify(jsonData),
+                    datatype: 'json',
+                    success: function (data) {
+                        if (data.length != 0) {
+                            for (var i = 0; i < data.length; i++) {
+                                option += '<option value="' + data[i].id + '">' + data[i].codeNm + '</option>';
+                            }
+                            $('#srchGbnChildLabel').text('전체');
+                            $('#srchGbnChild').html(option).niceSelect('update');
+                        }
+                    },
+                    error: function (error) {
+                        //alert('save error!!!');
+                        alert('error::' + error.statusText);
+                    }
+                });
+            } else {
+                $('#srchGbnChildLabel').text('전체');
+                $('#srchGbnChild').html(option).niceSelect('update');
+            }
+        }
+
+        function fn_loginCheck() {
+            alert('로그인이 필요한 기능입니다.');
+            location.href = '/login';
+        }
+
+        function fn_message() {
+            alert('서비스 준비중입니다.');
+            return false;
+        }
+
+        $(function () {
+            if ('[[${searchForm.srchGbnParent}]]' != '') {
+                var srchGbnParent = '[[${searchForm.srchGbnParent}]]';
+                var jsonData = {
+                    'prntCodePid' : srchGbnParent
+                }
+                $.ajax({
+                    type: 'post',
+                    url: '/api/commonCode/listForUppCdPid',
+                    contentType: "application/json",
+                    data: JSON.stringify(jsonData),
+                    datatype: 'json',
+                    success: function (data) {
+                        //console.log(data);
+                        var label = '전체';
+                        var option = '<option value="">전체</option>';
+                        for (var i = 0; i < data.length; i++) {
+                            option += '<option value="' + data[i].id + '" ';
+                            if ('[[${searchForm.srchGbnChild}]]' == data[i].id) {
+                                option += 'selected';
+                                $('#srchGbnChildLabel').text(data[i].codeNm);
+                            }
+                            option += '>' + data[i].codeNm + '</option>';
+                        }
+
+                        $('#srchGbnChild').html(option).niceSelect('update');
+                    },
+                    error: function (error) {
+                        //alert('save error!!!');
+                        alert('error::' + error.statusText);
+                    }
+                });
+            }
+        });
+    </script>
+
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+
+        <form id="form1" name="form1" method="post" th:object="${searchForm}">
+
+            <div class="contents">
+                <div class="page_top pc">
+                    <h3 class="page_tit">교육</h3>
+                    <span>다양한 강의가 빠르게 업데이트 됩니다.</span>
+                </div>
+                <div class="page_cont">
+                    <div class="tab_ico_area">
+                        <a href="javascript:;" class="tit">교육후기</a>
+                        <ul class="tab_type_ico">
+                            <li class="teenager"><a href="/pages/activity/preventionEdu/STUDENT">청소년</a></li>
+                            <li class="parent"><a href="/pages/activity/preventionEdu/PARENT">부모</a></li>
+                            <li class="teacher"><a href="/pages/activity/preventionEdu/TEACHER">교원</a></li>
+                            <li class="normal"><a href="/pages/activity/preventionEdu/NORMAL">일반</a></li>
+                            <!--<li class="lecturer"><a href="/pages/activity/preventionEdu/LECTURER">푸코강사</a></li>-->
+                            <li class="dataroom"><a href="/pages/activity/eduDataRoom">자료실</a></li>
+                            <li class="review active"><a href="/pages/activity/postscript">교육후기</a></li>
+                        </ul>
+                        <p class="mo_page_txt">다양한 강의가 빠르게 업데이트 됩니다.</p>
+                        <div class="tab_cont">
+                            <div class="cont review active">
+                                <div class="thumb">
+                                    <p>교육후기</p>
+                                </div>
+                                <dl class="desc">
+                                    <dt>교육후기</dt>
+                                    <dd>학교폭력 관련 자료뿐 만 아니라 또 다른 유형인 사이버폭력에 대해 알차고 유용한 정보를 알려드립니다. 사이버폭력을 예방하고, 대처하고, 회복하기
+                                        위한 자료를 확인해보세요.
+                                        <br>※ 본 자료는 사전동의 없이 가공 또는 수정하여 사용하거나 상업적으로 이용할 수 없습니다.
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                    <h4 class="subtit pc">교육후기</h4>
+                    <div class="btn_tab">
+                        <th:block th:if="${#authentication.principal == 'anonymousUser'}">
+                            <a href="javascript:fn_loginCheck();" class="btn btn_skyblue btn_pill">작성하기</a>
+                        </th:block>
+                        <th:block th:if="${#authentication.principal != 'anonymousUser'}">
+                            <a href="/pages/activity/postscriptRegister" class="btn btn_skyblue btn_pill">작성하기</a>
+                        </th:block>
+                        <a href="javascript:;" class="btn btn_skyblue btn_pill" onclick="fn_message()">교육신청</a>
+                        <div class="select w190">
+                            <!--                            <label th:for="dataType" th:text="*{dataType eq '' or dataType == null ? '자료형식 전체' : T(kr.or.btf.web.domain.web.enums.DataDvType).valueOf(dataType).getName()}">전체</label>-->
+                            <!--                            <select th:field="*{dataType}">-->
+                            <!--                                <option value="">전체</option>-->
+                            <!--                                <option th:each="tp : ${T(kr.or.btf.web.domain.web.enums.DataDvType).values()}"-->
+                            <!--                                        th:value="${tp.name()}"-->
+                            <!--                                        th:text="${tp.getName()}"></option>-->
+                            <!--                            </select>-->
+                        </div>
+                    </div>
+                    <div class="board_top">
+                        <div class="select w160">
+                            <label th:for="srchGbnParent">
+                                <th:block th:if="*{srchGbnParent eq '' or srchGbnParent eq null}">전체</th:block>
+                                <th:block th:each="item : ${commonCodes}">
+                                    <th:block th:if="${searchForm.srchGbnParent eq item.id}" th:text="${item.codeNm}">제목</th:block>
+                                </th:block>
+                            </label>
+                            <select th:field="*{srchGbnParent}" onchange="fn_codeList(this)">
+                                <option value="" selected>전체</option>
+                                <th:block th:each="item : ${commonCodes}">
+                                    <option th:value="${item.id}" th:text="${item.codeNm}"></option>
+                                </th:block>
+                            </select>
+                        </div>
+                        <div class="select w160">
+                            <label id="srchGbnChildLabel" th:for="srchGbnChild">
+                                <th:block th:if="*{srchGbnChild eq '' or srchGbnChild eq null}">전체</th:block>
+                            </label>
+                            <select th:field="*{srchGbnChild}">
+                                <option value="" selected>전체</option>
+                            </select>
+                        </div>
+                        <div class="select w160">
+                            <label th:for="srchField">
+                                <th:block th:if="*{srchField eq '' or srchField eq null}">전체</th:block>
+                                <th:block th:if="*{srchField eq 'title'}">제목</th:block>
+                                <th:block th:if="*{srchField eq 'cn'}">내용</th:block>
+                            </label>
+                            <select th:field="*{srchField}">
+                                <option value="" selected>전체</option>
+                                <option value="title">제목</option>
+                                <option value="cn">내용</option>
+                                <!--<option value="wrterNm">등록자</option>-->
+                            </select>
+                        </div>
+                        <div class="search news">
+                            <input type="search" th:field="*{srchWord}" placeholder="검색어를 입력해 주세요" />
+                        </div>
+                        <button type="submit" class="btn btn_blue btn_pill_10">검색</button>
+                    </div>
+                    <ul class="thumb_list clearfix">
+                        <th:block th:if="${postscripts == null or postscripts.isEmpty()}"><!--등록된 글 없을경우-->
+                            <li class="nodata">
+                                <div>등록된 게시글이 없습니다.</div>
+                            </li>
+                        </th:block>
+                        <li th:each="item : ${postscripts}">
+                            <a th:href="|/pages/activity/postscriptDetail/${item.id}|">
+                                <span class="thumb"><img th:src="|${filePath}/${item.imgFl}|" th:alt="${item.imgFl}"
+                                                         onerror="this.src='/ClientUI/user/images/contents/nodata01.png'"/></span>
+                                <strong class="tit" th:text="${item.ttl}">사이버폭력이 사라지는 그날까지</strong>
+                                <span class="date"
+                                      th:text="${#temporals.format(item.regDtm,'yyyy.MM.dd')}">2020.06.30</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <th:block
+                        th:replace="/fragments/paging :: pagingbody(list=${postscripts}, link='/pages/activity/postscript', formId='form1')"></th:block>
+            </div>
+        </form>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

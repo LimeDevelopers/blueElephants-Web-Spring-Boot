@@ -1,0 +1,183 @@
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<div class="sec_write mt0">
+    <div class="tbl_write bdt0">
+        <ul>
+            <li class="help_top">
+                <input type="hidden" id="dvTy" name="dvTy" th:value="${T(kr.or.btf.web.domain.web.enums.AdviceReservationDvType).TEL}" />
+                <div class="th">대상<span class="aster">*</span></div>
+                <div class="td type01">
+                    <!--PC 출력 : s-->
+                    <th:block th:if="${!isMobile}">
+                        <div class="radio txt" th:each="tp : ${T(kr.or.btf.web.domain.web.enums.HelpTargetDvType).values()}">
+                            <input type="radio" name="mberDvTy" th:id="|telMberDvTy_${tp.name()}|" th:value="${tp.name()}"/>
+                            <label th:for="|telMberDvTy_${tp.name()}|" th:text="${tp.getName()}">기타</label>
+                        </div>
+                    </th:block>
+                    <!--PC 출력 : e-->
+
+                    <!--MO 출력 : s-->
+                    <th:block th:if="${isMobile}">
+                        <div class="select">
+                            <label id="telMberDvTyLabel" for="telMberDvTy">선택</label>
+                            <select name="mberDvTy" id="telMberDvTy">
+                                <option value="">선택</option>
+                                <th:block th:each="tp : ${T(kr.or.btf.web.domain.web.enums.HelpTargetDvType).values()}">
+                                    <option th:value="${tp.name()}" th:text="${tp.getName()}">청소년</option>
+                                </th:block>
+                            </select>
+                        </div>
+                    </th:block>
+                    <!--MO 출력 : e-->
+                </div>
+            </li>
+            <li class="help_top">
+                <div class="th">고민<span class="aster">*</span></div>
+                <div class="td type01">
+                    <!--PC 출력 : s-->
+                    <th:block th:if="${!isMobile}">
+                        <div class="checkbox txt" th:each="item : ${worryCodes}">
+                            <input type="checkbox" name="worry" th:id="|telWorry_${item.id}|" th:value="${item.id}" />
+                            <label th:for="|telWorry_${item.id}|" th:text="${item.codeNm}">학교폭력 피해</label>
+                        </div>
+                    </th:block>
+                    <!--PC 출력 : e-->
+
+                    <!--MO 출력 : s-->
+                    <th:block th:if="${isMobile}">
+                        <div class="select">
+                            <label id="telWorryLabel" for="telWorry">선택</label>
+                            <select name="worry" id="telWorry" multiple>
+                                <th:block th:each="item : ${worryCodes}">
+                                    <option th:value="${item.id}" th:text="${item.codeNm}">학교폭력 피해</option>
+                                </th:block>
+                            </select>
+                        </div>
+                    </th:block>
+                    <!--MO 출력 : e-->
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<ul class="tel_banner clearfix">
+    <li>
+        <img src="/ClientUI/user/images/contents/banner_help01.jpg" alt="혼자가 아니야. 1588-9128 전국학교폭력 상담전화" class="pc" />
+        <img src="/ClientUI/user/images/contents/m_banner_help01.jpg" alt="혼자가 아니야. 1588-9128 전국학교폭력 상담전화" class="mo" />
+    </li>
+    <li>
+        <img src="/ClientUI/user/images/contents/banner_help02.jpg" alt="혼자가 아니야. 1588-9128 전국학교폭력 상담전화" class="pc" />
+        <img src="/ClientUI/user/images/contents/m_banner_help02.jpg" alt="혼자가 아니야. 1588-9128 전국학교폭력 상담전화" class="mo" />
+    </li>
+</ul>
+<div class="sec_write">
+    <h5 class="subtit pc">전국학교폭력 상담전화</h5>
+    <div class="help_request_box">
+        <dl class="txt">
+            <dt>학교폭력으로 고통 받는 청소년, 부모님, 학교 선생님들께 푸른나무재단에서 <em>“구원의 팔”</em>을 내밀어 드립니다.</dt>
+            <dd>푸른나무재단에서는 1995년부터 전국 학교폭력 상담전화 1588-9128(구원의팔)을 운영하고 있습니다. <br />학교폭력 피·가해 위기상담 및 심리·정서적 지원, 학교폭력 발생 시 대처 및 해결을 위한 조언, 전문 정보제공, 학교폭력 사안처리에 대한 고충 상담을 제공합니다.</dd>
+        </dl>
+    </div>
+    <dl class="tel_counseling_guide">
+        <dt>상담전화 : 1588-9128</dt>
+        <dd>
+            <p>월요일 ~ 금요일 09:00 ~ 18:00 <span>(점심시간 12:00 ~ 13:00 제외)</span> 토요일 09:00~11:00 <br class="pc"/>일요일, 공휴일 휴무</p>
+            <p>일요일, 공휴일은 전화를 받지 못해요. <span>긴급 사항은 1:1 채팅으로 남겨주시면</span> 업무시간에 바로 연결할 수 있습니다.</p>
+        </dd>
+    </dl>
+</div>
+<div class="sec_write">
+    <h5 class="subtit">상세정보<span class="aster">*</span></h5>
+    <div class="tbl_write">
+        <ul>
+            <li>
+                <div class="th"><label for="telNm">이름</label><span class="aster">*</span></div>
+                <div class="td">
+                    <th:block th:if="${#authentication.principal == 'anonymousUser'}">
+                        <input type="text" id="telNm" name="nm" />
+                    </th:block>
+                    <th:block th:if="${#authentication.principal != 'anonymousUser'}">
+                        <div th:text="${userInfo.nm}" />
+                        <input type="hidden" id="telNm" name="nm" th:value="${userInfo.nm}" />
+                    </th:block>
+                </div>
+            </li>
+            <li>
+                <div class="th">지역<span class="aster">*</span></div>
+                <div class="td">
+                    <div class="select w180 m_w100p">
+                        <label for="telAreaCodePid">선택</label>
+                        <select name="areaCodePid" id="telAreaCodePid">
+                            <th:block th:each="area : ${areaCodes}">
+                                <option th:value="${area.id}" th:text="${area.codeNm}">서울</option>
+                            </th:block>
+                        </select>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="th"><label for="telTtl">제목</label><span class="aster">*</span></div>
+                <div class="td">
+                    <input type="text" id="telTtl" name="ttl" />
+                </div>
+            </li>
+            <li>
+                <div class="th"><label for="telCnts">내용</label><span class="aster">*</span></div>
+                <div class="td">
+                    <textarea name="cnts" id="telCnts" class="h170" placeholder="최대 1,000자 이내" maxlength="1000"></textarea>
+                </div>
+            </li>
+            <li>
+                <div class="th"><label for="telTelno">연락처</label><span class="aster">*</span></div>
+                <div class="td">
+                    <th:block th:if="${#authentication.principal == 'anonymousUser'}">
+                        <input type="text" id="telTelno" name="telno" placeholder="'-' 구분없이 입력 ex)01012345678">
+                    </th:block>
+                    <th:block th:if="${#authentication.principal != 'anonymousUser'}">
+                        <div th:text="${userInfo.moblphon}"/>
+                        <input type="hidden" id="telTelno" name="telno" th:value="${userInfo.moblphon}" placeholder="'-' 구분없이 입력 ex)01012345678" />
+                    </th:block>
+                </div>
+            </li>
+            <li>
+                <div class="th">희망일자<span class="aster">*</span></div>
+                <div class="td">
+                    <div class="term_form">
+                        <input type="text" id="telHopeStYmd" name="hopeStYmd" class="form_date" readonly />
+                        <span class="swung">~</span>
+                        <input type="text" id="telHopeEndYmd" name="hopeEndYmd" class="form_date" readonly />
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="th">희망시간<span class="aster">*</span></div>
+                <div class="td type01">
+                    <!--PC 출력 : s-->
+                    <th:block th:if="${!isMobile}">
+                        <div class="checkbox txt" th:each="hopeTime : ${hopeTimeCodes}">
+                            <input type="checkbox" name="hopeTimeCodeId" th:id="|telHopeTime_${hopeTime.id}|" th:value="${hopeTime.id}"/>
+                            <label th:for="|telHopeTime_${hopeTime.id}|" th:text="${hopeTime.codeNm}">09:00 ~ 10:00</label>
+                        </div>
+                    </th:block>
+                    <!--PC 출력 : e-->
+
+                    <!--MO 출력 : s-->
+                    <th:block th:if="${isMobile}">
+                        <div class="select">
+                            <label id="telHopeTimeCodeIdLabel" for="telHopeTimeCodeId">선택</label>
+                            <select name="hopeTimeCodeId" id="telHopeTimeCodeId" multiple>
+                                <th:block th:each="hopeTime : ${hopeTimeCodes}">
+                                    <option th:value="${hopeTime.id}" th:text="${hopeTime.codeNm}">09:00 ~ 10:00</option>
+                                </th:block>
+                            </select>
+                        </div>
+                    </th:block>
+                    <!--MO 출력 : e-->
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="btn_area btn_num02">
+    <a href="javascript:;" onclick="fn_save('tel')" class="btn btn_lg btn_blue btn_pill_10">저장</a>
+    <a href="/pages/activity/helpRequest" class="btn btn_lg btn_line_blue btn_pill_10">목록</a>
+</div>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+
+        <form id="form1" name="form1" method="post" th:object="${form}">
+
+            <div class="contents">
+                <div class="page_top pc">
+                    <h3 class="page_tit">치유</h3>
+                    <span>사이버폭력으로 인한 상담과 도움을 요청하세요.</span>
+                </div>
+                <div class="page_cont">
+                    <div class="tab_ico_area">
+                        <a href="javascript:;" class="tit">소개</a>
+                        <ul class="tab_type_ico">
+                            <li class="help"><a href="/pages/activity/helpCounseling">도움상담</a>
+                            <li class="therapy"><a href="/pages/activity/familyTherapy">가족테라피</a></li>
+                            <li class="mind"><a href="/pages/activity/mindSharing">마음나눔</a></li>
+                        </ul>
+                        <p class="mo_page_txt">사이버폭력으로 인한 상담과 도움을 요청하세요.</p>
+                        <div class="tab_cont">
+                            <div class="cont intro">
+                                <dl class="desc">
+                                    <dt>개인-가정-학교-지역사회를 위한 <em class="fc_darkskyblue">전문적 회복 지원</em></dt>
+                                    <dd>
+                                        <ul class="list">
+                                            <li>사이버폭력 유형별 위기 상담, 심리정서지원, 법률지원, 사이버폭력 발생 시 대처 및 해결을 위한 조언, 전문 정보제공, 사이버폭력 사안 처리에 대한 고충 상담 등 토탈 솔루션을 제공합니다.</li>
+                                            <li>전문가 2인이 한 조가 되어 현장으로 긴급 출동하여 관계회복을 중심으로 갈등 코칭을 실시합니다. 필요시 민형사적 소송을 하지 않고도 법률 전문가가 합의한 자리를 마련하여 2차 분쟁이 되거나 피해가 가지 않도록 조정합니다.</li>
+                                        </ul>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ul class="intro_list heal clearfix">
+                        <li class="heal_bg01">
+                            <dl>
+                                <dt>사이버폭력 피해 상담</dt>
+                                <dd>
+                                    <ul class="list">
+                                        <li>사이버폭력 피해 상담</li>
+                                        <li>전화 및 사이버상담, 내방 상담, 심리검사</li>
+                                        <li>의료, 법률, 장학, 통합지원</li>
+                                    </ul>
+                                </dd>
+                            </dl>
+                        </li>
+                        <li class="heal_bg02">
+                            <dl>
+                                <dt>사이버폭력 화해 조정</dt>
+                                <dd>사이버폭력으로 관계 갈등, 손해배상 <span>갈등, <br />사안 처리 고민 등이 있을 시</span> 현장으로 조정 전문가 <br />2인이 찾아가는 서비스</dd>
+                            </dl>
+                        </li>
+                        <li class="heal_bg03">
+                            <dl>
+                                <dt>사이버폭력 갈등 코칭</dt>
+                                <dd>
+                                    <ul class="list">
+                                        <li>학교 내 사이버폭력으로 인한 갈등 <span>발생 시 전문가 <br />개입을 통한</span> 공동체 회복 코칭</li>
+                                        <li>사례별 개입 프로그램 개발 및 적용</li>
+                                        <li>교사 연수를 통한 사이버폭력 대응 역량 교육</li>
+                                    </ul>
+                                </dd>
+                            </dl>
+                        </li>
+                        <li class="heal_bg04">
+                            <dl>
+                                <dt>가족 테라피</dt>
+                                <dd>
+                                    <ul class="list">
+                                        <li>가족 구성원간의 평등한 소통을 통한 가족 역량 강화</li>
+                                        <li>부모교육, 부모자녀 관계개선, 부부 갈등 코칭</li>
+                                        <li>가족 및 자녀 미디어 이용 습관 코칭</li>
+                                    </ul>
+                                </dd>
+                            </dl>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

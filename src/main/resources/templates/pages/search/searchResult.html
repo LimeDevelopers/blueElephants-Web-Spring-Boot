@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+    <script type="text/javascript">
+        $(function (){
+            var keyword = '[[${searchForm.totalSrchWord}]]';
+            $(".tit").each(function() {
+                var text = $(this).html()
+                text = text.replaceAll(keyword, '<em class="keyword">' + keyword + '</em>');
+                $(this).html(text);
+            });
+            $(".desc").each(function() {
+                var text = $(this).html()
+                text = text.replaceAll(keyword, '<em class="keyword">' + keyword + '</em>');
+                $(this).html(text);
+            });
+        });
+    </script>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+
+        <div class="contents search_result">
+            <div class="page_top">
+                <h3 class="page_tit pc">검색결과</h3>
+                <span>"<em class="word" th:text="${searchForm.totalSrchWord}">상담</em>" 검색결과 총 <em class="number" th:text="${#numbers.formatInteger(searchList.totalElements, 0, 'COMMA')}">70</em>건</span>
+            </div>
+            <div class="page_cont">
+                <ul class="result_lst">
+                    <li th:each="item,index: ${searchList}">
+                        <a th:href="|${item.url}|">
+                            <strong class="tit" th:text="${item.ttl}">사이버폭력 예방을 위한 가이드 10탄</strong>
+                            <div class="desc eps3" th:utext="${item.cn}">
+                                푸른나무재단 청소년 사이버폭력 예방교육 사업 푸른코끼리에서는 학교로 찾아가는 예방교육 수강생(청소년)을 대상으로 온라인 교육을 제공하고 있습니다. 평소 일상(학교 뿐만 아니라 가정 등)에서
+                                우리가 아무렇지 않게 지나칠 수 있는 사이버폭력에 대해 심각성을 느끼고, 교육을 통해 예방, 대처, 회복할 수 있는 다양한 방법들을 배울 수 있습니다.
+                                ※ 학교로 찾아가는 예방교육 수강생이 아닌 청소년은 ‘일반 과정’ 온라인 교육을 수강할 수 있습니다.
+                            </div>
+                            <p class="desc" th:if="${item.tag ne null and item.tag ne ''}" th:text="${item.tag}">#해쉬태그</p>
+                            <p class="map">
+                                <em class="home">home</em><em th:each="em: ${#strings.arraySplit(item.menuNm,' ')}" th:text="${em}">푸른코끼리 활동</em>
+                                <span class="date" th:if="${item.regDtm ne null}" th:text="${#temporals.format(item.regDtm, 'yyyy.MM.dd')}">2019.10.20</span>
+                            </p>
+                        </a>
+                    </li>
+                    <!--<li>
+                        <a href="javascript:;">
+                            <strong class="tit">사이버폭력 <em class="keyword">상담</em>하는 방법</strong> &lt;!&ndash; 제목 내 포함된 검색어를 푸른색으로 별도 표시하기 위해 <em class="keyword">으로 감싸줘야함 &ndash;&gt;
+                            <div class="desc eps3"> &lt;!&ndash; 컨텐츠 내 포함된 검색어를 푸른색으로 별도 표시하기 위해 <em class="keyword">으로 감싸줘야함 &ndash;&gt;
+                                푸른코끼리 앱을 통해 학교폭력에 관한 <em class="keyword">상담</em> 및 회복을 지원해드립니다.  푸른나무재단 홈페이지 온라인 <em class="keyword">상담</em> 게시판, 전국학교폭력 <em class="keyword">상담</em>전화, 카카오톡 플러스 친구, 학교폭력
+                                화해 분쟁조정 등을 통해 언제 어디서든 편리하고 폭넓은 학교폭력 <em class="keyword">상담</em> 서비스를 제공합니다. 누구나 학교폭력으로 고민되고 답답한 마음을 인터넷이나 모바일을 활용하여 제공받을 수 있습니다.
+                                누구나 학교폭력으로 고민되고 답답한 마음을 인터넷이나 모바일을 활용하여 제공받을 수 있습니다. 누구나 학교폭력으로 고민되고 답답한 마음을 인터넷에 올려 도움을 요청받을 수 있습니다.
+                            </div>
+                            <p class="map">
+                                <em class="home">home</em><em>푸른코끼리 활동</em><em>치유</em><em>도움상담</em>
+                                <span class="date">2019.10.20</span>
+                            </p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <strong class="tit">사이버폭력 예방을 위한 가이드 1탄</strong>
+                            <div class="desc eps3">
+                                푸른코끼리는 사이버폭력의 예방 및 대응을 위해 청소년의 예방활동 참여를 지원하는 지지크루를 운영합니다. 사이버폭력의 심각성에 대한 청소년의 이해를 높이고, 청소년
+                                중심의 사이버폭력 예방 문화를 만들고자 합니다.
+                            </div>
+                            <p class="map">
+                                <em class="home">home</em><em>푸른코끼리 활동</em><em>문화</em><em>지지크루</em>
+                                <span class="date">2019.10.20</span>
+                            </p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <strong class="tit">사이버폭력 예방을 위한 가이드 3탄</strong>
+                            <div class="desc eps3">
+                                푸른코끼리앱을 통해 학교폭력에 관한 상담 및 회복을 지원해드립니다.  푸른나무재단 홈페이지 온라인 <em class="keyword">상담</em> 게시판, 전국학교폭력 <em class="keyword">상담</em>전화, 카카오톡 플러스 친구, 학교폭력
+                                화해 분쟁조정 등을 통해 언제 어디서든 편리하고 폭넓은 학교폭력 <em class="keyword">상담</em> 서비스를 제공합니다. 누구나 학교폭력으로 고민되고 답답한 마음을 인터넷이나 모바일을 활용하여 제
+                                공받을 수 있습니다.
+                            </div>
+                            <p class="map">
+                                <em class="home">home</em><em>푸른코끼리 활동</em><em>제안</em><em>정책제안</em>
+                                <span class="date">2019.10.20</span>
+                            </p>
+                        </a>
+                    </li>-->
+                </ul>
+            </div>
+            <th:block th:replace="/fragments/paging :: pagingbody(list=${searchList}, link='/pages/search/searchResult', formId='totalSearchForm')"></th:block>
+
+            <!--<div class="pagination_area">
+                <div class="pagination">
+                    <a href="javascript:;" class="arr mostprev"><span class="blind">처음</span></a>
+                    <a href="javascript:;" class="arr prev"><span class="blind">이전</span></a>
+                    <a href="javascript:;" class="active">1</a>
+                    <a href="javascript:;" class="arr next"><span class="blind">다음</span></a>
+                    <a href="javascript:;" class="arr mostnext"><span class="blind">마지막</span></a>
+                </div>
+            </div>-->
+        </div>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

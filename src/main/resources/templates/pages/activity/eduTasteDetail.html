@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+    <script type="text/javascript" th:inline="javascript">
+
+        function videoPlay(obj){
+            player.play();
+            $('.video_area .btn_play').stop().fadeOut();
+        }
+
+        ////-------- page load
+        $(function () {
+            $(document).bind('keydown',function(e){
+                if ( e.keyCode == 123 /* F12 */) {
+                    e.preventDefault();
+                    e.returnValue = false;
+                }
+            });
+
+            var src = [[${form.cntntsUrl}]];
+            var cntntsDvTy = [[${form.cntntsDvTy}]];
+            var ty = "video/mp4";
+            var options = {
+                width : 1280 ,
+                hieght : 720 ,
+                controls : true
+            }
+            if (cntntsDvTy == 'YOUTUBE') {
+                ty = 'video/youtube';
+                options.techOrder = ['youtube', 'html5'];
+            } else if (cntntsDvTy == 'CDN') {
+                ty = 'video/mp4';
+            }
+            options.sources = [{type: ty, src: src}];
+
+            initVideo(true, options);
+        });
+    </script>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+
+        <form id="form1" name="form1" method="post">
+            <div class="contents" th:object="${form}">
+                <div class="page_top mo">
+                    <h3 class="page_tit">사이버폭력 예방 교육</h3>
+                </div>
+                <div class="page_cont">
+                    <div class="detail_cont">
+                        <div class="top">
+                            <div class="info_area">
+                                <span class="lbl_end">맛보기</span>
+                                <strong class="tit" th:text="*{ttl}">6강. 사전교육의 이해</strong>
+
+                                <div class="file" th:if="${fileList != null and !fileList.isEmpty()}">
+                                    <span>첨부파일 :&nbsp;</span>
+                                    <th:block th:each="item:${fileList}">
+                                        <a href="javascript:void(0);" th:onclick="fn_fileDownload([[${item.flPth}]], [[${item.chgFlNm}]])" class="btn_down" th:text="${item.flNm}"></a>
+                                    </th:block>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bottom pdrl">
+                            <div class="video_area">
+                                <div class="video">
+                                    <th:block th:replace="/fragments/videoOptions :: videoSetting(videoId='video', classYn='N', classAppend='')"></th:block>
+                                    <!--<th:block th:if="*{cntntsDvTy eq T(kr.or.btf.web.domain.web.enums.ContentsDvType).YOUTUBE}">
+                                        <video id="video" class="video-js vjs-default-skin" controls
+                                               data-setup='{ "techOrder": ["youtube", "html5"]}'>
+                                            <source type="video/youtube" th:src="*{cntntsUrl}" />
+                                        </video>
+                                    </th:block>
+                                    <th:block th:if="*{cntntsDvTy eq T(kr.or.btf.web.domain.web.enums.ContentsDvType).CDN}">
+                                        <video id="video"
+                                               class="video-js vjs-default-skin"
+                                               controls
+                                               preload="auto"
+                                               controlsList="nodownload">
+                                            <source type="video/mp4" th:src="*{cntntsUrl}" th:alt="*{ttl}" th:onerror="this.src='/ClientUI/user/images/contents/nodata01.png'" />
+                                        </video>
+                                        <a href="javascript:;" class="btn_play" onclick="videoPlay(this)"><span class="blind">영상 재생하기</span></a>
+                                    </th:block>-->
+                                </div>
+                                <!--<a href="javascript:;" class="btn btn_keycolor btn_learn" onclick="videoPlay(this)"><span>학습하기</span></a>-->
+                            </div>
+                            <dl class="detail_sec">
+                                <dt>교육개요</dt>
+                                <dd>
+                                    <div class="editor" th:utext="*{#strings.replace(cn, T(System).getProperty('line.separator'), '&lt;br /&gt;')}"></div>
+                                </dd>
+                            </dl>
+                        </div>
+                        <div class="btn_area btn_num02">
+                            <a href="/pages/activity/preventionEdu" class="btn btn_lg btn_line_blue btn_pill_10">교육 처음으로</a>
+                            <a th:href="|/pages/activity/eduMasterClass/${crsMstPid}|" class="btn btn_lg btn_line_blue btn_pill_10">목록</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

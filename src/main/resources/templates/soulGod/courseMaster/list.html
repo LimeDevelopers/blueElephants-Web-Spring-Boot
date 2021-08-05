@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="soulGod/fragments/header"></th:block>
+    <script type="text/javascript">
+
+        function fn_search() {
+            var frm = $('#form1');
+            frm.prop('action', '?');
+            frm.submit();
+        }
+
+        function fn_insert() {
+            var frm = $('#form1');
+            frm.prop('action', '/soulGod/courseMasterSeq/register');
+            frm.submit();
+        }
+
+        function fn_courseList(id,sn){
+            $('#crsMstPid').val(id);
+            $('#sn').val(sn);
+            layerShow('course');
+        }
+
+        function fn_surveyList(id,sn){
+            $('#crsMstPid').val(id);
+            $('#sn').val(sn);
+            layerShow('survey');
+        }
+
+        function fn_courseInsert(){
+            if ($('input[name$=crsPid]:checkbox:checked').length == 0) {
+                alert('선택된 과정이 없습니다.');
+                return false;
+            }
+
+            if (!confirm('저장하시겠습니까?')) {
+                return false;
+            }
+            var formData = $('#form1').serialize();
+            $.ajax({
+                type : 'post',
+                url : '/api/soulGod/courseMster/courseRegister',
+                data : formData,
+                datatype : 'json',
+                success : function(data) {
+                    if (data === 'ok') {
+                        alert("저장되었습니다.");
+                        location.reload();
+                    } else {
+                        alert('실패되었습니다 관리자에게 문의 하세요');
+                    }
+                },
+                error : function(error) {
+                    //alert('save error!!!');
+                    alert('error::' + error.statusText);
+                }
+            });
+        }
+
+        function fn_surveyInsert(){
+            if ($('input[name$=qustnrPid]:checkbox:checked').length == 0) {
+                alert('선택된 설문이 없습니다.');
+                return false;
+            }
+
+            if (!confirm('저장하시겠습니까?')) {
+                return false;
+            }
+            var formData = $('#form1').serialize();
+            $.ajax({
+                type : 'post',
+                url : '/api/soulGod/courseMster/surveyRegister',
+                data : formData,
+                datatype : 'json',
+                success : function(data) {
+                    if (data === 'ok') {
+                        alert("저장되었습니다.");
+                        location.reload();
+                    } else {
+                        alert('실패되었습니다 관리자에게 문의 하세요');
+                    }
+                },
+                error : function(error) {
+                    //alert('save error!!!');
+                    alert('error::' + error.statusText);
+                }
+            });
+        }
+
+        function fn_reset() {
+            $('#crsMstPid').val('');
+            $('#sn').val('');
+            $('input[name="crsPid"]').prop("checked", false);
+            $('input[name="qustnrPid"]').prop("checked", false);
+        }
+
+        ////-------- page load
+        $(function () {
+            fn_courseSearch(1);
+            fn_surveySearch(1);
+        });
+
+        function fn_delete(crsMstPid,sn) {
+            if (!confirm('삭제하시겠습니까?')) {
+                return false;
+            }
+            var jsonData = {
+                'crsMstPid' : crsMstPid,
+                'sn' : sn
+            };
+            $.ajax({
+                type: 'post',
+                url: '/api/courseMaster/item/delete',
+                contentType: "application/json",
+                data: JSON.stringify(jsonData),
+                datatype: 'text',
+                success: function (data) {
+                    if(data ===  'ok'){
+                        alert('삭제 되었습니다.');
+                        location.reload();
+                    }else{
+                        alert('실패되었습니다 관리자에게 문의 하세요');
+                    }
+                },
+                error: function (error) {
+                    //alert('save error!!!');
+                    alert('error::' + error.statusText);
+                }
+            });
+        }
+
+        function fn_courseSearch(page){
+            /*var jsonData = {
+                'page': page,
+                'size': 10
+            };*/
+            var param = '?page='+ page;
+            var formData = $('#form1').serialize();
+            $.ajax({
+                type: 'post',
+                url: '/api/courseMaster/courseList'+param,
+                data: formData,
+                datatype: 'json',
+                success: function (obj) {
+                    var courseList = obj.content;
+                    var html = "";
+                    if (courseList.length == 0) {
+                        html += '<tr><td colspan="4">등록된 정보 없습니다.</td></tr>';
+                    } else {
+                        for (var i = 0; i < courseList.length; i++) {
+                            var course = courseList[i];
+
+                            html += '<tr>' +
+                                '<td><div class="checkbox">' +
+                                '<input type="checkbox" id="corse_' + course.id + '" name="crsPid" value="' + course.id + '" />' +
+                                '<label for="corse_' + course.id + '"></label></div></td>' +
+                                '<td>' + course.stepTyNm + '</td>' +
+                                '<td>' + course.mberDvTyNm + '</td>' +
+                                '<td>' + course.crsNm + '</td></tr>';
+                        }
+                        // 페이징
+                        /*var paging = employeeMakePaging(data.pageMaker,page);
+                    $('#employeePaging').html(paging);*/
+                    }
+                    var paging = obj.pageable.start;
+
+                    $('#popCourseList').html(html);
+                }
+            });
+        }
+
+        function fn_surveySearch(page){
+            /*var jsonData = {
+                'page': page,
+                'size': 10
+            };*/
+            var param = '?page='+ page;
+            $.ajax({
+                type: 'post',
+                url: '/api/courseMaster/surveyList'+param,
+                /*contentType: "application/json",
+                data: JSON.stringify(jsonData),*/
+                datatype: 'json',
+                success: function (obj) {
+                    var surveyList = obj.content;
+                    var html = "";
+                    if (surveyList.length == 0) {
+                        html += '<tr><td colspan="4">등록된 정보 없습니다.</td></tr>';
+                    } else {
+                        for (var i = 0; i < surveyList.length; i++) {
+                            var survey = surveyList[i];
+
+                            html += '<tr>' +
+                                '<td><div class="checkbox">' +
+                                '<input type="checkbox" id="survey_' + survey.id + '" name="qustnrPid" value="' + survey.id + '" />' +
+                                '<label for="survey_' + survey.id + '"></label></div></td>' +
+                                '<td>' + survey.dvTyNm + '</td>' +
+                                '<td>' + survey.mberDvTyNm + '</td>' +
+                                '<td>' + survey.ttl + '</td></tr>';
+                        }
+                        // 페이징
+                        /*var paging = employeeMakePaging(data.pageMaker,page);
+                    $('#employeePaging').html(paging);*/
+                    }
+                    $('#popSurveyList').html(html);
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+<div id="wrap">
+    <th:block th:include="soulGod/fragments/menu"></th:block>
+
+    <div id="container">
+        <div class="container_box">
+
+            <form id="form1" name="form1" method="post" >
+                <input type="hidden" id="crsMstPid" name="crsMstPid"/>
+                <input type="hidden" id="sn" name="sn"/>
+                <div class="contents">
+
+                    <ul class="breadcrumb">
+                        <li><i class="material-icons">home</i></li>
+                        <li>교육관리</li>
+                        <li>과정마스터관리</li>
+                    </ul>
+
+                    <div class="search_area clearfix">
+                        <!--<dl class="col">
+                            <dt>교육대상</dt>
+                            <dd>
+                                <select th:field="*{srchGbn}">
+                                    <option value="">전체</option>
+                                    <option th:each="tp : ${T(kr.or.btf.web.domain.web.enums.UserRollType).values()}"
+                                            th:value="${tp}"
+                                            th:text="${tp.getName()}"></option>
+                                </select>
+                            </dd>
+                        </dl>
+                        <dl class="col">
+                            <dt>강좌명</dt>
+                            <dd>
+                                <input type="text" th:field="*{srchWord}" placeholder="검색어를 입력하세요." style="width:313px"  />
+                            </dd>
+                        </dl>
+                        <div class="col">
+                            <button type="button" class="btn btn_sm btn_gray" onclick="fn_search()">
+                                <i class="material-icons">search</i>조회
+                            </button>
+                            <button type="button" class="btn btn_sm btn_gray" onclick="fn_reset()">
+                                <i class="material-icons">refresh</i>초기화
+                            </button>
+                        </div>-->
+                    </div>
+
+                    <div class="board_list">
+                        <h4 class="sec_tit">과정마스터 리스트</h4>
+                        <div class="board_top clearfix">
+                            <div class="fl">
+                                <div class="total_num">총 <b th:text="${#numbers.formatInteger(masterSeqs.totalElements, 0, 'COMMA')}">2</b>
+                                    건
+                                </div>
+                                <!--<select name="perPageNum" id="perPageNum" class="w80">
+                                    <option value="10" th:selected="${cri.perPageNum eq 10}">10</option>
+                                    <option value="15" th:selected="${cri.perPageNum eq 15}">15</option>
+                                    <option value="20" th:selected="${cri.perPageNum eq 20}">20</option>
+                                </select>-->
+                            </div>
+                            <div class="fr">
+                                <!--<a href="javascript:;" class="btn btn_sm btn_lightgray" onclick="return fnTableToExcel('resultList', '일상감사 검토관리 다운로드');">
+                                    <i class="material-icons mt0">get_app</i>엑셀 다운로드
+                                </a>-->
+                                <a href="/soulGod/courseMaster/register" class="btn btn_sm btn_blue">
+                                    <i class="material-icons mt0">add</i>마스터추가
+                                </a>
+
+                            </div>
+                        </div>
+                        <div class="board_detail clearfix">
+                            <table class="tbl_list" id="resultList">
+                                <colgroup>
+                                    <col style="width: 5%"/>
+                                    <col style="width: 10%"/>
+                                    <col style="width: auto"/>
+                                    <col style="width: 10%"/>
+                                    <col style="width: 15%"/>
+                                    <col style="width: 15%"/>
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>대상</th>
+                                    <th>마스터과정명</th>
+                                    <th>게시여부</th>
+                                    <th>등록일</th>
+
+                                    <th>등록자</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!-- 등록된 데이터가 없을 때만 노출 : s -->
+                                <tr th:if="${masterSeqs == null or masterSeqs.isEmpty()}">
+                                    <td colspan="6">등록된 정보 없습니다.</td>
+                                </tr>
+                                <!-- 등록된 이벤트가 없을 때만 노출 : e -->
+                                <tr th:each="item,idx:${masterSeqs}">
+                                    <td th:text="${masterSeqs.totalElements - masterSeqs.pageable.pageSize * masterSeqs.pageable.pageNumber - idx.index}"></td>
+                                    <td th:text="${T(kr.or.btf.web.domain.web.enums.MberDvType).valueOf(item.mberDvTy).getName()}"></td>
+                                    <td>
+                                        <a th:href="|/soulGod/courseMaster/detail/${item.id}|">
+                                            <b th:text="${item.crsNm}"></b>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <th:block th:if="${item.openAt eq 'Y'}">게시</th:block>
+                                        <th:block th:unless="${item.openAt eq 'Y'}">미게시</th:block>
+                                    </td>
+                                    <td th:text="${#temporals.format(item.regDtm,'yyyy-MM-dd')}"></td>
+                                    <td th:text="${item.regPsNm}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <th:block th:replace="/soulGod/fragments/paging :: pagingbody(list=${masterSeqs},
+                                            link='/soulGod/courseMaster/list', formId='form1')"></th:block>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <th:block th:replace="soulGod/fragments/footer"></th:block>
+</div>
+</body>
+</html>

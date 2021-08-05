@@ -1,0 +1,1013 @@
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:include="soulGod/fragments/header"></th:block>
+	<script type="text/javascript">
+		$(function(){
+
+			// 검사문항 s
+			answerType();
+			answerNum();
+
+			$('input[name=lwprtQesitmAt]').change(function(){
+				lwprtQesitmType();
+			});
+
+			$('input[name=aswDvTy]').change(function(){
+				answerType();
+			});
+
+			$('#answerCnt').change(function(){
+				answerNum();
+			});
+
+			$("#perPageNum").change(function(){
+				var frm = $('#form1');
+				frm.prop('action', '?');
+				frm.submit();
+			});
+			$("#chkAll").change(function(){
+				allSelect();
+			});
+			$("input[name=checkBox]").click(function(){
+				$("#chkAll").prop("checked",false);
+			});
+
+			$('#answerCnt').change(function (){
+				var cnt = $(this).val();
+				answerList(cnt);
+			});
+			// 검사문항 e
+
+			// 하위 검사문항 s
+			lwprtAnswerType();
+			answerNum();
+
+			$('input[name=lwprtAswDvTy]').change(function(){
+				lwprtAnswerType();
+			});
+
+			$('#lwprtAnswerCnt').change(function (){
+				var cnt = $(this).val();
+				lwprtAnswerList(cnt);
+			});
+			// 하위 검사문항 e
+		});
+
+		// 검사문항 s
+		function answerList(cnt) {
+			var html = '';
+			for(i=0; i<cnt; i++){
+				var idx = 0;
+				idx = i+1;
+				html += '<li>';
+				html += '<dl>';
+				html += '<dt>답변 '+idx+'</dt>';
+				html += '<dd>';
+				html +=	'<input type="text" id="answerCnts'+idx+'" name="answerCnts" />';
+				html += '</dd>';
+				html += '<dt>추가답변 '+idx+'</dt>';
+				html += '<dd>';
+				html +=	'<div class="checkbox txt">';
+				html +=	'<input type="checkbox" id="apdAnswerAt'+idx+'" name="apdAnswerAt" value="'+idx+'" />';
+				html += '<label for="apdAnswerAt'+idx+'"></label>';
+				html += '</div>';
+				html += '</dd>';
+				html += '</dl>';
+				html += '</li>';
+			}
+			$('.answer_list').html(html);
+		}
+
+		function allSelect() {
+            if ($("#chkAll").is(':checked')) {
+                $("input[name=checkBox]").prop("checked", true);
+            } else {
+                $("input[name=checkBox]").prop("checked", false);
+            }
+        }
+
+		function lwprtQesitmType(){
+			if($('#lwprtQesitmY').is(':checked')){
+				$('.tr_lwprt').addClass('dn');
+			}
+			if($('#lwprtQesitmN').is(':checked')){
+				$('.tr_lwprt').removeClass('dn');
+			}
+		}
+
+		//설문 답변유형에 따른 입력폼 변경
+		function answerType(){
+			if($('#asw_dv_ty1').is(':checked')){
+				$('.tr_objective').removeClass('dn').siblings('.tr_subjective').addClass('dn');
+			}
+			if($('#asw_dv_ty2').is(':checked')){
+				$('.tr_subjective').removeClass('dn').siblings('.tr_objective').addClass('dn');
+			}
+		}
+
+		//답변수 선택에 따른 답변 내용 입력 수 수정
+
+		function answerNum(){
+			var num = Number($('#answerCnt option:selected').val()) + 1;
+			$('.answer_list > li').show();
+		}
+
+		function fn_questionSave(id){
+			$("#inspctPid").val(id);
+			var lwprtQesitmAt = $("input[name=lwprtQesitmAt]:checked").val();
+			var aswDvTy = $("input[name=aswDvTy]:checked").val();
+
+			if(aswDvTy == 'CHOICE'){
+				var required = $("input[name=required]:checked").val();
+				if(required == "N"){
+					$("#rspnsCnt").val(0);
+				} else {
+					var rspns_cnt = $("#select_rspns_cnt").val();
+					$("#rspnsCnt").val(rspns_cnt);
+				}
+			}else{
+				var subjRequired = $("input[name=subjRequired]:checked").val();
+				if(subjRequired == "Y"){
+					$("#rspnsCnt").val(1);
+				} else{
+					$("#rspnsCnt").val(0);
+				}
+			}
+			//validationCheck
+			var qestnQesitm = $("#qestnQesitm");
+			var answerCnt = $("#answerCnt").val();
+			var rspnsCnt = $("#rspnsCnt").val();
+
+			if (lwprtQesitmAt != 'Y') {
+				if (!$.trim(qestnQesitm.val())) {
+					alert("질문 문항은 필수입니다.");
+					qestnQesitm.focus();
+					return false;
+				}
+				if (aswDvTy == 'CHOICE') {
+					if(answerCnt < rspnsCnt){
+						alert("응답여부는 답변수 보다 높을 수 없습니다.");
+						return false;
+					}
+					for (var i=1; i<=answerCnt; i++) {
+						var answerCnt = $("#answerCnts"+i);
+						if (!$.trim(answerCnt.val())) {
+							alert("답변은 필수입니다.");
+							answerCnt.focus();
+							return false;
+						}
+					}
+				}
+				if (getDeptLastValue() == '') {
+					alert('문항구분을 선택하세요.');
+					return false;
+				}
+				$("#dvCodePid").val(getDeptLastValue());
+			}
+
+			if(!confirm('저장하시겠습니까?')) {
+				return false;
+			}
+
+			var formData = $('#form1').serialize();
+			$.ajax({
+				type : 'post',
+				url : '/api/soulGod/inspection/question/register',
+				data : formData,
+				datatype : 'json',
+				success : function(data) {
+					if (data === 'ok') {
+						location.reload();
+					} else {
+						alert('해당 유효성검사에 답변을한 사용자가 존재하거나 \n시스템의 장애로 문항을 수정할 수 없습니다.');
+					}
+				},
+				error : function(error) {
+					//alert('save error!!!');
+					//alert('error::' + error.statusText);
+					alert('해당 유효성검사에 답변을한 사용자가 존재하거나 \n시스템의 장애로 문항을 수정할 수 없습니다.');
+				}
+			});
+		}
+
+		var selctData = '';
+		function fn_questionDetailShow(id){
+			fn_questionReset();
+			var jsonData = {
+				'id' : id
+			};
+			$.ajax({
+				type: 'post',
+				url: '/api/soulGod/inspection/detail',
+				contentType: "application/json",
+				data: JSON.stringify(jsonData),
+				datatype: 'json',
+				success: function (data) {
+					$("#id").val(data.id);
+					$("#sv_question").css("display","block");
+					$("#questionDel").show();
+					var num = data.aswDvTy == "CHOICE" ? 1:2;
+					$("#lwprtQesitm"+data.lwprtQesitmAt).prop("checked",true);
+					$("input[name=lwprtQesitmAt]").attr("onclick", "return false");
+					$("#asw_dv_ty"+num).prop("checked",true);
+					lwprtQesitmType();
+					if (data.lwprtQesitmAt == "Y") {
+						$('#lwprtList').css("display","block");
+						fn_lwprtList(data.id);
+						$('#upperQesitmPid').val(data.id);
+						$('#questionSelectList').empty();
+						$('#lwprtQuestionSelectList').append(selctData);
+					} else {
+						answerType();
+						$('#lwprtList').css("display","none");
+						$('#lwprtQuestionSelectList').empty()
+						$('#questionSelectList').append(selctData);
+						fullCodeSet(data.dvCodeFull);
+					}
+					$("#qestnQesitm").val(data.qestnQesitm);
+					if(data.answerCnt != 0){
+						$("#answerCnt").val(data.answerCnt);
+						$('#answerCnt').niceSelect('update');
+						answerList(data.answerCnt);
+					}
+					answerNum();
+					if(data.rspnsCnt == 0){
+						$("#requiredN").prop("checked",true);
+						$("#subjRequiredN").prop("checked",true);
+					}else{
+						$("#select_rspns_cnt").val(data.rspnsCnt);
+						$('#select_rspns_cnt').niceSelect('update');
+					}
+					fn_answerListLoad(data.id);
+				},
+				error: function (error) {
+					//alert('save error!!!');
+					alert('error::' + error.statusText);
+				}
+			});
+		}
+
+		function fn_answerListLoad(id){
+			var jsonData = {
+				'qesitmPid' : id
+			}
+			$.ajax({
+				type: 'post',
+				url: '/api/soulGod/inspection/answerListLoad',
+				contentType: "application/json",
+				data: JSON.stringify(jsonData),
+				datatype: 'json',
+				success: function (data) {
+					console.log(data);
+					for(var i=0; i<data.length; i++){
+						var num = i+1;
+						console.log(num);
+						console.log("answerCnts" +num);
+						$("#answerCnts"+num).val(data[i].answerCnts);
+						if (data[i].apdAnswerAt == 'Y') {
+							$("#apdAnswerAt"+num).prop("checked",true);
+						}
+						$("#answer_cnts_id"+num).val(data[i].id);
+					}
+				},
+				error: function (error) {
+					//alert('save error!!!');
+					alert('error::' + error.statusText);
+				}
+			});
+		}
+
+		function fn_questionShow(){
+			$('#id').val('');
+			$('#inspctPid').val('');
+			$('#upperQesitmPid').val('');
+			fullCodeSet();
+			fn_questionReset();
+			$("#sv_question").css("display","block");
+			$("#lwprtList").css("display","none");
+			$("#questionDel").hide();
+			$('#questionSelectList').append(selctData);
+		}
+
+		function fn_questionReset(){
+			selctData = $("#questionSelect").detach();
+			$("#sv_lwprtQuestion").css("display","none");
+			$("#answerCnt").val(5).niceSelect('update');
+			answerList(5);
+			$("#select_rspns_cnt").val(4);
+			$('#select_rspns_cnt').niceSelect('update');
+			$("input[name=aswDvTy]:first").prop('checked',true);
+			$("input[name=subjRequired]:first").prop('checked',true);
+			$("input[name=required]:first").prop('checked',true);
+			$("input[name=lwprtQesitmAt]:last").prop('checked',true);
+			answerType();
+			answerNum();
+			$("#qestnQesitm").val("");
+			$("#upperQesitmPid").val("");
+			$("input[name=answerCnts]").val("");
+			$('.tr_lwprt').removeClass('dn');
+			fn_lwprtQuestionReset();
+		}
+
+		function fn_questionDelete(id){
+
+			if(!confirm('문항을 삭제하시겠습니까?.')){
+				return false;
+			}
+
+			$('#inspctPid').val(id);
+
+			var frm = $('#form1');
+			frm.prop('action', '/api/inspection/questionDelete');
+			frm.submit();
+		}
+		//검사 문항 e
+
+		// 하위 검사문항 s
+		function lwprtAnswerList(cnt) {
+			var html = '';
+			for(i=0; i<cnt; i++){
+				var idx = 0;
+				idx = i+1;
+				html += '<li>';
+				html += '<dl>';
+				html += '<dt>답변 '+idx+'</dt>';
+				html += '<dd>';
+				html +=	'<input type="text" id="lwprtAnswerCnts'+idx+'" name="answerCnts" />';
+				html += '</dd>';
+				html += '<dt>추가답변 '+idx+'</dt>';
+				html += '<dd>';
+				html +=	'<div class="checkbox txt">';
+				html +=	'<input type="checkbox" id="lwprtApdAnswerAt'+idx+'" name="apdAnswerAt" value="'+idx+'" />';
+				html += '<label for="lwprtApdAnswerAt'+idx+'"></label>';
+				html += '</div>';
+				html += '</dd>';
+				html += '</dl>';
+				html += '</li>';
+			}
+			$('.lwprt_answer_list').html(html);
+		}
+
+		function lwprtAnswerType(){
+			if($('#lwprt_asw_dv_ty1').is(':checked')){
+				$('.tr_lwprt_objective').removeClass('dn').siblings('.tr_lwprt_subjective').addClass('dn');
+			}
+			if($('#lwprt_asw_dv_ty2').is(':checked')){
+				$('.tr_lwprt_subjective').removeClass('dn').siblings('.tr_lwprt_objective').addClass('dn');
+			}
+		}
+
+		function lwprtAnswerNum(){
+			var num = Number($('#lwprtAnswerCnt option:selected').val()) + 1;
+			$('.lwprt_answer_list > li').show();
+		}
+
+		function fn_lwprtQuestionSave(id){
+			if (getDeptLastValue() == '') {
+				alert('문항구분을 선택하세요.');
+				return false;
+			}
+			$("#lwprtDvCodePid").val(getDeptLastValue());
+
+			$("#lwprtInspctPid").val(id);
+			var aswDvTy = $("input[name=lwprtAswDvTy]:checked").val();
+			$('#lwprtAswDvTy').val(aswDvTy);
+			if(aswDvTy == 'CHOICE'){
+				var lwprtRequired = $("input[name=lwprtRequired]:checked").val();
+				$('#lwprtRequired').val(lwprtRequired);
+				if(lwprtRequired == "N"){
+					$("#lwprtRspnsCnt").val(0);
+				} else {
+					var rspns_cnt = $("#select_lwprt_rspns_cnt").val();
+					$("#lwprtRspnsCnt").val(rspns_cnt);
+				}
+			}else{
+				var lwprtSubjRequired = $("input[name=lwprtSubjRequired]:checked").val();
+				$('#lwprtSubjRequired').val(lwprtSubjRequired);
+				if(lwprtSubjRequired == "Y"){
+					$("#lwprtRspnsCnt").val(1);
+				} else{
+					$("#lwprtRspnsCnt").val(0);
+				}
+			}
+			//validationCheck
+			var qestnQesitm = $("#lwprtQestnQesitm");
+			var answerCnt = $("#lwprtAnswerCnt").val();
+			var rspnsCnt = $("#lwprtRspnsCnt").val();
+
+
+			if (!$.trim(qestnQesitm.val())) {
+				alert("질문 문항은 필수입니다.");
+				qestnQesitm.focus();
+				return false;
+			}
+			if (aswDvTy == 'CHOICE') {
+				if(answerCnt < rspnsCnt){
+					alert("응답여부는 답변수 보다 높을 수 없습니다.");
+					return false;
+				}
+				for (var i=1; i<=answerCnt; i++) {
+					var answerCnt = $("#lwprtAnswerCnts"+i);
+					if (!$.trim(answerCnt.val())) {
+						alert("답변은 필수입니다.");
+						answerCnt.focus();
+						return false;
+					}
+				}
+			}
+
+			if(!confirm('저장하시겠습니까?')) {
+				return false;
+			}
+
+			var formData = $('#form2').serialize();
+			$.ajax({
+				type : 'post',
+				url : '/api/soulGod/inspection/lwprtQuestion/register',
+				data : formData,
+				datatype : 'json',
+				success : function(data) {
+					if (data === 'ok') {
+						location.reload();
+					} else {
+						alert('실패되었습니다 관리자에게 문의 하세요');
+					}
+				},
+				error : function(error) {
+					//alert('save error!!!');
+					alert('error::' + error.statusText);
+				}
+			});
+		}
+
+		function fn_lwprtList(id){
+			var jsonData = {
+				'upperQesitmPid':id
+			}
+			$.ajax({
+				type: 'post',
+				url: '/api/soulGod/inspection/lwprtListLoad',
+				contentType: "application/json",
+				data: JSON.stringify(jsonData),
+				datatype: 'json',
+				success: function (data) {
+					var html = '';
+					var btnHtml = '';
+					btnHtml += '<a href="javascript:;" class="btn btn_sm btn_blue" onclick="fn_lwprtQuestionShow('+id+')">';
+					btnHtml += '<i class="material-icons">library_add</i>하위문항 추가';
+					btnHtml += '</a>';
+
+					$('#btn_area').html(btnHtml);
+
+					if(data.length == 0) {
+						html = '<td colspan="7">등록된 정보 없습니다.</td>';
+					} else {
+						for(var i=0; i<data.length; i++){
+							var idx = i+1;
+							var item = data[i];
+
+							html += '<tr>';
+							html += '<td>'+idx+'</td>';
+							html += '<td>'+item.dvCodeNm+'</td>';
+							html += '<td>';
+							html += '<a href="javascript:;" onclick="fn_lwprtDetailShow('+item.id+')">';
+							html += '<b>'+item.qestnQesitm+'</b>';
+							html += '</a>';
+							html += '</td>';
+							if (item.aswDvTy == 'CHOICE') {
+								html += '<td>객관식</td>';
+							} else {
+								html += '<td>주관식</td>';
+							}
+							html += '<td>'+item.answerCnt+'</td>'
+							html += '<td>'+item.rspnsCnt+'</td>'
+							if (item.rspnsCnt == 0) {
+								html += '<td>선택</td>';
+							} else {
+								html += '<td>필수</td>';
+							}
+							html += '</tr>'
+						}
+					}
+					$('#lwprtQuestionList').html(html);
+				},
+				error: function (error) {
+					//alert('save error!!!');
+					alert('error::' + error.statusText);
+				}
+			});
+		}
+
+		function fn_lwprtDetailShow(id){
+			fn_lwprtQuestionReset();
+			var jsonData = {
+				'id' : id
+			};
+			$.ajax({
+				type: 'post',
+				url: '/api/soulGod/inspection/detail',
+				contentType: "application/json",
+				data: JSON.stringify(jsonData),
+				datatype: 'json',
+				success: function (data) {
+					$("#lwprtId").val(data.id);
+					$("#sv_lwprtQuestion").css("display","block");
+					$("#lwprtQuestionDel").show();
+					fullCodeSet(data.dvCodeFull);
+					var num = data.aswDvTy == "CHOICE" ? 1:2;
+					$("#lwprt_asw_dv_ty"+num).prop("checked",true);
+					$("#lwprtQestnQesitm").val(data.qestnQesitm);
+					lwprtAnswerType();
+					if(data.answerCnt != 0){
+						$("#lwprtAnswerCnt").val(data.answerCnt);
+						$('#lwprtAnswerCnt').niceSelect('update');
+						lwprtAnswerList(data.answerCnt);
+					}
+					lwprtAnswerNum();
+
+					if(data.lwprtRspnsCnt == 0){
+						$("#lwprtRequiredN").prop("checked",true);
+						$("#lwprtSubjRequiredN").prop("checked",true);
+					}else{
+						$("#select_lwprt_rspns_cnt").val(data.rspnsCnt);
+						$('#select_lwprt_rspns_cnt').niceSelect('update');
+					}
+					fn_lwprtAnswerListLoad(data.id);
+				},
+				error: function (error) {
+					//alert('save error!!!');
+					alert('error::' + error.statusText);
+				}
+			});
+		}
+
+		function fn_lwprtAnswerListLoad(id){
+			var jsonData = {
+				'qesitmPid' : id
+			}
+			$.ajax({
+				type: 'post',
+				url: '/api/soulGod/inspection/answerListLoad',
+				contentType: "application/json",
+				data: JSON.stringify(jsonData),
+				datatype: 'json',
+				success: function (data) {
+					console.log(data);
+					for(var i=0; i<data.length; i++){
+						var num = i+1;
+						console.log(num);
+						console.log("lwprtAnswerCnts" +num);
+						$("#lwprtAnswerCnts"+num).val(data[i].answerCnts);
+						if (data[i].apdAnswerAt == 'Y') {
+							$("#lwprtApdAnswerAt"+num).prop("checked",true);
+						}
+					}
+				},
+				error: function (error) {
+					//alert('save error!!!');
+					alert('error::' + error.statusText);
+				}
+			});
+		}
+
+		function fn_lwprtQuestionShow(){
+			$('#lwprtId').val('');
+			$('#lwprtInspctPid').val('');
+			$('#lwprtAswDvTy').val('');
+			$('#lwprtRequired').val('');
+			$('#lwprtSubjRequired').val('');
+			fullCodeSet();
+			fn_lwprtQuestionReset();
+			$("#sv_lwprtQuestion").css("display","block");
+			$("#lwprtQuestionDel").hide();
+			$('#lwprtQuestionSelectList').append(selctData);
+		}
+
+		function fn_lwprtQuestionReset(){
+			$("#lwprt_asw_dv_ty1").prop('checked',true);
+			$("#lwprtAnswerCnt").val(5).niceSelect('update');
+			lwprtAnswerList(5);
+			$("#select_lwprt_rspns_cnt").val(4);
+			$('#select_lwprt_rspns_cnt').niceSelect('update');
+			$("input[name=lwprtRequired]:first").prop('checked',true);
+			$("input[name=lwprtSubjRequired]:first").prop('checked',true);
+
+			lwprtAnswerType();
+			lwprtAnswerNum();
+			$("#lwprtQestnQesitm").val("");
+			$("input[name=answerCnts]").val("");
+		}
+
+		function fn_lwprtQuestionDelete(id){
+
+			if(!confirm('문항을 삭제하시겠습니까?.')){
+				return false;
+			}
+
+			$('#lwprtInspctPid').val(id);
+
+			var frm = $('#form2');
+			frm.prop('action', '/api/inspection/questionDelete');
+			frm.submit();
+		}
+		// 하위 검사문항e
+    </script>
+</head>
+<body>
+<div id="wrap">
+	<th:block th:include="soulGod/fragments/menu"></th:block>
+
+	<div id="container">
+		<div class="container_box">
+			<div class="contents">
+
+				<ul class="breadcrumb">
+					<li><i class="material-icons">home</i></li>
+					<li>운영관리</li>
+					<li>유효성검사 관리</li>
+				</ul>
+
+				<div class="board_detail clearfix" th:object="${form}">
+					<div class="sec">
+						<div class="board_top clearfix">
+							<div class="fl">
+								<h4 class="sec_tit">검사상세 정보</h4>
+							</div>
+							<div class="fr">
+								<a th:href="|/soulGod/inspection/modify/*{id}|" class="btn btn_sm btn_blue" >
+									<i class="material-icons fz17">done</i>검사 수정
+								</a>
+								<a href="/soulGod/inspection/list" class="btn btn_sm btn_lightgray">
+									<i class="material-icons mr1 fz19">subject</i>검사 목록
+								</a>
+							</div>
+						</div>
+						<table class="tbl_write">
+							<caption>검사상세 정보</caption>
+							<colgroup>
+								<col style="width:8%" />
+								<col style="width:auto" />
+								<col style="width:8%" />
+								<col style="width:8%" />
+								<col style="width:8%" />
+								<col style="width:8%" />
+							</colgroup>
+							<tbody>
+							<tr>
+								<th scope="row">검사제목</th>
+								<td th:text="*{ttl}"></td>
+								<th scope="row">결과공개</th>
+								<td>
+									<th:block th:if="*{opnAt eq 'Y'}">
+										공개
+									</th:block>
+									<th:block th:unless="*{opnAt eq 'Y'}">
+										미공개
+									</th:block>
+								</td>
+								<th scope="row">검사대상</th>
+								<td th:text="*{T(kr.or.btf.web.domain.web.enums.UserRollType).valueOf(mberDvTy).getName()}">
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">검사개요</th>
+								<td colspan="5">
+									<div class="editor h100 scrollbar"
+										 th:utext="*{#strings.replace(inspctCn, T(System).getProperty('line.separator'), '&lt;br /&gt;')}">
+
+									</div>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<div class="fl" style="width: 50%; padding-top: 50px;">
+						<div class="sec">
+							<div class="board_top clearfix">
+								<div class="fl">
+									<h4 class="sec_tit">검사문항 현황</h4>
+								</div>
+								<div class="fr">
+									<a href="javascript:;" class="btn btn_sm btn_blue" onclick="fn_questionShow()">
+										<i class="material-icons">library_add</i>검사문항 추가
+									</a>
+								</div>
+							</div>
+							<table class="tbl_list">
+								<caption>검사문항 현황</caption>
+								<colgroup>
+									<col style="width:5.5%" />
+									<col style="width:15%" />
+									<col style="width:auto" />
+									<col style="width:10%" />
+									<col style="width:8%" />
+									<col style="width:8%" />
+									<col style="width:8%" />
+									<col style="width:10%" />
+								</colgroup>
+								<thead>
+								<tr>
+									<th scope="col">No</th>
+									<th scope="col">구분</th>
+									<th scope="col">질문명</th>
+									<th scope="col">질문유형</th>
+									<th scope="col">보기수</th>
+									<th scope="col">응답수</th>
+									<th scope="col">응답<br/>여부</th>
+									<th scope="col">하위<br/>문항여부</th>
+								</tr>
+								</thead>
+								<tbody>
+								<th:block th:if="${!questionItems.isEmpty() and questionItems != null}">
+									<tr th:each="item,idx : ${questionItems}">
+										<td th:text="${idx.count}">1</td>
+										<td th:text="${item.dvCodeNm eq null ? '-' : item.dvCodeNm}"></td>
+										<td>
+											<a href="javascript:;" th:onclick="|fn_questionDetailShow(${item.id})|">
+												<b th:text="${item.qestnQesitm}"></b>
+											</a>
+										</td>
+										<td th:text="${item.aswDvTy eq T(kr.or.btf.web.domain.web.enums.AnswerType).CHOICE.name() ? '객관식' : '주관식'}">객관식</td>
+										<td th:text="${item.lwprtQesitmAt eq 'Y' ? '-' : item.answerCnt}"></td>
+										<td th:text="${item.lwprtQesitmAt eq 'Y' ? '-' : item.rspnsCnt}"></td>
+										<td th:text="${item.rspnsCnt eq 0 ? '선택' : '필수'}">필수</td>
+										<td th:text="${item.lwprtQesitmAt}">필수</td>
+									</tr>
+								</th:block>
+								<th:block th:unless="${!questionItems.isEmpty() and questionItems != null}">
+									<td colspan="8">등록된 정보 없습니다.</td>
+								</th:block>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<div class="fr" style="width: 50%; padding-top: 50px;">
+						<form id="form1" name="form1" method="post" th:object="${form}">
+							<input type="hidden" id="inspctPid" name="inspctPid">
+							<input type="hidden" id="dvCodePid" name="dvCodePid">
+							<input type="hidden" id="dvCodeFull" name="dvCodeFull">
+							<input type="hidden" id="id" name="id">
+							<div class="sec" id="sv_question" style="display:none">
+								<div class="board_top clearfix">
+									<div class="fl">
+										<h4 class="sec_tit">검사문항 상세정보</h4>
+									</div>
+									<div class="fr">
+										<a href="javascript:;" class="btn btn_sm btn_blue" th:onclick="|fn_questionSave(${form.id})|">
+											<i class="material-icons fz17">done</i>검사문항 저장
+										</a>
+										<a href="javascript:;" id="questionDel" class="btn btn_sm btn_red" th:onclick="|fn_questionDelete(${form.id})|">
+											<i class="material-icons">delete</i>검사문항 삭제
+										</a>
+									</div>
+								</div>
+
+								<table class="tbl_write">
+									<colgroup>
+										<col style="width:140px" />
+										<col style="width:calc(50% - 140px)" />
+										<col style="width:140px" />
+										<col style="width:calc(50% - 140px)" />
+									</colgroup>
+									<tbody>
+									<tr class="tr_lwprt">
+										<th scope="row">문항구분<span class="aster">*</span></th>
+										<td colspan="3" id="questionSelectList">
+											<div id="questionSelect" th:include="fragments/dvCodeSelect"></div>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row">하위문항여부<span class="aster">*</span></th>
+										<td colspan="3">
+											<div class="radio txt">
+												<input type="radio" name="lwprtQesitmAt" id="lwprtQesitmY" value="Y"/>
+												<label for="lwprtQesitmY">Y</label>
+											</div>
+											<div class="radio txt">
+												<input type="radio" name="lwprtQesitmAt" id="lwprtQesitmN" value="N" checked/>
+												<label for="lwprtQesitmN">N</label>
+											</div>
+										</td>
+									</tr>
+									<tr class="tr_lwprt">
+										<th scope="row">답변유형<span class="aster">*</span></th>
+										<td colspan="3">
+											<div class="radio txt" th:each="tp,idx : ${T(kr.or.btf.web.domain.web.enums.AnswerType).values()}">
+												<input type="radio" name="aswDvTy" th:id="|asw_dv_ty${idx.count}|"
+													   th:value="${tp}" th:checked="${idx.index eq 0}"/>
+												<label th:for="|asw_dv_ty${idx.count}|" th:text="${tp.getName()}">선택형</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row">질문문항<span class="aster">*</span></th>
+										<td colspan="3"><textarea name="qestnQesitm" id="qestnQesitm"></textarea></td>
+									</tr>
+									<tr class="tr_objective tr_lwprt">
+										<th scope="row">답변수<span class="aster">*</span></th>
+										<td>
+											<select name="answerCnt" id="answerCnt" class="w80">
+												<option th:each="num:${#numbers.sequence(2,20)}"
+														th:value="${num}" th:text="${num}"></option>
+											</select>
+										</td>
+										<th scope="row">응답여부<span class="aster">*</span></th>
+										<td>
+											<div>
+												<input type="hidden" id="rspnsCnt" name="rspnsCnt">
+												<div class="radio txt mt-5">
+													<input type="radio" name="required" id="requiredY" value="Y"/>
+													<label for="requiredY">필수</label>
+												</div>
+												<span class="dib vt lh30">(최대 </span>
+												<select id="select_rspns_cnt" class="w30p">
+													<option value="1">1</option>
+													<option value="2">2</option>
+													<option value="3">3</option>
+													<option value="4">4</option>
+												</select>
+												<span class="dib vt lh30">개)</span>
+											</div>
+											<div class="radio txt">
+												<input type="radio" name="required" id="requiredN" value="N"/>
+												<label for="requiredN">선택</label>
+											</div>
+										</td>
+									</tr>
+									<tr class="tr_objective tr_lwprt">
+										<th scope="row">답변내용</th>
+										<td colspan="3">
+											<ul class="answer_list">
+											</ul>
+										</td>
+									</tr>
+									<tr class="tr_subjective">
+										<th scope="row"><span class="aster">*</span>응답여부</th>
+										<td colspan="3">
+											<div class="radio txt">
+												<input type="radio" name="subjRequired" id="subjRequiredY" value="Y"/>
+												<label for="subjRequiredY">필수</label>
+											</div>
+											<div class="radio txt">
+												<input type="radio" name="subjRequired" id="subjRequiredN" value="N"/>
+												<label for="subjRequiredN">선택</label>
+											</div>
+										</td>
+									</tr>
+									</tbody>
+								</table>
+							</div>
+						</form>
+
+						<div class="sec" id="lwprtList" style="display: none; padding-top: 25px;">
+							<div class="board_top clearfix">
+								<div class="fl">
+									<h4 class="sec_tit">하위문항 현황</h4>
+								</div>
+								<div class="fr" id="btn_area">
+
+								</div>
+							</div>
+							<table class="tbl_list">
+								<caption>하위문항 현황</caption>
+								<colgroup>
+									<col style="width:5.5%" />
+									<col style="width:15%" />
+									<col style="width:auto" />
+									<col style="width:10%" />
+									<col style="width:8%" />
+									<col style="width:8%" />
+									<col style="width:8%" />
+								</colgroup>
+								<thead>
+								<tr>
+									<th scope="col">No</th>
+									<th scope="col">구분</th>
+									<th scope="col">질문명</th>
+									<th scope="col">질문유형</th>
+									<th scope="col">보기수</th>
+									<th scope="col">응답수</th>
+									<th scope="col">응답여부</th>
+								</tr>
+								</thead>
+								<tbody id="lwprtQuestionList">
+								</tbody>
+							</table>
+						</div>
+
+						<form id="form2" name="form2" method="post" th:object="${form}">
+							<input type="hidden" id="lwprtInspctPid" name="inspctPid" />
+							<input type="hidden" id="upperQesitmPid" name="upperQesitmPid" />
+							<input type="hidden" id="lwprtAswDvTy" name="aswDvTy" />
+							<input type="hidden" id="lwprtRequired" name="required" />
+							<input type="hidden" id="lwprtSubjRequired" name="subjRequired" />
+							<input type="hidden" id="lwprtDvCodePid" name="dvCodePid" />
+							<input type="hidden" id="lwprtId" name="id" />
+							<div class="sec" id="sv_lwprtQuestion" style="display:none; padding-top: 25px;">
+								<div class="board_top clearfix">
+									<div class="fl">
+										<h4 class="sec_tit">검사문항 상세정보</h4>
+									</div>
+									<div class="fr">
+										<a href="javascript:;" class="btn btn_sm btn_blue" th:onclick="|fn_lwprtQuestionSave(${form.id})|">
+											<i class="material-icons fz17">done</i>하위문항 저장
+										</a>
+										<a href="javascript:;" id="lwprtQuestionDel" class="btn btn_sm btn_red" th:onclick="|fn_lwprtQuestionDelete(${form.id})|">
+											<i class="material-icons fz17">delete</i>하위문항 삭제
+										</a>
+									</div>
+								</div>
+
+								<table class="tbl_write">
+									<colgroup>
+										<col style="width:140px" />
+										<col style="width:calc(50% - 140px)" />
+										<col style="width:140px" />
+										<col style="width:calc(50% - 140px)" />
+									</colgroup>
+									<tbody>
+									<tr>
+										<th scope="row">문항구분<span class="aster">*</span></th>
+										<td colspan="3" id="lwprtQuestionSelectList">
+										</td>
+									</tr>
+									<tr>
+										<th scope="row">답변유형<span class="aster">*</span></th>
+										<td colspan="3">
+											<div class="radio txt" th:each="tp,idx : ${T(kr.or.btf.web.domain.web.enums.AnswerType).values()}">
+												<input type="radio" name="lwprtAswDvTy" th:id="|lwprt_asw_dv_ty${idx.count}|"
+													   th:value="${tp}" th:checked="${idx.index eq 0}"/>
+												<label th:for="|lwprt_asw_dv_ty${idx.count}|" th:text="${tp.getName()}">선택형</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row">질문문항<span class="aster">*</span></th>
+										<td colspan="3"><textarea name="qestnQesitm" id="lwprtQestnQesitm"></textarea></td>
+									</tr>
+									<tr class="tr_lwprt_objective">
+										<th scope="row">답변수<span class="aster">*</span></th>
+										<td>
+											<select name="answerCnt" id="lwprtAnswerCnt" class="w80">
+												<option th:each="num:${#numbers.sequence(2,20)}"
+														th:value="${num}" th:text="${num}"></option>
+											</select>
+										</td>
+										<th scope="row">응답여부<span class="aster">*</span></th>
+										<td>
+											<div>
+												<input type="hidden" id="lwprtRspnsCnt" name="rspnsCnt">
+												<div class="radio txt mt-5" style="margin-right: 10px;">
+													<input type="radio" name="lwprtRequired" id="lwprtRequiredY" value="Y"/>
+													<label for="lwprtRequiredY">필수</label>
+												</div>
+												<span class="dib vt lh30">(최대 </span>
+												<select id="select_lwprt_rspns_cnt" class="w30p">
+													<option value="1">1</option>
+													<option value="2">2</option>
+													<option value="3">3</option>
+													<option value="4">4</option>
+												</select>
+												<span class="dib vt lh30">개)</span>
+											</div>
+											<div class="radio txt">
+												<input type="radio" name="lwprtRequired" id="lwprtRequiredN" value="N"/>
+												<label for="lwprtRequiredN">선택</label>
+											</div>
+										</td>
+									</tr>
+									<tr class="tr_lwprt_objective">
+										<th scope="row">답변내용</th>
+										<td colspan="3">
+											<ul class="lwprt_answer_list">
+											</ul>
+										</td>
+									</tr>
+									<tr class="tr_lwprt_subjective">
+										<th scope="row"><span class="aster">*</span>응답여부</th>
+										<td colspan="3">
+											<div class="radio txt">
+												<input type="radio" name="lwprtSubjRequired" id="lwprtSubjRequiredY" value="Y"/>
+												<label for="lwprtSubjRequiredY">필수</label>
+											</div>
+											<div class="radio txt">
+												<input type="radio" name="lwprtSubjRequired" id="lwprtSubjRequiredN" value="N"/>
+												<label for="lwprtSubjRequiredN">선택</label>
+											</div>
+										</td>
+									</tr>
+									</tbody>
+								</table>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<th:block th:replace="soulGod/fragments/footer"></th:block>
+	</div>
+</div>
+</body>
+</html>

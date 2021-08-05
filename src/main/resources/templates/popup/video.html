@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="soulGod/fragments/header"></th:block>
+    <link href="/webjars/video-js/7.1.0/video-js.css" rel="stylesheet" />
+    <script src="/webjars/video-js/7.1.0/video.js"></script>
+    <script src="/ClientUI/plugins/Youtube.js"></script>
+    <script type="text/javascript" src="http://jsgetip.appspot.com"></script>
+    <script type="text/javascript">
+
+        function videoPlay(obj){
+            player.play();
+            $('.video_area .btn_play').stop().fadeOut();
+        }
+
+        $(function () {
+            var src = '[[${form.cntntsUrl}]]';
+            var cntntsDvTy = '[[${form.cntntsDvTy}]]';
+            var ty = "video/mp4";
+            var options = {
+                //width :  ,
+                //heigth : ,
+                controls : true
+            }
+            if (cntntsDvTy == 'YOUTUBE') {
+                ty = 'video/youtube';
+                options.techOrder = ['youtube', 'html5'];
+            } else if (cntntsDvTy == 'CDN') {
+                ty = 'video/mp4';
+            }
+            options.sources = [{type: ty, src: src}];
+
+            initVideo(true, options);
+        });
+
+    </script>
+</head>
+<th:block layout:fragment="content_body">
+    <th:block th:replace="/fragments/videoOptions :: videoSetting(videoId='video', classYn='N', classAppend='')"></th:block>
+</th:block>
+</html>

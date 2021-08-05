@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="soulGod/fragments/header"></th:block>
+    <script type="text/javascript">
+        ////-------- page load
+        $(function () {
+        });
+
+        function fn_complete(id) {
+            if (!confirm("상담완료 처리 하시겠습니까?")) {
+                return false;
+            }
+
+            var jsonData = {
+                'id' : id
+            }
+            $.ajax({
+                type: 'post',
+                url: '/api/adviceReservation/updateProcessType',
+                contentType: "application/json",
+                data: JSON.stringify(jsonData),
+                datatype: 'text',
+                success: function (data) {
+                    if (data === 'ok') {
+                        alert('정상처리되었습니다.');
+                        location.reload();
+                    } else {
+                        alert('실패하였습니다. 관리자에게 문의하세요.');
+                        location.reload();
+                    }
+                },
+                error: function (error) {
+                    //alert('save error!!!');
+                    alert('error::' + error.statusText);
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+<div id="wrap">
+    <th:block th:include="soulGod/fragments/menu"></th:block>
+
+    <div id="container">
+        <div class="container_box">
+
+            <form id="form1" name="form1" method="post" th:object="${form}">
+                <input type="hidden" th:field="*{id}"/>
+                <div class="contents">
+
+                    <ul class="breadcrumb">
+                        <li><i class="material-icons">home</i></li>
+                        <li>상담관리</li>
+                        <li th:text="${dvTy.getName()}">전화상담</li>
+                    </ul>
+
+                    <div class="board_detail clearfix">
+                        <div class="sec">
+                            <div class="board_top clearfix">
+                                <div class="fl">
+                                    <h4 class="sec_tit">상세정보</h4>
+                                </div>
+                            </div>
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert"
+                                 th:if="${message}">
+                                <strong th:text="${message}">message!</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <table class="tbl_write">
+                                <colgroup>
+                                    <col style="width:10%"/>
+                                    <col style="width:auto"/>
+                                </colgroup>
+                                <tbody>
+                                <tr>
+                                    <th scope="row"><label>대상</label></th>
+                                    <td th:text="*{mberDvTy.getName()}"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>고민</label></th>
+                                    <td>
+                                        <th:block th:each="resType,idx : ${reservationTypeList}">
+                                            <span th:text="${resType.codeNm}"></span>
+                                            <th:block th:if="${idx.count < reservationTypeList.size()}" th:text="','"></th:block>
+                                        </th:block>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>이름</label></th>
+                                    <td th:text="*{nm}"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>지역</label></th>
+                                    <td th:text="*{areaCodeNm}"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>제목</label></th>
+                                    <td th:text="*{ttl}"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>내용</label></th>
+                                    <td>
+                                        <div class="scrollbar h100 editor"
+                                             th:utext="*{#strings.replace(cnts, T(System).getProperty('line.separator'), '&lt;br /&gt;')}">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>연락처</label></th>
+                                    <td th:text="*{telno}"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>희망일자</label></th>
+                                    <td th:text="|*{#dates.format(hopeStYmd, 'yyyy.MM.dd')} ~ *{#dates.format(hopeEndYmd, 'yyyy.MM.dd')}|"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>희망시간</label></th>
+                                    <td>
+                                        <th:block th:each="time,idx : ${loadTimes}">
+                                            <span th:text="${time.hopeTimeCodeNm}"></span>
+                                            <th:block th:if="${idx.count < loadTimes.size()}" th:text="','"></th:block>
+                                        </th:block>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="btn_area">
+                                <a th:if="${form.processTy eq T(kr.or.btf.web.domain.web.enums.ProcessType).REQUEST}" class="btn btn_sm btn_green" href="javascript:;" th:onclick="|fn_complete(*{id})|">
+                                    <i class="material-icons fz17">done</i>상담 완료처리
+                                </a>
+                                <a class="btn btn_sm btn_lightgray" th:href="|/soulGod/counseling/list/*{dvTy.name()}|">
+                                    <i class="material-icons">list</i>목록
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <th:block th:replace="soulGod/fragments/footer"></th:block>
+</div>
+</body>
+</html>

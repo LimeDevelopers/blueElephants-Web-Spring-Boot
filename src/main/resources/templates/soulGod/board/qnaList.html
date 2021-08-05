@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:include="soulGod/fragments/header"></th:block>
+	<script type="text/javascript">
+
+		function fn_search() {
+			var frm = $('#form1');
+
+			frm.prop('action', '?');
+			frm.submit();
+		}
+
+		function fn_reset() {
+			$('#srchWord').val('');
+
+			fn_search();
+		}
+
+		////-------- page load
+		$(function () {
+		});
+	</script>
+</head>
+<body>
+<div id="wrap">
+	<th:block th:include="soulGod/fragments/menu"></th:block>
+
+	<div id="container">
+		<div class="container_box">
+
+			<form id="form1" name="form1" method="post" th:object="${form}">
+
+				<div class="contents">
+					<ul class="breadcrumb">
+						<li><i class="material-icons">home</i></li>
+						<li>게시판관리</li>
+						<li>Q&A 관리</li>
+					</ul>
+
+					<div class="search_area clearfix">
+						<div class="col">
+							<select th:field="*{srchField}" class="w120">
+								<option value="1" selected>전체</option>
+							</select>
+							<input type="text" th:field="*{srchWord}" placeholder="검색어를 입력하세요." style="width:313px"  />
+							<button type="button" class="btn btn_sm btn_gray" onclick="fn_search()">
+								<i class="material-icons">search</i>조회
+							</button>
+							<button type="button" class="btn btn_sm btn_gray" onclick="fn_reset()">
+								<i class="material-icons">search</i>초기화
+							</button>
+						</div>
+					</div>
+					<div class="sec">
+						<div class="board_top clearfix">
+							<div class="fl">
+								<div class="total_num">총 <b th:text="${#numbers.formatInteger(boardDatas.totalElements, 0, 'COMMA')}">2</b> 건</div>
+							</div>
+							<div class="fr">
+								<!--<a th:href="|/soulGod/board/register/${mstPid}|" class="btn btn_sm btn_blue">
+									<i class="material-icons">library_add</i><th:block th:text="|${boardName} 추가|">공지사항 추가</th:block>
+								</a>-->
+							</div>
+						</div>
+						<table class="tbl_list">
+							<caption>목록</caption>
+							<colgroup>
+								<!--<col style="width:5%" />-->
+
+								<col style="width:5%" />
+								<col style="width:auto" />
+								<col style="width:15%" />
+								<col style="width:15%" />
+								<col style="width:15%" />
+
+							</colgroup>
+							<thead>
+							<tr>
+								<th scope="col">No</th>
+								<th scope="col">제목</th>
+								<th scope="col">등록일</th>
+								<th scope="col">작성자</th>
+								<th scope="col">답변상태</th>
+							</tr>
+							</thead>
+							<tbody>
+							<!-- 등록된 데이터가 없을 때만 노출 : s -->
+							<tr th:if="${boardDatas == null or boardDatas.isEmpty()}">
+								<td colspan="5">등록된 정보 없습니다.</td>
+							</tr>
+							<!-- 등록된 이벤트가 없을 때만 노출 : e -->
+							<tr th:each="item,idx:${boardDatas}">
+								<td th:text="${boardDatas.totalElements - boardDatas.pageable.pageSize * boardDatas.pageable.pageNumber - idx.index}"></td>
+								<td>
+									<a th:href="|/soulGod/board/qnaDetail/${item.id}|">
+										<th:block th:if="${item.sntncHead ne ''}">
+											<b th:text="|[${ item.sntncHead}]  ${item.ttl}|"></b>
+										</th:block>
+										<th:block th:unless="${item.sntncHead ne ''}">
+											<b th:text="${item.ttl}"></b>
+										</th:block>
+									</a>
+								</td>
+								<td th:text="${#temporals.format(item.regDtm,'yyyy-MM-dd')}"></td>
+								<td th:text="${item.regPsNm ne null ? item.regPsNm : '익명'}"></td>
+								<td>
+									<th:block th:if="${item.likeCnt > 0}">
+										답변완료
+									</th:block>
+									<th:block th:unless="${item.likeCnt > 0}">
+										대기
+									</th:block>
+								</td>
+							<tr>
+							</tbody>
+						</table>
+						<th:block th:replace="/soulGod/fragments/paging :: pagingbody(list=${boardDatas},
+                                            link='/soulGod/board/qnaList/' + ${mstPid}, formId='form1')"></th:block>
+					</div>
+				</div>
+			</form>
+		</div>
+		<th:block th:replace="soulGod/fragments/footer"></th:block>
+	</div>
+</div>
+</body>
+</html>

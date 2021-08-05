@@ -1,0 +1,288 @@
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="soulGod/fragments/header"></th:block>
+    <script type="text/javascript">
+
+        function fn_select(mberPid) {
+
+            $('#mberPid').val(mberPid);
+
+            $.each($('tr[id*=tr_member]'),function (index, value){
+                $(this).prop('style','')
+            });
+            $('#tr_member_' + mberPid).prop('style','background-color:#f5f8fc');
+
+            var jsonData = {
+                'mberPid': '' + mberPid + ''
+            };
+            $.ajax({
+                type: 'post',
+                url: '/api/soulGod/mngMenuAuth/authList',
+                contentType: "application/json",
+                data: JSON.stringify(jsonData),
+                datatype: 'json',
+                success: function (data) {
+                    $("input[name=menuPid]").prop('checked', false);
+                    for (var i = 0; i < data.length; i++) {
+                        var menuPid = data[i].menuPid;
+                        $('#tr_menu').find($('input[id=menuPid_' + menuPid + ']:checkbox')).prop('checked', true);
+                    }
+                }
+            });
+        }
+
+        function fn_chkSave(menuPid) {
+
+            var mberPid = $('#mberPid');
+            if (isNaN(parseInt(mberPid.val())) == true || mberPid.val() == '') {
+                alert('사용자을 선택해주세요!');
+                $('#tr_menu').find($('input[id=menuPid_' + menuPid + ']:checkbox')).attr('checked', false);
+                return false;
+            }
+
+            var confmAt = $('input[id=menuPid_' + menuPid + ']:checkbox').is(':checked') ? 'Y' : 'N';
+
+            var jsonData = {
+                'menuPid': '' + menuPid + ''
+                , 'mberPid': '' + mberPid.val() + ''
+                , 'confmAt': '' + confmAt + ''
+            };
+            $.ajax({
+                type: 'post',
+                url: '/api/soulGod/mngMenuAuth/authSave',
+                contentType: "application/json",
+                data: JSON.stringify(jsonData),
+                datatype: 'text',
+                success: function (data) {
+                    if (data === 'ok') {
+                        /*alert('정상 처리 되었습니다.');
+                        fn_select();*/
+                    } else {
+                        alert('실패되었습니다 관리자에게 문의 하세요');
+                    }
+                }
+            });
+        }
+
+        function fn_allSave() {
+
+            var mberPid = $('#mberPid');
+
+            if (isNaN(parseInt(mberPid.val())) == true || mberPid.val() == '') {
+                alert('사용자을 선택해주세요!');
+                //$('#tr_menu').find($('input[id=menuPid_' + menuPid + ']:checkbox')).attr('checked', false);
+                return false;
+            }
+
+            var jsonData = {
+                'mberPid': '' + mberPid.val() + ''
+            };
+            $.ajax({
+                type: 'post',
+                url: '/api/soulGod/mngMenuAuth/authAllSave',
+                contentType: "application/json",
+                data: JSON.stringify(jsonData),
+                datatype: 'text',
+                success: function (data) {
+                    if (data === 'ok') {
+                        $('#tr_menu input[type=checkbox]').prop('checked', true)
+                    } else {
+                        alert('실패되었습니다 관리자에게 문의 하세요');
+                    }
+                }
+            });
+        }
+
+        function fn_allDelete() {
+
+            var mberPid = $('#mberPid');
+
+            if (isNaN(parseInt(mberPid.val())) == true || mberPid.val() == '') {
+                alert('사용자을 선택해주세요!');
+                //$('#tr_menu').find($('input[id=menuPid_' + menuPid.val() + ']:checkbox')).attr('checked', false);
+                return false;
+            }
+
+            var jsonData = {
+                'mberPid': '' + mberPid.val() + ''
+            };
+            $.ajax({
+                type: 'post',
+                url: '/api/soulGod/mngMenuAuth/authAllDelete',
+                contentType: "application/json",
+                data: JSON.stringify(jsonData),
+                datatype: 'text',
+                success: function (data) {
+                    if (data === 'ok') {
+                        $('#tr_menu input[type=checkbox]').prop('checked', false)
+                    } else {
+                        alert('실패되었습니다 관리자에게 문의 하세요');
+                    }
+                }
+            });
+        }
+
+
+        function fn_reset() {
+            $('#mberPid').val('');
+            $('#tr_menu').find($('input[name=menuPid]:checkbox')).attr('checked', false);
+        }
+
+        function fn_search() {
+            var frm = $('#form1');
+            frm.prop('action', '/soulGod/mngMenuAuth/list');
+            frm.submit();
+        }
+
+        //----------- page load
+        $(function () {
+            fn_reset();
+
+            //전체 선택
+            $('.btn_chk_true').on('click', function () {
+                //$('#tr_menu input[type=checkbox]').prop('checked', true);
+                fn_allSave();
+            });
+            //선택 해제
+            $('.btn_chk_false').on('click', function () {
+                // $('#tr_menu input[type=checkbox]').prop('checked', false)
+                fn_allDelete();
+            });
+        })
+    </script>
+</head>
+<body>
+<div id="wrap">
+    <th:block th:include="soulGod/fragments/menu"></th:block>
+
+    <div id="container">
+        <div class="container_box">
+            <form id="form1" name="form1" method="post">
+                <input type="hidden" id="mberPid" name="mberPid"/>
+                <div class="contents">
+
+                    <ul class="breadcrumb">
+                        <li><i class="material-icons">home</i></li>
+                        <li>시스템관리</li>
+                        <li>메뉴권한관리</li>
+                    </ul>
+
+                    <div class="board_detail clearfix">
+                        <div class="fl">
+                            <div class="sec">
+                                <div class="board_top clearfix">
+                                    <div class="fl">
+                                        <h4 class="sec_tit">메뉴권한 그룹 및 사용자</h4>
+                                    </div>
+                                    <div class="fr">
+                                        <!--<a href="javascript:;" class="btn btn_sm btn_lightgray" onclick="fn_openAll(capabilityCodeTree, codeList);"><i class="material-icons">add_circle</i>전체 펼치기</a>
+                                        <a href="javascript:;" class="btn btn_sm btn_lightgray" onclick="fn_closeAll(capabilityCodeTree, codeList);"><i class="material-icons">remove_circle</i>전체 닫기</a>-->
+                                    </div>
+                                </div>
+
+                                <table class="tbl_list tbl_chk">
+                                    <caption>사용자 현황</caption>
+                                    <colgroup>
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">회원ID</th>
+                                        <th scope="col">회원명</th>
+                                        <th scope="col">등록일자</th>
+                                        <th scope="col">사용권한</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:id="|tr_member_${item.id}|" th:each="item:${members}" style="cursor: pointer">
+                                        <td th:text="${item.loginId}"></td>
+                                        <td>
+                                            <a href="#" th:onclick="|fn_select(${item.id})|">
+                                                <b th:text="${item.nm}"></b>
+                                            </a>
+                                        </td>
+                                        <td th:text="${#temporals.format(item.regDtm, 'yyyy-MM-dd')}"></td>
+                                        <td th:text="${T(kr.or.btf.web.domain.web.enums.UserRollType).valueOf(item.mberDvTy).getName()}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="fr">
+                            <div class="sec">
+                                <h4 class="sec_tit">권한메뉴 현황</h4>
+                                <div class="board_top clearfix">
+                                    <div class="fl">
+                                        <div class="total_num">총 <b th:text="${mngMenus eq null ? 0 : mngMenus.size()}">2</b>
+                                            개 메뉴
+                                        </div>
+                                    </div>
+                                    <div class="fr">
+                                        <a href="#" class="btn btn_sm btn_lightgray btn_chk_true">
+                                            <i class="material-icons">check_box</i>전체 선택
+                                        </a>
+                                        <a href="#" class="btn btn_sm btn_lightgray btn_chk_false">
+                                            <i class="material-icons">check_box_outline_blank</i>선택 해제
+                                        </a>
+                                        <!--<a href="javascript:;" class="btn btn_sm btn_blue" onclick="fn_allSave()">
+                                            <i class="material-icons fz17">done</i>메뉴권한 저장
+                                        </a>-->
+                                    </div>
+                                </div>
+                                <table class="tbl_list tbl_chk">
+                                    <caption>권한메뉴 현황</caption>
+                                    <colgroup>
+                                        <!--<col style="width:20%" />
+                                        <col style="width:auto" />
+                                        <col style="width:10%" />
+                                        <col style="width:10%" />-->
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">
+                                            <select id="srch_menu_group_id" name="srch_menu_group_id"
+                                                    onchange="fn_search();" class="w120">
+                                                <option value="" selected>전체</option>
+                                                <option th:each="item : ${menuGroupCodes}"
+                                                        th:value="${item.id}" th:text="${item.codeNm}"></option>
+                                            </select>
+                                            <!--												th:selected="${item.id eq srch_menu_group_id ? true : false}"-->
+                                        </th>
+                                        <th scope="col">메뉴명</th>
+                                        <th scope="col">새창여부</th>
+                                        <th scope="col">사용권한</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="tr_menu">
+                                    <!-- 등록된 데이터가 없을 때만 노출 : s -->
+                                    <tr th:if="${mngMenus == null or mngMenus.isEmpty()}">
+                                        <td colspan="4">등록된 정보 없습니다.</td>
+                                    </tr>
+                                    <!-- 등록된 이벤트가 없을 때만 노출 : e -->
+                                    <tr th:each="item:${mngMenus}">
+
+                                        <td th:text="${item.menuGroupNm}"></td>
+                                        <td th:text="${item.menuNm}"></td>
+                                        <td th:text="${item.newwinAt}"></td>
+                                        <td>
+                                            <div class="checkbox">
+                                                <input type="checkbox" th:id="|menuPid_${item.id}|" name="menuPid"
+                                                       th:value="${item.id}"
+                                                       th:onclick="|return fn_chkSave(${item.id})|"/>
+                                                <label th:for="|menuPid_${item.id}|"><span
+                                                        class="blind">선택</span></label>
+                                            </div>
+                                        </td>
+                                    <tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <th:block th:replace="soulGod/fragments/footer"></th:block>
+    </div>
+</div>
+</body>
+</html>

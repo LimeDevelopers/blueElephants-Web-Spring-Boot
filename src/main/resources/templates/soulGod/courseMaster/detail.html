@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="soulGod/fragments/header"></th:block>
+    <script type="text/javascript">
+        ////-------- page load
+        $(function () {
+        });
+
+        function fn_courseTasteInsert(){
+            var crsPid = $('input[name$=tasteExPid]:radio:checked').val();
+            var crsMstPid = $('#id').val();
+            var sn = $('#sn').val();
+
+            if ($('input[name$=tasteExPid]:radio:checked').length == 0) {
+                alert('선택된 맛보기 강좌가 없습니다.');
+                return false;
+            }
+
+            if (!confirm('저장하시겠습니까?')) {
+                return false;
+            }
+
+            var jsonData = {
+                'crsPid' : crsPid,
+                'crsMstPid' : crsMstPid,
+                'sn' : sn
+            }
+
+            $.ajax({
+                type : 'post',
+                url : '/api/soulGod/courseMster/courseRegister',
+                contentType: "application/json",
+                data: JSON.stringify(jsonData),
+                datatype : 'json',
+                success : function(data) {
+                    if (data === 'ok') {
+                        location.reload();
+                    } else {
+                        alert('실패되었습니다 관리자에게 문의 하세요');
+                    }
+                },
+                error : function(error) {
+                    //alert('save error!!!');
+                    alert('error::' + error.statusText);
+                }
+            });
+        }
+
+        function fn_courseInsert(){
+            var crsPid = $('input[name$=crsPid]:radio:checked').val();
+            var crsMstPid = $('#id').val();
+            var sn = $('#sn').val();
+
+            if ($('input[name$=crsPid]:radio:checked').length == 0) {
+                alert('선택된 과정이 없습니다.');
+                return false;
+            }
+
+            if (!confirm('저장하시겠습니까?')) {
+                return false;
+            }
+
+            var jsonData = {
+                'crsPid' : crsPid,
+                'crsMstPid' : crsMstPid,
+                'sn' : sn
+            }
+
+            $.ajax({
+                type : 'post',
+                url : '/api/soulGod/courseMster/courseRegister',
+                contentType: "application/json",
+                data: JSON.stringify(jsonData),
+                datatype : 'json',
+                success : function(data) {
+                    if (data === 'ok') {
+                        location.reload();
+                    } else {
+                        alert('실패되었습니다 관리자에게 문의 하세요');
+                    }
+                },
+                error : function(error) {
+                    //alert('save error!!!');
+                    alert('error::' + error.statusText);
+                }
+            });
+        }
+
+        function fn_surveyInsert(){
+            var crsPid = $('input[name$=qustnrPid]:radio:checked').val();
+            var crsMstPid = $('#id').val();
+            var sn = $('#sn').val();
+
+            if ($('input[name$=qustnrPid]:radio:checked').length == 0) {
+                alert('선택된 설문이 없습니다.');
+                return false;
+            }
+
+            if (!confirm('저장하시겠습니까?')) {
+                return false;
+            }
+
+            var jsonData = {
+                'crsPid' : crsPid,
+                'crsMstPid' : crsMstPid,
+                'sn' : sn
+            }
+
+            $.ajax({
+                type : 'post',
+                url : '/api/soulGod/courseMster/courseRegister',
+                contentType: "application/json",
+                data: JSON.stringify(jsonData),
+                datatype : 'json',
+                success : function(data) {
+                    if (data === 'ok') {
+                        location.reload();
+                    } else {
+                        alert('실패되었습니다 관리자에게 문의 하세요');
+                    }
+                },
+                error : function(error) {
+                    //alert('save error!!!');
+                    alert('error::' + error.statusText);
+                }
+            });
+        }
+
+        function fn_inspectionInsert(){
+            var crsPid = $('input[name$=inspctPid]:radio:checked').val();
+            var crsMstPid = $('#id').val();
+            var sn = $('#sn').val();
+
+            if ($('input[name$=inspctPid]:radio:checked').length == 0) {
+                alert('선택된 검사가 없습니다.');
+                return false;
+            }
+
+            if (!confirm('저장하시겠습니까?')) {
+                return false;
+            }
+
+            var jsonData = {
+                'crsPid' : crsPid,
+                'crsMstPid' : crsMstPid,
+                'sn' : sn
+            }
+
+            $.ajax({
+                type : 'post',
+                url : '/api/soulGod/courseMster/inspectionRegister',
+                contentType: "application/json",
+                data: JSON.stringify(jsonData),
+                datatype : 'json',
+                success : function(data) {
+                    if (data === 'ok') {
+                        location.reload();
+                    } else {
+                        alert('실패되었습니다 관리자에게 문의 하세요');
+                    }
+                },
+                error : function(error) {
+                    //alert('save error!!!');
+                    alert('error::' + error.statusText);
+                }
+            });
+        }
+
+        function fn_courseTasteSearch(sn){
+
+            var jsonData = {
+
+            };
+            $.ajax({
+                type: 'post',
+                url: '/api/courseMaster/courseTasteList',
+                contentType: "application/json",
+                data: JSON.stringify(jsonData),
+                datatype: 'json',
+                success: function (obj) {
+                    var courseTasteList = obj.content;
+                    var html = "";
+                    if (courseTasteList.length == 0) {
+                        html += '<tr><td colspan="4">등록된 정보 없습니다.</td></tr>';
+                    } else {
+                        for (var i = 0; i < courseTasteList.length; i++) {
+                            var courseTaste = courseTasteList[i];
+
+                            html += '<tr>' +
+                                '<td><div class="radio">' +
+                                '<input type="radio" id="courseTaste_' + courseTaste.id + '" name="tasteExPid" value="' + courseTaste.id + '" />' +
+                                '<label for="courseTaste_' + courseTaste.id + '"></label></div></td>' +
+                                '<td>' + courseTaste.ttl + '</td></tr>';
+                        }
+                    }
+                    $('#popCourseTasteList').html(html);
+                    $('#sn').val(sn);
+                    layerShow('courseTaste');
+                }
+            });
+        }
+
+        function fn_courseSearch(sn){
+
+            var jsonData = {
+
+            };
+            $.ajax({
+                type: 'post',
+                url: '/api/courseMaster/courseList',
+                contentType: "application/json",
+                data: JSON.stringify(jsonData),
+                datatype: 'json',
+                success: function (obj) {
+                    var courseList = obj.content;
+                    var html = "";
+                    if (courseList.length == 0) {
+                        html += '<tr><td colspan="4">등록된 정보 없습니다.</td></tr>';
+                    } else {
+                        for (var i = 0; i < courseList.length; i++) {
+                            var course = courseList[i];
+
+                            html += '<tr>' +
+                                '<td><div class="radio">' +
+                                '<input type="radio" id="corse_' + course.id + '" name="crsPid" value="' + course.id + '" />' +
+                                '<label for="corse_' + course.id + '"></label></div></td>' +
+                                '<td>' + course.stepTyNm + '</td>' +
+                                '<td>' + course.mberDvTyNm + '</td>' +
+                                '<td>' + course.crsNm + '</td></tr>';
+                        }
+                    }
+                    $('#popCourseList').html(html);
+                    $('#sn').val(sn);
+                    layerShow('course');
+                }
+            });
+        }
+
+        function fn_surveySearch(sn){
+
+            var jsonData = {
+
+            };
+            $.ajax({
+                type: 'post',
+                url: '/api/courseMaster/surveyList',
+                contentType: "application/json",
+                data: JSON.stringify(jsonData),
+                datatype: 'json',
+                success: function (obj) {
+                    var surveyList = obj.content;
+                    var html = "";
+                    if (surveyList.length == 0) {
+                        html += '<tr><td colspan="4">등록된 정보 없습니다.</td></tr>';
+                    } else {
+                        for (var i = 0; i < surveyList.length; i++) {
+                            var survey = surveyList[i];
+
+                            html += '<tr>' +
+                                '<td><div class="radio">' +
+                                '<input type="radio" id="survey_' + survey.id + '" name="qustnrPid" value="' + survey.id + '" />' +
+                                '<label for="survey_' + survey.id + '"></label></div></td>' +
+                                '<td>' + survey.dvTyNm + '</td>' +
+                                '<td>' + survey.mberDvTyNm + '</td>' +
+                                '<td>' + survey.ttl + '</td></tr>';
+                        }
+                    }
+                    $('#popSurveyList').html(html);
+                    $('#sn').val(sn);
+                    layerShow('survey');
+                }
+            });
+        }
+
+        function fn_inspectionSearch(sn){
+
+            var jsonData = {
+
+            };
+            $.ajax({
+                type: 'post',
+                url: '/api/courseMaster/inspectionList',
+                contentType: "application/json",
+                data: JSON.stringify(jsonData),
+                datatype: 'json',
+                success: function (obj) {
+                    var inspectionList = obj.content;
+                    var html = "";
+                    if (inspectionList.length == 0) {
+                        html += '<tr><td colspan="4">등록된 정보 없습니다.</td></tr>';
+                    } else {
+                        for (var i = 0; i < inspectionList.length; i++) {
+                            var inspection = inspectionList[i];
+
+                            html += '<tr>' +
+                                '<td><div class="radio">' +
+                                '<input type="radio" id="inspection_' + inspection.id + '" name="inspctPid" value="' + inspection.id + '" />' +
+                                '<label for="inspection_' + inspection.id + '"></label></div></td>' +
+                                '<td>' + inspection.mberDvTyNm + '</td>' +
+                                '<td>' + inspection.ttl + '</td></tr>';
+                        }
+                    }
+                    $('#popInspectionList').html(html);
+                    $('#sn').val(sn);
+                    layerShow('inspection');
+                }
+            });
+        }
+
+        function fn_delete(crsMstPid,sn) {
+            var requestCnt = $('#requestCnt').val();
+
+            if (requestCnt > 0) {
+                alert('과정마스터에 수강신청한 유저가 있을 경우 삭제할 수 없습니다.')
+                return false;
+            }
+
+            if (!confirm('삭제하시겠습니까?')) {
+                return false;
+            }
+
+            var jsonData = {
+                'crsMstPid' : crsMstPid,
+                'sn' : sn
+            };
+            $.ajax({
+                type: 'post',
+                url: '/api/courseMaster/item/delete',
+                contentType: "application/json",
+                data: JSON.stringify(jsonData),
+                datatype: 'json',
+                success : function(data) {
+                    if (data === 'ok') {
+                        location.reload();
+                    } else {
+                        alert('실패되었습니다 관리자에게 문의 하세요');
+                    }
+                },
+                error : function(error) {
+                    //alert('save error!!!');
+                    alert('error::' + error.statusText);
+                }
+            });
+        }
+
+    </script>
+</head>
+<body>
+<div id="wrap">
+    <th:block th:include="soulGod/fragments/menu"></th:block>
+
+    <div id="container">
+        <div class="container_box">
+            <form id="form1" name="form1" method="post" enctype="multipart/form-data" th:object="${form}">
+                <input type="hidden" th:field="*{id}"/>
+                <input type="hidden" id="sn" name="sn"/>
+                <input type="hidden" id="requestCnt" th:value="${requestCnt}"/>
+                <div class="contents">
+
+                    <ul class="breadcrumb">
+                        <li><i class="material-icons">home</i></li>
+                        <li>교육관리</li>
+                        <li>과정마스터관리</li>
+                    </ul>
+
+                    <div class="board_detail clearfix">
+                        <div class="sec">
+                            <div class="board_top clearfix">
+                                <div class="fl">
+                                    <h4 class="sec_tit">상세정보</h4>
+                                </div>
+                            </div>
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${message}">
+                                <strong><input type="text" th:field="${message}">message!</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <table class="tbl_write">
+                                <colgroup>
+                                    <col style="width:10%"/>
+                                    <col style="width:auto"/>
+                                </colgroup>
+                                <tbody>
+                                <tr>
+                                    <th scope="row"><label>마스터명</label></th>
+                                    <td th:text="*{crsNm}"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>대상</label></th>
+                                    <td th:text="*{T(kr.or.btf.web.domain.web.enums.MberDvType).valueOf(mberDvTy).getName()}"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>내용</label></th>
+                                    <td>
+                                        <div class="scrollbar h100 editor"
+                                             th:utext="*{#strings.replace(crsCn, T(System).getProperty('line.separator'), '&lt;br /&gt;')}">
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>대표이미지</label></th>
+                                    <td>
+                                        <div class="file_form" th:if="*{imgFl ne null}">
+                                            <p class="file">
+                                                <span th:text="*{imgFl}"></span>
+                                                <a th:href="${filePath+'/'+ form.imgFl}" class="btn_down" download><span class="blind">다운로드</span></a>
+                                            </p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>게시여부</label></th>
+                                    <td>
+                                        <th:block th:if="*{openAt eq 'Y'}">게시</th:block>
+                                        <th:block th:unless="*{openAt eq 'Y'}">미게시</th:block>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="btn_area">
+                                <a class="btn btn_sm btn_blue"th:href="|/soulGod/courseMaster/modify/*{id}|">
+                                    <i class="material-icons fz17">done</i>수정
+                                </a>
+                                <a class="btn btn_sm btn_lightgray" href="/soulGod/courseMaster/list">
+                                    <i class="material-icons">list</i>목록
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="sec">
+                            <div class="board_top clearfix">
+                                <div class="fl">
+                                    <h4 class="sec_tit">강좌/설문 정보</h4>
+                                </div>
+                                <!--<div class="fr">
+                                    <a href="#" onclick="return fn_itemRegister();" class="btn btn_sm btn_blue">
+                                        <i class="material-icons mt0">add</i>강좌 추가
+                                    </a>
+                                </div>-->
+                            </div>
+                            <div class="board_detail clearfix">
+                                <table class="tbl_list" id="resultList">
+                                    <colgroup>
+                                        <col style="width: auto"/>
+                                        <col style="width: auto"/>
+                                        <col style="width: auto"/>
+                                        <col style="width: auto"/>
+                                        <col style="width: auto"/>
+                                        <col style="width: auto"/>
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th>맛보기강좌</th>
+                                        <th>사전검사</th>
+                                        <th>사전강좌</th>
+                                        <th>현장강좌</th>
+                                        <th>사후강좌</th>
+                                        <th>사후검사</th>
+                                        <th>만족도조사</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <th:block th:if="${master1 ne null}">
+                                                <div class="file_form" style="padding-right:0px">
+                                                    <p class="file">
+                                                        <span th:text="${master1.pidNm}">첨부파일.txt</span>
+                                                        <a href="javascript:;" class="btn_del" th:onclick="|fn_delete(${master1.crsMstPid}, 1);|">
+                                                            <span class="blind">삭제</span>
+                                                        </a>
+                                                    </p>
+                                                </div>
+                                            </th:block>
+                                            <th:block th:unless="${master1 ne null}">
+                                                <a href="#" onclick="return fn_courseTasteSearch(1)" class="btn btn_sm btn_blue">
+                                                    <i class="material-icons mt0">add</i>맛보기추가
+                                                </a>
+                                            </th:block>
+                                        </td>
+                                        <td>
+                                            <th:block th:if="${master2 ne null}">
+                                                <div class="file_form" style="padding-right:0px">
+                                                    <p class="file">
+                                                        <span th:text="${master2.pidNm}">첨부파일.txt</span>
+                                                        <a href="javascript:;" class="btn_del" th:onclick="|fn_delete(${master2.crsMstPid}, 2);|">
+                                                            <span class="blind">삭제</span>
+                                                        </a>
+                                                    </p>
+                                                </div>
+                                            </th:block>
+                                            <th:block th:unless="${master2 ne null}">
+                                                <a href="#" onclick="return fn_inspectionSearch(2)" class="btn btn_sm btn_blue">
+                                                    <i class="material-icons mt0">add</i>사전검사추가
+                                                </a>
+                                            </th:block>
+                                        </td>
+                                        <td>
+                                            <th:block th:if="${master3 ne null}">
+                                                <div class="file_form" style="padding-right:0px">
+                                                    <p class="file">
+                                                        <span th:text="${master3.pidNm}">첨부파일.txt</span>
+                                                        <a href="javascript:;" class="btn_del" th:onclick="|fn_delete(${master3.crsMstPid}, 3);|">
+                                                            <span class="blind">삭제</span>
+                                                        </a>
+                                                    </p>
+                                                </div>
+                                            </th:block>
+                                            <th:block th:unless="${master3 ne null}">
+                                                <a href="#" onclick="return fn_courseSearch(3)" class="btn btn_sm btn_blue">
+                                                    <i class="material-icons mt0">add</i>사전교육추가
+                                                </a>
+                                            </th:block>
+                                        </td>
+                                        <td>
+                                            <th:block th:if="${master4 ne null}">
+                                                <div class="file_form" style="padding-right:0px">
+                                                    <p class="file">
+                                                        <span th:text="${master4.pidNm}">첨부파일.txt</span>
+                                                        <a href="javascript:;" class="btn_del" th:onclick="|fn_delete(${master4.crsMstPid}, 4);|">
+                                                            <span class="blind">삭제</span>
+                                                        </a>
+                                                    </p>
+                                                </div>
+                                            </th:block>
+                                            <th:block th:unless="${master4 ne null}">
+                                                <a href="#" onclick="return fn_courseSearch(4)" class="btn btn_sm btn_blue">
+                                                    <i class="material-icons mt0">add</i>현장교육추가
+                                                </a>
+                                            </th:block>
+                                        </td>
+                                        <td>
+                                            <th:block th:if="${master5 ne null}">
+                                                <div class="file_form" style="padding-right:0px">
+                                                    <p class="file">
+                                                        <span th:text="${master5.pidNm}">첨부파일.txt</span>
+                                                        <a href="javascript:;" class="btn_del" th:onclick="|fn_delete(${master5.crsMstPid}, 5);|">
+                                                            <span class="blind">삭제</span>
+                                                        </a>
+                                                    </p>
+                                                </div>
+                                            </th:block>
+                                            <th:block th:unless="${master5 ne null}">
+                                                <a href="#" onclick="return fn_courseSearch(5)" class="btn btn_sm btn_blue">
+                                                    <i class="material-icons mt0">add</i>사후교육추가
+                                                </a>
+                                            </th:block>
+                                        </td>
+                                        <td>
+                                            <th:block th:if="${master6 ne null}">
+                                                <div class="file_form" style="padding-right:0px">
+                                                    <p class="file">
+                                                        <span th:text="${master6.pidNm}">첨부파일.txt</span>
+                                                        <a href="javascript:;" class="btn_del" th:onclick="|fn_delete(${master6.crsMstPid}, 6);|">
+                                                            <span class="blind">삭제</span>
+                                                        </a>
+                                                    </p>
+                                                </div>
+                                            </th:block>
+                                            <th:block th:unless="${master6 ne null}">
+                                                <a href="#" onclick="return fn_inspectionSearch(6)" class="btn btn_sm btn_blue">
+                                                    <i class="material-icons mt0">add</i>사후검사추가
+                                                </a>
+                                            </th:block>
+                                        </td>
+                                        <td>
+                                            <th:block th:if="${master7 ne null}">
+                                                <div class="file_form" style="padding-right:0px">
+                                                    <p class="file">
+                                                        <span th:text="${master7.pidNm}">첨부파일.txt</span>
+                                                        <a href="javascript:;" class="btn_del" th:onclick="|fn_delete(${master7.crsMstPid}, 6);|">
+                                                            <span class="blind">삭제</span>
+                                                        </a>
+                                                    </p>
+                                                </div>
+                                            </th:block>
+                                            <th:block th:unless="${master7 ne null}">
+                                                <a href="#" onclick="return fn_surveySearch(7)" class="btn btn_sm btn_blue">
+                                                    <i class="material-icons mt0">add</i>만족도조사추가
+                                                </a>
+                                            </th:block>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="courseTaste" class="pop_layer" style="height:500px">
+                    <button type="button" class="btn_close" onclick="layerHide('courseTaste')"><span class="blind">팝업 닫기</span></button>
+                    <div class="popup">
+                        <strong class="pop_tit">맛보기강좌 리스트</strong>
+                        <div class="pop_cont">
+                            <table class="tbl_list">
+                                <caption>맛보기강좌 리스트</caption>
+                                <colgroup>
+                                    <col style="width:10%" />
+                                    <col style="width:auto" />
+                                </colgroup>
+                                <thead>
+                                <th>선택</th>
+                                <th>과정명</th>
+                                </thead>
+                                <tbody id="popCourseTasteList">
+                                </tbody>
+                            </table>
+                            <div class="pagination_area">
+                                <div class="pagination clearfix" id="popCourseTastePaging">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pop_btn_area">
+                            <a href="#" onclick="return fn_courseTasteInsert()" class="btn btn_sm btn_blue w60">
+                                <i class="material-icons">add</i>저장
+                            </a>
+                            <a href="javascript:;" class="btn btn_sm btn_lightgray w60" onclick="layerHide('courseTaste')">나가기
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="inspection" class="pop_layer" style="height:500px">
+                    <button type="button" class="btn_close" onclick="layerHide('inspection')"><span class="blind">팝업 닫기</span></button>
+                    <div class="popup">
+                        <strong class="pop_tit">유효성검사 리스트</strong>
+                        <div class="pop_cont">
+                            <table class="tbl_list">
+                                <caption>유효성검사 리스트</caption>
+                                <colgroup>
+                                    <col style="width:10%" />
+                                    <col style="width:10%" />
+                                    <col style="width:auto" />
+                                </colgroup>
+                                <thead>
+                                <th>선택</th>
+                                <th>대상</th>
+                                <th>검사명</th>
+                                </thead>
+                                <tbody id="popInspectionList">
+                                </tbody>
+                            </table>
+                            <div class="pagination_area">
+                                <div class="pagination clearfix" id="popInspectionPaging">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pop_btn_area">
+                            <a href="#" onclick="return fn_inspectionInsert()" class="btn btn_sm btn_blue w60">
+                                <i class="material-icons">add</i>저장
+                            </a>
+                            <a href="javascript:;" class="btn btn_sm btn_lightgray w60" onclick="layerHide('inspection')">나가기
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="course" class="pop_layer" style="height:500px">
+                    <button type="button" class="btn_close" onclick="layerHide('course')"><span class="blind">팝업 닫기</span></button>
+                    <div class="popup">
+                        <strong class="pop_tit">과정리스트</strong>
+                        <div class="pop_cont">
+                            <table class="tbl_list">
+                                <caption>과정리스트</caption>
+                                <colgroup>
+                                    <col style="width:10%" />
+                                    <col style="width:15%" />
+                                    <col style="width:15%" />
+                                    <col style="width:auto" />
+                                </colgroup>
+                                <thead>
+                                <th>선택</th>
+                                <th>단계</th>
+                                <th>대상</th>
+                                <th>과정명</th>
+                                </thead>
+                                <tbody id="popCourseList">
+                                </tbody>
+                            </table>
+                            <div class="pagination_area">
+                                <div class="pagination clearfix" id="popCoursePaging">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pop_btn_area">
+                            <a href="#" onclick="return fn_courseInsert()" class="btn btn_sm btn_blue w60">
+                                <i class="material-icons">add</i>저장
+                            </a>
+                            <a href="javascript:;" class="btn btn_sm btn_lightgray w60" onclick="layerHide('course')">나가기
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div id="survey" class="pop_layer" style="height:500px">
+                    <button type="button" class="btn_close" onclick="layerHide('survey')"><span class="blind">팝업 닫기</span></button>
+                    <div class="popup">
+                        <strong class="pop_tit">설문리스트</strong>
+                        <div class="pop_cont">
+                            <table class="tbl_list">
+                                <caption>설문리스트</caption>
+                                <colgroup>
+                                    <col style="width:10%" />
+                                    <col style="width:15%" />
+                                    <col style="width:15%" />
+                                    <col style="width:auto" />
+                                </colgroup>
+                                <thead>
+                                <th>선택</th>
+                                <th>구분</th>
+                                <th>대상</th>
+                                <th>설문명</th>
+                                </thead>
+                                <tbody id="popSurveyList">
+                                </tbody>
+                            </table>
+                            <div class="pagination_area">
+                                <div class="pagination clearfix" id="popSurveyPaging">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pop_btn_area">
+                            <a href="#" onclick="return fn_surveyInsert();" class="btn btn_sm btn_blue w60">
+                                <i class="material-icons">add</i>저장
+                            </a>
+                            <a href="javascript:;" class="btn btn_sm btn_lightgray w60" onclick="layerHide('survey')">나가기
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <th:block th:replace="soulGod/fragments/footer"></th:block>
+</div>
+</body>
+</html>

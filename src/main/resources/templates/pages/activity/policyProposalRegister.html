@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+    <script type="text/javascript">
+        $(function () {
+            $('#sntncHead').change();
+        });
+        function fn_policyProposalSave() {
+            var ttl = $('#ttl');
+            var cn = $('#cn');
+
+            if(!$.trim(ttl.val())){
+                alert("제목을 입력하세요.");
+                ttl.focus();
+                return false;
+            }
+
+            if(!$.trim(cn.val())){
+                alert("내용을 입력하세요.");
+                cn.focus();
+                return false;
+            }
+
+            var frm = $('#form1');
+            frm.prop("action", "/api/policyProposal/register");
+            frm.submit();
+        }
+
+        function fn_policyProposalDelete() {
+            if (!confirm('삭제하시겠습니까?')) {
+                return false;
+            }
+            var frm = $('#form1');
+            frm.prop('action', '/api/board/delete');
+            frm.submit();
+        }
+    </script>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+
+        <form id="form1" name="form1" method="post" enctype="multipart/form-data" th:object="${form}">
+            <input type="hidden" id="mstPid" name="mstPid" th:value="${mstPid}">
+            <input type="hidden" th:field="*{id}">
+            <div class="contents">
+                <div class="page_top pc">
+                    <h3 class="page_tit">제안</h3>
+                    <span>연구결과를 바탕으로 국내법 개정과 정책 입안을 이끌어 갑니다.</span>
+                </div>
+                <div class="page_cont">
+                    <div class="tab_ico_area">
+                        <a href="javascript:;" class="tit">정책제안</a>
+                        <ul class="tab_type_ico">
+                            <li class="proposal active">
+                                <a href="/pages/activity/policyProposal">정책제안</a>
+                            </li>
+                            <li class="contest">
+                                <a href="/pages/activity/contest">공모전</a>
+                            </li>
+                        </ul>
+                        <p class="mo_page_txt">연구결과를 바탕으로 국내법 개정과 정책 입안을 이끌어 갑니다.</p>
+                        <div class="tab_cont mo_thumb">
+                            <div class="cont proposal active">
+                                <div class="thumb">
+                                    <p>정책제안</p>
+                                </div>
+                                <dl class="desc">
+                                    <dt>목표: 사이버폭력예방 및 대응 제안 정책 도입</dt>
+                                    <dd>기타: 학교폭력 예방 및 대책에 관한 법률 기반 - 사이버폭력 법적 정의, 사이버폭력 예방 교육 명시, <br class="pc" />사이버폭력 대응 예산 수립, 국내외 우수사례 적용</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                    <h4 class="subtit pc">정책제안 글쓰기</h4>
+                    <div class="detail_cont">
+                        <div class="tbl_write">
+                            <ul>
+                                <li>
+                                    <div class="th"><label th:for="*{sntncHead}">말머리구분</label></div>
+                                    <div class="td">
+                                        <div class="select w160">
+                                            <label th:for="*{sntncHead}">선택</label>
+                                            <select th:field="*{sntncHead}">
+                                                <option value="">선택</option>
+                                                <option th:each="item: ${#strings.arraySplit(boardMaster.sntncHead,',')}"
+                                                        th:text="${item}" th:value="${item}"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+<!--                                    <div class="select w160">-->
+<!--                                        <label th:for="sorting">-->
+<!--                                            <th:block th:if="*{sorting eq 'latest' or sorting eq null}">최신순</th:block>-->
+<!--                                            <th:block th:if="*{sorting eq 'alphabetically'}">가나다순</th:block>-->
+<!--                                            <th:block th:if="*{sorting eq 'old'}">오래된순</th:block>-->
+<!--                                            <th:block th:if="*{sorting eq 'readCnt'}">조회순</th:block>-->
+<!--                                        </label>-->
+<!--                                        <select th:field="*{sorting}">-->
+<!--                                            <option value="latest" selected>최신순</option>-->
+<!--                                            <option value="alphabetically">가나다순</option>-->
+<!--                                            <option value="old">오래된순</option>-->
+<!--                                            <option value="readCnt">조회순</option>-->
+<!--                                        </select>-->
+<!--                                    </div>-->
+<!--                                    <div class="select w160">-->
+<!--                                        <label th:for="srchField">-->
+<!--                                            <th:block th:if="*{srchField eq '' or srchField eq null}">전체</th:block>-->
+<!--                                            <th:block th:if="*{srchField eq 'title'}">제목</th:block>-->
+<!--                                            <th:block th:if="*{srchField eq 'cn'}">내용</th:block>-->
+<!--                                        </label>-->
+<!--                                        <select th:field="*{srchField}">-->
+<!--                                            <option value="" selected>전체</option>-->
+<!--                                            <option value="title">제목</option>-->
+<!--                                            <option value="cn">내용</option>-->
+<!--                                        </select>-->
+<!--                                    </div>-->
+                                </li>
+                                <li>
+                                    <div class="th"><label th:for="*{ttl}">제목</label><span class="aster">*</span></div>
+                                    <div class="td">
+                                        <input type="text" th:field="*{ttl}" />
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="th"><label th:for="*{cn}">내용</label><span class="aster">*</span></div>
+                                    <div class="td">
+                                        <textarea th:field="*{cn}" class="h170"></textarea>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="th">첨부파일</div>
+                                    <div class="td">
+                                        <div class="file_form clearfix">
+                                            <div class="file_name" th:text="${fileList.isEmpty() ? '첨부파일 등록' : fileList[0].flNm}">첨부파일 등록</div>
+                                            <input type="file" name="attachedFile" id="attachedFile" onchange="uploadChange(this)" th:accept="${allAccept}"/>
+                                            <label for="attachedFile">찾아보기</label>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="btn_area btn_num02">
+                        <a href="javascript:;" onclick="fn_policyProposalSave()" class="btn btn_lg btn_blue btn_pill_10">저장</a>
+                        <a th:if="*{id ne null}" onclick="fn_policyProposalDelete()" href="javascript:;"  class="btn btn_lg btn_blue btn_pill_10">삭제</a>
+                        <a href="/pages/activity/policyProposal" class="btn btn_lg btn_line_blue btn_pill_10">목록</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

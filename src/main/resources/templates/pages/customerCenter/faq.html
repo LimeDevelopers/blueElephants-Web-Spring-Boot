@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+    <script>
+        $(function(){
+            $('.faq_list > li').each(function(){
+                var faqDl = $(this).children('dl')
+                faqDl.children('dt').find('a').on('click', function(){
+                    faqDl.children('dd').stop().slideToggle().parents('li').toggleClass('active')
+                })
+            })
+        })
+    </script>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+
+        <form id="form1" name="form1" method="post" th:object="${form}">
+
+            <div class="contents">
+                <div class="page_top pc">
+                    <h3 class="page_tit">고객센터</h3>
+                    <span>푸코를 이용하시는데 어려움이 있으시다면, 고객센터에 문의하세요.</span>
+                </div>
+                <div class="page_cont">
+                    <div class="tab_ico_area">
+                        <a href="javascript:;" class="tit">FAQ</a>
+                        <ul class="tab_type_ico">
+                            <li class="qna"><a href="/pages/customerCenter/qna">1:1 문의</a></li>
+                            <li class="faq active"><a href="/pages/customerCenter/faq">FAQ</a></li>
+                            <li class="policy"><a href="/pages/customerCenter/policy">이용약관</a></li>
+                            <!--<li class="cshelp"><a href="/pages/customerCenter/help">도움말</a></li>-->
+                        </ul>
+                        <p class="mo_page_txt">푸코를 이용하시는데 어려움이 있으시다면, <br>고객센터에 문의하세요.</p>
+                    </div>
+                    <h4 class="subtit pc">FAQ</h4>
+                    <div class="board_top">
+                        <div class="select w160">
+                            <label th:for="sntncHead">
+                                <th:block th:if="*{sntncHead eq null or sntncHead eq ''}">전체</th:block>
+                                <th:block th:each="item: ${#strings.arraySplit(boardMaster.sntncHead,',')}">
+                                    <th:block th:if="${searchForm.sntncHead eq item}" th:text="${item}"></th:block>
+                                </th:block>
+                            </label>
+                            <select th:field="*{sntncHead}">
+                                <option value="">전체</option>
+                                <option th:each="item : ${#strings.arraySplit(boardMaster.sntncHead,',')}"
+                                        th:text="${item}" th:value="${item}" ></option>
+                            </select>
+                        </div>
+                        <!--<div class="select w160">
+                            <label th:for="sorting">
+                                <th:block th:if="*{sorting eq 'latest' or sorting eq null}">최신순</th:block>
+                                <th:block th:if="*{sorting eq 'alphabetically'}">가나다순</th:block>
+                                <th:block th:if="*{sorting eq 'old'}">오래된순</th:block>
+                                <th:block th:if="*{sorting eq 'readCnt'}">조회순</th:block>
+                            </label>
+                            <select th:field="*{sorting}">
+                                <option value="latest" selected>최신순</option>
+                                <option value="alphabetically">가나다순</option>
+                                <option value="old">오래된순</option>
+                                <option value="readCnt">조회순</option>
+                            </select>
+                        </div>-->
+                        <div class="select w160">
+                            <label th:for="srchField">
+                                <th:block th:if="*{srchField eq '' or srchField eq null}">전체</th:block>
+                                <th:block th:if="*{srchField eq 'title'}">제목</th:block>
+                                <th:block th:if="*{srchField eq 'cn'}">내용</th:block>
+                            </label>
+                            <select th:field="*{srchField}">
+                                <option value="" selected>전체</option>
+                                <option value="title">제목</option>
+                                <option value="cn">내용</option>
+                            </select>
+                        </div>
+                        <div class="search faq">
+                            <input type="search" th:field="*{srchWord}" placeholder="검색어를 입력해 주세요" />
+                        </div>
+                        <button type="submit" class="btn btn_blue btn_pill_10">검색</button>
+                    </div>
+                    <ul class="faq_list">
+                        <li th:each="item:${boardDatas}">
+                            <dl>
+                                <dt>
+                                    <th:block th:if="${item.sntncHead ne ''}">
+                                        <a href="javascript:;" th:text="|[${item.sntncHead}]  ${item.ttl}|">도움요청은 어떻게 하나요?</a>
+                                    </th:block>
+                                    <th:block th:unless="${item.sntncHead ne ''}">
+                                        <a href="javascript:;" th:text="${item.ttl}">도움요청은 어떻게 하나요?</a>
+                                    </th:block>
+                                </dt>
+                                <dd>
+                                    <div th:utext="${#strings.replace(item.cn, T(System).getProperty('line.separator'), '&lt;br /&gt;')}"></div>
+                                </dd>
+                            </dl>
+                        </li>
+                    </ul>
+                    <th:block th:replace="/fragments/paging :: pagingbody(list=${boardDatas}, link='/pages/customerCenter/faq', formId='form1')"></th:block>
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="soulGod/fragments/header"></th:block>
+    <script type="text/javascript">
+
+        function fn_search() {
+            var frm = $('#form1');
+            frm.prop('action', '?');
+            frm.submit();
+        }
+
+        function fn_reset() {
+        }
+
+        function fn_video(id) {
+            winPop('/courseTaste/video/'+id, '강좌미리보기', 1425, 800);
+        }
+
+        ////-------- page load
+        $(function () {
+        });
+    </script>
+</head>
+<body>
+<div id="wrap">
+    <th:block th:include="soulGod/fragments/menu"></th:block>
+
+    <div id="container">
+        <div class="container_box">
+            <form id="form1" name="form1" method="post" >
+                <div class="contents">
+
+                    <ul class="breadcrumb">
+                        <li><i class="material-icons">home</i></li>
+                        <li>교육관리</li>
+                        <li>맛보기강좌 관리</li>
+                    </ul>
+
+                    <div class="search_area clearfix">
+                        <!--<dl class="col">
+                            <dt>강좌명</dt>
+                            <dd>
+                                <input type="text" th:field="*{srchWord}" placeholder="검색어를 입력하세요." style="width:313px"  />
+                            </dd>
+                        </dl>
+                        <div class="col">
+                            <button type="button" class="btn btn_sm btn_gray" onclick="fn_search()">
+                                <i class="material-icons">search</i>조회
+                            </button>
+                            <button type="button" class="btn btn_sm btn_gray" onclick="fn_reset()">
+                                <i class="material-icons">refresh</i>초기화
+                            </button>
+                        </div>-->
+                    </div>
+
+                    <div class="board_list">
+                        <h4 class="sec_tit">맛보기강좌 리스트</h4>
+                        <div class="board_top clearfix">
+                            <div class="fl">
+                                <div class="total_num">총 <b th:text="${#numbers.formatInteger(courseTastes.totalElements, 0, 'COMMA')}">2</b>
+                                    건
+                                </div>
+                                <!--<select name="perPageNum" id="perPageNum" class="w80">
+                                    <option value="10" th:selected="${cri.perPageNum eq 10}">10</option>
+                                    <option value="15" th:selected="${cri.perPageNum eq 15}">15</option>
+                                    <option value="20" th:selected="${cri.perPageNum eq 20}">20</option>
+                                </select>-->
+                            </div>
+                            <div class="fr">
+                                <!--<a href="javascript:;" class="btn btn_sm btn_lightgray" onclick="return fnTableToExcel('resultList', '일상감사 검토관리 다운로드');">
+                                    <i class="material-icons mt0">get_app</i>엑셀 다운로드
+                                </a>-->
+                                <th:block th:if="${#authentication.principal.account.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).ADMIN or
+                                        #authentication.principal.account.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).MASTER}">
+                                    <a href="/soulGod/courseTaste/register" class="btn btn_sm btn_blue"><i class="material-icons mt0">add</i>맛보기강좌 추가</a>
+                                </th:block>
+
+                            </div>
+                        </div>
+                        <div class="board_detail clearfix">
+                            <table class="tbl_list" id="resultList">
+                                <colgroup>
+                                    <col style="width: 5%"/>
+                                    <col style="width: auto"/>
+                                    <col style="width: 10%"/>
+                                    <col style="width: 15%"/>
+                                    <col style="width: 15%"/>
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>강좌명</th>
+                                    <th>미리보기</th>
+                                    <th>등록일</th>
+                                    <th>등록자</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!-- 등록된 데이터가 없을 때만 노출 : s -->
+                                <tr th:if="${courseTastes == null or courseTastes.isEmpty()}">
+                                    <td colspan="5">등록된 정보 없습니다.</td>
+                                </tr>
+                                <!-- 등록된 이벤트가 없을 때만 노출 : e -->
+                                <tr th:each="item,idx:${courseTastes}">
+                                    <td th:text="${courseTastes.totalElements - courseTastes.pageable.pageSize * courseTastes.pageable.pageNumber - idx.index}"></td>
+                                    <td>
+                                        <a th:href="|/soulGod/courseTaste/detail/${item.id}|">
+                                            <b th:text="${item.ttl}"></b>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="#" class="btn btn_sm btn_blue" th:onclick="|return fn_video(${item.id})|">
+                                            <i class="material-icons">play_arrow</i>미리보기
+                                        </a>
+                                    </td>
+                                    <td th:text="${#temporals.format(item.regDtm,'yyyy-MM-dd')}"></td>
+                                    <td th:text="${item.regPsNm}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <th:block th:replace="/soulGod/fragments/paging :: pagingbody(list=${courseTastes},
+                                            link='/soulGod/courseTaste/list', formId='form1')"></th:block>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <th:block th:replace="soulGod/fragments/footer"></th:block>
+</div>
+</body>
+</html>

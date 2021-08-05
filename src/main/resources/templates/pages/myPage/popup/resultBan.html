@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+    <style>
+        .chart {
+            width: 100%;
+            height: 200px;
+        }
+
+        .chart2 {
+            width: 100%;
+            height: 500px;
+        }
+
+    </style>
+    <script type="text/javascript">
+        var colorList = [
+            "#67B7DC"
+            ,"#6a74dc"
+            ,"#534bc2"
+            ,"#9a4df5"
+            ,"#fe9b19"
+            ,"#ce0f54"
+            ,"#21c1aa"
+            ,"#84f4a8"
+            ,"#ff66ad"
+            ,"#1f9925"
+        ]
+
+        function fn_getClResult(chartId, chartType) {
+            var areaNm = $("#areaNm").val();
+            var schlNm = $("#schlNm").val();
+            var grade = $("#grade").val();
+            var ban = $("#ban").val();
+            var crsMstPid = $("#crsMstPid").val();
+            var mberPid = $("#mberPid").val();
+            var id = $("#id").val();
+            var inspctDvTy = $("#inspctDvTy").val();
+            var sn = $("#sn").val();
+            var jsonData = {
+                'areaNm': areaNm,
+                'schlNm': schlNm,
+                'grade': grade,
+                'ban': ban,
+                'crsMstPid': crsMstPid,
+                'mberPid': mberPid,
+                'id': id,
+                'inspctDvTy': inspctDvTy,
+                'sn': sn,
+                'chartId': chartId
+            }
+            $.ajax({
+                type: 'post',
+                url: '/api/myPage/popup/clResult',
+                contentType: "application/json",
+                data: JSON.stringify(jsonData),
+                datatype: 'json',
+                success: function (data) {
+                    data = JSON.parse(data);
+                    if (data) {
+                        if (chartType == 'xy') {
+                            makeChart_XYDouble(chartId, data);
+                        } else if (chartType == 'pie') {
+                            makeChart_pieChart(chartId, data);
+                        } else if (chartType == 'radar') {
+                            makeChart_radarChart(chartId, data);
+                        }
+                    }
+                }
+            });
+        }
+
+        $(function () {
+        });
+        am4core.ready(function () {
+
+            fn_getClResult("clResult1_1", "xy");    //가해경험 (언어폭력~성폭행) 막대차트
+            //makeChart_XYDouble('clResult1_1', [(${clResult1_1})]); //가해경험 (언어폭력~성폭행) 막대차트
+
+            makeChart_pieChart('clResult1_2_1', [(${clResult1_2_1})]); //가해경험(3문항) 중 1문항 파이차트
+            makeChart_pieChart('clResult1_2_2', [(${clResult1_2_2})]); //가해경험(3문항) 중 2문항 파이차트
+            makeChart_pieChart('clResult1_2_3', [(${clResult1_2_3})]); //가해경험(3문항) 중 3문항 파이차트
+
+            fn_getClResult("clResult2_1", "xy"); //피해경험 (언어폭력~성폭행) 막대차트
+            //makeChart_XYDouble('clResult2_1', [(${clResult2_1})]); //피해경험 (언어폭력~성폭행) 막대차트
+
+            makeChart_pieChart('clResult2_2_1', [(${clResult2_2_1})]); //피해경험(3문항) 중 1문항 파이차트
+            makeChart_pieChart('clResult2_2_2', [(${clResult2_2_2})]); //피해경험(3문항) 중 2문항 파이차트
+            makeChart_pieChart('clResult2_2_3', [(${clResult2_2_3})]); //피해경험(3문항) 중 3문항 파이차트
+
+            fn_getClResult("clResult3", "xy"); //목격경험 (방관자~동조자) 막대차트
+
+            fn_getClResult('clResultBar1', "xy"); //사이버폭력에 대한 부정 태도 막대차트
+
+            fn_getClResult('clResultBar2', "xy"); //사이버폭력에 대한 대처효능감(개인수준) 막대차트
+
+            fn_getClResult('clResultBar3', "xy"); //사이버폭력에 대한 대처효능감(학급수준) 막대차트
+
+            fn_getClResult('clResultBar4', "xy"); //공격성, 공감, 자아존중감(학급) 막대차트
+
+            fn_getClResult('clResultBar5', "radar"); //정직,약속,용서,책임,배려,소유 레이더차트
+
+            makeChart_pieChart('clResult4_1', [(${clResult4_1})]); //온라인 실태조사(4문항 중 1문항 파이차트
+            makeChart_pieChart('clResult4_2', [(${clResult4_2})]); //온라인 실태조사(4문항 중 2문항 파이차트
+            makeChart_pieChart('clResult4_3', [(${clResult4_3})]); //온라인 실태조사(4문항 중 3문항 파이차트
+            makeChart_pieChart('clResult4_4', [(${clResult4_4})]); //온라인 실태조사(4문항 중 4문항 파이차트
+
+        }); // end am4core.ready()
+
+        /*[막대차트]*/
+        function makeChart_XYDouble(id, data){
+            // Themes begin
+            am4core.useTheme(am4themes_animated);
+            // Themes end
+
+            // Create chart instance
+            var chart = am4core.create(id, am4charts.XYChart);
+            chart.width = am4core.percent(95);
+
+            // Add data
+            chart.data = data;
+
+            // Create axes
+            var categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
+            categoryAxis.dataFields.category = "nm";
+            categoryAxis.numberFormatter.numberFormat = "#,###.##";
+            categoryAxis.renderer.inversed = true;
+            categoryAxis.renderer.grid.template.location = 0;
+            categoryAxis.renderer.cellStartLocation = 0.1;
+            categoryAxis.renderer.cellEndLocation = 0.9;
+
+            var  valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
+            valueAxis.renderer.opposite = true;
+            valueAxis.min= 0;
+
+            // Create series
+            function createSeries(field, name) {
+                var series = chart.series.push(new am4charts.ColumnSeries());
+                series.dataFields.valueX = field;
+                series.dataFields.categoryY = "nm";
+                //series.name = name;
+                //series.columns.template.tooltipText = "{name}: [bold]{valueX}[/]";
+                series.columns.template.tooltipText = "[bold]" + name + "[/]";
+                series.columns.template.height = am4core.percent(100);
+                series.sequencedInterpolation = true;
+                /*series.columns.template.events.on("hit", function(ev) {
+                    if (hitCallback && typeof hitCallback === 'function') {
+                        hitCallback(ev.target.dataItem.categoryY);
+                    }
+                });*/
+                var valueLabel = series.bullets.push(new am4charts.LabelBullet());
+                valueLabel.label.text = "{valueX}";
+                valueLabel.label.horizontalCenter = "right";
+                valueLabel.label.dx = -10;
+                valueLabel.label.hideOversized = false;
+                valueLabel.label.truncate = false;
+
+                var categoryLabel = series.bullets.push(new am4charts.LabelBullet());
+                categoryLabel.label.text = "{name}";
+                categoryLabel.label.horizontalCenter = "right";
+                categoryLabel.label.dx = -10;
+                categoryLabel.label.fill = am4core.color("#fff");
+                categoryLabel.label.hideOversized = false;
+                categoryLabel.label.truncate = false;
+            }
+
+            createSeries("mVal", "개인평균");
+            createSeries("cVal", "반평균");
+        }
+
+        /*[파이차트]*/
+        function makeChart_pieChart(id, data){
+            var data = data;
+
+            // Themes begin
+            am4core.useTheme(am4themes_animated);
+            // Themes end
+
+            // Create chart instance
+            var chart = am4core.create(id, am4charts.PieChart);
+            // Add data
+
+            for (var i=0; i<data.length; i++) {
+                if (i < colorList.length) {
+                    data[i].color = colorList[i];
+                }
+            }
+            chart.data = data;
+
+            // Add and configure Series
+            var pieSeries = chart.series.push(new am4charts.PieSeries());
+            pieSeries.dataFields.value = "cVal";
+            pieSeries.dataFields.category = "category";
+            pieSeries.slices.template.stroke = am4core.color("#fff");
+            pieSeries.slices.template.strokeWidth = 2;
+            pieSeries.slices.template.strokeOpacity = 1;
+            pieSeries.slices.template.propertyFields.fill = "color";
+            pieSeries.labels.template.disabled = true;
+
+            chart.legend = new am4charts.Legend();
+            chart.legend.position = "right";
+            chart.legend.scrollable = true;
+
+            // This creates initial animation
+            pieSeries.hiddenState.properties.opacity = 1;
+            pieSeries.hiddenState.properties.endAngle = -90;
+            pieSeries.hiddenState.properties.startAngle = -90;
+
+            /*pieSeries.slices.template.events.on("hit", function(ev) {
+                var id = ev.target.dataItem.pieId;
+                if (hitCallback && typeof hitCallback === 'function') {
+                    hitCallback(id);
+                }
+            }, this);*/
+        }
+
+        /*[레이더차트]*/
+        function makeChart_radarChart(id, data){
+            am4core.useTheme(am4themes_animated);
+// Themes end
+
+            /* Create chart instance */
+            var chart = am4core.create(id, am4charts.RadarChart);
+
+            chart.data = data;
+
+            /* Create axes */
+            var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+            categoryAxis.dataFields.category = "nm";
+
+            var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+            valueAxis.extraMin = 0.2;
+            valueAxis.extraMax = 0.2;
+            valueAxis.tooltip.disabled = true;
+
+            /* Create and configure series */
+            var series1 = chart.series.push(new am4charts.RadarSeries());
+            series1.dataFields.valueY = "mVal";
+            series1.dataFields.categoryX = "nm";
+            series1.strokeWidth = 3;
+            series1.tooltipText = "{valueY}";
+            series1.name = "개인";
+            series1.bullets.create(am4charts.CircleBullet);
+
+            var series2 = chart.series.push(new am4charts.RadarSeries());
+            series2.dataFields.valueY = "cVal";
+            series2.dataFields.categoryX = "nm";
+            series2.strokeWidth = 3;
+            series2.tooltipText = "{valueY}";
+            series2.name = "학급";
+            series2.bullets.create(am4charts.CircleBullet);5;
+
+            //chart.scrollbarX = new am4core.Scrollbar();
+            //chart.scrollbarY = new am4core.Scrollbar();
+
+            chart.cursor = new am4charts.RadarCursor();
+
+            chart.legend = new am4charts.Legend();
+
+        }
+
+    </script>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<input type="hidden" name="areaNm" id="areaNm" th:value="${commonForm.areaNm}"/>
+<input type="hidden" name="schlNm" id="schlNm" th:value="${commonForm.schlNm}"/>
+<input type="hidden" name="grade" id="grade" th:value="${commonForm.grade}"/>
+<input type="hidden" name="ban" id="ban" th:value="${commonForm.ban}"/>
+<input type="hidden" name="crsMstPid" id="crsMstPid" th:value="${commonForm.crsMstPid}"/>
+<input type="hidden" name="mberPid" id="mberPid" th:value="${commonForm.mberPid}"/>
+<input type="hidden" name="id" id="id" th:value="${commonForm.id}"/>
+<input type="hidden" name="inspctDvTy" id="inspctDvTy" th:value="${commonForm.inspctDvTy}"/>
+<input type="hidden" name="sn" id="sn" th:value="${commonForm.sn}"/>
+<div id="wrap" class="win_popup">
+    <div class="popup">
+        <strong class="pop_tit" th:text="${memberSchoolForm.sn eq 2 ? '사전검사 결과(학급)' : '사후검사 결과(학급)'}">사후검사 결과</strong>
+        <div class="pop_cont">
+            <div class="tbl_write">
+                <ul>
+                    <li>
+                        <div class="th">대상자 정보</div>
+                        <div class="td td_txt" th:text="|${memberSchoolForm.schlNm} ${memberSchoolForm.grade}학년 ${memberSchoolForm.ban}반 ${targetNm}|">길동초등학교 1학년 5반 홍길동</div>
+                    </li>
+                    <li>
+                        <div class="th">검사완료일</div>
+                        <div class="td td_txt" th:text="${#temporals.format(cmplPrsDtm,'yyyy.MM.dd')}">2020.12.31</div>
+                    </li>
+                </ul>
+            </div>
+            <dl class="dl_sec">
+                <dt>검사 해석</dt>
+                <dd>
+                    <dl class="sub_sec">
+                        <dt>사이버폭력 경험</dt>
+                        <dd>
+                            <strong>가해경험</strong>
+                            <div class="cont h350">
+                                <div class="graph_img_area">
+                                    <div id="clResult1_1" class="chart2"></div>
+                                    <!-- 가해경험-언어폭력~성폭행 막대차트 그래프 들어갈 영역 -->
+                                </div>
+                            </div>
+                        </dd>
+                        <dd th:each="number,idx : ${#numbers.sequence(0,clResult1_2.length-1)}">
+                            <th:block th:with="arr=${clResult1_2[number]}">
+                                <strong th:text="${arr.get(0).get('question')}">가해경험</strong>
+                                <div class="cont h350">
+                                    <div class="graph_img_area">
+                                        <div th:id="|clResult1_2_${idx.count}|" class="chart2"></div>
+                                        <!-- 가해경험(3문항) 파이차트 그래프 들어갈 영역 -->
+                                    </div>
+                                </div>
+                            </th:block>
+                        </dd>
+                        <dd>
+                            <strong>피해경험</strong>
+                            <div class="cont h350">
+                                <div class="graph_img_area">
+                                    <div id="clResult2_1" class="chart2"></div>
+                                    <!-- 피해경험-언어폭력~성폭행 막대차트 그래프 들어갈 영역 -->
+                                </div>
+                            </div>
+                        </dd>
+                        <dd th:each="number,idx : ${#numbers.sequence(0,clResult2_2.length-1)}">
+                            <th:block th:with="arr=${clResult2_2[number]}">
+                                <strong th:text="${arr.get(0).get('question')}">문항</strong>
+                                <div class="cont h350">
+                                    <div class="graph_img_area">
+                                        <div th:id="|clResult2_2_${idx.count}|" class="chart2"></div>
+                                        <!-- 피해경험(3문항) 파이차트 그래프 들어갈 영역 -->
+                                    </div>
+                                </div>
+                            </th:block>
+                        </dd>
+                        <dd>
+                            <strong>목격경혐</strong>
+                            <div class="cont h350">
+                                <div class="graph_img_area">
+                                    <div id="clResult3" class="chart2"></div>
+                                    <!-- 목격경혐-방관자~동조자 막대차트 그래프 들어갈 영역 -->
+                                </div>
+                            </div>
+                        </dd>
+                    </dl>
+                    <dl class="sub_sec">
+                        <dt>사이버폭력 영향요인</dt>
+                        <dd>
+                            <strong>사이버폭력에 대한 부정 태도</strong>
+                            <div class="cont h350">
+                                <div class="graph_img_area">
+                                    <div id="clResultBar1" class="chart"></div>
+                                    <!-- 사이버폭력에 대한 부정 태도 막대차트 그래프 들어갈 영역 -->
+                                </div>
+                            </div>
+                            <strong>사이버폭력에 대한 대처효능감(개인수준)</strong>
+                            <div class="cont h350">
+                                <div class="graph_img_area">
+                                    <div id="clResultBar2" class="chart"></div>
+                                    <!-- 사이버폭력에 대한 대처효능감(개인수준) 막대차트 그래프 들어갈 영역 -->
+                                </div>
+                            </div>
+                            <strong>사이버폭력에 대한 대처효능감(학급수준)</strong>
+                            <div class="cont h350">
+                                <div class="graph_img_area">
+                                    <div id="clResultBar3" class="chart"></div>
+                                    <!-- 사이버폭력에 대한 대처효능감(학급수준) 파이차트 그래프 들어갈 영역 -->
+                                </div>
+                            </div>
+                        </dd>
+                    </dl>
+                    <dl class="sub_sec">
+                        <dt>친사회성(인성)</dt>
+                        <dd>
+                            <strong>공격성,공감,자아존중감</strong>
+                            <div class="cont h350">
+                                <div class="graph_img_area">
+                                    <div id="clResultBar4" class="chart2"></div>
+                                    <!-- 공격성,공감,자아존중감 그래프 들어갈 영역 -->
+                                </div>
+                            </div>
+                            <strong>정직,약속,용서,책임,배려,소유</strong>
+                            <div class="cont h350">
+                                <div class="graph_img_area">
+                                    <div id="clResultBar5" class="chart2"></div>
+                                    <!-- 정직,약속,용서,책임,배려,소유 그래프 들어갈 영역 -->
+                                </div>
+                            </div>
+                        </dd>
+                    </dl>
+                    <dl class="sub_sec">
+                        <dt>기본정보</dt>
+                        <strong>온라인실태조사</strong>
+                        <dd th:each="number,idx : ${#numbers.sequence(0,clResult4.length-1)}">
+                            <th:block th:with="arr=${clResult4[number]}">
+                                <strong th:text="${arr.get(0).get('question')}">문항</strong>
+                                <div class="cont h350">
+                                    <div class="graph_img_area">
+                                        <div th:id="|clResult4_${idx.count}|" class="chart2"></div>
+                                        <!-- 온라인실태조사(4문항) 파이차트 그래프 들어갈 영역 -->
+                                    </div>
+                                </div>
+                            </th:block>
+                        </dd>
+                    </dl>
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>N2 Parkcls</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/images/icon/favicon.ico" />
+
+    <link rel="stylesheet" href="/css/common.css"/>
+    <link rel="stylesheet" href="/css/style.css"/>
+
+    <script type="text/javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        function fn_chkLogin() {
+
+            var frm = $('#form1');
+            frm.prop("action", "/login");
+            frm.submit();
+
+        }
+    </script>
+</head>
+<body>
+    <form id="form1" name="form1" method="post">
+        <div class="login_wrap">
+            <div class="login_header">
+                <h1 class="logo"><img src="../images/common/logo.png" alt="LG HelloVision" /></h1>
+            </div>
+            <div class="login_container">
+                <div class="login_box">
+                    <strong class="tit">LOGIN</strong>
+                    <div class="login_form">
+                        <form action="#" method="post">
+                            <fieldset>
+                                <legend>관리자 로그인</legend>
+                                <dl class="row">
+                                    <dt><label for="userId">ID</label></dt>
+                                    <dd><input type="text" name="userId" id="userId" value="admin" placeholder="아이디를 입력해 주세요." /></dd>
+                                </dl>
+                                <dl class="row">
+                                    <dt><label for="userPw">Password</label></dt>
+                                    <dd><input type="password" name="userPw" id="userPw" value="1234" placeholder="비밀번호를 입력해 주세요." /></dd>
+                                </dl>
+                                <div class="row row_save clearfix">
+                                    <div class="checkbox txt">
+                                        <input type="checkbox" name="remember-me" id="remember-me" />
+                                        <label for="remember-me">자동 로그인</label>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn_login" onclick="return fn_chkLogin();">로그인</button>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="login_footer">
+                <p class="copyright">Copyright © LG HelloVision. All rights reserved.</p>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+    <script type="text/javascript">
+        ////-------- page load
+        $(function () {
+            $("#pwd").keydown(function(key) {
+                if (key.keyCode == 13) {
+                    fn_checkPw();
+                }
+            });
+        });
+        function fn_openLayer(id){
+            $('#id').val(id);
+            $('#pwd').val('');
+            layerShow('popPw');
+            $('#pwd').focus();
+        }
+        function fn_moveDetail(id) {
+            id = id ? id : $("#id").val();
+            var frm = $('#form2');
+            frm.prop("action", "/pages/activity/helpRequestDetail/"+id);
+            frm.submit();
+        }
+        function fn_checkPw() {
+            var id = $('#id').val();
+            var pwd = $('#pwd').val();
+            var jsonData = {
+                'id' : id,
+                'pwd': pwd
+            }
+            $.ajax({
+                type: 'post',
+                url: '/api/openData/adviceRequest/checkPwd',
+                contentType: "application/json",
+                data: JSON.stringify(jsonData),
+                datatype: 'text',
+                success: function (data) {
+                    if (data === 'ok') {
+                        fn_moveDetail(id);
+                    } else {
+                        alert('비밀번호가 다릅니다.');
+                        $('#pwd').val('');
+                        $('#pwd').focus();
+                    }
+                },
+                error: function (error) {
+                    //alert('save error!!!');
+                    alert('error::' + error.statusText);
+                }
+            });
+        }
+    </script>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+
+        <form id="form1" name="form1" method="post" th:object="${form}">
+
+            <div class="contents">
+                <div class="page_top pc">
+                    <h3 class="page_tit">치유</h3>
+                    <span>사이버폭력으로 인한 상담과 도움을 요청하세요.</span>
+                </div>
+                <div class="page_cont">
+                    <div class="tab_ico_area">
+                        <a href="javascript:;" class="tit">도움상담</a>
+                        <ul class="tab_type_ico">
+                            <li class="help active"><a href="/pages/activity/helpCounseling">도움상담</a>
+                            <li class="therapy"><a href="/pages/activity/familyTherapy">가족테라피</a></li>
+                            <li class="mind"><a href="/pages/activity/mindSharing">마음나눔</a></li>
+                        </ul>
+                        <p class="mo_page_txt">사이버폭력으로 인한 상담과 도움을 요청하세요.</p>
+                    </div>
+                    <h4 class="subtit pc">도움 요청</h4>
+                    <div class="board_top type01">
+                        <div class="search">
+                            <input type="search" th:field="*{srchWord}" placeholder="검색어를 입력해 주세요" />
+                        </div>
+                        <button type="submit" class="btn btn_blue btn_pill_10">검색</button>
+                        <a href="/pages/activity/helpRequestRegister" class="btn btn_skyblue btn_pill_10">상담하기</a>
+                    </div>
+                    <ul class="board_tbl_list">
+                        <li class="thead">
+                            <strong class="no">No</strong>
+                            <strong class="tit">제목</strong>
+                            <strong class="date02">등록/답변일</strong>
+                            <strong class="state">상태</strong>
+                        </li>
+                        <li class="nodata" th:if="${adviceRequests == null or adviceRequests.isEmpty()}"><!--등록된 글 없을경우-->
+                            <div>등록된 게시글이 없습니다.</div>
+                        </li>
+                        <li th:each="item,idx : ${adviceRequests}">
+                            <div class="no" th:text="${adviceRequests.totalElements - adviceRequests.pageable.pageSize * adviceRequests.pageable.pageNumber - idx.index}"></div>
+                            <th:block th:if="${#authentication.principal == 'anonymousUser'}"><!--로그인 안함-->
+                                <div class="tit ico_lock"><a href="javascript:;" th:text="${item.ttl}" th:onclick="|fn_openLayer(${item.id})|">상담을 신청합니다.</a></div>
+                            </th:block>
+                            <th:block th:unless="${#authentication.principal == 'anonymousUser'}">
+                                <th:block th:if="${#authentication.principal.account.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).COUNSELOR}"><!--상담사일경우-->
+                                    <div class="tit ico_lock"><a href="javascript:;" th:text="${item.ttl}" th:onclick="|fn_moveDetail(${item.id})|">상담을 신청합니다.</a></div>
+                                </th:block>
+                                <th:block th:unless="${#authentication.principal.account.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).COUNSELOR}"><!--상담사아닐경우-->
+                                    <div class="tit ico_lock"><a href="javascript:;" th:text="${item.ttl}" th:onclick="|fn_openLayer(${item.id})|">상담을 신청합니다.</a></div>
+                                </th:block>
+                            </th:block>
+                            <th:block th:if="${item.processTy eq T(kr.or.btf.web.domain.web.enums.ProcessType).REQUEST}">
+                                <div class="date02">
+                                    <span class="th">등록/답변일 :</span>
+                                    <th:block th:text="${#temporals.format(item.regDtm,'yyyy-MM-dd(HH:mm)')}">2020.09.23</th:block>
+                                </div>
+                                <div class="state" th:text="${item.processTy.getName()}">상담대기</div>
+                            </th:block>
+                            <th:block th:if="${item.processTy eq T(kr.or.btf.web.domain.web.enums.ProcessType).COMPLETE}">
+                                <div class="date02">
+                                    <span class="th">등록/답변일 :</span>
+                                    <th:block th:text="${#temporals.format(item.regDtm,'yyyy-MM-dd(HH:mm)')}">2020.09.23</th:block>
+                                    <th:block th:text="|/ ${#temporals.format(item.answerDtm,'yyyy-MM-dd(HH:mm)')}|">2020.09.28</th:block>
+                                </div>
+                                <div class="state"><b class="fc_blue" th:text="${item.processTy.getName()}">상담완료</b></div>
+                            </th:block>
+                        </li>
+                    </ul>
+                    <p class="tip_tbl">※ 보고 계시는 리스트는 게시판 상담 내용만 해당되며, 상담하기를 누르시면 다양한 상담을 받으실 수 있습니다.</p>
+                </div>
+                <th:block th:replace="/fragments/paging :: pagingbody(list=${adviceRequests}, link='/pages/activity/helpRequest', formId='form1')"></th:block>
+            </div>
+        </form>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+<div id="popPw" class="layer_popup">
+    <div class="dim"></div>
+    <div class="popup_area">
+        <a href="javascript:layerHide('popPw')" class="btn_close"><span class="blind">팝업닫기</span></a>
+        <div class="popup">
+            <form id="form2" name="form2" method="post" th:object="${form}">
+                <input type="hidden" id="id" name="id"/>
+                <input type="hidden" id="page" name="page" th:value="${adviceRequests.pageable.getPageNumber()+1}"/>
+                <input type="text" style="display: none"/>
+                <div class="pop_txt"><label for="pwd">비밀번호 4자리를 입력해 주세요.</label></div>
+                <div class="inp_pw"><input type="password" id="pwd" name="pwd" maxlength="4" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/></div>
+                <div class="btn_area">
+                    <a href="javascript:;" class="btn btn_lg btn_blue btn_pill_10" onclick="fn_checkPw()">확인</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

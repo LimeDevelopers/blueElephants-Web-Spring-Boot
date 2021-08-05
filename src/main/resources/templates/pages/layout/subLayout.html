@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div class="gnb_tit gnb02">
+        <h2 th:if="${mc eq 'blueElephant'}">푸른코끼리</h2>
+        <h2 th:if="${mc eq 'activity'}">푸른코끼리 활동</h2>
+        <h2 th:if="${mc eq 'news'}">푸코소식</h2>
+        <h2 th:if="${mc eq 'classRegis'}">강의신청</h2>
+        <h2 th:if="${mc eq 'member'}">회원가입</h2>
+    </div>
+    <div id="container">
+        <div class="snb">
+            <ul class="tab tab_type01">
+                <th:block th:if="${mc eq 'activity'}">
+                    <li th:classappend="${pageTitle eq '예방교육' ? 'active' : ''}"><a href="/pages/activity/preventionEdu">예방교육</a></li>
+                    <li><a href="javascript:;">체험</a></li>
+                    <li><a href="javascript:;">예방문화</a></li>
+                    <li><a href="javascript:;">피해치유</a></li>
+                    <li><a href="javascript:;">제안</a></li>
+                </th:block>
+            </ul>
+        </div>
+        <div class="contents">
+            <div class="page_top">
+                <h3 class="page_tit"></h3>
+            </div>
+            <div class="page_cont">
+                <ul class="tab tab_type02">
+                    <li><a href="javascript:;"></a></li>
+                    <li><a href="javascript:;"></a></li>
+                    <li><a href="javascript:;"></a></li>
+                </ul>
+            </div>
+        </div>
+
+
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

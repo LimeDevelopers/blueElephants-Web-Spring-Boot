@@ -1,0 +1,104 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="currentStep()">
+    <div id="dvCodeSelect">
+    </div>
+    <script type="text/javascript">
+        var _selectName = "sel_dept"
+        var _selectIndex = 0;
+        var dept_arr = [];
+
+        // 첫번째 선택된 코드 가져온다.
+        function getDeptFirstValue() {
+            return $("#"+_selectName+"1").val();
+        }
+
+        // 마지막 선택된 코드를 가져온다.
+        function getDeptLastValue() {
+            return $("#"+_selectName+_selectIndex).val();
+        }
+
+        // index 번째 선택된 코드를 가져온다.
+        function getDeptValue(index) {
+            return $("#"+_selectName+index).val();
+        }
+
+        // 마지막 코드가 선택되었는지 여부를 가져온다.
+        function isDeptSelected() {
+            return $("#"+_selectName+_selectIndex).val() != '';
+        }
+
+        $(function () {
+
+        })
+
+        function fullCodeSet(dvCodeFull) {
+            codeReset();
+            var depth_fullCode = dvCodeFull
+            if (depth_fullCode && depth_fullCode != 'null') {
+                dept_arr = depth_fullCode.split(',');
+            }
+            fn_dvCodeData("[[${@environment.getProperty('common.code.inspectDvCodePid')}]]",_selectIndex);
+        }
+
+        function codeReset() {
+            $('#dvCodeSelect').html('');
+            _selectIndex = 0;
+            dept_arr = [];
+        }
+
+        //유효성 검사 구분 정보를 가져온다
+        function fn_dvCodeData(prntCodePid, idx) {
+            $('#dvCodeSelect > select').each(function (index, item) {
+                if (index >= idx) {
+                    $(this).next().remove();
+                    $(this).remove();
+                    _selectIndex = idx;
+                }
+            });
+            if (prntCodePid == '') {
+                return false;
+            }
+            var jsonData = {
+                'prntCodePid' : prntCodePid
+            }
+            $.ajax({
+                type: 'post',
+                url: '/api/commonCode/listForUppCdPid',
+                contentType: "application/json",
+                data: JSON.stringify(jsonData),
+                datatype: 'json',
+                success: function (data) {
+                    makeDeptSelect(data);
+                }
+            });
+        }
+
+        //유효성 검사 구분 UI 생성
+        function makeDeptSelect(data) {
+            if (!data || data.length == 0) {
+                return false;
+            }
+            var idx = (++_selectIndex);
+            var id = _selectName+idx;
+            var select = $('<select>').attr("id",id).attr("class","w300 mr10");
+            var defult = $("<option>").val('').html('선택');
+            select.append(defult);
+            $.each(data, function (index, item) {
+                var option = $("<option>").val(item.id).html(item.codeNm);
+                select.append(option);
+            });
+
+            $('#dvCodeSelect').append(select);
+            $("#"+id).change(function() {
+                fn_dvCodeData($(this).val(), idx);
+            });
+            var selIdx = idx-1;
+            if (dept_arr.length > selIdx && dept_arr[selIdx]) {
+                $("#"+id).val(dept_arr[selIdx]).trigger("change");
+            }
+            $("#"+id).niceSelect();
+            if (dept_arr.length == idx) {
+                dept_arr = [];
+            }
+        }
+    </script>
+</div>

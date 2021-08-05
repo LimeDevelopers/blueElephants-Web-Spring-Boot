@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+    <script type="text/javascript">
+
+        ////-------- page load
+        $(function () {
+        });
+    </script>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+
+        <form id="form1" name="form1" method="post">
+            <div class="contents">
+                <div class="page_top pc">
+                    <h3 class="page_tit">교육</h3>
+                    <span>다양한 강의가 빠르게 업데이트 됩니다. </span>
+                </div>
+                <div class="page_cont">
+                    <div class="tab_ico_area">
+                        <a href="javascript:;" class="tit">
+                            <th:block th:if="${userGbn eq T(kr.or.btf.web.domain.web.enums.MberDvType).STUDENT.name()}">청소년</th:block>
+                            <th:block th:if="${userGbn eq T(kr.or.btf.web.domain.web.enums.MberDvType).PARENT.name()}">부모</th:block>
+                            <th:block th:if="${userGbn eq T(kr.or.btf.web.domain.web.enums.MberDvType).TEACHER.name()}">교원</th:block>
+                            <th:block th:if="${userGbn eq T(kr.or.btf.web.domain.web.enums.MberDvType).NORMAL.name()}">일반</th:block>
+                            <th:block th:if="${userGbn eq T(kr.or.btf.web.domain.web.enums.MberDvType).LECTURER.name()}">푸코강사</th:block>
+                        </a>
+                        <ul class="tab_type_ico">
+                            <li class="teenager" th:classappend="${userGbn eq T(kr.or.btf.web.domain.web.enums.MberDvType).STUDENT.name() ? 'active' : ''}">
+                                <a href="/pages/activity/preventionEdu/STUDENT">청소년</a>
+                            </li>
+                            <li class="parent" th:classappend="${userGbn eq T(kr.or.btf.web.domain.web.enums.MberDvType).PARENT.name() ? 'active' : ''}">
+                                <a href="/pages/activity/preventionEdu/PARENT">부모</a>
+                            </li>
+                            <li class="teacher" th:classappend="${userGbn eq T(kr.or.btf.web.domain.web.enums.MberDvType).TEACHER.name() ? 'active' : ''}">
+                                <a href="/pages/activity/preventionEdu/TEACHER">교원</a>
+                            </li>
+                            <li class="normal" th:classappend="${userGbn eq T(kr.or.btf.web.domain.web.enums.MberDvType).NORMAL.name() ? 'active' : ''}">
+                                <a href="/pages/activity/preventionEdu/NORMAL">일반</a>
+                            </li>
+                            <!--<li class="lecturer" th:classappend="${userGbn eq T(kr.or.btf.web.domain.web.enums.MberDvType).LECTURER.name() ? 'active' : ''}">
+                                <a href="/pages/activity/preventionEdu/LECTURER">푸코강사</a>
+                            </li>-->
+                            <li class="dataroom">
+                                <a href="/pages/activity/eduDataRoom">자료실</a>
+                            </li>
+                            <li class="review"><a href="/pages/activity/postscript">교육후기</a></li>
+                        </ul>
+                        <p class="mo_page_txt">다양한 강의가 빠르게 업데이트 됩니다.</p>
+                        <div class="tab_cont">
+                            <div class="cont normal" th:classappend="${userGbn eq T(kr.or.btf.web.domain.web.enums.MberDvType).NORMAL.name() ? 'active' : ''}">
+                                <div class="thumb">
+                                    <p>일반</p>
+                                </div>
+                                <dl class="desc">
+                                    <dt>교육개요</dt>
+                                    <dd>푸른나무재단 청소년 사이버폭력 예방교육 사업 푸른코끼리에서는 일반시민 대상으로 교육을 제공하고 있습니다. 눈에 보이지 않는 사이버폭력 문제를 해결하기 위해서는 많은 시민들의 관심과 예방을 위한 노력이 필요합니다. 이에 우리가 아무렇지 않게 지나칠 수 있는 사이버폭력에 대해 심각성을 느끼고, 교육을 통해 예방, 대처, 회복할 수 있는 다양한 방법들을 배울 수 있습니다.</dd>
+                                </dl>
+                            </div>
+                            <div class="cont teenager" th:classappend="${userGbn eq T(kr.or.btf.web.domain.web.enums.MberDvType).STUDENT.name() ? 'active' : ''}">
+                                <div class="thumb">
+                                    <p>청소년</p>
+                                </div>
+                                <dl class="desc">
+                                    <dt>교육개요</dt>
+                                    <dd>푸른나무재단 청소년 사이버폭력 예방교육 사업 푸른코끼리에서는 학교로 찾아가는 예방교육 수강생(청소년)을 대상으로 온라인 교육을 제공하고 있습니다. 평소 일상(학교 뿐 만 아니라 가정 등)에서 우리가 아무렇지 않게 지나칠 수 있는 사이버폭력에 대해 심각성을 느끼고, 교육을 통해 예방, 대처, 회복할 수 있는 다양한 방법들을 배울 수 있습니다. <br>※ 학교로 찾아가는 예방교육 수강생이 아닌 청소년은 ‘일반 과정’ 온라인 교육을 수강할 수 있습니다.</dd>
+                                </dl>
+                            </div>
+                            <div class="cont parent" th:classappend="${userGbn eq T(kr.or.btf.web.domain.web.enums.MberDvType).PARENT.name() ? 'active' : ''}">
+                                <div class="thumb">
+                                    <p>부모</p>
+                                </div>
+                                <dl class="desc">
+                                    <dt>교육개요</dt>
+                                    <dd>푸른나무재단 사이버폭력 예방교육 사업 푸른코끼리에서는 학부모를 대상으로 교육을 제공하고 있습니다. 사이버폭력의 문제는 청소년만의 문제가 아닙니다. 특히 청소년의 사이버폭력 문제를 예방하기 위해 아이들을 돌보는 어른들의 관심과 노력이 필요합니다. 이에 사이버폭력에 대해 심각성을 느끼고, 일상(가정)에서 자녀를 사이버폭력으로부터 안전하게 지킬 수 있는  예방법과 대처방법을 배울 수 있습니다.</dd>
+                                </dl>
+                            </div>
+                            <div class="cont teacher" th:classappend="${userGbn eq T(kr.or.btf.web.domain.web.enums.MberDvType).TEACHER.name() ? 'active' : ''}">
+                                <div class="thumb">
+                                    <p>교원</p>
+                                </div>
+                                <dl class="desc">
+                                    <dt>교육개요</dt>
+                                    <dd>푸른나무재단 사이버폭력 예방교육 사업 푸른코끼리에서는 학교 또는 현장에서 학생을 지도하고 있는 교원을 대상으로 교육을 제공하고 있습니다. 사이버폭력에 관한 올바른 이해와 접근을 목표로 청소년 주변인을 대상으로 교육을 진행함으로써 사이버폭력을 예방하고자 합니다.</dd>
+                                </dl>
+                            </div>
+                            <div class="cont lecturer" th:classappend="${userGbn eq T(kr.or.btf.web.domain.web.enums.MberDvType).LECTURER.name() ? 'active' : ''}">
+                                <div class="thumb">
+                                    <p>푸코강사</p>
+                                </div>
+                                <dl class="desc">
+                                    <dt>교육개요</dt>
+                                    <dd>푸른나무재단 사이버폭력 예방교육 사업 푸른코끼리에서는 학교로 찾아가는 예방교육 강사를 양성합니다. 이에 사이버폭력 예방교육 전문강사를 양성하고, 운영하기 위한 교육을 진행합니다. ※ 본 교육 프로그램은 푸른나무재단이 기획하고 개발한 프로그램으로 이를 무단으로 배포하거나 영리목적으로 사용할 수 없습니다.</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ul class="thumb_list clearfix">
+                        <th:block th:if="${masterSeqs == null or masterSeqs.isEmpty()}"><!--등록된 글이 없을 경우-->
+                            <li class="nodata">
+                                <div>등록된 게시글이 없습니다.</div>
+                            </li>
+                        </th:block>
+                        <li th:each="item,idx:${masterSeqs}">
+                            <a th:href="${'/pages/activity/eduMasterClass/'+item.id}">
+                                <span class="thumb">
+                                    <img th:src="${filePath +'/'+ item.imgFl}" th:alt="${item.crsNm}"
+                                         onerror="this.src='/ClientUI/user/images/contents/data01.jpg '" />
+                                </span>
+                                <strong class="tit">
+                                    <th:block th:text="${item.crsNm}" />
+                                </strong>
+                                <th:block th:if="${item.atnlcReqPid eq null}">
+                                    <span class="lbl lbl_apply">수강신청</span>
+                                </th:block>
+                                <th:block th:unless="${item.atnlcReqPid eq null}">
+                                    <th:block th:if="${item.completeCnt < 6}">
+                                        <span class="lbl lbl_ing">수강중</span>
+                                    </th:block>
+                                    <th:block th:if="${item.completeCnt eq 6}">
+                                        <span class="lbl lbl_end">수강완료</span>
+                                    </th:block>
+
+                                </th:block>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <th:block th:replace="/fragments/paging :: pagingbody(list=${masterSeqs}, link='/pages/activity/preventionEdu/' + ${userGbn}, formId='form1')"></th:block>
+            </div>
+        </form>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

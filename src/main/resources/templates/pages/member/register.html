@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+    <script>
+        var id;
+        var loginId;
+        var pwd;
+        var pwdChk;
+        var nm;
+        var sexPrTy;
+        var mberDvTy;
+        var moblphon;
+        var email;
+        var email01;
+        var email02;
+        var email03;
+        var zip;
+        var adres;
+        var dtlAdres;
+        var ncnm;
+        var secsnDtm;
+        var secsnRsn;
+        var sttTy;
+        var brthdy;
+        var year;
+        var month;
+        var day;
+        var srchSchlNm;
+        var areaNm;
+        var schlNm;
+        var grade;
+        var ban;
+        var classInfoArr;
+
+        var prtctorNm;
+        var prtctorBrthdy;
+        var prtctorEmail;
+        var prtctorEmail01;
+        var prtctorEmail02;
+        var prtctorEmail03;
+        var prtctorAttcAt;
+        var prtctorAttcDtm;
+
+        var idDupBool = false;
+        var emailDupBool = false;
+
+        /*
+        zip = $("#zip");
+        adres = $("#adres");
+        dtlAdres = $("#dtlAdres");
+        secsnDtm = $("#secsnDtm");
+        secsnRsn = $('#secsnRsn');
+        sttTy = $('#sttTy');*/
+
+        function fn_chkField() {
+            $('.err.emph').remove();
+
+            loginId = $("#loginId");
+            pwd = $("#pwd");
+            nm = $("#nm");
+            sexPrTy = $("input[name=sexPrTy]");
+            mberDvTy = $("#mberDvTy");
+            moblphon = $("#moblphon");
+            email = $("#email");
+            zip = $("#zip");
+            adres = $("#adres");
+            dtlAdres = $("#dtlAdres");
+            ncnm = $("#ncnm");
+            secsnDtm = $("#secsnDtm");
+            secsnRsn = $('#secsnRsn');
+            sttTy = $('#sttTy');
+
+            if (!loginId.val()) {
+                if(!loginIdCheck(loginId)){
+                    return false;
+                }
+            }
+
+            if(!idDupBool){
+                //alert('아이디 중복체크를 해주세요.');
+                loginId.after('<p class="err emph">아이디 중복체크를 해주세요.</p>');
+                loginId.focus();
+                return false;
+            }
+
+            if (!fn_chkPwdDup()) {
+                return false;
+            }
+
+            if (!nm.val()) {
+                //alert('이름을 입력하세요');
+                nm.after('<p class="err emph">이름은 필수 값입니다.</p>');
+                nm.focus();
+                return false;
+            }
+
+            var brthdyStr = "";
+            brthdy = $("#brthdy");
+            year = $("#year");
+            month = $("#month");
+            day = $("#day");
+
+            if ($.trim(year.val())) {
+                brthdyStr += $.trim(year.val());
+            }else{
+                //alert('출생년도를 입력하세요');
+                brthdy.after('<p class="err emph">생년월일은 필수 값입니다.</p>');
+                year.focus();
+                return false;
+            }
+
+            if ($.trim(month.val())) {
+                brthdyStr += $.trim(month.val());
+            }else{
+                //alert('생년월일을 선택하세요');
+                brthdy.after('<p class="err emph">생년월일은 필수 값입니다.</p>');
+                month.focus();
+                return false;
+            }
+
+            if ($.trim(day.val())) {
+                brthdyStr += $.trim(day.val());
+            }else{
+                //alert('생년월일을 선택하세요');
+                brthdy.after('<p class="err emph">생년월일은 필수 값입니다.</p>');
+                day.focus();
+                return false;
+            }
+
+            brthdy.val(brthdyStr);
+
+            if($('input[name=sexPrTy]:checked').length < 1){
+                //alert('성별을 선택하세요');
+                $('#sexPrTy').after('<p class="err emph">성별은 필수 값입니다.</p>');
+                sexPrTy.focus();
+                return false;
+            }
+
+            if (!childrenCheck()) {  //청소년이 아님
+                if (!moblphon.val()) {
+                    //alert('휴대전화를 입력하세요');
+                    moblphon.after('<p class="err emph">휴대전화번호는 필수 값입니다.</p>');
+                    moblphon.focus();
+                    return false;
+                }
+                if(!moblphonCheck(moblphon)){
+                    moblphon.val("");
+                    moblphon.focus();
+                    return false;
+                }
+            }
+
+            /*if (!moblphon.val()) {
+                //alert('휴대전화를 입력하세요');
+                if (!childrenCheck()) {
+                    moblphon.after('<p class="err emph">휴대전화번호는 필수 값입니다.</p>');
+                    moblphon.focus();
+                    return false;
+                }
+            }else{
+                //청소년이 아닐때만 폰 체크
+                if (!childrenCheck()) {
+                    if(!moblphonCheck(moblphon)){
+                        moblphon.val("");
+                        moblphon.focus();
+                        return false;
+                    }
+                }
+            }*/
+
+            if (!emailDupBool) {
+                alert('이메일 중복확인을 해주세요.');
+                return false;
+            }
+
+            if (!ncnm.val()) {
+                //alert('닉네임을 입력하세요');
+                ncnm.after('<p class="err emph">닉네임은 필수 값입니다.</p>');
+                ncnm.focus();
+                return false;
+            }
+
+            if (childrenCheck()) {
+                prtctorNm = $("#prtctorNm");
+                if (!prtctorNm.val()) {
+                    //alert('닉네임을 입력하세요');
+                    prtctorNm.after('<p class="err emph">보호자 이름은 필수 값입니다.</p>');
+                    prtctorNm.focus();
+                    return false;
+                }
+
+                var brthdyStr = "";
+                prtctorBrthdy = $("#prtctorBrthdy");
+                prtctorYear = $("#prtctorYear");
+                prtctorMonth = $("#prtctorMonth");
+                prtctorDay = $("#prtctorDay");
+
+                if ($.trim(prtctorYear.val())) {
+                    brthdyStr += $.trim(prtctorYear.val());
+                }else{
+                    //alert('출생년도를 입력하세요');
+                    prtctorBrthdy.after('<p class="err emph">보호자 생년월일은 필수 값입니다.</p>');
+                    prtctorYear.focus();
+                    return false;
+                }
+
+                if ($.trim(prtctorMonth.val())) {
+                    brthdyStr += $.trim(prtctorMonth.val());
+                }else{
+                    //alert('생년월일을 선택하세요');
+                    prtctorBrthdy.after('<p class="err emph">보호자 생년월일은 필수 값입니다.</p>');
+                    prtctorMonth.focus();
+                    return false;
+                }
+
+                if ($.trim(prtctorDay.val())) {
+                    brthdyStr += $.trim(prtctorDay.val());
+                }else{
+                    //alert('생년월일을 선택하세요');
+                    prtctorBrthdy.after('<p class="err emph">보호자 생년월일은 필수 값입니다.</p>');
+                    prtctorDay.focus();
+                    return false;
+                }
+
+                prtctorBrthdy.val(brthdyStr);
+
+                var emailStr = "";
+                prtctorEmail = $("#prtctorEmail");
+                prtctorEmail01 = $("#prtctorEmail01");
+                prtctorEmail02 = $("#prtctorEmail02");
+                prtctorEmail03 = $("#prtctorEmail03");
+                prtctorEmail.siblings('.err.emph').remove();
+                if ($.trim(prtctorEmail01.val())) {
+                    emailStr += $.trim(prtctorEmail01.val());
+                    emailStr += "@"
+                }else{
+                    alert('이메일을 입력하세요');
+                    prtctorEmail01.focus();
+                    return false;
+                }
+
+                if ($.trim(prtctorEmail02.val()) != "직접입력") {
+                    if(!$.trim(prtctorEmail02.val())){
+                        alert('이메일을 입력하세요');
+                        prtctorEmail02.focus();
+                        return false;
+                    }else{
+                        emailStr += $.trim(prtctorEmail02.val());
+                    }
+                }
+
+                if ($.trim(prtctorEmail02.val()) == "직접입력") {
+                    if(!$.trim(prtctorEmail03.val())){
+                        alert('이메일을 입력하세요');
+                        prtctorEmail03.focus();
+                        return false;
+                    }else{
+                        emailStr += $.trim(prtctorEmail03.val());
+                    }
+                }
+
+                prtctorEmail.val(emailStr);
+            }
+
+            return true;
+        }
+
+        function fn_chkPwdDup(){
+            pwd = $("#pwd");
+            pwdChk = $('#pwdChk');
+
+            pwd.siblings('.err.emph').remove();
+            if (!$.trim(pwd.val())) {
+                //alert('비밀번호를 입력하세요');
+                pwd.after('<p class="err emph">비밀번호는 필수 값입니다.</p>');
+                pwd.focus();
+                return false;
+            }else{
+                if(!pwdCheck(pwd)){
+                    pwd.val("");
+                    pwd.focus();
+                    return false;
+                }
+            }
+
+            pwdChk.siblings('.err.emph').remove();
+            if (!$.trim(pwdChk.val())) {
+                //alert('비밀번호 확인을 입력하세요');
+                pwdChk.after('<p class="err emph">비밀번호 확인은 필수 값입니다.</p>');
+                pwdChk.focus();
+                return false;
+            }else{
+                if(!pwdCheck(pwdChk)){
+                    pwdChk.val("");
+                    pwdChk.focus();
+                    return false;
+                }
+            }
+
+            if (pwd.val() != pwdChk.val()) {
+                //alert('비밀번호가 일치하지 않습니다.');
+                pwdChk.after('<p class="err emph">비밀번호가 일치하지 않습니다.</p>');
+                pwdChk.focus();
+                return false;
+            }else{
+                return true;
+            }
+        }
+
+        function fn_comparePwd() {
+            pwd = $("#pwd");
+            pwdChk = $('#pwdChk');
+            pwdChk.siblings('.err.emph').remove();
+            if (pwd.val() != pwdChk.val()) {
+                pwdChk.after('<p class="err emph">비밀번호가 일치하지 않습니다.</p>');
+            }
+        }
+
+        function fn_chkIdDup(){
+            loginId = $("#loginId");
+            loginId.siblings('.err.emph').remove();
+
+            if(!loginIdCheck(loginId)){
+                return false;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/api/member/isExistsByLoginId",
+                data: {
+                    "loginId": loginId.val()
+                },
+                success: function (data) {
+                    if(loginId.val() != ''){
+                        alert('사용가능한 아이디 입니다.');
+                        idDupBool = true;
+                    }
+                },
+                error: function (error) {
+                    alert(error.responseText);
+                    idDupBool = false;
+                    loginId.val('');
+                    loginId.focus();
+                }
+            });
+        }
+
+        function fn_chkEmailDup(){
+            var emailStr = "";
+            email = $("#email");
+            email01 = $("#email01");
+            email02 = $("#email02");
+            email03 = $("#email03");
+            email.siblings('.err.emph').remove();
+            if ($.trim(email01.val())) {
+                emailStr += $.trim(email01.val());
+                emailStr += "@"
+            }else{
+                alert('이메일을 입력하세요');
+                email01.focus();
+                return false;
+            }
+
+            if ($.trim(email02.val()) != "직접입력") {
+                if(!$.trim(email02.val())){
+                    alert('이메일을 입력하세요');
+                    email02.focus();
+                    return false;
+                }else{
+                    emailStr += $.trim(email02.val());
+                }
+            }
+
+            if ($.trim(email02.val()) == "직접입력") {
+                if(!$.trim(email03.val())){
+                    alert('이메일을 입력하세요');
+                    email03.focus();
+                    return false;
+                }else{
+                    emailStr += $.trim(email03.val());
+                }
+            }
+
+            email.val(emailStr);
+
+            if(email.val()){
+                if(!emailCheck(email)){
+                    email.val("");
+                    email01.focus();
+                    emailDupBool = false;
+                }
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/api/member/isExistsByEmail",
+                data: {
+                    "email": email.val()
+                },
+                success: function (data) {
+                    if(email.val() != ''){
+                        alert('사용가능한 이메일 입니다.');
+                        emailDupBool = true;
+                        email01.attr("disabled", true);
+                        email02.attr("disabled", true);
+                        email03.attr("disabled", true);
+                    }
+                },
+                error: function (error) {
+                    alert(error.responseText);
+                    emailDupBool = false;
+                    email.val('');
+                    email01.val('');
+                    email02.val('').trigger("change");
+                    email03.val('');
+                    email01.focus();
+                }
+            });
+        }
+
+        function fn_chgMberDvTy(gbn){
+            mberDvTy = $("#mberDvTy");
+            if(gbn == "PARENT"){
+                $('.student').hide();
+                $('.teacher').hide();
+                $('.parent').show();
+                mberDvTy.val('PARENT');
+            }else if(gbn == "TEACHER"){
+                $('.student').hide();
+                $('.parent').hide();
+                $('.teacher').show();
+                mberDvTy.val('TEACHER');
+            }else if(gbn == "STUDENT"){
+                $('.teacher').hide();
+                $('.parent').hide();
+                $('.student').show();
+                mberDvTy.val('STUDENT');
+            } else{
+                $('.teacher').hide();
+                $('.parent').hide();
+                $('.student').hide();
+                mberDvTy.val('NORMAL');
+            }
+
+        }
+
+        function fn_srchSchlNm(){
+            srchSchlNm = $('#srchSchlNm');
+            if (!$.trim(srchSchlNm.val())) {
+                alert('학교명을 입력하세요');
+                srchSchlNm.focus();
+                return false;
+            }
+
+            $.ajax({
+                type: "GET",
+                url: "/api/openData/schoolInfoToJson",
+                dataType:"json",
+                data: {
+                    "scName": srchSchlNm.val()
+                },
+                success: function (data) {
+                    var code = data.schoolInfo[0].head[1].RESULT.CODE;
+                    var message = data.schoolInfo[0].head[1].RESULT.MESSAGE;
+                    if(code != 'INFO-000') { //실패
+                        alert(message);
+                    }else{ //성공
+                        var html = "";
+                        $('#srchSchlNmList').empty();
+                        var scArr = data.schoolInfo[1].row;
+                        for(var i = 0; i< scArr.length; i++){
+                            var lctn_sc_nm = scArr[i].LCTN_SC_NM; //지역
+                            var schul_nm = scArr[i].SCHUL_NM; //학교명
+                            var sd_schul_code = scArr[i].SD_SCHUL_CODE; //학교코드
+                            var atpt_ofcdc_sc_code = scArr[i].ATPT_OFCDC_SC_CODE; //교육청코드
+
+                            html += "<div class=\"radio txt\">";
+                            html += "   <input type=\"radio\" name=\"school\" id=\"school" + sd_schul_code + "\" value=\"" + sd_schul_code + "\">";
+                            html += "   <label for=\"school" + sd_schul_code + "\">" + schul_nm + "(" + lctn_sc_nm + ")" + "</label>";
+                            html += "   <input type=\"hidden\" name=\"lctn_sc_nm" + sd_schul_code + "\" id=\"" + lctn_sc_nm + "\" value=\"" + lctn_sc_nm + "\">";
+                            html += "   <input type=\"hidden\" name=\"atpt_ofcdc_sc_code" + sd_schul_code + "\" id=\"" + atpt_ofcdc_sc_code + "\" value=\"" + atpt_ofcdc_sc_code + "\">";
+                            html += "   <input type=\"hidden\" name=\"schul_nm" + sd_schul_code + "\" id=\"" + schul_nm + "\" value=\"" + schul_nm + "\">";
+                            html += "</div>";
+                        }
+                        $('#nodata').hide();
+                        $('#srchSchlNmList').append(html);
+                    }
+                },
+                error: function (error) {
+                    alert(error.responseText);
+                    $('#srchSchlNmList').append('');
+                    $('#nodata').show();
+                }
+            });
+        }
+
+        function fn_selSchlNm(){
+            srchSchlNm = $('#srchSchlNm');
+            var chkSchl = $('input:radio[name=school]:checked');
+            if(chkSchl.length < 1){
+                alert('학교를 선택해주세요.');
+                return;
+            }
+            areaNm = $('#areaNm');
+            schlNm = $('#schlNm');
+
+            var sd_schul_code = chkSchl.val(); //학교코드
+            var lctn_sc_nm = $('input:hidden[name='+'lctn_sc_nm'+ chkSchl.val() + ']').val(); //지역
+            var schul_nm = $('input:hidden[name='+'schul_nm'+ chkSchl.val() + ']').val(); //학교명
+            var atpt_ofcdc_sc_code = $('input:hidden[name='+'atpt_ofcdc_sc_code'+ chkSchl.val() + ']').val(); ; //교육청코드
+
+            areaNm.val(lctn_sc_nm);
+            schlNm.val(schul_nm);
+
+            fn_setGrade(atpt_ofcdc_sc_code, sd_schul_code);
+
+            srchSchlNm.val('');
+            $('#nodata').show();
+            $('#srchSchlNmList').empty();
+            layerHide('popSchool');
+        }
+
+        function fn_setGrade(ofCode, scCode){
+            grade = $('#grade');
+            grade.empty();
+            if(ofCode && scCode){
+                $.ajax({
+                    type: "GET",
+                    url: "/api/openData/classInfoToJson",
+                    dataType:"json",
+                    data: {
+                        "ofCode": ofCode,
+                        "scCode": scCode
+                    },
+                    success: function (data) {
+                        var code = data.classInfo[0].head[1].RESULT.CODE;
+                        var message = data.classInfo[0].head[1].RESULT.MESSAGE;
+                        if(code != 'INFO-000') { //실패
+                            alert(message);
+                        }else{ //성공
+                            var html = "<option value=\"\">선택</option>";
+
+                            grade.append(html);
+                            classInfoArr = data.classInfo[1].row;
+
+                            var gradeArr = _.uniq(classInfoArr,'GRADE')
+                                gradeArr = _.sortBy(gradeArr,function(item){
+                                                return item;
+                                            });
+                            for(var i = 0; i< gradeArr.length; i++) {
+                                var grd = gradeArr[i].GRADE; //학년
+                                html = "<option value=" + grd + ">" + grd + "학년</option>";
+                                grade.append(html);
+                            }
+                        }
+                    },
+                    error: function (error) {
+                        alert(error.responseText);
+                    }
+                });
+            }
+            $("label[for='grade']").text('선택');
+            grade.val("");
+        }
+
+        function fn_setBan(grd){
+            grade = $('#grade');
+            ban = $('#ban');
+            ban.empty();
+
+            if(!grd){
+                alert('학년을 선택해주세요.');
+                grade.focus();
+                return;
+            }
+
+            var html = "<option value=\"\">선택</option>";
+            ban.append(html);
+
+            var banArr = _.where(classInfoArr, {GRADE: grd});
+                banArr = _.uniq(banArr,'CLASS_NM');
+                banArr = _.sortBy(banArr,function(item){
+                                return item;
+                            });
+            for(var i = 0; i< banArr.length; i++) {
+                var grd = banArr[i].CLASS_NM; //반
+                html = "<option value=" + grd + ">" + grd + "반</option>";
+                ban.append(html);
+            }
+            $("label[for='ban']").text('선택');
+            ban.val("");
+        }
+
+        function appendYear() {
+            var date = new Date();
+            var crrntYear = date.getFullYear();
+            year = $("#year");
+            year.append("<option value=''>선택</option>");
+            // 올해 기준으로 -1년부터 -70년을 보여준다.
+            for (var y = (crrntYear - 1); (crrntYear - 70) <= y; y--) {
+                year.append("<option value='" + y + "'>" + y + "년" + "</option>");
+            }
+
+            prtctorYear = $("#prtctorYear");
+            prtctorYear.append("<option value=''>선택</option>");
+            // 올해 기준으로 -1년부터 -70년을 보여준다.
+            for (var y = (crrntYear - 1); (crrntYear - 70) <= y; y--) {
+                prtctorYear.append("<option value='" + y + "'>" + y + "년" + "</option>");
+            }
+        }
+
+        var makeErrField = function (response) {
+            var errFields = response.responseJSON;
+
+            if(!errFields){
+                alert(response.response.message);
+                return;
+            }
+            if(errFields.errors){
+                var altmsgs = errFields.errors;
+                for(var i=0, length = altmsgs.length; i<length;i++){
+                    error = altmsgs[i];
+                    if(error['field'] == 'altmsg'){
+                        alert(error.defaultMessage);
+                    }
+                }
+                return;
+            }
+
+            var $field, error;
+            for(var i=0, length = errFields.length; i<length;i++){
+                error = errFields[i];
+                $field = $('#'+error['field']);
+
+                if($field && $field.length > 0){
+                    $field.siblings('.err.emph').remove();
+                    $field.after('<p class="err emph">'+error.defaultMessage+'</p>');
+                }
+            }
+        };
+
+        function childrenCheck() {
+            year = $("#year")
+            var nowDate = new Date();
+            return ((nowDate.getFullYear() - year.val()) < 14);
+        }
+
+        function fn_emailValidate(obj) {
+            if ($(obj).val().includes('@')) {
+                alert('잘못된 이메일 형식입니다.');
+                $(obj).val('');
+                return false;
+            }
+        }
+
+        function fn_checkSpacebar() {
+            var keyCode = event.keyCode;
+            if(keyCode == 32) event.returnValue = false;
+        }
+
+        $(function(){
+            appendYear();
+            year.change(function() {
+                if (childrenCheck()) {
+                    //청소년일경우-핸드폰입력 필수 X,부모정보
+                    $("#moblphonLabel").hide();
+                    $("#parentInfoDiv").show();
+                } else {
+                    //청소년 아닐경우 -핸드폰입력 필수 ,부모정보 X
+                    $("#moblphonLabel").show();
+                    $("#parentInfoDiv").hide();
+                }
+            });
+            $("#parentInfoDiv").hide();
+            fn_chgMberDvTy('STUDENT');
+
+            loginId = $('#loginId');
+            loginId.change(function () {
+                idDupBool = false;
+            });
+
+            $('#btnSave').click(function () {
+                $('#btnSave').prop('disabled', true);
+                if(!fn_chkField()){
+                    $('#btnSave').prop('disabled', false);
+                    return;
+                }
+                var formData = $("#form1").serialize();
+                $.ajax({
+                    cache : false,
+                    url: "/api/member/insert",
+                    type : 'POST',
+                    data : formData,
+                    success : function(data) {
+                        alert(data);
+                        location.href = "/login";
+                    },
+                    error : function(error) {
+                        makeErrField(error);
+                        $('#btnSave').prop('disabled', false);
+                    }
+                });
+
+                //var frm = $('#form1');
+                //frm.prop('action', '/api/member/save');
+                //frm.submit();
+            });
+        });
+
+        window.name ="Parent_window";
+        function fn_niceCallPopup(){
+            window.open('/api/nice/call', 'popupNiceCall', 'width=500, height=550, top=100, left=100, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no');
+        }
+
+        window.addEventListener('message', function (e) {
+            if (e.origin !== "https://nice.checkplus.co.kr") {
+                return ;
+            }
+            console.log(e.data.moblphon);
+            console.log(e.data.sRequestNumber);
+            console.log(e.data.sResponseNumber);
+        });
+    </script>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+        <div class="contents">
+            <div class="page_top">
+                <h3 class="page_tit">회원가입</h3>
+                <span>고객님께서 입력하신 정보를 안전하고 정확하게 관리하기 위해 최선을 다하겠습니다.</span>
+            </div>
+            <div class="page_cont join_form_area">
+                <!--<form id="form1" name="form1" method="post">-->
+                <form id="form1" name="form1" method="post" modelAttribute="memberForm">
+                    <div class="sec_write">
+                        <div class="tbl_write">
+                            <ul>
+                                <li>
+                                    <div class="th"><label for="loginId">아이디</label><span class="aster">*</span></div>
+                                    <div class="td">
+                                        <input type="text" id="loginId" name="loginId" placeholder="6~12자 영문 소문자, 숫자 사용" onkeydown="fn_checkSpacebar()" />
+                                        <button type="button" class="btn btn_lg btn_line_blue btn_pill_10" onclick="return fn_chkIdDup();">중복확인</button>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="th"><label for="pwd">비밀번호</label><span class="aster">*</span></div>
+                                    <div class="td">
+                                        <input type="password" id="pwd" name="pwd" placeholder="8~16자(특수 문자 포함)" onkeyup="fn_comparePwd()" onkeydown="fn_checkSpacebar()" />
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="th"><label for="pwdChk">비밀번호 확인</label><span class="aster">*</span></div>
+                                    <div class="td"><input type="password" name="pwdChk" id="pwdChk" placeholder="비밀번호 확인" onkeyup="fn_comparePwd()" onkeydown="fn_checkSpacebar()" /></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="sec_write">
+                        <h4 class="subtit">기본정보 입력<span class="aster">*</span></h4>
+                        <div class="tbl_write">
+                            <ul>
+                                <li>
+                                    <div class="th"><label for="nm">이름</label><span class="aster">*</span></div>
+                                    <div class="td">
+                                        <input type="text" id="nm" name="nm" placeholder="이름을 입력하세요">
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="th">생년월일<span class="aster">*</span></div>
+                                    <div class="td">
+                                        <div class="birth_form clearfix">
+                                            <div class="select">
+                                                <label for="year">선택</label>
+                                                <select name="year" id="year">
+                                                </select>
+                                            </div>
+                                            <div class="select">
+                                                <label for="month">선택</label>
+                                                <select name="month" id="month">
+                                                    <option value="">선택</option>
+                                                    <option value="01">1월</option>
+                                                    <option value="02">2월</option>
+                                                    <option value="03">3월</option>
+                                                    <option value="04">4월</option>
+                                                    <option value="05">5월</option>
+                                                    <option value="06">6월</option>
+                                                    <option value="07">7월</option>
+                                                    <option value="08">8월</option>
+                                                    <option value="09">9월</option>
+                                                    <option value="10">10월</option>
+                                                    <option value="11">11월</option>
+                                                    <option value="12">12월</option>
+                                                </select>
+                                            </div>
+                                            <div class="select">
+                                                <label for="day">선택</label>
+                                                <select name="day" id="day">
+                                                    <option value="">선택</option>
+                                                    <option value="01">1일</option>
+                                                    <option value="02">2일</option>
+                                                    <option value="03">3일</option>
+                                                    <option value="04">4일</option>
+                                                    <option value="05">5일</option>
+                                                    <option value="06">6일</option>
+                                                    <option value="07">7일</option>
+                                                    <option value="08">8일</option>
+                                                    <option value="09">9일</option>
+                                                    <option value="10">10일</option>
+                                                    <option value="11">11일</option>
+                                                    <option value="12">12일</option>
+                                                    <option value="13">13일</option>
+                                                    <option value="14">14일</option>
+                                                    <option value="15">15일</option>
+                                                    <option value="16">16일</option>
+                                                    <option value="17">17일</option>
+                                                    <option value="18">18일</option>
+                                                    <option value="19">19일</option>
+                                                    <option value="20">20일</option>
+                                                    <option value="21">21일</option>
+                                                    <option value="22">22일</option>
+                                                    <option value="23">23일</option>
+                                                    <option value="24">24일</option>
+                                                    <option value="25">25일</option>
+                                                    <option value="26">26일</option>
+                                                    <option value="27">27일</option>
+                                                    <option value="28">28일</option>
+                                                    <option value="29">29일</option>
+                                                    <option value="30">30일</option>
+                                                    <option value="31">31일</option>
+                                                </select>
+                                            </div>
+                                            <input type="hidden" name="brthdy" id="brthdy"/>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="th">성별<span class="aster">*</span></div>
+                                    <div class="td">
+                                        <div class="radio txt" th:each="tp : ${T(kr.or.btf.web.domain.web.enums.GenderType).values()}">
+                                            <input type="radio" th:id="|sexPrTy${tp}|" name="sexPrTy" th:value="${tp}">
+                                            <label th:for="|sexPrTy${tp}|" th:text="${tp.name}"></label>
+                                        </div>
+                                        <span id="sexPrTy"></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="th">이메일 주소<span class="aster">*</span></div>
+                                    <div class="td">
+                                        <div class="email_form clearfix"> <!-- [D] active 클래스가 있어야 직접입력 인풋이 노출 됨(style.js 에 들어가 있음) -->
+                                            <input type="text" name="email01" id="email01" title="이메일 아이디 입력" oninput="fn_emailValidate(this)" onkeydown="fn_checkSpacebar()" />
+                                            <span class="at">@</span>
+                                            <div class="select">
+                                                <label for="email02" id="email02_label">선택</label>
+                                                <select name="email02" id="email02">
+                                                    <option value="">선택</option>
+                                                    <option value="naver.com">naver.com</option>
+                                                    <option value="gmail.com">gmail.com</option>
+                                                    <option value="hanmail.net">hanmail.net</option>
+                                                    <option value="nate.com">nate.com</option>
+                                                    <option value="daum.net">daum.net</option>
+                                                    <option value="직접입력">직접입력</option>
+                                                </select>
+                                            </div>
+                                            <input type="text" name="email03" id="email03" class="email_inp" title="이메일주소 직접입력" onkeydown="fn_checkSpacebar()" />
+                                        </div>
+                                        <button type="button" class="btn btn_lg btn_line_blue btn_pill_10" onclick="return fn_chkEmailDup();">중복확인</button>
+                                        <input type="hidden" name="email" id="email"/>
+                                        <p class="tip emph">※ 아이디/패스워드 찾기, 회원가입 인증에 사용됩니다. 정확하게 입력해주세요.</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="th"><label for="moblphon">휴대전화</label><span class="aster" id="moblphonLabel">*</span></div>
+                                    <div class="td">
+                                        <input type="text" id="moblphon" name="moblphon" placeholder="'-' 구분없이 입력 ex)01012345678" readonly>
+                                        <input type="hidden" id="sRequestNumber" name="sRequestNumber"/>
+                                        <input type="hidden" id="sResponseNumber" name="sResponseNumber"/>
+                                        <button type="button" class="btn btn_lg btn_line_blue btn_pill_10" onclick="return fn_niceCallPopup();">휴대폰번호인증</button>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="th"><label for="ncnm">닉네임</label><span class="aster">*</span></div>
+                                    <div class="td">
+                                        <input type="text" id="ncnm" name="ncnm" placeholder="최대 8자 이내" maxlength="8">
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="sec_write" id="parentInfoDiv">
+                        <h4 class="subtit">보호자 정보 입력<span class="tip emph">※ 보호자 정보입력은 정보확인을 위함일뿐, 보호자의 회원가입을 의미하지 않습니다.</span></h4>
+                        <div class="tbl_write">
+                            <ul>
+                                <li>
+                                    <div class="th"><label for="prtctorNm">보호자 이름</label><span class="aster">*</span></div>
+                                    <div class="td">
+                                        <input type="text" id="prtctorNm" name="prtctorNm" placeholder="최대 8자 이내" maxlength="8">
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="th">보호자 생년월일<span class="aster">*</span></div>
+                                    <div class="td">
+                                        <div class="birth_form clearfix">
+                                            <div class="select">
+                                                <label for="prtctorYear">선택</label>
+                                                <select name="prtctorYear" id="prtctorYear">
+                                                </select>
+                                            </div>
+                                            <div class="select">
+                                                <label for="prtctorMonth">선택</label>
+                                                <select name="prtctorMonth" id="prtctorMonth">
+                                                    <option value="">선택</option>
+                                                    <option value="01">1월</option>
+                                                    <option value="02">2월</option>
+                                                    <option value="03">3월</option>
+                                                    <option value="04">4월</option>
+                                                    <option value="05">5월</option>
+                                                    <option value="06">6월</option>
+                                                    <option value="07">7월</option>
+                                                    <option value="08">8월</option>
+                                                    <option value="09">9월</option>
+                                                    <option value="10">10월</option>
+                                                    <option value="11">11월</option>
+                                                    <option value="12">12월</option>
+                                                </select>
+                                            </div>
+                                            <div class="select">
+                                                <label for="prtctorDay">선택</label>
+                                                <select name="prtctorDay" id="prtctorDay">
+                                                    <option value="">선택</option>
+                                                    <option value="01">1일</option>
+                                                    <option value="02">2일</option>
+                                                    <option value="03">3일</option>
+                                                    <option value="04">4일</option>
+                                                    <option value="05">5일</option>
+                                                    <option value="06">6일</option>
+                                                    <option value="07">7일</option>
+                                                    <option value="08">8일</option>
+                                                    <option value="09">9일</option>
+                                                    <option value="10">10일</option>
+                                                    <option value="11">11일</option>
+                                                    <option value="12">12일</option>
+                                                    <option value="13">13일</option>
+                                                    <option value="14">14일</option>
+                                                    <option value="15">15일</option>
+                                                    <option value="16">16일</option>
+                                                    <option value="17">17일</option>
+                                                    <option value="18">18일</option>
+                                                    <option value="19">19일</option>
+                                                    <option value="20">20일</option>
+                                                    <option value="21">21일</option>
+                                                    <option value="22">22일</option>
+                                                    <option value="23">23일</option>
+                                                    <option value="24">24일</option>
+                                                    <option value="25">25일</option>
+                                                    <option value="26">26일</option>
+                                                    <option value="27">27일</option>
+                                                    <option value="28">28일</option>
+                                                    <option value="29">29일</option>
+                                                    <option value="30">30일</option>
+                                                    <option value="31">31일</option>
+                                                </select>
+                                            </div>
+                                            <input type="hidden" name="prtctorBrthdy" id="prtctorBrthdy"/>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="th">보호자 이메일<span class="aster">*</span></div>
+                                    <div class="td">
+                                        <div class="email_form clearfix"> <!-- [D] active 클래스가 있어야 직접입력 인풋이 노출 됨(style.js 에 들어가 있음) -->
+                                            <input type="text" name="prtctorEmail01" id="prtctorEmail01" title="이메일 아이디 입력" oninput="fn_emailValidate(this)" onkeydown="fn_checkSpacebar()" />
+                                            <span class="at">@</span>
+                                            <div class="select">
+                                                <label for="prtctorEmail02">선택</label>
+                                                <select name="prtctorEmail02" id="prtctorEmail02">
+                                                    <option value="">선택</option>
+                                                    <option value="naver.com">naver.com</option>
+                                                    <option value="gmail.com">gmail.com</option>
+                                                    <option value="hanmail.net">hanmail.net</option>
+                                                    <option value="nate.com">nate.com</option>
+                                                    <option value="daum.net">daum.net</option>
+                                                    <option value="직접입력">직접입력</option>
+                                                </select>
+                                            </div>
+                                            <input type="text" name="prtctorEmail03" id="prtctorEmail03" class="email_inp" title="이메일주소 직접입력" onkeydown="fn_checkSpacebar()" />
+                                        </div>
+                                        <!--<button type="button" class="btn btn_lg btn_line_blue btn_pill_10" onclick="return fn_chkEmailDup();">중복확인</button>-->
+                                        <input type="hidden" name="prtctorEmail" id="prtctorEmail"/>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="sec_write">
+
+                        <div class="subtit_area">
+                            <h4 class="subtit student teacher parent">추가정보 입력</h4>
+                            <ul class="tab tab_type02">
+                                <li class="active"><a href="javascript:fn_chgMberDvTy('STUDENT');">학생</a></li>
+                                <li><a href="javascript:fn_chgMberDvTy('TEACHER');">교사</a></li>
+                                <li><a href="javascript:fn_chgMberDvTy('PARENT');">부모</a></li>
+                                <li><a href="javascript:fn_chgMberDvTy('NORMAL');">일반</a></li>
+                            </ul>
+                            <input type="hidden" id="mberDvTy" name="mberDvTy"/>
+                        </div>
+
+                        <div class="tbl_write">
+                            <ul>
+                                <li class="student teacher">
+                                    <div class="th mo_bdt_0"><label for="areaNm">지역명</label></div>
+                                    <div class="td">
+                                        <input type="text" id="areaNm" name="areaNm" readonly onclick="layerShow('popSchool')"/>
+                                    </div>
+                                </li>
+                                <li class="student teacher">
+                                    <div class="th"><label for="schlNm">학교명</label></div>
+                                    <div class="td">
+                                        <input type="text" id="schlNm" name="schlNm" readonly onclick="layerShow('popSchool')"/>
+                                        <button type="button" class="btn btn_lg btn_line_blue btn_pill_10" onclick="layerShow('popSchool')">학교검색</button>
+                                    </div>
+                                </li>
+                                <li class="student teacher">
+                                    <div class="th">학년</div>
+                                    <div class="td">
+                                        <div>
+                                            <div class="select w180">
+                                                <label for="grade">선택</label>
+                                                <select id="grade" name="grade" onchange="return fn_setBan(this.value);">
+                                                    <option value="">선택</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="student teacher">
+                                    <div class="th">반</div>
+                                    <div class="td">
+                                        <div>
+                                            <div class="select w180">
+                                                <label for="ban">선택</label>
+                                                <select id="ban" name="ban">
+                                                    <option value="">선택</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="student">
+                                    <div class="th">번호</div>
+                                    <div class="td"><input type="number" id="no" name="no" onchange="stdntNoCheck(this, event)" onkeydown="fn_checkSpacebar()" /></div>
+                                </li>
+
+                                <li class="student">
+                                    <div class="th"><label for="teacherNm">담임 선생님</label></div>
+                                    <div class="td"><input type="text" id="teacherNm" name="teacherNm" /></div>
+                                </li>
+
+                                <li class="parent">
+                                    <!--<div class="th"><label for="stdntId">학생 아이디</label></div>-->
+                                    <!--<div class="td"><input type="text" id="stdntId" name="stdntId"/></div>-->
+                                    <div class="td"><div type="text" id="stdntId" name="stdntId"/>자녀정보는 마이페이지에서 입력가능합니다.</div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="btn_area"><button type="button" id="btnSave" class="btn btn_lg btn_blue btn_pill_10">회원가입</button></div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="popSchool" class="layer_popup">
+        <div class="dim"></div>
+        <div class="popup_area">
+            <a href="javascript:layerHide('popSchool')" class="btn_close"><span class="blind">팝업닫기</span></a>
+            <div class="popup">
+                <div class="pop_tit">학교 검색</div>
+                <div class="pop_cont">
+                    <ul class="write_form mb20">
+                        <li>
+                            <div class="th">학교명</div>
+                            <div class="td">
+                                <div class="email_form clearfix">
+                                    <input type="text" id="srchSchlNm" name="srchSchlNm" placeholder="학교명을 입력해주세요.">
+                                    <button type="button" class="btn btn_lg btn_line_blue btn_pill_10" onclick="return fn_srchSchlNm();">검색</button>
+                                </div>
+                                <ul class="write_form">
+                                    <li>
+                                        <div class="td">
+                                            <div class="scrollbar">
+                                                <span class="txt03" id="nodata">- 학교명을 검색해주세요. -</span>
+                                                <div id="srchSchlNmList"></div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="btn_area">
+                    <button type="button" class="btn btn_lg btn_blue btn_pill_10" onclick="return fn_selSchlNm();">적용</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

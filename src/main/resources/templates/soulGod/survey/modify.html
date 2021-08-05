@@ -1,0 +1,216 @@
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:include="soulGod/fragments/header"></th:block>
+	<script type="text/javascript">
+		function fn_chkField(){
+			var ttl = $("#ttl");
+			var stYmd = $("#stYmd");
+			var endYmd = $("#endYmd");
+			var qustnrCn = $("#qustnrCn");
+
+			if(!$.trim(ttl.val())){
+				alert("제목은 필수입니다.");
+				ttl.focus();
+				return false;
+			}
+            /*if(!stYmd.val() || !endYmd.val()){
+                alert("설문기간은 필수입니다.");
+                var dt = !stYmd.val() ? stYmd : endYmd;
+                dt.focus();
+                return false;
+            }*/
+            if(!$.trim(qustnrCn.val())){
+            	alert("개요는 필수입니다.")
+				qustnrCn.focus();
+            	return false;
+            }
+
+			if ($('input[name=dvTy]:checked').val() == '[[${T(kr.or.btf.web.domain.web.enums.SurveyDvType).SATISFACTION.name()}]]') {
+				if ($('input[name$=mberDvTy]:radio:checked').length == 0) {
+					alert('대상을 선택하세요.');
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+		$(function(){
+			$('#btnSave').click(function () {
+				if (!fn_chkField()) {
+					return;
+				}
+
+				var frm = $('#form1');
+				frm.prop('action', '/soulGod/survey/modify');
+				frm.submit();
+			});
+
+			$('input[name=dvTy]').click(function (){
+				if ($('input[name=dvTy]:checked').val() == '[[${T(kr.or.btf.web.domain.web.enums.SurveyDvType).SATISFACTION.name()}]]') {
+					$('#surveyTarget').show();
+				} else {
+					$('#surveyTarget').hide();
+				}
+			});
+			$('input[name=dvTy]:input[value='+'[[${form.dvTy}]]'+']').trigger('click');
+
+			$('#btnDelete').click(function () {
+
+				var mstRelCnt = '[[${masterRelCnt}]]'
+
+				if (mstRelCnt != 0) {
+					alert('마스터에 추가된 설문은 삭제 할 수 없습니다.');
+					return false;
+				}
+
+				if (!confirm('삭제하시겠습니까?')) {
+					return;
+				}
+
+				var frm = $('#form1');
+				frm.prop('action', '/soulGod/survey/delete');
+				frm.submit();
+			});
+
+			/*fn_setDatePicker('#stYmd', {
+				onShow:function( ct ){
+					this.setOptions({
+						maxDate:$('#endYmd').val()?$('#endYmd').val():false
+					})
+				}
+			});
+
+			fn_setDatePicker('#endYmd', {
+				onShow:function( ct ){
+					this.setOptions({
+						minDate:$('#stYmd').val()?$('#stYmd').val():false
+					})
+				}
+			});*/
+		});
+    </script>
+</head>
+<body>
+<div id="wrap">
+	<th:block th:include="soulGod/fragments/menu"></th:block>
+
+	<div id="container">
+		<div class="container_box">
+			<form id="form1" name="form1" method="post" th:object="${form}">
+				<input type="hidden" th:field="*{id}">
+				<div class="contents">
+
+					<ul class="breadcrumb">
+						<li><i class="material-icons">home</i></li>
+						<li th:text="*{dvTy eq T(kr.or.btf.web.domain.web.enums.SurveyDvType).SELF.name() ? '시스템관리' : '운영관리'}">운영관리</li>
+						<li th:text="*{dvTy eq T(kr.or.btf.web.domain.web.enums.SurveyDvType).SELF.name() ? '자가진단관리' : '설문관리'}">설문 관리</li>
+					</ul>
+
+					<div class="board_detail">
+						<div class="sec">
+							<div class="board_top clearfix">
+								<div class="fl">
+									<h4 class="sec_tit"><th:block th:text="*{dvTy eq T(kr.or.btf.web.domain.web.enums.SurveyDvType).SELF.name() ? '자가진단' : '설문'}"></th:block>상세 정보</h4>
+								</div>
+							</div>
+							<div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${message}">
+								<strong><input type="text" th:field="${message}">message!</strong>
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<table class="tbl_write">
+								<caption><th:block th:text="*{dvTy eq T(kr.or.btf.web.domain.web.enums.SurveyDvType).SELF.name() ? '자가진단' : '설문'}"></th:block>상세 정보</caption>
+								<colgroup>
+									<col style="width:140px" />
+									<col style="width:calc(50% - 140px)" />
+								</colgroup>
+								<tbody>
+								<tr>
+									<th scope="row">제목<span class="aster">*</span></th>
+									<td><input type="text" th:field="*{ttl}"/></td>
+								</tr>
+								<tr>
+									<input type="hidden" id="dvTy" name="dvTy" th:value="${form.dvTy}" />
+									<th scope="row"><label>단계<span class="aster">*</span></label></th>
+									<td>
+										<div class="radio txt" th:each="tp:${T(kr.or.btf.web.domain.web.enums.SurveyDvType).values()}">
+											<input type="radio" th:id="|dvTy_${tp}|" name="dvTy"
+												   th:value="${tp}"
+												   th:checked="${form.dvTy eq tp.name()}" disabled/>
+											<label th:for="|dvTy_${tp}|" th:text="${tp.getName()}"></label>
+
+										</div>
+									</td>
+								</tr>
+								<!--<tr>
+									<th scope="row">설문기간<span class="aster">*</span></th>
+									<td>
+										<div class="term_form">
+											<input type="text" class="form_date" th:field="*{stYmd}" readonly autocomplete="off"/>
+											<span class="swung">~</span>
+											<input type="text" class="form_date" th:field="*{endYmd}" readonly autocomplete="off"/>
+										</div>
+									</td>
+								</tr>-->
+								<tr>
+									<th scope="row">공개여부<span class="aster">*</span></th>
+									<td>
+										<div class="radio txt">
+											<input type="radio" name="opnAt" id="opn_y" value="Y" th:checked="*{opnAt eq 'Y' ? true : ''}"/>
+											<label for="opn_y">공개</label>
+										</div>
+										<div class="radio txt">
+											<input type="radio" name="opnAt" id="opn_n" value="N" th:checked="*{opnAt eq 'N'}"/>
+											<label for="opn_n">미공개</label>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row">개요<span class="aster">*</span></th>
+									<td>
+										<textarea th:field="*{qustnrCn}"></textarea>
+									</td>
+								</tr>
+								<tr id="surveyTarget">
+									<th scope="row">설문대상<span class="aster">*</span></th>
+									<td>
+										<div class="radio txt" th:each="tp:${T(kr.or.btf.web.domain.web.enums.MberDvType).values()}">
+											<input type="radio" th:id="|mberDvTy_${tp}|" name="mberDvTy"
+												   th:value="${tp}"
+												   th:checked="${form.mberDvTy eq tp.name()}" />
+											<label th:for="|mberDvTy_${tp}|" th:text="${tp.getName()}">test</label>
+										</div>
+									</td>
+								</tr>
+								</tbody>
+							</table>
+							<div class="btn_area">
+								<button id="btnDelete" class="btn btn_sm btn_red" type="button">
+									<i class="material-icons">delete</i>삭제
+								</button>
+								<button id="btnSave" class="btn btn_sm btn_blue" type="button">
+									<i class="material-icons fz17">done</i>저장
+								</button>
+								<th:block th:if="*{dvTy eq null}">
+									<a href="/soulGod/survey/list" class="btn btn_sm btn_lightgray">
+										<i class="material-icons mr1 fz19">subject</i>설문 목록
+									</a>
+								</th:block>
+								<th:block th:unless="*{dvTy eq null}">
+									<a th:href="|/soulGod/survey/list/*{dvTy}|" class="btn btn_sm btn_lightgray">
+										<i class="material-icons mr1 fz19">subject</i>자가진단 목록
+									</a>
+								</th:block>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<th:block th:replace="soulGod/fragments/footer"></th:block>
+	</div>
+</div>
+</body>
+</html>

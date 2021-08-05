@@ -1,0 +1,68 @@
+<div class="gnb_tit" th:classappend="${mc eq 'blueElephant' ? 'gnb01' : ''} + ${mc eq 'activity' ? 'gnb02' : ''} + ${mc eq 'news' ? 'gnb03' : ''} + ${mc eq 'classRegis' ? 'gnb04' : ''} + ${mc eq 'memberJoin' ? 'gnb05' : ''} + ${mc eq 'myPage' ? 'gnb06' : ''} + ${mc eq 'customerCenter' ? 'gnb07' : ''} + ${mc eq 'searchResult' ? 'gnb08' : ''} + ${mc eq 'privacy' ? 'gnb08' : ''} + ${mc eq 'terms' ? 'gnb08' : ''} + ${mc eq 'mailDeny' ? 'gnb08' : ''} + ${mc eq 'sitemap' ? 'gnb08' : ''}" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <h2 th:if="${mc eq 'blueElephant'}">푸른코끼리</h2>
+    <h2 th:if="${mc eq 'activity'}">푸른코끼리 활동</h2>
+    <h2 th:if="${mc eq 'news'}">푸코소식</h2>
+    <h2 th:if="${mc eq 'classRegis'}">강의신청</h2>
+    <h2 th:if="${mc eq 'memberJoin'}">회원</h2>
+    <h2 th:if="${mc eq 'myPage'}">마이페이지</h2>
+    <h2 th:if="${mc eq 'customerCenter'}">고객센터</h2>
+    <h2 th:if="${mc eq 'searchResult'}">검색결과</h2>
+    <h2 th:if="${mc eq 'privacy'}">개인정보취급방침</h2>
+    <h2 th:if="${mc eq 'terms'}">이용약관</h2>
+    <h2 th:if="${mc eq 'mailDeny'}">이메일무단수집거부</h2>
+    <h2 th:if="${mc eq 'sitemap'}">사이트맵</h2>
+</div>
+
+<div class="snb" th:if="${mc eq 'blueElephant' || mc eq 'activity' || mc eq 'classRegis' || mc eq 'myPage'}"
+     th:classappend="${mc eq 'blueElephant' ? 'mo_bb' : ''}"
+     xmlns:th="http://www.thymeleaf.org"
+     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <ul class="tab tab_type01">
+        <th:block th:if="${mc eq 'blueElephant'}">
+            <li th:classappend="${pageTitle eq '푸른코끼리' ? 'active' : ''}"><a href="/pages/blueElephant/intro">푸른코끼리</a></li>
+            <li th:classappend="${pageTitle eq '푸코캐릭터' ? 'active' : ''}"><a href="/pages/blueElephant/character">푸코캐릭터</a></li>
+            <li th:classappend="${pageTitle eq '푸코친구들' ? 'active' : ''}"><a href="/pages/blueElephant/friends">푸코친구들</a></li>
+            <li th:classappend="${pageTitle eq '푸코활동' ? 'active' : ''}"><a href="/pages/blueElephant/activity">푸코활동</a></li>
+            <li th:classappend="${pageTitle eq '푸코연혁' ? 'active' : ''}"><a href="/pages/blueElephant/schedule">푸코연혁</a></li>
+            <li th:classappend="${pageTitle eq '푸코사무국' ? 'active' : ''}"><a href="/pages/blueElephant/location">푸코사무국</a></li>
+        </th:block>
+        <th:block th:if="${mc eq 'activity'}">
+            <!--<li th:classappend="${pageTitle eq '교육' ? 'active' : ''}"><a href="/pages/activity/eduIntro">교육</a></li>
+            <li th:classappend="${pageTitle eq '체험' ? 'active' : ''}"><a th:href="|/pages/activity/experienceList/${@environment.getProperty('common.code.experienceVideoPid')}|">체험</a></li>
+            <li th:classappend="${pageTitle eq '문화' ? 'active' : ''}"><a href="/pages/activity/cultureIntro">문화</a></li>
+            <li th:classappend="${pageTitle eq '치유' ? 'active' : ''}"><a href="/pages/activity/healIntro">치유</a></li>
+            <li th:classappend="${pageTitle eq '연구' ? 'active' : ''}"><a href="/pages/activity/factualSurvey">연구</a></li>
+            <li th:classappend="${pageTitle eq '제안' ? 'active' : ''}"><a href="/pages/activity/policyProposal">제안</a></li>
+            <li th:classappend="${pageTitle eq '네트워킹' ? 'active' : ''}"><a href="/pages/activity/networking">네트워킹</a></li>-->
+            <li th:classappend="${pageTitle eq '교육' ? 'active' : ''}"><a href="/pages/activity/eduIntro">예방교육</a></li>
+            <li th:classappend="${pageTitle eq '치유' ? 'active' : ''}"><a href="/pages/activity/healIntro">도움요청</a></li>
+            <li th:classappend="${pageTitle eq '연구' ? 'active' : ''}"><a href="/pages/activity/factualSurvey">진단하기</a></li>
+            <li th:classappend="${pageTitle eq '문화' ? 'active' : ''}"><a href="/pages/activity/cultureIntro">문화만들기</a></li>
+            <li th:classappend="${pageTitle eq '체험' ? 'active' : ''}"><a th:href="|/pages/activity/experienceList/${@environment.getProperty('common.code.experienceVideoPid')}|">체험하기</a></li>
+            <li th:classappend="${pageTitle eq '제안' ? 'active' : ''}"><a href="/pages/activity/policyProposal">제안하기</a></li>
+            <!--            <li th:classappend="${pageTitle eq '네트워킹' ? 'active' : ''}"><a href="/pages/activity/networking">네트워킹</a></li>-->
+        </th:block>
+        <!--<th:block th:if="${mc eq 'news'}">
+            <li th:classappend="${pageTitle eq '연구조사' ? 'active' : ''}"><a href="/pages/board/">연구조사</a></li>
+            <li th:classappend="${pageTitle eq '언론보도' ? 'active' : ''}"><a href="/pages/board/">언론보도</a></li>
+            <li th:classappend="${pageTitle eq '간행물' ? 'active' : ''}"><a href="/pages/board/">간행물</a></li>
+            <li th:classappend="${pageTitle eq '소식/행사' ? 'active' : ''}"><a href="/pages/board/">소식/행사</a></li>
+            <li th:classappend="${pageTitle eq '공지사항' ? 'active' : ''}"><a href="/pages/board/">공지사항</a></li>
+        </th:block>-->
+        <!-- <th:block th:if="${mc eq 'classRegis'}">
+            <li th:classappend="${pageTitle eq '강의신청' ? 'active' : ''}"><a href="/pages/classRegis/intro">강의신청</a></li>
+        </th:block> -->
+        <th:block th:if="${mc eq 'myPage'}">
+            <li th:classappend="${pageTitle eq '계정정보' ? 'active' : ''}"><a href="/pages/myPage/profile">계정정보</a></li>
+            <li th:classappend="${pageTitle eq '활동내역' ? 'active' : ''}"><a href="/pages/myPage/activity">활동내역</a></li>
+            <li th:classappend="${pageTitle eq '학습현황' ? 'active' : ''}" sec:authorize="hasAnyRole('ROLE_TEACHER')"><a href="/pages/myPage/learningStatus">우리반 학습현황</a></li>
+            <li th:classappend="${pageTitle eq '학습현황' ? 'active' : ''}" sec:authorize="hasAnyRole('ROLE_PARENT')"><a href="/pages/myPage/learningStatusDetail">우리아이 학습현황</a></li>
+            <li th:classappend="${pageTitle eq '또래지명' ? 'active' : ''}" sec:authorize="hasAnyRole('ROLE_STUDENT')"><a href="/pages/myPage/peer">또래지명</a></li>
+            <li th:classappend="${pageTitle eq '또래지명' ? 'active' : ''}" sec:authorize="hasAnyRole('ROLE_TEACHER')"><a href="/pages/myPage/peerStatus">또래지명</a></li>
+            <li th:classappend="${pageTitle eq 'My 상담' ? 'active' : ''}"><a href="/pages/myPage/counseling">My 상담</a></li>
+            <li th:classappend="${pageTitle eq 'My 강의실' ? 'active' : ''}"><a href="/pages/myPage/classroom">My 강의실</a></li>
+            <li th:classappend="${pageTitle eq 'My 제안' ? 'active' : ''}"><a href="/pages/myPage/proposal">My 제안</a></li>
+            <li th:classappend="${pageTitle eq '자가진단결과' ? 'active' : ''}"><a href="/pages/myPage/selfTestResult">자가진단결과</a></li>
+        </th:block>
+    </ul>
+</div>

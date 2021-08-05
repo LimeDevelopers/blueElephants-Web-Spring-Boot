@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+
+        <form id="form1" name="form1" method="post" th:object="${form}">
+
+            <div class="contents">
+                <div class="page_top pc">
+                    <h3 class="page_tit">치유</h3>
+                    <span>사이버폭력으로 인한 상담과 도움을 요청하세요.</span>
+                </div>
+                <div class="page_cont therapy_area">
+                    <div class="tab_ico_area">
+                        <a href="javascript:;" class="tit">가족테라피</a>
+                        <ul class="tab_type_ico">
+                            <li class="help"><a href="/pages/activity/helpCounseling">도움상담</a>
+                            <li class="therapy active"><a href="/pages/activity/familyTherapy">가족테라피</a></li>
+                            <li class="mind"><a href="/pages/activity/mindSharing">마음나눔</a></li>
+                        </ul>
+                        <p class="mo_page_txt">사이버폭력으로 인한 상담과 도움을 요청하세요.</p>
+                        <div class="tab_cont mo_thumb">
+                            <div class="cont therapy active">
+                                <div class="thumb">
+                                    <p>가족테라피</p>
+                                </div>
+                                <dl class="desc">
+                                    <dt><em></em></dt>
+                                    <dd>푸른코끼리는 사이버폭력에 노출된 위기청소년 가족, 디지털 기기 사용 시간 증가로 소통에 어려움이 있는 가족 등을 대상으로 가족 프로그램을 운영합니다.
+                                        <br><span>가족들이 서로 화해하고 소통할 수 있도록 <em>가족소통 강화 프로그램</em>을 실시합니다.</span></dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sec_write">
+                        <div class="tbl_write">
+                            <ul>
+                                <li>
+                                    <div class="th">캠프안내</div>
+                                    <div class="td">가족구성원간의 평등한 소통을 통한 가족 역량 강화 프로그램 (2박 3일)</div>
+                                </li>
+                                <li>
+                                    <div class="th">목적</div>
+                                    <div class="td">가족캠프를 통해 부모 자녀간 소통을 증진하고 문제해결역량을 강화하도록 함.</div>
+                                </li>
+                                <li>
+                                    <div class="th">내용</div>
+                                    <div class="td">부모교육, 부모자녀 관계개선, 부모갈등 코칭, 가족 및 자녀 미디어 이용 습관 코칭</div>
+                                </li>
+                                <li>
+                                    <div class="th">모집대상</div>
+                                    <div class="td">초등학생을 자녀로 둔 가족 <br>※ 가족 형태의 제한이 없으므로 2인 이상의 가족이라면 신청 가능함.</div>
+                                </li>
+                                <li>
+                                    <div class="th">신청자격</div>
+                                    <div class="td">캠프 기간 중 핸드폰을 운영진에게 제출 가능한 가족</div>
+                                </li>
+                                <li>
+                                    <div class="th">우대사항</div>
+                                    <div class="td">① 가족구성원간 소통에 도움이 필요한 가족 <br>② 디지털기기 사용으로 가족간 갈등을 겪는 가족</div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="sec_write">
+                        <h4 class="subtit">활동 프로그램 예시</h4>
+                        <div class="program_example_box">
+                            <dl>
+                                <dt>우리가족 몸풀기 마음풀기</dt>
+                                <dd>털어내기 체조 등을 통해 통증/정체된 부분을 이완시키며, 마음풀기</dd>
+                            </dl>
+                            <dl>
+                                <dt>가족끼리 콘타모플레이</dt>
+                                <dd>'콘타모'라는 학습도구로 창의적인 아이디어를 접목해 작품만들기</dd>
+                            </dl>
+                            <dl>
+                                <dt>가족놀이(창의발상)</dt>
+                                <dd>놀이를 통해 가족미션을 달성하며 협동심과 창의성을 발휘해볼 수 있음</dd>
+                            </dl>
+                            <dl>
+                                <dt>가족끼리 마사지</dt>
+                                <dd>가족이 짝을 지어 머리끝부터 발끝까지 마사지 해주기</dd>
+                            </dl>
+                            <dl>
+                                <dt>가족끼리 힐링무브먼트</dt>
+                                <dd>스킨쉽을 통해 교감할 수 있는 방법을 알아보기</dd>
+                            </dl>
+                            <dl>
+                                <dt>가족이 함께하는 칭찬대화</dt>
+                                <dd>타인을 칭찬하고 나를 칭찬하는 법을 배우며 칭찬대화법을 익혀보기</dd>
+                            </dl>
+                            <dl>
+                                <dt>가족 음악콘서트</dt>
+                                <dd>전 세대가 함께 즐길 수 있는 음악으로 소통하기</dd>
+                            </dl>
+                            <dl>
+                                <dt>고도원 작가 '꿈너머 꿈특강'</dt>
+                                <dd>나의 꿈과 꿈너머꿈의 방향을 알려주는 인문학 특강</dd>
+                            </dl>
+                            <dl>
+                                <dt>선한빛의 예술치유</dt>
+                                <dd>그림그리기, 클레이만들기 등으로 말로 하지 못했던 표현해보기</dd>
+                            </dl>
+                            <dl>
+                                <dt>스탬프투어 + 가족사진찍기</dt>
+                                <dd>가족과 함께 인증샷을 찍고 스탬프 미션 달성하기</dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="sec_write">
+                        <h4 class="subtit">문의처</h4>
+                        <div class="inquiry_box">
+                            <span class="number">070-7165-1091</span>
+                            <span class="mail">cybersoscenter@btf.or.kr</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

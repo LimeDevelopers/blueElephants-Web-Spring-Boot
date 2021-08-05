@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+    <script>
+        $(function(){
+            var date = new Date();
+            var today = date.getFullYear() + "-" + ("0"+(date.getMonth()+1)).slice(-2) + "-" + ("0"+date.getDate()).slice(-2);
+            var year = date.getFullYear();
+            var month = ("0"+(date.getMonth()+1)).slice(-2);
+
+            fn_calendarEventList('');
+
+            var tab = $(".calendar_tab"), btn = tab.children(".btn");
+            btn.on("click",function(){
+                var btn = $(this);
+                btn.addClass('active').siblings().removeClass('active')
+                if(btn.hasClass('btn_calendar')){
+                    $(".tab_conts .list_type").removeClass('active');
+                    $(".tab_conts .calendar_type").addClass('active');
+                }else{
+                    $(".tab_conts .calendar_type").removeClass('active');
+                    $(".tab_conts .list_type").addClass('active');
+                }
+            });
+
+            $(window).on("load resize",function(){ // 모달창 1024px 이상에서만 나옴
+                if($(window).width() < 1024){
+                    $('.calendar_type').removeClass('active').siblings('.list_type').addClass('active');
+                    $('.btn_list').addClass('active').siblings().removeClass('active');
+
+                    var srchObj = fn_getDateObj(true);
+                    fn_eventList(srchObj.yyyy,srchObj.mm);
+                }
+                $('.fc-row.fc-week.fc-widget-content').each(function(){
+                    var tr = $(this), trH = tr.height();
+                    //console.log(trH)
+                })
+            });
+        })
+
+        function fn_calendarEventList(year) {
+            $('#yyyy').val(year);
+            $('#type').val('calendar');
+
+            var jsonData = {
+                'srchStRegYear' : year
+            }
+            $.ajax({
+                type: 'post',
+                url: '/pages/news/event/calendarList',
+                contentType: "application/json",
+                data: JSON.stringify(jsonData),
+                datatype: 'json',
+                success: function (data) {
+                    var obj = JSON.parse(data);
+                    fn_setCalendar(obj);
+                },
+                error: function (error) {
+                    //alert('save error!!!');
+                    alert('error::' + error.statusText);
+                }
+            })
+        }
+
+        function fn_eventList(year,month) {
+            //$('#yyyy').val(year);
+            $('#type').val('list');
+
+            var jsonData = {
+                'srchStRegYear' : year,
+                'srchStRegMonth' : month
+            }
+            $.ajax({
+                type: 'post',
+                url: '/pages/news/event/list',
+                contentType: "application/json",
+                data: JSON.stringify(jsonData),
+                datatype: 'json',
+                success: function (data) {
+                    var html = '';
+                    $.each(data, function(index,item) {
+                        html += '<dl>';
+                        html += '<dt><span class="tit">'+ item.ttl +'</span><span class="sort '+ item.fxSeTyClass +'">'+ item.fxSeTyName +'</span></dt>';
+                        html += '<dd>';
+                        html += '<ul class="list_bull">';
+                        html += '<li><span class="tit">행사일시</span> : '+ item.stYmd + ' ~ ' + item.edYmd  +' </li>';
+                        html += '<li><span class="tit">행사장소</span> : '+ item.spotDtl +'</li>';
+                        html += '<li class="desc"><span class="tit">내용</span> : <div class="event_eps3 eps3">'+ item.cn +'</div></li>';
+                        html += '</ul>';
+                        html += '<a href="/pages/news/event/detail/'+item.id+'" href="javascript:;" class="btn_blue">상세보기</a>';
+                        html += '</dd>';
+                        html += '</dl>';
+                    });
+
+                    $('#eventList').html(html);
+
+                    $('.event_eps3').ellipsis({lines:3,responsive:true});
+                },
+                error: function (error) {
+                    //alert('save error!!!');
+                    alert('error::' + error.statusText);
+                }
+            })
+        }
+
+        var calendar;
+        function fn_setCalendar(events) {
+            if (calendar) {
+                //$('#calendar').fullCalendar('destroy');
+                //$('#calendar').fullCalendar('updateEvents', events);
+                //$('#calendar').fullCalendar('renderEvent', events, true);
+                //$('#calendar').fullCalendar('updateEvent', events);
+            } else {
+                fn_makeCalendar(events);
+            }
+
+            //왼쪽 버튼을 클릭
+            $("button.fc-prev-button").click(function() {
+                var srchObj = fn_getDateObj();
+
+                if ($('#type').val() == 'list') {
+                    fn_eventList(srchObj.yyyy,srchObj.mm);
+                }
+            });
+
+            // 오른쪽 버튼을 클릭하였을 경우
+            $("button.fc-next-button").click(function() {
+                var srchObj = fn_getDateObj();
+
+                if ($('#type').val() == 'list') {
+                    fn_eventList(srchObj.yyyy,srchObj.mm);
+                }
+            });
+
+            // 리스트 보기 버튼을 클릭하였을 경우
+            $("a.btn_list").click(function() {
+                var srchObj = fn_getDateObj();
+
+                $('#type').val('list');
+                fn_eventList(srchObj.yyyy,srchObj.mm);
+            });
+
+            // 캘린더 보기 버튼을 클릭하였을 경우
+            $("a.btn_calendar").click(function() {
+
+                $('#type').val('calendar');
+            });
+        }
+
+        function fn_getDateObj(now) {
+            let date;
+            if (now) {
+                date = new Date();
+            } else {
+                date = new Date(jQuery("#calendar").fullCalendar("getDate"));
+            }
+            var yyyy = date.getFullYear().toString();
+            var mm = ("0"+(date.getMonth()+1)).slice(-2);
+
+            return {
+                'date' : date,
+                'yyyy' : yyyy,
+                'mm' : mm
+            }
+        }
+
+        function fn_makeCalendar(events) {
+            calendar = $('#calendar').fullCalendar({
+                header:{
+                    left:'',
+                    center: 'prev,title,next',
+                    right:''
+                },
+                views:{
+                    month:{
+                        titleFormat:'YYYY년 MM월'
+                    }
+                },
+                locale: 'ko',
+                //eventLimit: true, // allow "more" link when too many events
+                contentHeight:998,
+                fixedWeekCount:false,
+                events: events,
+                eventRender:function(event, element){
+                    var html = '<span class="sort '+event.sortClass+'">'+event.title+'</span>';
+
+                   // html += '<em>'+event.title+'</em>';
+                    element.find('.fc-title').html(html);
+
+                    /* 마우스 오버시 보이는 콘텐츠 */
+                    var overHtml = '<div class="tooltip">' +
+                        '   <dl>' +
+                        '       <dt>'+event.title+'<span class="sort '+event.sortClass+'">'+event.sort+'</span></dt>' +
+                        '       <dd>' +
+                        '           <ul class="list_bull">' +
+                        '               <li><span class="tit">행사일시</span> : '+event.time+'</li>' +
+                        '               <li><span class="tit">행사장소</span> : '+event.description+'</li>' +
+                        '               <li><span class="tit">내용</span> : '+event.place+'</li>' +
+                        '           </ul>' +
+                        '           <a href="/pages/news/event/detail/'+event.id+'" class="btn btn_blue btn_detail">상세보기</a>' +
+                        '       </dd>' +
+                        '   </dl>' +
+                        '</div>';
+                    element.append(overHtml);
+                }
+            });
+        }
+    </script>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+
+        <form id="form1" name="form1" method="post" th:object="${searchForm}">
+            <div class="contents">
+                <input type="hidden" id="yyyy" />
+                <input type="hidden" id="type" />
+                <div class="page_top pc">
+                    <h3 class="page_tit">푸코소식</h3>
+                    <span>사이버폭력 예방과 근절을 위해 오늘도 뛰고 있는 푸코소식을 들어봐요.</span>
+                </div>
+                <div class="page_cont">
+                    <div class="tab_ico_area">
+                        <a href="javascript:;" class="tit">행사</a>
+                        <ul class="tab_type_ico">
+                            <li class="notice"><a href="/pages/news/notice">공지사항</a></li>
+                            <li class="news"><a th:href="|/pages/news/list/${#numbers.formatInteger(@environment.getProperty('common.code.newsCdPid'), 0)}|">소식·행사</a></li>
+                            <li class="event active"><a href="/pages/news/event">캘린더</a></li>
+                            <li class="media"><a th:href="|/pages/news/list/${#numbers.formatInteger(@environment.getProperty('common.code.mediaCdPid'), 0)}|">언론보도</a></li>
+                            <li class="publication"><a th:href="|/pages/news/list/${#numbers.formatInteger(@environment.getProperty('common.code.publicationCdPid'), 0)}|">간행물</a></li>
+                        </ul>
+                        <p class="mo_page_txt">사이버폭력 예방과 근절을 위해 오늘도 뛰고 있는 푸코소식을 들어봐요.</p>
+                    </div>
+
+                    <!--<h4 class="subtit pc">행사</h4>
+                    <div class="board_top">
+                        <div class="select w160">
+                            <label th:for="sorting">
+                                <th:block th:if="*{sorting eq 'latest' or sorting eq null or sorting eq ''}">최신순</th:block>
+                                <th:block th:if="*{sorting eq 'old'}">오래된순</th:block>
+                                <th:block th:if="*{sorting eq 'readCnt'}">조회순</th:block>
+                                <th:block th:if="*{sorting eq 'alphabetically'}">가나다순</th:block>
+                            </label>
+                            <select th:field="*{sorting}">
+                                <option value="" selected>최신순</option>
+                                <option value="old">오래된순</option>
+                                <option value="readCnt">조회순</option>
+                                <option value="alphabetically">가나다순</option>
+                            </select>
+                        </div>
+                        <div class="select w160">
+                            <label th:for="srchField">
+                                <th:block th:if="*{srchField eq 'title' or srchField eq '' or srchField eq null}">제목</th:block>
+                                <th:block th:if="*{srchField eq 'cn'}">내용</th:block>
+                                <th:block th:if="*{srchField eq 'titleCn'}">제목+내용</th:block>
+                                <th:block th:if="*{srchField eq 'wrterNm'}">작성자</th:block>
+                            </label>
+                            <select th:field="*{srchField}">
+                                <option value="title">제목</option>
+                                <option value="cn">내용</option>
+                                <option value="titleCn">제목+내용</option>
+                                <option value="wrterNm">작성자</option>
+                            </select>
+                        </div>
+                        <div class="search news">
+                            <input type="search" th:field="*{srchWord}" placeholder="검색어를 입력해 주세요" />
+                        </div>
+                        <button type="submit" class="btn btn_blue btn_pill_10">검색</button>
+                    </div>
+                    <ul class="thumb_list clearfix">
+                        <th:block th:if="${events == null or events.isEmpty()}">
+                            <li class="nodata">
+                                <div>등록된 게시글이 없습니다.</div>
+                            </li>
+                        </th:block>
+                        <li th:each="item : ${events}">
+                            <a th:href="|/pages/news/event/detail/${item.id}|">
+                                <span class="thumb"><img th:src="${filePath} + '/' + ${item.imgFl}" th:alt="${item.imgFl}" onerror="this.src='/ClientUI/user/images/contents/nodata01.png'" /></span>
+                                <strong class="tit" th:text="${item.ttl}"></strong>
+                                <span class="date" th:text="${#temporals.format(item.regDtm,'yyyy.MM.dd')}">2020.01.22</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                    -->
+                    <div class="calendar_area">
+                        <div class="calendar_tab">
+                            <a href="javascript:;" class="btn btn_calendar active">캘린더 보기</a>
+                            <a href="javascript:;" class="btn btn_list">리스트 보기</a>
+                        </div>
+                        <div class="tab_conts">
+                            <div id="calendar" class="calendar_type active"></div>
+                            <div class="list_type" id="eventList">
+                                <!--<dl>
+                                    <dt>푸른코끼리 포럼 <span class="sort basic">기본</span></dt>  &lt;!&ndash; sort에 기본, 포럼, 가족테라피, 예방교육 4가지 별도 클래스 有 &ndash;&gt;
+                                    <dd>
+                                        <ul class="list_bull">
+                                            <li><span class="tit">행사일시</span> : 21.02.11 10:00 ~ 21.02.11 13:00 </li>
+                                            <li><span class="tit">행사장소</span> : 한국환경정책·평가연구원4</li>
+                                            <li><span class="tit">내용</span> : 미술 진로설계 프로젝트</li>
+                                        </ul>
+                                        <a href="javascript:;" class="btn_blue">상세보기</a>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt>푸른코끼리 포럼 <span class="sort forum">포럼</span></dt>  &lt;!&ndash; sort에 기본, 포럼, 가족테라피, 예방교육 4가지 별도 클래스 有 &ndash;&gt;
+                                    <dd>
+                                        <ul class="list_bull">
+                                            <li><span class="tit">행사일시</span> : 21.02.11 10:00 ~ 21.02.11 13:00 </li>
+                                            <li><span class="tit">행사장소</span> : 한국환경정책·평가연구원4</li>
+                                            <li><span class="tit">내용</span> : 미술 진로설계 프로젝트</li>
+                                        </ul>
+                                        <a href="javascript:;" class="btn_blue">상세보기</a>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt>푸른코끼리 포럼 <span class="sort family">가족테라피</span></dt>  &lt;!&ndash; sort에 기본, 포럼, 가족테라피, 예방교육 4가지 별도 클래스 有 &ndash;&gt;
+                                    <dd>
+                                        <ul class="list_bull">
+                                            <li><span class="tit">행사일시</span> : 21.02.11 10:00 ~ 21.02.11 13:00 </li>
+                                            <li><span class="tit">행사장소</span> : 한국환경정책·평가연구원4</li>
+                                            <li><span class="tit">내용</span> : 미술 진로설계 프로젝트</li>
+                                        </ul>
+                                        <a href="javascript:;" class="btn_blue">상세보기</a>
+                                    </dd>
+                                </dl>-->
+                                <!-- 210218 말줄임표 추가 : s -->
+                                <!--<dl>
+                                    <dt><span class="tit">푸른코끼리 포럼</span> <span class="sort prevent">예방교육</span></dt>
+                                    <dd>
+                                        <ul class="list_bull">
+                                            <li><span class="tit">행사일시</span> : 21.02.11 10:00 ~ 21.02.11 13:00 </li>
+                                            <li><span class="tit">행사장소</span> : 한국환경정책·평가연구원4</li>
+                                            <li class="desc"><span class="tit">내용</span> : <div class="eps3">미술 진로설계 프로젝트 미술 진로설계 프로젝트 미술 진로설계 프로젝트 미술 진로설계 프로젝트 미술 진로설계 프로젝트 미술 진로설계 프로젝트</div></li>
+                                        </ul>
+                                        <a href="javascript:;" class="btn_blue">상세보기</a>
+                                    </dd>
+                                </dl>-->
+                                <!-- 210218 말줄임표 추가 : e -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <th:block th:replace="/fragments/paging :: pagingbody(list=${events}, link='/pages/news/event', formId='form1')"></th:block> -->
+            </div>
+        </form>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

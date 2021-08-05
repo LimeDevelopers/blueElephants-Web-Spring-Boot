@@ -1,0 +1,216 @@
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<div class="sec_write mt0">
+    <div class="tbl_write bdt0">
+        <ul>
+            <li class="help_top">
+                <input type="hidden" id="faceDvTy" name="dvTy" th:value="${T(kr.or.btf.web.domain.web.enums.AdviceReservationDvType).FACE}" />
+                <div class="th">대상<span class="aster">*</span></div>
+                <div class="td type01">
+                    <!--PC 출력 : s-->
+                    <th:block th:if="${!isMobile}">
+                        <div class="radio txt" th:each="tp : ${T(kr.or.btf.web.domain.web.enums.HelpTargetDvType).values()}">
+                            <input type="radio" name="mberDvTy" th:id="|faceMberDvTy_${tp.name()}|" th:value="${tp.name()}"/>
+                            <label th:for="|faceMberDvTy_${tp.name()}|" th:text="${tp.getName()}">기타</label>
+                        </div>
+                    </th:block>
+                    <!--PC 출력 : e-->
+
+                    <!--MO 출력 : s-->
+                    <th:block th:if="${isMobile}">
+                        <div class="select">
+                            <label id="faceMberDvTyLabel" for="faceMberDvTy">선택</label>
+                            <select name="mberDvTy" id="faceMberDvTy">
+                                <option value="">선택</option>
+                                <th:block th:each="tp : ${T(kr.or.btf.web.domain.web.enums.HelpTargetDvType).values()}">
+                                    <option th:value="${tp.name()}" th:text="${tp.getName()}">청소년</option>
+                                </th:block>
+                            </select>
+                        </div>
+                    </th:block>
+                    <!--MO 출력 : e-->
+                </div>
+            </li>
+            <li class="help_top">
+                <div class="th">고민<span class="aster">*</span></div>
+                <div class="td type01">
+                    <!--PC 출력 : s-->
+                    <th:block th:if="${!isMobile}">
+                        <div class="checkbox txt" th:each="item : ${worryCodes}">
+                            <input type="checkbox" name="worry" th:id="|faceWorry_${item.id}|" th:value="${item.id}" />
+                            <label th:for="|faceWorry_${item.id}|" th:text="${item.codeNm}">학교폭력 피해</label>
+                        </div>
+                    </th:block>
+                    <!--PC 출력 : e-->
+
+                    <!--MO 출력 : s-->
+                    <th:block th:if="${isMobile}">
+                        <div class="select">
+                            <label id="faceWorryLabel" for="faceWorry">선택</label>
+                            <select name="worry" id="faceWorry" multiple>
+                                <th:block th:each="item : ${worryCodes}">
+                                    <option th:value="${item.id}" th:text="${item.codeNm}">학교폭력 피해</option>
+                                </th:block>
+                            </select>
+                        </div>
+                    </th:block>
+                    <!--MO 출력 : e-->
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="sec_write">
+    <h5 class="subtit">대면상담 안내</h5>
+    <!--<button type="button" onclick="layerShow('popTip')" class="btn btn_lg btn_line_blue btn_pill_10 btn_tip">상담 TIP</button>-->
+    <div class="tbl_write">
+        <ul>
+            <li>
+                <div class="th">이용대상</div>
+                <div class="td td_txt">부모/교원/청소년 누구나</div>
+            </li>
+            <li>
+                <div class="th">운영시간</div>
+                <div class="td td_txt">월요일 ~ 금요일 9:00 ~ 18:00</div>
+            </li>
+            <li>
+                <div class="th">장소</div>
+                <div class="td td_txt"><b class="fw500">푸른나무재단</b> 서울특별시 서초구 서초대로 46길 88 (서초동) 3F (서초동 1566-2 청예단빌딩)</div>
+            </li>
+            <li>
+                <div class="th">이용문의</div>
+                <div class="td td_txt">- 대표번호 : 02-598-1610, 02-598-1640<br />- 이메일 : withwee@btf.or.kr</div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="sec_write">
+    <h5 class="subtit">상담순서</h5>
+    <div class="help_request_box">
+        <ul class="help_step">
+            <li>
+                <i class="ico"></i>
+                <strong class="tit">신청</strong>
+                <p class="txt">일정조정</p>
+            </li>
+            <li>
+                <i class="ico ico_receipt"></i>
+                <strong class="tit">접수</strong>
+                <p class="txt">접수면접 실시 <br />사전검사 실시<br />개별 시간표 계획</p>
+            </li>
+            <li>
+                <i class="ico ico_part"></i>
+                <strong class="tit">프로그램 참여</strong>
+                <p class="txt">단기(1주)<br />중기(2주~1개월)<br />장기(1개월 이상)<br />기간별 맞춤 프로그램 진행</p>
+            </li>
+            <li>
+                <i class="ico ico_finish"></i>
+                <strong class="tit">마무리</strong>
+                <p class="txt">만족도 실시<br />사후검사 실시<br />사후관리</p>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="sec_write">
+    <h5 class="subtit">상세정보<span class="aster">*</span></h5>
+    <div class="tbl_write">
+        <ul>
+            <li>
+                <div class="th"><label for="faceNm">이름</label><span class="aster">*</span></div>
+                <div class="td">
+                    <th:block th:if="${#authentication.principal == 'anonymousUser'}">
+                        <input type="text" id="faceNm" name="nm" />
+                    </th:block>
+                    <th:block th:if="${#authentication.principal != 'anonymousUser'}">
+                        <div th:text="${userInfo.nm}"/>
+                        <input type="hidden" id="faceNm" name="nm" th:value="${userInfo.nm}" />
+                    </th:block>
+                </div>
+            </li>
+            <li>
+                <div class="th">지역<span class="aster">*</span></div>
+                <div class="td">
+                    <div class="select w180 m_w100p">
+                        <label for="faceAreaCodePid">선택</label>
+                        <select name="areaCodePid" id="faceAreaCodePid">
+                            <th:block th:each="area : ${areaCodes}">
+                                <option th:value="${area.id}" th:text="${area.codeNm}">서울</option>
+                            </th:block>
+                        </select>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="th"><label for="faceTtl">제목</label><span class="aster">*</span></div>
+                <div class="td">
+                    <input type="text" id="faceTtl" name="ttl" />
+                </div>
+            </li>
+            <li>
+                <div class="th"><label for="faceCnts">내용</label><span class="aster">*</span></div>
+                <div class="td">
+                    <textarea name="cnts" id="faceCnts" class="h170" placeholder="최대 1,000자 이내" maxlength="1000"></textarea>
+                </div>
+            </li>
+            <li>
+                <div class="th"><label for="faceTelno">연락처</label><span class="aster">*</span></div>
+                <div class="td">
+                    <th:block th:if="${#authentication.principal == 'anonymousUser'}">
+                        <input type="text" id="faceTelno" name="telno" placeholder="'-' 구분없이 입력 ex)01012345678">
+                    </th:block>
+                    <th:block th:if="${#authentication.principal != 'anonymousUser'}">
+                        <div th:text="${userInfo.moblphon}"/>
+                        <input type="hidden" id="faceTelno" name="telno" th:value="${userInfo.moblphon}" />
+                    </th:block>
+                </div>
+            </li>
+            <li>
+                <div class="th">희망일자<span class="aster">*</span></div>
+                <div class="td">
+                    <div class="term_form">
+                        <input type="text" id="faceHopeStYmd" name="hopeStYmd" class="form_date" readonly />
+                        <span class="swung">~</span>
+                        <input type="text" id="faceHopeEndYmd" name="hopeEndYmd" class="form_date" readonly />
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="th">희망시간<span class="aster">*</span></div>
+                <div class="td type01">
+                    <!--PC 출력 : s-->
+                    <th:block th:if="${!isMobile}">
+                        <div class="checkbox txt" th:each="hopeTime : ${hopeTimeCodes}">
+                            <input type="checkbox" name="hopeTimeCodeId" th:id="|faceHopeTime_${hopeTime.id}|" th:value="${hopeTime.id}"/>
+                            <label th:for="|faceHopeTime_${hopeTime.id}|" th:text="${hopeTime.codeNm}">09:00 ~ 10:00</label>
+                        </div>
+                    </th:block>
+                    <!--PC 출력 : e-->
+
+                    <!--MO 출력 : s-->
+                    <th:block th:if="${isMobile}">
+                        <div class="select">
+                            <label for="faceHopeTimeCodeId">선택</label>
+                            <select name="hopeTimeCodeId" id="faceHopeTimeCodeId" multiple>
+                                <th:block th:each="hopeTime : ${hopeTimeCodes}">
+                                    <option th:value="${hopeTime.id}" th:text="${hopeTime.codeNm}">09:00 ~ 10:00</option>
+                                </th:block>
+                            </select>
+                        </div>
+                    </th:block>
+                    <!--MO 출력 : e-->
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="btn_area btn_num02">
+    <a href="javascript:;" onclick="fn_save('face')" class="btn btn_lg btn_blue btn_pill_10">저장</a>
+    <a href="/pages/activity/helpRequest" class="btn btn_lg btn_line_blue btn_pill_10">목록</a>
+</div>
+<div id="popTip" class="layer_popup">
+    <div class="dim"></div>
+    <div class="popup_area">
+        <a href="javascript:layerHide('popTip')" class="btn_close"><span class="blind">팝업닫기</span></a>
+        <div class="popup">
+        </div>
+    </div>
+</div>

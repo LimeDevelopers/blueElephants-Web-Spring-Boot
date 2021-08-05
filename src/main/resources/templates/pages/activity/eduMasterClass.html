@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+    <script type="text/javascript">
+        function fn_courseRequest(id,atnlcReqPid) {
+
+            var mberDvTy = '[[${form.mberDvTy}]]';
+            var userGbn = '[[${userGbn}]]'
+            var atnlcReqPid = '[[${atnlcReqPid}]]'
+
+            if (userGbn == '') {
+                alert('로그인 후 수강신청 할 수 있습니다.');
+                return false;
+            }
+
+            if (mberDvTy != userGbn) {
+                alert('수강신청 대상이 아닙니다.');
+                return false;
+            }
+
+            if (atnlcReqPid != 0) {
+                alert('이미 수강신청한 과정입니다.');
+                return false;
+            }
+
+            if (!confirm('수강신청 하시겠습니까?')) {
+                return false;
+            }
+            var jsonData = {
+                'crsMstPid':id
+            }
+            $.ajax({
+                type: 'post',
+                url: '/api/pages/courseRequest/register',
+                contentType: "application/json",
+                data: JSON.stringify(jsonData),
+                datatype: 'text',
+                success: function (data) {
+                    if (data === 'ok') {
+                        alert('정상처리 되었습니다.');
+                        location.reload();
+                    } else {
+                        alert('실패되었습니다 관리자에게 문의 하세요');
+                    }
+                },
+                error: function (error) {
+                    //alert('save error!!!');
+                    alert('error::' + error.statusText);
+                }
+            });
+        }
+
+        function fn_message() {
+            alert('대상이 아닙니다.');
+            return false;
+        }
+
+        function fn_eduClass(sn,id,crsMstPid) {
+            if (sn == 1) {
+                location.href = '/pages/activity/eduTasteDetail/' + crsMstPid + '/' + id;
+                return false;
+            }
+
+            location.href = '/pages/activity/eduClass/' + crsMstPid + '/' + id + '/' + sn;
+        }
+
+        function preInspcetion(crsMstPid,sn) {
+            if (sn == 2) {
+                $('#inspctDvTy').val("BEFORE");
+            }
+
+            if (sn == 6) {
+                $('#inspctDvTy').val("AFTER");
+            }
+
+            var frm = $('#form1');
+
+            frm.prop('action', '/pages/activity/preInspection/'+crsMstPid+'/'+sn);
+            frm.submit();
+        }
+
+        function fn_satisfaction() {
+            var crsMstPid = '[[${form.id}]]';
+            var jsonData = {
+                'crsMstPid' : crsMstPid
+            }
+            $.ajax({
+                type: 'post',
+                url: '/api/activity/satisfactionTest',
+                contentType: "application/json",
+                data: JSON.stringify(jsonData),
+                datatype: 'text',
+                success: function (data) {
+                    if(data.id != null){
+                        alert('이미 만족도 검사에 참여하였습니다.');
+                        return false;
+                    }else{
+                        location.href = '/pages/activity/satisfactionTest/'+crsMstPid;
+                    }
+                },
+                error: function (error) {
+                    //alert('save error!!!');
+                    alert('error::' + error.statusText);
+                }
+            });
+        }
+    </script>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+
+        <form id="form1" name="form1" method="post" th:object="${form}">
+            <input type="hidden" id="sectionIndex" name="sectionIndex" value="0" />
+            <input type="hidden" id="inspctDvTy" name="inspctDvTy" value="" />
+            <div class="contents">
+                <div class="page_top">
+                    <h3 class="page_tit" th:text="*{crsNm}">사이버폭력 예방 교육</h3>
+                    <span th:utext="*{#strings.replace(crsCn, T(System).getProperty('line.separator'), '&lt;br /&gt;')}"> 관리자에서 입력한 내용이 나오는 교육 개요 내용입니다.</span>
+                    <ul class="tab_type_ico">
+                        <li class="teenager"><a href="/pages/activity/preventionEdu/STUDENT">청소년</a></li>
+                        <li class="parent"><a href="/pages/activity/preventionEdu/PARENT">부모</a></li>
+                        <li class="teacher"><a href="/pages/activity/preventionEdu/TEACHER">교원</a></li>
+                        <li class="normal"><a href="/pages/activity/preventionEdu/NORMAL">일반</a></li>
+                        <!--<li class="lecturer"><a href="/pages/activity/preventionEdu/LECTURER">푸코강사</a></li>-->
+                        <li class="dataroom"><a href="/pages/activity/eduDataRoom">자료실</a></li>
+                        <li class="review"><a href="/pages/activity/postscript">교육후기</a></li>
+                    </ul>
+                </div>
+                <div class="page_cont">
+                    <ul class="thumb_list clearfix">
+                        <th:block th:if="${masters == null or masters.isEmpty()}"><!--등록된 글이 없을 경우-->
+                            <li class="nodata">
+                                <div>등록된 게시글이 없습니다.</div>
+                            </li>
+                        </th:block>
+                        <li th:each="item,idx:${masters}">
+                            <th:block th:if="${item.sn eq 1}">
+                                <a href="#" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|">
+                                    <span class="thumb">
+                                        <img th:src="${filePath+'/'+courseTestsFolder+'/'+item.imgFl}" th:alt="${item.pidNm}"
+                                             onerror="this.src='/ClientUI/user/images/contents/nodata01.png'" />
+                                    </span>
+                                    <strong class="tit" th:text="${item.pidNm}">사전교육의 이해</strong>
+                                </a>
+                            </th:block>
+                            <th:block th:if="${item.sn ne 1}">
+                                <a href="#" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|">
+                                    <span class="thumb">
+                                        <img th:src="${filePath+'/'+courseFolder+'/'+item.imgFl}" alt="6강. 사전교육의 이해"
+                                             onerror="this.src='/ClientUI/user/images/contents/nodata01.png'" />
+                                    </span>
+                                    <strong class="tit">
+                                        <th:block th:if="${item.stepTy eq T(kr.or.btf.web.domain.web.enums.StepType).PRIOR.name()}">
+                                            <em th:text="'['+${T(kr.or.btf.web.domain.web.enums.StepType).valueOf(item.stepTy).getName()}+']'" class="fc_oceanblue"></em>
+                                        </th:block>
+                                        <th:block th:if="${item.stepTy eq T(kr.or.btf.web.domain.web.enums.StepType).FIELD.name()}">
+                                            <em th:text="'['+${T(kr.or.btf.web.domain.web.enums.StepType).valueOf(item.stepTy).getName()}+']'" class="fc_red"></em>
+                                        </th:block>
+                                        <th:block th:if="${item.stepTy eq T(kr.or.btf.web.domain.web.enums.StepType).AFTER.name()}">
+                                            <em th:text="'['+${T(kr.or.btf.web.domain.web.enums.StepType).valueOf(item.stepTy).getName()}+']'" class="fc_green"></em>
+                                        </th:block>
+                                        <th:block th:text="${item.pidNm}"></th:block>
+                                    </strong>
+                                </a>
+                            </th:block>
+                        </li>
+                    </ul>
+                    <div class="btn_area">
+                        <a href="#" th:if="${atnlcReqPid eq null}" th:onclick="|return fn_courseRequest(${form.id});|" class="btn btn_lg btn_blue btn_pill_10">수강신청</a>
+                        <a href="#" th:if="${afterInspection and !satisfaction}" th:onclick="|return preInspcetion(${form.id},6);|" class="btn btn_lg btn_blue btn_pill_10">사후검사</a>
+                        <a href="#" th:if="${afterInspection and satisfaction}" onclick="return fn_satisfaction();" class="btn btn_lg btn_blue btn_pill_10">만족도 검사</a>
+                        <a th:href="|/pages/activity/preventionEdu/*{mberDvTy}|" class="btn btn_lg btn_line_blue btn_pill_10">목록</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

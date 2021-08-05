@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="soulGod/fragments/header"></th:block>
+    <script type="text/javascript">
+
+        function fn_search() {
+            var frm = $('#form1');
+
+            frm.prop('action', '?');
+            frm.submit();
+        }
+
+        function fn_reset() {
+            $('#processType').val('');
+            $('#srchField').val('');
+            $('#srchWord').val('');
+
+            fn_search();
+        }
+
+        ////-------- page load
+        $(function () {
+        });
+    </script>
+</head>
+<body>
+<div id="wrap">
+    <th:block th:include="soulGod/fragments/menu"></th:block>
+
+    <div id="container">
+        <div class="container_box">
+
+            <form id="form1" name="form1" method="post" th:object="${searchForm}">
+
+                <div class="contents">
+                    <ul class="breadcrumb">
+                        <li><i class="material-icons">home</i></li>
+                        <li>상담관리</li>
+                        <li>게시판상담</li>
+                    </ul>
+
+                    <div class="search_area clearfix">
+                        <dl class="col">
+                            <dt>상태</dt>
+                            <dd>
+                                <select th:field="*{processType}" class="w120">
+                                    <option value="" selected>전체</option>
+                                    <option th:value="${T(kr.or.btf.web.domain.web.enums.ProcessType).REQUEST.name()}">상담대기</option>
+                                    <option th:value="${T(kr.or.btf.web.domain.web.enums.ProcessType).COMPLETE.name()}">상담완료</option>
+                                </select>
+                            </dd>
+                        </dl>
+                        <div class="col">
+                            <select th:field="*{srchField}" class="w120">
+                                <option value="" selected>전체</option>
+                                <option value="ttl">제목</option>
+                                <!--<option value="writer">작성자</option>-->
+                            </select>
+                            <input type="text" th:field="*{srchWord}" placeholder="검색어를 입력하세요." style="width:313px"  />
+                            <button type="button" class="btn btn_sm btn_gray" onclick="fn_search()">
+                                <i class="material-icons">search</i>조회
+                            </button>
+                            <button type="button" class="btn btn_sm btn_gray" onclick="fn_reset()">
+                                <i class="material-icons">refresh</i>초기화
+                            </button>
+                        </div>
+                    </div>
+                    <div class="sec">
+                        <div class="board_top clearfix">
+                            <div class="fl">
+                                <div class="total_num">총 <b th:text="${#numbers.formatInteger(adviceRequests.totalElements, 0, 'COMMA')}">2</b> 건</div>
+                            </div>
+                            <div class="fr">
+
+                            </div>
+                        </div>
+                        <table class="tbl_list">
+                            <caption>목록</caption>
+                            <colgroup>
+                                <!--<col style="width:5%" />-->
+
+                                <col style="width:5%" />
+                                <col style="width:auto" />
+                                <col style="width:15%" />
+                                <col style="width:15%" />
+                                <col style="width:15%" />
+                                <col style="width:15%" />
+
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th scope="col">No</th>
+                                <th scope="col">제목</th>
+                                <th scope="col">등록일</th>
+                                <th scope="col">답변일</th>
+                                <th scope="col">작성자</th>
+                                <th scope="col">상태</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <!-- 등록된 데이터가 없을 때만 노출 : s -->
+                            <tr th:if="${adviceRequests == null or adviceRequests.isEmpty()}">
+                                <td colspan="6">등록된 정보 없습니다.</td>
+                            </tr>
+                            <!-- 등록된 이벤트가 없을 때만 노출 : e -->
+                            <tr th:each="item,idx:${adviceRequests}">
+                                <td th:text="${adviceRequests.totalElements - adviceRequests.pageable.pageSize * adviceRequests.pageable.pageNumber - idx.index}"></td>
+                                <td>
+                                    <a th:href="|/soulGod/counseling/detailForBoard/${item.id}|">
+                                        <b th:text="${item.ttl}"></b>
+                                    </a>
+                                </td>
+                                <td th:text="${#temporals.format(item.regDtm,'yyyy-MM-dd')}"></td>
+                                <td th:text="${item.answerDtm ne null ? #temporals.format(item.answerDtm,'yyyy-MM-dd') : '-'}">답변일</td>
+                                <td th:text="${item.regPsNm eq null ? '익명' : item.regPsNm}">작성자</td>
+                                <td th:if="${item.processTy eq T(kr.or.btf.web.domain.web.enums.ProcessType).REQUEST}">상담대기</td>
+                                <td th:if="${item.processTy eq T(kr.or.btf.web.domain.web.enums.ProcessType).COMPLETE}">상담완료</td>
+                            <tr>
+                            </tbody>
+                        </table>
+                        <th:block th:replace="/soulGod/fragments/paging :: pagingbody(list=${adviceRequests},
+                                            link='/soulGod/counseling/listForBoard', formId='form1')"></th:block>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <th:block th:replace="soulGod/fragments/footer"></th:block>
+    </div>
+</div>
+</body>
+</html>

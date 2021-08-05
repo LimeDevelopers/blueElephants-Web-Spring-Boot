@@ -1,0 +1,131 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="videoSetting(videoId, classYn, classAppend)">
+    <video th:id="${videoId}"
+           class="video-js vjs-default-skin"
+           th:classappend="${classAppend ne null and classAppend ne '' ? classAppend : ''}">
+    </video>
+    <th:block th:if="${classYn eq 'Y' and #authentication.principal != 'anonymousUser' and atnlcReqPid ne null}">
+        <th:block th:if="${#authentication.principal != 'anonymousUser' and atnlcReqPid ne null}">
+            <a href="javascript:;" class="btn_play" onclick="videoPlay(this)"><span class="blind">영상 재생하기</span></a>
+        </th:block>
+        <th:block th:unless="${#authentication.principal != 'anonymousUser' and atnlcReqPid ne null}">
+            <a href="javascript:;" class="btn_play" onclick="fn_message()"><span class="blind">영상 재생하기</span></a>
+        </th:block>
+    </th:block>
+
+    <script type="text/javascript" th:inline="javascript">
+        /*
+            cntntsDvTy:  //콘텐츠 구분, ContentsDvType
+            fullScreenAllowBool: //ex) true, false (전체화면 허용)
+            //video.js options
+            width:          //ex) 640
+            height:         //ex) 480
+            controls:       //ex) true, false
+            controlsList:   //
+            autoplay:       //ex) true, false
+            preload:        //ex) "auto"
+            poster:         //ex) "myPoster.jpg"
+            loop:           //ex) true, false
+        */
+
+        /* <![CDATA[ */
+        var videoId = /*[[ ${videoId} ]]*/;
+        var player;
+
+        function initVideo(fullScreenAllowBool, options) {
+            var _options = options;
+            //default
+            _options.preload = 'auto';
+            _options.textTrackDisplay = {allowMultipleShowingTracks: true};
+            if(!fullScreenAllowBool){
+                _options.controlBar = {fullscreenToggle: false}
+            }
+            //_options.autoplay =  false;
+
+            player = videojs(videoId, _options);
+
+            if(!fullScreenAllowBool){
+                player.on("fullscreenchange", function(){
+                    if(player.isFullscreen()){
+                        player.exitFullscreen();
+                    }
+                });
+            }
+
+            player.load();
+
+            var classYn = [[${classYn}]];
+            if(classYn != null && classYn == 'Y'){
+                var prgrssSec = [[${prgrssSec}]];
+                var nowSec = [[${prgrssSec}]];
+                var saveSec = [[${prgrssSec}]];
+                player.on("loadedmetadata", function () { //all of browser cover
+                    if(player.currentType() == 'video/youtube'){
+                        cntntsLen = [[${cntntsLen}]];
+                    } else {
+                        cntntsLen = player.duration();
+                    }
+
+                    if (!fn_isRestudy()) {
+                        if (prgrssSec == null && cntntsLen > 0) {
+                            fn_courseHisSave(); // 영상길이, 최초진도 반영
+                        }
+                    }
+                });
+
+                if (!fn_isRestudy()) {
+                    fn_setSec(prgrssSec);
+                } else {
+                    fn_setSec(0);
+                }
+
+                if (!fn_isRestudy()){
+                    var supposedCurrentTime = player.currentTime();
+                    //console.log("first : " + supposedCurrentTime);
+                    //console.log("prgrssSec : " + prgrssSec);
+                    player.on('timeupdate', function () {
+                        if (!player.seeking()) {
+                            supposedCurrentTime = player.currentTime() < supposedCurrentTime ? supposedCurrentTime : player.currentTime();
+                            atnlcHour = supposedCurrentTime;
+                            if (nowSec != Math.round(supposedCurrentTime)) {
+                                nowSec = Math.round(supposedCurrentTime);
+                                //console.log("prgrssSec :" + prgrssSec);
+                                //console.log("nowSec :" + nowSec);
+                                if (saveSec +10 == nowSec) {
+                                    //console.log("저장");
+                                    fn_courseHisSave();
+                                    saveSec = nowSec;
+                                }
+                            }
+
+                            //퍼센트 저장
+                            /*var procPer = parseFloat(atnlcHour / cntntsLen) * 100;
+                            if(procPer > 1 && procPer % 10 <= 0.2 && procPer % 10 > 0.1){// 진도율 저장
+                                //console.log(procPer);
+                                fn_courseHisSave();
+                            }*/
+                        }
+                    });
+                    // 진도바에서 마우스 떼면 영상 위치 읽어서 실행
+                    player.on('seeking', function () {
+                        var delta = player.currentTime() - supposedCurrentTime;
+                        if (supposedCurrentTime < player.currentTime()) {
+                            if (supposedCurrentTime > 0.01 && Math.abs(delta) > 0.01) {
+                                player.currentTime(supposedCurrentTime);
+                            }
+                        }
+                    });
+                }
+            }
+        }
+
+        function fn_message() {
+            alert('수강신청 후 이용가능합니다.');
+            return false;
+        }
+
+        $(function () {
+
+        });
+        /* ]]> */
+    </script>
+</div>

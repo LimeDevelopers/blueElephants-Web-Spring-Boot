@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+    <script type="text/javascript">
+        $(function () {
+            fn_setDatePicker('#incdnt_st_ymd', {
+                onShow:function( ct ){
+                    this.setOptions({
+                        maxDate:$('#incdnt_end_ymd').val()?$('#incdnt_end_ymd').val():false
+                    })
+                }
+            });
+
+            fn_setDatePicker('#incdnt_end_ymd', {
+                onShow:function( ct ){
+                    this.setOptions({
+                        minDate:$('#incdnt_st_ymd').val()?$('#incdnt_st_ymd').val():false
+                    })
+                }
+            });
+
+            fn_setDatePicker('#hopeStYmd', {
+                onShow:function( ct ){
+                    this.setOptions({
+                        maxDate:$('#hopeEndYmd').val()?$('#hopeEndYmd').val():false
+                    })
+                }
+            });
+
+            fn_setDatePicker('#hopeEndYmd', {
+                onShow:function( ct ){
+                    this.setOptions({
+                        minDate:$('#hopeStYmd').val()?$('#hopeStYmd').val():false
+                    })
+                }
+            });
+
+        });
+        function fn_save(gbn) {
+            if(!fn_validationChk(gbn)){
+                return;
+            }
+            var frm = null;
+            if (gbn == 'board') {
+                frm = $('#helpType01_body');
+                frm.prop('action', '/api/myPage/adviceRequest/update');
+            } else {
+                frm = $('#helpType03_body');
+                frm.prop('action', '/api/myPage/adviceReservation/update');
+            }
+
+            if (frm) {
+                frm.prop("method", "post");
+                frm.prop("enctype", "multipart/form-data");
+                frm.submit();
+            }
+        }
+
+        function fn_validationChk(gbn) {
+            if ([[${isMobile}]]) {
+                if (gbn == 'board') {
+                    var mberDvTy = $('select[id=mberDvTy]');
+                    var worry = $('select[id=worry]');
+                } else {
+                    var mberDvTy = $('select[id=telMberDvTy]');
+                    var worry = $('select[id=telWorry]');
+                }
+            } else {
+                var mberDvTy = $('input[name=mberDvTy]:checked');
+                var worry = $('input[name=worry]:checked');
+            }
+            var cn = $('textarea[name=cn]');
+            var cnts = $('#cnts');
+            var incdntStYmd = $('input[name=incdntStYmd]');
+            var incdntEndYmd = $('input[name=incdntEndYmd]');
+            var bdyDmgeCodePid = $('select[name=bdyDmgeCodePid]');
+            var mindDmgeCodePid = $('select[name=mindDmgeCodePid]');
+            var physiclDmgeCodePid = $('select[name=physiclDmgeCodePid]');
+            var pwd = $('input[name=pwd]');
+            //var nm = $('input[name=nm]');
+            //var areaCodePid = $('select[name=areaCodePid]');
+            //var telno = $('input[name=telno]');
+            //var hopeStYmd = $('input[name=hopeStYmd]');
+            //var hopeEndYmd = $('input[name=hopeEndYmd]');
+            if ([[${isMobile}]]) {
+                var hopeTimeCodeId = $('select[name=hopeTimeCodeId]');
+            } else {
+                var hopeTimeCodeId = $('input[name=hopeTimeCodeId]:checked');
+            }
+
+            if (mberDvTy.val() == null || mberDvTy.val() == "") {
+                alert('대상은 필수입니다.');
+                return false;
+            }
+            if ([[${isMobile}]]) {
+                if (worry.val() == null || worry.val() == "") {
+                    alert('고민은 필수입니다.');
+                    return false;
+                }
+            } else {
+                if (worry.length < 1) {
+                    alert('고민은 필수입니다.');
+                    return false;
+                }
+            }
+            if (gbn == 'board') {
+                if (!$.trim($('#ttl').val())) {
+                    alert('제목은 필수입니다.');
+                    return false;
+                }
+                if (!$.trim(cn.val())) {
+                    alert('내용은 필수입니다.');
+                    return false;
+                }
+                if (!incdntStYmd.val()) {
+                    alert('사건시작기간은 필수입니다.');
+                    incdntStYmd.focus();
+                    return false;
+                }
+                if (!incdntEndYmd.val()) {
+                    alert('사건시작기간은 필수입니다.');
+                    incdntEndYmd.focus();
+                    return false;
+                }
+                if (!bdyDmgeCodePid.val()) {
+                    alert('신체적 피해는 필수입니다.');
+                    bdyDmgeCodePid.focus();
+                    return false;
+                }
+                if (!mindDmgeCodePid.val()) {
+                    alert('정신적 피해는 필수입니다.');
+                    mindDmgeCodePid.focus();
+                    return false;
+                }
+                if (!physiclDmgeCodePid.val()) {
+                    alert('물질적 피해는 필수입니다.');
+                    physiclDmgeCodePid.focus();
+                    return false;
+                }
+                if (!$.trim(pwd.val())) {
+                    alert('비밀번호는 필수입니다.')
+                    return false;
+                }
+            } else {
+                if (!$.trim($('#ttl').val())) {
+                    alert('제목은 필수입니다.');
+                    return false;
+                }
+                if (!$.trim(cnts.val())) {
+                    alert('내용은 필수입니다.');
+                    return false;
+                }
+                if (!$.trim($('#telno').val())) {
+                    alert('연락처는 필수입니다.');
+                    return false;
+                }
+                if (!$('#hopeStYmd').val()) {
+                    alert('희망일자는 필수입니다.');
+                    $('#hopeStYmd').focus();
+                    return false;
+                }
+                if (!$('#hopeEndYmd').val()) {
+                    alert('희망일자는 필수입니다.');
+                    $('#hopeEndYmd').focus();
+                    return false;
+                }
+                if ([[${isMobile}]]) {
+                    if (hopeTimeCodeId.val() == null || hopeTimeCodeId.val() == "") {
+                        alert('희망시간은 필수입니다.');
+                        return false;
+                    }
+                } else {
+                    if (hopeTimeCodeId.length < 1) {
+                        alert('희망시간은 필수입니다.');
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+    </script>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+
+        <div class="contents">
+            <div class="page_top pc">
+                <h3 class="page_tit" th:if="${gbn eq 'board'}">게시판 상담 수정</h3>
+                <h3 class="page_tit" th:if="${gbn eq 'tel'}">전화 상담 수정</h3>
+                <h3 class="page_tit" th:if="${gbn eq 'face'}">대면 상담 수정</h3>
+            </div>
+            <div class="page_cont">
+                <form id="helpType01_body" class="bodyContainer" th:if="${gbn eq 'board'}" th:object="${form}">
+                    <input type="hidden" th:field="*{id}" />
+                    <div class="sec_write">
+                        <div class="tbl_write">
+                            <ul>
+                                <li class="help_top">
+                                    <input type="hidden" th:field="*{id}">
+                                    <div class="th">대상<span class="aster">*</span></div>
+                                    <div class="td type01">
+                                        <!--PC 출력 : s-->
+                                        <th:block th:if="${!isMobile}">
+                                            <div class="radio txt" th:each="tp : ${T(kr.or.btf.web.domain.web.enums.HelpTargetDvType).values()}">
+                                                <input type="radio" name="mberDvTy" th:id="|mberDvTy_${tp.name()}|" th:value="${tp.name()}"
+                                                       th:checked="${form.mberDvTy eq tp}" th:disabled="${form.id ne null}" />
+                                                <label th:for="|mberDvTy_${tp.name()}|" th:text="${tp.getName()}">기타</label>
+                                            </div>
+                                        </th:block>
+                                        <!--PC 출력 : e-->
+
+                                        <!--MO 출력 : s-->
+                                        <th:block th:if="${isMobile}">
+                                            <div class="select">
+                                                <label id="boardMberDvTyLabel" for="mberDvTy" th:text="${form.mberDvTy eq null ? '선택' : form.mberDvTy.getName()}">선택</label>
+                                                <select th:field="${form.mberDvTy}" name="mberDvTy" id="mberDvTy">
+                                                    <option value="">선택</option>
+                                                    <th:block th:each="tp : ${T(kr.or.btf.web.domain.web.enums.HelpTargetDvType).values()}">
+                                                        <option th:value="${tp.name()}" th:text="${tp.getName()}">청소년</option>
+                                                    </th:block>
+                                                </select>
+                                            </div>
+                                        </th:block>
+                                        <!--MO 출력 : e-->
+                                    </div>
+                                </li>
+                                <li class="help_top">
+                                    <div class="th">고민<span class="aster">*</span></div>
+                                    <div class="td type01">
+                                        <!--<div class="checkbox txt" th:each="item : ${worryChkCodes}">
+                                            <input type="checkbox" name="worry" th:id="|worry_${item.id}|" th:value="${item.id}"
+                                            th:checked="${item.codeChk eq true}" />
+                                            <label th:for="|worry_${item.id}|" th:text="${item.codeNm}">학교폭력 피해</label>
+                                        </div>-->
+                                        <!--PC 출력 : s-->
+                                        <th:block th:if="${!isMobile}">
+                                            <th:block th:if="${form.id ne null}">
+                                                <div class="checkbox txt" th:each="item : ${worryChkCodes}">
+                                                    <input type="checkbox" name="worry" th:id="|worry_${item.id}|" th:value="${item.id}" th:checked="${item.codeChk}"/>
+                                                    <label th:for="|worry_${item.id}|" th:text="${item.codeNm}">학교폭력 피해</label>
+                                                </div>
+                                            </th:block>
+                                            <th:block th:unless="${form.id ne null}">
+                                                <div class="checkbox txt" th:each="item : ${worryCodes}">
+                                                    <input type="checkbox" name="worry" th:id="|worry_${item.id}|" th:value="${item.id}" />
+                                                    <label th:for="|worry_${item.id}|" th:text="${item.codeNm}">학교폭력 피해</label>
+                                                </div>
+                                            </th:block>
+                                        </th:block>
+                                        <!--PC 출력 : e-->
+
+                                        <!--MO 출력 : s-->
+                                        <th:block th:if="${isMobile}">
+                                            <div class="select">
+                                                <!--<label id="boardWorryLabel" for="worry">선택</label>-->
+                                                <label id="boardWorryLabel" for="worry">
+                                                    <th:block th:if="${form.id eq null}">선택</th:block>
+                                                    <th:block th:unless="${form.id eq null}">
+                                                        <th:block th:if="${cnt > 1}" th:text="${cnt + '개 선택됨'}"></th:block>
+                                                        <th:block th:unless="${cnt > 1}">
+                                                            <th:block th:each="item:${worryChkCodes}">
+                                                                <th:block th:if="${item.codeChk eq true}" th:text="${item.codeNm}"></th:block>
+                                                            </th:block>
+                                                        </th:block>
+                                                    </th:block>
+                                                </label>
+                                                <select name="worry" id="worry" multiple>
+                                                    <th:block th:if="${form.id ne null}">
+                                                        <th:block th:each="item : ${worryChkCodes}">
+                                                            <option th:value="${item.id}" th:text="${item.codeNm}" th:selected="${item.codeChk}">학교폭력 피해</option>
+                                                        </th:block>
+                                                    </th:block>
+                                                    <th:block th:unless="${form.id ne null}">
+                                                        <th:block th:each="item : ${worryCodes}">
+                                                            <option th:value="${item.id}" th:text="${item.codeNm}">학교폭력 피해</option>
+                                                        </th:block>
+                                                    </th:block>
+                                                </select>
+                                            </div>
+                                        </th:block>
+                                        <!--MO 출력 : e-->
+                                    </div>
+                                </li>
+                                <li>
+                                    <dl class="txt_guide">
+                                        <dt>그동안 많이 힘들었을텐데 이렇게 사이버상담으로 도움을 요청해주어 고마워요. 작성자님에게 꼭 필요한 도움을 주고 싶어요.</dt>
+                                        <dd>
+                                            <p>도움을 주기 위해서 조금 더 자세하게 괴롭힘의 계기나 심각성 등의 구체적인 정보나 도움받고 싶은 부분에 대해서 자세히 적어줄 수 있나요? <br />증거자료가 있다면 파일을 첨부해주면, 더 필요한 도움을 줄 수 있어요.</p>
+                                            <div class="file_form clearfix">
+                                                <th:block th:if="${fileList != null and !fileList.isEmpty()}">
+                                                    <div class="file_name" th:text="${fileList[0].flNm}">증거자료 파일 첨부</div>
+                                                    <input type="file" name="attachedFile" id="attachedFile" onchange="uploadChange(this)" th:accept="${accept}"/>
+                                                    <label for="attachedFile">찾아보기</label>
+                                                </th:block>
+                                                <th:block th:unless="${fileList != null and !fileList.isEmpty()}">
+                                                    <div class="file_name">증거자료 파일 첨부</div>
+                                                    <input type="file" name="attachedFile" id="attachedFile" onchange="uploadChange(this)" th:accept="${accept}"/>
+                                                    <label for="attachedFile">찾아보기</label>
+                                                </th:block>
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                </li>
+                                <li>
+                                    <div class="th"><label th:for="*{ttl}">제목</label><span class="aster">*</span></div>
+                                    <div class="td">
+                                        <input type="text" th:field="*{ttl}" />
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="th"><label th:for="*{cn}">내용</label><span class="aster">*</span></div>
+                                    <div class="td">
+                                        <textarea th:field="*{cn}" class="h170" placeholder="최대 1,000자 이내" maxlength="1000"></textarea>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="th">사건시작 기간<span class="aster">*</span></div>
+                                    <div class="td">
+                                        <div class="term_form">
+                                            <input type="text" id="incdnt_st_ymd" name="incdntStYmd" th:value="*{#dates.format(incdntStYmd, 'yyyy-MM-dd')}" class="form_date" readonly />
+                                            <span class="swung">~</span>
+                                            <input type="text" id="incdnt_end_ymd" name="incdntEndYmd" th:value="*{#dates.format(incdntEndYmd, 'yyyy-MM-dd')}" class="form_date" readonly />
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="th">심각성<span class="aster">*</span></div>
+                                    <div class="td">
+                                        <dl class="txt_serious">
+                                            <dt>신체적 피해 :</dt>
+                                            <dd>
+                                                <div class="select">
+                                                    <label th:for="*{bdyDmgeCodePid}" id="bdyDmgeCodePidLabel">
+                                                        <span class="pc" th:if="${!isMobile}" th:text="*{id eq null ? '점수' : bdyDmgeCodeNm}">점수</span>
+                                                        <span class="mo" th:if="${isMobile}" th:text="*{id eq null ? '신체적 피해' : bdyDmgeCodeNm}">신체적 피해</span>
+                                                    </label>
+                                                    <select th:field="*{bdyDmgeCodePid}">
+                                                        <option value="">점수</option>
+                                                        <th:block th:each="score : ${tenScoreCodes}">
+                                                            <option th:value="${score.id}" th:text="${score.codeNm}">1점</option>
+                                                        </th:block>
+                                                    </select>
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                        <dl class="txt_serious">
+                                            <dt>정신적 피해 :</dt>
+                                            <dd>
+                                                <div class="select">
+                                                    <label th:for="*{mindDmgeCodePid}" id="mindDmgeCodePidLabel">
+                                                        <span class="pc" th:if="${!isMobile}" th:text="*{id eq null ? '점수' : mindDmgeCodeNm}">점수</span>
+                                                        <span class="mo" th:if="${isMobile}" th:text="*{id eq null ? '정신적 피해' : mindDmgeCodeNm}">정신적 피해</span>
+                                                    </label>
+                                                    <select th:field="*{mindDmgeCodePid}">
+                                                        <option value="">점수</option>
+                                                        <th:block th:each="score : ${tenScoreCodes}">
+                                                            <option th:value="${score.id}" th:text="${score.codeNm}">1점</option>
+                                                        </th:block>
+                                                    </select>
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                        <dl class="txt_serious">
+                                            <dt>물질적 피해 :</dt>
+                                            <dd>
+                                                <div class="select">
+                                                    <label th:for="*{physiclDmgeCodePid}" id="physiclDmgeCodePidLabel">
+                                                        <span class="pc" th:if="${!isMobile}" th:text="*{id eq null ? '점수' : physiclDmgeCodeNm}">점수</span>
+                                                        <span class="mo" th:if="${isMobile}" th:text="*{id eq null ? '물질적 피해' : physiclDmgeCodeNm}">물질적 피해</span>
+                                                    </label>
+                                                    <select th:field="*{physiclDmgeCodePid}" id="physicl_dmge_code_pid">
+                                                        <option value="">점수</option>
+                                                        <th:block th:each="score : ${tenScoreCodes}">
+                                                            <option th:value="${score.id}" th:text="${score.codeNm}">1점</option>
+                                                        </th:block>
+                                                    </select>
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </li>
+                                <!--<li>
+                                    <div class="th">첨부파일</div>
+                                    <div class="td">
+                                        <div class="file">
+                                            <th:block th:each="item : ${fileList}">
+                                                <th:block th:if="${T(kr.or.btf.web.domain.web.enums.FileDvType).ATTACH.name() eq item.dvTy}">
+                                                    <a th:href="${filePath+'/'+item.flNm}" download th:text="${item.flNm}">사이버폭력예방 가이드2.pdf</a>
+                                                </th:block>
+                                            </th:block>
+                                        </div>
+                                    </div>
+                                </li>-->
+                                <li>
+                                    <div class="th"><label for="pwd">글 비밀번호</label><span class="aster">*</span></div>
+                                    <div class="td">
+                                        <input type="password" name="pwd" id="pwd" placeholder="최대 4자 이내" maxlength="4"
+                                               oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="btn_area btn_num02">
+                        <a href="javascript:;" onclick="fn_save('board')" class="btn btn_lg btn_blue btn_pill_10">저장</a>
+                        <a th:href="|/pages/myPage/counselingRegister/${gbn}/*{id}|" class="btn btn_lg btn_line_blue btn_pill_10">목록</a>
+                    </div>
+                </form>
+                <form id="helpType03_body" class="bodyContainer" th:if="${gbn ne 'board'}" th:object="${form}">
+                    <input type="hidden" th:field="*{id}" />
+                    <th:block th:if="${gbn eq 'tel'}">
+                        <ul class="tel_banner clearfix">
+                            <li>
+                                <img src="/ClientUI/user/images/contents/banner_help01.jpg" alt="혼자가 아니야. 1588-9128 전국학교폭력 상담전화" class="pc" />
+                                <img src="/ClientUI/user/images/contents/m_banner_help01.jpg" alt="혼자가 아니야. 1588-9128 전국학교폭력 상담전화" class="mo" />
+                            </li>
+                            <li>
+                                <img src="/ClientUI/user/images/contents/banner_help02.jpg" alt="혼자가 아니야. 1588-9128 전국학교폭력 상담전화" class="pc" />
+                                <img src="/ClientUI/user/images/contents/m_banner_help02.jpg" alt="혼자가 아니야. 1588-9128 전국학교폭력 상담전화" class="mo" />
+                            </li>
+                        </ul>
+                        <div class="sec_write">
+                            <h5 class="subtit pc">전국학교폭력 상담전화</h5>
+                            <div class="help_request_box">
+                                <dl class="txt">
+                                    <dt>학교폭력으로 고통 받는 청소년, 부모님, 학교 선생님들께 푸른나무재단에서 <em>“구원의 팔”</em>을 내밀어 드립니다.</dt>
+                                    <dd>푸른나무재단에서는 1995년부터 전국 학교폭력 상담전화 1588-9128(구원의팔)을 운영하고 있습니다. <br />학교폭력 피·가해 위기상담 및 심리·정서적 지원, 학교폭력 발생 시 대처 및 해결을 위한 조언, 전문 정보제공, 학교폭력 사안처리에 대한 고충 상담을 제공합니다.</dd>
+                                </dl>
+                            </div>
+                            <dl class="tel_counseling_guide">
+                                <dt>상담전화 : 1588-9128</dt>
+                                <dd>
+                                    <p>월요일 ~ 금요일 09:00 ~ 18:00 <span>(점심시간 12:00 ~ 13:00 제외)</span> 토요일 09:00~11:00 <br class="pc"/>일요일, 공휴일 휴무</p>
+                                    <p>일요일, 공휴일은 전화를 받지 못해요. <span>긴급 사항은 1:1 채팅으로 남겨주시면</span> 업무시간에 바로 연결할 수 있습니다.</p>
+                                </dd>
+                            </dl>
+                        </div>
+                    </th:block>
+                    <th:block th:if="${gbn eq 'face'}">
+                        <div class="sec_write">
+                            <h5 class="subtit">대면상담 안내</h5>
+                            <button type="button" onclick="layerShow('popTip')" class="btn btn_lg btn_line_blue btn_pill_10 btn_tip">상담 TIP</button>
+                            <div class="tbl_write">
+                                <ul>
+                                    <li>
+                                        <div class="th">이용대상</div>
+                                        <div class="td td_txt">부모/교원/청소년 누구나</div>
+                                    </li>
+                                    <li>
+                                        <div class="th">운영시간</div>
+                                        <div class="td td_txt">월요일 ~ 금요일 9:00 ~ 18:00</div>
+                                    </li>
+                                    <li>
+                                        <div class="th">장소</div>
+                                        <div class="td td_txt"><b class="fw500">푸른나무재단</b> 서울특별시 서초구 서초대로 46길 88 (서초동) 3F (서초동 1566-2 청예단빌딩)</div>
+                                    </li>
+                                    <li>
+                                        <div class="th">이용문의</div>
+                                        <div class="td td_txt">- 대표번호 : 02-598-1610, 02-598-1640<br />- 이메일 : withwee@btf.or.kr</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="sec_write">
+                            <h5 class="subtit">상담순서</h5>
+                            <div class="help_request_box">
+                                <ul class="help_step">
+                                    <li>
+                                        <i class="ico"></i>
+                                        <strong class="tit">신청</strong>
+                                        <p class="txt">일정조정</p>
+                                    </li>
+                                    <li>
+                                        <i class="ico ico_receipt"></i>
+                                        <strong class="tit">접수</strong>
+                                        <p class="txt">접수면접 실시 <br />사전검사 실시<br />개별 시간표 계획</p>
+                                    </li>
+                                    <li>
+                                        <i class="ico ico_part"></i>
+                                        <strong class="tit">프로그램 참여</strong>
+                                        <p class="txt">단기(1주)<br />중기(2주~1개월)<br />장기(1개월 이상)<br />기간별 맞춤 프로그램 진행</p>
+                                    </li>
+                                    <li>
+                                        <i class="ico ico_finish"></i>
+                                        <strong class="tit">마무리</strong>
+                                        <p class="txt">만족도 실시<br />사후검사 실시<br />사후관리</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </th:block>
+                    <div class="sec_write">
+                        <h5 class="subtit">상세정보<span class="aster">*</span></h5>
+                        <div class="tbl_write">
+                            <ul>
+                                <li class="help_top">
+                                    <!--<input type="hidden" th:field="*{id}">-->
+                                    <input type="hidden"  th:field="${dvTy}" />
+                                    <div class="th">대상<span class="aster">*</span></div>
+                                    <div class="td type01">
+                                        <!--PC 출력 : s-->
+                                        <th:block th:if="${!isMobile}">
+                                            <div class="radio txt" th:each="tp : ${T(kr.or.btf.web.domain.web.enums.HelpTargetDvType).values()}">
+                                                <input type="radio" name="mberDvTy" th:id="|mberDvTy_${tp.name()}|" th:value="${tp.name()}"
+                                                       th:checked="${form.mberDvTy eq tp}" th:disabled="${form.id ne null}" />
+                                                <label th:for="|mberDvTy_${tp.name()}|" th:text="${tp.getName()}">기타</label>
+                                            </div>
+                                        </th:block>
+                                        <!--PC 출력 : e-->
+
+                                        <!--MO 출력 : s-->
+                                        <th:block th:if="${isMobile}">
+                                            <div class="select">
+                                                <label id="telMberDvTyLabel" for="telMberDvTy" th:text="${form.mberDvTy eq null ? '선택' : form.mberDvTy.getName()}">선택</label>
+                                                <select th:field="${form.mberDvTy}" name="mberDvTy" id="telMberDvTy">
+                                                    <option value="">선택</option>
+                                                    <th:block th:each="tp : ${T(kr.or.btf.web.domain.web.enums.HelpTargetDvType).values()}">
+                                                        <option th:value="${tp.name()}" th:text="${tp.getName()}">청소년</option>
+                                                    </th:block>
+                                                </select>
+                                            </div>
+                                        </th:block>
+                                        <!--MO 출력 : e-->
+                                    </div>
+                                </li>
+                                <li class="help_top">
+                                    <div class="th">고민<span class="aster">*</span></div>
+                                    <div class="td type01">
+                                        <!--PC 출력 : s-->
+                                        <th:block th:if="${!isMobile}">
+                                            <th:block th:if="${form.id ne null}">
+                                                <div class="checkbox txt" th:each="item : ${worryChkCodes}">
+                                                    <input type="checkbox" name="worry" th:id="|telWorry_${item.id}|" th:value="${item.id}" th:checked="${item.codeChk}"/>
+                                                    <label th:for="|telWorry_${item.id}|" th:text="${item.codeNm}">학교폭력 피해</label>
+                                                </div>
+                                            </th:block>
+                                            <th:block th:unless="${form.id ne null}">
+                                                <div class="checkbox txt" th:each="item : ${worryCodes}">
+                                                    <input type="checkbox" name="worry" th:id="|telWorry_${item.id}|" th:value="${item.id}" />
+                                                    <label th:for="|telWorry_${item.id}|" th:text="${item.codeNm}">학교폭력 피해</label>
+                                                </div>
+                                            </th:block>
+                                        </th:block>
+                                        <!--PC 출력 : e-->
+
+                                        <!--MO 출력 : s-->
+                                        <th:block th:if="${isMobile}">
+                                            <div class="select">
+                                                <!--<label id="boardWorryLabel" for="worry">선택</label>-->
+                                                <label id="telWorryLabel" for="telWorry">
+                                                    <th:block th:if="${form.id eq null}">선택</th:block>
+                                                    <th:block th:unless="${form.id eq null}">
+                                                        <th:block th:if="${cnt > 1}" th:text="${cnt + '개 선택됨'}"></th:block>
+                                                        <th:block th:unless="${cnt > 1}">
+                                                            <th:block th:each="item:${worryChkCodes}">
+                                                                <th:block th:if="${item.codeChk eq true}" th:text="${item.codeNm}"></th:block>
+                                                            </th:block>
+                                                        </th:block>
+                                                    </th:block>
+                                                </label>
+                                                <select name="worry" id="telWorry" multiple>
+                                                    <th:block th:if="${form.id ne null}">
+                                                        <th:block th:each="item : ${worryChkCodes}">
+                                                            <option th:value="${item.id}" th:text="${item.codeNm}" th:selected="${item.codeChk}">학교폭력 피해</option>
+                                                        </th:block>
+                                                    </th:block>
+                                                    <th:block th:unless="${form.id ne null}">
+                                                        <th:block th:each="item : ${worryCodes}">
+                                                            <option th:value="${item.id}" th:text="${item.codeNm}">학교폭력 피해</option>
+                                                        </th:block>
+                                                    </th:block>
+                                                </select>
+                                            </div>
+                                        </th:block>
+                                        <!--MO 출력 : e-->
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="th">이름</div>
+                                    <div class="td" th:text="*{nm}">
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="th">지역<span class="aster">*</span></div>
+                                    <div class="td">
+                                        <div class="select w180 m_w100p">
+                                            <label th:for="*{areaCodePid}" th:text="*{areaCodeNm eq null ? '선택' : areaCodeNm }">선택</label>
+                                            <select th:field="*{areaCodePid}">
+                                                <th:block th:each="area : ${areaCodes}">
+                                                    <option th:value="${area.id}" th:text="${area.codeNm}">서울</option>
+                                                </th:block>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="th"><label th:for="*{ttl}">제목</label><span class="aster">*</span></div>
+                                    <div class="td">
+                                        <input type="text" th:field="*{ttl}" />
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="th"><label th:for="*{cnts}">내용</label><span class="aster">*</span></div>
+                                    <div class="td">
+                                        <textarea th:field="*{cnts}" class="h170" placeholder="최대 1,000자 이내" maxlength="1000"></textarea>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="th"><label th:for="*{telno}">연락처</label><span class="aster">*</span></div>
+                                    <div class="td">
+                                        <input type="text" th:field="*{telno}" placeholder="'-' 구분없이 입력 ex)01012345678">
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="th">희망일자<span class="aster">*</span></div>
+                                    <div class="td">
+                                        <div class="term_form">
+                                            <input type="text" id="hopeStYmd" name="hopeStYmd" th:value="*{#dates.format(hopeStYmd, 'yyyy-MM-dd')}" class="form_date" readonly />
+                                            <span class="swung">~</span>
+                                            <input type="text" id="hopeEndYmd" name="hopeEndYmd" th:value="*{#dates.format(hopeEndYmd, 'yyyy-MM-dd')}" class="form_date" readonly />
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="th">희망시간<span class="aster">*</span></div>
+                                    <div class="td type01">
+                                        <!--PC 출력 : s-->
+                                        <th:block th:if="${!isMobile}">
+                                            <div class="checkbox txt" th:each="item : ${timeChkCodes}">
+                                                <input type="checkbox" name="hopeTimeCodeId" th:id="|hopeTime_${item.id}|" th:value="${item.id}"
+                                                    th:checked="${item.codeChk}"/>
+                                                <label th:for="|hopeTime_${item.id}|" th:text="${item.codeNm}">09:00 ~ 10:00</label>
+                                            </div>
+                                        </th:block>
+                                        <!--PC 출력 : e-->
+
+                                        <!--MO 출력 : s-->
+                                        <th:block th:if="${isMobile}">
+                                            <div class="select">
+                                                <label id="hopeTimeCodeIdLabel" for="hopeTimeCodeId">
+                                                    <th:block th:if="${form.id eq null}">선택</th:block>
+                                                    <th:block th:unless="${form.id eq null}">
+                                                        <th:block th:if="${cnt > 1}" th:text="${cnt + '개 선택됨'}"></th:block>
+                                                        <th:block th:unless="${cnt > 1}">
+                                                            <th:block th:each="item:${timeChkCodes}">
+                                                                <th:block th:if="${item.codeChk eq true}" th:text="${item.codeNm}"></th:block>
+                                                            </th:block>
+                                                        </th:block>
+                                                    </th:block>
+                                                </label>
+                                                <select name="hopeTimeCodeId" id="hopeTimeCodeId" multiple>
+                                                    <th:block th:if="${form.id ne null}">
+                                                        <th:block th:each="item : ${timeChkCodes}">
+                                                            <option th:value="${item.id}" th:text="${item.codeNm}" th:selected="${item.codeChk}">학교폭력 피해</option>
+                                                        </th:block>
+                                                    </th:block>
+                                                    <th:block th:unless="${form.id ne null}">
+                                                        <th:block th:each="item : ${timeChkCodes}">
+                                                            <option th:value="${item.id}" th:text="${item.codeNm}">학교폭력 피해</option>
+                                                        </th:block>
+                                                    </th:block>
+                                                </select>
+                                            </div>
+                                        </th:block>
+                                        <!--MO 출력 : e-->
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="btn_area btn_num02">
+                        <a href="javascript:;" onclick="fn_save('face')" class="btn btn_lg btn_blue btn_pill_10">저장</a>
+                        <!--<a th:href="|/pages/myPage/counselingRegister/${gbn}/*{id}|" class="btn btn_lg btn_line_blue btn_pill_10">목록</a>-->
+                        <a href="/pages/myPage/counseling" class="btn btn_lg btn_line_blue btn_pill_10">목록</a>
+                    </div>
+                    <div id="popTip" class="layer_popup">
+                        <div class="dim"></div>
+                        <div class="popup_area">
+                            <a href="javascript:layerHide('popTip')" class="btn_close"><span class="blind">팝업닫기</span></a>
+                            <div class="popup">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

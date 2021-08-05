@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:include="soulGod/fragments/header"></th:block>
+	<script type="text/javascript">
+
+		function fn_search() {
+			var frm = $('#form1');
+
+			frm.prop('action', '?');
+			frm.submit();
+		}
+
+		function fn_reset() {
+			$('#srchField').val('');
+			$('#srchWord').val('');
+			$('#sorting').val('latest');
+			$('#fixingAt').val('');
+			$('input[name=srchDelAt]').val('');
+
+			fn_search();
+		}
+
+		////-------- page load
+		$(function () {
+		});
+	</script>
+</head>
+<body>
+<div id="wrap">
+	<th:block th:include="soulGod/fragments/menu"></th:block>
+
+	<div id="container">
+		<div class="container_box">
+
+			<form id="form1" name="form1" method="post" th:object="${form}">
+
+				<div class="contents">
+					<ul class="breadcrumb">
+						<li><i class="material-icons">home</i></li>
+						<li>게시판관리</li>
+						<li th:text="|${boardMaster.bbsNm} 관리|">공지사항 관리</li>
+					</ul>
+
+					<div class="search_area clearfix">
+						<div class="col" th:if="${boardMaster.bbsTy eq T(kr.or.btf.web.domain.web.enums.BoardType).LIST}">
+							<dt>상단고정</dt>
+							<dd>
+								<select th:field="*{fixingAt}" class="w120">
+									<option value="" selected>전체</option>
+									<option value="Y">Y</option>
+									<option value="N">N</option>
+								</select>
+							</dd>
+						</div>
+						<div class="col">
+							<dt>순서</dt>
+							<dd>
+								<select th:field="*{sorting}" class="w120">
+									<option value="latest" selected>최신순</option>
+									<option value="alphabetically">가나다순</option>
+									<option value="old">오래된순</option>
+									<option value="readCnt">조회순</option>
+								</select>
+							</dd>
+						</div>
+						<div class="col" th:if="${#numbers.formatInteger(boardMaster.id, 0) eq @environment.getProperty('common.code.policyProposalCdPid')}">
+							<!--<dt>삭제여부</dt>-->
+							<dd>
+								<input id="deleteYN" name="srchDelAt" value="" type="radio" th:checked="*{srchDelAt eq null or srchDelAt eq ''}" />
+								<label for="deleteYN">전체</label>
+								<input id="deleteY" name="srchDelAt" value="Y" type="radio" th:checked="*{srchDelAt eq 'Y'}" />
+								<label for="deleteY">삭제</label>
+								<input id="deleteN" name="srchDelAt" value="N" type="radio" th:checked="*{srchDelAt eq 'N'}" />
+								<label for="deleteN">미삭제</label>
+							</dd>
+						</div>
+						<div class="col">
+							<select th:field="*{srchField}" class="w120">
+								<option value="" selected>전체</option>
+								<option value="title">제목</option>
+								<option value="cn">내용</option>
+							</select>
+							<input type="text" th:field="*{srchWord}" placeholder="검색어를 입력하세요." style="width:313px"  />
+							<button type="button" class="btn btn_sm btn_gray" onclick="fn_search()">
+								<i class="material-icons">search</i>조회
+							</button>
+							<button type="button" class="btn btn_sm btn_gray" onclick="fn_reset()">
+								<i class="material-icons">search</i>초기화
+							</button>
+						</div>
+					</div>
+					<div class="sec">
+						<div class="board_top clearfix">
+							<div class="fl">
+								<div class="total_num">총 <b th:text="${#numbers.formatInteger(boardDatas.totalElements, 0, 'COMMA')}">2</b> 건</div>
+							</div>
+							<div class="fr">
+								<a th:href="|/soulGod/board/register/${mstPid}|"
+								   th:if="${#numbers.formatInteger(boardMaster.id, 0) ne @environment.getProperty('common.code.policyProposalCdPid')}" class="btn btn_sm btn_blue">
+									<i class="material-icons">library_add</i><th:block th:text="|${boardMaster.bbsNm} 추가|">공지사항 추가</th:block>
+								</a>
+							</div>
+						</div>
+						<table class="tbl_list">
+							<caption>목록</caption>
+							<colgroup>
+								<col style="width:5%" />
+								<col th:if="${mstPid eq eduData}" style="width:15%" />
+								<col style="width:auto" />
+								<col style="width:15%" />
+								<col style="width:15%" />
+								<col th:if="${#numbers.formatInteger(boardMaster.id, 0) eq @environment.getProperty('common.code.policyProposalCdPid')}" style="width:5%" />
+								<col th:if="${boardMaster.bbsTy eq T(kr.or.btf.web.domain.web.enums.BoardType).LIST and #numbers.formatInteger(boardMaster.id, 0) ne @environment.getProperty('common.code.policyProposalCdPid')}" style="width:5%" />
+							</colgroup>
+							<thead>
+							<tr>
+								<th scope="col">No</th>
+								<th th:if="${mstPid eq eduData}" scope="col">대상자</th>
+								<th scope="col">제목</th>
+								<th scope="col">게시일</th>
+								<th scope="col">작성자</th>
+								<th th:if="${#numbers.formatInteger(boardMaster.id, 0) eq @environment.getProperty('common.code.policyProposalCdPid')}" scope="col">삭제여부</th>
+								<th th:if="${boardMaster.bbsTy eq T(kr.or.btf.web.domain.web.enums.BoardType).LIST and #numbers.formatInteger(boardMaster.id, 0) ne @environment.getProperty('common.code.policyProposalCdPid')}" scope="col">상단고정</th>
+							</tr>
+							</thead>
+							<tbody>
+							<!-- 등록된 데이터가 없을 때만 노출 : s -->
+							<tr th:if="${boardDatas == null or boardDatas.isEmpty()}">
+								<!--정책제안이거나 교육자료실일때-->
+								<th:block th:if="${mstPid eq eduData or #numbers.formatInteger(boardMaster.id, 0) eq @environment.getProperty('common.code.policyProposalCdPid')}">
+									<!--게시판타입이 목록형인것(정책제안)-->
+									<th:block th:if="${boardMaster.bbsTy eq T(kr.or.btf.web.domain.web.enums.BoardType).LIST}">
+										<td colspan="5">등록된 정보 없습니다.</td>
+									</th:block>
+									<!--게시판타입이 목록형이 아닌것(교육 자료실)-->
+									<th:block th:unless="${boardMaster.bbsTy eq T(kr.or.btf.web.domain.web.enums.BoardType).LIST}">
+										<td colspan="5">등록된 정보 없습니다.</td>
+									</th:block>
+								</th:block>
+								<th:block th:unless="${mstPid eq eduData or #numbers.formatInteger(boardMaster.id, 0) eq @environment.getProperty('common.code.policyProposalCdPid')}">
+									<th:block th:if="${boardMaster.bbsTy eq T(kr.or.btf.web.domain.web.enums.BoardType).LIST}">
+										<td colspan="5">등록된 정보 없습니다.</td>
+									</th:block>
+									<th:block th:unless="${boardMaster.bbsTy eq T(kr.or.btf.web.domain.web.enums.BoardType).LIST}">
+										<td colspan="4">등록된 정보 없습니다.</td>
+									</th:block>
+								</th:block>
+							</tr>
+							<!-- 등록된 이벤트가 없을 때만 노출 : e -->
+							<tr th:each="item,idx:${boardDatas}">
+								<td th:text="${boardDatas.totalElements - boardDatas.pageable.pageSize * boardDatas.pageable.pageNumber - idx.index}"></td>
+								<td th:if="${mstPid eq eduData}">
+									<block th:if="${item.targetList ne null}" th:each="target,idx : ${#strings.arraySplit(item.targetList,',')}">
+										<th:block th:if="${idx.index ne 0}">,</th:block>
+										<span th:text="${T(kr.or.btf.web.domain.web.enums.MberDvType).valueOf(target).getName()}"></span>
+									</block>
+								</td>
+								<td>
+									<a th:href="|/soulGod/board/detail/${item.id}|">
+										<th:block th:if="${item.sntncHead ne ''}">
+											<b th:text="|[${ item.sntncHead}]  ${item.ttl}|"></b>
+										</th:block>
+										<th:block th:unless="${item.sntncHead ne ''}">
+											<b th:text="${item.ttl}"></b>
+										</th:block>
+									</a>
+								</td>
+								<td th:text="${#temporals.format(item.ntceDt,'yyyy-MM-dd')}"></td>
+								<td th:text="${item.regPsNm}"></td>
+								<td th:if="${#numbers.formatInteger(boardMaster.id, 0) eq @environment.getProperty('common.code.policyProposalCdPid')}" th:text="${item.delAt}"></td>
+								<td th:if="${boardMaster.bbsTy eq T(kr.or.btf.web.domain.web.enums.BoardType).LIST and #numbers.formatInteger(boardMaster.id, 0) ne @environment.getProperty('common.code.policyProposalCdPid')}" th:text="${item.fixingAt}"></td>
+							<tr>
+							</tbody>
+						</table>
+						<th:block th:replace="/soulGod/fragments/paging :: pagingbody(list=${boardDatas},
+                                            link='/soulGod/board/list/' + ${mstPid}, formId='form1')"></th:block>
+					</div>
+				</div>
+			</form>
+		</div>
+		<th:block th:replace="soulGod/fragments/footer"></th:block>
+	</div>
+</div>
+</body>
+</html>

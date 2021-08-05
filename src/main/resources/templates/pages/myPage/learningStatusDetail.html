@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+    <script type="text/javascript">
+        $(function () {
+        });
+        function fn_selectNm(mberPid, areaNm, schlNm, grade, ban) {
+
+            var jsonData = {
+                'mberPid' : mberPid,
+                'areaNm' : areaNm,
+                'schlNm' : schlNm,
+                'grade' : grade,
+                'ban' : ban
+            }
+            $.ajax({
+                type: 'post',
+                url: '/api/myPage/learningStatusDetail/eduStatuLoad',
+                contentType: "application/json",
+                data: JSON.stringify(jsonData),
+                datatype: 'json',
+                success: function (data) {
+                    if (data != null) {
+                        var html ='';
+                        $('.addRow').remove();
+                        if (data.length > 0) {
+                            for (var i = 0; i < data.length; i++) {
+                                html += '<li class="addRow">' +
+                                    '<div class="tit">' + data[i].crsNm + '</div>' +
+                                    '<div class="test">' +
+                                    '<span class="th">사전검사 :</span>';
+                                if (data[i].sn2SttTyNm == '진행중') {
+                                    html += data[i].sn2SttTyNm ;
+                                } else if (data[i].sn2SttTyNm == '완료') {
+                                    html += '<a href="javascript:;" class="link" onclick="fn_popupOpen(\'' + mberPid + '\', \'' + areaNm + '\', \'' + schlNm + '\', \'' + grade + '\', \'' + ban + '\', 2, ' + data[i].crsMstPid + ')">' + data[i].sn2SttTyNm + '</a>';
+                                }
+                                    html += '</div>' +
+                                    '<div class="test">' +
+                                    '<span class="th">사전교육 :</span> ' + data[i].sn3SttTyNm +
+                                    '</div>' +
+                                    '<div class="test">' +
+                                    '<span class="th">현장교육 :</span>' + data[i].sn4SttTyNm +
+                                    '</div>' +
+                                    '<div class="test">' +
+                                    '<span class="th">사후교육 :</span>' + data[i].sn5SttTyNm +
+                                    '</div>' +
+                                    '<div class="test">' +
+                                    '<span class="th">사후검사 :</span>';
+                                if (data[i].sn6SttTyNm == '진행중') {
+                                    html += data[i].sn6SttTyNm ;
+                                } else if (data[i].sn6SttTyNm == '완료') {
+                                    html += '<a href="javascript:;" class="link" onclick="fn_popupOpen(\'' + mberPid + '\', \'' + areaNm + '\', \'' + schlNm + '\', \'' + grade + '\', \'' + ban + '\', 6, ' + data[i].crsMstPid + ')">' + data[i].sn6SttTyNm + '</a>';
+                                }
+                                html += '</div>';
+                                if ('[[${#authentication.principal.account.mberDvTy.name()}]]' == '[[${T(kr.or.btf.web.domain.web.enums.UserRollType).TEACHER.name()}]]') {
+                                    html += '<div class="test">' +
+                                        '<span class="th">학급별 사전검사 :</span>';
+                                    if (data[i].sn2SttTyNm == '진행중') {
+                                        html += data[i].sn2SttTyNm ;
+                                    } else if (data[i].sn2SttTyNm == '완료') {
+                                        html += '<a href="javascript:;" class="link" onclick="fn_popupOpenBan(\'' + mberPid + '\', \'' + areaNm + '\', \'' + schlNm + '\', \'' + grade + '\', \'' + ban + '\', 2, ' + data[i].crsMstPid + ')">' + data[i].sn2SttTyNm + '</a>';
+                                    }
+                                    html += '</div>' +
+                                        '</div>' +
+                                        '<div class="test">' +
+                                        '<span class="th">학급별 사후검사 :</span>';
+                                    if (data[i].sn6SttTyNm == '진행중') {
+                                        html += data[i].sn6SttTyNm ;
+                                    } else if (data[i].sn6SttTyNm == '완료') {
+                                        html += '<a href="javascript:;" class="link" onclick="fn_popupOpenBan(\'' + mberPid + '\', \'' + areaNm + '\', \'' + schlNm + '\', \'' + grade + '\', \'' + ban + '\', 6, ' + data[i].crsMstPid + ')">' + data[i].sn6SttTyNm + '</a>';
+                                    }
+                                }
+
+                                        html += '</div>' +
+                                        '</li>';
+
+                            }
+                        } else {
+                            html += '<li class="nodata" id="nodata">' +
+                                        '<div>등록된 정보가 없습니다.</div>' +
+                                    '</li>';
+                        }
+                        $('.nodata').remove();
+                        $('#courseStatus').after(html);
+                    }
+                }
+            });
+        }
+        function fn_popupOpen(mberPid, areaNm, schlNm, grade, ban, sn, crsMstPid) {
+            $('input[name=mberPid]').val(mberPid);
+            $('input[name=areaNm]').val(areaNm);
+            $('input[name=schlNm]').val(schlNm);
+            $('input[name=grade]').val(grade);
+            $('input[name=ban]').val(ban);
+            $('input[name=sn]').val(sn);
+            $('input[name=crsMstPid]').val(crsMstPid);
+
+            var target = "form1_"+sn
+            var frm = $('#form1');
+            var url = "/pages/myPage/popup/result";
+            window.open("" , target,
+                "toolbar=no, width=1100, height=800, directories=no, status=no,    scrollorbars=no, resizable=no");
+            frm.prop('action', url);
+            frm.prop('target', target);
+            frm.submit();
+        }
+        function fn_popupOpenBan(mberPid, areaNm, schlNm, grade, ban, sn, crsMstPid) {
+            $('input[name=mberPid]').val(mberPid);
+            $('input[name=areaNm]').val(areaNm);
+            $('input[name=schlNm]').val(schlNm);
+            $('input[name=grade]').val(grade);
+            $('input[name=ban]').val(ban);
+            $('input[name=sn]').val(sn);
+            $('input[name=crsMstPid]').val(crsMstPid);
+
+            var target = "form2_"+sn
+            var frm = $('#form1');
+            var url = "/pages/myPage/popup/resultBan";
+            window.open("" ,target,
+                "toolbar=no, width=1100, height=800, directories=no, status=no,    scrollorbars=no, resizable=no");
+            frm.prop('action', url);
+            frm.prop('target', target);
+            frm.submit();
+        }
+    </script>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+
+        <form id="form1" name="form1" method="post">
+            <input type="hidden" name="mberPid" value="" />
+            <input type="hidden" name="areaNm" value="" />
+            <input type="hidden" name="schlNm" value="" />
+            <input type="hidden" name="grade" value="" />
+            <input type="hidden" name="ban" value="" />
+            <input type="hidden" name="sn" value="" />
+            <input type="hidden" name="crsMstPid" value="" />
+        </form>
+
+        <div class="contents">
+            <div class="page_top">
+                <h3 class="page_tit">학습현황</h3>
+                <!--<span>회원정보를 최신정보로 관리해주세요. <br class="mo" />새로운 푸코소식과 보안을 위해 회원정보를 최신으로 업데이트 해주세요.</span>-->
+            </div>
+            <div class="page_cont my_learning">
+                <div class="tbl_write" th:if="${#authentication.principal.account.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).TEACHER}">
+                    <ul>
+                        <li>
+                            <div class="th">학교명</div>
+                            <div class="td td_txt" th:text="|${schlNm} ${grade}학년 ${ban}반|">길동초등학교 1학년 5반</div>
+                        </li>
+                        <!--<li>
+                            <div class="th">기간</div>
+                            <div class="td td_txt">2020.12.31~2020.12.31</div>
+                        </li>-->
+                    </ul>
+                </div>
+                <div class="sec_write_area clearfix">
+                    <div class="sec_write info">
+                        <!-- 선생님일 경우 노출-->
+                        <!--<h4 class="subtit">우리반</h4>
+                        <ul class="board_tbl_list type02">
+                            <li class="thead">
+                                <strong class="no">No</strong>
+                                <strong class="name">이름</strong>
+                                <strong class="num">번호</strong>
+                                <strong class="state">상태</strong>
+                            </li>
+                            <li>
+                                <div class="no">2</div>
+                                <div class="name"><a href="#" class="link fc_blue">홍길동</a></div>
+                                <div class="num"><span class="th">번호 :</span> 1</div>
+                                <div class="state"><span class="th">상태 :</span> 완료</div>
+                            </li>
+                            <li>
+                                <div class="no">1</div>
+                                <div class="name"><a href="#" class="link fc_blue">홍길동</a></div>
+                                <div class="num"><span class="th">번호 :</span> 1</div>
+                                <div class="state"><span class="th">상태 :</span> 미진행</div>
+                            </li>
+                        </ul>-->
+                        <!--선생님일 경우 노출-->
+
+                        <!-- 부모님일 경우 노출-->
+                        <h4 class="subtit" th:text="${#authentication.principal.account.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).TEACHER ? '우리반' : '우리아이'}">우리아이</h4>
+                        <ul class="board_tbl_list type02">
+                            <li class="thead">
+                                <strong class="no">No</strong>
+                                <strong class="name">이름</strong>
+                                <strong class="school">학교</strong>
+                                <strong th:if="${#authentication.principal.account.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).TEACHER}" class="state">번호</strong>
+                            </li>
+                            <li th:each="item,idx : ${childrenSchlLogList}">
+                                <div class="no" th:text="${idx.count}">2</div>
+                                <div class="name"><a href="javascript:;" class="link fc_blue" th:onclick="fn_selectNm([[${item.mberPid}]],[[${item.areaNm}]],[[${item.schlNm}]],[[${item.grade}]],[[${item.ban}]])" th:text="${item.nm}">홍길동</a></div>
+                                <div class="school"><span class="th">학교 :</span> <th:block th:text="${item.schlNm}"></th:block> <span class="dib"><th:block th:text="|${item.grade} 학년 ${item.ban} 반|"></th:block></span></div>
+                                <div th:if="${#authentication.principal.account.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).TEACHER}" class="state"><span class="th">번호 :</span><th:block th:text="${item.no}"></th:block></div>
+                            </li>
+                            <!--<li>
+                                <div class="no">1</div>
+                                <div class="name"><a href="#" class="link fc_blue">홍길동</a></div>
+                                <div class="school"><span class="th">학교 :</span> OO 초등학교 <span class="dib">1학년 5반</span></div>
+                                <div class="state"><span class="th">상태 :</span> 미완료</div>
+                            </li>-->
+                        </ul>
+                        <!--부모님일 경우 노출-->
+                    </div>
+                    <div class="sec_write status">
+                        <div class="subtit_area">
+                            <h4 class="subtit">학습현황</h4>
+                        </div>
+                        <ul class="board_tbl_list">
+                            <li class="thead" id="courseStatus">
+                                <strong class="tit">교육명</strong>
+                                <strong class="test">사전검사</strong>
+                                <strong class="test">사전교육</strong>
+                                <strong class="test">현장교육</strong>
+                                <strong class="test">사후교육</strong>
+                                <strong class="test">사후검사</strong>
+                                <strong th:if="${#authentication.principal.account.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).TEACHER}" class="test">학급별<br/>사전검사</strong>
+                                <strong th:if="${#authentication.principal.account.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).TEACHER}" class="test">학급별<br/>사후검사</strong>
+                            </li>
+                            <li class="nodata" id="nodata"><!--등록된 글 없을경우-->
+                                <div>학생 이름을 선택해 주세요.</div>
+                            </li>
+                            <!--<li>
+                                <div class="tit">사이버폭력예방교육 1</div>
+                                <div class="test">
+                                    <span class="th">사전검사 :</span>
+                                    <a href="javascript:layerShow('popTestResults');" class="link">100%</a>
+                                </div>
+                                <div class="test">
+                                    <span class="th">사전교육 :</span> 100%
+                                </div>
+                                <div class="test">
+                                    <span class="th">현장교육 :</span> 100%
+                                </div>
+                                <div class="test">
+                                    <span class="th">사후교육 :</span> 100%
+                                </div>
+                                <div class="test">
+                                    <span class="th">사후검사 :</span>
+                                    <a href="javascript:layerShow('popTestResults');" class="link">100%</a>
+                                </div>
+                            </li>-->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+<!--<div id="popTestResults" class="layer_popup">
+    <div class="dim"></div>
+    <div class="popup_area">
+        <a href="javascript:layerHide('popTestResults')" class="btn_close"><span class="blind">팝업닫기</span></a>
+        <div class="popup">
+            <strong class="pop_tit tac">사후검사 결과</strong>
+
+            <div class="pop_cont">
+                <div class="tbl_write">
+                    <ul>
+                        <li>
+                            <div class="th">대상자 정보</div>
+                            <div class="td td_txt">길동초등학교 1학년 5반 홍길동</div>
+                        </li>
+                        <li>
+                            <div class="th">검사기간</div>
+                            <div class="td td_txt">2020.12.31</div>
+                        </li>
+                        <li>
+                            <div class="th">검사상태</div>
+                            <div class="td td_txt">완료</div>
+                        </li>
+                    </ul>
+                </div>
+                <dl class="dl_sec">
+                    <dt>A. 사이버폭력예방</dt>
+                    <dd>
+                        <div class="graph_area"></div>
+                    </dd>
+                </dl>
+                <dl class="dl_sec">
+                    <dt>진단 결과</dt>
+                    <dd>
+                        <dl class="txt_box">
+                            <dt>사이버폭력예방결과가 <em>심각한 상태</em>로 체크되었습니다. </dt>
+                            <dd>앞으로도 학생의 태도변화에 지속적인 관심을 기울일 필요가 있습니다. <br />학부모님과 선생님의 별도 지도가 필요한 상태입니다.</dd>
+                        </dl>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>-->
+</body>
+</html>

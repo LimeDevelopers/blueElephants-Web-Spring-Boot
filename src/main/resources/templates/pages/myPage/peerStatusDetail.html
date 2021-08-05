@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+    <script type="text/javascript">
+        $(function () {
+            $('input[name=qn]:first').trigger('click');
+        });
+        function fn_ourClassGraph(qesitmPid) {
+
+            var jsonData = {
+                'id' : qesitmPid
+            }
+            $.ajax({
+                type: 'post',
+                url: '/api/myPage/peerStatusDetail/ourClassGraph',
+                contentType: "application/json",
+                data: JSON.stringify(jsonData),
+                datatype: 'json',
+                success: function (data) {
+                    $('.add_svg').remove();
+                    if (data != null && data.length > 0) {
+                        var links = data;
+                        var nodes = {};
+                        // Compute the distinct nodes from the links.
+                        links.forEach(function(link) {
+                            link.source = nodes[link.source] || (nodes[link.source] = {name: link.source});
+                            link.target = nodes[link.target] || (nodes[link.target] = {name: link.target});
+                        });
+
+                        links.forEach(function(link) {
+                            if (link.score == 1) {
+                                link.score = "one";
+                            } else if (link.score == 2) {
+                                link.score = "two";
+                            } else if (link.score == 3) {
+                                link.score = "three";
+                            } else if (link.score == 4) {
+                                link.score = "four";
+                            } else if (link.score == 5) {
+                                link.score = "five";
+                            }
+                        });
+
+                        var w = 679,
+                            h = 600;
+
+
+                        var force = d3.layout.force()
+                            .nodes(d3.values(nodes))
+                            .links(links)
+                            .size([w, h])
+                            .linkDistance(120) //path의 길이
+                            .charge(-300)
+                            .on("tick", tick)
+                            .start();
+
+                        var colorArea = d3.select("#graph").append("div")
+                            .attr("style", "display:flex; min-height:33px; align-items:center; font:25px sans-serif;;")
+                            .attr("class", "add_svg")
+                            .attr("width", 679)
+                            .attr("height", 100).append("span")
+                            .attr("class","color_area")
+                            .attr("style","--color:#a62f2f")
+                            .text("1점").append("span")
+                            .attr("class","color_area")
+                            .attr("style","--color:#e47e2b")
+                            .text("2점").append("span")
+                            .attr("class","color_area")
+                            .attr("style","--color:#f7cf43")
+                            .text("3점").append("span")
+                            .attr("class","color_area")
+                            .attr("style","--color:#2fa666")
+                            .text("4점").append("span")
+                            .attr("class","color_area")
+                            .attr("style","--color:#2f4ea6")
+                            .text("5점");
+
+                        var svg = d3.select("#graph").append("svg")
+                            .attr("class", "add_svg")
+                            .attr("width", w)
+                            .attr("height", h);
+
+                        /* Don't use markers as they seriously break IE10.
+                        // Per-type markers, as they don't inherit styles.
+                        svg.append("svg:defs")
+                            .selectAll("marker")
+                            .data(["suit", "licensing", "resolved"])
+                          .enter().append("svg:marker")
+                            .attr("id", String)
+                            .attr("viewBox", "0 0 10 10")
+                            .attr("refX", 1)
+                            .attr("refY", 5)
+                            .attr("markerWidth", 6)
+                            .attr("markerHeight", 6)
+                            .attr("orient", "auto")
+                          .append("svg:path")
+                            .attr("d", "M0,0L10,5L0,10z");*/
+
+                        var path = svg.append("svg:g")
+                            .selectAll("path")
+                            .data(force.links())
+                            .enter().append("svg:path")
+                            .attr("class", function(d) { return "link " + d.score; });
+
+                        var circle = svg.append("svg:g")
+                            .selectAll("circle")
+                            .data(force.nodes())
+                            .enter().append("svg:circle")
+                            .attr("r", 7)
+                            .call(force.drag);
+
+                        var text = svg.append("svg:g")
+                            .selectAll("g")
+                            .data(force.nodes())
+                            .enter().append("svg:g");
+
+                        // A copy of the text with a thick white stroke for legibility.
+                        text.append("svg:text")
+                            .attr("x", 8)
+                            .attr("y", ".31em")
+                            .attr("class", "shadow")
+                            .text(function(d) { return d.name; });
+
+                        text.append("svg:text")
+                            .attr("x", 8)
+                            .attr("y", ".31em")
+                            .text(function(d) { return d.name; });
+
+                        // Use elliptical arc path segments to doubly-encode directionality.
+                        function tick() {
+                            path.attr("d", function(d) {
+                                var dx = d.target.x - d.source.x,
+                                    dy = d.target.y - d.source.y,
+                                    dr = Math.sqrt(dx * dx + dy * dy),
+                                    theta = Math.atan2(dy, dx) + Math.PI / 7.85,
+                                    d90 = Math.PI / 2,
+                                    dtxs = d.target.x - 6 * Math.cos(theta),
+                                    dtys = d.target.y - 6 * Math.sin(theta);
+                                return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0 1," + d.target.x + "," + d.target.y + "A" + dr + "," + dr + " 0 0 0," + d.source.x + "," + d.source.y + "M" + dtxs + "," + dtys +  "l" + (3.5 * Math.cos(d90 - theta) - 10 * Math.cos(theta)) + "," + (-3.5 * Math.sin(d90 - theta) - 10 * Math.sin(theta)) + "L" + (dtxs - 3.5 * Math.cos(d90 - theta) - 10 * Math.cos(theta)) + "," + (dtys + 3.5 * Math.sin(d90 - theta) - 10 * Math.sin(theta)) + "z";
+                            });
+
+                            circle.attr("transform", function(d) {
+                                return "translate(" + d.x + "," + d.y + ")";
+                            });
+
+                            text.attr("transform", function(d) {
+                                return "translate(" + d.x + "," + d.y + ")";
+                            });
+                        }
+                        $('.add_row').remove();
+
+                    } else {
+                        $('.add_row').remove();
+                        var html = '<li class="add_row nodata_q">' +
+                            '<div>등록된 정보가 없습니다.</div>' +
+                            '</li>';
+                        $('#graph').append(html);
+                    }
+                }
+            });
+        }
+    </script>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+
+        <div class="contents">
+            <div class="page_top">
+                <h3 class="page_tit">또래지명현황</h3>
+                <!--<span>회원정보를 최신정보로 관리해주세요. <br class="mo" />새로운 푸코소식과 보안을 위해 회원정보를 최신으로 업데이트 해주세요.</span>-->
+            </div>
+            <div class="page_cont my_peer">
+                <div class="tbl_write">
+                    <ul>
+                        <li>
+                            <div class="th">학교명</div>
+                            <div class="td td_txt" th:text="|${memberSchoolForm.schlNm} ${memberSchoolForm.grade}학년 ${memberSchoolForm.ban}반|">길동초등학교 1학년 5반</div>
+                        </li>
+                        <!--<li>
+                            <div class="th">기간</div>
+                            <div class="td td_txt">2020.12.31~2020.12.31</div>
+                        </li>-->
+                    </ul>
+                </div>
+                <div class="sec_write_area clearfix">
+                    <div class="sec_write peer_q">
+                        <h4 class="subtit">또래지명 질문</h4>
+                        <div class="scrollbar">
+                            <ul class="board_tbl_list">
+                                <li class="thead">
+                                    <strong class="no">선택</strong>
+                                    <strong class="question">질문</strong>
+                                    <!--<strong class="complete">완료</strong>-->
+                                </li>
+                                <th:block th:if="${questionItems == null or questionItems.isEmpty()}">
+                                    <li class="nodata">
+                                        <div>등록된 질문이 없습니다.</div>
+                                    </li>
+                                </th:block>
+                                <li th:each="item,idx : ${questionItems}">
+                                    <div class="no">
+                                        <div class="radio">
+                                            <input type="radio" name="qn" th:id="|qn_${item.id}|" th:onclick="|fn_ourClassGraph(${item.id})|"/>
+                                            <label th:for="|qn_${item.id}|"><span class="blind">선택</span></label>
+                                        </div>
+                                    </div>
+                                    <div class="question"><label th:for="|qn_${item.id}|" th:text="${item.qestnQesitm}">온라인에서 이 아이는 다른 아이에게 기분 나쁜 말을 한다.</label></div>
+                                    <!--<div class="complete">
+                                        <span th:if="${item.studentCnt eq item.responseCnt}" class="chk"></span>
+                                    </div>-->
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="sec_write our_class">
+                        <div class="tit_area clearfix">
+                            <h4 class="subtit">우리반 네트워크</h4>
+                        </div>
+                        <div class="scrollbar">
+                            <ul class="board_tbl_list" id="graph">
+                                <!--<li class="thead" id="ourClass">
+                                    <strong class="no">No</strong>
+                                    <strong class="name">이름</strong>
+                                    <strong class="num">번호</strong>
+                                    <strong class="score">5점 점수</strong>
+                                </li>-->
+                                <li class="add_row nodata_q">
+                                    <div>질문을 선택해 주세요.</div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

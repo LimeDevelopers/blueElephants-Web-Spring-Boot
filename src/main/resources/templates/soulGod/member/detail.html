@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="soulGod/fragments/header"></th:block>
+    <script type="text/javascript">
+        ////-------- page load
+        $(function () {
+        });
+    </script>
+</head>
+<body>
+<div id="wrap">
+    <th:block th:include="soulGod/fragments/menu"></th:block>
+
+    <div id="container">
+        <div class="container_box">
+            <script type="text/javascript">
+
+                var id;
+                var loginId;
+                var pwd;
+                var nm;
+                var sexPrTy;
+                var mberDvTy;
+                var moblphon;
+                var email;
+                var zip;
+                var adres;
+                var dtlAdres;
+                var ncnm;
+                var secsnDtm;
+                var secsnRsn;
+                var sttTy;
+
+                function fn_chkField() {
+
+                    id = $('#id');
+                    loginId = $("#loginId");
+                    pwd = $("#pwd");
+                    nm = $("#nm");
+                    sexPrTy = $("#sexPrTy");
+                    mberDvTy = $("#mberDvTy");
+                    moblphon = $("#moblphon");
+                    email = $("#email");
+                    zip = $("#zip");
+                    adres = $("#adres");
+                    dtlAdres = $("#dtlAdres");
+                    ncnm = $("#ncnm");
+                    secsnDtm = $("#secsnDtm");
+                    secsnRsn = $('#secsnRsn');
+                    sttTy = $('#sttTy');
+
+                    if (!loginId.val()) {
+                        alert('아이디를 입력하세요');
+                        loginId.focus();
+                        return false;
+                    }
+
+                    if (id == '') {
+                        if (!pwd.val()) {
+                            alert('비밀번호를 입력하세요');
+                            pwd.focus();
+                            return false;
+                        }
+                    }
+
+                    if (!nm.val()) {
+                        alert('관리자명을 입력하세요');
+                        nm.focus();
+                        return false;
+                    }
+                    return true;
+                }
+
+                $(function () {
+
+                    $('#btnSave').click(function () {
+                        if (!fn_chkField()) {
+                            return;
+                        }
+
+                        var frm = $('#form1');
+                        frm.prop('action', '/api/soulGod/member/save');
+                        frm.submit();
+                    });
+
+                    /*$('#btnDelete').click(function () {
+                        if (!confirm('삭제하시겠습니까?')) {
+                            return;
+                        }
+
+                        var frm = $('#form1');
+                        frm.prop('action', '/api/soulGod/member/delete');
+                        frm.submit();
+                    });*/
+                });
+
+                function refreshPassword() {
+                    if (!confirm("비밀번호를 초기화 하시겠습니까?\n초기 비밀번호는 '[[${T(kr.or.btf.web.common.Constants).DEFAULT_PASSWORD}]]' 입니다.")) {
+                        return false;
+                    }
+                    var frm = $('#form1');
+                    frm.prop('action', '/soulGod/member/refreshPassword');
+                    frm.submit();
+                }
+            </script>
+
+            <form id="form1" name="form1" method="post" th:object="${form}">
+                <input type="hidden" th:field="*{id}"/>
+                <div class="contents">
+
+                    <ul class="breadcrumb">
+                        <li><i class="material-icons">home</i></li>
+                        <li>운영관리</li>
+                        <li>회원관리</li>
+                    </ul>
+
+                    <div class="board_detail clearfix">
+                        <div class="sec">
+                            <div class="board_top clearfix">
+                                <div class="fl">
+                                    <h4 class="sec_tit">상세정보</h4>
+                                </div>
+                            </div>
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert"
+                                 th:if="${message}">
+                                <strong th:text="${message}">message!</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <table class="tbl_write">
+                                <colgroup>
+                                    <col style="width:10%"/>
+                                    <col style="width:20%"/>
+                                    <col style="width:10%"/>
+                                    <col style="width:20%"/>
+                                    <col style="width:10%"/>
+                                    <col style="width:auto"/>
+                                </colgroup>
+                                <tbody>
+                                <tr>
+                                    <th scope="row"><label>회원명</label></th>
+                                    <td th:text="*{nm}"></td>
+                                    <th scope="row"><label>아이디</label></th>
+                                    <td th:text="*{loginId}"></td>
+                                    <th scope="row"><label>닉네임</label></th>
+                                    <td th:text="*{ncnm}"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>구분</label></th>
+                                    <td th:text="*{T(kr.or.btf.web.domain.web.enums.UserRollType).valueOf(mberDvTy).getName()}"></td>
+                                    <th scope="row"><label>휴대폰</label></th>
+                                    <td th:text="*{moblphon}"></td>
+                                    <th scope="row"><label>이메일</label></th>
+                                    <td th:text="*{email}"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>가입(탈퇴)일</label></th>
+                                    <td>
+                                        <th:block th:text="*{#temporals.format(regDtm, 'yyyy-MM-dd')}"></th:block>
+                                        <br/>
+                                        <th:block th:if="*{secsnDtm ne null}">
+                                            <span style="color: red">(<th:block th:text="*{#strings.substring(secsnDtm,0,10)}"></th:block>)</span>
+                                        </th:block>
+                                    </td>
+                                    <th scope="row"><label>성별</label></th>
+                                    <td th:text="*{T(kr.or.btf.web.domain.web.enums.GenderType).valueOf(sexPrTy).getName()}"></td>
+                                    <th scope="row"><label>비밀번호</label></th>
+                                    <td>
+                                        <a href="#" class="btn btn_sm btn_blue" onclick="return refreshPassword()">
+                                            <i class="material-icons mt0">add</i>초기화
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>주소</label></th>
+                                    <td colspan="3">
+                                        <th:block th:if="*{zip ne null}" th:text="*{'[' + zip + '] ' + adres + ' ' + dtlAdres}"></th:block>
+                                    </td>
+                                    <th scope="row"><label>최근접속일자</label></th>
+                                    <td th:text="*{#temporals.format(cnctDtm,'yyyy-MM-dd')}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <th:block th:if="${form.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).STUDENT}">
+
+                            <div class="sec">
+                                <div class="board_top clearfix">
+                                    <div class="fl">
+                                        <h4 class="sec_tit" >학교정보</h4>
+                                    </div>
+                                </div>
+                                <table class="tbl_write">
+                                    <colgroup>
+                                        <col style="width:10%"/>
+                                        <col style="width:15%"/>
+                                        <col style="width:10%"/>
+                                        <col style="width:15%"/>
+                                        <col style="width:10%"/>
+                                        <col style="width:auto"/>
+                                        <col style="width:10%"/>
+                                        <col style="width:15%"/>
+                                    </colgroup>
+                                    <tbody>
+
+                                    <tr th:each="item:${memberSchools}">
+                                        <th scope="row"><label>학교</label></th>
+                                        <td th:text="${item.schlNm}"></td>
+                                        <th scope="row"><label>학년</label></th>
+                                        <td th:text="${item.grade}"></td>
+                                        <th scope="row"><label>반</label></th>
+                                        <td th:text="${item.ban}"></td>
+                                        <th scope="row"><label>번호</label></th>
+                                        <td th:text="${item.no}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="sec">
+                                <div class="board_top clearfix">
+                                    <div class="fl">
+                                        <h4 class="sec_tit">교원정보</h4>
+                                    </div>
+                                </div>
+                                <table class="tbl_write">
+                                    <colgroup>
+                                        <col style="width:10%"/>
+                                        <col style="width:20%"/>
+                                        <col style="width:10%"/>
+                                        <col style="width:20%"/>
+                                        <col style="width:10%"/>
+                                        <col style="width:auto"/>
+                                    </colgroup>
+
+                                    <tbody th:each="item:${userList}">
+                                    <tr>
+                                        <th scope="row"><label>이름</label></th>
+                                        <td th:text="${item.nm}"></td>
+                                        <th scope="row"><label>성별</label></th>
+                                        <td th:text="${T(kr.or.btf.web.domain.web.enums.GenderType).valueOf(item.sexPrTy).getName()}"></td>
+                                        <th scope="row"><label>아이디</label></th>
+                                        <td th:text="${item.loginId}"></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row"><label>가입(탈퇴)일</label></th>
+                                        <td>
+                                            <th:block th:text="${#temporals.format(item.regDtm, 'yyyy-MM-dd')}"></th:block>
+                                            <br/>
+                                            <th:block th:if="*{secsnDtm ne null}">
+                                                <span style="color: red">(<th:block th:text="${#strings.substring(item.secsnDtm,0,10)}"></th:block>)</span>
+                                            </th:block>
+                                        </td>
+                                        <th scope="row"><label>휴대폰</label></th>
+                                        <td th:text="${item.moblphon}"></td>
+                                        <th scope="row"><label>이메일</label></th>
+                                        <td th:text="${item.email}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="sec">
+                                <div class="board_top clearfix">
+                                    <div class="fl">
+                                        <h4 class="sec_tit">부모정보</h4>
+                                    </div>
+                                </div>
+                                <table class="tbl_write">
+                                    <colgroup>
+                                        <col style="width:10%"/>
+                                        <col style="width:20%"/>
+                                        <col style="width:10%"/>
+                                        <col style="width:20%"/>
+                                        <col style="width:10%"/>
+                                        <col style="width:auto"/>
+                                    </colgroup>
+                                    <tbody th:each="item:${parents}">
+                                    <tr>
+                                        <th scope="row"><label>이름</label></th>
+                                        <td th:text="${item.nm}"></td>
+                                        <th scope="row"><label>성별</label></th>
+                                        <td th:text="${T(kr.or.btf.web.domain.web.enums.GenderType).valueOf(item.sexPrTy).getName()}"></td>
+                                        <th scope="row"><label>아이디</label></th>
+                                        <td th:text="${item.loginId}"></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row"><label>가입(탈퇴)일</label></th>
+                                        <td>
+                                            <th:block th:text="${#temporals.format(item.regDtm, 'yyyy-MM-dd')}"></th:block>
+                                            <br/>
+                                            <th:block th:if="*{secsnDtm ne null}">
+                                                <span style="color: red">(<th:block th:text="${#strings.substring(item.secsnDtm,0,10)}"></th:block>)</span>
+                                            </th:block>
+                                        </td>
+                                        <th scope="row"><label>휴대폰</label></th>
+                                        <td th:text="${item.moblphon}"></td>
+                                        <th scope="row"><label>이메일</label></th>
+                                        <td th:text="${item.email}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </th:block>
+
+                        <th:block th:if="${form.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).PARENT}">
+
+                            <div class="sec">
+                                <div class="board_top clearfix">
+                                    <div class="fl">
+                                        <h4 class="sec_tit">자녀정보</h4>
+                                    </div>
+                                </div>
+                                <th:block th:each="child : ${childList}">
+                                    </br>
+                                    </br>
+                                    <table class="tbl_write">
+                                        <colgroup>
+                                            <col style="width:10%"/>
+                                            <col style="width:20%"/>
+                                            <col style="width:10%"/>
+                                            <col style="width:20%"/>
+                                            <col style="width:10%"/>
+                                            <col style="width:auto"/>
+                                        </colgroup>
+
+                                        <tbody>
+                                        <tr>
+                                            <th scope="row"><label>이름</label></th>
+                                            <td th:text="${child.childNm}"></td>
+                                            <th scope="row"><label>성별</label></th>
+                                            <td th:text="${T(kr.or.btf.web.domain.web.enums.GenderType).valueOf(child.childSexPrTy).getName()}"></td>
+                                            <th scope="row"><label>아이디</label></th>
+                                            <td th:text="${child.childLoginId}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><label>가입(탈퇴)일</label></th>
+                                            <td>
+                                                <th:block th:text="${#temporals.format(child.childRegDtm, 'yyyy-MM-dd')}"></th:block>
+                                                <br/>
+                                                <th:block th:if="${child.childSecsnDtm ne null}">
+                                                    <span style="color: red">(<th:block th:text="${#strings.substring(child.childSecsnDtm,0,10)}"></th:block>)</span>
+                                                </th:block>
+                                            </td>
+                                            <th scope="row"><label>휴대폰</label></th>
+                                            <td th:text="${child.childMoblphon}"></td>
+                                            <th scope="row"><label>이메일</label></th>
+                                            <td th:text="${child.childEmail}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><label>학교</label></th>
+                                            <td th:text="${child.childSchlNm}"></td>
+                                            <th scope="row"><label>학년 - 반</label></th>
+                                            <td th:text="${child.childGrade + ' - ' + child.childBan}"></td>
+                                            <th scope="row"><label>번호</label></th>
+                                            <td th:text="${child.childNo eq null ? '' : child.childNo}"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <!--<table class="tbl_write">
+                                        <colgroup>
+                                            <col style="width:10%"/>
+                                            <col style="width:20%"/>
+                                            <col style="width:10%"/>
+                                            <col style="width:20%"/>
+                                            <col style="width:10%"/>
+                                            <col style="width:auto"/>
+                                        </colgroup>
+                                        <tbody>
+
+
+                                        </tbody>
+                                    </table>-->
+                                    <table class="tbl_write">
+                                        <colgroup>
+                                            <col style="width:10%"/>
+                                            <col style="width:20%"/>
+                                            <col style="width:10%"/>
+                                            <col style="width:20%"/>
+                                            <col style="width:10%"/>
+                                            <col style="width:auto"/>
+                                        </colgroup>
+                                        <tbody>
+                                        <tr>
+                                            <th scope="row"><label>선생님이름</label></th>
+                                            <td th:text="${child.teacherNm eq null ? '' : child.teacherNm}"></td>
+                                            <th scope="row"><label>성별</label></th>
+                                            <td th:text="${child.teacherSexPrTy eq null ? '' : T(kr.or.btf.web.domain.web.enums.GenderType).valueOf(child.teacherSexPrTy).getName()}"></td>
+                                            <th scope="row"><label>아이디</label></th>
+                                            <td th:text="${child.teacherLoginId eq null ? '' : child.teacherLoginId}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><label>가입(탈퇴)일</label></th>
+                                            <td>
+                                                <th:block th:text="${child.teacherRegDtm eq null ? '' : #temporals.format(child.teacherRegDtm, 'yyyy-MM-dd')}"></th:block>
+                                                <br/>
+                                                <th:block th:if="${child.teacherSecsnDtm ne null}">
+                                                    <span style="color: red">(<th:block th:text="${#temporals.format(child.teacherSecsnDtm, 'yyyy-MM-dd')}"></th:block>)</span>
+                                                </th:block>
+                                            </td>
+                                            <th scope="row"><label>휴대폰</label></th>
+                                            <td th:text="${child.teacherMoblphon eq null ? '' : child.teacherMoblphon}"></td>
+                                            <th scope="row"><label>이메일</label></th>
+                                            <td th:text="${child.teacherEmail eq null ? '' : child.teacherEmail}"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </th:block>
+                            </div>
+                        </th:block>
+
+                        <th:block th:if="${form.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).TEACHER}">
+
+                            <div class="sec">
+                                <div class="board_top clearfix">
+                                    <div class="fl">
+                                        <h4 class="sec_tit" >학교정보</h4>
+                                    </div>
+                                </div>
+                                <table class="tbl_write">
+                                    <colgroup>
+                                        <col style="width:10%"/>
+                                        <col style="width:20%"/>
+                                        <col style="width:10%"/>
+                                        <col style="width:15%"/>
+                                        <col style="width:10%"/>
+                                        <col style="width:auto"/>
+                                    </colgroup>
+                                    <tbody>
+
+                                    <tr>
+                                        <th scope="row"><label>학교</label></th>
+                                        <td th:text="${memberTeacher.schlNm}"></td>
+                                        <th scope="row"><label>학년</label></th>
+                                        <td th:text="${memberTeacher.grade}"></td>
+                                        <th scope="row"><label>반</label></th>
+                                        <td th:text="${memberTeacher.ban}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="sec">
+                                <div class="board_top clearfix">
+                                    <div class="fl">
+                                        <h4 class="sec_tit">학생정보</h4>
+                                    </div>
+                                </div>
+                                <th:block th:each="student : ${studentList}" th:with="stu = ${student.get('student')}, par = ${student.get('memberParents')}">
+                                    </br>
+                                    </br>
+                                    <table class="tbl_write">
+                                        <colgroup>
+                                            <col style="width:10%"/>
+                                            <col style="width:20%"/>
+                                            <col style="width:10%"/>
+                                            <col style="width:20%"/>
+                                            <col style="width:10%"/>
+                                            <col style="width:auto"/>
+                                        </colgroup>
+
+                                        <tbody>
+                                        <tr>
+                                            <th scope="row"><label>이름 (번호)</label></th>
+                                            <td th:text="${stu.studentNm + ' (' + (stu.no eq null ? '' : stu.no) + ')'}"></td>
+                                            <th scope="row"><label>성별</label></th>
+                                            <td th:text="${T(kr.or.btf.web.domain.web.enums.GenderType).valueOf(stu.studentSexPrTy).getName()}"></td>
+                                            <th scope="row"><label>아이디</label></th>
+                                            <td th:text="${stu.studentLoginId}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><label>가입(탈퇴)일</label></th>
+                                            <td>
+                                                <th:block th:text="${#temporals.format(stu.studentRegDtm, 'yyyy-MM-dd')}"></th:block>
+                                                <br/>
+                                                <th:block th:if="${stu.studentSecsnDtm ne null}">
+                                                    <span style="color: red">(<th:block th:text="${#temporals.format(stu.studentSecsnDtm, 'yyyy-MM-dd')}"></th:block>)</span>
+                                                </th:block>
+                                            </td>
+                                            <th scope="row"><label>휴대폰</label></th>
+                                            <td th:text="${stu.studentMoblphon eq null ? '' : stu.studentMoblphon}"></td>
+                                            <th scope="row"><label>이메일</label></th>
+                                            <td th:text="${stu.studentEmail}"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <th:block th:if="${par.size() > 0}">
+                                        <table class="tbl_write">
+                                            <colgroup>
+                                                <col style="width:10%"/>
+                                                <col style="width:20%"/>
+                                                <col style="width:10%"/>
+                                                <col style="width:20%"/>
+                                                <col style="width:10%"/>
+                                                <col style="width:auto"/>
+                                            </colgroup>
+                                            <tbody th:each="parent : ${par}">
+                                            <tr>
+                                                <th scope="row"><label>부모님이름</label></th>
+                                                <td th:text="${parent.parentNm}"></td>
+                                                <th scope="row"><label>성별</label></th>
+                                                <td th:text="${T(kr.or.btf.web.domain.web.enums.GenderType).valueOf(parent.parentSexPrTy).getName()}"></td>
+                                                <th scope="row"><label>아이디</label></th>
+                                                <td th:text="${parent.parentLoginId}"></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row"><label>가입(탈퇴)일</label></th>
+                                                <td>
+                                                    <th:block th:text="${#temporals.format(parent.parentRegDtm, 'yyyy-MM-dd')}"></th:block>
+                                                    <br/>
+                                                    <th:block th:if="${parent.parentSecsnDtm ne null}">
+                                                        <span style="color: red">(<th:block th:text="${#temporals.format(parent.parentSecsnDtm, 'yyyy-MM-dd')}"></th:block>)</span>
+                                                    </th:block>
+                                                </td>
+                                                <th scope="row"><label>휴대폰</label></th>
+                                                <td th:text="${parent.parentMoblphon}"></td>
+                                                <th scope="row"><label>이메일</label></th>
+                                                <td th:text="${parent.parentEmail}"></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </th:block>
+                                </th:block>
+                            </div>
+                        </th:block>
+
+                        <div class="fr">
+                            <div class="btn_area">
+                                <a class="btn btn_sm btn_lightgray" href="/soulGod/member/list">
+                                    <i class="material-icons">list</i>목록
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <th:block th:replace="soulGod/fragments/footer"></th:block>
+</div>
+</body>
+</html>

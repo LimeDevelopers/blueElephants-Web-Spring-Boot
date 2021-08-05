@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+    <script type="text/javascript">
+        function fn_myDataSave(dataPid) {
+            if (dataPid != null) {
+                if (!confirm("내 교육자료실에 추가하시겠습니까?")) {
+                    return false;
+                }
+                location.href = "/api/myDataRoom/save/" + dataPid;
+                return false;
+            } else {
+                alert('로그인 후 이용 가능합니다.');
+            }
+        }
+    </script>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+
+        <form id="form1" name="form1" method="post" th:object="${form}">
+            <div class="contents">
+                <div class="page_top pc">
+                    <h3 class="page_tit">교육</h3>
+                    <span>다양한 강의가 빠르게 업데이트 됩니다.</span>
+                </div>
+                <div class="page_cont">
+                    <div class="tab_ico_area">
+                        <a href="javascript:;" class="tit">자료실</a>
+                        <ul class="tab_type_ico">
+                            <li class="normal"><a href="/pages/activity/preventionEdu/NORMAL">일반</a></li>
+                            <li class="teenager"><a href="/pages/activity/preventionEdu/STUDENT">청소년</a></li>
+                            <li class="parent"><a href="/pages/activity/preventionEdu/PARENT">부모</a></li>
+                            <li class="teacher"><a href="/pages/activity/preventionEdu/TEACHER">교원</a></li>
+                            <!--<li class="lecturer"><a href="/pages/activity/preventionEdu/LECTURER">푸코강사</a></li>-->
+                            <li class="dataroom active"><a href="/pages/activity/eduDataRoom">자료실</a></li>
+                            <li class="review"><a href="/pages/activity/postscript">교육후기</a></li>
+                        </ul>
+                        <p class="mo_page_txt">다양한 강의가 빠르게 업데이트 됩니다.</p>
+                    </div>
+                    <h4 class="subtit pc">자료실</h4>
+                    <div class="detail_cont">
+                        <div class="top">
+                            <div class="thumb"><img th:src="${rootPath+'/boardData/'+thumbFile.flNm}" th:alt="${thumbFile.flNm}" onerror="this.src='/ClientUI/user/images/contents/nodata01.png'" /></div>
+                            <div class="info_area">
+                                <strong class="tit mypage">
+                                    <th:block th:if="*{sntncHead ne ''}">
+                                        <span th:text="|[*{sntncHead}]  *{ttl}|">사이버폭력 예방을 위한 가이드 10탄</span>
+                                    </th:block>
+                                    <th:block th:unless="*{sntncHead ne ''}">
+                                        <span th:text="*{ttl}">사이버폭력 예방을 위한 가이드 10탄</span>
+                                    </th:block>
+
+                                    <th:block th:if="${#authentication.principal != 'anonymousUser'}"> <!--로그인 O-->
+                                        <a href="javascript:;" th:onclick="|fn_myDataSave(*{id})|" class="btn btn_md btn_line_blue btn_white btn_pill_10">내 교육자료실로 저장</a>
+                                    </th:block>
+                                    <th:block th:unless="${#authentication.principal != 'anonymousUser'}"> <!--로그인 X-->
+                                        <a href="javascript:;" onclick="fn_myDataSave()" class="btn btn_md btn_line_blue btn_white btn_pill_10">내 교육자료실로 저장</a>
+                                    </th:block>
+                                </strong>
+                                <p class="count">
+                                    <!--<span>조회수 : <th:block th:text="*{#numbers.formatInteger(readCnt, 0, 'COMMA')}"></th:block>회</span>
+                                    <span>다운로드 : <th:block th:text="${#numbers.formatInteger(downloadCnt, 0, 'COMMA')}"></th:block>회</span>-->
+                                    <span class="date" th:text="|등록일 : *{#temporals.format(ntceDt,'yyyy.MM.dd')}|">등록일 : 2020.12.31</span>
+                                </p>
+                                <div class="file">
+                                    <p>첨부파일 <span>(파일명을 클릭하면 다운로드 됩니다.)</span></p>
+                                    <th:block th:each="item : ${fileList}">
+                                        <th:block th:if="${T(kr.or.btf.web.domain.web.enums.FileDvType).ATTACH.name() eq item.dvTy}">
+                                            <a href="javascript:void(0);" th:onclick="fn_fileDownload([[${item.flPth}]], [[${item.chgFlNm}]])" class="btn_down" th:text="${item.flNm}"></a>
+                                        </th:block>
+                                    </th:block>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bottom  editor" th:utext="*{cn}">
+                            상세내용
+                        </div>
+                        <div class="btn_area">
+                            <a href="/pages/activity/eduDataRoom" class="btn btn_lg btn_line_blue btn_pill_10">목록</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

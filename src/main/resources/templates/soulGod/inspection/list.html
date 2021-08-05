@@ -1,0 +1,121 @@
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:include="soulGod/fragments/header"></th:block>
+    <script type="text/javascript">
+        function fn_search() {
+            var frm = $('#form1');
+            frm.prop('action', '?');
+            frm.submit();
+        }
+
+        function fn_reset() {
+        	$('#srchWord').val('');
+
+        	fn_search();
+		}
+
+		$(function(){
+		});
+    </script>
+</head>
+<body>
+<div id="wrap">
+	<th:block th:include="soulGod/fragments/menu"></th:block>
+
+	<div id="container">
+		<div class="container_box">
+    		<form id="form1" name="form1" method="post" th:object="${form}">
+
+				<div class="contents">
+
+					<ul class="breadcrumb">
+						<li><i class="material-icons">home</i></li>
+						<li>운영관리</li>
+						<li>유효성검사 관리</li>
+					</ul>
+
+					<div class="search_area clearfix">
+						<dl class="col">
+							<dt>설문제목</dt>
+							<dd>
+								<input type="text" th:field="*{srchWord}" placeholder="검색어를 입력하세요." style="width:400px" />
+								<button type="button" class="btn btn_sm btn_gray" onclick="fn_search()">
+									<i class="material-icons">search</i>조회
+								</button>
+								<button type="button" class="btn btn_sm btn_gray" onclick="fn_reset()">
+									<i class="material-icons">refresh</i>초기화
+								</button>
+							</dd>
+						</dl>
+					</div>
+
+					<div class="board_list">
+						<div class="board_top clearfix">
+							<div class="fl">
+								<div class="total_num">총 <b th:text="${#numbers.formatInteger(inspections.totalElements, 0, 'COMMA')}">2</b></div>
+							</div>
+							<div class="fr">
+								<a href="/soulGod/inspection/register" class="btn btn_sm btn_blue">
+									<i class="material-icons">library_add</i>검사 추가
+								</a>
+							</div>
+						</div>
+
+						<table class="tbl_list mo_tbl_list">
+							<colgroup>
+								<col style="width:5%" />
+								<col style="width:auto" />
+								<col style="width:10%" />
+								<col style="width:10%" />
+								<col style="width:12%" />
+								<col style="width:8%" />
+							</colgroup>
+							<thead>
+								<tr>
+									<th scope="col">No</th>
+									<th scope="col">검사제목</th>
+									<th scope="col">검사대상</th>
+									<th scope="col">등록자</th>
+									<th scope="col">등록일</th>
+									<th scope="col">사용여부</th>
+								</tr>
+							</thead>
+							<tbody>
+							<!-- 등록된 데이터가 없을 때만 노출 : s -->
+							<tr th:if="${inspections == null or inspections.isEmpty()}">
+								<td colspan="6">등록된 정보 없습니다.</td>
+							</tr>
+							<!-- 등록된 이벤트가 없을 때만 노출 : e -->
+							<tr th:each="item,idx : ${inspections}">
+								<td th:text="${inspections.totalElements - inspections.pageable.pageSize * inspections.pageable.pageNumber - idx.index}"></td>
+								<td>
+									<b>
+										<a th:href="|/soulGod/inspection/detail/${item.id}|"  th:text="${item.ttl}"></a>
+									</b>
+								</td>
+								<td th:text="${T(kr.or.btf.web.domain.web.enums.UserRollType).valueOf(item.mberDvTy).getName()}"></td>
+								<td>
+									<div th:text="${item.regPsNm}"></div>
+								</td>
+								<td>
+									<strong class="th">등록일</strong>
+									<div th:text="${#temporals.format(item.regDtm, 'yyyy-MM-dd')}"></div>
+								</td>
+								<td>
+									<strong class="th">공개여부</strong>
+									<div th:text="${item.opnAt}"></div>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+						<th:block th:replace="/soulGod/fragments/paging :: pagingbody(list=${inspections},
+                                            link='/soulGod/inspection/list', formId='form1')"></th:block>
+					</div>
+				</div>
+			</form>
+		</div>
+		<th:block th:replace="soulGod/fragments/footer"></th:block>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+    <script type="text/javascript" th:inline="javascript">
+
+        //댓글,답글 확인
+        function fn_commentGbn(parnts_comt_pid) {
+            var dataPid = [[${form.id}]];
+            var comt = parnts_comt_pid == null ? $('#comment') : $('#comment_' + parnts_comt_pid);
+
+            if(!$.trim(comt.val())){
+                alert("댓글을 입력하세요.");
+                comt.focus();
+                return false;
+            }
+
+            if (!confirm('댓글을 등록하시겠습니까?')) {
+                return;
+            }
+
+            if (parnts_comt_pid != null) {
+                fn_commentCheck(parnts_comt_pid, dataPid); //답글일경우 1회체크
+            } else {
+                fn_commentSave(parnts_comt_pid); //댓글일경우 저장
+            }
+        }
+
+        //댓글 저장
+        function fn_commentSave(parnts_comt_pid) {
+            var parntsComtPid = parnts_comt_pid;
+            var comt = parnts_comt_pid == null ? $('#comment') : $('#comment_' + parnts_comt_pid);
+            var dataPid = [[${form.id}]];
+            var tableNm = [[${T(kr.or.btf.web.domain.web.enums.TableNmType).TBL_CAMPAIGN.name()}]];
+
+            var jsonData = {
+                'dataPid' : dataPid,
+                'comt' : comt.val(),
+                'parntsComtPid' : parntsComtPid,
+                'tableNm' : tableNm
+            }
+            $.ajax({
+                type: 'post',
+                url: '/api/comment/save',
+                contentType: "application/json",
+                data: JSON.stringify(jsonData),
+                datatype: 'text',
+                success: function (data) {
+                    if (data === 'ok') {
+                        alert('댓글을 등록하였습니다.');
+                        location.reload();
+                    } else {
+                        alert('실패되었습니다 관리자에게 문의 하세요');
+                    }
+                },
+                error: function (error) {
+                    //alert('save error!!!');
+                    alert('error::' + error.statusText);
+                }
+            });
+        }
+
+        //댓글삭제
+        function fn_commentDelete(id) {
+            if (!confirm('댓글을 삭제하시겠습니까?')) {
+                return;
+            }
+            var jsonData = {
+                'id' : id
+            }
+            $.ajax({
+                type: 'post',
+                url: '/api/comment/delete',
+                contentType: "application/json",
+                data: JSON.stringify(jsonData),
+                datatype: 'text',
+                success: function (data) {
+                    if (data === 'ok') {
+                        alert('댓글을 삭제하였습니다.');
+                        location.reload();
+                    }
+                },
+                error: function (error) {
+                    //alert('save error!!!');
+                    alert('error::' + error.statusText);
+                }
+            });
+        }
+
+        //댓글1회등록 확인
+        function fn_commentCheck(parnts_comt_pid, dataPid) {
+            var msg = "";
+            var jsonData = {
+                'id' : parnts_comt_pid,
+                'dataPid' : dataPid
+            }
+            $.ajax({
+                type: 'post',
+                url: '/api/comment/check',
+                contentType: "application/json",
+                data: JSON.stringify(jsonData),
+                datatype: 'text',
+                success: function (data) {
+                    if (data === 'ok') {
+                        fn_commentSave(parnts_comt_pid);
+                    } else {
+                        alert('다른 사용자 글에는 1회만 댓글을 달 수 있습니다.');
+                        return false;
+                    }
+                },
+                error: function (error) {
+                    //alert('save error!!!');
+                    alert('error::' + error.statusText);
+                }
+            });
+        }
+
+        function fn_moveLogin() {
+            alert("로그인이 필요한 기능입니다.");
+            location.href = ("/login");
+        }
+
+        function videoPlay(obj){
+            player.play();
+            $('.video_area .btn_play').stop().fadeOut();
+        }
+
+        $(function(){
+            //활동기록 보기
+            $('.btn_record').on('click', function(){
+                $(this).parent('dt').next('dd').toggle()
+            });
+
+            //댓글의 댓글
+            $('.comment_list > li').each(function(){
+                $(this).find('.btn_comment').on('click', function(){
+                    $(this).parents('li').toggleClass('active')
+                });
+            });
+
+            var src = [[${form.cntntsUrl}]];
+            var cntntsDvTy = [[${form.cntntsDvTy}]];
+            var ty = "video/mp4";
+            var options = {
+                width : 1280 ,
+                hieght : 720 ,
+                controls : true
+            }
+            if (cntntsDvTy == 'YOUTUBE') {
+                ty = 'video/youtube';
+                options.techOrder = ['youtube', 'html5'];
+            } else if (cntntsDvTy == 'CDN') {
+                ty = 'video/mp4';
+            }
+            options.sources = [{type: ty, src: src}];
+
+            initVideo(true, options);
+
+            fn_videoEndCheck([[${form.cntntsUrl}]], [[${form.cntntsDvTy}]]);
+        });
+    </script>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+
+        <form id="form1" name="form1" method="post">
+            <div class="contents" th:object="${form}">
+                <div class="page_top pc">
+                    <h3 class="page_tit">문화</h3>
+                    <span>여러분들의 참여로 사이버폭력을 근절하고 예방할 수 있습니다.</span>
+                </div>
+                <div class="page_cont">
+                    <div class="tab_ico_area">
+                        <a href="javascript:;" class="tit">
+                            <th:block th:if="${form.dvCodePid eq campaignCdPid}">대국민 캠페인</th:block>
+                            <th:block th:if="${form.dvCodePid eq declarationCdPid}">지지선언</th:block>
+                            <th:block th:if="${form.dvCodePid eq crewGalleryCdPid or form.dvCodePid eq crewBoardCdPid}">지지크루</th:block>
+                        </a>
+                        <ul class="tab_type_ico type04">
+                            <li class="campaign" th:classappend="${form.dvCodePid eq campaignCdPid ? 'active' : ''}">
+                                <a th:href="|/pages/activity/cultureList/${campaignCdPid}|">대국민 캠페인</a>
+                            </li>
+                            <li class="sign">
+                                <a href="#" onclick="return fn_linkUrl('http://btf.or.kr/board/board_online_survey/board_form.asp?scrID=0000000169&pageNum=5&subNum=1&ssubNum=1#area_05_sub01', true)">지지서명</a>
+                            </li>
+                            <li class="declare" th:classappend="${form.dvCodePid eq declarationCdPid ? 'active' : ''}">
+                                <a th:href="|/pages/activity/cultureList/${declarationCdPid}|">지지선언</a>
+                            </li>
+                            <li class="crew" th:classappend="${form.dvCodePid eq crewGalleryCdPid or form.dvCodePid eq crewBoardCdPid? 'active' : ''}">
+                                <a th:href="|/pages/activity/cultureList/${crewGalleryCdPid}|">지지크루</a>
+                            </li>
+                        </ul>
+                        <p class="mo_page_txt">여러분들의 참여로 사이버폭력을 근절하고 예방할 수 있습니다.</p>
+                    </div>
+
+                    <div class="detail_cont">
+                        <div class="top">
+                            <div class="info_area">
+                                <strong class="tit" th:text="*{ttl}">사이버폭력이 사리지는 그날까지</strong>
+                                <p class="count">
+                                    <span th:text="|등록자 : *{regPsNm}|">등록자 : 홍길동</span>
+                                    <span th:text="|조회수 : *{#numbers.formatInteger((readCnt eq null ? 0 : readCnt), 0, 'COMMA')}회|">조회수 : 0회</span>
+                                    <span class="date" th:text="|등록일 : *{#temporals.format(regDtm,'yyyy.MM.dd')}|">등록일 : 2020.12.31</span>
+                                </p>
+                                <div class="file" th:if="${form.dvCodePid eq crewBoardCdPid}">
+                                    <span>첨부파일 :&nbsp;</span>
+                                    <th:block th:each="item : ${fileList}">
+                                        <th:block th:if="${T(kr.or.btf.web.domain.web.enums.FileDvType).ATTACH.name() eq item.dvTy}">
+                                            <th:block th:if="${#authentication.principal != 'anonymousUser'}">
+                                                <a th:href="${filePath} + '/' + ${item.chgFlNm}" download th:text="${item.flNm}">사이버폭력예방 가이드2.pdf</a>
+                                            </th:block>
+                                            <th:block th:unless="${#authentication.principal != 'anonymousUser'}">
+                                                <a href="javascript:void(0);" th:onclick="fn_fileDownload([[${item.flPth}]], [[${item.chgFlNm}]])" class="btn_down" th:text="${item.flNm}"></a>
+                                            </th:block>
+                                        </th:block>
+                                    </th:block>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bottom pdrl">
+                            <th:block th:if="*{cntntsUrl ne null and cntntsUrl ne ''}">
+                                <div class="video_area" >
+                                    <div class="video">
+                                        <th:block th:replace="/fragments/videoOptions :: videoSetting(videoId='video', classYn='N', classAppend='')"></th:block>
+                                        <!--<th:block th:if="*{cntntsDvTy eq T(kr.or.btf.web.domain.web.enums.ContentsDvType).YOUTUBE}">
+                                            <video id="video" class="video-js vjs-default-skin" controls
+                                                   data-setup='{ "techOrder": ["youtube", "html5"]}'>
+                                                <source type="video/youtube" th:src="*{cntntsUrl}" />
+                                            </video>
+                                        </th:block>
+                                        <th:block th:if="*{cntntsDvTy eq T(kr.or.btf.web.domain.web.enums.ContentsDvType).CDN}">
+                                            <video id="video"
+                                                   class="video-js vjs-default-skin"
+                                                   controls
+                                                   preload="auto"
+                                                   controlsList="nodownload">
+                                                <source type="video/mp4" th:src="*{cntntsUrl}" th:alt="*{ttl}" th:onerror="this.src='/ClientUI/user/images/contents/nodata01.png'" />
+                                            </video>
+                                            <a href="javascript:;" class="btn_play" onclick="videoPlay(this)"><span class="blind">영상 재생하기</span></a>
+                                        </th:block>-->
+                                    </div>
+                                </div>
+                            </th:block>
+
+                            <div class="editor" th:if="${form.dvCodePid != crewGalleryCdPid}">
+                                <p th:utext="*{cn}">사이버폭력이 사리지는 그날까지</p>
+                            </div>
+
+                            <dl class="detail_sec" th:if="${form.dvCodePid eq crewGalleryCdPid}">
+                                <dt>지지크루 소개</dt>
+                                <dd>
+                                    <div class="editor" th:utext="*{cn}">
+                                        저희 사근빠는 2020년 6월에 전국적으로 창단된 사이버폭력 근절 지지크루 입니다.
+                                    </div>
+                                </dd>
+                            </dl>
+                            <dl class="detail_sec" th:if="${form.dvCodePid eq crewGalleryCdPid}">
+                                <dt><a href="javascript:;" class="btn_record">활동기록 보기</a></dt>
+                                <dd style="display:none">
+                                    <div class="editor" th:utext="*{actCn}">
+                                        2020.11.20 푸른나무재단 사이버폭력 교육 실시
+                                    </div>
+                                </dd>
+                            </dl>
+                        </div>
+
+                        <div class="comment" th:if="${form.dvCodePid ne crewGalleryCdPid and form.dvCodePid ne crewBoardCdPid}">
+                            <div class="comment_write">
+                                <p class="tip">등록된 메시지에 소감을 등록할 수 있습니다. 다른 사용자 댓글에는 1회만 답글을 달 수 있습니다. </p>
+                                <div class="inner">
+                                    <label for="comment" class="blind">댓글 입력</label>
+                                    <th:block th:if="${#authentication.principal != 'anonymousUser'}">
+                                        <textarea id="comment" placeholder="댓글을 입력해 주세요."></textarea>
+                                        <button type="button" onclick="fn_commentGbn()" class="btn btn_blue btn_pill_10">등록</button>
+                                    </th:block>
+                                    <th:block th:unless="${#authentication.principal != 'anonymousUser'}">
+                                        <textarea placeholder="로그인이 필요한 기능입니다." readonly onclick="fn_moveLogin()"></textarea>
+                                        <button type="button" class="btn btn_blue btn_pill_10" onclick="fn_moveLogin()">등록</button>
+                                    </th:block>
+                                </div>
+                            </div>
+                            <ul class="comment_list">
+                                <li th:each="item : ${commonComments}">
+                                    <dl th:if="${item.parntsComtPid eq null}" th:id="|parnt_comment_${item.id}|">
+                                        <dt th:text="${item.regPsId}"></dt>
+                                        <dd>
+                                            <div th:text="${item.comt}"></div>
+                                            <th:block th:if="${#authentication.principal != 'anonymousUser'}">
+                                                <a th:if="${#authentication.principal.account.loginId eq item.regPsId}" th:onclick="|fn_commentDelete(${item.id})|" href="javascript:;" class="btn">삭제</a>
+                                                <a href="javascript:;" class="btn btn_comment">답글</a>
+                                            </th:block>
+                                        </dd>
+                                    </dl>
+                                    <th:block th:each="item2 : ${commonComments}">
+                                        <dl class="reply" th:if="${item2.parntsComtPid eq item.id}">
+                                            <dt th:text="${item2.regPsId}">bibi7070</dt>
+                                            <dd>
+                                                <div th:text="${item2.comt}">마음이 너무 아파요ㅠㅠ 힘내요~!!!</div>
+                                                <th:block th:if="${#authentication.principal != 'anonymousUser'}">
+                                                    <a th:if="${#authentication.principal.account.loginId eq item2.regPsId}" th:onclick="|fn_commentDelete(${item2.id})|" href="javascript:;" class="btn">삭제</a>
+                                                </th:block>
+                                            </dd>
+                                        </dl>
+                                    </th:block>
+                                <div class="comment_write">
+                                    <div class="inner">
+                                        <label th:for="|comment_${item.id}|" class="blind">답글 입력</label>
+                                        <textarea th:id="|comment_${item.id}|" placeholder="답글을 입력해 주세요."></textarea>
+                                        <button type="button" th:onclick="|fn_commentGbn(${item.id})|" class="btn btn_blue btn_pill_10">등록</button>
+                                    </div>
+                                </div>
+                                </li>
+                            </ul>
+                            <th:block th:replace="/fragments/paging :: pagingbody(list=${commonComments}, link='/pages/activity/cultureDetail/' + *{id}, formId='form1')"></th:block>
+                        </div>
+                        <div class="btn_area">
+                            <a th:href="|/pages/activity/cultureList/*{dvCodePid}|" class="btn btn_lg btn_line_blue btn_pill_10">목록</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

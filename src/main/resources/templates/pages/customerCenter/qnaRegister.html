@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+    <script type="text/javascript">
+        function fn_qnaSave() {
+            var ttl = $('#ttl');
+            var cn = $('#cn');
+            var pwd = $('#pwd');
+
+            if(!$.trim(ttl.val())){
+                alert("제목을 입력하세요.");
+                ttl.focus();
+                return false;
+            }
+
+            if(!$.trim(cn.val())){
+                alert("내용을 입력하세요.");
+                cn.focus();
+                return false;
+            }
+
+            if(!$.trim(pwd.val())){
+                alert("비밀번호를 입력하세요.");
+                pwd.focus();
+                return false;
+            }
+
+            var frm = $('#form1');
+            frm.prop("action", "/api/openData/qna/register");
+            frm.submit();
+        }
+
+        $(function () {
+            $('#sntncHead').change();
+        });
+
+        function fn_qnaDelete() {
+            if (!confirm('문의글을 삭제하시겠습니까?')) {
+                return;
+            }
+
+            var frm = $('#form1');
+            frm.prop('action', '/pages/customerCenter/qnaDelete');
+            frm.submit();
+        }
+    </script>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+
+        <form id="form1" name="form1" method="post" enctype="multipart/form-data" th:object="${form}">
+            <input type="hidden" th:field="*{id}" />
+            <input type="hidden" id="mstPid" name="mstPid" th:value="${mstPid}" />
+
+            <div class="contents">
+                <div class="page_top pc">
+                    <h3 class="page_tit">고객센터</h3>
+                    <span>푸코를 이용하시는데 어려움이 있으시다면, 고객센터에 문의하세요.</span>
+                </div>
+                <div class="page_cont">
+                    <div class="tab_ico_area">
+                        <a href="javascript:;" class="tit">1:1 문의</a>
+                        <ul class="tab_type_ico">
+                            <li class="qna active"><a href="/pages/customerCenter/qna">1:1 문의</a></li>
+                            <li class="faq"><a href="/pages/customerCenter/faq">FAQ</a></li>
+                            <li class="policy"><a href="/pages/customerCenter/policy">이용약관</a></li>
+                            <!--<li class="cshelp"><a href="/pages/customerCenter/help">도움말</a></li>-->
+                        </ul>
+                        <p class="mo_page_txt">푸코를 이용하시는데 어려움이 있으시다면, <br>고객센터에 문의하세요.</p>
+                    </div>
+                    <h4 class="subtit pc">문의하기</h4>
+                    <div class="detail_cont">
+                        <div class="tbl_write">
+                            <ul>
+                                <li>
+                                    <div class="th"><label th:for="*{sntncHead}">말머리구분</label></div>
+                                    <div class="td">
+                                        <div class="select w160">
+                                            <label th:for="*{sntncHead}">선택</label>
+                                            <select th:field="*{sntncHead}">
+                                                <option value="">선택</option>
+                                                <option th:each="item: ${#strings.arraySplit(boardMaster.sntncHead,',')}"
+                                                        th:text="${item}" th:value="${item}"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="th"><label th:for="*{ttl}">제목</label><span class="aster">*</span></div>
+                                    <div class="td">
+                                        <input type="text" th:field="*{ttl}" />
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="th"><label th:for="cn">내용</label><span class="aster">*</span></div>
+                                    <div class="td">
+                                        <textarea th:field="*{cn}" class="h170" placeholder="최대 1,000자 이내" maxlength="1000"></textarea>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="th">첨부파일</div>
+                                    <div class="td">
+                                        <div class="file_form multi clearfix">
+                                            <div th:if="${fileList != null and !fileList.isEmpty()}">
+                                                <th:block th:each="item: ${fileList}">
+                                                    <span class="multiFile-label" th:if="${T(kr.or.btf.web.domain.web.enums.FileDvType).ATTACH.name() eq item.dvTy}">
+                                                        <span class="multiFile-label" th:text="${item.flNm}">첨부파일.txt</span>
+                                                        <a href="javascript:;" class="btn_del" th:onclick="|fn_deleteFile(${item.id}, this)| ">
+                                                            <span class="blind">삭제</span>
+                                                        </a>
+                                                    </span>
+                                                </th:block>
+                                            </div>
+                                            <input type="file" name="attachedFile" id="attachedFile" class="multi" th:accept="${allAccept}" placeholder="첨부파일 등록"/>
+                                            <label for="attachedFile">찾아보기</label>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="th"><label for="pwd">글 비밀번호</label><span class="aster">*</span></div>
+                                    <div class="td">
+                                        <input type="password" name="pwd" id="pwd" placeholder="최대 4자 이내" maxlength="4" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" />
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="btn_area btn_num02">
+                        <a href="javascript:;" onclick="fn_qnaSave()" class="btn btn_lg btn_blue btn_pill_10">저장</a>
+                        <!--삭제기능 주석-->
+                        <!--<a th:if="*{id ne null}" onclick="fn_qnaDelete()" href="javascript:;"  class="btn btn_lg btn_blue btn_pill_10">삭제</a>-->
+                        <a href="/pages/customerCenter/qna" class="btn btn_lg btn_line_blue btn_pill_10">목록</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

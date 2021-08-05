@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+    <script type="text/javascript">
+        function setEditor(name, editor) {
+            contentEditor = editor;
+        }
+
+        $(function () {
+            $("#srtParentCodePid").change(function () {
+                let parentPid = $(this).val();
+                $("#srtCodePid").html('<option value="" selected="true">선택</option>').change();
+                ;
+                if (parentPid) {
+                    var jsonData = {
+                        'prntCodePid': parentPid
+                    }
+                    $.ajax({
+                        type: 'post',
+                        url: '/api/commonCode/listForUppCdPid',
+                        contentType: "application/json",
+                        data: JSON.stringify(jsonData),
+                        datatype: 'json',
+                        success: function (data) {
+                            if (data) {
+                                let html = '<option value="" selected="true">선택</option>';
+                                $.each(data, function (index, item) {
+                                    html += '<option value="' + item.id + '">' + item.codeNm + '</option>';
+                                });
+                                $("#srtCodePid").html(html).change();
+                            }
+                        }
+                    });
+                }
+            });
+
+            var src = '[[${form.cntntsUrl}]]';
+            var ty = "video/youtube";
+            var options = {
+                width : 1280 ,
+                hieght : 720 ,
+                controls : true
+            }
+            options.techOrder = ['youtube', 'html5'];
+            options.sources = [{type: ty, src: src}];
+
+            initVideo(true, options);
+        });
+
+        function fn_srchSchlNm() {
+            srchSchlNm = $('#srchSchlNm');
+            if (!$.trim(srchSchlNm.val())) {
+                alert('학교명을 입력하세요');
+                srchSchlNm.focus();
+                return false;
+            }
+
+            $.ajax({
+                type: "GET",
+                url: "/api/openData/schoolInfoToJson",
+                dataType: "json",
+                data: {
+                    "scName": srchSchlNm.val()
+                },
+                success: function (data) {
+                    var code = data.schoolInfo[0].head[1].RESULT.CODE;
+                    var message = data.schoolInfo[0].head[1].RESULT.MESSAGE;
+                    if (code != 'INFO-000') { //실패
+                        alert(message);
+                    } else { //성공
+                        var html = "";
+                        $('#srchSchlNmList').empty();
+                        var scArr = data.schoolInfo[1].row;
+                        for (var i = 0; i < scArr.length; i++) {
+                            var lctn_sc_nm = scArr[i].LCTN_SC_NM; //지역
+                            var schul_nm = scArr[i].SCHUL_NM; //학교명
+                            var sd_schul_code = scArr[i].SD_SCHUL_CODE; //학교코드
+                            var atpt_ofcdc_sc_code = scArr[i].ATPT_OFCDC_SC_CODE; //교육청코드
+
+                            html += "<div class=\"radio txt\">";
+                            html += "   <input type=\"radio\" name=\"school\" id=\"school" + sd_schul_code + "\" value=\"" + sd_schul_code + "\">";
+                            html += "   <label for=\"school" + sd_schul_code + "\">" + schul_nm + "(" + lctn_sc_nm + ")" + "</label>";
+                            html += "   <input type=\"hidden\" name=\"lctn_sc_nm" + sd_schul_code + "\" id=\"" + lctn_sc_nm + "\" value=\"" + lctn_sc_nm + "\">";
+                            html += "   <input type=\"hidden\" name=\"atpt_ofcdc_sc_code" + sd_schul_code + "\" id=\"" + atpt_ofcdc_sc_code + "\" value=\"" + atpt_ofcdc_sc_code + "\">";
+                            html += "   <input type=\"hidden\" name=\"schul_nm" + sd_schul_code + "\" id=\"" + schul_nm + "\" value=\"" + schul_nm + "\">";
+                            html += "</div>";
+                        }
+                        $('#nodata').hide();
+                        $('#srchSchlNmList').append(html);
+                    }
+                },
+                error: function (error) {
+                    alert(error.responseText);
+                    $('#srchSchlNmList').append('');
+                    $('#nodata').show();
+                }
+            });
+        }
+
+        function fn_setBan(grd) {
+            grade = $('#grade');
+            ban = $('#ban');
+            ban.empty();
+
+            if (!grd) {
+                alert('학년을 선택해주세요.');
+                grade.focus();
+                return;
+            }
+
+            var html = "<option value=\"\">선택</option>";
+            ban.append(html);
+
+            var banArr = _.where(classInfoArr, {GRADE: grd});
+            banArr = _.uniq(banArr, 'CLASS_NM');
+            banArr = _.sortBy(banArr, function (item) {
+                return item;
+            });
+            for (var i = 0; i < banArr.length; i++) {
+                var grd = banArr[i].CLASS_NM; //반
+                html = "<option value=" + grd + ">" + grd + "반</option>";
+                ban.append(html);
+            }
+            $("label[for='ban']").text('선택');
+            ban.val("");
+        }
+
+
+        function fn_selSchlNm() {
+            srchSchlNm = $('#srchSchlNm');
+            var chkSchl = $('input:radio[name=school]:checked');
+            if (chkSchl.length < 1) {
+                alert('학교를 선택해주세요.');
+                return;
+            }
+            areaNm = $('#areaNm');
+            schlNm = $('#schlNm');
+
+            var sd_schul_code = chkSchl.val(); //학교코드
+            var lctn_sc_nm = $('input:hidden[name=' + 'lctn_sc_nm' + chkSchl.val() + ']').val(); //지역
+            var schul_nm = $('input:hidden[name=' + 'schul_nm' + chkSchl.val() + ']').val(); //학교명
+            var atpt_ofcdc_sc_code = $('input:hidden[name=' + 'atpt_ofcdc_sc_code' + chkSchl.val() + ']').val();
+            ; //교육청코드
+
+            areaNm.val(lctn_sc_nm);
+            schlNm.val(schul_nm);
+
+            fn_setGrade(atpt_ofcdc_sc_code, sd_schul_code);
+
+            srchSchlNm.val('');
+            $('#nodata').show();
+            $('#srchSchlNmList').empty();
+            layerHide('popSchool');
+        }
+
+        function fn_setGrade(ofCode, scCode) {
+            grade = $('#grade');
+            grade.empty();
+            if (ofCode && scCode) {
+                $.ajax({
+                    type: "GET",
+                    url: "/api/openData/classInfoToJson",
+                    dataType: "json",
+                    data: {
+                        "ofCode": ofCode,
+                        "scCode": scCode
+                    },
+                    success: function (data) {
+                        var code = data.classInfo[0].head[1].RESULT.CODE;
+                        var message = data.classInfo[0].head[1].RESULT.MESSAGE;
+                        if (code != 'INFO-000') { //실패
+                            alert(message);
+                        } else { //성공
+                            var html = "<option value=\"\">선택</option>";
+
+                            grade.append(html);
+                            classInfoArr = data.classInfo[1].row;
+
+                            var gradeArr = _.uniq(classInfoArr, 'GRADE')
+                            gradeArr = _.sortBy(gradeArr, function (item) {
+                                return item;
+                            });
+                            for (var i = 0; i < gradeArr.length; i++) {
+                                var grd = gradeArr[i].GRADE; //학년
+                                html = "<option value=" + grd + ">" + grd + "학년</option>";
+                                grade.append(html);
+                            }
+                        }
+                    },
+                    error: function (error) {
+                        alert(error.responseText);
+                    }
+                });
+            }
+            $("label[for='grade']").text('선택');
+            grade.val("");
+        }
+
+        function fn_addImageBox() {
+            let $imageList = $("#imageList");
+            let length = $imageList.children("tr").length;
+            if (length > 5) {
+                alert("이미지는 5개까지 추가 가능합니다.");
+                return;
+            }
+            let temp = $("#imageTemp").clone();
+            let fileForm = temp.children("td").children("div").children("div.file_form");
+            fileForm.addClass("file_form" + length);
+            fileForm.children("input").attr("id", "attachedFile" + length).attr("name", "attachedFile");
+            fileForm.children("label").attr("for", "attachedFile" + length);
+            temp.children("td").children("div").children("textarea").attr("id", "dsc" + length).attr("name", "dsc");
+
+            let html = '<tr>';
+            html += temp.html();
+            html += '</tr>';
+            $imageList.append(html);
+            setFileForm(".file_form" + length);
+        }
+
+        function fn_delImageBox() {
+            let $imageList = $("#imageList");
+            let tr = $imageList.children("tr");
+            if (tr.length == 1) {
+                return;
+            }
+            tr.last().remove();
+        }
+
+        function fn_openWindow(url) {
+            window.open(url);
+        }
+
+        function fn_postscriptDelete() {
+            if (!confirm('삭제하시겠습니까?')) {
+                return false;
+            }
+            var frm = $('#form1');
+            frm.prop('action', '/api/postscript/delete');
+            frm.submit();
+        }
+
+        function fn_save() {
+            var areaNm = $('#areaNm');
+            var schlNm = $('#schlNm');
+            var grade = $('#grade');
+            var ban = $('#ban');
+            var no = $('#no');
+            var ttl = $('#ttl');
+            var cn = $('#cn');
+
+            if (!$.trim(areaNm.val())) {
+                alert("지역명을 입력하세요.");
+                areaNm.focus();
+                return false;
+            }
+
+            if (!$.trim(schlNm.val())) {
+                alert("학교명을 입력하세요.");
+                schlNm.focus();
+                return false;
+            }
+
+            if (!$.trim(grade.val())) {
+                alert("학년을 입력하세요.");
+                grade.focus();
+                return false;
+            }
+            if (!$.trim(ban.val())) {
+                alert("반을 입력하세요.");
+                ban.focus();
+                return false;
+            }
+            if (!$.trim(no.val())) {
+                alert("번호을 입력하세요.");
+                no.focus();
+                return false;
+            }
+
+            if (!$.trim(ttl.val())) {
+                alert("제목을 입력하세요.");
+                ttl.focus();
+                return false;
+            }
+
+            if (!confirm('저장하시겠습니까?')) {
+                return false;
+            }
+
+            var frm = $('#form1');
+            frm.prop('action', '/api/postscript/register');
+            frm.submit();
+
+        }
+
+    </script>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+
+        <form id="form1" name="form1" method="post" enctype="multipart/form-data" th:object="${form}">
+            <input type="hidden" th:field="*{id}">
+
+            <div class="contents">
+                <div class="page_top pc">
+                    <h3 class="page_tit">교육</h3>
+                    <span>다양한 강의가 빠르게 업데이트 됩니다.</span>
+                </div>
+                <div class="page_cont">
+                    <div class="tab_ico_area">
+                        <a href="javascript:;" class="tit">교육후기</a>
+                        <ul class="tab_type_ico">
+                            <li class="teenager"><a href="/pages/activity/preventionEdu/STUDENT">청소년</a></li>
+                            <li class="parent"><a href="/pages/activity/preventionEdu/PARENT">부모</a></li>
+                            <li class="teacher"><a href="/pages/activity/preventionEdu/TEACHER">교원</a></li>
+                            <li class="normal"><a href="/pages/activity/preventionEdu/NORMAL">일반</a></li>
+                            <!--<li class="lecturer"><a href="/pages/activity/preventionEdu/LECTURER">푸코강사</a></li>-->
+                            <li class="dataroom"><a href="/pages/activity/eduDataRoom">자료실</a></li>
+                            <li class="review active"><a href="/pages/activity/postscript">교육후기</a></li>
+                        </ul>
+                        <p class="mo_page_txt">다양한 강의가 빠르게 업데이트 됩니다.</p>
+                        <div class="tab_cont mo_thumb">
+                            <div class="cont review active">
+                                <div class="thumb">
+                                    <p>교육후기</p>
+                                </div>
+                                <dl class="desc">
+                                    <dt>교육후기</dt>
+                                    <dd>학교폭력 관련 자료뿐 만 아니라 또 다른 유형인 사이버폭력에 대해 알차고 유용한 정보를 알려드립니다. 사이버폭력을 예방하고, 대처하고, 회복하기
+                                        위한 자료를 확인해보세요.
+                                        <br>※ 본 자료는 사전동의 없이 가공 또는 수정하여 사용하거나 상업적으로 이용할 수 없습니다.
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                    <h4 class="subtit pc">교육후기</h4>
+                    <div class="detail_cont">
+                        <div class="top">
+                            <div class="info_area">
+                                <strong class="tit" th:text="*{ttl}">후기제목</strong>
+                                <p class="count">
+                                    <span th:text="|등록자 : *{schlNm} > *{grade} 학년 *{ban} 반 *{no} 번 |"></span>
+                                    <span class="date" th:text="|등록일 : *{#temporals.format(regDtm,'yyyy.MM.dd')}|">등록일 : 2020.12.31</span>
+                                </p>
+
+                                <div>
+                                    <p class="count">
+                                        <span th:text="|분류 : ${codeNm} > *{srtCodeNm}|"></span>
+                                    </p>
+                                </div>
+                                <div>
+                                    <p class="count">
+                                        <span>영상 URL : <a href="javascript:;" th:text="*{cntntsUrl}" th:onclick="fn_openWindow([[*{cntntsUrl}]])" class="fc_blue"></a></span>
+                                    </p>
+                                </div>
+                                <div class="file">
+                                    <span>첨부파일 :&nbsp;</span>
+
+                                    <th:block th:if="${postscriptImageList != null and !postscriptImageList.isEmpty()}">
+                                        <th:block th:each="item,idx: ${postscriptImageList}">
+                                            <!--<span th:if="${idx.count > 1}">,</span>-->
+                                            <a th:href="${filePath+'/'+item.flNm}" download th:text="${item.flNm}">
+                                            </a>
+                                            <!--<span th:text="'- '+${item.dsc}"></span>-->
+                                        </th:block>
+                                    </th:block>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bottom">
+                            <th:block th:if="*{cntntsUrl ne null and cntntsUrl ne ''}">
+                                <div class="video_area" >
+                                    <div class="video">
+                                        <th:block th:replace="/fragments/videoOptions :: videoSetting(videoId='video', classYn='N', classAppend='')"></th:block>
+                                    </div>
+                                </div>
+                            </th:block>
+
+                            <div class="editor" th:utext="*{cn}">
+                                OO중학교 사이버 폭력 근절단
+                            </div>
+
+                            <th:block th:if="${postscriptImageList != null and !postscriptImageList.isEmpty()}">
+                                <th:block th:each="item,idx: ${postscriptImageList}">
+                                    <div class="editor add_img">
+                                        <img th:src="${filePath+'/'+item.flNm}" th:alt="${item.flNm}" />
+                                        <p th:text="|이미지설명 : ${item.dsc}|"></p>
+                                    </div>
+                                </th:block>
+                            </th:block>
+                        </div>
+<!--                        <ul class="board_prev_next">-->
+<!--                            <li class="prev">-->
+<!--                                <dl>-->
+<!--                                    <dt>이전글</dt>-->
+<!--                                    <th:block th:if="${prev ne null}">-->
+<!--                                        <dd><a th:href="|/pages/activity/postscriptDetail/${prev.id}|" th:text="${prev.ttl}">아이들을 위한 사이버예방교육 이벤트 실시</a></dd>-->
+<!--                                    </th:block>-->
+<!--                                    <th:block th:unless="${prev ne null}">-->
+<!--                                        <dd>등록된 게시물이 없습니다.</dd>-->
+<!--                                    </th:block>-->
+<!--                                </dl>-->
+<!--                            </li>-->
+<!--                            <li class="next">-->
+<!--                                <dl>-->
+<!--                                    <dt>다음글</dt>-->
+<!--                                    <th:block th:if="${next ne null}">-->
+<!--                                        <dd><a th:href="|pages/activity/postscriptDetail/${prev.id}|" th:text="${next.ttl}">아이들을 위한 사이버예방교육 이벤트 실시</a></dd>-->
+<!--                                    </th:block>-->
+<!--                                    <th:block th:unless="${next ne null}">-->
+<!--                                        <dd>등록된 게시물이 없습니다.</dd>-->
+<!--                                    </th:block>-->
+<!--                                </dl>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+                        <div class="btn_area">
+                            <th:block th:if="${#authentication.principal != 'anonymousUser'}">
+                                <a th:if="${#authentication.principal.account.loginId eq form.regPsId}" th:href="|/pages/activity/postscriptModify/*{id}|" class="btn btn_lg btn_blue btn_pill_10">수정</a>
+                                <a th:if="${#authentication.principal.account.loginId eq form.regPsId}" onclick="fn_postscriptDelete()" href="javascript:;"  class="btn btn_lg btn_blue btn_pill_10">삭제</a>
+                            </th:block>
+                            <a href="/pages/activity/postscript" class="btn btn_lg btn_line_blue btn_pill_10">목록</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

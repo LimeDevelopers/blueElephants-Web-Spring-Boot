@@ -1,0 +1,124 @@
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:include="soulGod/fragments/header"></th:block>
+	<script type="text/javascript">
+		function fn_chkField() {
+			var ttl = $("#ttl");
+			var cn = $("#cn");
+
+			if (!$.trim(ttl.val())) {
+				alert('질문은 필수입니다.');
+				ttl.focus();
+				return false;
+			}
+
+			if (!cn.val()) {
+				alert('답변은 필수입니다.');
+				cn.focus();
+				return false;
+			}
+
+			return true;
+		}
+		////-------- page load
+		$(function () {
+			$('#btnSave').click(function () {
+				if (!fn_chkField()) {
+					return;
+				}
+
+				if ($('#id').val() == '') {
+					$('#id').val('0');
+				}
+
+				var frm = $('#form1');
+				frm.prop('action', '/api/board/register');
+				frm.submit();
+			});
+
+			$('#btnDelete').click(function () {
+				if (!confirm('삭제하시겠습니까?')) {
+					return false;
+				}
+
+				var frm = $('#form1');
+				frm.prop('action', '/api/board/delete');
+				frm.submit();
+			});
+		});
+	</script>
+</head>
+<body>
+<div id="wrap">
+	<th:block th:include="soulGod/fragments/menu"></th:block>
+
+	<div id="container">
+		<div class="container_box">
+			<form id="form1" name="form1" method="post" th:object="${form}">
+				<input type="hidden" th:field="*{id}">
+				<input type="hidden" id="mstPid" name="mstPid" th:value="${mstPid}">
+
+				<div class="contents">
+					<ul class="breadcrumb">
+						<li><i class="material-icons">home</i></li>
+						<li>게시판 관리</li>
+						<li>FAQ 관리</li>
+					</ul>
+					<div class="board_detail">
+						<div class="sec">
+							<table class="tbl_write">
+								<caption>정보</caption>
+								<colgroup>
+									<col style="width:136px" />
+									<col style="width:calc(50% - 136px)" />
+									<col style="width:136px" />
+									<col style="width:calc(50% - 136px)" />
+								</colgroup>
+								<tbody>
+								<tr>
+									<th scope="row">말머리구분</th>
+									<td colspan="3">
+										<select th:field="*{sntncHead}">
+											<option value="">선택</option>
+											<option th:each="item: ${#strings.arraySplit(boardMaster.sntncHead,',')}"
+													th:text="${item}" th:value="${item}" ></option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row">Q<span class="aster">*</span></th>
+									<td colspan="3">
+										<input type="text" th:field="*{ttl}" />
+									</td>
+								</tr>
+								<tr>
+									<th scope="row">A<span class="aster">*</span></th>
+									<td colspan="3">
+										<textarea th:field="*{cn}"></textarea>
+									</td>
+								</tr>
+								</tbody>
+							</table>
+							<div class="btn_area">
+								<th:block th:if="*{id ne null}">
+									<button id="btnDelete" class="btn btn_sm btn_red" type="button">
+										<i class="material-icons">delete</i>삭제
+									</button>
+								</th:block>
+								<button id="btnSave" class="btn btn_sm btn_blue" type="button">
+									<i class="material-icons fz17">done</i>저장
+								</button>
+								<a class="btn btn_sm btn_lightgray" th:href="|/soulGod/board/faqList/${mstPid}|">
+									<i class="material-icons">list</i>목록
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<th:block th:replace="soulGod/fragments/footer"></th:block>
+	</div>
+</div>
+</body>
+</html>

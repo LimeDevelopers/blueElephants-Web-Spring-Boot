@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+    <script type="text/javascript">
+        //ajax로 수강신청 pid보내서 이수증 내용 바꿔주고 layerShow('popCertificate')
+        function fn_popupShow(atnlcReqPid) {
+            var jsonData = {
+                'atnlcReqPid' : atnlcReqPid
+            }
+            $.ajax({
+                type: 'post',
+                url: '/api/myPage/certificationLoad',
+                contentType: "application/json",
+                data: JSON.stringify(jsonData),
+                datatype: 'json',
+                success: function (data) {
+                    if (data != null) {
+                        $('#ctfhvPid').val(data.id);
+                        $('#userNm').text(data.nm);
+                        $('#isuNo').text(data.isuNo);
+                        var year = data.brthdy.substring(0,4);
+                        var month = data.brthdy.substring(4,6);
+                        var day = data.brthdy.substring(6,8);
+                        $('#brthdy').text(year + "." + month + "." + day);
+                        $('.crsNm').text(data.crsNm);
+                        var eduTm = Math.round(data.eduTm/60);
+                        $('#eduTm').text(eduTm + " 분");
+                        var cn = "위 사람은 교육부, 푸른나무재단, 사랑의열매, 삼성이 함께하는 <br>" +
+                            "“" + data.crsNm + "” 을 <br>" +
+                            "이수하였음을 증명합니다.";
+                        $('.cn').html(cn);
+                        layerShow('popCertificate');
+                    } else {
+                        alert("실패되었습니다 관리자에게 문의 하세요");
+                        return false;
+                    }
+                },
+                error: function (error) {
+                    //alert('save error!!!');
+                    alert('error::' + error.statusText);
+                }
+            });
+
+        }
+    </script>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+
+        <form id="form1" name="form1" method="post">
+            <div class="contents">
+                <div class="page_top pc">
+                    <h3 class="page_tit">My 강의실</h3>
+                    <span>회원정보를 최신정보로 관리해주세요. 새로운 푸코소식과 보안을 위해 회원정보를 최신으로 업데이트 해주세요.</span>
+                </div>
+                <div class="page_cont">
+                    <div class="tab_ico_area">
+                        <a href="javascript:;" class="tit">교육이수증발급</a>
+                        <ul class="tab_type_ico">
+                            <li class="lecture"><a href="/pages/myPage/classroom">수강내역</a></li>
+                            <li class="mydataroom"><a href="/pages/myPage/eduDataRoom">내 교육자료실</a></li>
+                            <li class="certificate active"><a href="/pages/myPage/certificate">교육이수증발급</a></li>
+                        </ul>
+                        <p class="mo_page_txt">회원정보를 최신정보로 관리해주세요. <br class="mo" />새로운 푸코소식과 보안을 위해 회원정보를 최신으로 업데이트 해주세요.</p>
+                    </div>
+                    <h4 class="subtit pc">교육이수증 발급 자료실</h4>
+                    <p class="tip_tbl mb">※ 해당 교육 클라스 수강을 마치고, 만족도 검사까지 완료한 경우 교육이수증 발급이 가능합니다.</p>
+                    <ul class="board_tbl_list certificate">
+                        <li class="thead">
+                            <strong class="no">No</strong>
+                            <strong class="tit">강의 제목</strong>
+                            <strong class="issue">이수증 발급</strong>
+                            <strong class="download">이수증 다운로드</strong>
+                            <strong class="download_num">다운로드 수</strong>
+                        </li>
+                        <!--수강 중인 강의가 없을경우 : s-->
+                        <li class="nodata" th:if="${courseMasters == null or courseMasters.isEmpty()}">
+                            <div>수강 중인 강의가 없습니다.</div>
+                        </li>
+                        <!--수강 중인 강의가 없을경우 : e-->
+                        <li th:each="item,idx : ${courseMasters}">
+                            <div class="no" th:text="${courseMasters.totalElements - courseMasters.pageable.pageSize * courseMasters.pageable.pageNumber - idx.index}">4</div>
+                            <div class="tit"><a th:href="|/pages/activity/eduMasterClass/${item.id}|" th:text="${item.crsNm}">사이버폭력예방교육 part4</a></div>
+                            <div class="issue">
+                                <th:block th:if="${item.ingCnt > 0}">
+                                    불가
+                                </th:block>
+                                <th:block th:if="${item.ingCnt eq 0}">
+                                    <strong class="fc_blue">발급가능</strong>
+                                </th:block>
+                            </div>
+                            <div class="download">
+                                <th:block th:if="${item.ingCnt > 0}">
+                                    <span>-</span>
+                                </th:block>
+                                <th:block th:if="${item.ingCnt eq 0}">
+                                    <a href="javascript:;" th:onclick="|fn_popupShow(${item.atnlcReqPid})|" download class="btn btn_lg btn_blue btn_pill_10">다운로드</a>
+                                </th:block>
+                            </div>
+                            <div class="download_num"><span class="th">다운로드 수 : </span><th:block th:text="${item.downloadCnt}"></th:block></div>
+                        </li>
+                        <!--<li>
+                            <div class="no">3</div>
+                            <div class="tit"><a href="#">사이버폭력예방교육 part3</a></div>
+                            <div class="issue">불가</div>
+                            <div class="download"><span>-</span></div>
+                            <div class="download_num"><span class="th">다운로드 수 : </span>-</div>
+                        </li>
+                        <li>
+                            <div class="no">2</div>
+                            <div class="tit"><a href="#">사이버폭력예방교육 part2</a></div>
+                            <div class="issue"><strong class="fc_blue">발급가능</strong></div>
+                            <div class="download"><a href="javascript:layerShow('popCertificate')" download class="btn btn_lg btn_blue btn_pill_10">다운로드</a></div>
+                            <div class="download_num"><span class="th">다운로드 수 : </span>5</div>
+                        </li>
+                        <li>
+                            <div class="no">1</div>
+                            <div class="tit"><a href="#">사이버폭력예방교육 part1</a></div>
+                            <div class="issue"><strong class="fc_blue">발급가능</strong></div>
+                            <div class="download"><a href="javascript:layerShow('popCertificate')" download class="btn btn_lg btn_blue btn_pill_10">다운로드</a></div>
+                            <div class="download_num"><span class="th">다운로드 수 : </span>3</div>
+                        </li>-->
+                    </ul>
+                    <!--<div class="pagination_area">
+                        <div class="pagination">
+                            <a href="javascript:;" class="arr mostprev"><span class="blind">처음</span></a>
+                            <a href="javascript:;" class="arr prev"><span class="blind">이전</span></a>
+                            <a href="javascript:;" class="active">1</a>
+                            <a href="javascript:;" class="arr next"><span class="blind">다음</span></a>
+                            <a href="javascript:;" class="arr mostnext"><span class="blind">마지막</span></a>
+                        </div>
+                    </div>-->
+                    <th:block th:replace="/fragments/paging :: pagingbody(list=${courseMasters}, link='/pages/myPage/certificate', formId='form1')"></th:block>
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+    <!-- 교육이수증 팝업 : s -->
+    <div id="popCertificate" class="layer_popup">
+        <input type="hidden" id="ctfhvPid" />
+        <div class="dim"></div>
+        <div class="popup_area">
+            <a href="javascript:layerHide('popCertificate')" class="btn_close"><span class="blind">팝업닫기</span></a>
+            <a href="javascript:divPrint()" class="btn btn_print btn_pill_10">인쇄</a>
+            <span class="preview">미리보기</span>
+            <div id="printOut" class="popup">
+                <div class="top">
+                    <strong class="logo_elephant"><span class="blind">사이버정글 가디언 푸른코끼리</span></strong>
+                    <strong class="logo_etc"><span class="blind">함께가요 미래로! Enabling People"</span></strong>
+                </div>
+                <div class="title_area">
+                    <span class="issue_num" id="isuNo"><!--발급번호 : 2020-0220-0001--></span>
+                </div>
+                <div class="desc_area">
+                    <strong class="tit">교 육 이 수 증</strong>
+                    <div class="info_area">
+                        <dl class="name">
+                            <dt>성　　명 :</dt>
+                            <dd id="userNm"><!--홍길동--></dd>
+                        </dl>
+                        <dl class="birth">
+                            <dt>생년월일 :</dt>
+                            <dd id="brthdy"><!--0000.00.00--></dd>
+                        </dl>
+                        <dl class="process">
+                            <dt>과　　정 :</dt>
+                            <dd class="crsNm"><!--청소년 사이버폭력 예방교육 사업 푸른코끼리 강사양성교육 1기--></dd>
+                        </dl>
+                        <dl class="period">
+                            <dt>교육시간 :</dt>
+                            <dd id="eduTm"><!--n 분--></dd>
+                        </dl>
+                    </div>
+                    <p class="cn"><!--위 사람은 교육부, 푸른나무재단, 사랑의열매, 삼성이 함께하는 <br>
+                        “청소년 사이버폭력 예방교육 푸른코끼리과정” 을 <br>
+                        이수하였음을 증명합니다.--></p>
+                    <span class="date" th:text="${#temporals.format(#temporals.createNow(), 'yyyy년 MM월 dd일')}">2020년 11월 20일</span>
+                    <span class="chairman">푸른나무재단 이사장 문용린</span>
+                </div>
+                <ul class="bottom clearfix">
+                    <li><span class="blind">교육부</span></li>
+                    <li><span class="blind">푸른나무재단</span></li>
+                    <li><span class="blind">사랑의열매</span></li>
+                    <li><span class="blind">삼성</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- 교육이수증 팝업 : e -->
+    <script type="text/javascript">
+        // 수료증 프린트 스크립트
+        function divPrint(){
+            var initBody = document.body.innerHTML;
+            window.onbeforeprint = function(){
+                document.body.innerHTML = document.getElementById('printOut').outerHTML;
+            }
+            window.onafterprint = function(){
+                document.body.innerHTML = initBody;
+                afterPrint;
+            }
+            window.print();
+
+            var afterPrint = function () {
+                var ctfhvPid = $('#ctfhvPid').val();
+                var jsonData = {
+                    'ctfhvPid': ctfhvPid
+                };
+                $.ajax({
+                    type: 'post',
+                    url: '/api/myPage/certificationDownload',
+                    contentType: "application/json",
+                    data: JSON.stringify(jsonData),
+                    datatype: 'text',
+                    success: function (data) {
+                        if (data === 'ok') {
+
+                        } else {
+                            alert('시스템 오류입니다. 관리자에게 문의 하세요.');
+                            return false;
+                        }
+                    },
+                    error: function (error) {
+                        //alert('save error!!!');
+                        alert('error::' + error.statusText);
+                    }
+                });
+            };
+            if (window.matchMedia) {
+                var mediaQueryList = window.matchMedia('print');
+                mediaQueryList.addListener(function (mql) {
+                    if (!mql.matches) {
+                        afterPrint();
+                    }
+                });
+            }
+        }
+    </script>
+</div>
+</body>
+</html>

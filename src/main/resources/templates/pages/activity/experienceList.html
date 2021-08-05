@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+    <script type="text/javascript">
+        $(function () {
+
+        });
+
+        function fn_selfTEst() {
+            var jsonData = {
+
+            }
+            $.ajax({
+                type: 'post',
+                url: '/api/activity/selfTestCheck',
+                contentType: "application/json",
+                data: JSON.stringify(jsonData),
+                datatype: 'text',
+                success: function (data) {
+                    if(data.id != null){
+                        if(confirm("이미 참여한 이력이 있습니다.\n다시 진단하시겠습니까?")) {
+                            location.href = '/pages/activity/selfTest';
+                        }
+                    }else{
+                        location.href = '/pages/activity/selfTest';
+                    }
+                },
+                error: function (error) {
+                    //alert('save error!!!');
+                    alert('error::' + error.statusText);
+                }
+            });
+        }
+
+        function fn_result() {
+            var frm = $('#form1');
+            frm.prop("action", "/pages/activity/selfTestResult");
+            frm.submit();
+        }
+
+        function fn_search() {
+            var frm = $('#form1');
+            //frm.prop("action", "?");
+            frm.submit();
+        }
+    </script>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+
+        <form id="form1" name="form1" method="post" th:object="${form}">
+            <input type="hidden" id="id" name="id" />
+            <div class="contents">
+                <div class="page_top pc">
+                    <h3 class="page_tit">체험</h3>
+                    <span>피해자 체험을 통해 보이지 않는 사이버폭력의 심각성을 느껴보세요.</span>
+                </div>
+                <div class="page_cont">
+                    <div class="tab_ico_area">
+                        <a href="javascript:;" class="tit">
+                            <th:block th:if="${dvCodePid eq videoPid}">피해자 체험</th:block>
+                            <th:block th:if="${dvCodePid eq voicePid}">피해자 목소리</th:block>
+                            <th:block th:if="${dvCodePid eq messagePid}">위로 메시지</th:block>
+                            <th:block th:if="${dvCodePid eq null}">자가진단</th:block>
+                        </a>
+                        <ul class="tab_type_ico type04">
+                            <li class="experience" th:classappend="${dvCodePid eq videoPid ? 'active' : ''}">
+                                <a th:href="${'/pages/activity/experienceList/'+videoPid}">피해자 체험</a>
+                            </li>
+                            <li class="voice" th:classappend="${dvCodePid eq voicePid ? 'active' : ''}">
+                                <a th:href="${'/pages/activity/experienceList/'+voicePid}">피해자 목소리</a>
+                            </li>
+                            <li class="message" th:classappend="${dvCodePid eq messagePid ? 'active' : ''}">
+                                <a th:href="${'/pages/activity/experienceList/'+messagePid}">위로 메시지</a>
+                            </li>
+                            <li class="self" th:classappend="${dvCodePid eq null ? 'active' : ''}">
+                                <a href="/pages/activity/experienceList">자가진단</a>
+                            </li>
+                        </ul>
+                        <p class="mo_page_txt">피해자 체험을 통해 보이지 않는 사이버폭력의 심각성을 느껴보세요.</p>
+                        <div class="tab_cont mo_thumb">
+                            <div class="cont experience" th:classappend="${dvCodePid eq videoPid ? 'active' : ''}">
+                                <div class="thumb">
+                                    <p>피해자 체험</p>
+                                </div>
+                                <dl class="desc">
+                                    <dt>실제로 <em>사이버폭력</em>을 당한다면, 어떨까요? </dt>
+                                    <dd>피해상황을 재구성한 영상입니다. 시청 시 마음이 불편하다면, 언제든 종료할 수 있습니다. </dd>
+                                </dl>
+                            </div>
+                            <div class="cont voice" th:classappend="${dvCodePid eq voicePid ? 'active' : ''}">
+                                <div class="thumb">
+                                    <p>피해자 목소리</p>
+                                </div>
+                                <dl class="desc">
+                                    <dt><em>사이버폭력</em></dt>
+                                    <dd>피해 학생들의 실제 목소리를 담았습니다.</dd>
+                                </dl>
+                            </div>
+                            <div class="cont message" th:classappend="${dvCodePid eq messagePid ? 'active' : ''}">
+                                <div class="thumb">
+                                    <p>위로 메시지</p>
+                                </div>
+                                <dl class="desc">
+                                    <dt>푸른코끼리는 폭력과 불안, 유혹이 난무하는 사이버정글에서 상처받고 <br>소외된 이웃을 돕는 우리의 친구입니다. <em>서로의 푸른코끼리가 되어주세요!</em></dt>
+                                    <dd>말할 수 없는 고민으로 힘들다면, 익명의 푸른코끼리에게 위로를 청해요. 또는 말할 수 없는 고민으로 <br>힘들어하는 누군가에게, 익명의 푸른코끼리가 되어 위로를 전해요. 이 글을 읽고 있는 모두 참여할 수 있습니다.</dd>
+                                </dl>
+                            </div>
+                            <div class="cont self" th:classappend="${dvCodePid eq null ? 'active' : ''}">
+                                <div class="thumb">
+                                    <p>자가진단</p>
+                                </div>
+                                <dl class="desc">
+                                    <dt>지금 사이버폭력에 대한 <em>당신의 상태를 진단</em>해 보세요</dt>
+                                    <dd>
+                                        푸른코끼리는 청소년들이 스스로 사이버폭력에 노출된 정도를 쉽게 파악할 수 있도록 간단한 테스트를 제공합니다. <br/>사이버정글 가디언즈 푸른코끼리에 얼마나 가까워졌는지 자가 진단을 통해 확인할 수 있습니다.
+                                        <div class="btn_area">
+                                            <th:block th:if="${#authentication.principal != 'anonymousUser'}">
+                                                <a href="#" onclick="return fn_selfTEst();" class="btn btn_pill_10">테스트 시작</a>
+                                                <a href="#" onclick="return fn_result()" class="btn btn_pill_10">결과확인</a>
+                                            </th:block>
+                                            <th:block th:unless="${#authentication.principal != 'anonymousUser'}">
+                                                <a href="javascript:alert('로그인이 필요한 기능입니다.'); location.href='/login';" class="btn btn_pill_10">테스트 시작</a>
+                                            </th:block>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="board_top pt0" th:if="${dvCodePid ne null}">
+                        <div class="select w190" th:if="${dvCodePid eq messagePid}">
+                            <label th:for="*{srchFile}">
+                                <th:block th:if="*{srchFile eq '' or srchFile eq null}">파일형태 전체</th:block>
+                                <th:block th:if="*{srchFile eq '1'}">영상</th:block>
+                                <th:block th:if="*{srchFile eq '2'}">음성</th:block>
+                                <th:block th:if="*{srchFile eq '3'}">썸네일</th:block>
+                                <th:block th:if="*{srchFile eq '4'}">텍스트</th:block>
+                            </label>
+                            <select th:field="*{srchFile}">
+                                <option value="">파일형태 전체</option>
+                                <option value="1">영상</option>
+                                <option value="2">음성</option>
+                                <option value="3">썸네일</option>
+                                <option value="4">텍스트</option>
+                            </select>
+                        </div>
+                        <div class="select w160">
+                            <label th:for="srchField">
+                                <!--<th:block th:if="*{srchField eq '' or srchField eq null}">전체</th:block>-->
+                                <th:block th:if="*{srchField eq 'title' or srchField eq '' or srchField eq null}">제목</th:block>
+                                <th:block th:if="*{srchField eq 'cn'}">내용</th:block>
+                                <th:block th:if="*{srchField eq 'titleCn'}">제목+내용</th:block>
+                                <th:block th:if="*{srchField eq 'wrterNm'}">작성자</th:block>
+                            </label>
+                            <select th:field="*{srchField}">
+                                <!--<option value="" selected>전체</option>-->
+                                <option value="title">제목</option>
+                                <option value="cn">내용</option>
+                                <option value="titleCn">제목+내용</option>
+                                <option value="wrterNm">작성자</option>
+                            </select>
+                        </div>
+                        <div class="search" th:classappend="${dvCodePid eq messagePid ? 'experience' : 'news'}">
+                            <input type="search" th:field="*{srchWord}" placeholder="검색어를 입력해 주세요" />
+                        </div>
+                        <button type="submit" class="btn btn_blue btn_pill_10">검색</button>
+                        <div class="select w160">
+                            <label th:for="sorting">
+                                <th:block th:if="*{sorting eq '' or sorting eq null}">최신순</th:block>
+                                <th:block th:if="*{sorting eq 'old'}">오래된순</th:block>
+                                <th:block th:if="*{sorting eq 'readCnt'}">조회순</th:block>
+                                <th:block th:if="*{sorting eq 'alphabetically'}">가나다순</th:block>
+                            </label>
+                            <select th:field="*{sorting}" onchange="fn_search()">
+                                <option value="" selected>최신순</option>
+                                <option value="old">오래된순</option>
+                                <option value="readCnt">조회순</option>
+                                <option value="alphabetically">가나다순</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <ul class="thumb_list clearfix" th:if="${dvCodePid ne null}">
+                        <th:block th:if="${experiences == null or experiences.isEmpty()}"><!--등록된 글이 없을 경우-->
+                            <li class="nodata">
+                                <div>등록된 게시글이 없습니다.</div>
+                            </li>
+                        </th:block>
+                        <li th:each="item:${experiences}">
+                            <a th:href="${'/pages/activity/experienceDetail/'+item.id}">
+                                <span class="thumb">
+                                    <img th:src="${filePath+'/'+item.imgFl}" th:alt="${item.ttl}"
+                                         onerror="this.src='/ClientUI/user/images/contents/nodata01.png'" />
+                                </span>
+                                <strong class="tit">
+                                    <th:block th:if="${dvCodePid eq messagePid}">
+                                        <em class="fc_red" th:if="${item.imgFl ne null and item.cntntsUrl ne ''
+                                                                        and item.flNm eq null}">[영상]</em>
+                                        <em class="fc_oceanblue" th:if="${item.imgFl ne null and item.flNm ne null
+                                                                            and item.cntntsUrl eq ''}">[음성]</em>
+                                        <em class="fc_green" th:if="${item.imgFl ne null and item.cn eq ''
+                                                                        and item.cntntsUrl eq '' and item.flNm eq null}">[썸네일]</em>
+                                        <em class="fc_blue" th:if="${item.imgFl ne null and item.cn ne ''
+                                                                        and item.cntntsUrl eq '' and item.flNm eq null}" >[텍스트]</em>
+                                    </th:block>
+                                    <th:block th:text="${item.ttl}"></th:block>
+                                </strong>
+                                <th:block th:if="${dvCodePid eq videoPid}">
+                                    <span class="lbl">체험하기</span>
+                                </th:block>
+                                <th:block th:if="${dvCodePid eq voicePid}">
+                                    <span class="lbl">목소리 듣기</span>
+                                </th:block>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="sign_box" th:if="${dvCodePid eq voicePid}">
+                        <dl>
+                            <dt>어떠신가요?</dt>
+                            <dd>
+                                <p>이제 여러분의 서명 하나 하나에 우리 친구들의 <br />고통을 덜어줄 수 있습니다.</p>
+                                <a href="http://www.btf.or.kr/board/board_online_survey/board_form.asp?scrID=0000000169&pageNum=5&subNum=1&ssubNum=1" target="_blank" class="btn btn_hg btn_green btn_pill_10">서명하러 가기</a>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                <th:block th:if="${dvCodePid ne null}">
+                    <th:block th:replace="/fragments/paging :: pagingbody(list=${experiences}, link='/pages/activity/experienceList/' + ${dvCodePid}, formId='form1')"></th:block>
+                </th:block>
+            </div>
+        </form>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

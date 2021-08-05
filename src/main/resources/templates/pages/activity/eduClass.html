@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+    <script type="text/javascript">
+        function fn_eduDetail(id,crsMstPid, sn) {
+
+            location.href = '/pages/activity/eduClassDetail/'+ crsMstPid + '/' + id + '/' +sn;
+        }
+    </script>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+
+        <div class="contents" th:object="${form}">
+            <div class="page_top">
+                <h3 class="page_tit" th:text="*{crsNm}">사이버폭력 예방 교육</h3>
+                <span th:utext="*{#strings.replace(crsCn, T(System).getProperty('line.separator'), '&lt;br /&gt;')}" class="editor"> 관리자에서 입력한 내용이 나오는 교육 개요 내용입니다.</span>
+            </div>
+            <div class="page_cont">
+                <ul class="thumb_list clearfix">
+                    <th:block th:if="${courseItems == null or courseItems.isEmpty()}"><!--등록된 글이 없을 경우-->
+                        <li class="nodata">
+                            <div>등록된 게시글이 없습니다.</div>
+                        </li>
+                    </th:block>
+                    <li th:each="item,idx:${courseItems}">
+                        <a href="#" th:onclick="|return fn_eduDetail(${item.id},${crsMstPid},${sn});|">
+                            <span class="thumb"><img th:src="${filePath+'/'+item.imgFl}" alt="6강. 사전교육의 이해" onerror="this.src='/ClientUI/user/images/contents/nodata01.png'" /></span>
+                            <strong class="tit" th:text="${item.ttl}">6강. 사전교육의 이해</strong>
+
+                            <!--수강중 -> lbl_ing / 수강완료 -> lbl_end-->
+                            <th:block th:if="${item.procNm eq null}">
+                                <span class="lbl">수강전</span>
+                            </th:block>
+                            <th:block th:unless="${item.procNm eq null}">
+                                <th:block th:switch="${item.procNm}">
+                                    <span th:case="${T(kr.or.btf.web.domain.web.enums.CompleteStatusType).APPLY.name()}" class="lbl lbl_ing">수강중</span>
+                                    <span th:case="${T(kr.or.btf.web.domain.web.enums.CompleteStatusType).COMPLETE.name()}" class="lbl lbl_end">수강완료</span>
+                                    <span th:case="*" class="lbl">수강전</span>
+                                </th:block>
+                            </th:block>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="btn_area btn_num02">
+                <a href="/pages/activity/preventionEdu" class="btn btn_lg btn_line_blue btn_pill_10">교육 처음으로</a>
+                <a th:href="|/pages/activity/eduMasterClass/${crsMstPid}|" class="btn btn_lg btn_line_blue btn_pill_10">목록</a>
+            </div>
+        </div>
+
+
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

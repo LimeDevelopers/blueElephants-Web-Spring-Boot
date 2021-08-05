@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="soulGod/fragments/header"></th:block>
+    <script type="text/javascript">
+
+        function fn_search() {
+            var frm = $('#form1');
+            frm.prop('action', '?');
+            frm.submit();
+        }
+
+        function fn_reset() {
+            $('#srchGbn').val('').niceSelect('update');
+            $('#srchWord').val('');
+
+            fn_search();
+        }
+
+        ////-------- page load
+        $(function () {
+        });
+    </script>
+</head>
+<body>
+<div id="wrap">
+    <th:block th:include="soulGod/fragments/menu"></th:block>
+
+    <div id="container">
+        <div class="container_box">
+            <script type="text/javascript">
+                $(function () {
+                });
+            </script>
+
+            <form id="form1" name="form1" method="post" th:object="${form}">
+                <input type="hidden" id="id" name="id"/>
+                <div class="contents">
+
+                    <ul class="breadcrumb">
+                        <li><i class="material-icons">home</i></li>
+                        <li>푸코강사관리</li>
+                        <li>현장교육관리</li>
+                    </ul>
+
+                    <div class="search_area clearfix">
+                        <dl class="col">
+                            <dt>교육대상</dt>
+                            <dd>
+                                <select th:field="*{srchGbn}">
+                                    <option value="">전체</option>
+                                    <option th:each="tp : ${T(kr.or.btf.web.domain.web.enums.UserRollType).values()}"
+                                            th:value="${tp}"
+                                            th:text="${tp.getName()}"></option>
+                                </select>
+                            </dd>
+                        </dl>
+                        <dl class="col">
+                            <dt>교육명</dt>
+                            <dd>
+                                <input type="text" th:field="*{srchWord}" placeholder="검색어를 입력하세요." style="width:313px"  />
+                            </dd>
+                        </dl>
+                        <div class="col">
+                            <button type="button" class="btn btn_sm btn_gray" onclick="fn_search()">
+                                <i class="material-icons">search</i>조회
+                            </button>
+                            <button type="button" class="btn btn_sm btn_gray" onclick="fn_reset()">
+                                <i class="material-icons">refresh</i>초기화
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="board_list">
+                        <h4 class="sec_tit">교육 리스트</h4>
+                        <div class="board_top clearfix">
+                            <div class="fl">
+                                <div class="total_num">총 <b th:text="${#numbers.formatInteger(masters.totalElements, 0, 'COMMA')}">2</b>
+                                    건
+                                </div>
+                                <!--<select name="perPageNum" id="perPageNum" class="w80">
+                                    <option value="10" th:selected="${cri.perPageNum eq 10}">10</option>
+                                    <option value="15" th:selected="${cri.perPageNum eq 15}">15</option>
+                                    <option value="20" th:selected="${cri.perPageNum eq 20}">20</option>
+                                </select>-->
+                            </div>
+                        </div>
+                        <div class="board_detail clearfix">
+                            <table class="tbl_list" id="resultList">
+                                <colgroup>
+                                    <col style="width: 5%"/>
+                                    <col style="width: 8%"/>
+                                    <col style="width: auto"/>
+                                    <col style="width: 10%"/>
+                                    <col style="width: 5%"/>
+                                    <col style="width: 10%"/>
+                                    <col style="width: 10%"/>
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th>순번</th>
+                                    <th>교육대상</th>
+                                    <th>교육명</th>
+                                    <th>개시여부</th>
+                                    <th>수강인원</th>
+                                    <th>등록일</th>
+                                    <th>등록자</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!-- 등록된 데이터가 없을 때만 노출 : s -->
+                                <tr th:if="${masters == null or masters.isEmpty()}">
+                                    <td colspan="7">등록된 정보 없습니다.</td>
+                                </tr>
+                                <!-- 등록된 이벤트가 없을 때만 노출 : e -->
+                                <tr th:each="item,idx:${masters}">
+                                    <td th:text="${masters.totalElements - masters.pageable.pageSize * masters.pageable.pageNumber - idx.index}"></td>
+                                    <td th:text="${T(kr.or.btf.web.domain.web.enums.MberDvType).valueOf(item.mberDvTy).getName()}"></td>
+                                    <td>
+                                        <a th:href="|/soulGod/fieldEdu/requestList/${item.id}|">
+                                            <b th:text="${item.crsNm}"></b>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <th:block th:if="${item.openAt eq 'Y'}">개시</th:block>
+                                        <th:block th:if="${item.openAt eq 'N'}">미개시</th:block>
+                                    </td>
+                                    <td th:text="${item.requestCnt eq null ? 0 : item.requestCnt}"></td>
+                                    <td th:text="${#temporals.format(item.regDtm,'yyyy-MM-dd')}"></td>
+                                    <td th:text="${item.regPsNm}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <th:block th:replace="/soulGod/fragments/paging :: pagingbody(list=${masters},
+                                            link='/soulGod/fieldEdu/list', formId='form1')"></th:block>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <th:block th:replace="soulGod/fragments/footer"></th:block>
+</div>
+</body>
+</html>

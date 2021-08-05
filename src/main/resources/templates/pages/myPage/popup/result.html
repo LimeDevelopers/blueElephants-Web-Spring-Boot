@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap" class="win_popup">
+    <div class="popup">
+        <strong class="pop_tit" th:text="${memberSchoolForm.sn eq 2 ? '사전검사 결과(개인)' : '사후검사 결과(개인)'}">사후검사 결과</strong>
+        <div class="pop_cont">
+            <div class="tbl_write">
+                <ul>
+                    <li>
+                        <div class="th">대상자 정보</div>
+                        <div class="td td_txt" th:text="|${memberSchoolForm.schlNm} ${memberSchoolForm.grade}학년 ${memberSchoolForm.ban}반 ${targetNm}|">길동초등학교 1학년 5반 홍길동</div>
+                    </li>
+                    <li>
+                        <div class="th">검사완료일</div>
+                        <div class="td td_txt" th:text="${#temporals.format(cmplPrsDtm,'yyyy.MM.dd')}">2020.12.31</div>
+                    </li>
+                    <!--<li>
+                        <div class="th">검사상태</div>
+                        <div class="td td_txt">완료</div>
+                    </li>-->
+                </ul>
+            </div>
+            <!--<dl class="dl_sec">
+                <dt>A. 사이버폭력예방</dt>
+                <dd>
+                    <div class="graph_area"></div>
+                </dd>
+            </dl>
+            <dl class="dl_sec">
+                <dt>진단 결과</dt>
+                <dd>
+                    <dl class="txt_box">
+                        <dt>사이버폭력예방결과가 <em>심각한 상태</em>로 체크되었습니다.</dt>
+                        <dd>앞으로도 학생의 태도변화에 지속적인 관심을 기울일 필요가 있습니다. <br />학부모님과 선생님의 별도 지도가 필요한 상태입니다.</dd>
+                    </dl>
+                </dd>
+            </dl>
+            <dl class="dl_sec">
+                <dt>가해경험</dt>
+                <dd>
+                    <ul class="board_tbl_list">
+                        <li class="thead">
+                            <strong class="depth">하위요인</strong>
+                            <strong class="code">코드명</strong>
+                            <strong class="que">문항</strong>
+                        </li>
+                        <li>
+                            <div class="depth">언어폭력</div>
+                            <div class="code pc">
+                                <div>ASL01</div>
+                                <div>ASL02</div>
+                                <div>ASL03</div>
+                                <div>ASL04</div>
+                                <div>ASL05</div>
+                            </div>
+                            <div class="que">
+                                <div><span class="th fw500">ASL01</span>나는 온라인에서 다른 아이에게 욕을 했다.</div>
+                                <div><span class="th fw500">ASL02</span>나는 온라인에서 다른 아이를 무시하는 말을 했다.</div>
+                                <div><span class="th fw500">ASL03</span>나는 온라인에서 다른 아이에 대해 나쁜 소문을 퍼뜨렸다.</div>
+                                <div><span class="th fw500">ASL04</span>나는 온라인에서 다른 아이의 허락 없이, 그 아이의 개인적 비밀을 퍼트렸다.</div>
+                                <div><span class="th fw500">ASL05</span>나는 온라인에서 다른 아이의 글이나 사진에 기분이 나쁠 수 있는 댓글을 달았다.</div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="tbl_write mt30">
+                        <ul>
+                            <li>
+                                <div class="th">답변유형</div>
+                                <div class="td td_txt">있음(1점) / 없음(0점)</div>
+                            </li>
+                            <li>
+                                <div class="th">개인 결과값</div>
+                                <div class="td td_txt">-언어폭력: 3개 이상일 때 있음으로 해석 도출 <br />//A학생을 예로 할 때 언어폭력  / 40%<br /><br />-따돌림: 2개 이상일 때 있음으로 해석 도출<br />//A학생을 예로 할 때 따돌림 있음 / 50%<br /><br />-금품갈취: 2개 이상일 때 있음으로 해석 도출<br />//A학생을 예로 할 때 금품갈취 있음 / 66.6%<br /><br />-성폭행: 1개 이상일 때 있음으로 해석<br />//A학생을 예로 할 때 성폭행 없음 / 0%</div>
+                            </li>
+                            <li>
+                                <div class="th">학급 결과값</div>
+                                <div class="td td_txt">-하위요인 별로 학급 경험 퍼센트로 환산<br /><br />//1반을 예로 할 때<br />언어폭력 총점 50점 중 21점 / 학급 평균 54%<br />따돌림 총점 40점 중 18점 / 학급 평균 45%<br />금품갈취 총점 30점 중 15점 / 학급 평균 50%<br />성폭행 총점 10점 중 6점 / 학급 평균 60%<br /><br />-목격경험여부: 통계 원 그래프로 표현</div>
+                            </li>
+                            <li>
+                                <div class="th">학급 결과값 표현 방법</div>
+                                <div class="td td_txt">각 하위요인 별로<br />개별 해석 +<br />개인 및 학급 결과 값<br />막대그래프로 도출</div>
+                            </li>
+                            <li>
+                                <div class="th">비고</div>
+                                <div class="td td_txt">사이버비방(Cyber Slander)<br />사이버비방(Cyber Slander)<br />명예훼손(denigration)<br />폭로(outing)<br />사이버 모욕(harassment)<br />이미지불링(Image Bullying)<br />사이버 모욕(harassment)<br />사이버배제(Cyber Exclusion)<br />사이버왕따 놀이(Cyberbullying Play)<br />사이버명령(Cyber-order)<br />사이버갈취(Cyber Extortion)<br />아이디도용(ID Theft)<br />사이버성폭력(Sexting)</div>
+                            </li>
+                        </ul>
+                    </div>
+                </dd>
+            </dl>
+            <dl class="dl_sec">
+                <dt>푸른코끼리 검사 구성(안)</dt>
+                <dd>
+                    <dl class="sub_sec">
+                        <dt>학생 자기보고 (107문항)</dt>
+                        <dd>
+                            <strong>개인수준</strong>
+                            <table class="tbl_list result_tbl_list mo_que_num">
+                                <caption>검사구분, 구인, 문항 수로 구성</caption>
+                                <colgroup>
+                                    <col style="width:15%" />
+                                    <col style="width:15%" />
+                                    <col style="width:auto" />
+                                    <col style="width:9.5%" />
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th scope="col">검사구분</th>
+                                    <th scope="col" colspan="2">구인 <span class="mo">(문항 수)</span></th>
+                                    <th scope="col">문항 수</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td rowspan="14">사이버폭력 경험 <span class="dib">(45문항)</span></td>
+                                    <td rowspan="5">가해경험 <span class="dib">(16문항)</span></td>
+                                    <td class="tit">언어폭력 <span class="mo">(5)</span></td>
+                                    <td>5</td>
+                                </tr>
+                                <tr>
+                                    <td class="tit">따돌림 <span class="mo">(4)</span></td>
+                                    <td>4</td>
+                                </tr>
+                                <tr>
+                                    <td class="tit">금품갈취 <span class="mo">(3)</span></td>
+                                    <td>3</td>
+                                </tr>
+                                <tr>
+                                    <td class="tit">성폭력 <span class="mo">(5)</span></td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td class="tit">가해정보 (장소, 대상) <span class="mo">(1)</span></td>
+                                    <td>3</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="5">피해경험 <span class="dib">(16문항)</span></td>
+                                    <td class="tit">언어폭력 <span class="mo">(5)</span></td>
+                                    <td>5</td>
+                                </tr>
+                                <tr>
+                                    <td class="tit">따돌림 <span class="mo">(4)</span></td>
+                                    <td>4</td>
+                                </tr>
+                                <tr>
+                                    <td class="tit">금품갈취 <span class="mo">(3)</span></td>
+                                    <td>3</td>
+                                </tr>
+                                <tr>
+                                    <td class="tit">성폭력 <span class="mo">(1)</span></td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td class="tit">피해정보 (장소, 대상) <span class="mo">(3)</span></td>
+                                    <td>3</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="4">목격경험 <span class="dib">(13문항)</span></td>
+                                    <td class="tit">목격 경험 여부 <span class="mo">(1)</span></td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td class="tit">방관자 <span class="mo">(3)</span></td>
+                                    <td>3</td>
+                                </tr>
+                                <tr>
+                                    <td class="tit">방어자 <span class="mo">(5)</span></td>
+                                    <td>5</td>
+                                </tr>
+                                <tr>
+                                    <td class="tit">동조자 <span class="mo">(4)</span></td>
+                                    <td>4</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="5">사이버폭력 영향요인 <span class="dib">(31문항)</span></td>
+                                    <td colspan="2" class="tit">사이버폭력에 대한 부정 태도 <span class="mo">(9)</span></td>
+                                    <td>9</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="tit">사이버폭력에 대한 대처효능감 <span class="mo">(6)</span></td>
+                                    <td>6</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="tit">공격성 <span class="mo">(6)</span></td>
+                                    <td>6</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="tit">공감 <span class="mo">(6)</span></td>
+                                    <td>6</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="tit">자아존중감 <span class="mo">(4)</span></td>
+                                    <td>4</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </dd>
+                        <dd>
+                            <strong>학급수준</strong>
+                            <table class="tbl_list result_tbl_list mo_que_num">
+                                <caption>검사구분, 구인, 문항 수로 구성</caption>
+                                <colgroup>
+                                    <col style="width:15%" />
+                                    <col style="width:15%" />
+                                    <col style="width:auto" />
+                                    <col style="width:9.5%" />
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th scope="col">검사구분</th>
+                                    <th scope="col" colspan="2">구인 <span class="mo">(문항 수)</span></th>
+                                    <th scope="col">문항 수</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td rowspan="2">사이버폭력 영향요인 <span class="dib">(6문항)</span></td>
+                                    <td colspan="2" class="tit">사이버폭력에 대한 학급대처효능감 <span class="mo">(3)</span></td>
+                                    <td>3</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="tit">사이버폭력에 대한 교사대처효능감 <span class="mo">(3)</span></td>
+                                    <td>3</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </dd>
+                    </dl>
+                </dd>
+            </dl>-->
+            <dl class="dl_sec">
+                <dt>검사 해석</dt>
+                <dd>
+                    <dl class="sub_sec">
+                        <dt>사이버폭력 경험</dt>
+                        <dd>
+                            <strong>가해경험</strong>
+                            <table class="tbl_list result_tbl_list">
+                                <caption>구인, 설명으로 구성</caption>
+                                <colgroup>
+                                    <col style="width:15%" />
+                                    <col style="width:9.5%" />
+                                    <col style="width:auto" />
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th scope="col">구인</th>
+                                    <th scope="col">경험</th>
+                                    <th scope="col">설명</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <th:block th:each="number : ${#numbers.sequence(0,myResult1_1.length()-1)}">
+                                    <tr th:with="obj=${myResult1_1.get(number)}">
+                                        <td th:text="${obj.get('nm')}">언어폭력</td>
+                                        <td th:text="${obj.get('mVal') eq 0 ? '없음' : '있음'}">있음</td>
+                                        <td class="tit" th:text="${obj.get('cnts')}">이 학생은 사이버폭력 언어폭력가해경험이 있습니다. 어떠한 가해 행동을 했는지 확인해보시고, 더 이상 가해 행동을 하지 않도록 적절한 상담과 교육을 제공해주시기 바랍니다.</td>
+                                    </tr>
+                                </th:block>
+                                <!--<tr>
+                                    <td>없음</td>
+                                    <td class="tit">이 학생은 사이버폭력 언어폭력가해경험이 없습니다. 앞으로도 가해 행동을 하지 않도록 관심을 가지고 지켜봐주시기 바랍니다.</td>
+                                </tr>-->
+                                <!--<tr>
+                                    <td rowspan="2">따돌림</td>
+                                    <td>있음</td>
+                                    <td class="tit">이 학생은 사이버폭력 따돌림가해경험이 있습니다. 어떠한 가해 행동을 했는지 확인해보시고, 더 이상 가해 행동을 하지 않도록 적절한 상담과 교육을 제공해주시기 바랍니다.</td>
+                                </tr>
+                                <tr>
+                                    <td>없음</td>
+                                    <td class="tit">이 학생은 사이버폭력 따돌림가해경험이 없습니다. 앞으로도 가해 행동을 하지 않도록 관심을 가지고 지켜봐주시기 바랍니다.</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="2">금품갈취</td>
+                                    <td>있음</td>
+                                    <td class="tit">이 학생은 사이버폭력 금품갈취가해경험이 있습니다. 어떠한 가해 행동을 했는지 확인해보시고, 더 이상 가해 행동을 하지 않도록 적절한 상담과 교육을 제공해주시기 바랍니다.</td>
+                                </tr>
+                                <tr>
+                                    <td>없음</td>
+                                    <td class="tit">이 학생은 사이버폭력 금품갈취가해경험이 없습니다. 앞으로도 가해 행동을 하지 않도록 관심을 가지고 지켜봐주시기 바랍니다.</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="2">성폭력</td>
+                                    <td>있음</td>
+                                    <td class="tit">이 학생은 사이버폭력 성폭력가해경험이 있습니다. 어떠한 가해 행동을 했는지 확인해보시고, 더 이상 가해 행동을 하지 않도록 적절한 상담과 교육을 제공해주시기 바랍니다.</td>
+                                </tr>
+                                <tr>
+                                    <td>없음</td>
+                                    <td class="tit">이 학생은 사이버폭력 성폭력가해경험이 없습니다. 앞으로도 가해 행동을 하지 않도록 관심을 가지고 지켜봐주시기 바랍니다.</td>
+                                </tr>-->
+                                </tbody>
+                            </table>
+                            <table class="tbl_list result_tbl_list">
+                                <caption>구인, 설명으로 구성</caption>
+                                <colgroup>
+                                    <col style="width:15%" />
+                                    <col style="width:auto" />
+                                    <col style="width:20%" />
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th scope="col">구인</th>
+                                    <th scope="col">문항</th>
+                                    <th scope="col">답변</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <th:block th:each="number : ${#numbers.sequence(0,myResult1_2.length-1)}">
+                                    <tr th:with="arr=${myResult1_2[number]}">
+                                        <td th:text="${arr.get(0).get('nm')}">언어폭력</td>
+                                        <td th:text="${arr.get(0).get('question')}">언어폭력</td>
+                                        <td>
+                                            <th:block th:each="number2 : ${#numbers.sequence(0,arr.length()-1)}" th:with="obj=${arr.get(number2)}">
+                                                <th:block th:if="${obj.get('cVal') eq 1}" th:text="|[${obj.get('category')}]|"></th:block>
+                                            </th:block>
+                                        </td>
+                                    </tr>
+                                </th:block>
+                                </tbody>
+                            </table>
+                        </dd>
+                        <dd>
+                            <strong>피해경험</strong>
+                            <table class="tbl_list result_tbl_list">
+                                <caption>구인, 설명으로 구성</caption>
+                                <colgroup>
+                                    <col style="width:15%" />
+                                    <col style="width:9.5%" />
+                                    <col style="width:auto" />
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th scope="col">구인</th>
+                                    <th scope="col">경험</th>
+                                    <th scope="col">설명</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <th:block th:each="number : ${#numbers.sequence(0,myResult2_1.length()-1)}">
+                                    <tr th:with="obj=${myResult2_1.get(number)}">
+                                        <td th:text="${obj.get('nm')}">언어폭력</td>
+                                        <td th:text="${obj.get('mVal') eq 0 ? '없음' : '있음'}">있음</td>
+                                        <td class="tit" th:text="${obj.get('cnts')}">이 학생은 사이버폭력 언어폭력가해경험이 있습니다. 어떠한 가해 행동을 했는지 확인해보시고, 더 이상 가해 행동을 하지 않도록 적절한 상담과 교육을 제공해주시기 바랍니다.</td>
+                                    </tr>
+                                </th:block>
+                                <!--<tr>
+                                    <td rowspan="2">언어폭력</td>
+                                    <td>있음</td>
+                                    <td class="tit">이 학생은 사이버폭력 언어폭력피해경험이 있습니다. 어떠한 피해를 경험했는지 확인해보시고, 구체적인 도움이나 상담을 제공해주시기 바랍니다.</td>
+                                </tr>
+                                <tr>
+                                    <td>없음</td>
+                                    <td class="tit">이 학생은 사이버폭력 언어폭력피해경험이 없습니다. 앞으로도 피해를 경험하지 않도록 관심을 가지고 지켜봐주시기 바랍니다.</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="2">따돌림</td>
+                                    <td>있음</td>
+                                    <td class="tit">이 학생은 사이버폭력 따돌림피해경험이 있습니다. 어떠한 피해를 경험했는지 확인해보시고, 구체적인 도움이나 상담을 제공해주시기 바랍니다.</td>
+                                </tr>
+                                <tr>
+                                    <td>없음</td>
+                                    <td class="tit">이 학생은 사이버폭력 따돌림피해경험이 없습니다. 앞으로도 피해를 경험하지 않도록 관심을 가지고 지켜봐주시기 바랍니다.</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="2">금품갈취</td>
+                                    <td>있음</td>
+                                    <td class="tit">이 학생은 사이버폭력 금품갈취피해경험이 있습니다. 어떠한 피해를 경험했는지 확인해보시고, 구체적인 도움이나 상담을 제공해주시기 바랍니다.</td>
+                                </tr>
+                                <tr>
+                                    <td>없음</td>
+                                    <td class="tit">이 학생은 사이버폭력 금품갈취피해경험이 없습니다. 앞으로도 피해를 경험하지 않도록 관심을 가지고 지켜봐주시기 바랍니다.</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="2">성폭력</td>
+                                    <td>있음</td>
+                                    <td class="tit">이 학생은 사이버폭력 성폭력피해경험이 있습니다. 어떠한 피해를 경험했는지 확인해보시고, 구체적인 도움이나 상담을 제공해주시기 바랍니다.</td>
+                                </tr>
+                                <tr>
+                                    <td>없음</td>
+                                    <td class="tit">이 학생은 사이버폭력 성폭력피해경험이 없습니다.
+                                        앞으로도 피해를 경험하지 않도록 관심을 가지고 지켜봐주시기 바랍니다.</td>
+                                </tr>-->
+                                </tbody>
+                            </table>
+                            <table class="tbl_list result_tbl_list">
+                                <caption>구인, 설명으로 구성</caption>
+                                <colgroup>
+                                    <col style="width:15%" />
+                                    <col style="width:auto" />
+                                    <col style="width:20%" />
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th scope="col">구인</th>
+                                    <th scope="col">문항</th>
+                                    <th scope="col">답변</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <th:block th:each="number : ${#numbers.sequence(0,myResult2_2.length-1)}">
+                                    <tr th:with="arr=${myResult2_2[number]}">
+                                        <td th:text="${arr.get(0).get('nm')}">언어폭력</td>
+                                        <td th:text="${arr.get(0).get('question')}">언어폭력</td>
+                                        <td>
+                                            <th:block th:each="number2 : ${#numbers.sequence(0,arr.length()-1)}" th:with="obj=${arr.get(number2)}">
+                                                <th:block th:if="${obj.get('cVal') eq 1}" th:text="|[${obj.get('category')}]|"></th:block>
+                                            </th:block>
+                                        </td>
+                                    </tr>
+                                </th:block>
+                                </tbody>
+                            </table>
+                        </dd>
+                        <dd>
+                            <strong>목격경혐</strong>
+                            <table class="tbl_list result_tbl_list">
+                                <caption>구인, 설명으로 구성</caption>
+                                <colgroup>
+                                    <col style="width:15%" />
+                                    <col style="width:9.5%" />
+                                    <col style="width:auto" />
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th scope="col">구인</th>
+                                    <th scope="col">경험</th>
+                                    <th scope="col">설명</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <th:block th:each="number : ${#numbers.sequence(0,myResult3.length()-1)}">
+                                    <tr th:with="obj=${myResult3.get(number)}">
+                                        <td th:text="${obj.get('nm')}">언어폭력</td>
+                                        <td th:text="${obj.get('mVal') eq 0 ? '없음' : '있음'}">있음</td>
+                                        <td class="tit" th:text="${obj.get('cnts')}">이 학생은 사이버폭력 언어폭력가해경험이 있습니다. 어떠한 가해 행동을 했는지 확인해보시고, 더 이상 가해 행동을 하지 않도록 적절한 상담과 교육을 제공해주시기 바랍니다.</td>
+                                    </tr>
+                                </th:block>
+                                </tbody>
+                            </table>
+                        </dd>
+                    </dl>
+                    <dl class="sub_sec">
+                        <dt>사이버폭력 영향요인</dt>
+                        <dd>
+                            <table class="tbl_list result_tbl_list">
+                                <caption>구인, 설명으로 구성</caption>
+                                <colgroup>
+                                    <col style="width:15%" />
+                                    <col style="width:9.5%" />
+                                    <col style="width:auto" />
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th scope="col">구인</th>
+                                    <th scope="col">구분</th>
+                                    <th scope="col">설명</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <th:block th:each="number : ${#numbers.sequence(0,myResultBar1.length()-1)}">
+                                    <tr th:with="obj=${myResultBar1.get(number)}">
+                                        <td th:text="${obj.get('nm')}">언어폭력</td>
+                                        <td>
+                                            <th:block th:if="${obj.get('mVal') eq 0}">하</th:block>
+                                            <th:block th:if="${obj.get('mVal') eq 1}">중</th:block>
+                                            <th:block th:if="${obj.get('mVal') eq 2}">상</th:block>
+                                        </td>
+                                        <td class="tit" th:text="${obj.get('cnts')}">이 학생은 사이버폭력 언어폭력가해경험이 있습니다. 어떠한 가해 행동을 했는지 확인해보시고, 더 이상 가해 행동을 하지 않도록 적절한 상담과 교육을 제공해주시기 바랍니다.</td>
+                                    </tr>
+                                </th:block>
+                                <th:block th:each="number : ${#numbers.sequence(0,myResultBar2.length()-1)}">
+                                    <tr th:with="obj=${myResultBar2.get(number)}">
+                                        <td th:text="${obj.get('nm')}">언어폭력</td>
+                                        <td>
+                                            <th:block th:if="${obj.get('mVal') eq 0}">하</th:block>
+                                            <th:block th:if="${obj.get('mVal') eq 1}">중</th:block>
+                                            <th:block th:if="${obj.get('mVal') eq 2}">상</th:block>
+                                        </td>
+                                        <td class="tit" th:text="${obj.get('cnts')}">이 학생은 사이버폭력 언어폭력가해경험이 있습니다. 어떠한 가해 행동을 했는지 확인해보시고, 더 이상 가해 행동을 하지 않도록 적절한 상담과 교육을 제공해주시기 바랍니다.</td>
+                                    </tr>
+                                </th:block>
+                                <th:block th:each="number : ${#numbers.sequence(0,myResultBar4.length()-1)}">
+                                    <tr th:with="obj=${myResultBar4.get(number)}">
+                                        <td th:text="${obj.get('nm')}">언어폭력</td>
+                                        <td>
+                                            <th:block th:if="${obj.get('mVal') eq 0}">하</th:block>
+                                            <th:block th:if="${obj.get('mVal') eq 1}">중</th:block>
+                                            <th:block th:if="${obj.get('mVal') eq 2}">상</th:block>
+                                        </td>
+                                        <td class="tit" th:text="${obj.get('cnts')}">이 학생은 사이버폭력 언어폭력가해경험이 있습니다. 어떠한 가해 행동을 했는지 확인해보시고, 더 이상 가해 행동을 하지 않도록 적절한 상담과 교육을 제공해주시기 바랍니다.</td>
+                                    </tr>
+                                </th:block>
+                                <!--<tr>
+                                    <td rowspan="3">사이버폭력에 대한 부정 태도</td>
+                                    <td>상</td>
+                                    <td class="tit">이 학생은 사이버폭력에 대해서 부정적인 태도를 갖고 있고, 반대하는 입장이 분명합니다. 사이버폭력에 대한 학생의 신념을 지지해주시고 격려해주시기 바랍니다.</td>
+                                </tr>
+                                <tr>
+                                    <td>중</td>
+                                    <td class="tit">이 학생은 사이버폭력에 대해서 부정적인 태도와 반대하는 입장을 어느정도 갖고 있습니다. 학생이 사이버폭력에 대해서 확고한 태도와 신념을 가질 수 있도록 자주 이야기 나누어 주십시오.</td>
+                                </tr>
+                                <tr>
+                                    <td>하</td>
+                                    <td class="tit">이 학생은 사이버폭력에 대해서 부정적인 태도와 반대하는 입장을 분명하게 갖고 있지 못한 상태입니다. 사이버폭력에 대해서 바람직한 생각이나 신념을 확고히 가질 수 있도록 집중적인 상담과 교육을 제공해주시기 바랍니다.</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="3">사이버폭력에 대한 대처효능감</td>
+                                    <td>상</td>
+                                    <td class="tit">이 학생은 사이버폭력을 당하거나 목격했을 때 어른에게 말씀을 드려서 도움을 받거나 사이버폭력을 직접 해결할 수 있다고 생각합니다. 이 학생이 사이버폭력을 적절하게 대처할 수 있도록 격려와 함께 위험한 상황에 대해서 충분히 안내해주시기 바랍니다.</td>
+                                </tr>
+                                <tr>
+                                    <td>중</td>
+                                    <td class="tit">이 학생은 사이버폭력을 당하거나 목격했을 때 사이버폭력을 해결할 수 있다는 자신감이 중간 수준입니다. 사이버폭력 피해를 받거나 목격했을 때 구체적으로 대처하는 방법에 대해 함께 이야기 나누어 주시기 바랍니다.</td>
+                                </tr>
+                                <tr>
+                                    <td>하</td>
+                                    <td class="tit">이 학생은 사이버폭력을 당하거나 목격했을 때 사이버폭력을 해결할 수 있다는 자신감이 부족합니다. 사이버폭력 피해를 받거나 목격했을 때 대처하는 방법을 알려주시고, 연습 할 수 있는 기회를 충분히 제공해주십시오.</td>
+                                </tr>-->
+                                </tbody>
+                            </table>
+                        </dd>
+                    </dl>
+                    <dl class="sub_sec">
+                        <dt>친사회성(인성)</dt>
+                        <dd>
+                            <table class="tbl_list result_tbl_list">
+                                <caption>구인, 설명으로 구성</caption>
+                                <colgroup>
+                                    <col style="width:15%" />
+                                    <col style="width:9.5%" />
+                                    <col style="width:auto" />
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th scope="col">구인</th>
+                                    <th scope="col">구분</th>
+                                    <th scope="col">설명</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <th:block th:each="number : ${#numbers.sequence(0,myResultBar5.length()-1)}">
+                                    <tr th:with="obj=${myResultBar5.get(number)}">
+                                        <td th:text="${obj.get('nm')}">언어폭력</td>
+                                        <td>
+                                            <th:block th:if="${obj.get('mVal') eq 0}">하</th:block>
+                                            <th:block th:if="${obj.get('mVal') eq 1}">중</th:block>
+                                            <th:block th:if="${obj.get('mVal') eq 2}">상</th:block>
+                                        </td>
+                                        <td class="tit" th:text="${obj.get('cnts')}">이 학생은 사이버폭력 언어폭력가해경험이 있습니다. 어떠한 가해 행동을 했는지 확인해보시고, 더 이상 가해 행동을 하지 않도록 적절한 상담과 교육을 제공해주시기 바랍니다.</td>
+                                    </tr>
+                                </th:block>
+                                </tbody>
+                            </table>
+                        </dd>
+                    </dl>
+                    <dl class="sub_sec">
+                        <dt>기본정보</dt>
+                        <dd>
+                            <table class="tbl_list result_tbl_list">
+                                <caption>구인, 설명으로 구성</caption>
+                                <colgroup>
+                                    <col style="width:15%" />
+                                    <col style="width:auto" />
+                                    <col style="width:20%" />
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th scope="col">구인</th>
+                                    <th scope="col">문항</th>
+                                    <th scope="col">답변</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <th:block th:each="number : ${#numbers.sequence(0,myResult4.length-1)}">
+                                    <tr th:with="arr=${myResult4[number]}">
+                                        <td th:text="${arr.get(0).get('nm')}">언어폭력</td>
+                                        <td th:text="${arr.get(0).get('question')}">언어폭력</td>
+                                        <td>
+                                            <th:block th:each="number2 : ${#numbers.sequence(0,arr.length()-1)}" th:with="obj=${arr.get(number2)}">
+                                                <th:block th:if="${obj.get('cVal') eq 1}" th:text="|[${obj.get('category')}]|"></th:block>
+                                            </th:block>
+                                        </td>
+                                    </tr>
+                                </th:block>
+                                </tbody>
+                            </table>
+                        </dd>
+                    </dl>
+                    <dl class="sub_sec">
+                        <dt>사회적 바람직성</dt>
+                        <dd>
+                            <table class="tbl_list result_tbl_list">
+                                <caption>구인, 설명으로 구성</caption>
+                                <colgroup>
+                                    <col style="width:15%" />
+                                    <col style="width:auto" />
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th scope="col">구인</th>
+                                    <th scope="col">점수</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <th:block th:each="number : ${#numbers.sequence(0,myResult5.length()-1)}">
+                                    <tr th:with="obj=${myResult5.get(number)}">
+                                        <td th:text="${obj.get('nm')}">언어폭력</td>
+                                        <td th:text="${#numbers.formatDecimal(obj.get('mVal'),1,1)}">점수</td>
+                                    </tr>
+                                </th:block>
+                                </tbody>
+                            </table>
+                        </dd>
+                    </dl>
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>
+</body>
+</html>

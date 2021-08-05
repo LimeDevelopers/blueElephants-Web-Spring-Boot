@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="soulGod/fragments/header"></th:block>
+</head>
+<body>
+<div id="wrap">
+    <th:block th:include="soulGod/fragments/menu"></th:block>
+
+    <div id="container">
+        <div class="container_box">
+            <script type="text/javascript">
+
+                $(function () {
+
+                });
+            </script>
+
+            <form id="form1" name="form1" method="post" enctype="multipart/form-data" th:object="${form}">
+                <input type="hidden" th:fiedl />
+                <div class="contents">
+
+                    <ul class="breadcrumb">
+                        <li><i class="material-icons">home</i></li>
+                        <li>운영관리</li>
+                        <li>회원 관리</li>
+                    </ul>
+
+                    <div class="board_detail clearfix">
+                        <div class="sec">
+                            <div class="board_top clearfix">
+                                <div class="fl">
+                                    <h4 class="sec_tit">상세정보</h4>
+                                </div>
+                            </div>
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${message}">
+                                <strong><input type="text" th:field="${message}">message!</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <table class="tbl_write">
+                                <colgroup>
+                                    <col style="width:10%"/>
+                                    <col style="width:auto"/>
+                                </colgroup>
+                                <tbody>
+                                <tr>
+                                    <th scope="row"><label>회원구분</label></th>
+                                    <td th:text="${T(kr.or.btf.web.domain.web.enums.UserRollType).valueOf(form.mberDvTy).getName()}"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>로그인ID</label></th>
+                                    <td th:text="*{loginId}"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>이름</label></th>
+                                    <td th:text="*{nm}"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>성별</label></th>
+                                    <td th:text="${T(kr.or.btf.web.domain.web.enums.GenderType).valueOf(form.sexPrTy).getName()}"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">생년월일</th>
+                                    <td th:text="*{brthdy}"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">휴대전화</th>
+                                    <td th:text="*{moblphon}"></td>
+                                </tr>
+
+                                <tr>
+                                    <th scope="row">이메일</th>
+                                    <td th:text="*{email}"></td>
+                                </tr>
+
+                                <tr>
+                                    <th scope="row">주소</th>
+                                    <td>
+                                        <div class="address_form">
+                                            <div>
+                                                <span class="tip">우편번호 : <th:block th:text="*{zip}"></th:block></span>
+                                            </div>
+                                            <div class="mt5">
+                                                <span class="tip">주소 : <th:block th:text="*{adres}"></th:block></span>
+                                            </div>
+                                            <div class="mt5">
+                                                <span class="tip">나머지 주소 : <th:block th:text="*{dtlAdres}"></th:block></span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="btn_area">
+                                <a class="btn btn_sm btn_blue" href="/soulGod/my/modify">
+                                    <i class="material-icons fz17">done</i>수정
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <th:block th:replace="soulGod/fragments/footer"></th:block>
+</div>
+</body>
+</html>

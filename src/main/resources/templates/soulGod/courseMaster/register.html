@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="soulGod/fragments/header"></th:block>
+    <script type="text/javascript">
+
+        function fn_chkField() {
+            var id = $('#id');
+            var crsNm = $("#crsNm");
+            var crsCn = contentEditor.getData();
+
+            if (!$.trim(crsNm.val())) {
+                alert('마스터명은 필수입니다.');
+                crsNm.focus();
+                return false;
+            }
+
+            if ($('input[name$=mberDvTy]:radio:checked').length == 0) {
+                alert('대상을 선택하세요.');
+                return false;
+            }
+
+            if($.trim(crsCn) == ''){
+                alert('내용은 필수입니다.');
+                contentEditor.focus();
+                return false;
+            }
+
+            if ($('input[name=attachImgFl]').length == 1) {
+                alert('대표이미지는 필수입니다.');
+                return false;
+            }
+
+            return true;
+        }
+
+        function setEditor(name, editor) {
+            contentEditor = editor;
+        }
+
+        $(function () {
+
+            $('#btnSave').click(function () {
+                if (!fn_chkField()) {
+                    return;
+                }
+
+                var frm = $('#form1');
+                frm.prop('action', '/soulGod/courseMaster/register');
+                frm.submit();
+            });
+        });
+    </script>
+</head>
+<body>
+<div id="wrap">
+    <th:block th:include="soulGod/fragments/menu"></th:block>
+
+    <div id="container">
+        <div class="container_box">
+            <form id="form1" name="form1" method="post" enctype="multipart/form-data" th:object="${form}">
+                <input type="hidden" th:field="*{id}"/>
+                <div class="contents">
+
+                    <ul class="breadcrumb">
+                        <li><i class="material-icons">home</i></li>
+                        <li>교육관리</li>
+                        <li>과정마스터관리</li>
+                    </ul>
+
+                    <div class="board_detail clearfix">
+                        <div class="sec">
+                            <div class="board_top clearfix">
+                                <div class="fl">
+                                    <h4 class="sec_tit">상세정보</h4>
+                                </div>
+                            </div>
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${message}">
+                                <strong><input type="text" th:field="${message}">message!</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <table class="tbl_write">
+                                <colgroup>
+                                    <col style="width:10%"/>
+                                    <col style="width:auto"/>
+                                </colgroup>
+                                <tbody>
+                                <tr>
+                                    <th scope="row"><label>마스터명<span class="aster">*</span></label></th>
+                                    <td><input type="text" th:field="*{crsNm}" /></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>대상<span class="aster">*</span></label></th>
+                                    <td>
+                                        <div class="radio txt" th:each="tp:${T(kr.or.btf.web.domain.web.enums.MberDvType).values()}">
+                                            <input type="radio" th:id="|mberDvTy_${tp}|" name="mberDvTy" th:value="${tp}" />
+                                            <label th:for="|mberDvTy_${tp}|" th:text="${tp.getName()}">test</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>내용<span class="aster">*</span></label></th>
+                                    <td>
+                                        <textarea th:field="*{crsCn}" style="width: 100%; height: 120px;"></textarea>
+                                        <script>
+                                            makeFck('crsCn',setEditor);
+                                        </script>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>대표이미지<span class="aster">*</span></label></th>
+                                    <td>
+                                        <div class="file_form">
+                                            <input type="file" name="attachImgFl" id="attachImgFl" class="multi" maxlength="1" th:accept="${accept}" />
+                                            <label for="attachImgFl">파일찾기</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>게시여부<span class="aster">*</span></label></th>
+                                    <td>
+                                        <div class="radio txt">
+                                            <input type="radio" id="openY" name="openAt" value="Y" />
+                                            <label for="openY">게시</label>
+                                        </div>
+                                        <div class="radio txt">
+                                            <input type="radio" id="openN" name="openAt" value="N" checked />
+                                            <label for="openN">미게시</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="btn_area">
+                                <!--<button id="btnDelete" class="btn btn_sm btn_red" type="button">
+                                    <i class="material-icons">delete</i>삭제
+                                </button>-->
+                                <button id="btnSave" class="btn btn_sm btn_blue" type="button">
+                                    <i class="material-icons fz17">done</i>저장
+                                </button>
+                                <a class="btn btn_sm btn_lightgray" href="/soulGod/courseMaster/list">
+                                    <i class="material-icons">list</i>목록
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <th:block th:replace="soulGod/fragments/footer"></th:block>
+</div>
+</body>
+</html>

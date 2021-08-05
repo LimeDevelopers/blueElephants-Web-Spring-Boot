@@ -1,0 +1,197 @@
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<div class="sec_write mt0">
+    <div class="tbl_write bdt0">
+        <ul>
+            <li class="help_top">
+                <input type="hidden" th:field="*{id}">
+                <div class="th">대상<span class="aster">*</span></div>
+                <div class="td type01">
+                    <!--PC 출력 : s-->
+                    <th:block th:if="${!isMobile}">
+                        <div class="radio txt" th:each="tp : ${T(kr.or.btf.web.domain.web.enums.HelpTargetDvType).values()}">
+                            <input type="radio" name="mberDvTy" th:id="|mberDvTy_${tp.name()}|" th:value="${tp.name()}"
+                                th:checked="${form.mberDvTy eq tp}" />
+                            <label th:for="|mberDvTy_${tp.name()}|" th:text="${tp.getName()}">기타</label>
+                        </div>
+                    </th:block>
+                    <!--PC 출력 : e-->
+
+                    <!--MO 출력 : s-->
+                    <th:block th:if="${isMobile}">
+                        <div class="select">
+                            <label id="boardMberDvTyLabel" for="mberDvTy" th:text="${form.mberDvTy eq null ? '선택' : form.mberDvTy.getName()}">선택</label>
+                            <select th:field="${form.mberDvTy}" name="mberDvTy" id="mberDvTy">
+                                <option value="">선택</option>
+                                <th:block th:each="tp : ${T(kr.or.btf.web.domain.web.enums.HelpTargetDvType).values()}">
+                                    <option th:value="${tp.name()}" th:text="${tp.getName()}">청소년</option>
+                                </th:block>
+                            </select>
+                        </div>
+                    </th:block>
+                    <!--MO 출력 : e-->
+                </div>
+            </li>
+            <li class="help_top">
+                <div class="th">고민<span class="aster">*</span></div>
+                <div class="td type01">
+                    <!--PC 출력 : s-->
+                    <th:block th:if="${!isMobile}">
+                        <th:block th:if="${form.id ne null}">
+                            <div class="checkbox txt" th:each="item : ${worryChkCodes}">
+                                <input type="checkbox" name="worry" th:id="|worry_${item.id}|" th:value="${item.id}" th:checked="${item.codeChk}"/>
+                                <label th:for="|worry_${item.id}|" th:text="${item.codeNm}">학교폭력 피해</label>
+                            </div>
+                        </th:block>
+                        <th:block th:unless="${form.id ne null}">
+                            <div class="checkbox txt" th:each="item : ${worryCodes}">
+                                <input type="checkbox" name="worry" th:id="|worry_${item.id}|" th:value="${item.id}" />
+                                <label th:for="|worry_${item.id}|" th:text="${item.codeNm}">학교폭력 피해</label>
+                            </div>
+                        </th:block>
+                    </th:block>
+                    <!--PC 출력 : e-->
+
+                    <!--MO 출력 : s-->
+                    <th:block th:if="${isMobile}">
+                        <div class="select">
+                            <!--<label id="boardWorryLabel" for="worry">선택</label>-->
+                            <label id="boardWorryLabel" for="worry">
+                                <th:block th:if="${form.id eq null}">선택</th:block>
+                                <th:block th:unless="${form.id eq null}">
+                                    <th:block th:if="${cnt > 1}" th:text="${cnt + '개 선택됨'}"></th:block>
+                                    <th:block th:unless="${cnt > 1}">
+                                        <th:block th:each="item:${worryChkCodes}">
+                                            <th:block th:if="${item.codeChk eq true}" th:text="${item.codeNm}"></th:block>
+                                        </th:block>
+                                    </th:block>
+                                </th:block>
+                            </label>
+                            <select name="worry" id="worry" multiple>
+                                <th:block th:if="${form.id ne null}">
+                                    <th:block th:each="item : ${worryChkCodes}">
+                                        <option th:value="${item.id}" th:text="${item.codeNm}" th:selected="${item.codeChk}">학교폭력 피해</option>
+                                    </th:block>
+                                </th:block>
+                                <th:block th:unless="${form.id ne null}">
+                                    <th:block th:each="item : ${worryCodes}">
+                                        <option th:value="${item.id}" th:text="${item.codeNm}">학교폭력 피해</option>
+                                    </th:block>
+                                </th:block>
+                            </select>
+                        </div>
+                    </th:block>
+                    <!--MO 출력 : e-->
+                </div>
+            </li>
+            <li>
+                <dl class="txt_guide">
+                    <dt>그동안 많이 힘들었을텐데 이렇게 사이버상담으로 도움을 요청해주어 고마워요. 작성자님에게 꼭 필요한 도움을 주고 싶어요.</dt>
+                    <dd>
+                        <p>도움을 주기 위해서 조금 더 자세하게 괴롭힘의 계기나 심각성 등의 구체적인 정보나 도움받고 싶은 부분에 대해서 자세히 적어줄 수 있나요? <br />증거자료가 있다면 파일을 첨부해주면, 더 필요한 도움을 줄 수 있어요.</p>
+                        <div class="file_form clearfix">
+                            <th:block th:if="${fileList != null and !fileList.isEmpty()}">
+                                <div class="file_name" th:text="${fileList[0].flNm}">증거자료 파일 첨부</div>
+                                <input type="file" name="attachedFile" id="attachedFile" onchange="uploadChange(this)" th:accept="${accept}"/>
+                                <label for="attachedFile">찾아보기</label>
+                            </th:block>
+                            <th:block th:unless="${fileList != null and !fileList.isEmpty()}">
+                                <div class="file_name">증거자료 파일 첨부</div>
+                                <input type="file" name="attachedFile" id="attachedFile" onchange="uploadChange(this)" th:accept="${accept}"/>
+                                <label for="attachedFile">찾아보기</label>
+                            </th:block>
+                        </div>
+                    </dd>
+                </dl>
+            </li>
+            <li>
+                <div class="th"><label th:for="*{ttl}">제목</label><span class="aster">*</span></div>
+                <div class="td">
+                    <input type="text" th:field="*{ttl}" />
+                </div>
+            </li>
+            <li>
+                <div class="th"><label th:for="*{cn}">내용</label><span class="aster">*</span></div>
+                <div class="td">
+                    <textarea th:field="*{cn}" class="h170" placeholder="최대 1,000자 이내" maxlength="1000"></textarea>
+                </div>
+            </li>
+            <li>
+                <div class="th">사건시작 기간<span class="aster">*</span></div>
+                <div class="td">
+                    <div class="term_form">
+                        <input type="text" id="incdnt_st_ymd" name="incdntStYmd" th:value="*{#dates.format(incdntStYmd, 'yyyy-MM-dd')}" class="form_date" readonly />
+                        <span class="swung">~</span>
+                        <input type="text" id="incdnt_end_ymd" name="incdntEndYmd" th:value="*{#dates.format(incdntEndYmd, 'yyyy-MM-dd')}" class="form_date" readonly />
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="th">심각성<span class="aster">*</span></div>
+                <div class="td">
+                    <dl class="txt_serious">
+                        <dt>신체적 피해 :</dt>
+                        <dd>
+                            <div class="select">
+                                <label th:for="*{bdyDmgeCodePid}" id="bdyDmgeCodePidLabel">
+                                    <span class="pc" th:if="${!isMobile}" th:text="*{id eq null ? '점수' : bdyDmgeCodeNm}">점수</span>
+                                    <span class="mo" th:if="${isMobile}" th:text="*{id eq null ? '신체적 피해' : bdyDmgeCodeNm}">신체적 피해</span>
+                                </label>
+                                <select th:field="*{bdyDmgeCodePid}">
+                                    <option value="">점수</option>
+                                    <th:block th:each="score : ${tenScoreCodes}">
+                                        <option th:value="${score.id}" th:text="${score.codeNm}">1점</option>
+                                    </th:block>
+                                </select>
+                            </div>
+                        </dd>
+                    </dl>
+                    <dl class="txt_serious">
+                        <dt>정신적 피해 :</dt>
+                        <dd>
+                            <div class="select">
+                                <label th:for="*{mindDmgeCodePid}" id="mindDmgeCodePidLabel">
+                                    <span class="pc" th:if="${!isMobile}" th:text="*{id eq null ? '점수' : mindDmgeCodeNm}">점수</span>
+                                    <span class="mo" th:if="${isMobile}" th:text="*{id eq null ? '정신적 피해' : mindDmgeCodeNm}">정신적 피해</span>
+                                </label>
+                                <select th:field="*{mindDmgeCodePid}">
+                                    <option value="">점수</option>
+                                    <th:block th:each="score : ${tenScoreCodes}">
+                                        <option th:value="${score.id}" th:text="${score.codeNm}">1점</option>
+                                    </th:block>
+                                </select>
+                            </div>
+                        </dd>
+                    </dl>
+                    <dl class="txt_serious">
+                        <dt>물질적 피해 :</dt>
+                        <dd>
+                            <div class="select">
+                                <label th:for="*{physiclDmgeCodePid}" id="physiclDmgeCodePidLabel">
+                                    <span class="pc" th:if="${!isMobile}" th:text="*{id eq null ? '점수' : physiclDmgeCodeNm}">점수</span>
+                                    <span class="mo" th:if="${isMobile}" th:text="*{id eq null ? '물질적 피해' : physiclDmgeCodeNm}">물질적 피해</span>
+                                </label>
+                                <select th:field="*{physiclDmgeCodePid}" id="physicl_dmge_code_pid">
+                                    <option value="">점수</option>
+                                    <th:block th:each="score : ${tenScoreCodes}">
+                                        <option th:value="${score.id}" th:text="${score.codeNm}">1점</option>
+                                    </th:block>
+                                </select>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+            </li>
+            <li>
+                <div class="th"><label for="pwd">글 비밀번호</label><span class="aster">*</span></div>
+                <div class="td">
+                    <input type="password" name="pwd" id="pwd" placeholder="최대 4자 이내" maxlength="4" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" />
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="btn_area btn_num02">
+    <a href="javascript:;" onclick="fn_save('board')" class="btn btn_lg btn_blue btn_pill_10">저장</a>
+    <a href="/pages/activity/helpRequest" class="btn btn_lg btn_line_blue btn_pill_10">목록</a>
+</div>

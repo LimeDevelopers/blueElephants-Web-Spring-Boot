@@ -1,0 +1,96 @@
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:include="soulGod/fragments/header"></th:block>
+	<script type="text/javascript">
+		function fn_search() {
+			var frm = $('#form1');
+
+			frm.prop('action', '?');
+			frm.submit();
+		}
+
+		function fn_reset() {
+			$('#srchWord').val('');
+
+			fn_search();
+		}
+
+		$(function(){
+			$('.faq > li:first-child').addClass('active').find('dd').show()
+			$('.faq > li').each(function(){
+				$(this).find('dt').on('click', function(){
+					$(this).next('dd').stop().slideToggle().parents('li').toggleClass('active').siblings('li').removeClass('active').find('dd').stop().slideUp()
+				})
+			})
+		});
+	</script>
+</head>
+<body>
+<div id="wrap">
+	<th:block th:include="soulGod/fragments/menu"></th:block>
+	<div id="container">
+		<div class="container_box">
+			<form id="form1" name="form1" method="post" th:object="${form}">
+				<div class="contents">
+					<ul class="breadcrumb">
+						<li><i class="material-icons">home</i></li>
+						<li>게시판관리</li>
+						<li>FAQ 관리</li>
+					</ul>
+
+					<div class="search_area clearfix">
+						<div class="col">
+							<select th:field="*{srchField}" class="w120">
+								<option value="1" selected>전체</option>
+							</select>
+							<input type="text" th:field="*{srchWord}" placeholder="검색어를 입력하세요." style="width:313px"  />
+							<button type="button" class="btn btn_sm btn_gray" onclick="fn_search()">
+								<i class="material-icons">search</i>조회
+							</button>
+							<button type="button" class="btn btn_sm btn_gray" onclick="fn_reset()">
+								<i class="material-icons">search</i>초기화
+							</button>
+						</div>
+					</div>
+
+					<div class="sec">
+						<div class="board_top clearfix">
+							<div class="fl">
+								<div class="total_num">총 <b th:text="${#numbers.formatInteger(boardDatas.totalElements, 0, 'COMMA')}">2</b> 건</div>
+							</div>
+							<div class="fr">
+								<a th:href="|/soulGod/board/faqRegister/${mstPid}|" class="btn btn_sm btn_blue">
+									<i class="material-icons">library_add</i>FAQ 등록
+								</a>
+							</div>
+						</div>
+
+						<ul class="faq">
+							<li th:each="item:${boardDatas}">
+								<dl>
+									<th:block th:if="${item.sntncHead ne ''}">
+										<dt th:text="|[${ item.sntncHead}]  ${item.ttl}|"></dt>
+									</th:block>
+									<th:block th:unless="${item.sntncHead ne ''}">
+										<dt th:text="${item.ttl}"></dt>
+									</th:block>
+									<dd>
+									<div th:utext="${#strings.replace(item.cn, T(System).getProperty('line.separator'), '&lt;br /&gt;')}"></div>
+									</dd>
+								</dl>
+								<a th:href="|/soulGod/board/faqRegister/${mstPid}/${item.id}|" class="btn_edit">
+									<i class="material-icons">create</i>
+								</a>
+							</li>
+						</ul>
+						<th:block th:replace="/soulGod/fragments/paging :: pagingbody(list=${boardDatas},
+                                            link='/soulGod/board/faqList/' + ${mstPid}, formId='form1')"></th:block>
+					</div>
+				</div>
+			</form>
+		</div>
+		<th:block th:replace="soulGod/fragments/footer"></th:block>
+	</div>
+</div>
+</body>
+</html>

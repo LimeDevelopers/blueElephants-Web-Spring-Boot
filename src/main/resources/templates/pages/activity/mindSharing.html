@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+
+        <form id="form1" name="form1" method="post" th:object="${form}">
+
+            <div class="contents">
+                <div class="page_top pc">
+                    <h3 class="page_tit">치유</h3>
+                    <span>사이버폭력없는 세상을 만드는데 동참해주세요.</span>
+                </div>
+                <div class="page_cont mind_area">
+                    <div class="tab_ico_area">
+                        <a href="javascript:;" class="tit">마음나눔</a>
+                        <ul class="tab_type_ico">
+                            <li class="help"><a href="/pages/activity/helpCounseling">도움상담</a>
+                            <li class="therapy"><a href="/pages/activity/familyTherapy">가족테라피</a></li>
+                            <li class="mind active"><a href="/pages/activity/mindSharing">마음나눔</a></li>
+                        </ul>
+                        <p class="mo_page_txt">사이버폭력으로 인한 상담과 도움을 요청하세요.</p>
+                        <div class="tab_cont mo_thumb">
+                            <div class="cont mind active">
+                                <div class="thumb">
+                                    <p>마음나눔</p>
+                                </div>
+                                <dl class="desc">
+                                    <dt>당신의 <em>도움</em>으로 폭력에 노출된 아이들을 구할 수 있습니다. <span>당신의 <em>마음</em>이 온기가 필요한 청소년들에게 전달됩니다.</span></dt>
+                                    <dd>
+                                        <div class="hashtag">
+                                            <span>#help</span><span>#hope</span>
+                                        </div>
+                                        <div class="btn_area">
+                                            <a href="javascript:;" onclick="return fn_linkUrl('https://mrmweb.hsit.co.kr/v2/Member/MemberJoin.aspx?action=join&server=8A0qKbUTSxXKiaFQCm7xBw==&_ga=2.69546768.163200047.1602728354-1602796120.1593159639', true)" class="btn btn_lg btn_blue btn_pill_10">정기기부</a>
+                                            <a href="javascript:;" onclick="return fn_linkUrl('https://mrmweb.hsit.co.kr/v2/Member/SupportOnce.aspx?action=once&server=8A0qKbUTSxXKiaFQCm7xBw==&_ga=2.69546768.163200047.1602728354-1602796120.1593159639', true)" class="btn btn_lg btn_line_blue btn_pill_10">일시기부</a>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

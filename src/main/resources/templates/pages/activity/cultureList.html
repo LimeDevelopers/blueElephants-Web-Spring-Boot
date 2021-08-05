@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+    <script type="text/javascript">
+        function fn_search() {
+            var frm = $('#form1');
+            //frm.prop("action", "?");
+            frm.submit();
+        }
+    </script>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+
+        <form id="form1" name="form1" method="post" th:object="${form}">
+            <div class="contents">
+                <div class="page_top pc">
+                    <h3 class="page_tit">문화</h3>
+                    <span>여러분들의 참여로 사이버폭력을 근절하고 예방할 수 있습니다.</span>
+                </div>
+                <div class="page_cont">
+                    <div class="tab_ico_area">
+                        <a href="javascript:;" class="tit">
+                            <th:block th:if="${dvCodePid eq campaignCdPid}">대국민 캠페인</th:block>
+                            <th:block th:if="${dvCodePid eq declarationCdPid}">지지선언</th:block>
+                            <th:block th:if="${dvCodePid eq crewGalleryCdPid or dvCodePid eq crewBoardCdPid}">지지크루</th:block>
+                        </a>
+                        <ul class="tab_type_ico type04">
+                            <li class="campaign" th:classappend="${dvCodePid eq campaignCdPid ? 'active' : ''}">
+                                <a th:href="|/pages/activity/cultureList/${campaignCdPid}|">대국민 캠페인</a>
+                            </li>
+                            <li class="sign">
+                                <a href="#" onclick="return fn_linkUrl('http://btf.or.kr/board/board_online_survey/board_form.asp?scrID=0000000169&pageNum=5&subNum=1&ssubNum=1#area_05_sub01', true)">지지서명</a>
+                            </li>
+                            <li class="declare" th:classappend="${dvCodePid eq declarationCdPid ? 'active' : ''}">
+                                <a th:href="|/pages/activity/cultureList/${declarationCdPid}|">지지선언</a>
+                            </li>
+                            <li class="crew" th:classappend="${dvCodePid eq crewGalleryCdPid or dvCodePid eq crewBoardCdPid? 'active' : ''}">
+                                <a th:href="|/pages/activity/cultureList/${crewGalleryCdPid}|">지지크루</a>
+                            </li>
+                        </ul>
+                        <p class="mo_page_txt">여러분들의 참여로 사이버폭력을 근절하고 예방할 수 있습니다.</p>
+                        <div class="tab_cont mo_thumb">
+                            <div class="cont campaign" th:classappend="${dvCodePid eq campaignCdPid ? 'active' : ''}">
+                                <div class="thumb">
+                                    <p>대국민 캠페인</p>
+                                </div>
+                                <dl class="desc">
+                                    <dt>푸른코끼리는 전 국민을 대상으로 사이버폭력의 심각성을 공론화하고 <br>경각심을 일으켜 <em>사이버폭력을 예방하고 근절 할 수 있도록 대국민 캠페인을 진행</em>합니다.</dt>
+                                    <dd>비폭력데이 행사, SNS 릴레이 캠페인 등 대중이 직접 참여할 수 있는 활동을 통해 <br>자발적으로 비폭력 문화 확산으로의 동참을 유도합니다.</dd>
+                                </dl>
+                            </div>
+                            <div class="cont sign">
+                                <div class="thumb">
+                                    <p>지지서명</p>
+                                </div>
+                                <dl class="desc">
+                                    <dt><em></em></dt>
+                                    <dd></dd>
+                                </dl>
+                            </div>
+                            <div class="cont declare" th:classappend="${dvCodePid eq declarationCdPid ? 'active' : ''}">
+                                <div class="thumb">
+                                    <p>지지선언</p>
+                                </div>
+                                <dl class="desc">
+                                    <dt>푸른코끼리의 ‘학교장선언운동 레츠끼리’는 폭력 없는 건전한 사회 분위기 형성을 위한 <br><em>전국 초·중·고 교장선생님의 사이버폭력 예방 캠페인</em>입니다.</dt>
+                                    <dd>릴레이 형식으로 선언 활동을 펼치고 학교장 및 구성원의 참여도에 따라 <br>풍성한 리워드가 제공되어 사이버폭력 예방 활동에 지속적인 관심과 참여를 유도합니다.</dd>
+                                </dl>
+                            </div>
+                            <div class="cont crew" th:classappend="${dvCodePid eq crewGalleryCdPid or dvCodePid eq crewBoardCdPid ? 'active' : ''}">
+                                <div class="thumb">
+                                    <p>지지크루</p>
+                                </div>
+                                <dl class="desc">
+                                    <dt>푸른코끼리는 사이버폭력의 예방 및 대응을 위해 <br>청소년의 <em>예방활동 참여를 지원하는 지지크루를 운영</em>합니다. </dt>
+                                    <dd>사이버폭력의 심각성에 대한 청소년의 이해를 높이고, <br class="pc" />청소년 중심의 사이버폭력 예방 문화를 만들고자 합니다.</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="btn_tab" th:if="${dvCodePid eq crewGalleryCdPid or dvCodePid eq crewBoardCdPid}"> <!-- TODO: 활성화 버튼에 active 별도 클래스 추가 필요 -->
+                        <a th:href="|/pages/activity/cultureList/${@environment.getProperty('common.code.crewGalleryCdPid')}|" class="btn btn_pill btn_gallery active">갤러리</a>
+                        <a th:href="|/pages/activity/cultureList/${@environment.getProperty('common.code.crewBoardCdPid')}|" class="btn btn_pill btn_board">게시판</a>
+                    </div>
+
+                    <div class="board_top pt0">
+                        <div class="select w160">
+                            <label th:for="srchField">
+                                <!--<th:block th:if="*{srchField eq '' or srchField eq null}">전체</th:block>-->
+                                <th:block th:if="*{srchField eq 'title' or srchField eq '' or srchField eq null}">제목</th:block>
+                                <th:block th:if="*{srchField eq 'cn'}">내용</th:block>
+                                <th:block th:if="*{srchField eq 'titleCn'}">제목+내용</th:block>
+                                <th:block th:if="*{srchField eq 'wrterNm'}">작성자</th:block>
+                            </label>
+                            <select th:field="*{srchField}">
+                                <!--<option value="" selected>전체</option>-->
+                                <option value="title">제목</option>
+                                <option value="cn">내용</option>
+                                <option value="titleCn">제목+내용</option>
+                                <option value="wrterNm">작성자</option>
+                            </select>
+                        </div>
+                        <div class="search" th:classappend="${dvCodePid eq messagePid ? '' : 'news'}">
+                            <input type="search" th:field="*{srchWord}" placeholder="검색어를 입력해 주세요" />
+                        </div>
+                        <button type="submit" class="btn btn_blue btn_pill_10">검색</button>
+                        <div class="select w160">
+                            <label th:for="sorting">
+                                <th:block th:if="*{sorting eq 'latest' or sorting eq null or sorting eq ''}">최신순</th:block>
+                                <th:block th:if="*{sorting eq 'old'}">오래된순</th:block>
+                                <th:block th:if="*{sorting eq 'readCnt'}">조회순</th:block>
+                                <th:block th:if="*{sorting eq 'alphabetically'}">가나다순</th:block>
+                            </label>
+                            <select th:field="*{sorting}" onchange="fn_search()">
+                                <option value="" selected>최신순</option>
+                                <option value="old">오래된순</option>
+                                <option value="readCnt">조회순</option>
+                                <option value="alphabetically">가나다순</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <th:block th:if="${#numbers.formatInteger(dvCodePid, 0) ne @environment.getProperty('common.code.crewBoardCdPid')}">
+                        <ul class="thumb_list clearfix">
+                            <th:block th:if="${campaigns == null or campaigns.isEmpty()}"><!--등록된 글 없을경우-->
+                                <li class="nodata">
+                                    <div><strong>서비스 준비 중</strong> 입니다.</div>
+                                </li>
+                            </th:block>
+                            <li th:each="item : ${campaigns}">
+                                <a th:href="|/pages/activity/cultureDetail/${item.id}|">
+                                    <span class="thumb"><img th:src="|${filePath}/${item.imgFl}|" th:alt="${item.imgFl}" onerror="this.src='/ClientUI/user/images/contents/nodata01.png'" /></span>
+                                    <strong class="tit" th:text="${item.ttl}">사이버폭력이 사라지는 그날까지</strong>
+                                    <span th:if="${dvCodePid ne crewGalleryCdPid}" class="date" th:text="${#temporals.format(item.regDtm,'yyyy.MM.dd')}">2020.06.30</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </th:block>
+                    <th:block th:if="${#numbers.formatInteger(dvCodePid, 0) eq @environment.getProperty('common.code.crewBoardCdPid')}">
+                    <ul class="board_tbl_list type01">
+                        <li class="thead">
+                            <strong class="no">No</strong>
+                            <strong class="tit">제목</strong>
+                            <strong class="writer">등록자</strong>
+                            <strong class="date">등록일</strong>
+                            <strong class="hits">조회수</strong>
+                        </li>
+                        <th:block th:if="${campaigns == null or campaigns.isEmpty()}">
+                            <li class="nodata">
+                                <div>등록된 게시글이 없습니다.</div>
+                            </li>
+                        </th:block>
+                        <li th:each="item,idx : ${campaigns}">
+                            <div class="no" th:text="${campaigns.totalElements - campaigns.pageable.pageSize * campaigns.pageable.pageNumber - idx.index}"></div>
+                            <div class="tit">
+                                <a th:href="|/pages/activity/cultureDetail/${item.id}|" th:text="${item.ttl}">공지사항 공지사항 공지사항 공지사항 공지사항 공지사항 공지사항 공지사항 공지사항 공지사항 공지사항 공지사항</a>
+                            </div>
+                            <div class="writer"><span class="th">등록자 : </span><th:block th:text="${item.regPsNm}">홍길동</th:block></div>
+                            <div class="date"><span class="th">등록일 : </span><th:block th:text="${#temporals.format(item.regDtm,'yyyy.MM.dd')}">2020.10.15</th:block></div>
+                            <div class="hits"><span class="th">조회수 : </span><th:block th:text="${item.readCnt eq null ? '0' : item.readCnt}">20</th:block></div>
+                        </li>
+                    </ul>
+                </div>
+                <th:block th:replace="/fragments/paging :: pagingbody(list=${campaigns}, link='/pages/activity/cultureList/' + ${dvCodePid}, formId='form1')"></th:block>
+            </div>
+        </form>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

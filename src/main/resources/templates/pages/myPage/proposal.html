@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+
+        <form id="form1" name="form1" method="post">
+            <div class="contents">
+                <div class="page_top">
+                    <h3 class="page_tit">My 제안</h3>
+                    <span>회원정보를 최신정보로 관리해주세요. <br class="mo" />새로운 푸코소식과 보안을 위해 회원정보를 최신으로 업데이트 해주세요.</span>
+                </div>
+                <div class="page_cont my_proposal">
+                    <p class="tip_tbl mb">※ 제목을 클릭하시면, 제안 페이지로 이동합니다.</p>
+                    <ul class="board_tbl_list type01">
+                        <li class="thead">
+                            <strong class="no">No</strong>
+                            <strong class="tit">제목</strong>
+                            <strong class="writer">제안자</strong>
+                            <strong class="date">등록일</strong>
+                            <strong class="sympathy">공감수</strong>
+                            <strong class="hits">조회수</strong>
+                        </li>
+                        <!--등록된 글 없을경우 : s-->
+                        <th:block th:if="${boardDatas == null or boardDatas.isEmpty()}">
+                            <li class="nodata">
+                                <div>등록된 게시글이 없습니다.</div>
+                            </li>
+                        </th:block>
+                        <!--등록된 글 없을경우 : e-->
+                        <li th:each="item,idx:${boardDatas}">
+                            <div class="no" th:text="${boardDatas.content.size() - idx.count + 1}"></div>
+                            <div class="tit"><a th:href="|/pages/myPage/proposalDetail/${item.id}|" th:text="${item.ttl}">제안합니다</a></div>
+                            <div class="writer"><span class="th">제안자 : </span><th:block th:text="${item.wrterNm}"></th:block></div>
+                            <div class="date"><span class="th">등록일 : </span><th:block th:text="${#temporals.format(item.regDtm,'yyyy.MM.dd')}"></th:block></div>
+                            <div class="sympathy"><span class="th">공감수 : </span><th:block th:text="${#numbers.formatInteger(item.likeCnt, 0, 'COMMA')}"></th:block></div>
+                            <div class="hits"><span class="th">조회수 : </span><th:block th:text="${#numbers.formatInteger(item.readCnt, 0, 'COMMA')}"></th:block></div>
+                        </li>
+                    </ul>
+                    <th:block th:replace="/fragments/paging :: pagingbody(list=${boardDatas}, link='/pages/myPage/proposal', formId='form1')"></th:block>
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

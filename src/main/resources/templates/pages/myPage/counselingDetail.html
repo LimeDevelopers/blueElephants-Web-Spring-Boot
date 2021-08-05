@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+    <script type="text/javascript">
+        $(function () {
+
+        });
+
+    </script>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+
+        <div class="contents">
+            <div class="page_top pc">
+                <h3 class="page_tit" th:if="${gbn eq 'board'}">게시판 상담</h3>
+                <h3 class="page_tit" th:if="${gbn eq 'tel'}">전화 상담</h3>
+                <h3 class="page_tit" th:if="${gbn eq 'face'}">대면 상담</h3>
+            </div>
+            <div class="page_cont">
+                <form id="helpType01_body" class="bodyContainer" th:if="${gbn eq 'board'}" th:object="${form}">
+                    <div class="sec_write">
+                        <div class="tbl_write">
+                            <ul>
+                                <li class="help_top">
+                                    <div class="th">고민</div>
+                                    <div class="td type01">
+                                        <th:block th:each="reqType,idx : ${requestTypeList}">
+                                            <span th:text="${reqType.codeNm}"></span>
+                                            <th:block th:if="${idx.count < requestTypeList.size()}" th:text="','"></th:block>
+                                        </th:block>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="th">제목</div>
+                                    <div class="td" th:text="*{ttl}" >
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="th">내용</div>
+                                    <div class="td">
+                                        <div class="scrollbar h100 editor"
+                                             th:utext="*{#strings.replace(cn, T(System).getProperty('line.separator'), '&lt;br /&gt;')}">
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="th">사건시작 기간</div>
+                                    <div class="td" th:text="*{#dates.format(incdntStYmd, 'yyyy.MM.dd') + ' ~ ' + #dates.format(incdntEndYmd, 'yyyy.MM.dd')}">
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="th">심각성</div>
+                                    <div class="td">
+                                        <dl class="txt_serious">
+                                            <dt>신체적 피해 :</dt>
+                                            <dd th:text="*{bdyDmgeCodeNm}">
+                                            </dd>
+                                        </dl>
+                                        <dl class="txt_serious">
+                                            <dt>정신적 피해 :</dt>
+                                            <dd th:text="*{mindDmgeCodeNm}">
+                                            </dd>
+                                        </dl>
+                                        <dl class="txt_serious">
+                                            <dt>물질적 피해 :</dt>
+                                            <dd th:text="*{physiclDmgeCodeNm}">
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="th">첨부파일</div>
+                                    <div class="td">
+                                        <div class="file">
+                                            <th:block th:each="item : ${fileList}">
+                                                <th:block th:if="${T(kr.or.btf.web.domain.web.enums.FileDvType).ATTACH.name() eq item.dvTy}">
+                                                    <a th:href="${filePath+'/'+item.flNm}" download th:text="${item.flNm}">사이버폭력예방 가이드2.pdf</a>
+                                                </th:block>
+                                            </th:block>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="detail_cont" th:if="${loadAnswer ne null}">
+                        <div class="answer">
+                            <input type="hidden" th:field="${loadAnswer.id}">
+                            <div class="info">
+                                <span th:text="|상담자 : ${loadAnswer.nm} (${loadAnswer.loginId})|">상담자 : 김새론 (9158helpme)</span>
+                                <span id="answer_reg_dtm" class="date" th:text="|등록시간 : ${#temporals.format(loadAnswer.regDtm,'yyyy.MM.dd (HH:mm)')}|">등록시간 : 2020.09.24 (22:50)</span></p>
+                            </div>
+                            <div class="editor" th:utext="${#strings.replace(loadAnswer.cn, T(System).getProperty('line.separator'), '&lt;br /&gt;')}">
+                                안녕하세요.<br>
+                                푸른코끼리 상담원 홍길동입니다.<br><br>
+
+                                보내주신 내용에 대해 말씀드립니다. 말씀하신 내용을 보니 지금 광장히..
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btn_area btn_num02">
+                        <th:block th:if="${loadAnswer eq null}">
+                            <a th:href="|/pages/myPage/counselingModify/${gbn}/*{id}|" class="btn btn_lg btn_blue btn_pill_10">수정</a>
+                        </th:block>
+                        <a href="/pages/myPage/counseling" class="btn btn_lg btn_line_blue btn_pill_10">목록</a>
+                    </div>
+                </form>
+                <form id="helpType02_body" class="bodyContainer" th:if="${gbn ne 'board'}" th:object="${form}">
+                    <div class="sec_write">
+                        <div class="tbl_write">
+                            <ul>
+                                <li class="help_top">
+                                    <div class="th">고민</div>
+                                    <div class="td type01">
+                                        <th:block th:each="resType,idx : ${reservationTypeList}">
+                                            <!--<span th:text="${resType.codeNm}"></span>-->
+                                            <th:block th:text="${resType.codeNm}"></th:block>
+                                            <th:block th:if="${idx.count < reservationTypeList.size()}">,</th:block>
+                                        </th:block>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul>
+                                <li>
+                                    <div class="th">이름</div>
+                                    <div class="td" th:text="*{nm}">
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="th">지역</div>
+                                    <div class="td" th:text="*{areaCodeNm}">
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="th">제목</div>
+                                    <div class="td" th:text="*{ttl}">
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="th">내용</div>
+                                    <div class="td">
+                                        <div class="scrollbar h100 editor"
+                                             th:utext="*{#strings.replace(cnts, T(System).getProperty('line.separator'), '&lt;br /&gt;')}">
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="th">연락처</div>
+                                    <div class="td" th:text="*{telno}">
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="th">희망일</div>
+                                    <div class="td">
+                                        <th:block th:text="*{#dates.format(hopeStYmd,'yyyy-MM-dd') + ' ~ ' + #dates.format(hopeEndYmd,'yyyy-MM-dd')}"></th:block>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="th">등록일</div>
+                                    <div class="td">
+                                        <th:block th:text="*{#temporals.format(regDtm,'yyyy-MM-dd')}"></th:block>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="th">희망시간</div>
+                                    <div class="td type01">
+                                        <th:block th:each="time,idx : ${loadTimes}">
+                                            <th:block th:text="${time.hopeTimeCodeNm}"></th:block>
+                                            <th:block th:if="${idx.count < loadTimes.size()}">,</th:block>
+                                        </th:block>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="btn_area btn_num02">
+                        <th:block th:if="*{processTy ne T(kr.or.btf.web.domain.web.enums.ProcessType).COMPLETE}">
+                            <a th:href="|/pages/myPage/counselingModify/${gbn}/*{id}|" class="btn btn_lg btn_blue btn_pill_10">수정</a>
+                        </th:block>
+                        <a href="/pages/myPage/counseling" class="btn btn_lg btn_line_blue btn_pill_10">목록</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="soulGod/fragments/header"></th:block>
+</head>
+<body>
+<div id="wrap">
+    <th:block th:include="soulGod/fragments/menu"></th:block>
+
+    <div id="container">
+        <div class="container_box">
+            <script type="text/javascript">
+
+                var id;
+                var pwd;
+                var pwdChg;
+                var nm;
+                var sexPrTy;
+
+                function fn_chkField() {
+                    id = $('#id');
+                    pwd = $("#pwd");
+                    nm = $("#nm");
+
+                    if (!fn_chkPwdDup()) {
+                        return false;
+                    }
+
+                    if (!$.trim(nm.val())) {
+                        alert('이름은 필수입니다.');
+                        nm.focus();
+                        return false;
+                    }
+
+                    if($('input[name=sexPrTy]:checked').length < 1){
+                        alert('성별은 필수입니다.');
+                        sexPrTy.focus();
+                        return false;
+                    }
+
+                    return true;
+                }
+
+                function fn_chkPwdDup(){
+                    pwd = $("#pwd");
+                    pwdChg = $('#pwdChg');
+
+                    pwd.siblings('.err.emph').remove();
+                    if (!$.trim(pwd.val())) {
+                        alert('비밀번호는 필수입니다.');
+                        pwd.focus();
+                        return false;
+                    }else{
+                        if(!pwdCheck(pwd)){
+                            pwd.val("");
+                            pwd.focus();
+                            return false;
+                        }
+                    }
+
+                    pwdChg.siblings('.err.emph').remove();
+                    if (!$.trim(pwdChg.val())) {
+                        alert('비밀번호 확인은 필수입니다.');
+                        pwdChg.focus();
+                        return false;
+                    }else{
+                        if(!pwdCheck(pwdChg)){
+                            pwdChg.val("");
+                            pwdChg.focus();
+                            return false;
+                        }
+                    }
+
+                    if (pwd.val() != pwdChg.val()) {
+                        alert('비밀번호가 일치하지 않습니다.');
+                        pwdChg.focus();
+                        return false;
+                    }else{
+                        return true;
+                    }
+                }
+
+                $(function () {
+                    $('#btnSave').click(function () {
+                        if (!fn_chkField()) {
+                            return;
+                        }
+
+                        var frm = $('#form1');
+                        frm.prop('action', '/api/soulGod/my/save');
+                        frm.submit();
+                    });
+
+                    fn_setDatePicker('#brthdy', null);
+
+                    loginId = $('#loginId');
+                    loginId.change(function () {
+                        idDupBool = false;
+                    });
+                });
+            </script>
+
+            <form id="form1" name="form1" method="post" enctype="multipart/form-data" th:object="${form}">
+                <input type="hidden" th:field="*{id}" />
+                <div class="contents">
+
+                    <ul class="breadcrumb">
+                        <li><i class="material-icons">home</i></li>
+                        <li>운영관리</li>
+                        <li>회원정보 수정</li>
+                    </ul>
+
+                    <div class="board_detail clearfix">
+                        <div class="sec">
+                            <div class="board_top clearfix">
+                                <div class="fl">
+                                    <h4 class="sec_tit">상세정보</h4>
+                                </div>
+                            </div>
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${message}">
+                                <strong><input type="text" th:field="${message}">message!</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <table class="tbl_write">
+                                <colgroup>
+                                    <col style="width:10%"/>
+                                    <col style="width:auto"/>
+                                </colgroup>
+                                <tbody>
+                                <tr>
+                                    <th scope="row"><label>회원구분</label></th>
+                                    <td th:text="${T(kr.or.btf.web.domain.web.enums.UserRollType).valueOf(form.mberDvTy).getName()}"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>로그인ID</label></th>
+                                    <td th:text="*{loginId}"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>비밀번호<span class="aster">*</span></label></th>
+                                    <td>
+                                        <div class="td">
+                                            <input type="password" id="pwd" name="pwd" placeholder="8~16자(특수 문자 포함)">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>비밀번호 확인<span class="aster">*</span></label></th>
+                                    <td>
+                                        <div class="td">
+                                            <input type="password" name="pwdChg" id="pwdChg" placeholder="비밀번호 확인">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>이름<span class="aster">*</span></label></th>
+                                    <td>
+                                        <input type="text" th:field="*{nm}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>성별<span class="aster">*</span></label></th>
+                                    <td>
+                                        <div class="radio txt" th:each="tp : ${T(kr.or.btf.web.domain.web.enums.GenderType).values()}">
+                                            <input type="radio" th:id="|sexPrTy${tp}|" name="sexPrTy" th:value="${tp}"
+                                                th:checked="${T(kr.or.btf.web.domain.web.enums.GenderType).valueOf(form.sexPrTy) eq tp}"/>
+                                            <label th:for="|sexPrTy${tp}|" th:text="${tp.name}"></label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">생년월일</th>
+                                    <td>
+                                        <input type="text" th:field="*{brthdy}" class="form_date" readonly />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">휴대전화</th>
+                                    <td>
+                                        <input type="text" th:field="*{moblphon}" />
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th scope="row">이메일</th>
+                                    <td>
+                                        <input type="text" th:field="*{email}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">주소</th>
+                                    <td>
+                                        <div class="address_form">
+                                            <div>
+                                                <label th:for="*{zip}" class="blind">우편번호</label>
+                                                <input type="text" class="w120" placeholder="우편번호" th:field="*{zip}" onclick="execPostCode('zip','adres','dtlAdres');" readonly />
+                                                <a href="javascript:;" class="btn btn_sm btn_f7dd" onclick="execPostCode('zip','adres','dtlAdres');">주소검색</a>
+                                            </div>
+                                            <div class="mt5">
+                                                <label th:for="*{adres}" class="blind">주소</label>
+                                                <input type="text" placeholder="주소" th:field="*{adres}" onclick="execPostCode('zip','adres','dtlAdres');" />
+                                            </div>
+                                            <div class="mt5">
+                                                <label th:for="*{dtlAdres}" class="blind">나머지 주소</label>
+                                                <input type="text" placeholder="나머지 주소" th:field="*{dtlAdres}" />
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="btn_area">
+                                <!--<button id="btnDelete" class="btn btn_sm btn_red" type="button">
+                                    <i class="material-icons">delete</i>삭제
+                                </button>-->
+                                <button id="btnSave" class="btn btn_sm btn_blue" type="button">
+                                    <i class="material-icons fz17">done</i>저장
+                                </button>
+                                <a class="btn btn_sm btn_lightgray" href="/soulGod/my/detail">
+                                    <i class="material-icons">cancel</i>취소
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <th:block th:replace="soulGod/fragments/footer"></th:block>
+</div>
+</body>
+</html>

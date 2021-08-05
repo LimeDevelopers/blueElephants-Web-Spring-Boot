@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+    <script type="text/javascript">
+        function fn_search() {
+            var frm = $('#form1');
+            //frm.prop("action", "?");
+            frm.submit();
+        }
+    </script>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+
+        <form id="form1" name="form1" method="post" th:object="${searchForm}">
+
+            <div class="contents">
+                <div class="page_top pc">
+                    <h3 class="page_tit">푸코소식</h3>
+                    <span>사이버폭력 예방과 근절을 위해 오늘도 뛰고 있는 푸코소식을 들어봐요.</span>
+                </div>
+                <div class="page_cont">
+                    <div class="tab_ico_area">
+                        <a href="javascript:;" class="tit">공지사항</a>
+                        <ul class="tab_type_ico">
+                            <li class="notice" th:classappend="${#numbers.formatInteger(mstPid, 0) eq @environment.getProperty('common.code.noticeCdPid') ? 'active' : ''}">
+                                <a href="/pages/news/notice">공지사항</a></li>
+                            <li class="news" th:classappend="${#numbers.formatInteger(mstPid, 0) eq @environment.getProperty('common.code.newsCdPid') ? 'active' : ''}">
+                                <a th:href="|/pages/news/list/${#numbers.formatInteger(@environment.getProperty('common.code.newsCdPid'), 0)}|">소식·행사</a></li>
+                            <li class="event"><a href="/pages/news/event">캘린더</a></li>
+                            <li class="media" th:classappend="${#numbers.formatInteger(mstPid, 0) eq @environment.getProperty('common.code.mediaCdPid') ? 'active' : ''}">
+                                <a th:href="|/pages/news/list/${#numbers.formatInteger(@environment.getProperty('common.code.mediaCdPid'), 0)}|">언론보도</a></li>
+                            <li class="publication" th:classappend="${#numbers.formatInteger(mstPid, 0) eq @environment.getProperty('common.code.publicationCdPid') ? 'active' : ''}">
+                                <a th:href="|/pages/news/list/${#numbers.formatInteger(@environment.getProperty('common.code.publicationCdPid'), 0)}|">간행물</a></li>
+                        </ul>
+                        <p class="mo_page_txt">사이버폭력 예방과 근절을 위해 오늘도 뛰고 있는 푸코소식을 들어봐요.</p>
+                    </div>
+                    <h4 class="subtit pc" th:text="${boardMaster.bbsNm}">언론보도</h4>
+                    <div class="board_top">
+                        <div class="select w160">
+                            <label th:for="sntncHead">
+                                <th:block th:if="*{sntncHead eq null or sntncHead eq ''}">전체</th:block>
+                                <th:block th:each="item: ${#strings.arraySplit(boardMaster.sntncHead,',')}">
+                                    <th:block th:if="${searchForm.sntncHead eq item}" th:text="${item}"></th:block>
+                                </th:block>
+                            </label>
+                            <select th:field="*{sntncHead}">
+                                <option value="">전체</option>
+                                <option th:each="item : ${#strings.arraySplit(boardMaster.sntncHead,',')}"
+                                        th:text="${item}" th:value="${item}" ></option>
+                            </select>
+                        </div>
+                        <div class="select w160">
+                            <label th:for="srchField">
+                                <!--<th:block th:if="*{srchField eq '' or srchField eq null}">전체</th:block>-->
+                                <th:block th:if="*{srchField eq 'title' or srchField eq '' or srchField eq null}">제목</th:block>
+                                <th:block th:if="*{srchField eq 'cn'}">내용</th:block>
+                                <th:block th:if="*{srchField eq 'titleCn'}">제목+내용</th:block>
+                                <th:block th:if="*{srchField eq 'wrterNm'}">작성자</th:block>
+                            </label>
+                            <select th:field="*{srchField}">
+                                <!--<option value="" selected>전체</option>-->
+                                <option value="title">제목</option>
+                                <option value="cn">내용</option>
+                                <option value="titleCn">제목+내용</option>
+                                <option value="wrterNm">작성자</option>
+                            </select>
+                        </div>
+                        <div class="search news">
+                            <input type="search" th:field="*{srchWord}" placeholder="검색어를 입력해 주세요" />
+                        </div>
+                        <button type="submit" class="btn btn_blue btn_pill_10">검색</button>
+                        <div class="select w160">
+                            <label th:for="sorting">
+                                <th:block th:if="*{sorting eq 'latest' or sorting eq null or sorting eq ''}">최신순</th:block>
+                                <th:block th:if="*{sorting eq 'old'}">오래된순</th:block>
+                                <th:block th:if="*{sorting eq 'readCnt'}">조회순</th:block>
+                                <th:block th:if="*{sorting eq 'alphabetically'}">가나다순</th:block>
+                            </label>
+                            <select th:field="*{sorting}" onchange="fn_search()">
+                                <option value="latest" selected>최신순</option>
+                                <option value="old">오래된순</option>
+                                <option value="readCnt">조회순</option>
+                                <option value="alphabetically">가나다순</option>
+                            </select>
+                        </div>
+                    </div>
+                    <ul class="board_tbl_list type01">
+                        <li class="thead">
+                            <strong class="no">No</strong>
+                            <strong class="tit">제목</strong>
+                            <strong class="writer">등록자</strong>
+                            <strong class="date">등록일</strong>
+                            <strong class="hits">조회수</strong>
+                        </li>
+                        <th:block th:if="${(boardDatas == null or boardDatas.isEmpty()) and (fixList == null or fixList.isEmpty())}">
+                            <li class="nodata">
+                                <div>등록된 게시글이 없습니다.</div>
+                            </li>
+                        </th:block>
+                        <li class="notice" th:each="item,idx : ${fixList}">
+                            <div class="no" th:text="공지"></div>
+                            <div class="tit">
+                                <th:block th:if="${item.sntncHead ne ''}">
+                                    <a th:href="|/pages/news/detail/${item.id}|" th:text="|[${ item.sntncHead}]  ${item.ttl}|">공지사항 공지사항 공지사항 공지사항 공지사항 공지사항 공지사항 공지사항 공지사항 공지사항 공지사항 공지사항</a>
+                                </th:block>
+                                <th:block th:unless="${item.sntncHead ne ''}">
+                                    <a th:href="|/pages/news/detail/${item.id}|" th:text="${item.ttl}">공지사항 공지사항 공지사항 공지사항 공지사항 공지사항 공지사항 공지사항 공지사항 공지사항 공지사항 공지사항</a>
+                                </th:block>
+                            </div>
+                            <div class="writer"><span class="th">등록자 : </span><th:block th:text="${item.wrterNm}">홍길동</th:block></div>
+                            <div class="date"><span class="th">등록일 : </span><th:block th:text="${#temporals.format(item.regDtm,'yyyy.MM.dd')}">2020.10.15</th:block></div>
+                            <div class="hits"><span class="th">조회수 : </span><th:block th:text="${item.readCnt}">20</th:block></div>
+                        </li>
+                        <li th:each="item,idx : ${boardDatas}">
+                            <div class="no" th:text="${boardDatas.totalElements - boardDatas.pageable.pageSize * boardDatas.pageable.pageNumber - idx.index}"></div>
+                            <div class="tit">
+                                <th:block th:if="${item.sntncHead ne ''}">
+                                    <a th:href="|/pages/news/detail/${item.id}|" th:text="|[${ item.sntncHead}]  ${item.ttl}|">공지사항 공지사항 공지사항 공지사항 공지사항 공지사항 공지사항 공지사항 공지사항 공지사항 공지사항 공지사항</a>
+                                </th:block>
+                                <th:block th:unless="${item.sntncHead ne ''}">
+                                    <a th:href="|/pages/news/detail/${item.id}|" th:text="${item.ttl}">공지사항 공지사항 공지사항 공지사항 공지사항 공지사항 공지사항 공지사항 공지사항 공지사항 공지사항 공지사항</a>
+                                </th:block>
+                            </div>
+                            <div class="writer"><span class="th">등록자 : </span><th:block th:text="${item.wrterNm}">홍길동</th:block></div>
+                            <div class="date"><span class="th">등록일 : </span><th:block th:text="${#temporals.format(item.ntceDt,'yyyy.MM.dd')}">2020.10.15</th:block></div>
+                            <div class="hits"><span class="th">조회수 : </span><th:block th:text="${item.readCnt}">20</th:block></div>
+                        </li>
+                    </ul>
+                </div>
+                <th:block th:replace="/fragments/paging :: pagingbody(list=${boardDatas}, link='/pages/news/notice', formId='form1')"></th:block>
+            </div>
+        </form>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

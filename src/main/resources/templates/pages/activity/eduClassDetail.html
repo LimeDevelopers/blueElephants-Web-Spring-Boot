@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+    <script type="text/javascript" th:inline="javascript">
+        //ios, safari check
+        var uaLc = navigator.userAgent.toLowerCase(); //userAgent To LowerCase
+        var isSafari = uaLc.indexOf("safari") > -1;
+        var isAppleDevice = uaLc.indexOf("iphone") > -1 || uaLc.indexOf("ipad") > -1 || uaLc.indexOf("ipod") > -1;
+        var isSafariAppleDevice = uaLc && isSafari && isAppleDevice;
+
+        var atnlcHour = 0;
+        var cntntsLen = 0;
+        var isRestudy = [[${isRestudy}]];
+        function fn_isRestudy() { // 복습 여부
+            if (isRestudy) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        function fn_setSec(lastStudySec) { // 이어보기
+            var initDone = false;
+
+            // wait for video metadata to load, then set time
+            player.on("loadedmetadata", function () { //all of browser cover
+                player.currentTime(lastStudySec);
+
+                if (player.currentType() == 'video/youtube') {
+                    cntntsLen = [[${cntntsLen}]];
+                } else {
+                    cntntsLen = player.duration();
+                }
+
+                if (!fn_isRestudy()) {
+                    if (lastStudySec == null && cntntsLen > 0) {
+                        fn_courseHisSave(); // 영상길이, 최초진도 반영
+                    }
+                }
+            });
+
+            if (isSafariAppleDevice) {
+                // iPhone/iPad need to play first, then set the time
+                // events: https://www.w3.org/TR/html5/embedded-content-0.html#mediaevents
+                player.on("canplaythrough", function () {
+                    if (!initDone) {
+                        player.currentTime(lastStudySec);
+                        initDone = true;
+                    }
+                });
+            }
+        }
+
+        function videoPlay(obj) {
+            player.play();
+            $('.video_area .btn_play').stop().fadeOut();
+
+            player.on('ended', function () {
+                //console.log('ended');
+                atnlcHour = player.duration();
+
+                alert('학습이 완료 되었습니다.');
+
+                if (!fn_isRestudy()) {
+                    fn_courseHisSave();
+                    this.dispose();
+                    location.reload();
+                }
+            });
+        }
+
+        function fn_courseHisSave() {
+            var crsMstPid = $('#crsMstPid').val();
+            var crssqPid = $('#crssqPid').val();
+            var crsPid = $('#crsPid').val();
+            var sn = $('#sn').val();
+
+            if (!(crsMstPid && crssqPid && crsPid && sn)) {
+                return false;
+            }
+
+            var jsonData = {
+                'atnlcHour': '' + Math.round(atnlcHour) + '', // 학습시간
+                'cntntsLen': '' + Math.floor(cntntsLen) + '', // 컨텐츠길이
+                'crssqPid': '' + crssqPid + '',
+                'crsMstPid': '' + crsMstPid + '',
+                'crsPid': '' + crsPid + '',
+                'sn': '' + sn + ''
+            };
+            $.ajax({
+                type: 'post',
+                url: '/api/v1/videoProgressProc',
+                contentType: "application/json",
+                data: JSON.stringify(jsonData),
+                datatype: 'text',
+                success: function (data) {
+                },
+                error: function (error) {
+                    //console.log(error.responseJSON.msg);
+                    alert('진도율 반영에 실패했습니다. 다시 시도해주세요.');
+                    return false;
+                }
+            });
+        }
+
+        //댓글 저장
+        function fn_commentSave(parnts_comt_pid) {
+            var parntsComtPid = parnts_comt_pid;
+            var comt = parnts_comt_pid == null ? $('#comment') : $('#comment_' + parnts_comt_pid);
+            var dataPid = [[${form.id}]];
+            var tableNm = [[${T(kr.or.btf.web.domain.web.enums.TableNmType).TBL_COUSE_ITEM.name()}]];
+
+            if(!$.trim(comt.val())){
+                alert("댓글을 입력하세요.");
+                comt.focus();
+                return false;
+            }
+
+            if (!confirm('댓글을 등록하시겠습니까?')) {
+                return;
+            }
+            var jsonData = {
+                'dataPid' : dataPid,
+                'comt' : comt.val(),
+                'parntsComtPid' : parntsComtPid,
+                'tableNm' : tableNm
+            }
+            $.ajax({
+                type: 'post',
+                url: '/api/comment/save',
+                contentType: "application/json",
+                data: JSON.stringify(jsonData),
+                datatype: 'text',
+                success: function (data) {
+                    if (data === 'ok') {
+                        alert('댓글을 등록하였습니다.');
+                        $('#comment').val('');
+                        loadCommentList();
+                    }
+                },
+                error: function (error) {
+                    //alert('save error!!!');
+                    alert('error::' + error.statusText);
+                }
+            });
+        }
+
+        //댓글삭제
+        function fn_commentDelete(id) {
+            if (!confirm('댓글을 삭제하시겠습니까?')) {
+                return;
+            }
+            var jsonData = {
+                'id' : id
+            }
+            $.ajax({
+                type: 'post',
+                url: '/api/comment/delete',
+                contentType: "application/json",
+                data: JSON.stringify(jsonData),
+                datatype: 'text',
+                success: function (data) {
+                    if (data === 'ok') {
+                        alert('댓글을 삭제하였습니다.');
+                        loadCommentList();
+                    }
+                },
+                error: function (error) {
+                    //alert('save error!!!');
+                    alert('error::' + error.statusText);
+                }
+            });
+        }
+
+        /*function fn_message() {
+            alert('수강신청 후 이용가능합니다.');
+            return false;
+        }*/
+
+        function fn_moveLogin() {
+            alert("로그인이 필요한 기능입니다.");
+            location.href = ("/login");
+        }
+
+        ////-------- page load
+        $(function () {
+            loadCommentList();
+
+            //댓글의 댓글
+            $('.comment_list > li').each(function(){
+                $(this).find('.btn_comment').on('click', function(){
+                    $(this).parents('li').toggleClass('active')
+                })
+            })
+
+            var src = [[${form.cntntsUrl}]];
+            var cntntsDvTy = [[${form.cntntsDvTy}]];
+            var ty = "video/mp4";
+            var options = {
+                width : 1280 ,
+                hieght : 720 ,
+                controls : true
+            }
+            if (cntntsDvTy == 'YOUTUBE') {
+                ty = 'video/youtube';
+                options.techOrder = ['youtube', 'html5'];
+                /*if (!fn_isRestudy()){
+                    options.controls = false;
+                }*/
+            } else if (cntntsDvTy == 'CDN') {
+                ty = 'video/mp4';
+            }
+            options.sources = [{type: ty, src: src}];
+
+            initVideo(true, options);
+        });
+
+        function loadCommentList(page) {
+            $('.comment_list').children().remove();
+            $('.pagination_area').remove();
+            var id = [[${form.id}]];
+            var jsonData = {
+                'id' : id
+            }
+            $.ajax({
+                type: 'post',
+                url: page == null ? '/api/eduClassDetail/loadCommonComments' : '/api/eduClassDetail/loadCommonComments?page=' + page,
+                contentType: "application/json",
+                data: JSON.stringify(jsonData),
+                datatype: 'json',
+                success: function (data) {
+                    if (data.content.length != 0) { //댓글이 있을때
+                        var html = '';
+                        for (var i = 0; i < data.content.length; i++) {
+                            html += '<li>';
+                            if (data.content[i].parntsComtPid == null) {
+                                html += '<dl id="parnt_comment_' + data.content[i].id + '">' +
+                                    '<dt>' + data.content[i].regPsId + '</dt>' +
+                                    '<dd>' +
+                                    '<div>' + data.content[i].comt + '</div>';
+                                if ([[${#authentication.principal}]] != 'anonymousUser') {
+                                    if ([[${#authentication.principal.account.loginId}]] == data.content[i].regPsId) {
+                                        html += '<a href="javascript:;" class="btn" onclick="fn_commentDelete(' + data.content[i].id + ')">삭제</a>'
+                                    }
+                                }
+                                    html += '</dd></dl>';
+                            }
+                            html += '</li>';
+
+                        }
+
+                        $('.comment_list').append(html);
+                        var start = Math.floor(data.number/10)*10+1;
+                        var last = start+9 < data.totalPages ? start + 9 : (data.totalPages == 0 ? 1 : data.totalPages);
+                        //console.log(start);
+                        //console.log(last);
+                        //console.log(data.number);
+                        //console.log(data.first);
+                        //console.log(data.last);
+                        var paging = '';
+                        paging += '<div class="pagination_area">' +
+                            '<div class="pagination">' +
+                            '<a href="javascript:;" onclick="loadCommentList(1)" class="arr mostprev"><span class="blind">처음</span></a>' +
+                            '<a href="javascript:;" onclick="loadCommentList(' + (data.first ? data.number+1 : data.number) + ')" class="arr prev"><span class="blind">이전</span></a>';
+                        for (var j=start; j <= last; j++) {
+                            paging += '<a href="javascript:;" onclick="loadCommentList(' + j + ')"';
+                            if (j == data.number+1) {
+                                paging += 'class="active"';
+                            }
+                            paging += ' >' + j + '</a>';
+                        }
+                            paging += '<a href="javascript:;" onclick="loadCommentList(' + (data.last ? data.number + 1 : data.number +2) + ')" class="arr next"><span class="blind">다음</span></a>' +
+                            '<a href="javascript:;" onclick="loadCommentList(' + data.totalPages + ')" class="arr mostnext"><span class="blind">마지막</span></a>' +
+                            '</div>' +
+                            '</div>';
+                        $('.comment_list').after(paging);
+                    }
+                },
+                error: function (error) {
+                    //alert('save error!!!');
+                    alert('error::' + error.statusText);
+                }
+            });
+        }
+    </script>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+
+        <form id="form1" name="form1" method="post">
+            <input type="hidden" id="crsMstPid" name="crsMstPid" th:value="${crsMstPid}"/>
+            <input type="hidden" id="crssqPid" name="crssqPid" th:value="${crssqPid}"/>
+            <input type="hidden" id="crsPid" name="crsPid" th:value="${crsPid}"/>
+            <input type="hidden" id="sn" name="sn" th:value="${sn}"/>
+            <div class="contents" th:object="${form}">
+                <div class="page_top mo">
+                    <h3 class="page_tit">사이버폭력 예방 교육</h3>
+                </div>
+                <div class="page_cont">
+                    <div class="detail_cont">
+                        <div class="top">
+                            <div class="info_area">
+                                <th:block th:if="${#authentication.principal != 'anonymousUser' and atnlcReqPid ne null}">
+                                    <!--수강중 -> lbl_ing / 수강완료 -> lbl_end-->
+                                    <th:block th:if="${prgrssSec eq null}">
+                                        <span  class="lbl">수강전</span>
+                                    </th:block>
+                                    <th:block th:unless="${prgrssSec eq null}">
+                                        <th:block th:if="${!isRestudy}">
+                                            <span  class="lbl lbl_ing">수강중</span>
+                                        </th:block>
+                                        <th:block th:unless="${!isRestudy}">
+                                            <span  class="lbl lbl_end">수강완료</span>
+                                        </th:block>
+                                    </th:block>
+                                </th:block>
+                                <strong class="tit" th:text="*{ttl}">6강. 사전교육의 이해</strong>
+                                <p class="count">
+                                    <span th:text="|교육시간 : ${cntntsLen eq null ? '-' : cntntsLen / 60 + '분 ' + cntntsLen % 60 + '초'}|">교육시간 : -분</span>
+                                    <span th:if="${#authentication.principal != 'anonymousUser' and atnlcReqPid ne null}" th:text="|수강률 : ${procPer eq null ? '0' : procPer >= 100 ? 100 : #numbers.formatDecimal(procPer, 1, 0)}%|">수강률 : 0%</span>
+                                </p>
+                                <div class="file" th:if="${fileList != null and !fileList.isEmpty()}">
+                                    <span>첨부파일 :&nbsp;</span>
+                                    <th:block th:each="item:${fileList}">
+                                        <a href="javascript:void(0);" th:onclick="fn_fileDownload([[${item.flPth}]], [[${item.chgFlNm}]])" class="btn_down" th:text="${item.flNm}"></a>
+                                    </th:block>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="bottom pdrl">-->
+                        <div class="bottom pdr">
+                            <div class="video_area">
+                                <div class="video">
+                                    <th:block th:replace="/fragments/videoOptions :: videoSetting(videoId='video', classYn='Y', classAppend='')"></th:block>
+                                </div>
+                                <!--<div class="video">
+                                    <th:block th:if="${#authentication.principal != 'anonymousUser' and atnlcReqPid ne null}">
+                                        <th:block th:if="*{cntntsDvTy eq T(kr.or.btf.web.domain.web.enums.ContentsDvType).YOUTUBE}">
+                                            <video id="video" class="video-js vjs-default-skin" controls
+                                                   data-setup='{ "techOrder": ["youtube", "html5"]}'>
+                                                <source type="video/youtube" th:src="*{cntntsUrl}" />
+                                            </video>
+                                        </th:block>
+                                        <th:block th:if="*{cntntsDvTy eq T(kr.or.btf.web.domain.web.enums.ContentsDvType).CDN}">
+                                            <video id="video"
+                                                   class="video-js vjs-default-skin"
+                                                   controls
+                                                   preload="auto"
+                                                   controlsList="nodownload">
+                                                <source type="video/mp4" th:src="*{cntntsUrl}" th:alt="*{ttl}" th:onerror="this.src='/ClientUI/user/images/contents/nodata01.png'" />
+                                            </video>
+                                            <a href="javascript:;" class="btn_play" onclick="videoPlay(this)"><span class="blind">영상 재생하기</span></a>
+                                        </th:block>
+                                    </th:block>
+                                    <th:block th:unless="${#authentication.principal != 'anonymousUser' and atnlcReqPid ne null}">
+                                        <video id="video"
+                                               class="video-js vjs-default-skin"
+                                               controls
+                                               preload="auto"
+                                               controlsList="nodownload">
+                                            <source type="video/mp4" src="" th:alt="*{ttl}" th:onerror="this.src='/ClientUI/user/images/contents/nodata01.png'" />
+                                        </video>
+                                        <a href="javascript:;" class="btn_play" onclick="fn_message()"><span class="blind">영상 재생하기</span></a>
+                                    </th:block>
+                                </div>-->
+                                <!--<a href="javascript:;" class="btn btn_keycolor btn_learn" onclick="videoPlay(this)"><span>학습하기</span></a>-->
+                            </div>
+                            <dl class="detail_sec">
+                                <dt>교육개요</dt>
+                                <dd>
+                                    <div class="editor" th:utext="*{#strings.replace(cn, T(System).getProperty('line.separator'), '&lt;br /&gt;')}"></div>
+                                </dd>
+                            </dl>
+                        </div>
+                        <div class="comment">
+                            <div class="comment_write">
+                                <p class="tip">강의에 대한 소감이나 의견을 남겨주세요. 더 좋은 교육콘텐츠를 만드는데 큰 힘이 됩니다.</p>
+                                <div class="inner">
+                                    <label for="comment" class="blind">댓글 입력</label>
+                                    <!--<textarea id="comment" placeholder="댓글을 입력해 주세요."></textarea>
+                                    <th:block th:if="${#authentication.principal != 'anonymousUser'}">
+                                        <button type="button" onclick="fn_commentSave()" class="btn btn_blue btn_pill_10">등록</button>
+                                    </th:block>-->
+                                    <th:block th:if="${#authentication.principal != 'anonymousUser'}">
+                                        <textarea id="comment" placeholder="댓글을 입력해 주세요."></textarea>
+                                        <button type="button" onclick="fn_commentSave()" class="btn btn_blue btn_pill_10">등록</button>
+                                    </th:block>
+                                    <th:block th:unless="${#authentication.principal != 'anonymousUser'}">
+                                        <textarea placeholder="로그인이 필요한 기능입니다." readonly onclick="fn_moveLogin()"></textarea>
+                                        <button type="button" class="btn btn_blue btn_pill_10" onclick="fn_moveLogin()">등록</button>
+                                    </th:block>
+                                </div>
+                            </div>
+                            <ul class="comment_list">
+                                <!--<li th:each="item : ${commonComments}">
+                                    <dl th:if="${item.parntsComtPid eq null}" th:id="|parnt_comment_${item.id}|">
+                                        <dt th:text="${item.regPsId}"></dt>
+                                        <dd>
+                                            <div th:text="${item.comt}"></div>
+                                            <th:block th:if="${#authentication.principal != 'anonymousUser'}">
+                                                <a th:if="${#authentication.principal.account.loginId eq item.regPsId}" th:onclick="|fn_commentDelete(${item.id})|" href="javascript:;" class="btn">삭제</a>
+                                            </th:block>
+                                        </dd>
+                                    </dl>
+                                    &lt;!&ndash;<th:block th:each="item2 : ${commonComments}">
+                                        <dl class="reply" th:if="${item2.parntsComtPid eq item.id}">
+                                            <dt th:text="${item2.regPsId}">bibi7070</dt>
+                                            <dd>
+                                                <div th:text="${item2.comt}">마음이 너무 아파요ㅠㅠ 힘내요~!!!</div>
+                                                <th:block th:if="${#authentication.principal != 'anonymousUser'}">
+                                                    <a th:if="${#authentication.principal.account.loginId eq item2.regPsId}" th:onclick="|fn_commentDelete(${item2.id})|" href="javascript:;" class="btn">삭제</a>
+                                                </th:block>
+                                            </dd>
+                                        </dl>
+                                    </th:block>
+                                    <div class="comment_write">
+                                        <div class="inner">
+                                            <label th:for="|comment_${item.id}|" class="blind">답글 입력</label>
+                                            <textarea th:id="|comment_${item.id}|" placeholder="답글을 입력해 주세요."></textarea>
+                                            <button type="button" th:onclick="|fn_commentGbn(${item.id})|" class="btn btn_blue btn_pill_10">등록</button>
+                                        </div>
+                                    </div>&ndash;&gt;
+                                </li>-->
+                            </ul>
+                            <!--<th:block th:replace="/fragments/paging :: pagingbody(list=${commonComments}, link='/pages/activity/eduClassDetail/'+*{id}, formId='form1')"></th:block>-->
+                        </div>
+                        <div class="btn_area btn_num02">
+                            <a href="/pages/activity/preventionEdu" class="btn btn_lg btn_line_blue btn_pill_10">교육 처음으로</a>
+                            <a th:href="|/pages/activity/eduMasterClass/${crsMstPid}|" class="btn btn_lg btn_line_blue btn_pill_10">목록</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

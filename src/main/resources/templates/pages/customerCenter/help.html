@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+
+        <form id="form1" name="form1" method="post" th:object="${searchForm}">
+
+            <div class="contents">
+                <div class="page_top pc">
+                    <h3 class="page_tit">고객센터</h3>
+                    <span>푸코를 이용하시는데 어려움이 있으시다면, 고객센터에 문의하세요.</span>
+                </div>
+                <div class="page_cont">
+                    <div class="tab_ico_area">
+                        <a href="javascript:;" class="tit">도움말</a>
+                        <ul class="tab_type_ico">
+                            <li class="qna"><a href="/pages/customerCenter/qna">1:1 문의</a></li>
+                            <li class="faq"><a href="/pages/customerCenter/faq">FAQ</a></li>
+                            <li class="policy"><a href="/pages/customerCenter/policy">이용약관</a></li>
+                            <li class="cshelp active"><a href="/pages/customerCenter/help">도움말</a></li>
+                        </ul>
+                        <p class="mo_page_txt">푸코를 이용하시는데 어려움이 있으시다면, <br>고객센터에 문의하세요.</p>
+                    </div>
+                    <h4 class="subtit pc">도움말</h4>
+                    <dl class="prepare">
+                        <dt><b>서비스 준비중</b> 입니다.</dt>
+                        <dd>이용에 불편을 드려 죄송합니다. <br />보다 나은 서비스 제공을 위하여 페이지 준비중에 있습니다.<br />빠른시일 내에 준비하려 찾아뵙겠습니다.</dd>
+                    </dl>
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

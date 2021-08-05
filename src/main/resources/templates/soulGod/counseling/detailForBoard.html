@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="soulGod/fragments/header"></th:block>
+    <script type="text/javascript">
+        ////-------- page load
+        $(function () {
+        });
+        function fn_AnswerDelete(id) {
+            if (!confirm('답변을 삭제하시겠습니까?')) {
+                return;
+            }
+            var jsonData = {
+                'id' : id
+            }
+            $.ajax({
+                type: 'post',
+                url: '/api/counseling/answerDelete',
+                contentType: "application/json",
+                data: JSON.stringify(jsonData),
+                datatype: 'text',
+                success: function (data) {
+                    if (data === 'ok') {
+                        alert('답변을 삭제하였습니다.');
+                        location.reload();
+                    } else {
+                        alert('삭제에 실패하였습니다. 관리자에게 문의하세요.');
+                        location.reload();
+                    }
+                },
+                error: function (error) {
+                    //alert('save error!!!');
+                    alert('error::' + error.statusText);
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+<div id="wrap">
+    <th:block th:include="soulGod/fragments/menu"></th:block>
+
+    <div id="container">
+        <div class="container_box">
+            <form id="form1" name="form1" method="post">
+                <div class="contents">
+
+                    <ul class="breadcrumb">
+                        <li><i class="material-icons">home</i></li>
+                        <li>상담관리</li>
+                        <li>게시판상담</li>
+                    </ul>
+
+                    <div class="board_detail clearfix">
+                        <div class="fl" th:object="${form}">
+                            <div class="sec">
+                                <div class="board_top clearfix">
+                                    <div class="fl">
+                                        <h4 class="sec_tit">상담질문</h4>
+                                    </div>
+                                </div>
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert"
+                                     th:if="${message}">
+                                    <strong th:text="${message}">message!</strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <dl class="board_view">
+                                    <dt>
+                                        <strong class="tit_area">
+                                            <b class="tit" th:text="*{ttl}"></b>
+                                        </strong>
+                                        <span class="date" th:text="*{#temporals.format(regDtm, 'yyyy.MM.dd')}"></span>
+                                    </dt>
+                                    <dd class="writer">
+                                        <strong>작성자 :</strong><span th:text="*{regPsNm eq null ? '익명' : regPsNm}">작성자</span>
+                                    </dd>
+                                    <dd class="writer">
+                                        <strong>대상 :</strong><span th:text="*{mberDvTy.getName()}"></span>
+                                        <strong>고민 :</strong>
+                                        <th:block th:each="reqType : ${requestTypeList}">
+                                            <span th:text="${reqType.codeNm}"></span>
+                                        </th:block>
+                                        <strong>사건기간 :</strong><span th:text="|*{#dates.format(incdntStYmd, 'yyyy.MM.dd')} ~ *{#dates.format(incdntEndYmd, 'yyyy.MM.dd')}|"></span>
+                                    </dd>
+                                    <dd class="writer">
+                                        <strong>신체적피해 :</strong><span th:text="*{bdyDmgeCodeNm}"></span>
+                                        <strong>정신적피해 :</strong><span th:text="*{mindDmgeCodeNm}"></span>
+                                        <strong>물질적피해 :</strong><span th:text="*{physiclDmgeCodeNm}"></span>
+                                    </dd>
+                                    <dd class="attached_file" th:if="${fileList != null and !fileList.isEmpty()}">
+                                        <ul class="file_list">
+                                            <li th:each="item: ${fileList}">
+                                                <a th:href="${filePath+'/'+item.chgFlNm}" >
+                                                    <th:block th:text="${item.flNm + '['+ item.flSz + 'KB]'}"></th:block>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </dd>
+                                    <dd class="scrollbar h300 editor" th:utext="${#strings.replace(form.cn, T(System).getProperty('line.separator'), '&lt;br /&gt;')}"></dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="fr" th:object="${loadAnswer}">
+                            <input type="hidden" th:field="${form.id}"/>
+                            <div class="sec">
+                                <div class="board_top clearfix">
+                                    <div class="fl">
+                                        <h4 class="sec_tit">상담답변</h4>
+                                    </div>
+                                    <div class="fr">
+                                        <th:block th:if="${loadAnswer eq null}">
+                                            <a th:href="|/soulGod/counseling/registerForBoard/${form.id}|" class="btn btn_sm btn_blue">
+                                                <i class="material-icons">done</i>답변등록
+                                            </a>
+                                        </th:block>
+                                        <th:block th:unless="${loadAnswer eq null}">
+                                            <a th:href="|/soulGod/counseling/registerForBoard/${form.id}|" class="btn btn_sm btn_blue">
+                                                <i class="material-icons fz">done</i>답변수정
+                                            </a>
+                                            <a href="#" th:onclick="|return fn_AnswerDelete(${loadAnswer.id})|" class="btn btn_sm btn_red">
+                                                <i class="material-icons">delete</i>답변삭제
+                                            </a>
+                                        </th:block>
+                                        <a class="btn btn_sm btn_lightgray" href="/soulGod/counseling/listForBoard">
+                                            <i class="material-icons">list</i>목록
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert"
+                                     th:if="${message}">
+                                    <strong th:text="${message}">message!</strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <dl class="board_view">
+                                    <th:block th:if="${loadAnswer eq null}">
+                                        <dt>
+                                            <strong class="tit_area">
+                                                <b class="tit">현재 답변 대기 중입니다.</b>
+                                            </strong>
+                                        </dt>
+                                        <dd class="writer">
+                                            <strong>작성자 :</strong>
+                                        </dd>
+                                        <dd class="h300 editor">답변을 등록해 주세요.</dd>
+                                    </th:block>
+                                    <th:block th:unless="${loadAnswer eq null}">
+                                        <dt>
+                                            <strong class="tit_area">
+                                                <b class="tit" th:text="${form.ttl + ' 답변'}"></b>
+                                            </strong>
+                                            <span class="date" th:text="*{#temporals.format(regDtm, 'yyyy.MM.dd')}"></span>
+                                        </dt>
+                                        <dd class="writer">
+                                            <strong>작성자 :</strong><span th:text="${loadAnswer.nm}">작성자</span>
+                                        </dd>
+                                        <!--<dd class="attached_file" th:if="${reviewFileList != null and !reviewFileList.isEmpty()}">
+                                            <ul class="file_list">
+                                                <li th:each="item: ${reviewFileList}">
+                                                    <a th:href="${filePath+'/'+item.chgFlNm}" >
+                                                        <th:block th:text="${item.flNm + '['+ item.flSz + 'KB]'}"></th:block>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </dd>-->
+                                        <dd class="scrollbar h300 editor" th:utext="${#strings.replace(loadAnswer.cn, T(System).getProperty('line.separator'), '&lt;br /&gt;')}"></dd>
+                                        <dt>
+                                            <strong class="tit_area">
+                                                <b class="tit">메모</b>
+                                            </strong>
+                                        </dt>
+                                        <dd class="scrollbar h300 editor" th:utext="${#strings.replace(loadAnswer.memo, T(System).getProperty('line.separator'), '&lt;br /&gt;')}"></dd>
+                                    </th:block>
+                                </dl>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <th:block th:replace="soulGod/fragments/footer"></th:block>
+</div>
+</body>
+</html>

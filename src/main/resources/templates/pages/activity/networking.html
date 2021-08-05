@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+    <script type="text/javascript">
+        $(function () {
+
+        })
+    </script>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+
+        <form id="form1" name="form1" method="post" th:object="${form}">
+            <div class="contents">
+                <div class="page_top">
+                    <h3 class="page_tit">네트워킹</h3>
+                    <span>사이버폭력 예방의 성공모델을 구축하고 국제사회와의 연계를 통해 사이버폭력 예방의 국제적 기준을 마련합니다.</span>
+                </div>
+                <div class="page_cont">
+                    <dl class="networking_box">
+                        <dt>예방포럼</dt>
+                        <dd>
+                            <ul class="list">
+                                <li>국내 포럼을 통해 사이버폭력 예방의 성공모델을 공유하고, 지속 가능한 대응을 위한 국내 협력 네트워크를 구축합니다.</li>
+                                <li>NGO, 기업 등 관계자 100여 기관 참여</li>
+                                <li>주요 현안을 다루고 공유하는 공론의 장</li>
+                            </ul>
+                        </dd>
+                    </dl>
+                    <dl class="networking_box">
+                        <dt>국제교류</dt>
+                        <dd>
+                            <p>해외 전문기관 방문 및 연계를 통해 국제적 공조체계를 구축하고 UN경제사회이사회 산하의 관련 위원회 회의를 참석하여 사이버폭력의 이슈를 전세계에 알립니다.</p>
+                        </dd>
+                    </dl>
+                    <dl class="networking_box">
+                        <dt>UN경제사회이사회</dt>
+                        <dd>
+                            <p>사이버폭력 문제의 심각성 및 인식 제고를 위해 본의회에 참석하고 UN경제사회이사회 산하 위원회 side event를 개최합니다.</p>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

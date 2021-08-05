@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="soulGod/fragments/header"></th:block>
+    <script type="text/javascript">
+
+
+        ////-------- page load
+        $(function () {
+            $('#btnDelete').click(function () {
+                if (!confirm('삭제하시겠습니까?')) {
+                    return;
+                }
+
+                var frm = $('#form1');
+                frm.prop('action', '/soulGod/postscript/delete');
+                frm.submit();
+            });
+        });
+    </script>
+</head>
+<body>
+<div id="wrap">
+    <th:block th:include="soulGod/fragments/menu"></th:block>
+
+    <div id="container">
+        <div class="container_box">
+            <script type="text/javascript">
+
+                $(function () {
+
+                });
+            </script>
+
+            <form id="form1" name="form1" method="post" enctype="multipart/form-data" th:object="${form}">
+                <input type="hidden" th:field="*{id}"/>
+                <div class="contents">
+
+                    <ul class="breadcrumb">
+                        <li><i class="material-icons">home</i></li>
+                        <li>교육관리</li>
+                        <li>교육후기 관리</li>
+                    </ul>
+
+                    <div class="board_detail clearfix">
+                        <div class="sec">
+                            <div class="board_top clearfix">
+                                <div class="fl">
+                                    <h4 class="sec_tit">상세정보</h4>
+                                </div>
+                            </div>
+                            <table class="tbl_write">
+                                <colgroup>
+                                    <col style="width:10%"/>
+                                    <col style="width:auto"/>
+                                </colgroup>
+                                <tbody>
+                                <tr>
+                                    <th scope="row"><label>제목</label></th>
+                                    <td th:text="*{ttl}"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>작성자</label></th>
+                                    <td th:text="*{regPsNm}"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>학교명</label></th>
+                                    <td th:text="*{schlNm}"></td>
+                                </tr>
+
+                                <tr>
+                                    <th scope="row"><label>분류</label></th>
+                                    <td th:text="|${codeNm} > *{srtCodeNm}|"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>참여자</label></th>
+                                    <td th:text="|*{grade} 학년 *{ban}반 *{no}번|"></td>
+                                </tr>
+
+                                <tr>
+                                    <th scope="row"><label>내용</label></th>
+                                    <td>
+                                        <div class="scrollbar h100 editor"
+                                             th:utext="*{#strings.replace(cn, T(System).getProperty('line.separator'), '&lt;br /&gt;')}">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>썸네일</label></th>
+                                    <td>
+                                        <a th:href="${filePath+'/'+form.imgFl}"  download th:text="*{imgFl}">첨부파일.pdf</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>첨부파일</label></th>
+                                    <td>
+                                        <th:block th:each="item,idx : ${fileList}">
+                                            <th:block th:if="${T(kr.or.btf.web.domain.web.enums.FileDvType).ATTACH.name() eq item.dvTy}">
+                                                <th:block th:text="${idx.count > 1 ? ',' : ''}"></th:block>
+                                                <a th:href="${filePath+'/'+item.flNm}"  download th:text="${item.flNm}">첨부파일.pdf</a>
+                                                <th:block th:each="dsc : ${postscriptImageList}">
+                                                    <span th:if="${dsc.flPid eq item.id}" th:text="' : '+${dsc.dsc}"></span>
+                                                </th:block>
+                                            </th:block>
+                                        </th:block>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>영상 URL</label></th>
+                                    <td th:text="*{cntntsUrl}"></td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+
+                            <div class="btn_area">
+                                <button id="btnDelete" class="btn btn_sm btn_red" type="button">
+                                    <i class="material-icons">delete</i>삭제
+                                </button>
+                                <th:block th:if="${#authentication.principal.account.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).ADMIN or
+                                        #authentication.principal.account.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).MASTER}">
+                                    <a class="btn btn_sm btn_blue"th:href="|/soulGod/postscript/modify/*{id}|">
+                                        <i class="material-icons fz17">done</i>수정
+                                    </a>
+                                </th:block>
+                                <a class="btn btn_sm btn_lightgray" href="/soulGod/postscript/list">
+                                    <i class="material-icons">list</i>목록
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <th:block th:replace="soulGod/fragments/footer"></th:block>
+</div>
+</body>
+</html>

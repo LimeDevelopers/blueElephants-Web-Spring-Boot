@@ -1,0 +1,163 @@
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="soulGod/fragments/header"></th:block>
+    <script type="text/javascript">
+        function fn_search() {
+            var frm = $('#form1');
+            frm.prop('action', '?');
+            frm.submit();
+        }
+
+        function fn_reset() {
+            $('#srchWord').val('');
+
+            fn_search();
+        }
+
+        $(function () {
+            $("#srtParentCodePid").change(function () {
+                let parentPid = $(this).val();
+                $("#srtCodePid").html('<option value="" selected="true">선택</option>').niceSelect('update');
+                if (parentPid) {
+                    var jsonData = {
+                        'prntCodePid': parentPid
+                    }
+                    $.ajax({
+                        type: 'post',
+                        url: '/api/commonCode/listForUppCdPid',
+                        contentType: "application/json",
+                        data: JSON.stringify(jsonData),
+                        datatype: 'json',
+                        success: function (data) {
+                            let html = '<option value="" selected="true">선택</option>';
+                            if (data) {
+                                $.each(data, function (index, item) {
+                                    html += '<option value="' + item.id + '">' + item.codeNm + '</option>';
+                                });
+                            }
+                            $("#srtCodePid").html(html).niceSelect('update');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+<div id="wrap">
+    <th:block th:include="soulGod/fragments/menu"></th:block>
+
+    <div id="container">
+        <div class="container_box">
+            <form id="form1" name="form1" method="post" th:object="${form}">
+
+                <div class="contents">
+
+                    <ul class="breadcrumb">
+                        <li><i class="material-icons">home</i></li>
+                        <li>교육관리</li>
+                        <li>교육후기 관리</li>
+                    </ul>
+
+                    <div class="search_area clearfix">
+                        <dl class="col">
+                            <dt>분류</dt>
+                            <dd>
+                                <label for="srtParentCodePid"></label>
+                                <select id="srtParentCodePid" name="srtParentCodePid">
+                                    <option value="" selected>선택</option>
+                                    <option th:each="item : ${srtCodes}"
+                                            th:value="${item.id}" th:text="${item.codeNm}"></option>
+                                </select>
+                                <label for="srtCodePid"></label>
+                                <select id="srtCodePid" name="srtCodePid">
+                                    <option value="" selected>선택</option>
+                                </select>
+                            </dd>
+                        </dl>
+                        <dl class="col">
+                            <dt>제목</dt>
+                            <dd>
+                                <input type="text" th:field="*{srchWord}" placeholder="검색어를 입력하세요." style="width:313px"  />
+                            </dd>
+                        </dl>
+                        <div class="col">
+                            <button type="button" class="btn btn_sm btn_gray" onclick="fn_search()">
+                                <i class="material-icons">search</i>조회
+                            </button>
+                            <button type="button" class="btn btn_sm btn_gray" onclick="fn_reset()">
+                                <i class="material-icons">refresh</i>초기화
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="board_list">
+                        <h4 class="sec_tit">교육후기 리스트</h4>
+                        <div class="board_top clearfix">
+                            <div class="fl">
+                                <div class="total_num">총 <b th:text="${#numbers.formatInteger(postscripts.totalElements, 0, 'COMMA')}">2</b>건</div>
+                            </div>
+                        </div>
+
+                        <table class="tbl_list mo_tbl_list">
+                            <colgroup>
+                                <col style="width:5%" />
+                                <col style="width:auto" />
+                                <col style="width:10%" />
+                                <col style="width:10%" />
+                                <col style="width:12%" />
+                                <col style="width:8%" />
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th scope="col">No</th>
+                                <th scope="col">제목</th>
+                                <th scope="col">대분류</th>
+                                <th scope="col">중분류</th>
+                                <th scope="col">작성자</th>
+                                <th scope="col">등록일</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <!-- 등록된 데이터가 없을 때만 노출 : s -->
+                            <tr th:if="${postscripts == null or postscripts.isEmpty()}">
+                                <td colspan="6">등록된 정보 없습니다.</td>
+                            </tr>
+                            <!-- 등록된 이벤트가 없을 때만 노출 : e -->
+                            <tr th:each="item,idx : ${postscripts}">
+                                <td th:text="${postscripts.totalElements - postscripts.pageable.pageSize * postscripts.pageable.pageNumber - idx.index}"></td>
+                                <td>
+                                    <b>
+                                        <a th:href="|/soulGod/postscript/detail/${item.id}|"  th:text="${item.ttl}"></a>
+                                    </b>
+                                </td>
+                                <td>
+                                    <strong class="th">대분류</strong>
+                                    <div th:text="${item.srtParentCodeNm}"></div>
+                                </td>
+                                <td>
+                                    <strong class="th">중분류</strong>
+                                    <div th:text="${item.srtCodeNm}"></div>
+                                </td>
+                                <td>
+                                    <strong class="th">작성자</strong>
+                                    <div th:text="${item.regPsNm}"></div>
+                                </td>
+                                <td>
+                                    <strong class="th">등록일</strong>
+                                    <div th:text="${#temporals.format(item.regDtm, 'yyyy-MM-dd')}"></div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <th:block th:replace="/soulGod/fragments/paging :: pagingbody(list=${postscripts},
+                                            link='/soulGod/postscript/list', formId='form1')"></th:block>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <th:block th:replace="soulGod/fragments/footer"></th:block>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="popup/layout/popupLayout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<th:block layout:fragment="custom_css">
+</th:block>
+<th:block layout:fragment="custom_js">
+    <script type="text/javascript">
+
+    $(function() {
+		init();
+		eventInit();
+	});
+
+	function init() {
+	}
+	function eventInit(){
+	}
+
+    </script>
+</th:block>
+<th:block layout:fragment="content_body">
+    <form name="form1" id="form1" method="post" enctype="multipart/form-data" th:object="${form}">
+        <input type="hidden" th:field="*{popup_id}"/>
+        <dl class="popup">
+        	<dt th:text="${form eq null ? 'SR' : form.ttl}"></dt>
+        	<dd>
+        		<div class="txt" th:utext="*{cn}"></div>
+        		<div class="img">
+        			<img th:each="item: ${fileList}" th:src="${item.fl_path+'/'+item.chg_fl_nm}" th:alt="${item.real_fl_nm}" />
+        		</div>
+        	</dd>
+        </dl>
+        <div class="close_area">
+			<div class="checkbox">
+				<input type="checkbox" id="close" />
+				<label for="close">
+					<span onclick="return fn_popClose(24*7)"
+						  th:if="*{close_type eq T(kr.co.srail.eams.model.enums.PopupCloseType).WEEK.getName()}">일주일간 보지 않기</span>
+					<span onclick="return fn_popClose(24)"
+						  th:unless="*{close_type eq T(kr.co.srail.eams.model.enums.PopupCloseType).WEEK.getName()}">오늘 하루 보지 않기</span>
+				</label>
+			</div>
+    		<!--<span class="blind" onclick="return fn_popClose()">닫기</span>-->
+        </div>
+    </form>
+</th:block>

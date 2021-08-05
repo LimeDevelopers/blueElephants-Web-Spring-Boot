@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="soulGod/fragments/header"></th:block>
+    <script type="text/javascript">
+
+        function fn_search() {
+            var frm = $('#form1');
+            frm.prop('action', '?');
+            frm.submit();
+        }
+
+        function fn_reset() {
+            $('#srchWord').val('');
+
+            fn_search();
+        }
+
+        ////-------- page load
+        $(function () {
+        });
+    </script>
+</head>
+<body>
+<div id="wrap">
+    <th:block th:include="soulGod/fragments/menu"></th:block>
+
+    <div id="container">
+        <div class="container_box">
+            <script type="text/javascript">
+
+                $(function () {
+                });
+            </script>
+
+            <form id="form1" name="form1" method="post" th:object="${form}">
+                <input type="hidden" id="id" name="id"/>
+                <div class="contents">
+
+                    <ul class="breadcrumb">
+                        <li><i class="material-icons">home</i></li>
+                        <li>교육관리</li>
+                        <li>체험관리</li>
+                    </ul>
+
+                    <div class="contents">
+
+                        <ul class="tab">
+                            <li th:classappend="${dvCodePid eq 17 ? 'active' : ''}"><a href="/soulGod/experience/list/17">피해자 체험</a></li>
+                            <li th:classappend="${dvCodePid eq 18 ? 'active' : ''}"><a href="/soulGod/experience/list/18">피해자 목소리</a></li>
+                            <li th:classappend="${dvCodePid eq 19 ? 'active' : ''}"><a href="/soulGod/experience/list/19">위로 메시지</a></li>
+                        </ul>
+
+                        <div class="search_area clearfix">
+                            <dl class="col">
+                                <dt>제목</dt>
+                                <dd>
+                                    <input type="text" th:field="*{srchWord}" placeholder="검색어를 입력하세요." style="width:313px"  />
+                                </dd>
+                            </dl>
+                            <div class="col">
+                                <button type="button" class="btn btn_sm btn_gray" onclick="fn_search()">
+                                    <i class="material-icons">search</i>조회
+                                </button>
+                                <button type="button" class="btn btn_sm btn_gray" onclick="fn_reset()">
+                                    <i class="material-icons">refresh</i>초기화
+                                </button>
+                            </div>
+
+                            <!--<div class="col">
+                                <select th:field="*{srchField}" class="w120">
+                                    <option value="1" selected>전체</option>
+                                </select>
+                                <input type="text" th:field="*{srchWord}" placeholder="검색어를 입력하세요." style="width:313px"  />
+                                <button type="button" class="btn btn_sm btn_gray" onclick="fn_search()"><i class="material-icons">search</i>조회</button>
+                            </div>-->
+                        </div>
+
+                        <div class="board_list">
+                            <div class="board_top clearfix">
+                                <div class="fl">
+                                    <div class="total_num">총 <b th:text="${#numbers.formatInteger(experiences.totalElements, 0, 'COMMA')}">2</b>
+                                        건
+                                    </div>
+                                    <!--<select name="perPageNum" id="perPageNum" class="w80">
+                                        <option value="10" th:selected="${cri.perPageNum eq 10}">10</option>
+                                        <option value="15" th:selected="${cri.perPageNum eq 15}">15</option>
+                                        <option value="20" th:selected="${cri.perPageNum eq 20}">20</option>
+                                    </select>-->
+                                </div>
+                                <div class="fr">
+                                    <!--<a href="javascript:;" class="btn btn_sm btn_lightgray" onclick="return fnTableToExcel('resultList', '일상감사 검토관리 다운로드');">
+                                        <i class="material-icons mt0">get_app</i>엑셀 다운로드
+                                    </a>-->
+                                    <a th:href="|/soulGod/experience/register/${dvCodePid}|" class="btn btn_sm btn_blue">
+                                        <i class="material-icons mt0">add</i>신규등록
+                                    </a>
+                                </div>
+                            </div>
+                            <table class="tbl_list" id="resultList">
+                                <colgroup>
+                                    <col style="width: 10%"/>
+                                    <col style="width: auto"/>
+                                    <col style="width: 15%"/>
+                                    <col style="width: 15%"/>
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>제목</th>
+                                    <th>등록일</th>
+                                    <th>등록자</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!-- 등록된 데이터가 없을 때만 노출 : s -->
+                                <tr th:if="${experiences == null or experiences.isEmpty()}">
+                                    <td colspan="4">등록된 정보 없습니다.</td>
+                                </tr>
+                                <!-- 등록된 이벤트가 없을 때만 노출 : e -->
+                                <tr th:each="item,idx:${experiences}">
+                                    <td th:text="${experiences.totalElements - experiences.pageable.pageSize * experiences.pageable.pageNumber - idx.index}"></td>
+                                    <td>
+                                        <a th:href="|/soulGod/experience/detail/${item.id}|">
+                                            <b th:text="${item.ttl}"></b>
+                                        </a>
+                                    </td>
+                                    <td th:text="${#temporals.format(item.regDtm,'yyyy-MM-dd')}"></td>
+                                    <td th:text="${item.regPsNm}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <th:block th:replace="/soulGod/fragments/paging :: pagingbody(list=${experiences},
+                                            link='/soulGod/experience/list', formId='form1')"></th:block>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <th:block th:replace="soulGod/fragments/footer"></th:block>
+</div>
+</body>
+</html>

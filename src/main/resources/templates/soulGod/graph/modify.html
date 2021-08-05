@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="soulGod/fragments/header"></th:block>
+    <script type="text/javascript">
+        ////-------- page load
+        $(function () {
+            $('#btnSave').click(function () {
+                var frm = $('#form1');
+                frm.prop('action', '/soulGod/graph/save');
+                frm.submit();
+            });
+        });
+
+        function numberFormat(target) {
+            var value = target.value;
+            var patten = /(^\d+$)|(^\d{1,}.\d{0,}$)/;
+            if (!patten.test(value)) {
+                target.value = '';
+                alert('올바르지 않은 값입니다.');
+                return false;
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="wrap">
+    <th:block th:include="soulGod/fragments/menu"></th:block>
+
+    <div id="container">
+        <div class="container_box">
+            <form id="form1" name="form1" method="post" th:object="${form}">
+                <input type="hidden" th:field="*{id}"/>
+                <div class="contents">
+
+                    <ul class="breadcrumb">
+                        <li><i class="material-icons">home</i></li>
+                        <li>운영관리</li>
+                        <li>그래프 관리</li>
+                    </ul>
+
+                    <div class="board_detail clearfix">
+                        <div class="sec">
+                            <div class="board_top clearfix">
+                                <div class="fl">
+                                    <h4 class="sec_tit">그래프 상세정보</h4>
+                                </div>
+                            </div>
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert"
+                                 th:if="${message}">
+                                <strong th:text="${message}">message!</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <table class="tbl_write">
+                                <colgroup>
+                                    <col style="width:10%"/>
+                                    <col style="width:auto"/>
+                                </colgroup>
+                                <tbody>
+                                <tr>
+                                    <th scope="row"><label>그래프명</label></th>
+                                    <td th:text="*{graphDvTy ne null ? graphDvTy.getName() : ''}"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label>그래프값</label></th>
+                                    <td>
+                                        <table class="tbl_list mo_tbl_list">
+                                            <colgroup>
+                                                <col style="width:auto"/>
+                                                <col style="width:20%"/>
+                                                <col style="width:20%"/>
+                                                <col style="width:20%"/>
+                                            </colgroup>
+                                            <thead>
+                                            <tr>
+                                                <th scope="col">연도</th>
+                                                <th scope="col">학교폭력 가해자</th>
+                                                <th scope="col">학교폭력 피해자</th>
+                                                <th scope="col">선</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="item,idx : ${graphDataList}">
+                                                <td>
+                                                    <input type="hidden" name="dataPidArr" th:value="${item.id}"/>
+                                                    <input type="hidden" name="colSnoArr" th:value="${item.colSno}"/>
+                                                    <input type="text" name="colNmArr" th:value="${item.colNm}"/>
+                                                </td>
+                                                <td><input type="text" name="colValue1Arr" th:value="${item.colValue1}" onkeyup="numberFormat(this)"/></td>
+                                                <td><input type="text" name="colValue2Arr" th:value="${item.colValue2}" onkeyup="numberFormat(this)"/></td>
+                                                <td><input type="text" name="colValue3Arr" th:value="${item.colValue3}" onkeyup="numberFormat(this)"/></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <p style="color: red">※연도에 값이 비어있으면 그래프에 노출되지 않습니다.</p>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="btn_area">
+                                <button id="btnSave" class="btn btn_sm btn_blue" type="button">
+                                    <i class="material-icons">done</i>저장
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <th:block th:replace="soulGod/fragments/footer"></th:block>
+</div>
+</body>
+</html>
