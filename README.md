@@ -12,6 +12,8 @@ java: cannot find symbol 에러 발생시 ISSUE001 해당 구문 참조해서 �
 ### 소스코드 대폭 수정 (21.08.05)
 
 ### 기존 인계받은 원본 소스에 문제가 많아 New Project에 릴리즈 업데이트 했습니다.
+
+### 프로젝트 폴더링 구조 변경 작업중 (21.08.06)
 #
 # 🔥🔥🔥 ISSUE NOTICE 🔥🔥🔥
 ### ISSUE001. QueryDSL not find Error (21.08.05) 수정
