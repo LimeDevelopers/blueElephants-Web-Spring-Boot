@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+
+        <div class="contents" style="margin-top: 200px;">
+<!--            <div class="page_top">-->
+<!--                <h3 class="page_tit">회원가입</h3>-->
+<!--                <span>고객님께서 입력하신 정보를 안전하고 정확하게 관리하기 위해 최선을 다하겠습니다.</span>-->
+<!--            </div>-->
+            <div class="page_cont join_agree_area">
+                <ul class="img_join_pick">
+                    <center>
+                    <img src="/ClientUI/user/images/contents/join_pick_test02.png" alt="" style="max-width: 100%; height: auto;"/> <!-- 개인 TEST 이미지 -->
+                    <img src="/ClientUI/user/images/contents/join_pick_test03.png" alt="" style="max-width: 100%; height: auto; padding-bottom: 100px;"/> <!-- 단체 TEST 이미지 -->
+                    </center>
+                </ul>
+                <div class="btn_area"><a href="javascript:fn_join();" class="btn btn_lg btn_blue btn_pill_10">회원가입</a></div>
+            </div>
+        </div>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

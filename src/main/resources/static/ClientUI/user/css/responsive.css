@@ -139,7 +139,7 @@
 	.pc{display:none !important}
     .mo{display:block}
 	.m_w100p{width:100% !important}
-	input{height:42px;line-height:40px}
+	input{height:42px;line-height:40px;border-radius: 8px;}
 	.checkbox label:after, .radio label:after{width:24px;height:24px;border-width:2px;border-radius:2px}
 	.radio label:after{border-radius:50%}
 	.checkbox.txt label, .radio.txt label{padding-left:34px;font-size:17px;line-height:28px}
@@ -147,7 +147,8 @@
 	.select label{font-size:15px;line-height:38px}
 	.select label:after{width:40px}
 	/*.select select[multiple]:focus{margin-top:41px}*/
-	.btn_lg{padding:0 14px;font-size:17px;line-height:40px}
+	.btn_lg{padding: 0 14px; font-size:17px;line-height:40px}
+	.btn_pill_registerSelect{ padding:0 3%; margin:2%; }
 	.btn_area{padding-top:24px}
 	.btn_area .btn{width:100%;margin-top:10px}
 	.btn_area .btn:first-child{margin-top:0}

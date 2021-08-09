@@ -21,7 +21,6 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<webapp.libs>${project.basedir}/libs/nice</webapp.libs>
 		<java.version>8</java.version>
-
 	</properties>
 
 

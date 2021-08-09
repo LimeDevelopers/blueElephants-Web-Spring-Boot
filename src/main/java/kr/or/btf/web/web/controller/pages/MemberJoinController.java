@@ -37,6 +37,12 @@ public class MemberJoinController extends BaseCont {
     private final MemberFormValidator memberFormValidator;
     private final MobileAuthLogService mobileAuthLogService;
 
+    @GetMapping(value = "/pages/member/joinPick")
+    public String joinPickPage(Model model){
+        model.addAttribute("mc", "memberJoin");
+        return "/pages/member/joinPick";
+    }
+
     @GetMapping({"/pages/member/idFind"})
     public String idFind(Model model,
                          HttpSession session) {
