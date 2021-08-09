@@ -263,7 +263,7 @@
 .snb{border-bottom:2px solid #e7e7e7}
 .page_top{padding:67px 0 0}
 .page_top > .page_tit{position:relative;color:#5981ba;font-size:38px;font-weight:700;text-align:center}
-.page_top > .page_tit + span{display:block;font-size:20px;text-align:center}
+.page_top > .page_tit + span{display:block;font-size:20px;text-align:center;color:#8c90a5;}
 .page_top > .page_tit + span pre{font-family:'Noto Sans KR';white-space:pre-wrap}
 .page_top > .page_tit + span pre br{display:none}
 .page_top > .page_tit + span.editor br{display:none}

@@ -738,6 +738,13 @@
                 <form id="form1" name="form1" method="post" modelAttribute="memberForm">
                     <div class="sec_write">
                         <div class="tbl_write">
+                            <div class="tbl_select">
+                                <button type="button" class="btn btn_lg btn_line_selected btn_pill_registerSelect" onclick="fn_chgMberDvTy('STUDENT');">학생</button>
+                                <button type="button" class="btn btn_lg btn_line_default btn_pill_registerSelect" onclick="fn_chgMberDvTy('TEACHER');">교사</button>
+                                <button type="button" class="btn btn_lg btn_line_default btn_pill_registerSelect" onclick="fn_chgMberDvTy('PARENT');">부모</button>
+                                <button type="button" class="btn btn_lg btn_line_default btn_pill_registerSelect" onclick="fn_chgMberDvTy('NORMAL');">일반</button>
+                                <button type="button" class="btn btn_lg btn_line_default btn_pill_registerSelect" onclick="fn_chgMberDvTy('NONE');">지지크루</button>
+                            </div>
                             <ul>
                                 <li>
                                     <div class="th"><label for="loginId">아이디</label><span class="aster">*</span></div>
@@ -850,7 +857,7 @@
                                 <li>
                                     <div class="th">이메일 주소<span class="aster">*</span></div>
                                     <div class="td">
-                                        <div class="email_form clearfix"> <!-- [D] active 클래스가 있어야 직접입력 인풋이 노출 됨(style.js 에 들어가 있음) -->
+                                        <div class="email_form clearfix"> <! [D] active 클래스가 있어야 직접입력 인풋이 노출 됨(style.js 에 들어가 있음) >
                                             <input type="text" name="email01" id="email01" title="이메일 아이디 입력" oninput="fn_emailValidate(this)" onkeydown="fn_checkSpacebar()" />
                                             <span class="at">@</span>
                                             <div class="select">
@@ -972,7 +979,7 @@
                                 <li>
                                     <div class="th">보호자 이메일<span class="aster">*</span></div>
                                     <div class="td">
-                                        <div class="email_form clearfix"> <!-- [D] active 클래스가 있어야 직접입력 인풋이 노출 됨(style.js 에 들어가 있음) -->
+                                        <div class="email_form clearfix"> <! [D] active 클래스가 있어야 직접입력 인풋이 노출 됨(style.js 에 들어가 있음) >
                                             <input type="text" name="prtctorEmail01" id="prtctorEmail01" title="이메일 아이디 입력" oninput="fn_emailValidate(this)" onkeydown="fn_checkSpacebar()" />
                                             <span class="at">@</span>
                                             <div class="select">
@@ -989,7 +996,7 @@
                                             </div>
                                             <input type="text" name="prtctorEmail03" id="prtctorEmail03" class="email_inp" title="이메일주소 직접입력" onkeydown="fn_checkSpacebar()" />
                                         </div>
-                                        <!--<button type="button" class="btn btn_lg btn_line_blue btn_pill_10" onclick="return fn_chkEmailDup();">중복확인</button>-->
+                                        <!<button type="button" class="btn btn_lg btn_line_blue btn_pill_10" onclick="return fn_chkEmailDup();">중복확인</button>>
                                         <input type="hidden" name="prtctorEmail" id="prtctorEmail"/>
                                     </div>
                                 </li>
@@ -1001,12 +1008,12 @@
 
                         <div class="subtit_area">
                             <h4 class="subtit student teacher parent">추가정보 입력</h4>
-                            <ul class="tab tab_type02">
+                            <!--<ul class="tab tab_type02">
                                 <li class="active"><a href="javascript:fn_chgMberDvTy('STUDENT');">학생</a></li>
                                 <li><a href="javascript:fn_chgMberDvTy('TEACHER');">교사</a></li>
                                 <li><a href="javascript:fn_chgMberDvTy('PARENT');">부모</a></li>
                                 <li><a href="javascript:fn_chgMberDvTy('NORMAL');">일반</a></li>
-                            </ul>
+                            </ul>-->
                             <input type="hidden" id="mberDvTy" name="mberDvTy"/>
                         </div>
 
