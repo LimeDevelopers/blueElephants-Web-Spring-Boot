@@ -61,10 +61,10 @@ input::-webkit-search-cancel-button, input::-webkit-search-decoration{-webkit-ap
 input:-ms-clear{display:none}
 input::-ms-clear{display:none}
 input[readonly], input[disabled], textarea[readonly], textarea[disabled]{color:#808080;background-color:#f8fafb;outline:none;cursor:default}
-input{width:100%;height:44px;padding:0 10px;line-height:42px}
+input{width:100%;height:44px;padding:0 10px;line-height:42px;border-radius: 8px;}
 input[type="number"]{-moz-appearance:textfield}
 input[type="radio"],input[type="checkbox"]{position:absolute;width:0 !important;height:0;margin:0;padding:0;opacity:0}
-select{width:100%;height:44px}
+select{width:100%;height:44px;border-radius: 8px;}
 select::-ms-expand{display:none}
 option{color:#5a5a5a;font-size:15px}
 option[disabled]{display:none}
@@ -190,7 +190,9 @@ body{color:#333;font-size:14px;font-family:'Noto Sans KR', Malgun Gothic, '맑�
 .btn_lightgray{color:#4a4a4a !important;border-color:#cacaca;background-color:#f8fafb}
 .btn_darkgray{color:#fff !important;border-color:#373737;background-color:#4a4a4a}
 .btn_darkgray.disabled{border-color:#808080;background-color:#808080;cursor:default}
-.btn_line_blue{color:#8bb3ff !important;border:1px solid #8bb3ff;background-color:#fff}
+.btn_line_blue{color: #85b4f7!important;border: 2px solid #85b4f7;background-color: #fff;}
+.btn_line_default{color:#8c90a5 !important;border:0; background-color:#fff}
+.btn_line_selected{color:#fff !important;border:0; background-color:#85b4f7}
 /* 버튼 영역 */
 .btn_area{padding-top:40px;font-size:0;text-align:center}
 .btn_area .btn{margin-right:10px}
@@ -223,7 +225,7 @@ body{color:#333;font-size:14px;font-family:'Noto Sans KR', Malgun Gothic, '맑�
 .tbl_list tfoot th, .tbl_list tfoot td{height:61px;font-size:17px;font-weight:400;text-align:center;vertical-align:middle;border-bottom:1px solid #ccc;background-color:#f7f7f7}
 /* write */
 .tbl_write.mt{margin-top:24px}
-.tbl_write{border-top:2px solid #8bb3ff}
+.tbl_write{border-top: 8px solid transparent; background-image: linear-gradient(#fff, #fff), linear-gradient(to right, #fff, #8bb3ff, #fff); background-origin: border-box; background-clip: content-box, border-box; }
 .tbl_write > ul{font-size:0}
 .tbl_write > ul > li{display:table;width:100%;border-bottom:1px solid #ccc}
 .tbl_write .th, .tbl_write .td{display:table-cell;height:61px;vertical-align:middle}
@@ -257,6 +259,7 @@ body{color:#333;font-size:14px;font-family:'Noto Sans KR', Malgun Gothic, '맑�
 .tbl_write .txt_serious > dt{margin-right:6px}
 .tbl_write .txt_serious > dd .select{width:130px}
 /*.tbl_write .td.type01 .select{display:none}*/
+.tbl_select { text-align: center; margin: 6px; }
 /* view */
 .board_view > dt{display:table;width:100%;border-top:2px solid #8bb3ff;border-bottom:1px solid #ccc;background-color:#dee6f1}
 .board_view > dt .tit_area{display:table-cell;width:auto;padding:36px 30px 37px;font-weight:normal;box-sizing:border-box}
