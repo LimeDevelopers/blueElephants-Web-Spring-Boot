@@ -28,4 +28,16 @@ java: cannot find symbol 에러 발생시 ISSUE001 해당 구문 참조해서 �
 
 ![img2](https://github.com/momentjin/study/raw/master/resource/image/querydsl%EC%9D%B8%EC%8B%9D%EB%AC%B8%EC%A0%9C2.png?raw=true)
 
-# test
+# 💜💜💜 파일 별 주석처리 가이드 💜💜💜
+#
+### 각자 아래 주석 형태를 따라 수정일, 수정내역을 간략하게 표기한다.
+
+* JAVA
+<img width="441" alt="java" src="https://user-images.githubusercontent.com/88300814/128697526-8a39bafa-e9fa-43f4-84cf-e1ff58e11a9c.png">
+
+* JS
+<img width="849" alt="js" src="https://user-images.githubusercontent.com/88300814/128697550-daff5642-6cfa-4b00-893f-8ed7400961fb.png">
+
+* CSS
+<img width="569" alt="css" src="https://user-images.githubusercontent.com/88300814/128697570-6a3b4035-a8ce-41e9-ae27-6bb412ba9d0c.png">
+
