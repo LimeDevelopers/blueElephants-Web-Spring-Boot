@@ -1,4 +1,16 @@
 $(document).ready(function(){
+
+	/*
+	* 수정일 : 21.08.09
+	* 수정자 : 김재일
+	* 수정내용 : fixed 수정, dp_none 클래스 주입,삭제 (218 line)
+	* window.location.href
+	* */
+
+	// 추가
+	var uri = window.location.href;
+	var route = uri.charAt(uri.length-1);
+	alert(route)
 	//말줄임표
 	$('.eps2').ellipsis({lines:2,responsive:true});
 	$('.eps3').ellipsis({lines:3,responsive:true});
@@ -187,8 +199,8 @@ $(document).ready(function(){
     $(window).resize(function(){
         winSize(); termForm();
     })
-	
-    $(window).scroll(function(){
+
+	$(window).scroll(function(){
 		var bodyH = $('body').height(),
 			 winH = $(window).height(),
 			 sct = $(window).scrollTop(),
@@ -198,9 +210,17 @@ $(document).ready(function(){
 		
 		//header
 		if(sct > 21){
-			$('#header').addClass('fixed')
+			if(route == '/'){
+				$('#header').addClass('fixed')
+				$('.mo_top_nav_wrap').addClass('dp_none')
+			}
 		}else{
+			if(route == '/'){
+				$('#header').addClass('fixed')
+				$('.mo_top_nav_wrap').addClass('dp_none')
+			}
 			$('#header').removeClass('fixed')
+			$('.mo_top_nav_wrap').removeClass('dp_none')
 		}
 
 		//퀵메뉴

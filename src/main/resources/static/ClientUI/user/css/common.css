@@ -116,7 +116,7 @@ body{color:#333;font-size:14px;font-family:'Noto Sans KR', Malgun Gothic, '맑�
 .pb0{padding-bottom:0 !important}.pb5{padding-bottom:5px !important}.pb10{padding-bottom:10px !important}.pb15{padding-bottom:15px !important}.pb20{padding-bottom:20px !important}.pb25{padding-bottom:25px !important}.pb30{padding-bottom:30px !important}.pb35{padding-bottom:35px !important}.pb40{padding-bottom:40px !important}.pb45{padding-bottom:45px !important}.pb50{padding-bottom:50px !important}.pb55{padding-bottom:55px !important}.pb60{padding-bottom:60px !important}
 .pl0{padding-left:0 !important}.pl5{padding-left:5px !important}.pl10{padding-left:10px !important}.pl15{padding-left:15px !important}.pl20{padding-left:20px !important}.pl25{padding-left:25px !important}.pl30{padding-left:30px !important}.pl35{padding-left:35px !important}.pl40{padding-left:40px !important}.pl45{padding-left:45px !important}.pl50{padding-left:50px !important}.pl55{padding-left:55px !important}.pl60{padding-left:60px !important}
 /*** font color ***/
-.fc_blue{color:#5981ba !important}
+.fc_blue{color:#8bb3ff !important}
 .fc_oceanblue{color:#0076a3 !important}
 .fc_darkskyblue{color:#50a5dc !important}
 .fc_red{color:#e51937 !important}
@@ -158,7 +158,7 @@ body{color:#333;font-size:14px;font-family:'Noto Sans KR', Malgun Gothic, '맑�
 .checkbox label:after, .radio label:after{content:'';position:absolute;top:0;left:0;width:16px;height:16px;background-color:#fff;border:2px solid #ccc;box-sizing:border-box}
 .checkbox label:after{border-radius:3px}
 .radio label:after{border-radius:50%}
-.checkbox :checked + label:after, .radio :checked + label:after{background-color:#5981ba;border-color:#5981ba}
+.checkbox :checked + label:after, .radio :checked + label:after{background-color:#8bb3ff;border-color:#8bb3ff}
 .checkbox input[disabled] + label:after, .radio input[disabled] + label:after{background-position:100% -26px}
 .checkbox.txt label, .radio.txt label{padding-left:25px;font-size:17px;line-height:18px}
 .checkbox.txt label:after, .radio.txt label:after{top:2px}
@@ -183,14 +183,14 @@ body{color:#333;font-size:14px;font-family:'Noto Sans KR', Malgun Gothic, '맑�
 .btn_pill{border-radius:24px}
 /* 버튼 컬러 */
 .btn_white{color:#808080 !important;border-color:#e7e8e9;background-color:#fff}
-.btn_blue{color:#fff !important;border-color:#5981ba;background-color:#5981ba}
-.btn_skyblue{color:#5981ba !important;border-color:#dee6f1;background-color:#dee6f1}
+.btn_blue{color:#fff !important;border-color:#8bb3ff;background-color:#8bb3ff}
+.btn_skyblue{color:#8bb3ff !important;border-color:#dee6f1;background-color:#dee6f1}
 .btn_green{color:#fff !important;border-color:#8bae53;background-color:#8bae53}
 .btn_gray{color:#808080 !important;border-color:#e7e8e9;background-color:#e7e8e9}
 .btn_lightgray{color:#4a4a4a !important;border-color:#cacaca;background-color:#f8fafb}
 .btn_darkgray{color:#fff !important;border-color:#373737;background-color:#4a4a4a}
 .btn_darkgray.disabled{border-color:#808080;background-color:#808080;cursor:default}
-.btn_line_blue{color:#5981ba !important;border:1px solid #5981ba;background-color:#fff}
+.btn_line_blue{color:#8bb3ff !important;border:1px solid #8bb3ff;background-color:#fff}
 /* 버튼 영역 */
 .btn_area{padding-top:40px;font-size:0;text-align:center}
 .btn_area .btn{margin-right:10px}
@@ -199,8 +199,8 @@ body{color:#333;font-size:14px;font-family:'Noto Sans KR', Malgun Gothic, '맑�
 .tab{display:table;width:100%}
 .tab > li{display:table-cell;position:relative;width:12.5%}
 .tab > li a{display:block;position:relative;color:#5a5a5a;font-size:18px;line-height:65px;text-align:center;background-color:#fff}
-.tab > li.active a{color:#5981ba;font-weight:700}
-.tab > li.active a:after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;border-bottom:2px solid #5981ba}
+.tab > li.active a{color:#8bb3ff;font-weight:700}
+.tab > li.active a:after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;border-bottom:2px solid #8bb3ff}
 .tab_type01{max-width:1280px;margin:0 auto}
 .tab_type01 > li:after{content:'';display:block;position:absolute;top:25px;right:0;width:1px;height:16px;background-color:#eaeaea}
 .tab_type01 > li:last-child:after{display:none}
@@ -212,7 +212,7 @@ body{color:#333;font-size:14px;font-family:'Noto Sans KR', Malgun Gothic, '맑�
 .tab_type02 > li.active a:after{display:none}
 /*** table ***/
 /* list */
-.tbl_list{width:100%;border-top:2px solid #5981ba}
+.tbl_list{width:100%;border-top:2px solid #8bb3ff}
 .tbl_list thead th{height:61px;font-size:17px;font-weight:500;line-height:26px;text-align:center;vertical-align:middle;border-bottom:1px solid #ccc;background-color:#dee6f1}
 .tbl_list thead .bg th{font-weight:400;background-color:#f7f7f7}
 .tbl_list tbody th{font-weight:500;background-color:#f7f7f7}
@@ -223,12 +223,12 @@ body{color:#333;font-size:14px;font-family:'Noto Sans KR', Malgun Gothic, '맑�
 .tbl_list tfoot th, .tbl_list tfoot td{height:61px;font-size:17px;font-weight:400;text-align:center;vertical-align:middle;border-bottom:1px solid #ccc;background-color:#f7f7f7}
 /* write */
 .tbl_write.mt{margin-top:24px}
-.tbl_write{border-top:2px solid #5981ba}
+.tbl_write{border-top:2px solid #8bb3ff}
 .tbl_write > ul{font-size:0}
 .tbl_write > ul > li{display:table;width:100%;border-bottom:1px solid #ccc}
 .tbl_write .th, .tbl_write .td{display:table-cell;height:61px;vertical-align:middle}
 .tbl_write .th{width:23%;padding:16px 0;font-size:17px;font-weight:500;text-align:center;background-color:#dee6f1;box-sizing:border-box}
-.tbl_write .th .aster{color:#5981ba;font-weight:500;vertical-align:middle}
+.tbl_write .th .aster{color:#8bb3ff;font-weight:500;vertical-align:middle}
 .tbl_write .th .ico{display:inline-block;position:relative;width:132px;padding-left:30px;text-align:left}
 .tbl_write .th .ico:before{content:'';position:absolute;top:0;left:0;width:21px;height:25px;background:url(../images/icon/sp_ico_location.png) no-repeat}
 .tbl_write .th .ico.subway:before{background-position:-90px -4px}
@@ -246,7 +246,7 @@ body{color:#333;font-size:14px;font-family:'Noto Sans KR', Malgun Gothic, '맑�
 .tbl_write .td + .th{border-left:1px solid #e7e8e9}
 .tbl_write .td.td_txt{padding-top:17px;padding-bottom:17px;font-size:17px}
 .tbl_write .txt_guide{padding:32px 0 37px;text-align:center;word-break:keep-all}
-.tbl_write .txt_guide > dt{color:#5981ba;font-size:22px;font-weight:500}
+.tbl_write .txt_guide > dt{color:#8bb3ff;font-size:22px;font-weight:500}
 .tbl_write .txt_guide > dd{margin-top:9px;font-size:17px;line-height:155%}
 .tbl_write .txt_guide > dd .file_form{margin:17px 0 3px}
 .tbl_write .txt_guide > dd .btn_form{margin-top:15px}
@@ -258,10 +258,10 @@ body{color:#333;font-size:14px;font-family:'Noto Sans KR', Malgun Gothic, '맑�
 .tbl_write .txt_serious > dd .select{width:130px}
 /*.tbl_write .td.type01 .select{display:none}*/
 /* view */
-.board_view > dt{display:table;width:100%;border-top:2px solid #5981ba;border-bottom:1px solid #ccc;background-color:#dee6f1}
+.board_view > dt{display:table;width:100%;border-top:2px solid #8bb3ff;border-bottom:1px solid #ccc;background-color:#dee6f1}
 .board_view > dt .tit_area{display:table-cell;width:auto;padding:36px 30px 37px;font-weight:normal;box-sizing:border-box}
 .board_view > dt .tit_area .tit{font-size:20px;font-weight:700;line-height:24px;vertical-align:middle;word-break:break-all}
-.board_view > dt .tit_area .cate{display:block;margin-bottom:10px;color:#5981ba}
+.board_view > dt .tit_area .cate{display:block;margin-bottom:10px;color:#8bb3ff}
 .board_view > dt .date{display:table-cell;width:140px;color:#4a4a4a;font-size:14px;text-align:center;vertical-align:middle}
 .board_view > dd{min-height:300px;padding:30px;font-size:14px;line-height:24px;border-bottom:1px solid #ccc;box-sizing:border-box}
 .board_view > dd.attached_file{min-height:auto;padding-top:10px;padding-bottom:10px}
@@ -306,13 +306,13 @@ body{color:#333;font-size:14px;font-family:'Noto Sans KR', Malgun Gothic, '맑�
 .file_form .file_name{overflow:hidden;width:373px;height:44px;padding:0 10px;color:#a5a5a5;font-size:15px;line-height:42px;text-align:left;text-overflow:ellipsis;white-space:nowrap;border:1px solid #ccc;background-color:#fff}
 .file_form .file_name.active{color:#333}
 .file_form input{position:absolute;width:0;height:0;margin:0;padding:0;border:0;opacity:0}
-.file_form label{display:inline-block;height:44px;margin-left:15px;padding:0 24px;color:#5981ba;font-size:17px;font-weight:500;line-height:42px;vertical-align:top;text-align:center;border:1px solid #5981ba;border-radius:10px;background-color:#fff;cursor:pointer}
+.file_form label{display:inline-block;height:44px;margin-left:15px;padding:0 24px;color:#8bb3ff;font-size:17px;font-weight:500;line-height:42px;vertical-align:top;text-align:center;border:1px solid #8bb3ff;border-radius:10px;background-color:#fff;cursor:pointer}
 .file_form .btn_file_del{width:70px;height:33px;margin-left:5px;color:#4a4a4a;font-size:12px;line-height:32px;text-align:center;border:1px solid #cacaca;border-radius:3px;background-color:#f8fafb;box-sizing:border-box}
 /* 파일첨부 멀티 폼 */
 .file_form.multi{padding-right:113px}
 .file_form.multi label{position:absolute;top:50%;right:0;width:113px;margin:-22px 0 0 0}
 .file_form.multi > div:first-child{min-height:24px}
-.MultiFile-wrap .MultiFile-label,  .file_form.multi span.multiFile-label > span.multiFile-label{color:#5981ba;font-size:16px;font-weight:500}
+.MultiFile-wrap .MultiFile-label,  .file_form.multi span.multiFile-label > span.multiFile-label{color:#8bb3ff;font-size:16px;font-weight:500}
 .file_form.multi span.multiFile-label > span.multiFile-label{padding-left:21px}
 .MultiFile-wrap div.MultiFile-label, .file_form.multi > div > span.multiFile-label{display:inline-block;position:relative;margin-right:10px;padding-right:23px;vertical-align:top}
 .MultiFile-wrap div.MultiFile-label:after{content:'';display:block;clear:both}
@@ -331,7 +331,7 @@ body{color:#333;font-size:14px;font-family:'Noto Sans KR', Malgun Gothic, '맑�
 /*** pagination ***/
 .pagination{width:100%;max-width:1280px;margin:0 auto;padding-top:40px;text-align:center}
 .pagination a{display:inline-block;width:39px;height:39px;margin:0 5.5px;color:#767676;font-size:15px;line-height:37px;vertical-align:top;border:1px solid #ccc;	border-radius:50%}
-.pagination a.active{color:#fff;font-weight:700;background-color:#5981ba;border-color:#5981ba}
+.pagination a.active{color:#fff;font-weight:700;background-color:#8bb3ff;border-color:#8bb3ff}
 .pagination .arr{height:12px;margin:14px 0 0 0;background:url(../images/button/sp_pagination.png) no-repeat;border:0;border-radius:0}
 .pagination .prev{width:7px;margin:14px 21.5px 0 13px;background-position:-23px 0}
 .pagination .mostprev{width:13px;background-position:0 0}
@@ -357,7 +357,7 @@ body{color:#333;font-size:14px;font-family:'Noto Sans KR', Malgun Gothic, '맑�
 /* 블릿 타입 */
 .list_bull > li{position:relative;padding-left:13px;line-height:23px;text-align:left;word-break:keep-all}
 .list_bull > li:before{content:'';position:absolute;top:9px;left:0;width:3px;height:3px;background-color:#4a4a4a}
-.list_type01{border-top:2px solid #5981ba}
+.list_type01{border-top:2px solid #8bb3ff}
 .list_type01 > li{padding:8px 15px 9px;border-bottom:1px solid #ccc;background-color:#f7f7f7}
 .list_type01 > li > p{display:inline-block;padding:9px 0 10px;font-size:17px;font-weight:500;vertical-align:top}
 .list_type01 > li > p + .btn{margin-left:11px}
@@ -399,7 +399,7 @@ body{color:#333;font-size:14px;font-family:'Noto Sans KR', Malgun Gothic, '맑�
 
 /*** skipnav ***/
 #skipnav a{position:absolute;left:-3000%}
-#skipnav a:focus{display:block;top:0;left:0;width:100%;height:30px;color:#fff;line-height:30px;text-align:center;background-color:#5981ba;z-index:10000000000}
+#skipnav a:focus{display:block;top:0;left:0;width:100%;height:30px;color:#fff;line-height:30px;text-align:center;background-color:#8bb3ff;z-index:10000000000}
 
 /***** ie hack *****/
 @media screen and (-ms-high-contrast:active), (-ms-high-contrast:none) {

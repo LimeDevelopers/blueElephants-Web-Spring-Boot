@@ -1,5 +1,10 @@
-@charset 'UTF-8';
+@charset "UTF-8";
 
+/*
+	수정일 : 21.08.09
+	수정내용 : 모바일 탑 메뉴 구조 변경 및 아이콘 추가
+	수정 태그 : .mo_ham, (추가).mo_notification, .header
+*/
 @media (min-width:1024px){
     .tab_ico_area .tab_cont.mo_thumb .cont{width:100%;min-height:220px;padding-right:60px;padding-left:60px}
     .tab_ico_area .tab_cont.mo_thumb .cont.active{display:table}
@@ -124,12 +129,13 @@
 @media (max-width:1250px) and (min-width:1024px){
 	.sec_agency .flow_list{padding-right:0}
 	.sec_agency .flow_list:before{top:500px}
-	.sec_agency .flow_list:after{content:'';position:absolute;top:74px;left:0;right:0;height:15px;background-color:#5981ba;z-index:-1}
+	.sec_agency .flow_list:after{content:'';position:absolute;top:74px;left:0;right:0;height:15px;background-color:#8bb3ff;z-index:-1}
 	.sec_agency .flow_list li{margin-left:calc((100% - 480px) / 2)}
 	.sec_agency .flow_list li.ico04{margin-left:0}
 	.sec_agency .flow_list li.ico04, .sec_agency .flow_list li.ico05{margin-top:30px}
 }
 @media (max-width:1023px){
+
 	.pc{display:none !important}
     .mo{display:block}
 	.m_w100p{width:100% !important}
@@ -222,9 +228,10 @@
 	.prepare > dt{font-size:26px;line-height:1}
 	.prepare > dd{margin-top:10px;font-size:16px;line-height:155%}
 
-	#header{position:fixed;height:66px;padding-top:13px;background-color:#5981ba}
+	#header{position:fixed;height:66px;padding-top:13px;background-color:#8bb3ff}
 	#header #gnb{padding-bottom:0}
-	#header .mo_ham{display:block;position:absolute;top:50%;left:0;width:20px;height:18px;background:url(../images/common/m_ico_mnu.png) no-repeat 0 50%;background-size:100%;transform:translateY(-50%)}
+	#header .mo_notification{display:block;position:absolute;top:50%;right:30px;width:20px;height:18px;background:url(../images/common/m_ico_bell.png) no-repeat 0 50%;background-size:100%;transform:translateY(-50%)}
+	#header .mo_ham{display:block;position:absolute;top:50%;right:0;width:20px;height:18px;background:url(../images/common/m_ico_menu.png) no-repeat 0 50%;background-size:100%;transform:translateY(-50%)}
 	#header .btn_search{position:absolute;top:50%;right:0;width:20px;height:22px;margin:0;padding:0;font-size:0;background:url(../images/common/m_ico_search.png) no-repeat 50% 50%;background-size:100%;transform:translateY(-50%)}
 	#header .btn_search:before, #header .btn_search:after{display:none}
 	#header .btn_search.active{background:url(../images/button/btn_mnu_close.png) no-repeat 0 0;background-size:100%}
@@ -232,7 +239,7 @@
 	#header .search_form input{width:calc(100% - 74px);margin-right:12px}
 	#header .search_form button{width:62px}
 	#header h1{display:block;width:100%;height:auto;margin-right:0}
-	#header h1 a{display:block;width:144px;height:41px;margin:0 auto;background:url(../images/common/m_logo.png) no-repeat 0 0;background-size:100%}
+	#header h1 a{display:block;width:144px;height:41px;margin:0;background:url(../images/common/mo-logo.png) no-repeat 0 0;background-size:100%}
 	#header .mnu_area{overflow-y:auto;position:fixed;top:0;bottom:0;left:-100%;width:100%;background-color:#fff;transition:left ease-in-out .3s;z-index:20}
 	#header .mnu_area .btn_close{position:absolute;top:18px;right:24px;width:16px;height:16px;background:url(../images/button/btn_mnu_close.png) no-repeat 0 0;background-size:100%;z-index:10}
 	#header .mnu{display:table;width:100%;padding-top:0}
@@ -287,8 +294,8 @@
 	#header .sns_list > li a{display:block;font-size:17px;color:#eaeaea;font-weight:400;line-height:47px}
 	#header .util_list{padding:20px 24px 30px}
 	#header .util_list > li{margin-top:10px}
-	#header .util_list > li a{display:block;color:#5981ba;font-size:17px;font-weight:500;line-height:40px;text-align:center;border:1px solid #5981ba;border-radius:10px}
-	#header .util_list > li a.bg{color:#fff;background-color:#5981ba}
+	#header .util_list > li a{display:block;color:#8bb3ff;font-size:17px;font-weight:500;line-height:40px;text-align:center;border:1px solid #8bb3ff;border-radius:10px}
+	#header .util_list > li a.bg{color:#fff;background-color:#8bb3ff}
 	#header.active .mnu_area{left:0}
 	#header.over .mnu .mnu_list > li.active > a, #header.over .mnu .mnu_list > li:hover > a, #header.over .mnu .mnu_list > li > a:focus{color:#767676}
 	#header #gnb + .depth{display:none !important}
@@ -652,7 +659,7 @@
 	.board_tbl_list > li > div.step > p:after{content:'';position:absolute;top:6px;right:7px;width:1px;height:14px;background-color:#ccc}
 	.board_tbl_list > li > div.step > p:last-child{padding-right:0}
 	.board_tbl_list > li > div.step > p:last-child:after{display:none}
-	.board_tbl_list > li > div.step > p em{color:#5981ba}
+	.board_tbl_list > li > div.step > p em{color:#8bb3ff}
 	.board_tbl_list > li > div.upgrade{color:#767676}
 	.board_tbl_list > li .point{display:inline;position:relative;width:auto;padding-left:20px}
 	.board_tbl_list > li .point:before{content:'';position:absolute;top:6px;left:7px;width:1px;height:14px;background-color:#ccc}
@@ -766,7 +773,7 @@
 	.help_request_box .help_step:before, .help_request_box .help_step > li .tit:before, .help_request_box .help_step > li:after{display:none}
 	.help_request_box .help_step > li{display:block;width:100%;margin-top:12px;padding:24px 0;border-radius:30px;background-color:#dee6f1}
 	.help_request_box .help_step > li:first-child{margin-top:0}
-	.help_request_box .help_step > li .ico{width:70px;height:70px;background:#5981ba url(../images/icon/m_sp_ico_help_step.png) no-repeat 0 0;background-size:640.8px}
+	.help_request_box .help_step > li .ico{width:70px;height:70px;background:#8bb3ff url(../images/icon/m_sp_ico_help_step.png) no-repeat 0 0;background-size:640.8px}
 	.help_request_box .help_step > li .tit{margin-top:12px;font-size:20px}
 	.help_request_box .help_step > li .txt{font-size:16px}
 	.help_request_box .help_step > li .ico_receipt{background-position:-81.6px 0}
@@ -870,7 +877,7 @@
 	.sec_distinction .bg_tbl > li .dl > dd dl dd p{display:block;width:100% !important;margin-top:13px;font-size:17px;line-height:145%}
 	.sec_distinction .bg_tbl > li .dl > dd dl dd p .br{display:block}
 	.sec_distinction .bg_tbl > li.bg01{margin-top:0}
-	.sec_distinction .bg_tbl > li.bg01 .dl > dd dl dt{color:#5981ba}
+	.sec_distinction .bg_tbl > li.bg01 .dl > dd dl dt{color:#8bb3ff}
 	.sec_distinction .bg_tbl > li.bg02 .dl > dd dl dt{color:#767676}
 	.sec_distinction .bg_tbl > li.bg03 .dl > dd dl dt{color:#6dba7e}
 	.sec_platform .platform{margin-top:19px}
@@ -1008,7 +1015,7 @@
 	.sec_direction .direction_edu > dd .step_list{margin-top:8px;padding:0;border-radius:0;background-color:#fff}
 	.sec_direction .direction_edu > dd .step_list:before, .sec_direction .direction_edu > dd .step_list > li:after, .sec_direction .direction_edu > dd .step_list > li p:before{display:none}
 	.sec_direction .direction_edu > dd .step_list > li{width:100%;margin-top:12px;padding:24px;border-radius:30px;background-color:#dee6f1}
-	.sec_direction .direction_edu > dd .step_list > li:before{width:69.6px;height:69.6px;margin-bottom:12px;background:#5981ba url(../images/icon/m_sp_ico_direction_edu.png) no-repeat;background-size:312px}
+	.sec_direction .direction_edu > dd .step_list > li:before{width:69.6px;height:69.6px;margin-bottom:12px;background:#8bb3ff url(../images/icon/m_sp_ico_direction_edu.png) no-repeat;background-size:312px}
 	.sec_direction .direction_edu > dd .step_list > li:first-child{margin-top:0}
 	.sec_direction .direction_edu > dd .step_list > li p{font-size:20px}
 	.sec_direction .direction_edu > dd .step_list > li.ico01:before{background-position:0 0}
@@ -1060,7 +1067,7 @@
 	.location_area .tel_area dl{display:block;padding-top:0}
 	.location_area .tel_area dl dt{margin-bottom:9px;font-size:20px}
 	.location_area .tel_area dl dd{font-size:36px}
-	.location_area .tel_area dl dd a{display:inline-block;color:#5981ba;font-size:36px;vertical-align:top}
+	.location_area .tel_area dl dd a{display:inline-block;color:#8bb3ff;font-size:36px;vertical-align:top}
 	.location_area .tel_area dl dd em{display:inline-block;margin-top:6px;vertical-align:top}
 	.subway_location li{padding-right:28px}
 	.subway_location li:after{right:6px;width:16px;height:16px;margin-top:-7px;background:#dee6f1 url(../images/contents/m_arr_subway_location.png) no-repeat 50% 50%;background-size:5px}
@@ -1173,7 +1180,7 @@
 
 	.join_form_area{margin-top:30px}
 	.join_form_area .subtit_area .tab > li:first-child a{padding:0}
-	.join_form_area .subtit_area .tab_type02{position:relative;bottom:0;padding-top:2px;border-top:2px solid #5981ba}
+	.join_form_area .subtit_area .tab_type02{position:relative;bottom:0;padding-top:2px;border-top:2px solid #8bb3ff}
 	.join_form_area .subtit_area .tab_type02 li{width:calc(33.33% - 11.33px);margin-top:17px;margin-left:17px}
 	.join_form_area .subtit_area .tab_type02 li:nth-child(3n-2){margin-left:0}
 	.join_form_area .subtit_area + .tbl_write{border-top:none}
@@ -1210,7 +1217,7 @@
 	.step_area .radio_area .radio.etc, .step_area .checkbox_area .checkbox.etc{margin-top:0}
 	.step_area .radio_area .radio label, .step_area .checkbox_area .checkbox label{padding-left:0;font-size:16px;line-height:40px;text-align:center;background-color:#fff;border:2px solid #c6c6c6;border-radius:30px}
 	.step_area .radio_area .radio label > span, .step_area .checkbox_area .checkbox label > span{display:none}
-	.step_area .radio_area .radio :checked + label, .step_area .checkbox_area .checkbox :checked + label{color:#fff;font-weight:400;background-color:#5981ba;border-color:#5981ba}
+	.step_area .radio_area .radio :checked + label, .step_area .checkbox_area .checkbox :checked + label{color:#fff;font-weight:400;background-color:#8bb3ff;border-color:#8bb3ff}
 	.step_area .radio_area .radio label:after, .step_area .checkbox_area .checkbox label:after{display:none}
 	.step_area .checkbox_area .etc label, .step_area .radio_area .etc label{display:block;width:100%;margin-right:0}
 	.step_area .checkbox_area .etc textarea, .step_area .radio_area .etc textarea{position:static;width:100%;height:108px;margin-top:10px}
@@ -1432,6 +1439,46 @@
 	#footer + #popCertificate .popup .desc_area .info_area dd{width:calc(100% - 64px);word-break:keep-all}
 }
 @media (max-width:568px){
+	.mo_top_nav_wrap{
+		display:flex;
+		justify-content:space-between;
+		width: 100%;
+	}
+	.mo_top_nav_wrap .mo_info .helloMsg {
+		margin: 50px 10px 10px 20px;
+		color: #fff;
+		font-weight: 400;
+		font-size: 20px;
+	}
+
+	.mo_top_nav_wrap .mo_my_page {
+		align-content: end;
+		margin: 50px 10px 10px 20px;
+		color: #fff;
+		font-weight: 400;
+		font-size: 20px;
+		padding: 30px 0px 0px 0px;
+	}
+	.mo_my_icon_txt{
+		font-size: 14px;
+		color: #fff;
+		font-weight: 400;
+		margin: 0px 10px 0px 10px;
+	}
+
+	.mo_my_page .mo_my_icon{
+		font-size: 0;
+		display: block;
+		text-decoration-line: none;
+		position: absolute;
+		top: 45%;
+		width: 50px;
+		right: 30px;
+		height: 50px;
+		background: url(../images/common/m_ico_my.png) no-repeat 0 50%;
+		background-size: 100%;
+		transform: translateY(-50%);
+	}
 	.checkbox label:after, .radio label:after{width:20px;height:20px}
 	.radio label:after{border-radius:50%}
 	.checkbox.txt label, .radio.txt label{padding-left:28px;font-size:14px;line-height:24px}
@@ -1509,9 +1556,10 @@
 	.prepare > dt{font-size:22px}
 	.prepare > dd{margin-top:8px;font-size:13px}
 
-	#header{height:55px;padding-top:11px}
-	#header .mo_ham{width:16px;height:14px}
-	#header h1 a{width:120px;height:34px}
+	#header{height:255px;padding-top:11px}
+	#header .mo_notification{width:16px;height:20px}
+	#header .mo_ham{width:16px;height:20px}
+	#header h1 a{width:120px;height:34px; margin: 0px 0px 10px 0px;}
     #header .btn_search{width:17px;height:18px}
 	#header .search_form{top:44px;right:-20px;left:-20px;height:calc(100vh - 55px);padding:10px 20px}
 	#header .search_form input{width:calc(100% - 66px);margin-right:10px}

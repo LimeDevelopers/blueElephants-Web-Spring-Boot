@@ -28,6 +28,12 @@ import java.io.UnsupportedEncodingException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
+/**
+ * LoginController [로그인 처리 컨트롤러]
+ * @author : jerry
+ * @version : 1.0.0
+ * 작성일 : 2021/08/09
+**/
 @Controller
 @RequiredArgsConstructor
 public class LoginController extends BaseCont {
@@ -43,6 +49,7 @@ public class LoginController extends BaseCont {
 
     //private final ResourceServerTokenServices tokenServices;	//kakao login 2020.03.03  fail
 
+    // 로그인 button submit method
     @RequestMapping("/login")
     public String login(Model model,
                         HttpServletRequest request,
@@ -121,6 +128,7 @@ public class LoginController extends BaseCont {
 
     }
 
+    // 로그인 실패처리 메소드
     @RequestMapping("/loginFailure")
     public String loginFailure(Model model,
                                HttpServletRequest request) {

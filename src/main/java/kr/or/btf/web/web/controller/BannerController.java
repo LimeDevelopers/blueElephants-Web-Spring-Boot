@@ -30,14 +30,22 @@ import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * BannerController [관리자 페이지 배너 컨트롤러]
+ * @author : jerry
+ * @version : 1.0.0
+ * 작성일 : 2021/08/09
+ * 수정사항 : 전체 RequestMapping 추가
+**/
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/soulGod")
 public class BannerController extends BaseCont {
 
     private final BannerService bannerService;
     private final FileInfoService fileInfoService;
 
-    @RequestMapping("/soulGod/banner/list")
+    @RequestMapping("/banner/list")
     public String list(Model model,
                        @PageableDefault Pageable pageable,
                        @ModelAttribute SearchForm searchForm,
@@ -53,7 +61,7 @@ public class BannerController extends BaseCont {
         return "/soulGod/banner/list";
     }
 
-    @GetMapping("/soulGod/banner/detail/{id}")
+    @GetMapping("/banner/detail/{id}")
     public String detail(Model model,
                          @PathVariable(name = "id") Long id,
                          @Value("${Globals.fileStoreUriPath}") String filepath) {
@@ -74,7 +82,7 @@ public class BannerController extends BaseCont {
         return "/soulGod/banner/detail";
     }
 
-    @GetMapping("/soulGod/banner/register")
+    @GetMapping("/banner/register")
     public String register(Model model,
                            @ModelAttribute BannerForm bannerForm) {
 
@@ -84,7 +92,7 @@ public class BannerController extends BaseCont {
         return "/soulGod/banner/register";
     }
 
-    @PostMapping(value = "/soulGod/banner/register", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    @PostMapping(value = "/banner/register", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public String registerProc(Model model,
                                @ModelAttribute BannerForm bannerForm,
                                @RequestParam(name = "attachImgFl", required = false) MultipartFile attachImgFl,
@@ -110,7 +118,7 @@ public class BannerController extends BaseCont {
         return "redirect:/soulGod/banner/list";
     }
 
-    @GetMapping("/soulGod/banner/modify/{id}")
+    @GetMapping("/banner/modify/{id}")
     public String modify(Model model,
                          @PathVariable(name = "id") Long id) {
 
@@ -129,7 +137,7 @@ public class BannerController extends BaseCont {
         return "/soulGod/banner/modify";
     }
 
-    @PostMapping("/soulGod/banner/delete")
+    @PostMapping("/banner/delete")
     public String delete(Model model,
                          @ModelAttribute BannerForm bannerForm,
                          @CurrentUser Account account) throws Exception {

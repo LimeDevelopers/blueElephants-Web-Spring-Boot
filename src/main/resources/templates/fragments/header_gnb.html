@@ -17,6 +17,7 @@
         }
         $("#totalSearchForm").submit();
     }
+
 </script>
 
 <div id="skipnav">
@@ -29,15 +30,20 @@
 <!-- Header -->
 <div id="header" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <div id="gnb" class="contents">
-        <a href="javascript:;" class="mo_ham">메뉴</a>
-        <h1><a href="/">사이버 정글 가디언 푸른코끼리</a></h1>
-        <a href="javascript:;" class="btn_search mo">검색</a>
-        <div class="search_form">
-            <form action="/pages/search/searchResult" id="totalSearchForm" th:object="${searchForm}" method="post">
-                <input type="search" name="totalSrchWord" id="totalSrchWord" placeholder="검색어를 입력해 주세요" th:value="${searchForm eq null ? '' : searchForm.totalSrchWord}"/>
-                <button type="button" onclick="return fn_totalSearch()" class="btn btn_lg btn_blue btn_pill_10">검색</button>
-            </form>
-        </div>
+<!--        <a href="javascript:;" class="mo_ham">메뉴</a>-->
+            <h1><a href="/">사이버 정글 가디언 푸른코끼리</a></h1>
+            <a href="javascript:;" class="mo_notification">알림</a>
+            <a href="javascript:;" class="mo_ham">메뉴</a>
+
+<!--        <a href="javascript:;" class="btn_search mo">검색</a>-->
+
+<!--        <div class="search_form">-->
+<!--            <form action="/pages/search/searchResult" id="totalSearchForm" th:object="${searchForm}" method="post">-->
+<!--                <input type="search" name="totalSrchWord" id="totalSrchWord" placeholder="검색어를 입력해 주세요" th:value="${searchForm eq null ? '' : searchForm.totalSrchWord}"/>-->
+<!--                <button type="button" onclick="return fn_totalSearch()" class="btn btn_lg btn_blue btn_pill_10">검색</button>-->
+<!--            </form>-->
+<!--        </div>-->
+
         <div class="mnu_area">
             <a href="javascript:;" class="btn_close"><span class="blind">메뉴 닫기</span></a>
             <div class="aside">
@@ -334,7 +340,29 @@
                     <li><a href="/pages/myPage/profile" class="bg">마이페이지</a></li>
                 </th:block>
             </ul>
+
         </div>
+
     </div>
     <div class="depth"></div>
+    <div class="mo_top_nav_wrap">
+        <div class="mo_info">
+            <th:block th:if="${#authorization.getAuthentication() != null and #authorization.expression('isAuthenticated()')}">
+                <h2 class="helloMsg"><th:block sec:authentication="principal.account.ncnm"></th:block>님!<br/>행복한 하루보내세요!</h2>
+            </th:block>
+            <th:block th:unless="${#authorization.getAuthentication() != null and #authorization.expression('isAuthenticated()')}">
+                <h2 class="helloMsg">로그인 후<br/>푸른코끼리를 즐겨보세요!</h2>
+            </th:block>
+            <!--            <h2 class="helloMsg">${userName}님! <br/>행복한 하루보내세요.</h2>-->
+        </div>
+        <div class="mo_my_page">
+            <a sec:authorize="hasAnyRole('ROLE_NORMAL', 'ROLE_STUDENT', 'ROLE_PARENT', 'ROLE_TEACHER')" href="/pages/myPage/profile" class="mo_my_icon">마이페이지</a>
+            <a sec:authorize="hasAnyRole('ROLE_NORMAL', 'ROLE_STUDENT', 'ROLE_PARENT', 'ROLE_TEACHER')" href="/pages/myPage/profile" class="mo_my_icon_txt">마이페이지</a>
+            <th:block th:unless="${#authorization.getAuthentication() != null and #authorization.expression('isAuthenticated()')}">
+                <a href="/login" class="mo_my_icon_txt">로그인</a>
+            </th:block>
+            <!--            <a href="javascript:;" class="mo_my_icon">마이페이지</a>-->
+            <!--            <a href="javascript:;" class="mo_my_icon_txt">마이페이지</a>-->
+        </div>
+    </div>
 </div>

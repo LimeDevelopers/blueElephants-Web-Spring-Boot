@@ -10,6 +10,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
 
+/**
+ * RequestUtil [agent 확인 class]
+ * @author : jerry
+ * @version : 1.0.0
+ * 작성일 : 2021/08/09
+**/
 public class RequestUtil {
 	private static Logger log = LoggerFactory.getLogger(RequestUtil.class); 
 	
