@@ -10,7 +10,12 @@ $(document).ready(function(){
 	// 추가
 	var uri = window.location.href;
 	var route = uri.charAt(uri.length-1);
-	alert(route)
+
+	if(route != '/'){
+		$('#header').addClass('fixed')
+		$('.mo_top_nav_wrap').addClass('dp_none')
+	}
+
 	//말줄임표
 	$('.eps2').ellipsis({lines:2,responsive:true});
 	$('.eps3').ellipsis({lines:3,responsive:true});
@@ -216,11 +221,13 @@ $(document).ready(function(){
 			}
 		}else{
 			if(route == '/'){
+				$('#header').removeClass('fixed')
+				$('.mo_top_nav_wrap').removeClass('dp_none')
+			}else{
 				$('#header').addClass('fixed')
 				$('.mo_top_nav_wrap').addClass('dp_none')
 			}
-			$('#header').removeClass('fixed')
-			$('.mo_top_nav_wrap').removeClass('dp_none')
+
 		}
 
 		//퀵메뉴
