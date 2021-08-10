@@ -155,7 +155,7 @@
 	.btn_area.btn_num02 .btn{width:calc(50% - 6px);margin-top:0;margin-right:12px}
 	.btn_area.btn_num02 .btn:last-child{margin-right:0}
 	.tab > li a{padding:0 24px;font-size:17px;line-height:40px}
-    .tab > li:first-child a{padding-left:0}
+    /* .tab > li:first-child a{padding-left:0} */
 	.tab > li.active a:after{display:none}
 	.tab_type01 > li:after{top:50%;height:16px;margin-top:-8px}
 	.board_prev_next > li dl dt{width:78px;font-size:16px;line-height:40px}
