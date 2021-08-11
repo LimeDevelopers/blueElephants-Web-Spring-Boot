@@ -1,5 +1,11 @@
 @charset 'UTF-8';
 
+/*
+수정일 : 21.08.11
+수정내용 : 체크박스 이미지 추가
+수정 태그 : .checkbox label
+*/
+
 /***** font *****/
 @font-face {
 	font-family:'Noto Sans KR';
@@ -155,10 +161,10 @@ body{color:#333;font-size:14px;font-family:'Noto Sans KR', Malgun Gothic, '맑�
 .checkbox, .radio{display:inline-block;position:relative;vertical-align:top}
 .checkbox input[disabled] + label, .checkbox input[readonly] + label, .radio input[disabled] + label, .radio input[readonly] + label{cursor:default}
 .checkbox label, .radio label{display:block;min-height:16px;padding-left:16px;cursor:pointer}
-.checkbox label:after, .radio label:after{content:'';position:absolute;top:0;left:0;width:16px;height:16px;background-color:#fff;border:2px solid #ccc;box-sizing:border-box}
+.checkbox label:after, .radio label:after{content:'';position:absolute;top:0;left:0;width:16px;height:16px;background-color:#fff;/*border:2px solid #ccc;*/box-sizing:border-box}
 .checkbox label:after{border-radius:3px}
 .radio label:after{border-radius:50%}
-.checkbox :checked + label:after, .radio :checked + label:after{background-color:#8bb3ff;border-color:#8bb3ff}
+.checkbox :checked + label:after, .radio :checked + label:after{background:url("/ClientUI/user/images/button/btn_checked.png") no-repeat 50%; background-size: 18px;border-color:#8bb3ff}
 .checkbox input[disabled] + label:after, .radio input[disabled] + label:after{background-position:100% -26px}
 .checkbox.txt label, .radio.txt label{padding-left:25px;font-size:17px;line-height:18px}
 .checkbox.txt label:after, .radio.txt label:after{top:2px}
