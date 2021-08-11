@@ -291,7 +291,7 @@
 .gnb_tit.gnb08{background:url(../images/contents/bg_sub_banner08.jpg) no-repeat 50% 0;background-size:cover}/*검색결과*/
 .gnb_tit > h2{color:#346079;font-size:52px;font-weight:900;line-height:453px;text-align:center}
 .gnb_tit.gnb08 > h2{color:#fff}
-.snb{border-bottom:2px solid #e7e7e7}
+.snb{border-bottom:2px solid #e7e7e7; background-color: #eef4fe}
 .page_top{padding:67px 0 0}
 .page_top > .page_tit{position:relative;color:#8bb3ff;font-size:38px;font-weight:700;text-align:center}
 .page_top > .page_tit + span{display:block;font-size:20px;text-align:center;color:#8c90a5;}
