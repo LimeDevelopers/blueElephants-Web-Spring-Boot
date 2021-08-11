@@ -7,35 +7,43 @@
 <style>
     .a+ label {
         display: inline-block;
-        width: 300px;
-        height: 300px;
-        background: no-repeat url("/ClientUI/user/images/contents/join_pick_test03.PNG");
+        width: 270px;
+        height: 270px;
+        margin-left: 50px;
+        background: no-repeat url("/ClientUI/user/images/contents/join_pick_test01.png");
+        background-size: contain;
     }
     .a + label:hover {
-        background: no-repeat url("/ClientUI/user/images/contents/join_pick_test01.PNG");
+        background: no-repeat url("/ClientUI/user/images/contents/join_pick_test02.png");
+        background-size: contain;
     }
     .a + input {
         display: none;
     }
     .a:checked + label {
-        background: no-repeat url("/ClientUI/user/images/contents/join_pick_test01.PNG");
+        background: no-repeat url("/ClientUI/user/images/contents/join_pick_test02.png");
+        background-size: contain;
     }
 
 
     .b+ label {
         display: inline-block;
+        margin-top: 31px;
         width: 300px;
         height: 300px;
-        background: no-repeat url("/ClientUI/user/images/contents/join_pick_test04.PNG");
+        background: no-repeat url("/ClientUI/user/images/contents/join_pick_test03.png");
+        background-size: contain;
     }
     .b + label:hover {
-        background: no-repeat url("/ClientUI/user/images/contents/join_pick_test02.PNG");
+        background: no-repeat url("/ClientUI/user/images/contents/join_pick_test04.png");
+        background-size: contain;
     }
     .b + input {
         display: none;
     }
     .b:checked + label {
-        background: no-repeat url("/ClientUI/user/images/contents/join_pick_test02.PNG");
+        background: no-repeat url("/ClientUI/user/images/contents/join_pick_test04.png");
+        background-size: contain;
     }
 
 </style>
@@ -44,7 +52,7 @@
     <th:block th:include="fragments/header_gnb"></th:block>
     <div id="container">
         <th:block th:include="fragments/snb"></th:block>
-        <div class="contents" style="margin-top: 200px;">
+        <div class="contents" style="margin-top: 100px;">
             <!--            <div class="page_top">-->
             <!--                <h3 class="page_tit">회원가입</h3>-->
             <!--                <span>고객님께서 입력하신 정보를 안전하고 정확하게 관리하기 위해 최선을 다하겠습니다.</span>-->
