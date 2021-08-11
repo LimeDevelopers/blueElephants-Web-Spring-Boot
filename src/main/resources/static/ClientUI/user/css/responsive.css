@@ -4,6 +4,10 @@
 	수정일 : 21.08.09
 	수정내용 : 모바일 탑 메뉴 구조 변경 및 아이콘 추가
 	수정 태그 : .mo_ham, (추가).mo_notification, .header
+
+	수정일 : 21.08.11
+	수정내용 : 체크박스 이미지 추가
+	수정 태그 : .checkbox label
 */
 @media (min-width:1024px){
     .tab_ico_area .tab_cont.mo_thumb .cont{width:100%;min-height:220px;padding-right:60px;padding-left:60px}
@@ -1480,7 +1484,7 @@
 		background-size: 100%;
 		transform: translateY(-50%);
 	}
-	.checkbox label:after, .radio label:after{width:20px;height:20px}
+	.checkbox label:after, .radio label:after{width:20px;height:20px; background: url("/ClientUI/user/images/button/btn_uncheck.png") no-repeat 50%; background-size: 18px}
 	.radio label:after{border-radius:50%}
 	.checkbox.txt label, .radio.txt label{padding-left:28px;font-size:14px;line-height:24px}
 	input{height:35px;line-height:33px}

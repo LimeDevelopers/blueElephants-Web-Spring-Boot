@@ -155,10 +155,10 @@ body{color:#333;font-size:14px;font-family:'Noto Sans KR', Malgun Gothic, 'ë§‘ì
 .checkbox, .radio{display:inline-block;position:relative;vertical-align:top}
 .checkbox input[disabled] + label, .checkbox input[readonly] + label, .radio input[disabled] + label, .radio input[readonly] + label{cursor:default}
 .checkbox label, .radio label{display:block;min-height:16px;padding-left:16px;cursor:pointer}
-.checkbox label:after, .radio label:after{content:'';position:absolute;top:0;left:0;width:16px;height:16px;background-color:#fff;border:4px solid #ccc;box-sizing:border-box}
+.checkbox label:after, .radio label:after{content:'';position:absolute;top:0;left:0;width:16px;height:16px;background-color:#fff;border:2px solid #ccc;box-sizing:border-box}
 .checkbox label:after{border-radius:3px}
 .radio label:after{border-radius:50%}
-.checkbox :checked + label:after, .radio :checked + label:after{border-color:#8bb3ff}
+.checkbox :checked + label:after, .radio :checked + label:after{background-color:#8bb3ff;border-color:#8bb3ff}
 .checkbox input[disabled] + label:after, .radio input[disabled] + label:after{background-position:100% -26px}
 .checkbox.txt label, .radio.txt label{padding-left:25px;font-size:17px;line-height:18px}
 .checkbox.txt label:after, .radio.txt label:after{top:2px}
@@ -198,11 +198,11 @@ body{color:#333;font-size:14px;font-family:'Noto Sans KR', Malgun Gothic, 'ë§‘ì
 .btn_area .btn{margin-right:10px}
 .btn_area .btn:last-child{margin-right:0}
 /*** tab ***/
-.tab{display:flex; justify-content: space-evenly; width:100%}
+.tab{display:table;width:100%}
 /* .tab > li{display:table-cell;position:relative;width:12.5%} */
-.tab > li a{display:block;position:relative;color:#8c90a5;font-size:18px;line-height:65px;text-align:center;background-color: #eef4fe}
-.tab > li.active a{color:#fff !important;font-weight:700}
-.tab > li.active a:after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;color:#fff !important; border-radius:10px 20px 10px;}
+.tab > li a{display:block;position:relative;color:#5a5a5a;font-size:18px;line-height:65px;text-align:center;background-color:#fff}
+.tab > li.active a{color:#8bb3ff;font-weight:700}
+.tab > li.active a:after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;border-bottom:2px solid #8bb3ff}
 .tab_type01{max-width:1280px;margin:0 auto}
 .tab_type01 > li:after{content:'';display:block;position:absolute;top:25px;right:0;width:1px;height:16px;background-color:#eaeaea}
 .tab_type01 > li:last-child:after{display:none}
