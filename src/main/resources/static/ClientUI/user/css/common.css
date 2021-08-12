@@ -162,7 +162,7 @@ body{color:#333;font-size:14px;font-family:'Noto Sans KR', Malgun Gothic, 'ë§‘ì
 .checkbox input[disabled] + label, .checkbox input[readonly] + label, .radio input[disabled] + label, .radio input[readonly] + label{cursor:default}
 .checkbox label, .radio label{display:block;min-height:16px;padding-left:16px;cursor:pointer}
 .checkbox label:after, .radio label:after{content:'';position:absolute;top:0;left:0;width:16px;height:16px;background-color:#fff;/*border:2px solid #ccc;*/box-sizing:border-box}
-.checkbox label:after{border-radius:3px}
+.checkbox label:after{border-radius:3px;background:url("/ClientUI/user/images/button/btn_uncheck.png") no-repeat 50%; background-size: 18px;border-color:#8bb3ff}
 .radio label:after{border-radius:50%}
 .checkbox :checked + label:after, .radio :checked + label:after{background:url("/ClientUI/user/images/button/btn_checked.png") no-repeat 50%; background-size: 18px;border-color:#8bb3ff}
 .checkbox input[disabled] + label:after, .radio input[disabled] + label:after{background-position:100% -26px}
@@ -265,6 +265,7 @@ body{color:#333;font-size:14px;font-family:'Noto Sans KR', Malgun Gothic, 'ë§‘ì
 .tbl_write .txt_serious > dd .select{width:130px}
 /*.tbl_write .td.type01 .select{display:none}*/
 .tbl_select { text-align: center; margin: 0; border-top: 4px solid transparent; background-image: linear-gradient(#fff, #fff), linear-gradient(to right, #fff, #8bb3ff, #fff); background-origin: border-box; background-clip: content-box, border-box;}
+.tbl_select02 {margin: 0; border-top: 4px solid transparent; background-image: linear-gradient(#fff, #fff), linear-gradient(to right, #fff, #8bb3ff, #fff); background-origin: border-box; background-clip: content-box, border-box;}
 .contour{border-top: 4px solid; border-color:#8bb3ff; margin: 12px 0 12px 0;}
 /* view */
 .board_view > dt{display:table;width:100%;border-top:2px solid #8bb3ff;border-bottom:1px solid #ccc;background-color:#dee6f1}
