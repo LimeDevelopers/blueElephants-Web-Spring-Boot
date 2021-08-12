@@ -25,10 +25,10 @@
 
 
 	<repositories>
-		<repository>
-			<id>jerry-3rdparty</id>
-			<url>http://192.168.0.143:8081/repository/jerry-3rdparty</url>
-		</repository>
+<!--		<repository>-->
+<!--			<id>jerry-3rdparty</id>-->
+<!--			<url>http://localhost:8081/repository/jerry-3rdparty</url>-->
+<!--		</repository>-->
 		<repository>
 			<id>spring-milestones</id>
 			<name>Spring Milestones</name>
@@ -202,11 +202,11 @@
 			<version>7.1.0</version>
 		</dependency>
 
-		<dependency>
-			<groupId>kr.btf</groupId>
-			<artifactId>niceID</artifactId>
-			<version>1.0</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>kr.btf</groupId>-->
+<!--			<artifactId>niceID</artifactId>-->
+<!--			<version>1.0</version>-->
+<!--		</dependency>-->
 
 
 		<dependency>
