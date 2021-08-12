@@ -9,7 +9,7 @@ Maven clean&install 실행
 * Application Run
 java: cannot find symbol 에러 발생시 ISSUE001 해당 구문 참조해서 해결해야됩니다.
 
-### 서드파티 nexus repo 접근방법
+### 서드파티 nexus repo 접근방법 (일단 Pom.xml 주석처리 후 사용) 
 * .m2 폴더 -> settings.xml 생성 후 아래 코드 주입
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
