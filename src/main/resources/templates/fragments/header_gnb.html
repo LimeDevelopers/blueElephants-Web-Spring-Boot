@@ -1,8 +1,9 @@
 <!-- skip navi : s -->
 <!--
     21.08.04
-    김재일 메모
-    mc모델 데이터는 넘어오고있음.
+    작성자 : 김재일
+    수정일 : 21.08.12
+    수정내용 : 회원가입 버튼 redirection 변경 /pages/member/joinAgree -> /pages/member/joinPick
 -->
 <script type="text/javascript">
     function fn_totalSearch() {
@@ -71,8 +72,7 @@
                     </th:block>
                     <th:block th:unless="${#authorization.getAuthentication() != null and #authorization.expression('isAuthenticated()')}">
                         <p>푸른코끼리만의 <br>다양한 서비스를 만나보세요.</p>
-                        <a href="/pages/member/joinPick" class="btn_join">회원가입test</a>
-                        <a href="/pages/member/joinAgree" class="btn_join">회원가입</a>
+                        <a href="/pages/member/joinPick" class="btn_join">회원가입</a>
                     </th:block>
                 </div>
                 <ul class="sns_list mo">
