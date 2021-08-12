@@ -3,8 +3,9 @@ $(document).ready(function(){
 	/*
 	* 수정일 : 21.08.09
 	* 수정자 : 김재일
-	* 수정내용 : fixed 수정, dp_none 클래스 주입,삭제 (218 line)
-	* window.location.href
+	* 수정내용 :
+	* 1. fixed 수정, dp_none 클래스 주입,삭제 (218 line)
+	* 2. window.location.href 라우팅 문자열을 가져와서 인덱스를 제외한 나머지 페이지에서 fixed가 발생되지않도록 수정함.
 	* */
 
 	// 추가

@@ -9,6 +9,39 @@ Maven clean&install 실행
 * Application Run
 java: cannot find symbol 에러 발생시 ISSUE001 해당 구문 참조해서 해결해야됩니다.
 
+### 서드파티 nexus repo 접근방법
+* .m2 폴더 -> settings.xml 생성 후 아래 코드 주입
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.2.0"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.2.0 http://maven.apache.org/xsd/settings-1.2.0.xsd">
+  <pluginGroups>
+  </pluginGroups>
+  <proxies>
+  </proxies>
+  <!-- nexus 서버 세팅 -->
+  <servers>
+        <server>
+            <id>jerry-3rdparty</id>
+            <username>public</username>
+            <password>lime1357</password>
+        </server>	
+    </servers>
+  <mirrors>
+    <mirror>
+      <id>maven-default-http-blocker</id>
+      <mirrorOf>external:http:*</mirrorOf>
+      <name>Pseudo repository to mirror external repositories initially using HTTP.</name>
+      <url>http://0.0.0.0/</url>
+      <blocked>true</blocked>
+    </mirror>
+  </mirrors>
+  <profiles>
+  </profiles>
+</settings>
+```
+
 ### 소스코드 대폭 수정 (21.08.05)
 
 ### 기존 인계받은 원본 소스에 문제가 많아 New Project에 릴리즈 업데이트 했습니다.

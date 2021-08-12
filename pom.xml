@@ -25,10 +25,10 @@
 
 
 	<repositories>
-		<!--        <repository>-->
-		<!--            <id>niceCheck</id>-->
-		<!--            <url>http://110.45.210.198:8081/nexus/content/repositories/niceCheck</url>-->
-		<!--        </repository>-->
+		<repository>
+			<id>jerry-3rdparty</id>
+			<url>http://192.168.0.143:8081/repository/jerry-3rdparty</url>
+		</repository>
 		<repository>
 			<id>spring-milestones</id>
 			<name>Spring Milestones</name>
@@ -74,11 +74,7 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
-		<!--<dependency>
-            <groupId>com.microsoft.sqlserver</groupId>
-            <artifactId>mssql-jdbc</artifactId>
-            <scope>runtime</scope>
-        </dependency>-->
+
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -206,26 +202,10 @@
 			<version>7.1.0</version>
 		</dependency>
 
-<!--		<dependency>-->
-<!--			<groupId>niceID_api</groupId>-->
-<!--			<artifactId>niceID_api</artifactId>-->
-<!--			<version>1.0.1</version>-->
-<!--		</dependency>-->
-
-<!--		<dependency>-->
-<!--			<groupId>niceID_api</groupId>-->
-<!--			<artifactId>niceID_api</artifactId>-->
-<!--			<version>1.0.1</version>-->
-<!--			<scope>system</scope>-->
-<!--			<systemPath>lib/nice/niceID_api.jar</systemPath>-->
-<!--		</dependency>-->
-
 		<dependency>
-			<groupId>niceID_api</groupId>
-			<artifactId>niceID_api</artifactId>
-			<version>1.0.1</version>
-			<scope>system</scope>
-			<systemPath>${webapp.libs}/niceID_api.jar</systemPath>
+			<groupId>kr.btf</groupId>
+			<artifactId>niceID</artifactId>
+			<version>1.0</version>
 		</dependency>
 
 
