@@ -32,6 +32,8 @@ import java.util.List;
  * 작성일 : 2021/08/03
  * 수정일 : 2021/08/04
  * 내용 : Constants 변수 수정함.
+ * 수정일 : 2021/08/13
+ * 내용 : 공지사항 리스트 리미트 3-> 5
  **/
 @Controller
 @RequiredArgsConstructor
@@ -62,7 +64,7 @@ public class MainController extends BaseCont {
                         @Value("${common.code.crewGalleryCdPid}") Long crewCdPid) {
         // searchFrom -> pageSize 사용처 확인해야됨
         SearchForm searchForm = new SearchForm();
-        searchForm.setPageSize(Constants.DEFAULT_PAGESIZE_3);
+        searchForm.setPageSize(Constants.DEFAULT_PAGESIZE_5);
 
         // BoardDataForm -> 인덱스 페이지 최근 공지사항 노출 로직
         // searchForm -> pageSize는 limit 길이로 판단됨.
@@ -73,10 +75,10 @@ public class MainController extends BaseCont {
         model.addAttribute("noticeList", noticeList);
         // 공지사항 데이터 [e]
 
-        // 교육후기 데이터 [s]
-        searchForm.setPageSize(Constants.DEFAULT_PAGESIZE_3);
+        // 교육후기 데이터 [s] -- 임시주석
+        /*searchForm.setPageSize(Constants.DEFAULT_PAGESIZE_3);
         Page<Postscript> postscripts = postscriptService.list(pageable, searchForm);
-        model.addAttribute("postscripts", postscripts);
+        model.addAttribute("postscripts", postscripts);*/
         // 교육후기 데이터 [e]
 
         // 뉴스레터 데이터 [s]
@@ -84,6 +86,7 @@ public class MainController extends BaseCont {
         boardDataForm.setMstPid(campaignCode);
         searchForm.setPageSize(Constants.DEFAULT_MAIN_NEWS_PAGESIZE);
         Page<BoardData> newsList = boardDataService.list(pageable, searchForm, boardDataForm);
+
         model.addAttribute("newsList", newsList);
         model.addAttribute("filePath", filePath + "/" + Constants.FOLDERNAME_BOARDDATA);
         // 뉴스레터 데이터 [e]

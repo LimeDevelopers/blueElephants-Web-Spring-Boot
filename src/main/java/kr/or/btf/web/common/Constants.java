@@ -8,6 +8,7 @@ public class Constants {
     public static final int 	DEFAULT_MAIN_NOTICE_PAGESIZE	= 6;
     public static final int 	DEFAULT_MAIN_NEWS_PAGESIZE	= 4;
     public static final int 	DEFAULT_PAGESIZE_3	= 3;
+    public static final int 	DEFAULT_PAGESIZE_5	= 5;
 
     /*첨부파일*/
     public static final Long imageMaxFileSize = 1024 * 500L;       //이미지 업로드 최대 사이즈 (Byte)
