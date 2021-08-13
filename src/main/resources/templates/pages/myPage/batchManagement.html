@@ -2,6 +2,12 @@
 <html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:include="fragments/header"></th:block>
+
+    <script>
+        function batchRegister() {
+            alert('준비중입니다.');
+        }
+    </script>
 </head>
 <body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
 <div id="wrap">
@@ -10,33 +16,35 @@
         <th:block th:include="fragments/snb"></th:block>
 
         <div class="batch_contents">
-            <div class="page_top">
+
+<!--            <div class="page_top">
                 <h3 class="page_tit">일괄관리</h3>
-            </div>
+            </div>-->
+
             <div class="page_cont">
                 <div class="sec_write_area clearfix">
                     <div class="sec_write info">
-                        <h4 class="subtit">2021</h4>
+                        <h4 class="year">&nbsp;2021&nbsp;2020&nbsp;2019&nbsp;</h4>
                         <ul class="board_tbl_list type02">
                             <li class="thead">
                                 <strong class="id">ID</strong>
                                 <strong class="name">이름</strong>
-                                <strong th:if="${#authentication.principal.account.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).TEACHER}" class="no">번호</strong>
+                                <strong class="no">번호</strong>
                                 <strong class="process">진도</strong>
                                 <strong class="test">사전검사</strong>
                                 <strong class="test">사후검사</strong>
                             </li>
                                 <li>
                                     <div class="id">puco0001</div>
-                                    <div class="name"><a href="javascript:;" class="link fc_blue" onclick="fn_selectNm(63,&quot;\uACBD\uAE30\uB3C4&quot;,&quot;\uBD80\uC6A9\uACE0\uB4F1\uD559\uAD50&quot;,1,&quot;1&quot;)">유학생</a></div>
+                                    <div class="name"><a href="javascript:;" class="link fc_blue">유학생</a></div>
                                     <div class="no">6</div>
-                                    <div class="state"><span class="th"></span>2차시</div>
-                                    <div class="test"><span class="th"></span>진행중</div>
+                                    <div class="state"><span class="th"></span>1차시</div>
+                                    <div class="test"><span class="th"></span>완료</div>
                                     <div class="test"><span class="th"></span>완료</div>
                                 </li>
                                 <li>
                                     <div class="id">puco0002</div>
-                                    <div class="name"><a href="javascript:;" class="link fc_blue" onclick="fn_selectNm(63,&quot;\uACBD\uAE30\uB3C4&quot;,&quot;\uBD80\uC6A9\uACE0\uB4F1\uD559\uAD50&quot;,1,&quot;1&quot;)">최학생</a></div>
+                                    <div class="name"><a href="javascript:;" class="link fc_blue">최학생</a></div>
                                     <div class="no">7</div>
                                     <div class="state"><span class="th"></span>2차시</div>
                                     <div class="test"><span class="th"></span>완료</div>
@@ -44,24 +52,21 @@
                                 </li>
                                 <li>
                                     <div class="id">puco0003</div>
-                                    <div class="name"><a href="javascript:;" class="link fc_blue" onclick="fn_selectNm(63,&quot;\uACBD\uAE30\uB3C4&quot;,&quot;\uBD80\uC6A9\uACE0\uB4F1\uD559\uAD50&quot;,1,&quot;1&quot;)">김생학</a></div>
+                                    <div class="name"><a href="javascript:;" class="link fc_blue">김생학</a></div>
                                     <div class="no">9</div>
                                     <div class="state"><span class="th"></span>2차시</div>
                                     <div class="test"><span class="th"></span>진행중</div>
                                     <div class="test"><span class="th"></span>진행중</div>
                                 </li>
-                                    <!--<div class="no" th:text="${idx.count}">2</div>
-                                    <div class="name"><a href="javascript:;" class="link fc_blue" th:onclick="fn_selectNm([[${item.mberPid}]],[[${item.areaNm}]],[[${item.schlNm}]],[[${item.grade}]],[[${item.ban}]])" th:text="${item.nm}">홍길동</a></div>
-                                    <div class="school"><span class="th">학교 :</span> <th:block th:text="${item.schlNm}"></th:block> <span class="dib"><th:block th:text="|${item.grade} 학년 ${item.ban} 반|"></th:block></span></div>
-                                    <div th:if="${#authentication.principal.account.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).TEACHER}" class="state"><span class="th">번호 :</span><th:block th:text="${item.no}"></th:block></div>-->
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
+                <div class="btn_area"><a class="btn btn_lg btn_blue btn_pill_10" onclick="batchRegister()">일괄가입</a></div>
         </div>
     </div>
-    <th:block th:include="fragments/footer"></th:block>
 </div>
+<th:block th:replace="fragments/footer"></th:block>
 </body>
 </html>
