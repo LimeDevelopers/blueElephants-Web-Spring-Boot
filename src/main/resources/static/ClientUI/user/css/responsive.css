@@ -8,6 +8,10 @@
 	수정일 : 21.08.11
 	수정내용 : 체크박스 이미지 추가
 	수정 태그 : .checkbox label
+
+	수정일 : 21.08.12
+	수정내용 : 일괄관리 탭 추가로 인한 수정
+	수정 태그 : .board_tbl_list > lli > div .~~~ 에 대한 주석 및 조정
 */
 @media (min-width:1024px){
     .tab_ico_area .tab_cont.mo_thumb .cont{width:100%;min-height:220px;padding-right:60px;padding-left:60px}
@@ -1821,7 +1825,7 @@
 	.board_tbl_list > li > div.state{top:10px}
 	.board_tbl_list > li > div.category{font-size:14px}
 	.board_tbl_list > li > div.my_activity{font-size:13px}
-    .board_tbl_list > li > div.test{padding-right:21px}
+    /*.board_tbl_list > li > div.test{padding-right:21px}*/
     .board_tbl_list > li > div.test:after{top:4px;right:10px;height:12px}
 	.board_tbl_list > li > div .mo_tit_span{padding-left:6px}
 	.board_tbl_list > li > div .mo_tit_span:before{margin:8px 5px 0 0}
