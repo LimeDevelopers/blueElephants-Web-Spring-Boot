@@ -9,9 +9,9 @@
 	수정내용 : 체크박스 이미지 추가
 	수정 태그 : .checkbox label
 
-	수정일 : 21.08.12
+	수정일 : 21.08.13
 	수정내용 : 일괄관리 탭 추가로 인한 수정
-	수정 태그 : .board_tbl_list > lli > div .~~~ 에 대한 주석 및 조정
+	수정 태그 : .board_tbl_list > lli > div .~~~ 에 대한 주석 및 수정
 */
 @media (min-width:1024px){
     .tab_ico_area .tab_cont.mo_thumb .cont{width:100%;min-height:220px;padding-right:60px;padding-left:60px}
@@ -482,7 +482,7 @@
 	.snb .tab{display:block;overflow-x:auto;padding:0 24px;font-size:0;white-space:nowrap}
 	.snb .tab > li{display:inline-block;width:auto;vertical-align:top}
 	.snb.mo_bb{border-bottom:1px solid #e7e7e7}
-	.page_top{margin:0 -24px;padding-top:0}
+	.page_top{padding-top:0}
 	.page_top > .page_tit{overflow:hidden;padding:0 24px;color:#fff;font-size:20px;line-height:50px;text-overflow:ellipsis;white-space:nowrap;background-color:#375073}
 	.page_top > .page_tit + span{padding:16px 24px 0;font-size:17px;line-height:145%;word-break:keep-all}
 	.page_top > .page_tit.bg:after{display:none}
@@ -1490,6 +1490,7 @@
 		background-size: 100%;
 		transform: translateY(-50%);
 	}
+
 	.checkbox label:after, .radio label:after{width:20px;height:20px; background: url("/ClientUI/user/images/button/btn_uncheck.png") no-repeat 50%; background-size: 18px}
 	.radio label:after{border-radius:50%}
 	.checkbox.txt label, .radio.txt label{padding-left:28px;font-size:14px;line-height:24px}
@@ -1721,7 +1722,7 @@
 	.gnb_tit{height:125px}
 	.gnb_tit > h2{font-size:25px;line-height:125px}
 	.snb .tab{padding:0 20px}
-	.page_top{margin:0 -20px}
+	/*.page_top{margin:0 -20px}*/
 	.page_top > .page_tit{padding:0 20px;font-size:17px;line-height:42px}
 	.page_top > .page_tit + span, .mo_page_txt{padding:16px 20px 0;font-size:14px;line-height:130%}
 	h4.subtit{font-size:20px}
@@ -2375,6 +2376,8 @@
 	.win_popup .popup .sub_sec > dt{font-size:16px}
 	.win_popup .popup .sub_sec > dd > strong{font-size:14px}
 	.win_popup .mo_que_num colgroup col:nth-child(1), .win_popup .mo_que_num colgroup col:nth-child(2){width:25% !important}
+
+	.board_tbl_list > li.thead > strong {font-size: 14px;}
 }
 @media (max-width:480px){
 	#calendar .fc-toolbar.fc-header-toolbar{margin-bottom:30px}

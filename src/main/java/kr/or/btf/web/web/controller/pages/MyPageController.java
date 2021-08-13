@@ -1559,6 +1559,6 @@ public class MyPageController extends BaseCont {
     @RequestMapping("/pages/myPage/batchManagement")
     public String batchManagement(Model model) {
         model.addAttribute("mc", "myPage");
-        return "/pages/myPage/batchManagement.html";
+        return "pages/myPage/batchManagement";
     }
 }
