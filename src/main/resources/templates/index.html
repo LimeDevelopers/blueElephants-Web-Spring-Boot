@@ -2,6 +2,7 @@
 <html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:include="fragments/header"></th:block>
+    <link rel="stylesheet" href="/ClientUI/user/css/custom.css"/>
     <script type="text/javascript" th:inline="javascript">
         $(function(){
             // 메인배너 슬라이드
@@ -418,7 +419,10 @@
                     <div class="news_area clearfix">
                         <div class="right_area">
                             <div class="board_area">
-                                <div class="tit">공지사항 <a href="/pages/news/notice">더보기</a></div>
+                                <div class="tit">공지사항
+                                    <a href="/pages/news/notice">더 보기</a>
+                                    <!-- <span class="arrow-right">더보기</span> 수정해야함 -->
+                                </div>
                                 <ul class="list">
                                 <th:block th:if="${noticeList == null or noticeList.isEmpty()}">
                                     <li class="nodata">
@@ -426,29 +430,34 @@
                                     </li>
                                 </th:block>
                                     <li th:each="item,idx : ${noticeList}">
+
                                         <a th:href="|/pages/news/detail/${item.id}|">
+                                            <th:block th:if="${idx.index} == 0">
+                                                <span class="New">New</span>
+                                            </th:block>
                                             <span class="link" th:text="${item.ttl}">사이버폭력 예방 활동을 위한 교육</span>
                                             <span class="date" th:text="${#temporals.format(item.regDtm,'yyyy.MM.dd')}">2020.08.29</span>
                                         </a>
                                     </li>
                                 </ul>
                             </div>
-                            <div class="board_area">
-                                <div class="tit">교육후기 <a href="/pages/activity/postscript">더보기</a></div>
-                                <ul class="list">
-                                    <th:block th:if="${postscripts == null or postscripts.isEmpty()}">
-                                        <li class="nodata">
-                                            <div>등록된 게시글이 없습니다.</div>
-                                        </li>
-                                    </th:block>
-                                    <li th:each="item,idx : ${postscripts}">
-                                        <a th:href="|/pages/activity/postscriptDetail/${item.id}|">
-                                            <span class="link" th:text="${item.ttl}">사이버폭력 예방 활동을 위한 교육</span>
-                                            <span class="date" th:text="${#temporals.format(item.regDtm,'yyyy.MM.dd')}">2020.08.29</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+                            <!--           메인페이지 리뉴얼을 위한 주석처리             -->
+<!--                            <div class="board_area">-->
+<!--                                <div class="tit">교육후기 <a href="/pages/activity/postscript">더보기</a></div>-->
+<!--                                <ul class="list">-->
+<!--                                    <th:block th:if="${postscripts == null or postscripts.isEmpty()}">-->
+<!--                                        <li class="nodata">-->
+<!--                                            <div>등록된 게시글이 없습니다.</div>-->
+<!--                                        </li>-->
+<!--                                    </th:block>-->
+<!--                                    <li th:each="item,idx : ${postscripts}">-->
+<!--                                        <a th:href="|/pages/activity/postscriptDetail/${item.id}|">-->
+<!--                                            <span class="link" th:text="${item.ttl}">사이버폭력 예방 활동을 위한 교육</span>-->
+<!--                                            <span class="date" th:text="${#temporals.format(item.regDtm,'yyyy.MM.dd')}">2020.08.29</span>-->
+<!--                                        </a>-->
+<!--                                    </li>-->
+<!--                                </ul>-->
+<!--                            </div>-->
                         </div>
                         <div class="left_area" th:if="${crew.id ne null}">
                             <div class="video">

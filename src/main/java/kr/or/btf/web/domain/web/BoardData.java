@@ -83,7 +83,8 @@ public class BoardData {
     private LocalDateTime commentDtm;
     @Transient
     private String hashTags;
-
+    @Transient
+    private boolean newYn;
     /*public LocalDateTime setNtceDt() {
 
         LocalDateTime dateTime = LocalDateTime.parse(ntceDt, DateTimeFormatter.ISO_DATE)

@@ -6,6 +6,7 @@
 	수정 태그 : .mo_ham, (추가).mo_notification, header.fixed(스크롤
 	기본 color hex : #8bb3ff
 	hover color hex : #6d95e1
+	259,260 line 수정
 */
 .mo_top_nav_wrap{
     display:none;
@@ -233,9 +234,13 @@
 .section05 .tit_area h2 em{color:#333}
 .section05 .tit_area h2 .btn{width:147px;height:46px;margin-left:38px;color:#587eaf;font-size:20px;font-weight:500;line-height:40px;text-align:center;border:2px solid #587eaf;border-radius:15px}
 .section05 .tit_area span{color:#6d6d6d;line-height:38px}
-.section06 .top{padding-top:90px;background:url(../images/contents/bg_main02.png) no-repeat 50% 50%;background-size:cover}
+/*.section06 .top{padding-top:90px;background:url(../images/contents/bg_main02.png) no-repeat 50% 50%;background-size:cover}*/
+.section06 .top {
+    padding-top: 90px;
+    background-color: #fff;
+}
 .section06 .top .news_area{margin-top:55px}
-.section06 .top .news_area .left_area{width:53%}
+.section06 .top .news_area .left_area{width:45%} /* 53 -> 45*/
 .section06 .top .news_area .left_area .nodata{padding:182px 0;text-align:center;border-radius:30px;background-color:#f7f7f7}
 .section06 .top .news_area .left_area .nodata div{display:inline-block;padding-left:138px;font-size:23px;line-height:136px;vertical-align:top;background:url(../images/contents/bg_nodata.png) no-repeat 0 50%}
 .section06 .top .news_area .left_area .video, .section06 .top .news_area .left_area .video video{width:100%;height:100%}
@@ -247,18 +252,27 @@
 .section06 .top .news_area .left_area .video_info{margin-top:25px}
 .section06 .top .news_area .left_area .video_info .tit{font-size:28px;font-weight:500}
 .section06 .top .news_area .left_area .video_info .date{display:block;margin-top:5px;font-size:22px;font-weight:300;line-height:1}
-.section06 .top .news_area .right_area{float:right;width:calc(47% - 45px)}
+.section06 .top .news_area .right_area{float:right;width:calc(55% - 45px)} /* 수정 45 -> 55 */
 .section06 .top .news_area .right_area .board_area:first-child{margin-bottom:40px}
-.section06 .top .news_area .right_area .board_area .tit{padding:5px 13px 12px 6px;font-size:35px;font-weight:500;line-height:1;border-bottom:3px solid #6d95e1}
-.section06 .top .news_area .right_area .board_area .tit a{display:inline-block;float:right;width:34px;height:34px;padding-bottom:22px;font-size:0;line-height:1;vertical-align:top;background:url(../images/button/btn_plus.png) no-repeat 0 0}
-.section06 .top .news_area .right_area .board_area .list{padding:25px 10px 0}
-.section06 .top .news_area .right_area .board_area .list li{padding-bottom:25px}
-.section06 .top .news_area .right_area .board_area .list li:last-child{padding-bottom:0}
+.section06 .top .news_area .right_area .board_area .tit{padding:5px 15px 20px 6px; font-size:35px;font-weight:500;line-height:1;border-bottom:3px solid #e1e8f2}
+/*.section06 .top .news_area .right_area .board_area .tit a{display:inline-block;float:right;width:34px;height:34px;padding-bottom:22px;font-size:0;line-height:1;vertical-align:top;background:url(../images/button/btn_plus.png) no-repeat 0 0}*/
+.section06 .top .news_area .right_area .board_area .tit a{display:inline-block;float:right;width:auto;height:34px;padding-bottom:22px;font-size:17px;line-height:1;vertical-align:top; padding-top: 20px}
+.section06 .top .news_area .right_area .board_area .tit .arrow-right{display:inline-block;float:right;width:34px;height:34px;padding-bottom:22px;font-size:0;line-height:1;vertical-align:top;background:url(../images/button/arrow-right.png) no-repeat 0 0}
+/*.section06 .top .news_area .right_area .board_area .tit a:before{content:'';display:inline-block;width:4px;height:4px;margin:-8px 15px 0 0;vertical-align:middle;border-radius:50%;background:url(../images/button/arrow-right.png) no-repeat 0 0;}*/
+.section06 .top .news_area .right_area .board_area .list{padding:0px 10px 0}
+.section06 .top .news_area .right_area .board_area .list li {
+    padding-top: 25px;
+    padding-bottom: 25px;
+    /* margin-bottom: 0px; */
+    border-bottom: 2px solid #e1e8f2;
+}
+/*.section06 .top .news_area .right_area .board_area .list li{padding-bottom:25px}*/
+/*.section06 .top .news_area .right_area .board_area .list li:last-child{padding-bottom:0}*/
 .section06 .top .news_area .right_area .board_area .list li a{display:block;line-height:1}
 .section06 .top .news_area .right_area .board_area .list li a span{display:inline-block;vertical-align:top}
-.section06 .top .news_area .right_area .board_area .list li a .link{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:calc(100% - 128px);font-size:25px}
-.section06 .top .news_area .right_area .board_area .list li a .link:before{content:'';display:inline-block;width:4px;height:4px;margin:-8px 15px 0 0;vertical-align:middle;background-color:#333;border-radius:50%}
-.section06 .top .news_area .right_area .board_area .list li a .date{float:right;width:113px;color:#666;font-size:23px}
+.section06 .top .news_area .right_area .board_area .list li a .link{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:calc(90% - 128px);font-size:17px}
+/*.section06 .top .news_area .right_area .board_area .list li a .link:before{content:'';display:inline-block;width:4px;height:4px;margin:-8px 15px 0 0;vertical-align:middle;background-color:#333;border-radius:50%}*/
+.section06 .top .news_area .right_area .board_area .list li a .date{float:right;width:113px;color:#c6c8cc;font-size:17px}
 .section06 .top .news_area .right_area .board_area .list li a:hover .link,
 .section06 .top .news_area .right_area .board_area .list li a:hover .date{color:#8bb3ff}
 .section06 .top .news_area .right_area .board_area .list li a:hover .link:before{background-color:#8bb3ff}
