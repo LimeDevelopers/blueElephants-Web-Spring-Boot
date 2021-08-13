@@ -1555,4 +1555,10 @@ public class MyPageController extends BaseCont {
         model.addAttribute("pageTitle", "자가진단결과");
         return "/pages/myPage/selfTestResult";
     }
+
+    @RequestMapping("/pages/myPage/batchManagement")
+    public String batchManagement(Model model) {
+        model.addAttribute("mc", "myPage");
+        return "/pages/myPage/batchManagement.html";
+    }
 }

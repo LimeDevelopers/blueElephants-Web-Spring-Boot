@@ -790,6 +790,15 @@
    3. 마이페이지 등 메뉴 수정 ( display: table -> display: flex / justify-content: space-evenly )
 -->
 
+<!--
+   수정일 : 2021.08.12
+   수정자 : 조동국
+   수정내용 :
+   1. 회원가입 radio 버튼들 따로 css 지정 (commmon.css -> register_radio)
+   2. 회원가입 페이지 기타 css 수정 (common.css -> tap_type02{display: inline-block;}
+   3. 마이페이지 등 메뉴 수정
+-->
+
 <body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
 <div id="wrap">
     <th:block th:include="fragments/header_gnb"></th:block>
@@ -984,7 +993,7 @@
                                     <li>
                                         <div class="th">성별<span class="aster">*</span></div>
                                         <div class="td">
-                                            <div class="radio txt" th:each="tp : ${T(kr.or.btf.web.domain.web.enums.GenderType).values()}">
+                                            <div class="register_radio txt" th:each="tp : ${T(kr.or.btf.web.domain.web.enums.GenderType).values()}">
                                                 <input type="radio" th:id="|sexPrTy${tp}|" name="sexPrTy" th:value="${tp}">
                                                 <label th:for="|sexPrTy${tp}|" th:text="${tp.name}"></label>
                                             </div>
@@ -994,7 +1003,7 @@
                                     <li>
                                         <div class="th">본인인증<span class="aster">*</span></div>
                                         <div class="td">
-                                            <div class="radio txt" th:each="at : ${T(kr.or.btf.web.domain.web.enums.AuthType).values()}">
+                                            <div class="register_radio txt" th:each="at : ${T(kr.or.btf.web.domain.web.enums.AuthType).values()}">
                                                 <input type="radio" th:id="|authPrTy${at}|" name="authPrTy" th:value="${at}" th:attr="onclick=|fn_authSelect('${at}')|">
                                                 <label th:for="|authPrTy${at}|" th:text="${at.name}"></label>
                                             </div>

@@ -162,12 +162,22 @@ body{color:#333;font-size:14px;font-family:'Noto Sans KR', Malgun Gothic, 'ë§‘ì
 .checkbox input[disabled] + label, .checkbox input[readonly] + label, .radio input[disabled] + label, .radio input[readonly] + label{cursor:default}
 .checkbox label, .radio label{display:block;min-height:16px;padding-left:16px;cursor:pointer}
 .checkbox label:after, .radio label:after{content:'';position:absolute;top:0;left:0;width:16px;height:16px;background-color:#fff;/*border:2px solid #ccc;*/box-sizing:border-box}
-.checkbox label:after{border-radius:3px}
+.checkbox label:after{border-radius:3px;background:url("/ClientUI/user/images/button/btn_uncheck.png") no-repeat 50%; background-size: 18px;border-color:#8bb3ff}
 .radio label:after{border-radius:50%}
 .checkbox :checked + label:after, .radio :checked + label:after{background:url("/ClientUI/user/images/button/btn_checked.png") no-repeat 50%; background-size: 18px;border-color:#8bb3ff}
 .checkbox input[disabled] + label:after, .radio input[disabled] + label:after{background-position:100% -26px}
 .checkbox.txt label, .radio.txt label{padding-left:25px;font-size:17px;line-height:18px}
 .checkbox.txt label:after, .radio.txt label:after{top:2px}
+
+.register_radio{display:inline-block;position:relative;vertical-align:top}
+.register_radio input[disabled] + label, .register_radio input[readonly] + label{cursor:default}
+.register_radio label{display:block;min-height:16px;padding-left:26px;cursor:pointer}
+.register_radio label:after{content:'';position:absolute;top:0;left:0;width:16px;height:16px;background-color:#fff;border:4px solid #ccc;box-sizing:border-box; margin-left:4px}
+.register_radio label:after{border-radius:50%}
+.register_radio :checked + label:after{background-size: 18px;border:4px solid #8bb3ff}
+.register_radio input[disabled] + label:after{background-position:100% -26px}
+.register_radio.txt label{padding-left:25px;line-height:18px}
+.register_radio.txt label:after{top:2px}
 /*** select ***/
 .select{display:inline-block;position:relative;width:160px;height:44px;vertical-align:top;cursor:pointer}
 .select label{display:block;overflow:hidden;position:absolute;top:0;left:0;width:100%;padding:0 58px 0 16px;color:#5a5a5a;font-size:15px;line-height:42px;text-overflow:ellipsis;white-space:nowrap;border:1px solid #cacaca;box-sizing:border-box;cursor:pointer}
@@ -204,11 +214,11 @@ body{color:#333;font-size:14px;font-family:'Noto Sans KR', Malgun Gothic, 'ë§‘ì
 .btn_area .btn{margin-right:10px}
 .btn_area .btn:last-child{margin-right:0}
 /*** tab ***/
-.tab{display:table;width:100%}
+.tab{display:flex;justify-content:space-between;width:100%}
 /* .tab > li{display:table-cell;position:relative;width:12.5%} */
-.tab > li a{display:block;position:relative;color:#5a5a5a;font-size:18px;line-height:65px;text-align:center;background-color:#fff}
-.tab > li.active a{color:#8bb3ff;font-weight:700}
-.tab > li.active a:after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;border-bottom:2px solid #8bb3ff}
+.tab > li a{display:block;position:relative;color:#5a5a5a;font-size:18px;line-height:65px;text-align:center;margin: 10px}
+.tab > li.active a{color:#fff;font-weight:700;background-color:#8bb3ff;border-radius:10px 20px 10px; padding:0 20px;}
+.tab > li.active a:after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;}
 .tab_type01{max-width:1280px;margin:0 auto}
 .tab_type01 > li:after{content:'';display:block;position:absolute;top:25px;right:0;width:1px;height:16px;background-color:#eaeaea}
 .tab_type01 > li:last-child:after{display:none}

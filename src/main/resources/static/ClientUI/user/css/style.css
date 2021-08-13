@@ -807,8 +807,8 @@ h4.submsg.mo{display:none}
 .board_list > li.nodata div{display:inline-block;margin:30px 0;padding-left:138px;font-size:23px;line-height:136px;vertical-align:top;background:url(../images/contents/bg_nodata.png) no-repeat 0 50%}
 .tip_tbl.mb + .board_tbl_list{margin-top:0}
 .board_tbl_list{margin-top:20px;border-top:2px solid #8bb3ff}
-.board_tbl_list > li.thead{background-color:#dee6f1}
-.board_tbl_list > li.thead > strong{display:table-cell;height:62px;font-size:17px;font-weight:500;line-height:145%;vertical-align:middle}
+.board_tbl_list > li.thead{background-color:#b4c5e3}
+.board_tbl_list > li.thead > strong{display:table-cell;height:32px;font-size:17px;font-weight:500;line-height:145%;vertical-align:middle;color:#fff}
 .board_tbl_list > li{display:table;width:100%;text-align:center;table-layout:fixed;border-bottom:1px solid #ccc}
 .board_tbl_list > li > div{display:table-cell;height:62px;font-size:17px;line-height:145%;vertical-align:middle}
 .board_tbl_list > li > div .th{display:none}
@@ -843,6 +843,28 @@ h4.submsg.mo{display:none}
 .board_tbl_list > li.notice{background-color:#f7f7f7}
 .board_tbl_list > li.notice .no{color:#8bb3ff;font-weight:500}
 .board_tbl_list > li.notice .tit a{padding-left:22px;font-weight:500;background:url(../images/icon/ico_notice.png) no-repeat 0 50%}
+
+/*일괄 관리 페이지 css*/
+.batch_contents{padding-bottom:48px}
+
+.board_tbl_list > li .id, div .id{
+    width: 20%;
+}
+.board_tbl_list > li .name, div .name {
+    width: 15%;
+}
+.board_tbl_list > li .no, div .no{
+    width: 10%;
+}
+.board_tbl_list > li .process, div .process{
+    width: 15%;
+}
+.board_tbl_list > li .test, div .test{
+    width: 20%;
+}
+
+/*일괄 관리 페이지 css(e)*/
+
 h4.subtit + .tip_tbl{margin-top:12px}
 .subtit_area h4.subtit + .tip_tbl{margin-top:0;margin-left:10px}
 .tip_tbl{margin-top:14px;color:#8bb3ff;font-size:16px}
