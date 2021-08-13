@@ -81,7 +81,9 @@ a{color:#333;text-decoration:none}
 img{max-width:100%}
 /*body{color:#333;font-size:14px;font-family:'Noto Sans KR', Malgun Gothic, '맑은고딕', Dotum, '굴림', Gulim, Helvetica, sans-serif}*/
 body{color:#54586a;font-size:14px;font-family:'Noto Sans KR', Malgun Gothic, '맑은고딕', Dotum, '굴림', Gulim, Helvetica, sans-serif}
-
+.tbl_write .td .eKey {
+	margin-top: 10px;
+}
 /***** component *****/
 .clearfix:after{content:'';display:block;clear:both}
 .clearfix > *{float:left}

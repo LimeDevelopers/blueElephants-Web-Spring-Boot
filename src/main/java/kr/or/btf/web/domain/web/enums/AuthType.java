@@ -1,9 +1,15 @@
 package kr.or.btf.web.domain.web.enums;
 
+/**
+ * AuthType [인증타입 enums]
+ * @author : jerry
+ * @version : 1.0.0
+ * 작성일 : 2021/08/13
+**/
 public enum AuthType {
-    PHONE_AUTH("휴대폰인증"),
-    EMAIL_AUTH("이메일인증"),
-    BOTH_AUTH("둘다가능");
+    EMAIL_AUTH("이메일"),
+    PHONE_AUTH("휴대폰");
+    /*BOTH_AUTH("휴대폰+이메일");*/
 
     final private String name;
 
@@ -11,7 +17,7 @@ public enum AuthType {
         return name;
     }
 
-    private AuthType(String name){
+    AuthType(String name){
         this.name = name;
     }
 }
