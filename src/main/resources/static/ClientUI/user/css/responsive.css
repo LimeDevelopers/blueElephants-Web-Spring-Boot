@@ -67,6 +67,8 @@
 
 	.sec_cyberbullying .circle_list{max-width:660px;margin-right:auto;margin-left:auto}
 	.sec_solution .step > li div br{display:none}
+
+	.batch_contents{max-width: none}
 }
 @media (max-width:1300px){
 	#footer > .bottom .info_area > .logo_area{width:275px}
@@ -622,14 +624,14 @@
 	.board_list > li.nodata{height:198px;padding:0}
 	.board_list > li.nodata div{margin:36px 0 0;padding:114px 0 0;font-size:16px;line-height:1;background:url(../images/contents/m_bg_nodata.png) no-repeat 50% 0;background-size:92px}
 	.board_tbl_list{margin-top:16px}
-	.board_tbl_list > li.thead{display:none}
+	/*.board_tbl_list > li.thead{display:none}*/
 	.board_tbl_list > li.nodata{text-align:center}
 	.board_tbl_list > li.nodata > div{font-size:18px;font-weight:500}
 	.board_tbl_list > li.nodata_q{border-bottom:none}
-	.board_tbl_list > li{position:relative;padding:12px 0;text-align:left}
-	.board_tbl_list > li .no{display:none}
+	.board_tbl_list > li{position:relative;padding:12px 0;}
+/*	.board_tbl_list > li .no{display:none}*/
 	.board_tbl_list > li .number{color:#767676}
-	.board_tbl_list > li > div{display:block;width:100% !important;height:auto;font-size:16px}
+	.board_tbl_list > li > div{font-size:16px} /*width:100% !important;height:auto;*/
 	.board_tbl_list > li > div > div{margin-bottom:3px;padding:0;border-bottom:0}
 	.board_tbl_list > li > div > div:last-child{margin-bottom:0}
     .board_tbl_list > li > div > .radio{margin-top:0}
@@ -646,15 +648,15 @@
 	.board_tbl_list > li > div.tit.ico_lock{margin-bottom:11px}
 	.board_tbl_list > li > div.tit.ico_lock a{padding-left:26px;background:url(../images/icon/m_ico_lock.png) no-repeat 0 1px;background-size:18px}
 	.board_tbl_list > li > div.date, .board_tbl_list > li > div.date02{color:#767676}
-	.board_tbl_list > li > div.state, .board_tbl_list > li > div.issue{position:absolute;top:12px;right:0;width:auto !important}
+/*	.board_tbl_list > li > div.state, .board_tbl_list > li > div.issue{position:absolute;top:12px;right:0;width:auto !important}*/
 	.board_tbl_list > li > div.download > .btn{width:100%}
 	.board_tbl_list > li > div.download_num{color:#767676}
 	.board_tbl_list > li > div.download > span{display:none}
 	.board_tbl_list > li > div.category{margin-bottom:9px;font-size:17px;font-weight:500}
 	.board_tbl_list > li > div.my_activity{padding-left:0;font-size:16px}
 	.board_tbl_list > li > div.my_activity.pc{display:none}
-    .board_tbl_list > li > div.test{display:inline-block;position:relative;width:auto !important;padding-right:25px;vertical-align:top}
-    .board_tbl_list > li > div.test:after{content:'';position:absolute;top:6px;right:12px;width:1px;height:14px;background-color:#ccc}
+/*    .board_tbl_list > li > div.test{display:inline-block;position:relative;width:auto !important;padding-right:25px;vertical-align:top}*/
+    .board_tbl_list > li > div.test:after{position:absolute;top:6px;right:12px;width:1px;height:14px;background-color:#ccc}
     .board_tbl_list > li > div.test:last-child{padding-right:0}
     .board_tbl_list > li > div.test:last-child:after{display:none}
 	.board_tbl_list > li > div.mission > div{padding:0}
