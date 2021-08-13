@@ -202,7 +202,7 @@ body{color:#54586a;font-size:14px;font-family:'Noto Sans KR', Malgun Gothic, '�
 /* 버튼 컬러 */
 .btn_white{color:#808080 !important;border-color:#e7e8e9;background-color:#fff}
 .btn_blue{color:#fff !important;border-color:#8bb3ff;background-color:#8bb3ff}
-.btn_skyblue{color:#8bb3ff !important;border-color:#dee6f1;background-color:#dee6f1}
+.btn_skyblue{color:#8bb3ff !important;border-color:#dee6f1;background-color:#6d95e1}
 .btn_green{color:#fff !important;border-color:#8bae53;background-color:#8bae53}
 .btn_gray{color:#808080 !important;border-color:#e7e8e9;background-color:#e7e8e9}
 .btn_lightgray{color:#4a4a4a !important;border-color:#cacaca;background-color:#f8fafb}
