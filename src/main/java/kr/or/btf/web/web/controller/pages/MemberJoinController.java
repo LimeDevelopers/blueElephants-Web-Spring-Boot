@@ -4,6 +4,7 @@ import kr.or.btf.web.common.Constants;
 import kr.or.btf.web.common.exceptions.ValidCustomException;
 import kr.or.btf.web.domain.web.Account;
 import kr.or.btf.web.domain.web.MobileAuthLog;
+import kr.or.btf.web.services.web.MailService;
 import kr.or.btf.web.services.web.MemberService;
 import kr.or.btf.web.services.web.MobileAuthLogService;
 import kr.or.btf.web.utils.AESEncryptor;
@@ -15,6 +16,8 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,6 +31,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 @Controller
 @RequiredArgsConstructor
@@ -36,6 +40,8 @@ public class MemberJoinController extends BaseCont {
     private final MemberService memberService;
     private final MemberFormValidator memberFormValidator;
     private final MobileAuthLogService mobileAuthLogService;
+    private final JavaMailSender javaMailSender;
+    private final MailService mailService;
 
     @GetMapping(value = "/pages/member/joinPick")
     public String joinPickPage(Model model){
@@ -231,14 +237,30 @@ public class MemberJoinController extends BaseCont {
         }
     }
 
+
+
+    // 이메일 인증
+    @PostMapping("/api/member/CheckMail")
+    @ResponseBody
+    public int SendMail(Model model,
+                           @ModelAttribute MemberForm memberForm) throws Exception {
+        Account account = new Account();
+        account.setEmail(memberForm.getEmail());
+        int tempKey = memberService.gen6Digit();
+        mailService.mailSend(memberService.sendEmailTempAuthKey(account,tempKey));
+        return tempKey;
+    }
+
     @ResponseBody
     @PostMapping("/api/member/isExistsByEmail")
     public ResponseEntity isExistsByEmail(Model model,
                                           @ModelAttribute MemberForm memberForm,
                                           BindingResult bindingResult) {
-
+        log.info("이메일 : "+memberForm.getEmail());
         if (memberService.existsByEmail(memberForm.getEmail())) {
             bindingResult.rejectValue("email", "invalid EMAIL", new Object[]{memberForm.getEmail()}, "이미 사용중인 이메일입니다.");
+        } else {
+
         }
         //memberFormValidator.validate(memberForm, bindingResult);
         if (bindingResult.hasFieldErrors("email")) {

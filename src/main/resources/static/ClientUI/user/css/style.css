@@ -325,7 +325,7 @@
 .sec:after{content:'';display:block;clear:both}
 .sec .sec_tit{float:left;width:228px;margin-right:30px;padding:0 0 10px 5px;color:#000;font-size:28px;font-weight:500;line-height:34px;word-break:keep-all;border-bottom:2px solid #000}
 .sec .sec_cont{float:left;width:calc(100% - 258px)}
-.sec_write{position:relative;margin-top:60px}
+.sec_write{position:relative;margin-top:60px;border-top: 4px solid;border-color: #8bb3ff;}
 .tip_tbl + .sec_write, .sec_write:first-child:not(.mt){margin-top:0}
 .sec_write .subtit{padding-bottom:25px;font-size:26px;font-weight:700;line-height:1;text-align:left}
 .sec_write .subtit .aster{color:#8bb3ff}

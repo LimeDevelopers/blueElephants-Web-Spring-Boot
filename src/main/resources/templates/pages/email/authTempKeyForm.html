@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>푸른코끼리 메일 인증 안내</title>
+    <style>
+        .table_wrap{width:1024px;margin-right:auto;margin-left:auto;background-color:#ffffff;}
+    </style>
+</head>
+<body style="margin:0;padding:0;">
+<table border="0" cellpadding="0" cellspacing="0" align="center" class="table_wrap" style="width:100%;max-width:1024px;margin-right:auto;margin-left:auto;background-color:#ffffff;">
+    <tbody>
+    <tr>
+        <td colspan="5" class="td_01" style="height:55px;font-size:0;line-height:0;background-color:#5981ba;"></td>
+    </tr>
+    <tr>
+        <td colspan="5" style="padding:0 45px 0 50px">
+            <table border="0" cellpadding="0" cellspacing="0" align="left" class="" style="width:626px">
+                <tbody>
+                <tr>
+                    <!--<td width="50" style="width:50px">&nbsp;</td> -->
+                    <td width="626" style="width:626px">
+                        <table border="0" cellpadding="0" cellspacing="0" width="626" style="width:626px;">
+                            <tbody>
+                            <tr>
+                                <td align="left" style="width:626px;padding:50px 0 63px;color:#000000;font-size:52px;font-family:'Malgun Gothic';mso-line-height-rule:exactly;line-height:1;letter-spacing:-1.56px;word-break:keep-all"><p style="display:inline-block;margin:0;color:#5981ba;font-weight:700;line-height:1;letter-spacing:-1.56px;word-break:keep-all;">메일 인증</p> 안내입니다.</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table border="0" cellpadding="0" cellspacing="0" style="width:100%;background-color:#dee6f1;">
+                                        <tbody>
+                                        <tr>
+                                            <td style="width:20px;font-size:0;vertical-align:top;"><img th:src="${domain + '/ClientUI/user/images/mail/corner01.png'}" alt="" style="vertical-align:top" /></td>
+                                            <td style="height:10px;font-size:0;">&nbsp;</td>
+                                            <td style="width:20px;font-size:0;vertical-align:top;"><img th:src="${domain + '/ClientUI/user/images/mail/corner02.png'}" alt="" style="vertical-align:top" /></td>
+                                        </tr>
+                                        <tr>
+                                         <!--   <td width="20" style="width:20px;font-size:0;background-color:#dee6f1;"></td> -->
+                                            <td colspan="3" align="left" style="padding:12px 44px">
+                                                <table border="0" cellpadding="0" cellspacing="0" style="">
+                                                    <tbody>
+                                                    <tr>
+                                                        <!--<td width="20" style="width:20px;font-size:0;background-color:#dee6f1;"></td> -->
+                                                        <td align="left" style="">
+                                                            <table align="left" border="0" cellpadding="0" cellspacing="0" width="397" style="width:397px;">
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td style="color:#000000;font-size:17px;line-height:1.7;vertical-align:top;word-break:keep-all;">
+                                                                        사이버정글 가디언 푸른코끼리입니다.<br />
+                                                                        인증번호를 입력하여 회원가입을 완료해주세요.
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <table align="left" border="0" cellpadding="0" cellspacing="0" width="141" style="width:141px;padding-top:24px">
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td width="141" style="width:141px">
+                                                                        <table border="0" cellpadding="0" cellspacing="0" width="141" style="width:141px;background-color:#5981ba;">
+                                                                            <tr>
+                                                                                <td style="width:10px;height:10px;font-size:0;vertical-align:top;"><img th:src="${domain + '/ClientUI/user/images/mail/btn_corner01.png'}" alt=""></td>
+                                                                                <td style="height:10px;font-size:0;"></td>
+                                                                                <td style="width:10px;height:10px;font-size:0;vertical-align:top;"><img th:src="${domain + '/ClientUI/user/images/mail/btn_corner02.png'}" alt=""></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="width:10px;height:10px;margin:0;padding:0;background-color:#5981ba;"></td>
+                                                                                <td align="center">
+                                                                                    <span th:text="${tempKey}"style="display:block;margin:0;padding:0;color:#ffffff;font-size:20px;font-weight:700;font-family:'Malgun Gothic';line-height:29px;text-align:center;word-break:keep-all;text-decoration:none;background-color:#5981ba;">인증번호</span>
+                                                                                </td>
+                                                                                <td style="width:10px;height:10px;margin:0;padding:0;background-color:#5981ba;"></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="width:10px;height:10px;font-size:0;vertical-align:top;"><img th:src="${domain + '/ClientUI/user/images/mail/btn_corner03.png'}" alt=""></td>
+                                                                                <td style="height:10px;font-size:0;"></td>
+                                                                                <td style="width:10px;height:10px;font-size:0;vertical-align:top;"><img th:src="${domain + '/ClientUI/user/images/mail/btn_corner04.png'}" alt=""></td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                        <!--<td width="20" style="width:20px;font-size:0">&nbsp;</td> -->
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                            <!--<td width="20" style="width:20px;font-size:0">&nbsp;</td> -->
+                                        </tr>
+                                        <tr>
+                                            <td style="width:20px;font-size:0;vertical-align:top;"><img th:src="${domain + '/ClientUI/user/images/mail/corner03.png'}" alt="" style="vertical-align:top" /></td>
+                                            <td style="height:10px;font-size:0;">&nbsp;</td>
+                                            <td style="width:20px;font-size:0;vertical-align:top;"><img th:src="${domain + '/ClientUI/user/images/mail/corner04.png'}" alt="" style="vertical-align:top" /></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height:10px;font-size:0;"></td>
+                            </tr>
+                            <tr>
+                                <td style="padding-bottom:90px;color:#666666;font-size:16px;line-height:1.5;font-family:'Malgun Gothic';word-break:keep-all;">해당 메일주소로 가입한적이 없다면 <a th:href="${domain + '/pages/customerCenter/qna'}" target="_blank" style="color:#5981ba;font-weight:700;font-family:'Malgun Gothic';text-decoration:none;border-bottom:1px solid #5981ba">고객센터</a>에 문의해주세요.</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table border="0" cellpadding="0" cellspacing="0" align="left" class="" style="width:257px;padding-top:62px;padding-left:46px">
+                <tbody>
+                <tr>
+                    <!--<td width="46" style="width:46px;font-size:0;">&nbsp;</td> -->
+                    <td style="width:257px"><img th:src="${domain + '/ClientUI/user/images/mail/bg_puco.jpg'}" alt=""></td>
+                    <!--<td width="50" style="width:50px;font-size:0;">&nbsp;</td> -->
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    <tr>
+  <!--      <td width="50" style="width:50px;font-size:0;">&nbsp;</td> -->
+        <td style="padding:0 45px 0 50px;">
+            <table border="0" cellpadding="0" cellspacing="0" align="left" class="" style="width:735px;padding:20px 0 0 10px;border-top:1px solid #5981ba;">
+                <tbody>
+                <tr>
+                    <td colspan="2" align="left" style="">
+                        <table border="0" cellpadding="0" cellspacing="0" style="font-size:15px;font-family:'Malgun Gothic';mso-line-height-rule:exactly;line-height:22px;">
+                            <tbody>
+                            <tr>
+                                <td style="color:#959595;">서울시 서초구 서초대로 46길 88( 서초동 )1-5F</td>
+                            </tr>
+                            <tr>
+                                <td><a th:href="${domain}" target="_blank" style="color:#000000;text-decoration:none">www.bepuco.or.kr</a></td>
+                            </tr>
+                            <tr>
+                                <td style="padding-top:10px;color:#bbbbbb;font-size:14px;line-height:32px">Copyrightⓒ PUCO, All rights reserved.</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table border="0" cellpadding="0" cellspacing="0" align="left" class="" style="width:174px;padding:34px 20px 0 0;border-top:1px solid #5981ba;">
+                <tbody>
+                <tr>
+                    <td align="right" style="vertical-align:middle;"><img th:src="${domain + '/ClientUI/user/images/mail/logo.png'}" alt="사이버정글 가디언 푸른코끼리"></td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+        <!-- <td width="50" style="width:50px;font-size:0;">&nbsp;</td> -->
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

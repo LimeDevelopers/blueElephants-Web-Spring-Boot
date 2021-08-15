@@ -19,7 +19,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<webapp.libs>${project.basedir}/libs/nice</webapp.libs>
+		<webapp.libs>${project.basedir}/libs</webapp.libs>
 		<java.version>8</java.version>
 	</properties>
 
@@ -29,6 +29,11 @@
 <!--			<id>jerry-3rdparty</id>-->
 <!--			<url>http://localhost:8081/repository/jerry-3rdparty</url>-->
 <!--		</repository>-->
+		<repository>
+			<id>local-repo</id>
+			<name>local repository</name>
+			<url>file://${webapp.libs}</url>
+		</repository>
 		<repository>
 			<id>spring-milestones</id>
 			<name>Spring Milestones</name>
@@ -208,8 +213,12 @@
 <!--			<version>1.0</version>-->
 <!--		</dependency>-->
 
-
 		<dependency>
+			<groupId>kr.btf</groupId>
+			<artifactId>niceID</artifactId>
+			<version>1.0</version>
+		</dependency>
+	<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>

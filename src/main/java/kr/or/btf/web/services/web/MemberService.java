@@ -309,7 +309,6 @@ public class MemberService extends _BaseService {
             return byId;
         }
     }
-
     public void verifyPwChange(String confirmPwd, String pwd) {
         if (!passwordEncoder.matches(confirmPwd, pwd)) {
             throw new ValidCustomException("비밀번호가 일치하지 않습니다.", "pwd");
@@ -838,6 +837,29 @@ public class MemberService extends _BaseService {
         message.append("\n");
         message.append("인증 완료 후 푸른코끼리 로그인 페이지로 이동 됩니다.\n");
         mail.setMessage(message.toString());*/
+
+        return mail;
+    }
+
+    // 인증번호 난수 생성
+    public int gen6Digit(){
+        java.util.Random generator = new java.util.Random();
+        generator.setSeed(System.currentTimeMillis());
+        return generator.nextInt(1000000) % 1000000;
+    }
+
+
+    public Mail sendEmailTempAuthKey(Account target, int tempKey) {
+        Mail mail = new Mail();
+        mail.setAddress(target.getEmail());
+        Map<String, Object> context = new HashMap<>();
+        context.put("tempKey", tempKey);
+        mail.setContext(context);
+        mail.setTemplate("/pages/email/authTempKeyForm");
+
+        StringBuilder message = new StringBuilder();
+        message.append("[푸른코끼리] 이메일 인증코드입니다.");
+        mail.setTitle(message.toString());
 
         return mail;
     }

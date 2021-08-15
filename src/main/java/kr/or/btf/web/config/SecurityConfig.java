@@ -68,6 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //web.ignoring().antMatchers( "/webjars/**");
     }
 
+    // 라우터 세팅
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 

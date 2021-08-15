@@ -3,7 +3,8 @@
 <head>
     <th:block th:include="fragments/header"></th:block>
     <script>
-        var id;
+
+    var id;
         var loginId;
         var pwd;
         var pwdChk;
@@ -46,7 +47,7 @@
         var emailDupBool = false;
 
         var authPrty;
-
+        var tempKey;
         /*
         zip = $("#zip");
         adres = $("#adres");
@@ -351,6 +352,20 @@
             });
         }
 
+        // 인증번호 확인
+        function fn_chkEmailTempKey() {
+            if(tempKey == $('.eKey').val()) {
+                alert('인증되었습니다.');
+                $('.eKey').attr("disabled", true);
+                $('#authEmailChk').val(2)
+                $('#chkTempKeyBtn').text('인증완료');
+                $('#sendEmailBtn').attr('disabled',true);
+                $('#chkTempKeyBtn').attr('disabled',true);
+                $('input[name=authPrTy]').attr('disabled',true);
+            }
+            return undefined;
+        }
+
         function fn_chkEmailDup(){
             var emailStr = "";
             email = $("#email");
@@ -396,17 +411,22 @@
                     emailDupBool = false;
                 }
             }
-
+            // url: "/api/member/isExistsByEmail",
             $.ajax({
                 type: "POST",
-                url: "/api/member/isExistsByEmail",
+                url: "/api/member/CheckMail",
                 data: {
                     "email": email.val()
                 },
                 success: function (data) {
                     if(email.val() != ''){
+                        tempKey = data;
                         alert('인증번호를 전송하였습니다.');
-                        $('.eKey').removeAttr('disabled');
+                        $('#sendEmailBtn').text('재전송');
+                        $('#chkTempKeyBtn').show();
+                        $('.eKey').val('');
+                        $('.eKey').attr("disabled", false);
+                        $('.eKey').focus();
                         emailDupBool = true;
                         email01.attr("disabled", true);
                         email02.attr("disabled", true);
@@ -1038,9 +1058,10 @@
                                                 </div>
                                                 <input type="text" name="email03" id="email03" class="email_inp" title="이메일주소 직접입력" onkeydown="fn_checkSpacebar()" />
                                             </div>
-                                            <button type="button" class="btn btn_lg btn_line_blue btn_pill_10" onclick="return fn_chkEmailDup();">이메일인증</button>
+                                            <button type="button" class="btn btn_lg btn_line_blue btn_pill_10" id="sendEmailBtn" onclick="return fn_chkEmailDup();">이메일인증</button>
                                             <input type="hidden" name="email" id="email"/>
                                             <input class="eKey emph" type="text" name="emailKey" placeholder="인증번호 입력" maxlength="8" disabled>
+                                            <button type="button" class="btn btn_lg btn_line_blue btn_pill_10" id="chkTempKeyBtn" onclick="return fn_chkEmailTempKey();">인증번호확인</button>
                                             <p class="tip emph">※ 아이디/패스워드 찾기, 회원가입 인증에 사용됩니다. 정확하게 입력해주세요.</p>
                                         </div>
                                     </li>
