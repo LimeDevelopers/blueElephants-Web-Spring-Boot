@@ -48,6 +48,9 @@
 
         var authPrty;
         var tempKey;
+
+        var eAuthBool = false;
+        var mAuthBool = false;
         /*
         zip = $("#zip");
         adres = $("#adres");
@@ -56,7 +59,12 @@
         secsnRsn = $('#secsnRsn');
         sttTy = $('#sttTy');*/
 
-        // 회원가입 필드 체크 스크립트
+        /*
+        * fn_chkField()
+        * 생성일 : 21.08.15
+        * 생성자 : 김재일
+        * input 필드 체크 함수
+        * */
         function fn_chkField() {
             $('.err.emph').remove();
 
@@ -141,6 +149,12 @@
                 return false;
             }
 
+            // 작업중..
+            if($('#authMobileChk') == 1 || $('#authEmailChk') == 1) {
+                alert('이메일, 휴대폰 중 하나의 인증수단은 필수입니다.')
+                return false;
+            }
+
             if (!childrenCheck()) {  //청소년이 아님
                 if (!moblphon.val()) {
                     //alert('휴대전화를 입력하세요');
@@ -155,28 +169,12 @@
                 }
             }
 
-            /*if (!moblphon.val()) {
-                //alert('휴대전화를 입력하세요');
-                if (!childrenCheck()) {
-                    moblphon.after('<p class="err emph">휴대전화번호는 필수 값입니다.</p>');
-                    moblphon.focus();
-                    return false;
-                }
-            }else{
-                //청소년이 아닐때만 폰 체크
-                if (!childrenCheck()) {
-                    if(!moblphonCheck(moblphon)){
-                        moblphon.val("");
-                        moblphon.focus();
-                        return false;
-                    }
-                }
-            }*/
 
             if (!emailDupBool) {
                 alert('이메일 중복확인을 해주세요.');
                 return false;
             }
+
 
             if (!ncnm.val()) {
                 //alert('닉네임을 입력하세요');
@@ -352,7 +350,12 @@
             });
         }
 
-        // 인증번호 확인
+        /*
+        *  fn_chkEmailTempKey 인증번호 확인 메서드
+        *  작성일 : 21.08.15
+        *  작성자 : 김재일
+        *  이메일 전송 및 난수 생성 후 인증키를 비교하여 처리한다.
+        * */
         function fn_chkEmailTempKey() {
             if(tempKey == $('.eKey').val()) {
                 alert('인증되었습니다.');
@@ -362,10 +365,22 @@
                 $('#sendEmailBtn').attr('disabled',true);
                 $('#chkTempKeyBtn').attr('disabled',true);
                 $('input[name=authPrTy]').attr('disabled',true);
+                $('#authFiledPHONE_AUTH').hide();
+                $('#authFiledEMAIL_AUTH').hide();
+                $('#resultText').text('이메일 인증완료');
+            } else {
+                alert('인증번호가 올바르지않습니다.');
+                $('.eKey').text('');
+                $('.eKey').focus();
             }
-            return undefined;
         }
 
+        /*
+        *  fn_chkEmailDup 인증번호 확인 메서드
+        *  작성일 : 21.08.15
+        *  작성자 : 김재일
+        *  이메일 확인 함수
+        * */
         function fn_chkEmailDup(){
             var emailStr = "";
             email = $("#email");
@@ -419,7 +434,7 @@
                     "email": email.val()
                 },
                 success: function (data) {
-                    if(email.val() != ''){
+                    if(data > 0){
                         tempKey = data;
                         alert('인증번호를 전송하였습니다.');
                         $('#sendEmailBtn').text('재전송');
@@ -431,6 +446,14 @@
                         email01.attr("disabled", true);
                         email02.attr("disabled", true);
                         email03.attr("disabled", true);
+                    } else {
+                        alert('이미 사용중인 이메일입니다.');
+                        emailDupBool = false;
+                        email.val('');
+                        email01.val('');
+                        email02.val('').trigger("change");
+                        email03.val('');
+                        email01.focus();
                     }
                 },
                 error: function (error) {
@@ -494,6 +517,12 @@
 
         }
 
+        /*
+        * fn_srchSchlNm()
+        * 생성일 : 21.08.15
+        * 생성자 : 김재일
+        * 학교검색 모듈
+        * */
         function fn_srchSchlNm(){
             srchSchlNm = $('#srchSchlNm');
             if (!$.trim(srchSchlNm.val())) {
@@ -732,6 +761,12 @@
                 idDupBool = false;
             });
 
+            /*
+            * #btnSave.click function
+            * 생성일 : 21.08.15
+            * 생성자 : 김재일
+            * 회원가입 폼 필드 체크 함수 호출 및 insert함수
+            * */
             $('#btnSave').click(function () {
                 $('#btnSave').prop('disabled', true);
                 if(!fn_chkField()){
@@ -760,6 +795,11 @@
             });
         });
 
+        /*
+        * fn_niceCallPopup() 휴대폰 인증 팝업
+        * 생성일 : 21.08.15
+        * 생성자 : 김재일
+        * */
         window.name ="Parent_window";
         function fn_niceCallPopup(){
             window.open('/api/nice/call', 'popupNiceCall', 'width=500, height=550, top=100, left=100, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no');
@@ -769,6 +809,7 @@
             if (e.origin !== "https://nice.checkplus.co.kr") {
                 return ;
             }
+
             console.log(e.data.moblphon);
             console.log(e.data.sRequestNumber);
             console.log(e.data.sResponseNumber);
@@ -849,7 +890,7 @@
                                     <li class="btn_line_default btn_pill_registerSelect"><a href="javascript:fn_chgMberDvTy('SPT_CREW');">지지크루</a></li>
                                 </ul>
                             </div>
-                            <div class="sec_write">
+                            <div class="sec_write baseData">
                                 <div class="tbl_write">
                                     <ul>
 <!--                                        <li class="student teacher">
@@ -1030,11 +1071,11 @@
                                     <li>
                                         <div class="th">본인인증<span class="aster">*</span></div>
                                         <div class="td">
-                                            <div class="radio txt" th:each="at, idx : ${T(kr.or.btf.web.domain.web.enums.AuthType).values()}">
+                                            <span id="resultText"></span>
+                                            <div class="radio txt" th:id="|authFiled${at}|" th:each="at, idx : ${T(kr.or.btf.web.domain.web.enums.AuthType).values()}">
                                                     <input type="radio" th:id="|authPrTy${at}|" name="authPrTy" th:value="${at}" onclick="fn_authChk(this.value);">
                                                 <label th:for="|authPrTy${at}|" th:text="${at.name}"></label>
                                             </div>
-                                            <span id="authPrTy"></span>
                                         </div>
                                     </li>
                                     <li class="emailAuth">
@@ -1191,7 +1232,7 @@
                         </div>
                     </div>
 
-                    <div class="btn_area"><button type="button" id="btnSave" class="btn btn_lg btn_blue btn_pill_10">회원가입</button></div>
+                    <div class="btn_area"><button type="button" id="btnSave" class="btn btn_lg btn_blue btn_pill_10">ㅊ</button></div>
                 </form>
             </div>
         </div>

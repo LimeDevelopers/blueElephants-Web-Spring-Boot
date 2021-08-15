@@ -143,6 +143,7 @@ public class NiceApiController extends BaseCont {
         form.setMssage(sMessage);
         form.setEncrData(sEncodeData);
         this.mobileAuthLogService.insert(form);
+        model.addAttribute("resultValue", 2);
         model.addAttribute("sCipherTime", sCipherTime);
         model.addAttribute("sRequestNumber", sRequestNumber);
         model.addAttribute("sResponseNumber", sResponseNumber);

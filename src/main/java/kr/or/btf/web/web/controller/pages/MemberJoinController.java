@@ -82,6 +82,14 @@ public class MemberJoinController extends BaseCont {
         return "/pages/member/register";
     }
 
+    /**
+     * 생성일 : 21.08.15
+     * 생성자 : 김재일
+     * @param model
+     * @param  memberForm
+     * @param errors
+     * @param bindingResult
+     * **/
     @PostMapping("/api/member/insert")
     public ResponseEntity insert(Model model,
                                  @ModelAttribute @Valid MemberForm memberForm,
@@ -243,11 +251,16 @@ public class MemberJoinController extends BaseCont {
     @PostMapping("/api/member/CheckMail")
     @ResponseBody
     public int SendMail(Model model,
-                           @ModelAttribute MemberForm memberForm) throws Exception {
+                        @ModelAttribute MemberForm memberForm) throws Exception {
+        int tempKey;
         Account account = new Account();
         account.setEmail(memberForm.getEmail());
-        int tempKey = memberService.gen6Digit();
-        mailService.mailSend(memberService.sendEmailTempAuthKey(account,tempKey));
+        if (memberService.existsByEmail(memberForm.getEmail())) {
+            tempKey = -1;
+        } else {
+            tempKey = memberService.gen6Digit();
+            mailService.mailSend(memberService.sendEmailTempAuthKey(account,tempKey));
+        }
         return tempKey;
     }
 

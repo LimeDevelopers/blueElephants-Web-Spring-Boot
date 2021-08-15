@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!--
+    생성일 : 21.08.15
+    생성자 : 김재일
+    수정내용 : mobile 인증 체크여부
+-->
 <head>
     <title>NICE평가정보 - 안심본인인증</title>
     <script type="text/javascript">
         window.onload = function () {
             window.opener.postMessage({변수명1: '변수내용1', 변수명2: '변수내용2'}, '*');
         };
-
+        opener.document.getElementById("authMobileChk").value = '[[${resultValue}]]';
         opener.document.getElementById("moblphon").value = '[[${sMobileNo}]]';
         opener.document.getElementById("sRequestNumber").value = '[[${sRequestNumber}]]';
         opener.document.getElementById("sResponseNumber").value = '[[${sResponseNumber}]]';
