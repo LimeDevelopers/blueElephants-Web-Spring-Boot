@@ -120,7 +120,11 @@ public class MemberJoinController extends BaseCont {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldErrors());
             }
 
-            if (!errors.hasErrors()) {//컨트롤러 validation
+            if(memberForm.getAuthEmailChk() == 2){
+                memberForm.setEmailAttcAt("Y");
+            }
+
+            if (memberForm.getAuthMobileChk() == 2) {//컨트롤러 validation
                 //휴대폰 인증 여부 확인
                 MobileAuthLogForm mobileAUthLogForm = new MobileAuthLogForm();
                 mobileAUthLogForm.setDmnNo(memberForm.getSRequestNumber());
@@ -131,7 +135,7 @@ public class MemberJoinController extends BaseCont {
                     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldErrors());
                 }
             } else {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldErrors());
+                // return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldErrors());
             }
         }
         if (memberForm.getId() == null) {
@@ -143,7 +147,7 @@ public class MemberJoinController extends BaseCont {
         }
 
         if (result) {
-            msg = "회원가입 인증 메일이 발송되었습니다. 인증 가능 시간(1시간)이내에 이메일 인증 후 로그인 해주세요.";
+            msg = "회원가입이 완료되었습니다.";
             return ResponseEntity.ok(msg);
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldErrors());
@@ -360,6 +364,7 @@ public class MemberJoinController extends BaseCont {
     }
 
     //메일인증
+    // 삭제예정
     @GetMapping("/api/member/mailAuth")
     public String mailAuth(Model model,
                            @RequestParam(name = "authKey") String authKey) throws Exception {

@@ -85,6 +85,7 @@
 
             if (!loginId.val()) {
                 if(!loginIdCheck(loginId)){
+                    alert('error : loginIdCheck');
                     return false;
                 }
             }
@@ -93,6 +94,7 @@
                 //alert('아이디 중복체크를 해주세요.');
                 loginId.after('<p class="err emph">아이디 중복체크를 해주세요.</p>');
                 loginId.focus();
+                alert('error : idDupBool');
                 return false;
             }
 
@@ -104,6 +106,7 @@
                 //alert('이름을 입력하세요');
                 nm.after('<p class="err emph">이름은 필수 값입니다.</p>');
                 nm.focus();
+                alert('error : nm');
                 return false;
             }
 
@@ -119,6 +122,7 @@
                 //alert('출생년도를 입력하세요');
                 brthdy.after('<p class="err emph">생년월일은 필수 값입니다.</p>');
                 year.focus();
+                alert('error : brthdyStr');
                 return false;
             }
 
@@ -155,19 +159,19 @@
                 return false;
             }
 
-            if (!childrenCheck()) {  //청소년이 아님
-                if (!moblphon.val()) {
-                    //alert('휴대전화를 입력하세요');
-                    moblphon.after('<p class="err emph">휴대전화번호는 필수 값입니다.</p>');
-                    moblphon.focus();
-                    return false;
-                }
-                if(!moblphonCheck(moblphon)){
-                    moblphon.val("");
-                    moblphon.focus();
-                    return false;
-                }
-            }
+            // if (!childrenCheck()) {  //청소년이 아님
+            //     if (!moblphon.val()) {
+            //         //alert('휴대전화를 입력하세요');
+            //         moblphon.after('<p class="err emph">휴대전화번호는 필수 값입니다.</p>');
+            //         moblphon.focus();
+            //         return false;
+            //     }
+            //     if(!moblphonCheck(moblphon)){
+            //         moblphon.val("");
+            //         moblphon.focus();
+            //         return false;
+            //     }
+            // }
 
 
             if (!emailDupBool) {
@@ -737,6 +741,7 @@
             if(keyCode == 32) event.returnValue = false;
         }
 
+
         // DOM 시작시 실행
         $(function(){
             $('#authPrTyEMAIL_AUTH').attr('checked','checked')
@@ -879,6 +884,7 @@
             <div class="page_cont join_form_area">
                 <!--<form id="form1" name="form1" method="post">-->
                 <form id="form1" name="form1" method="post" modelAttribute="memberForm">
+                    <input type="hidden" name="mberDvTy" id="mberDvTy" value="STUDENT"/>
                     <div class="sec_write">
                         <div class="tbl_write">
                             <div class="tbl_select">
@@ -1079,7 +1085,7 @@
                                         </div>
                                     </li>
                                     <li class="emailAuth">
-                                        <input type="hidden" id="authEmailChk" value="0"/>
+                                        <input type="hidden" id="authEmailChk" name="authEmailChk" value="0"/>
                                         <div class="th">이메일 주소<span class="aster">*</span></div>
                                         <div class="td">
                                             <div class="email_form clearfix"> <! [D] active 클래스가 있어야 직접입력 인풋이 노출 됨(style.js 에 들어가 있음) >
@@ -1107,7 +1113,7 @@
                                         </div>
                                     </li>
                                     <li class="phoneAuth">
-                                        <input type="hidden" id="authMobileChk" value="0"/>
+                                        <input type="hidden" id="authMobileChk" name="authMobileChk" value="0"/>
                                         <div class="th"><label for="moblphon">휴대전화</label><span class="aster" id="moblphonLabel">*</span></div>
                                         <div class="td">
                                             <input type="text" id="moblphon" name="moblphon" placeholder="'-' 구분없이 입력 ex)01012345678" readonly>
@@ -1232,7 +1238,7 @@
                         </div>
                     </div>
 
-                    <div class="btn_area"><button type="button" id="btnSave" class="btn btn_lg btn_blue btn_pill_10">ㅊ</button></div>
+                    <div class="btn_area"><button id="btnSave" class="btn btn_lg btn_blue btn_pill_10">회원가입</button></div>
                 </form>
             </div>
         </div>

@@ -5,7 +5,6 @@
 
 package kr.or.btf.web.web.controller.pages;
 
-//import NiceID.Check.CPClient;
 import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;

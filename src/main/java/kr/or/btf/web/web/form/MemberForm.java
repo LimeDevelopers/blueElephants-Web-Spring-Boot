@@ -14,6 +14,12 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 
+/**
+ * MemberForm [register from vo]
+ * @author : jerry
+ * @version : 1.0.0
+ * 작성일 : 2021/08/16
+**/
 @Getter
 @Setter
 public class MemberForm extends SearchForm {
@@ -41,13 +47,13 @@ public class MemberForm extends SearchForm {
     @Enumerated(EnumType.STRING)
     private UserRollType mberDvTy;
 
-    @NotNull(message = "휴대전화번호는 필수 값입니다.")
-    @NotBlank(message = "휴대전화번호는 필수 값입니다.")
-    @Pattern(regexp = "^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})([0-9]{3,4})([0-9]{4})$", message = "휴대전화번호 형식이 올바르지 않습니다.")
+//    @NotNull(message = "휴대전화번호는 필수 값입니다.")
+//    @NotBlank(message = "휴대전화번호는 필수 값입니다.")
+    //@Pattern(regexp = "^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})([0-9]{3,4})([0-9]{4})$", message = "휴대전화번호 형식이 올바르지 않습니다.")
     private String moblphon;
-
-    @NotNull(message = "이메일은 필수 값입니다.")
-    @NotBlank(message = "이메일은 필수 값입니다.")
+//
+//    @NotNull(message = "이메일은 필수 값입니다.")
+//    @NotBlank(message = "이메일은 필수 값입니다.")
     @Email(message = "이메일형식이 올바르지 않습니다.")
     private String email;
 
@@ -103,10 +109,8 @@ public class MemberForm extends SearchForm {
     @Transient
     private Integer mberPid;
 
-    @NotNull(message = "휴대폰인증은 필수 입니다.")
-    @NotBlank(message = "휴대폰인증은 필수 입니다.")
+    private int authEmailChk;
+    private int authMobileChk;
     private String sRequestNumber;
-    @NotNull(message = "휴대폰인증은 필수 입니다.")
-    @NotBlank(message = "휴대폰인증은 필수 입니다.")
     private String sResponseNumber;
 }

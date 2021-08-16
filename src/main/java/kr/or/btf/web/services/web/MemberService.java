@@ -390,6 +390,7 @@ public class MemberService extends _BaseService {
     }*/
 
     /**
+     * 회원 insert
      * @param memberForm
      * @return
      */
@@ -402,10 +403,11 @@ public class MemberService extends _BaseService {
                     && !UserRollType.ADMIN.equals(memberForm.getMberDvTy())) {
                 verifyDuplicateEmail(memberForm.getEmail()); //이메일 중복체크
                 //이메일 인증
-                memberForm.setEmailAttcAt("N");
+                // memberForm.setEmailAttcAt("N");
             } else {
-                memberForm.setEmailAttcAt("Y"); //강사, 상담사, 관리자는 관리자가 등록해주는방법만 있기 때문에 이메일인증 안해도됨
+                // memberForm.setEmailAttcAt("Y"); //강사, 상담사, 관리자는 관리자가 등록해주는방법만 있기 때문에 이메일인증 안해도됨
             }
+
 
             memberForm.setEmailAttcDtm(LocalDateTime.now());
 
