@@ -73,6 +73,8 @@ public class MemberForm extends SearchForm {
     private String secsnRsn;
     private LocalDateTime emailAttcDtm;
     private String emailAttcAt;
+    private String mobileAttcAt;
+    private LocalDateTime mobileAttcDtm;
 
     private String prtctorNm;
     private String prtctorBrthdy;

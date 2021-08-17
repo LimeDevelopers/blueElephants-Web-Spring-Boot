@@ -397,18 +397,27 @@ public class MemberService extends _BaseService {
     @Transactional
     public boolean insert(MemberForm memberForm) throws ValidCustomException {
         try {
+            log.info("insert1" + memberForm.getEmailAttcAt() + memberForm.getMobileAttcAt() + memberForm.getMberDvTy());
             verifyDuplicateLoginId(memberForm.getLoginId()); //아이디 중복체크
-            if (!UserRollType.LECTURER.equals(memberForm.getMberDvTy())
-                    && !UserRollType.COUNSELOR.equals(memberForm.getMberDvTy())
-                    && !UserRollType.ADMIN.equals(memberForm.getMberDvTy())) {
-                verifyDuplicateEmail(memberForm.getEmail()); //이메일 중복체크
-                //이메일 인증
-                // memberForm.setEmailAttcAt("N");
-            } else {
-                // memberForm.setEmailAttcAt("Y"); //강사, 상담사, 관리자는 관리자가 등록해주는방법만 있기 때문에 이메일인증 안해도됨
+            if (chkDvTy(memberForm.getMberDvTy())) {
+                log.info("insertㄴㄴ");
+                if(memberForm.getEmailAttcAt().equals("Y")) {
+                    log.info("insertㅁㅁ");
+                    verifyDuplicateEmail(memberForm.getEmail()); //이메일 중복체크
+                    memberForm.setMobileAttcAt("N");
+                    memberForm.setEmailAttcDtm(LocalDateTime.now());
+                } else {
+                    if(memberForm.getMobileAttcAt().equals("Y")) {
+                        log.info("insert4");
+                        memberForm.setEmailAttcAt("N");
+                        memberForm.setMobileAttcDtm(LocalDateTime.now());
+                    }
+                }
             }
 
 
+
+            log.info("insert5");
             memberForm.setEmailAttcDtm(LocalDateTime.now());
 
             memberForm.setDelAt("N");
@@ -416,17 +425,23 @@ public class MemberService extends _BaseService {
             memberForm.setRegDtm(LocalDateTime.now());
 
             if (memberForm.getPrtctorEmail() == null || "".equals(memberForm.getPrtctorEmail())) {
+                log.info("insert6");
                 memberForm.setPrtctorAttcAt("Y");
             } else {
+                log.info("insert7");
                 memberForm.setPrtctorAttcAt("N");
             }
             memberForm.setPrtctorAttcDtm(LocalDateTime.now());
 
             //memberForm.setPwdLstDtm(LocalDateTime.now());
+            log.info("insert8");
             Account account = modelMapper.map(memberForm, Account.class);
+            log.info("insert9");
             account.setBrthdy(account.getBrthdy().replaceAll("-",""));
+            log.info("insert10");
             Account save = memberRepository.save(account);
 
+            log.info("insert11");
             MemberRoll memberRoll = new MemberRoll();
             memberRoll.setMberPid(save.getId());
             memberRoll.setMberDvTy(memberForm.getMberDvTy());
@@ -434,6 +449,7 @@ public class MemberService extends _BaseService {
             memberRoll.setRegPsId(save.getRegPsId());
             memberRollRepository.save(memberRoll);
 
+            log.info("insert12");
             if (memberForm.getMberDvTy() != null) {
                 if (UserRollType.STUDENT.equals(memberForm.getMberDvTy())) {
                     MemberSchool memberSchool = new MemberSchool();
@@ -465,12 +481,12 @@ public class MemberService extends _BaseService {
                 }
             }
 
-            if ("N".equals(memberForm.getEmailAttcAt())) {
-                mailService.mailSend(makeMailAuthLinkMessage(account));
-                if ("N".equals(memberForm.getPrtctorAttcAt())) {
-                    mailService.mailSend(makeParentMailAuthLinkMessage(account));
-                }
-            }
+//            if ("N".equals(memberForm.getEmailAttcAt())) {
+//                mailService.mailSend(makeMailAuthLinkMessage(account));
+//                if ("N".equals(memberForm.getPrtctorAttcAt())) {
+//                    mailService.mailSend(makeParentMailAuthLinkMessage(account));
+//                }
+//            }
 
             return true;
         } catch (ValidCustomException ve) {
@@ -480,6 +496,16 @@ public class MemberService extends _BaseService {
         }
     }
 
+    private boolean chkDvTy(UserRollType dv) {
+        if(
+        !UserRollType.LECTURER.equals(dv)
+                && !UserRollType.COUNSELOR.equals(dv)
+                && !UserRollType.ADMIN.equals(dv)){
+            return true;
+        } else {
+            return false;
+        }
+    }
     @Transactional
     public boolean update(MemberForm form) throws ValidCustomException {
 

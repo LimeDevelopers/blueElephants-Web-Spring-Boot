@@ -174,11 +174,12 @@
             // }
 
 
-            if (!emailDupBool) {
-                alert('이메일 중복확인을 해주세요.');
-                return false;
+            if($('#authMobileChk').val() == 1){
+                if (!emailDupBool) {
+                    alert('이메일 중복확인을 해주세요.');
+                    return false;
+                }
             }
-
 
             if (!ncnm.val()) {
                 //alert('닉네임을 입력하세요');

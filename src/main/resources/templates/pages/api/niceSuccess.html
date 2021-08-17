@@ -11,6 +11,9 @@
         window.onload = function () {
             window.opener.postMessage({변수명1: '변수내용1', 변수명2: '변수내용2'}, '*');
         };
+        opener.document.getElementById("authFiledPHONE_AUTH").remove();
+        opener.document.getElementById("authFiledEMAIL_AUTH").remove()
+        opener.document.getElementById("resultText").innerText = '휴대폰 인증완료';
         opener.document.getElementById("authMobileChk").value = '[[${resultValue}]]';
         opener.document.getElementById("moblphon").value = '[[${sMobileNo}]]';
         opener.document.getElementById("sRequestNumber").value = '[[${sRequestNumber}]]';

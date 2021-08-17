@@ -114,28 +114,31 @@ public class MemberJoinController extends BaseCont {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldErrors());
             }
         } else { //청소년 아닐경우
-            if (memberForm.getEmail().split("@").length > 2 || StringUtils.countMatches(memberForm.getEmail(), " ") > 0 ||
-                    StringUtils.countMatches(memberForm.getLoginId(), " ") > 0 || StringUtils.countMatches(memberForm.getPwd(), " ") > 0
-            ) {//validation
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldErrors());
-            }
 
             if(memberForm.getAuthEmailChk() == 2){
                 memberForm.setEmailAttcAt("Y");
+                memberForm.setMobileAttcAt("N");
+                if (memberForm.getEmail().split("@").length > 2 || StringUtils.countMatches(memberForm.getEmail(), " ") > 0 ||
+                        StringUtils.countMatches(memberForm.getLoginId(), " ") > 0 || StringUtils.countMatches(memberForm.getPwd(), " ") > 0
+                ) {
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldErrors());
+                }
             }
 
             if (memberForm.getAuthMobileChk() == 2) {//컨트롤러 validation
                 //휴대폰 인증 여부 확인
+                log.info("휴대폰 인증 여부 확인");
+                memberForm.setEmailAttcAt("N");
+                memberForm.setMobileAttcAt("Y");
                 MobileAuthLogForm mobileAUthLogForm = new MobileAuthLogForm();
                 mobileAUthLogForm.setDmnNo(memberForm.getSRequestNumber());
                 mobileAUthLogForm.setRspNo(memberForm.getSResponseNumber());
                 mobileAUthLogForm.setMbtlnum(memberForm.getMoblphon());
                 MobileAuthLog load = mobileAuthLogService.load(mobileAUthLogForm);
                 if (load == null){
+                    log.info("load null");
                     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldErrors());
                 }
-            } else {
-                // return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldErrors());
             }
         }
         if (memberForm.getId() == null) {

@@ -16,6 +16,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * UserDetailsService [유저 디테일 서비스]
+ * @author : jerry
+ * @version : 1.0.0
+ * 작성일 : 2021/08/17
+**/
 @Service
 @RequiredArgsConstructor
 public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
@@ -53,7 +59,10 @@ public class UserDetailsService implements org.springframework.security.core.use
 
         Account byLoginIdAndEmail = memberRepository.findByLoginIdAndEmail(user.getLoginId(), user.getEmail());
 
-        if(byLoginIdAndEmail == null || !byLoginIdAndEmail.getEmailAttcAt().equals("Y")){
+//        if(byLoginIdAndEmail == null || !byLoginIdAndEmail.getEmailAttcAt().equals("Y")){
+//            throw new LockedException(unAuthMsg);
+//        }
+        if(byLoginIdAndEmail == null){
             throw new LockedException(unAuthMsg);
         }
         if(!byLoginIdAndEmail.getPrtctorAttcAt().equals("Y")){

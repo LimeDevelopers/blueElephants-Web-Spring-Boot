@@ -75,6 +75,10 @@ public class Account implements Serializable {
     private LocalDateTime emailAttcDtm;
     @Column(name = "email_attc_at")
     private String emailAttcAt;
+    @Column(name = "mobile_attc_dtm")
+    private LocalDateTime mobileAttcDtm;
+    @Column(name = "mobile_attc_at")
+    private String mobileAttcAt;
 
     @Transient
     private String areaNm;
