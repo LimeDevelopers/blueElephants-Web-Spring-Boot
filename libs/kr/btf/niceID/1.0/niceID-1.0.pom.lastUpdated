@@ -1,0 +1,12 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Tue Aug 17 09:45:44 KST 2021
+file\:///Users/jerry/IdeaProjects/blueElephants/libs/.error=
+http\://localhost\:8081/repository/jerry-3rdparty/.error=
+https\://repo.spring.io/milestone/.lastUpdated=1629161144133
+http\://0.0.0.0/.error=Could not transfer artifact kr.btf\:niceID\:pom\:1.0 from/to maven-default-http-blocker (http\://0.0.0.0/)\: Blocked mirror for repositories\: [jerry-3rdparty (http\://192.168.0.143\:8081/repository/jerry-3rdparty, default, releases+snapshots)]
+http\://localhost\:8081/repository/jerry-3rdparty/.lastUpdated=1628751239396
+file\:///Users/jerry/IdeaProjects/blueElephants/libs/.lastUpdated=1629161142020
+@default-maven-default-http-blocker-http\://0.0.0.0/.lastUpdated=1628764749509
+https\://repo.maven.apache.org/maven2/.lastUpdated=1629161144818
+https\://repo.spring.io/milestone/.error=
+https\://repo.maven.apache.org/maven2/.error=
