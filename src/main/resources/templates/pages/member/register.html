@@ -1067,7 +1067,7 @@
                                     <li>
                                         <div class="th">성별<span class="aster">*</span></div>
                                         <div class="td">
-                                            <div class="radio txt" th:each="tp : ${T(kr.or.btf.web.domain.web.enums.GenderType).values()}">
+                                            <div class="register_radio" th:each="tp : ${T(kr.or.btf.web.domain.web.enums.GenderType).values()}">
                                                 <input type="radio" th:id="|sexPrTy${tp}|" name="sexPrTy" th:value="${tp}">
                                                 <label th:for="|sexPrTy${tp}|" th:text="${tp.name}"></label>
                                             </div>
@@ -1078,7 +1078,7 @@
                                         <div class="th">본인인증<span class="aster">*</span></div>
                                         <div class="td">
                                             <span id="resultText"></span>
-                                            <div class="radio txt" th:id="|authFiled${at}|" th:each="at, idx : ${T(kr.or.btf.web.domain.web.enums.AuthType).values()}">
+                                            <div class="register_radio" th:id="|authFiled${at}|" th:each="at, idx : ${T(kr.or.btf.web.domain.web.enums.AuthType).values()}">
                                                     <input type="radio" th:id="|authPrTy${at}|" name="authPrTy" th:value="${at}" onclick="fn_authChk(this.value);">
                                                 <label th:for="|authPrTy${at}|" th:text="${at.name}"></label>
                                             </div>
