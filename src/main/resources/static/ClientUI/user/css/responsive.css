@@ -15,8 +15,8 @@
 
 	수정일 : 21.08.18
     수정자 : 고선호
-    수정 태그 : .gnb_tit, .page_top
-    소제목 색상, 폰트 크기 수정
+    수정 태그 : .gnb_tit, .page_top, .join_area .btn
+    소제목 색상, 폰트 크기 수정, 회원가입/이메일 재전송 버튼 위치 수정
 
     추가 태그 : .page_top_gradient, .employee, .group
     소제목 그라데이션 구분선 추가
@@ -492,8 +492,8 @@
 	.snb .tab{display:block;overflow-x:auto;padding:0 24px;font-size:0;white-space:nowrap}
 	.snb .tab > li{display:inline-block;width:auto;vertical-align:top}
 	.snb.mo_bb{border-bottom:1px solid #e7e7e7}
-	.page_top{padding-top:0}
-	.page_top > .page_tit{overflow:hidden;padding:0 24px;color:#fff;font-size:20px;line-height:50px;text-overflow:ellipsis;white-space:nowrap;}
+	.page_top{padding-top:67px}
+	.page_top > .page_tit{overflow:hidden;padding:0 24px;/*color:#fff;font-size:20px;*/line-height:50px;text-overflow:ellipsis;white-space:nowrap;}
 	.page_top > .page_tit + span{padding:16px 24px 0;font-size:17px;line-height:145%;word-break:keep-all}
 	.page_top > .page_tit.bg:after{display:none}
 	.page_top_gradient {margin: 0; border-top: 4px solid transparent; background-image: linear-gradient(#fff, #fff), linear-gradient(to right, #fff, #8bb3ff, #fff); background-origin: border-box; background-clip: content-box, border-box;}
@@ -1217,7 +1217,7 @@
 	.join_form_area .subtit_area .tab_type02 li:nth-child(3n-2){margin-left:0}
 	.join_form_area .subtit_area + .tbl_write{border-top:none}
 
-	.login_area .login_form .row:before{background:url(../images/icon/m_sp_login.png) no-repeat;background-size:47px auto}
+	.login_area .login_form .row:before{background:url(../images/icon/m_sp_login.png) no-repeat;background-size:47px auto; opacity: 0.5;}
 	.login_area .login_form .row input{height:54px;line-height:52px}
 	.login_area .login_form .icon_pw:before{background-position:-21px 0}
 	.login_area .login_form .btn_login{height:54px;font-size:16px;line-height:52px}
@@ -1230,8 +1230,8 @@
 	.join_area{width:370px;margin:0 auto;padding:20px 0 0;border-top:1px solid #dbdbdb}
 	.join_area .mt{margin-top:24px}
 	.join_area .pt{padding-top:18px}
-	.join_area span{display:block;float:none;margin:0 0 10px;font-size:16px;text-align:center}
-	.join_area .btn{float:none;width:100%;text-align:center}
+	.join_area span{display:inline-block;float:none;margin:8px 0 10px;font-size:16px;text-align:center}
+	.join_area .btn{float:right;/*width:100%;*/text-align:center}
 
 	.view_cont.inspection{padding:24px 0 0}
 	.inspection_box{margin-bottom:24px;padding:48px 20px}

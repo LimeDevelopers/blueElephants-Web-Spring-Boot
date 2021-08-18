@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!--
+    수정일 : 21.08.18
+    수정자 : 고선호
+    수정내용 : 소제목 구분선 추가, 마진값 추가
+-->
 <head>
     <th:block th:include="fragments/header"></th:block>
     <script type="text/javascript">
@@ -75,30 +80,38 @@
                     <form id="form1" name="form1" method="post">
                         <input type="hidden" id="msg" th:value="${msg}"/>
                         <input type="hidden" id="errormsg" th:value="${errormsg}"/>
-                        <fieldset>
-                            <legend>로그인</legend>
-                            <div class="login_form">
-                                <div class="row icon_id" id="userIdRow">
-                                    <label for="userId" class="blind">아이디를 입력하세요.</label>
-                                    <input type="text" name="userId" id="userId" placeholder="아이디를 입력하세요.">
-                                </div>
-                                <div class="row icon_pw" id="userPwRow">
-                                    <label for="userPw" class="blind">비밀번호를 입력하세요.</label>
-                                    <input type="password" name="userPw" id="userPw" placeholder="비밀번호를 입력하세요.">
-                                </div>
-                                <button type="submit" class="btn_login" onclick="return fn_chkLogin();" id="btnLogin">로그인</button>
-                                <!--<button type="button" class="btn_login" onclick="layerShow('popLoginTemp')">Login</button>-->
+                        <div class="page_cnt join_form_area">
+                            <div class="page_top_gradient">
+                                <fieldset>
+                                    <legend>로그인</legend>
+                                    <div class="page_cnt join_form_area">
+                                    <div class="login_form">
+                                        <div class="row icon_id" id="userIdRow">
+                                            <label for="userId" class="blind">아이디를 입력하세요.</label>
+                                            <input type="text" name="userId" id="userId" placeholder="아이디를 입력하세요.">
+                                        </div>
+                                        <div class="row icon_pw" id="userPwRow">
+                                            <label for="userPw" class="blind">비밀번호를 입력하세요.</label>
+                                            <input type="password" name="userPw" id="userPw" placeholder="비밀번호를 입력하세요.">
+                                        </div>
+                                        <button type="submit" class="btn_login" onclick="return fn_chkLogin();"
+                                                id="btnLogin">로그인
+                                        </button>
+                                        <!--<button type="button" class="btn_login" onclick="layerShow('popLoginTemp')">Login</button>-->
+                                    </div>
+                                    </div>
                             </div>
-                            <div class="chk_area clearfix">
-                                <div class="checkbox txt">
-                                    <input type="checkbox" name="remember-me" id="remember-me" checked="checked">
-                                    <label for="remember-me">자동로그인</label>
-                                </div>
-                                <ul class="id_pw_find clearfix">
-                                    <li><a href="/pages/member/idFind">아이디 찾기</a></li>
-                                    <li><a href="/pages/member/pwFind">비밀번호 찾기</a></li>
-                                </ul>
+                        </div>
+                        <div class="chk_area clearfix">
+                            <div class="checkbox txt">
+                                <input type="checkbox" name="remember-me" id="remember-me" checked="checked">
+                                <label for="remember-me">자동로그인</label>
                             </div>
+                            <ul class="id_pw_find clearfix">
+                                <li><a href="/pages/member/idFind">아이디 찾기</a></li>
+                                <li><a href="/pages/member/pwFind">비밀번호 찾기</a></li>
+                            </ul>
+                        </div>
                         </fieldset>
                     </form>
                 </div>
@@ -107,10 +120,11 @@
                         <span>아직 <strong>푸른코끼리</strong> 회원이 아니세요?</span>
                         <a href="/pages/member/joinAgree" class="btn btn_lg btn_line_blue btn_pill">회원가입</a>
                     </div>
-<!--                    <div class="mt clearfix">-->
-<!--                        <span><strong>이메일 인증 시간이 초과</strong> 되었나요?</span>-->
-<!--                        <a href="javascript:layerShow('popMailAuthResend');" class="btn btn_lg btn_skyblue btn_pill">재전송</a>-->
-<!--                    </div>-->
+                    <div class="mt clearfix">
+                        <span><strong>이메일 인증 시간이 초과</strong> 되었나요?</span>
+                        <a href="javascript:layerShow('popMailAuthResend');"
+                           class="btn btn_lg btn_skyblue btn_pill">재전송</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -120,7 +134,9 @@
         <div class="popup_area">
             <a href="javascript:layerHide('popLoginTemp')" class="btn_close"><span class="blind">팝업닫기</span></a>
             <div class="popup">
-                <div class="pop_txt">로그인 되었습니다.<br/>임시 비밀번호를 발급 받으신 경우<br/>반드시 <strong class="fc_blue">신규 비밀번호로 변경</strong>하신 후 사용해 주세요.</div>
+                <div class="pop_txt">로그인 되었습니다.<br/>임시 비밀번호를 발급 받으신 경우<br/>반드시 <strong class="fc_blue">신규 비밀번호로
+                    변경</strong>하신 후 사용해 주세요.
+                </div>
                 <div class="btn_area">
                     <a href="javascript:;" class="btn btn_lg btn_blue btn_pill_10">회원정보 수정</a>
                 </div>
@@ -148,9 +164,13 @@
                         </div>
                     </form>
                 </div>
-                <div class="pop_txt">인증 링크는 발송 후 <strong class="fc_red">1시간</strong>동안 유효합니다.<br/>인증 링크를 재발송 하신 경우 반드시 <strong class="fc_blue">재발송 된 메일</strong>의 인증링크로 인증 후 로그인 해주세요.</div>
+                <div class="pop_txt">인증 링크는 발송 후 <strong class="fc_red">1시간</strong>동안 유효합니다.<br/>인증 링크를 재발송 하신 경우 반드시
+                    <strong class="fc_blue">재발송 된 메일</strong>의 인증링크로 인증 후 로그인 해주세요.
+                </div>
                 <div class="btn_area">
-                    <button id="btnMailAuthResend" class="btn btn_lg btn_blue btn_pill_10" onclick="return fn_mailAuthResend();">재발송</button>
+                    <button id="btnMailAuthResend" class="btn btn_lg btn_blue btn_pill_10"
+                            onclick="return fn_mailAuthResend();">재발송
+                    </button>
                 </div>
             </div>
         </div>
