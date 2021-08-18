@@ -11,6 +11,11 @@
     수정일 : 21.08.13
     수정내용 : 마이페이지 등 상단 메뉴 css 수정 및 일괄관리 탭 테이블 구조 추가
     (batch_contents, .board_tbl_list - div & li)
+
+    수정일 : 21.08.18
+    수정자 : 고선호
+    수정 태그 : .employee, .group (추가)
+    개인/단체 선택창 이미지 버튼 마우스오버, 클릭
 */
 #resultText{
     font-weight: 500;
@@ -337,7 +342,7 @@
 .sec .sec_tit{float:left;width:228px;margin-right:30px;padding:0 0 10px 5px;color:#000;font-size:28px;font-weight:500;line-height:34px;word-break:keep-all;border-bottom:2px solid #000}
 .sec .sec_cont{float:left;width:calc(100% - 258px)}
 .sec_write{position:relative;margin-top:60px;}
-.sec_write .baseData{border-top: 4px solid;border-color: #8bb3ff;}
+.sec_write .baseData{border-top: 4px solid;border-color: #85b4f7;}
 .tip_tbl + .sec_write, .sec_write:first-child:not(.mt){margin-top:0}
 .sec_write .subtit{padding-bottom:25px;font-size:26px;font-weight:700;line-height:1;text-align:left}
 .sec_write .subtit .aster{color:#8bb3ff}

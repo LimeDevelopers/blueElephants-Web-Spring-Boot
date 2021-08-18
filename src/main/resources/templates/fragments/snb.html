@@ -1,3 +1,10 @@
+<!--
+    수정일 : 21.08.18
+    수정자 : 고선호
+    수정내용 : memberJoin 비어있는 제목 추가
+
+-->
+
 <div class="gnb_tit" th:classappend="${mc eq 'blueElephant' ? 'gnb01' : ''} + ${mc eq 'activity' ? 'gnb02' : ''} + ${mc eq 'news' ? 'gnb03' : ''} + ${mc eq 'classRegis' ? 'gnb04' : ''} + ${mc eq 'memberJoin' ? 'gnb05' : ''} + ${mc eq 'myPage' ? 'gnb06' : ''} + ${mc eq 'customerCenter' ? 'gnb07' : ''} + ${mc eq 'searchResult' ? 'gnb08' : ''} + ${mc eq 'privacy' ? 'gnb08' : ''} + ${mc eq 'terms' ? 'gnb08' : ''} + ${mc eq 'mailDeny' ? 'gnb08' : ''} + ${mc eq 'sitemap' ? 'gnb08' : ''}" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <h2 th:if="${mc eq 'blueElephant'}">푸른코끼리</h2>
     <h2 th:if="${mc eq 'activity'}">푸른코끼리 활동</h2>

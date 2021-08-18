@@ -12,6 +12,16 @@
 	수정일 : 21.08.13
 	수정내용 : 일괄관리 탭 추가로 인한 수정
 	수정 태그 : .board_tbl_list > lli > div .~~~ 에 대한 주석 및 수정
+
+	수정일 : 21.08.18
+    수정자 : 고선호
+    수정 태그 : .gnb_tit, .page_top
+    소제목 색상, 폰트 크기 수정
+
+    추가 태그 : .page_top_gradient, .employee, .group
+    소제목 그라데이션 구분선 추가
+    개인/단체 선택창 마우스오버, 클릭 이미지버튼 추가
+
 */
 @media (min-width:1024px){
     .tab_ico_area .tab_cont.mo_thumb .cont{width:100%;min-height:220px;padding-right:60px;padding-left:60px}
@@ -1194,7 +1204,7 @@
     .join_agree_area .desc_box + .btn_area{position:relative;margin-top:14px;padding-top:0;text-align:left}
     .join_agree_area .desc_box + .btn_area .btn_view{display:block;position:absolute;top:50%;right:0;padding:0 4px 2px;color:#a5a5a5;font-size:17px;font-weight:500;line-height:1;transform:translateY(-50%)}
     .join_agree_area .desc_box + .btn_area .btn_view:after{content:'';position:absolute;right:0;bottom:0;left:0;height:1px;background-color:#a5a5a5}
-    .join_agree_area .all_chk{margin-top:28px;padding-top:28px;border-top:1px solid #dbdbdb}
+    .join_agree_area .all_chk{margin-top:28px;padding-top:28px;border-top:4px solid #85b4f7}
     .join_agree_area .all_chk .checkbox :checked + label{font-weight:700}
     .join_agree_area .agree_area.active{position:relative;padding:42px 0 2px}
     .join_agree_area .agree_area.active .desc_box{display:block}
