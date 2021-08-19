@@ -9,27 +9,21 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>kr.or.btf</groupId>
-	<artifactId>blueTree</artifactId>
-	<version>0.0.1</version>
-	<name>blueTree</name>
-	<description>Blue tree Foundation Web</description>
+	<artifactId>web</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>web</name>
+	<description>Blue tree Foundation web</description>
 	<packaging>war</packaging>
 
-	<!-- 외부 라이브러리 설정 프로퍼티 -->
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>8</java.version>
 	</properties>
 
-
 	<repositories>
-<!--		<repository>-->
-<!--			<id>jerry-3rdparty</id>-->
-<!--			<url>http://localhost:8081/repository/jerry-3rdparty</url>-->
-<!--		</repository>-->
 		<repository>
-			<id>local-repo</id>
+			<id>local-repository</id>
 			<name>local repository</name>
 			<url>file://${project.basedir}/libs</url>
 		</repository>
@@ -44,17 +38,14 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
-			<version>2.3.3.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
-			<version>2.3.3.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-			<version>2.3.3.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.thymeleaf.extras</groupId>
@@ -63,18 +54,15 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-			<version>2.3.3.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
-			<version>2.3.3.RELEASE</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
-			<version>2.3.3.RELEASE</version>
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
@@ -102,12 +90,11 @@
 		<dependency>
 			<groupId>com.querydsl</groupId>
 			<artifactId>querydsl-apt</artifactId>
-			<version>4.3.1</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.querydsl</groupId>
 			<artifactId>querydsl-jpa</artifactId>
-			<version>4.3.1</version>
 		</dependency>
 
 		<dependency>
@@ -186,11 +173,13 @@
 			<artifactId>jquery</artifactId>
 			<version>3.4.1</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>jquery-ui</artifactId>
 			<version>1.12.1</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>font-awesome</artifactId>
@@ -206,18 +195,8 @@
 			<version>7.1.0</version>
 		</dependency>
 
-<!--		<dependency>-->
-<!--			<groupId>kr.btf</groupId>-->
-<!--			<artifactId>niceID</artifactId>-->
-<!--			<version>1.0</version>-->
-<!--		</dependency>-->
 
 		<dependency>
-			<groupId>kr.btf</groupId>
-			<artifactId>niceID</artifactId>
-			<version>1.0</version>
-		</dependency>
-	<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
@@ -232,6 +211,11 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>kr.btf</groupId>
+			<artifactId>niceID</artifactId>
+			<version>1.0</version>
 		</dependency>
 	</dependencies>
 
@@ -265,7 +249,6 @@
 					<skipTests>true</skipTests>
 				</configuration>
 			</plugin>
-
 		</plugins>
 	</build>
 

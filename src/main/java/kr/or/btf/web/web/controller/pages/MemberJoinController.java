@@ -9,6 +9,7 @@ import kr.or.btf.web.services.web.MemberService;
 import kr.or.btf.web.services.web.MobileAuthLogService;
 import kr.or.btf.web.utils.AESEncryptor;
 import kr.or.btf.web.web.controller.BaseCont;
+import kr.or.btf.web.web.form.CrewForm;
 import kr.or.btf.web.web.form.MemberForm;
 import kr.or.btf.web.web.form.MobileAuthLogForm;
 import kr.or.btf.web.web.validator.MemberFormValidator;
@@ -16,7 +17,6 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,7 +31,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Random;
 
 @Controller
 @RequiredArgsConstructor
@@ -44,7 +43,7 @@ public class MemberJoinController extends BaseCont {
     private final MailService mailService;
 
     @GetMapping(value = "/pages/member/joinPick")
-    public String joinPickPage(Model model){
+    public String joinPickPage(Model model) {
         model.addAttribute("mc", "memberJoin");
         return "/pages/member/joinPick";
     }
@@ -67,10 +66,28 @@ public class MemberJoinController extends BaseCont {
 
     @GetMapping({"/pages/member/joinAgree"})
     public String joinAgree(Model model,
+                            String dv,
                             HttpSession session) {
-
+        String page;
         model.addAttribute("mc", "memberJoin");
-        return "/pages/member/joinAgree";
+        if (dv.equals("nm")) {
+            model.addAttribute("ty", "mb");
+            page = "/pages/member/joinAgree";
+        } else if (dv.equals("crew")) {
+            model.addAttribute("ty", "et");
+            page = "/pages/member/joinAgree";
+        } else {
+            page = "/pages/member/joinPick";
+        }
+        return page;
+    }
+
+    @GetMapping({"/pages/member/crew_register"})
+    public String crew_register(Model model,
+                                CrewForm crewForm,
+                                HttpSession session) {
+        model.addAttribute("mc", "crewJoin");
+        return "/pages/member/crew_register";
     }
 
     @GetMapping({"/pages/member/register"})
@@ -85,11 +102,12 @@ public class MemberJoinController extends BaseCont {
     /**
      * 생성일 : 21.08.15
      * 생성자 : 김재일
+     *
      * @param model
-     * @param  memberForm
+     * @param memberForm
      * @param errors
      * @param bindingResult
-     * **/
+     **/
     @PostMapping("/api/member/insert")
     public ResponseEntity insert(Model model,
                                  @ModelAttribute @Valid MemberForm memberForm,
@@ -115,7 +133,7 @@ public class MemberJoinController extends BaseCont {
             }
         } else { //청소년 아닐경우
 
-            if(memberForm.getAuthEmailChk() == 2){
+            if (memberForm.getAuthEmailChk() == 2) {
                 memberForm.setEmailAttcAt("Y");
                 memberForm.setMobileAttcAt("N");
                 if (memberForm.getEmail().split("@").length > 2 || StringUtils.countMatches(memberForm.getEmail(), " ") > 0 ||
@@ -135,7 +153,7 @@ public class MemberJoinController extends BaseCont {
                 mobileAUthLogForm.setRspNo(memberForm.getSResponseNumber());
                 mobileAUthLogForm.setMbtlnum(memberForm.getMoblphon());
                 MobileAuthLog load = mobileAuthLogService.load(mobileAUthLogForm);
-                if (load == null){
+                if (load == null) {
                     log.info("load null");
                     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldErrors());
                 }
@@ -253,7 +271,6 @@ public class MemberJoinController extends BaseCont {
     }
 
 
-
     // 이메일 인증
     @PostMapping("/api/member/CheckMail")
     @ResponseBody
@@ -266,10 +283,12 @@ public class MemberJoinController extends BaseCont {
             tempKey = -1;
         } else {
             tempKey = memberService.gen6Digit();
-            mailService.mailSend(memberService.sendEmailTempAuthKey(account,tempKey));
+            mailService.mailSend(memberService.sendEmailTempAuthKey(account, tempKey));
         }
         return tempKey;
     }
+
+
 
     @ResponseBody
     @PostMapping("/api/member/isExistsByEmail")

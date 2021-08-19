@@ -8,7 +8,8 @@ public enum UserRollType {
     TEACHER("선생님"),
     PARENT("부모님"),
     LECTURER("푸코강사"),
-    COUNSELOR("상담사");
+    COUNSELOR("상담사"),
+    SPT_CREW("지지크루");
 
     final private String name;
 
