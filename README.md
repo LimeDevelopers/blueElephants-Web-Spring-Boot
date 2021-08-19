@@ -9,37 +9,16 @@ Maven clean&install 실행
 * Application Run
 java: cannot find symbol 에러 발생시 ISSUE001 해당 구문 참조해서 해결해야됩니다.
 
-### 서드파티 nexus repo 접근방법 (일단 Pom.xml 주석처리 후 사용) 
-* .m2 폴더 -> settings.xml 생성 후 아래 코드 주입
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<settings xmlns="http://maven.apache.org/SETTINGS/1.2.0"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.2.0 http://maven.apache.org/xsd/settings-1.2.0.xsd">
-  <pluginGroups>
-  </pluginGroups>
-  <proxies>
-  </proxies>
-  <!-- nexus 서버 세팅 -->
-  <servers>
-        <server>
-            <id>jerry-3rdparty</id>
-            <username>public</username>
-            <password>lime1357</password>
-        </server>	
-    </servers>
-  <mirrors>
-    <mirror>
-      <id>maven-default-http-blocker</id>
-      <mirrorOf>external:http:*</mirrorOf>
-      <name>Pseudo repository to mirror external repositories initially using HTTP.</name>
-      <url>http://0.0.0.0/</url>
-      <blocked>true</blocked>
-    </mirror>
-  </mirrors>
-  <profiles>
-  </profiles>
-</settings>
+### 서드파티 local repo 접근방법
+* 아래 순서대로 필히 진행해야함.
+* Intelij -> Terminal
+```cli
+mvn install:install-file -Dfile=[파일 full경로] -DgroupId=[그룹아이디] -DartifactId=[artifactId] -Dversion=[버전정보] -Dpackaging=[jar] -DgeneratePom=true
+```
+
+* 빌드 끝난 후 Terminal
+```cli
+mvn -U -DskipTest clean compile install
 ```
 
 ### 소스코드 대폭 수정 (21.08.05)
