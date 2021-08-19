@@ -19,6 +19,11 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
+/*
+ * SecurityConfig [라우터 핸들러]
+ * @auther : LIMEFRIENDS
+ * @craete_date : 2021-08-19, 목, 16:43
+*/
 @Configuration
 @EnableWebSecurity
 @AllArgsConstructor
@@ -85,6 +90,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers("/pages/**","/api/member/**","/api/nice/**","/api/openData/**","/upload/**","/api/commonCode/listForUppCdPid").permitAll()
                 .mvcMatchers("/soulGod/**").hasAnyRole("MASTER,ADMIN,LECTURER,COUNSELOR")
                 //.mvcMatchers("/**").permitAll()
+                .mvcMatchers("/test/**").permitAll()
                 .anyRequest().authenticated();
 
         http.formLogin()

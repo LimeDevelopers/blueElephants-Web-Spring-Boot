@@ -159,7 +159,7 @@
 	.pc{display:none !important}
     .mo{display:block}
 	.m_w100p{width:100% !important}
-	input{height:42px;line-height:40px;bor크der-radius: 8px;}
+	input{height:42px;line-height:40px;border-radius: 8px;}
 	.checkbox label:after, .radio label:after{width:24px;height:24px;border-width:2px;border-radius:2px}
 	.radio label:after{border-radius:50%}
 	.checkbox.txt label, .radio.txt label{padding-left:34px;font-size:17px;line-height:28px}

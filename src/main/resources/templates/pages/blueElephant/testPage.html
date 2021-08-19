@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+    <script>
+        $(function(){
+            $(window).on('load resize',function(){
+                //secScroll()
+                $('.nav_sec > li').each(function(){
+                    var navLi = $(this),
+                        navLiIdx = navLi.index(),
+                        secTop = $('.sec').eq(navLiIdx).offset().top - 105;
+
+                    navLi.children('a').on('click', function(){
+                        $('html, body').stop().animate({'scrollTop':secTop});
+                    });
+                });
+                $(window).scroll(function(){
+                    secScroll()
+                });
+            });
+
+        });
+
+        function secScroll(){
+            var sct = $(window).scrollTop(),
+                winH = $(window).height(),
+                sec01 = $('.sec').eq(0).offset().top - 115,
+                sec02 = $('.sec').eq(1).offset().top - 115,
+                navIdx;
+
+            if(sct >= sec01 && sct < sec02){
+                navIdx = 0;
+            }else if(sct >= sec02){
+                navIdx = 1;
+            }
+            $('.nav_sec > li').eq(navIdx).addClass('active').siblings().removeClass('active')
+        }
+    </script>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+
+        <div class="contents">
+            <div class="page_top">
+                <h3 class="page_tit bg">푸코는 이런 활동을 해요!</h3>
+            </div>
+            <div class="page_cont">
+                <button type="submit" class="btn btn_blue btn_pill_10">검색</button>
+            </div>
+        </div>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>
