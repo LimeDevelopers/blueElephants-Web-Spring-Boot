@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+    <!--푸코 사무국 위치 소개 페이지-->
+
+    <!--추가되는 리소스 저장경로 start-->
+    <link rel="stylesheet" type="text/css" th:href="@{/_temp/_user/_custom.css}">
+    <script th:src="@{/_temp/_user/_style.js}"></script>
+    <!--추가되는 리소스 저장경로 end-->
+
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=q4r5fr8c03&callback=initMap"></script>
+    <script>
+	 var map = null;
+
+        function initMap() {
+            var map = new naver.maps.Map('map', {
+                center: new naver.maps.LatLng(37.489852, 127.012842),
+                zoom: 18
+            });
+
+            var marker = new naver.maps.Marker({
+                position: new naver.maps.LatLng(37.489852, 127.012842),
+                map: map
+            });
+        }
+    </script>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+
+        <div class="contents">
+            <div class="page_top">
+                <h3 class="page_tit bg">푸코 사무국을 소개합니다!</h3>
+            </div>
+            <div class="page_cont">
+                <div class="location_area clearfix">
+                    <div id="map" class="map"></div>
+                    <ul class="info clearfix">
+                        <li>
+                            <dl>
+                                <dt>회사주소</dt>
+                                <dd>서울특별시 서초구 서초대로 46길 88<span class="dib">(청예단빌딩)</span> <br />1,2,3,4,5층</dd>
+                            </dl>
+                        </li>
+                        <li>
+                            <dl>
+                                <dt>연락처</dt>
+                                <dd class="ico tel"><span class="pc">02-585-0098</span><a href="tel:02-585-0098" class="mo">02-585-0098</a></dd>
+                                <dd class="ico fax">02-585-0038</dd>
+                            </dl>
+                        </li>
+                    </ul>
+                    <div class="tel_area">
+                        <dl>
+                            <dt>전국 사이버폭력 상담전화</dt>
+                            <dd><span class="pc">1588-9128<em>(구원의팔)</em></span><a href="tel:1588-9128" class="mo">1588-9128<em>(구원의팔)</em></a></dd>
+                        </dl>
+                    </div>
+                </div>
+
+                <div class="sec_write">
+                    <h4 class="subtit">찾아오시는 길</h4>
+                    <div class="tbl_write">
+                        <ul>
+                            <li>
+                                <div class="th"><span class="ico subway">지하철 이용 시</span></div>
+                                <div class="td td_txt">
+                                    <ul class="subway_location clearfix">
+                                        <li>교대역(2,3호선) 14번 출구</li>
+                                        <li>직진 200m</li>
+                                        <li>GS주유소 골목으로 우회전</li>
+                                        <li>직진 300m 좌측 청예단빌딩 (도보 5분)</li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="th"><span class="ico bus">버스 이용 시</span></div>
+                                <div class="td td_txt">교대역 하차 <br />간선 144, N61 / 지선 3012 </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

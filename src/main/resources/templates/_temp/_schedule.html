@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+    <!--푸코 연혁소개 페이지-->
+
+    <!--추가되는 리소스 저장경로 start-->
+    <link rel="stylesheet" type="text/css" th:href="@{/_temp/_user/_custom.css}">
+    <script th:src="@{/_temp/_user/_style.js}"></script>
+    <!--추가되는 리소스 저장경로 end-->
+
+    <script>
+        $(function(){
+            $(window).on('load resize',function(){
+                //secScroll()
+                $('.nav_sec > li').each(function(){
+                    var navLi = $(this),
+                        navLiIdx = navLi.index(),
+                        secTop = $('.sec').eq(navLiIdx).offset().top - 105;
+
+                    navLi.children('a').on('click', function(){
+                        $('html, body').stop().animate({'scrollTop':secTop});
+                    });
+                });
+                $(window).scroll(function(){
+                    secScroll()
+                });
+            });
+        });
+
+        function secScroll(){
+            var sct = $(window).scrollTop(),
+                winH = $(window).height(),
+                sec01 = $('.sec').eq(0).offset().top - 115,
+                sec02 = $('.sec').eq(1).offset().top - 115,
+                navIdx;
+
+            if(sct >= sec01 && sct < sec02){
+                navIdx = 0;
+            }else if(sct >= sec02){
+                navIdx = 1;
+            }
+            $('.nav_sec > li').eq(navIdx).addClass('active').siblings().removeClass('active')
+        }
+    </script>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+
+        <div class="contents">
+            <div class="page_top">
+                <h3 class="page_tit bg">푸코 일정은 이렇습니다!</h3>
+            </div>
+            <div class="page_cont">
+                <ul class="nav_sec">
+                    <li class="active"><a href="javascript:;">주요일정</a></li>
+                    <li><a href="javascript:;">연혁</a></li>
+                </ul>
+                <div class="sec sec_schedule">
+                    <h4 class="sec_tit">주요일정</h4>
+                    <div class="sec_cont">
+                        <p class="txt">차별과 선도가 아닌 교육적 접근을 통해 내적 변화, 자발적인 참여를 통해 예방문화를 확산</p>
+                        <div class="bg_txt">
+                            <p>청소년 사이버폭력 27% 감소(30%→3%) 및 사이버폭력 예방교육 프로그램 동아시아 3개국 확산</p>
+                        </div>
+                        <ul class="schedule_list clearfix">
+                            <li class="bg01">
+                                <dl>
+                                    <dt>1기 도입기(20~22년)</dt>
+                                    <dd>사이버폭력 <b>예방교육, 기획 및 실행</b> 지속가능한 사이버폭력 예방교육 시스템을  구축하여 급변하는 사이버 환경에 선제적 대응</dd>
+                                </dl>
+                            </li>
+                            <li class="bg02">
+                                <dl>
+                                    <dt>2기 성숙기(23~25년)</dt>
+                                    <dd>사이버폭력 <b>예방교육, 확산 및 유지</b> 사이버폭력 예방 및 해소를 위한  맞춤형 현장 솔루션 제공을 통한  청소년의 친사회적 역량 강화</dd>
+                                </dl>
+                            </li>
+                            <li class="bg03">
+                                <dl>
+                                    <dt>3기 확장기(26~29년)</dt>
+                                    <dd>사이버폭력 <b>예방교육, 정책·제도 영향</b> 국제 연대를 통한 사이버폭력 예방교육 성공모델 동아시아 국가(베트남, 중국, 인도) 확산 및 공동대응</dd>
+                                </dl>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="sec sec_history">
+                    <h4 class="sec_tit">연혁</h4>
+                    <div class="sec_cont">
+                        <ul class="history_list clearfix">
+                            <li>
+                                <dl>
+                                    <dt>2019</dt>
+                                    <dd>
+                                        <dl>
+                                            <dt>4월</dt>
+                                            <dd><em>푸른코끼리 프로젝트 기획</em></dd>
+                                        </dl>
+                                    </dd>
+                                </dl>
+                            </li>
+                            <li>
+                                <dl>
+                                    <dt>2020</dt>
+                                    <dd>
+                                        <dl>
+                                            <dt>2월</dt>
+                                            <dd><em>푸른코끼리 프로젝트 착수 및 MOU</em> <br />(교육부,  푸른나무재단, 사랑의 열매, 삼성)</dd>
+                                        </dl>
+                                        <dl>
+                                            <dt>4월</dt>
+                                            <dd>푸른코끼리 어플리케이션 개발 착수</dd>
+                                        </dl>
+                                        <dl>
+                                            <dt>5월</dt>
+                                            <dd class="bull">푸른코끼리 찾아가는 교안 TFT 결성</dd>
+                                            <dd class="bull">사이버폭력 정의(숙명여자대학교) 연구 진행</dd>
+                                            <dd class="bull">사이버폭력 진단연구(건국대) 진행</dd>
+                                        </dl>
+                                        <dl>
+                                            <dt>6월</dt>
+                                            <dd>푸른코끼리 온라인 사전,사후 교육 구성</dd>
+                                        </dl>
+                                        <dl>
+                                            <dt>8월</dt>
+                                            <dd class="bull">푸른코끼리 지지크루(동아리) 선정</dd>
+                                            <dd class="bull">사이버폭력 예방교육 강사 선발</dd>
+                                        </dl>
+                                        <dl>
+                                            <dt>9월</dt>
+                                            <dd>푸른코끼리 지지크루 활동</dd>
+                                        </dl>
+                                        <dl>
+                                            <dt>11월</dt>
+                                            <dd>푸른코끼리 학교로 찾아가는 예방교육 출강 실시, 푸른코끼리 포럼</dd>
+                                        </dl>
+                                        <dl>
+                                            <dt>12월</dt>
+                                            <dd>사이버폭력 예방교육 강사 2차 선발</dd>
+                                        </dl>
+                                    </dd>
+                                </dl>
+                            </li>
+                            <li>
+                                <dl>
+                                    <dt>2021</dt>
+                                    <dd>
+                                        <dl>
+                                            <dt>~</dt>
+                                            <dd></dd>
+                                        </dl>
+                                    </dd>
+                                </dl>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

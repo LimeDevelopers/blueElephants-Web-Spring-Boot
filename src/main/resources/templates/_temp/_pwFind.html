@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+    <!--비밀번호 찾기 페이지-->
+
+    <!--추가되는 리소스 저장경로 start-->
+    <link rel="stylesheet" type="text/css" th:href="@{/_temp/_user/_custom.css}">
+    <script th:src="@{/_temp/_user/_style.js}"></script>
+    <!--추가되는 리소스 저장경로 end-->
+
+    <script type="application/javascript">
+        var id;
+        var loginId;
+        var pwd;
+        var pwdChg;
+        var pwdChgChk;
+        var email;
+        var email01;
+        var email02;
+        var email03;
+
+        var EmailAuthBool = false;
+
+        function fn_sendTempPw() {
+            id = $('#id');
+            loginId = $('#loginId');
+            id.val("");
+
+            loginId.siblings('.err.emph').remove();
+            if (!loginIdCheck(loginId)) {
+                return false;
+            }
+
+            var emailStr = "";
+            email = $("#email");
+            email01 = $("#email01");
+            email02 = $("#email02");
+            email03 = $("#email03");
+            email.siblings('.err.emph').remove();
+            if ($.trim(email01.val())) {
+                emailStr += $.trim(email01.val());
+                emailStr += "@"
+            } else {
+                //alert('이메일을 입력하세요');
+                email.after('<span class="err emph">이메일을 입력하세요.</span>');
+                email01.focus();
+                return false;
+            }
+
+            if ($.trim(email02.val()) != "직접입력") {
+                if (!$.trim(email02.val())) {
+                    //alert('이메일을 입력하세요');
+                    email.after('<span class="err emph">이메일을 입력하세요.</span>');
+                    email02.focus();
+                    return false;
+                } else {
+                    emailStr += $.trim(email02.val());
+                }
+            }
+
+            if ($.trim(email02.val()) == "직접입력") {
+                if (!$.trim(email03.val())) {
+                    //alert('이메일을 입력하세요');
+                    email.after('<span class="err emph">이메일을 입력하세요.</span>');
+                    email03.focus();
+                    return false;
+                } else {
+                    emailStr += $.trim(email03.val());
+                }
+            }
+
+            email.val(emailStr);
+
+            if (!emailCheck(email)) {
+                return false;
+            }
+
+            var jsonData = {
+                'loginId': loginId.val(),
+                'email': email.val()
+            }
+            $.ajax({
+                type: 'post',
+                url: '/api/member/sendTempPw',
+                contentType: "application/json",
+                data: JSON.stringify(jsonData),
+                datatype: 'json',
+                success: function (data) {
+                    console.log(data);
+                    if (data != null && data !== "" && data.id !== "" && data.loginId !== "") {
+                        EmailAuthBool = true;
+                        id.val(data.id);
+                        loginId.attr("disabled", true);
+                        email01.attr("disabled", true);
+                        email02.attr("disabled", true);
+                        email03.attr("disabled", true);
+                        $("#btnSendTempPw").attr("disabled", true);
+                        alert(email.val() + ' 으로 회원님의 임시 비밀번호가 전송 되었습니다. 비밀번호 변경 후 다시 로그인해주세요.');
+                    } else {
+                        EmailAuthBool = false;
+                        alert('임시 비밀번호 발급에 실패했습니다. 아이디,이메일을 확인해주세요.');
+                    }
+                },
+                error: function (error) {
+                    //alert('save error!!!');
+                    EmailAuthBool = false;
+                    alert('error::' + error.statusText);
+                }
+            });
+        }
+
+        function fn_chkPwdDup() {
+            pwd = $("#pwd");
+            pwdChg = $("#pwdChg");
+            pwdChgChk = $('#pwdChgChk');
+
+            pwd.siblings('.err.emph').remove();
+            if (!$.trim(pwd.val())) {
+                //alert('이메일로 전송된 임시 비밀번호를 입력하세요');
+                pwd.after('<p class="err emph">이메일로 전송된 임시 비밀번호를 입력하세요</p>');
+                pwd.focus();
+                return false;
+            } else {
+                if (!pwdCheck(pwd)) {
+                    pwd.val("");
+                    pwd.focus();
+                    return false;
+                }
+            }
+            pwdChg.siblings('.err.emph').remove();
+            if (!$.trim(pwdChg.val())) {
+                //alert('변경 비밀번호를 입력하세요');
+                pwdChg.after('<p class="err emph">변경 비밀번호를 입력하세요</p>');
+                pwdChg.focus();
+                return false;
+            } else {
+                if (!pwdCheck(pwd)) {
+                    pwd.val("");
+                    pwd.focus();
+                    return false;
+                }
+            }
+            pwdChgChk.siblings('.err.emph').remove();
+            if (!$.trim(pwdChgChk.val())) {
+                //alert('변경 비밀번호 확인을 입력하세요');
+                pwdChgChk.after('<p class="err emph">변경 비밀번호 확인을 입력하세요</p>');
+                pwdChgChk.focus();
+                return false;
+            } else {
+                if (!pwdCheck(pwdChgChk)) {
+                    pwdChgChk.val("");
+                    pwdChgChk.focus();
+                    return false;
+                }
+            }
+
+            if (pwdChg.val() != pwdChgChk.val()) {
+                //alert('비밀번호가 일치하지 않습니다.');
+                pwdChgChk.after('<p class="err emph">변경 비밀번호와 변경 비밀번호 확인이 일치하지 않습니다.</p>');
+                pwdChgChk.focus();
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        var makeErrField = function (response) {
+            const errFields = response.responseJSON;
+
+            if (!errFields) {
+                alert(response.response.message);
+                return;
+            }
+            if (errFields.errors) {
+                var altmsgs = errFields.errors;
+                for (var i = 0, length = altmsgs.length; i < length; i++) {
+                    error = altmsgs[i];
+                    if (error['field'] == 'altmsg') {
+                        alert(error.defaultMessage);
+                    }
+                }
+                return;
+            }
+
+            var $field, error;
+            for (var i = 0, length = errFields.length; i < length; i++) {
+                error = errFields[i];
+                $field = $('#' + error['field']);
+
+                if ($field && $field.length > 0) {
+                    $field.siblings('.err.emph').remove();
+                    $field.after('<p class="err emph">' + error.defaultMessage + '</p>');
+                }
+            }
+        };
+
+        $(function () {
+            $('#btnSave').click(function () {
+                $('.err.emph').remove();
+
+                id = $('#id');
+                loginId = $('#loginId');
+
+                if(!loginIdCheck(loginId)){
+                    return false;
+                }
+
+                if(!EmailAuthBool || !$.trim(id.val())){
+                    alert('임시 비밀번호 발급 후 변경 가능합니다.');
+                    return;
+                }
+
+                if(!fn_chkPwdDup()){
+                    return;
+                }
+
+                var formData = $("#form1").serialize();
+                $.ajax({
+                    cache: false,
+                    url: "/pages/member/pwdUpdate",
+                    type: 'POST',
+                    data: formData,
+                    success: function (data) {
+                        alert(data);
+                        location.href = "/login";
+                    },
+                    error: function (error) {
+                        makeErrField(error);
+                    }
+                });
+
+                //var frm = $('#form1');
+                //frm.prop('action', '/api/member/save');
+                //frm.submit();
+            });
+        })
+    </script>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+
+        <div class="contents">
+            <div class="page_top pc">
+                <h3 class="page_tit">아이디/비밀번호 찾기</h3>
+                <span>아이디 및 비밀번호를 잊으셨습니까?</span>
+            </div>
+            <div class="page_cont find_id_pw">
+                <div class="tab_ico_area">
+                    <a href="javascript:;" class="tit">비밀번호 찾기</a>
+                    <ul class="tab_type_ico">
+                        <li class="id"><a href="/pages/member/idFind">아이디 찾기</a></li>
+                        <li class="pw active"><a href="/pages/member/pwFind">비밀번호 찾기</a></li>
+                    </ul>
+                </div>
+                <h4 class="subtit pc">비밀번호 찾기</h4>
+                <h4 class="submsg mo">아이디 및 비밀번호를 잊으셨습니까?</h4>
+                <form id="form1" name="form1" method="post">
+                    <input type="hidden" id="id" name="id"/>
+                    <div class="tbl_write mt">
+                        <ul>
+                            <li>
+                                <div class="th"><label for="loginId">아이디</label></div>
+                                <div class="td">
+                                    <input type="text" name="loginId" id="loginId" placeholder="아이디 입력">
+                                </div>
+                            </li>
+                            <li>
+                                <div class="th">이메일 주소</div>
+                                <div class="td">
+                                    <div class="email_form clearfix"> <!-- [D] active 클래스가 있어야 직접입력 인풋이 노출 됨(style.js 에 들어가 있음) -->
+                                        <input type="text" name="email01" id="email01" title="이메일 아이디 입력">
+                                        <span class="at">@</span>
+                                        <div class="select">
+                                            <label for="email02">선택</label>
+                                            <select name="email02" id="email02">
+                                                <option value="">선택</option>
+                                                <option value="naver.com">naver.com</option>
+                                                <option value="gmail.com">gmail.com</option>
+                                                <option value="hanmail.net">hanmail.net</option>
+                                                <option value="nate.com">nate.com</option>
+                                                <option value="daum.net">daum.net</option>
+                                                <option value="직접입력">직접입력</option>
+                                            </select>
+                                        </div>
+                                        <input type="text" name="email03" id="email03" class="email_inp" title="이메일주소 직접입력">
+                                    </div>
+                                    <button type="button" id="btnSendTempPw" class="btn btn_lg btn_line_blue btn_pill_10" onclick="return fn_sendTempPw();">임시 비밀번호 발급</button>
+                                    <input type="hidden" name="email" id="email"/>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="th"><label for="pwd">임시 비밀번호</label></div>
+                                <div class="td"><input type="password" name="pwd" id="pwd" placeholder="이메일로 전송된 임시 비밀번호를 입력하세요."></div>
+                            </li>
+                            <li>
+                                <div class="th"><label for="pwdChg">변경 비밀번호</label></div>
+                                <div class="td"><input type="password" name="pwdChg" id="pwdChg" placeholder="8~16자(특수 문자 포함)"></div>
+                            </li>
+                            <li>
+                                <div class="th"><label for="pwdChgChk">변경 비밀번호 확인</label></div>
+                                <div class="td"><input type="password" name="pwdChgChk" id="pwdChgChk" placeholder="변경 비밀번호 확인"></div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="btn_area">
+                        <button type="button" id="btnSave" class="btn btn_hg btn_blue btn_pill_10">비밀번호 변경</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

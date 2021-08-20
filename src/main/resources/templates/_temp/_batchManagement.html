@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+    <!--modal style-->
+
+    <!--마이페이지-->
+
+    <!--추가되는 리소스 저장경로 start-->
+    <link rel="stylesheet" type="text/css" th:href="@{/_temp/_user/_custom.css}">
+    <script th:src="@{/_temp/_user/_style.js}"></script>
+    <!--추가되는 리소스 저장경로 end-->
+
+
+
+    <style>
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
+        }
+        /* Modal Content */
+        .modal-content {
+            border-radius: 20px;
+            border: solid 4px #6d95e1;
+            background-color: #fff;
+            margin: auto;
+            padding: 20px;
+            width: 80%;
+        }
+        .modal_title {
+            margin-top: 3%;
+            padding: 8%;
+            font-size: 25px;
+            font-weight: bold;
+            font-family: "Noto Sans KR";
+            text-align: center;
+            color: #8bb3ff;
+        }
+        .modal_text {
+            font-stretch: normal;
+            font-style : normal;
+            line-height: 1.56;
+            letter-spacing: 2px;
+            text-align: center;
+            color: #8c90a5;
+        }
+
+        /* The Close Button */
+        .modal_cancel {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .modal_cancel:hover,
+        .modal_cancel:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .modal_input {
+            border-radius: 70px;
+            border : solid 4px #d2d4df;
+            background-color: #fff;
+            margin-bottom: 15%;
+        }
+        .gray_line{
+            width: 116px;
+            height: 1px;
+            margin: 31px 0 26px 62px;
+            opacity: 0.5;
+            background-color: #707070;
+        }
+    </style>
+
+    <!--모달창 끄고 닫기-->
+    <script>
+        $(function() {
+            $(document).ready(function() {
+                $("#batchRegister").click(function() {
+                    $("#batch_modal").css({
+                        "display": "block"
+                    });
+                });
+                $(".modal_cancel").click(function() {
+                    $("#batch_modal").css({
+                        "display": "none"
+                    });
+                });
+                $("html").click(function(event) {
+                    if (event.target.id === "batch_modal") {
+                        $("#batch_modal").css({
+                            "display": "none"
+                        });
+                    }
+                });
+            });
+        })
+
+    </script>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+
+        <div class="batch_contents">
+
+<!--            <div class="page_top">
+                <h3 class="page_tit">일괄관리</h3>
+            </div>-->
+
+            <div class="page_cont">
+                <div class="sec_write_area clearfix">
+                    <div class="sec_write info">
+                        <h4 class="year">&nbsp;2021&nbsp;2020&nbsp;2019&nbsp;</h4>
+                        <ul class="board_tbl_list type02">
+                            <li class="thead">
+                                <strong class="id">ID</strong>
+                                <strong class="name">이름</strong>
+                                <strong class="no">번호</strong>
+                                <strong class="process">진도</strong>
+                                <strong class="test">사전검사</strong>
+                                <strong class="test">사후검사</strong>
+                            </li>
+                                <li>
+                                    <div class="id">puco0001</div>
+                                    <div class="name"><a href="javascript:;" class="link fc_blue">유학생</a></div>
+                                    <div class="no">6</div>
+                                    <div class="state"><span class="th"></span>1차시</div>
+                                    <div class="test"><span class="th"></span>완료</div>
+                                    <div class="test"><span class="th"></span>완료</div>
+                                </li>
+                                <li>
+                                    <div class="id">puco0002</div>
+                                    <div class="name"><a href="javascript:;" class="link fc_blue">최학생</a></div>
+                                    <div class="no">7</div>
+                                    <div class="state"><span class="th"></span>2차시</div>
+                                    <div class="test"><span class="th"></span>완료</div>
+                                    <div class="test"><span class="th"></span>완료</div>
+                                </li>
+                                <li>
+                                    <div class="id">puco0003</div>
+                                    <div class="name"><a href="javascript:;" class="link fc_blue">김생학</a></div>
+                                    <div class="no">9</div>
+                                    <div class="state"><span class="th"></span>2차시</div>
+                                    <div class="test"><span class="th"></span>진행중</div>
+                                    <div class="test"><span class="th"></span>진행중</div>
+                                </li>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+                <div class="btn_area"><a class="btn btn_lg btn_blue btn_pill_10" id="batchRegister">일괄가입</a></div>
+        </div>
+    </div>
+</div>
+<th:block th:replace="fragments/footer"></th:block>
+
+<!--modalContents  onclick="batchRegister()-->
+    <div id="batch_modal" class="modal fade">
+        <div id="modal-content" class="modal-content">
+            <div class="modal_title">
+                <span>일괄가입</span>
+            </div>
+            <div>
+                <div class="modal_text">
+                    <div class="gray_line"></div>
+                    <label>신규로 생성하고자 하는 ID 개수</label>
+                    <div class="gray_line"></div>
+                </div>
+                <input id="input_id" class="modal_input"/>
+            </div>
+            <div>
+                <div class="modal_text">
+                    <div class="gray_line"></div>
+                    <label>초기 패스워드</label>
+                    <div class="gray_line"></div>
+                </div>
+                <input id="input_pwd" class="modal_input"/>
+            </div>
+            <div>
+                <a id="modal_confirm" class="btn btn_lg btn_blue btn_pill_10">확인</a>
+                <a id="modal_cancel" class="btn modal_cancel">취소</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

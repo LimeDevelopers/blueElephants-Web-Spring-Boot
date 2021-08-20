@@ -91,6 +91,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers("/soulGod/**").hasAnyRole("MASTER,ADMIN,LECTURER,COUNSELOR")
                 //.mvcMatchers("/**").permitAll()
                 .mvcMatchers("/test/**").permitAll()
+                .mvcMatchers("/_temp/**").permitAll() //페이지 디자인작업 권한허용
                 .anyRequest().authenticated();
 
         http.formLogin()

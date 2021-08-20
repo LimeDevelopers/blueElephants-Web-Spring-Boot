@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+    <!--푸코 캐릭터 소개 페이지-->
+
+    <!--추가되는 리소스 저장경로 start-->
+    <link rel="stylesheet" type="text/css" th:href="@{/_temp/_user/_custom.css}">
+    <script th:src="@{/_temp/_user/_style.js}"></script>
+    <!--추가되는 리소스 저장경로 end-->
+
+    <script>
+        $(function(){
+            $(window).on('load resize',function(){
+                //secScroll()
+                $('.nav_sec > li').each(function(){
+                    var navLi = $(this),
+                        navLiIdx = navLi.index(),
+                        secTop = $('.sec').eq(navLiIdx).offset().top - 115,
+                        secTop2 = $('.sec').eq(navLiIdx).offset().top - 30;
+
+                    navLi.children('a').on('click', function(){
+                        if(navLiIdx == 2){
+                            $('html, body').stop().animate({'scrollTop':secTop2});
+                        }else{
+                            $('html, body').stop().animate({'scrollTop':secTop});
+                        }
+                    });
+                });
+                $(window).scroll(function(){
+                    secScroll();
+                });
+            });
+        });
+
+        function secScroll(){
+            var sct = $(window).scrollTop(),
+                winH = $(window).height(),
+                sec01 = $('.sec').eq(0).offset().top - 115,
+                sec02 = $('.sec').eq(1).offset().top - 115,
+                sec03 = $('.sec').eq(2).offset().top - 115,
+                navIdx;
+
+            if(sct >= sec01 && sct < sec02){
+                navIdx = 0;
+            }else if(sct >= sec02 && sct < sec03){
+                navIdx = 1;
+            }else if(sct >= sec03){
+                navIdx = 2;
+            }
+            $('.nav_sec > li').eq(navIdx).addClass('active').siblings().removeClass('active')
+        }
+    </script>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+
+        <div class="contents">
+            <div class="page_top">
+                <h3 class="page_tit bg">푸코는 이렇게 태어났어요!</h3>
+            </div>
+            <div class="page_cont">
+                <ul class="nav_sec">
+                    <li class="active"><a href="javascript:;">CI</a></li>
+                    <li><a href="javascript:;">푸른코끼리 마스코트</a></li>
+                    <li><a href="javascript:;">캐릭터 레벨업가이드</a></li>
+                </ul>
+                <div class="sec sec_ci">
+                    <h4 class="sec_tit">CI <a th:href="${filePath + '/CI.zip'}" class="btn btn_line_blue btn_lg btn_pill_8 btn_download">CI 다운로드</a></h4>
+                    <div class="sec_cont">
+                        <div class="box">
+                            <dl>
+                                <dt><span class="blind">푸른코끼리</span></dt>
+                                <dd>푸른코끼리는 ‘푸른나무재단-삼성’의 평온과 안정을 상징하는 푸른색과 무리를 지어 생활하고 맹수의 위협으로부터 서로를 지키는 코끼리를 결합하여 탄생한 캐릭터예요! <em>폭력과 불안, 유혹이 난무하는 사이버라는 새로운 정글에서 상처받고 소외된 이웃을 돕는 우리의 친구</em>랍니다.</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+                <div class="sec sec_mascot">
+                    <h4 class="sec_tit">푸른코끼리 마스코트 <a th:href="${filePath + '/Character.zip'}" class="btn btn_line_blue btn_lg btn_pill_8 btn_download">마스코트 다운로드</a></h4>
+                    <div class="sec_cont">
+                        <div class="mascot">
+                            <div class="info">
+                                <ul>
+                                    <li>
+                                        <strong>이름</strong>
+                                        <p>푸른코끼리</p>
+                                    </li>
+                                    <li>
+                                        <strong>국적</strong>
+                                        <p>대한민국</p>
+                                    </li>
+                                    <li>
+                                        <strong>생년월일</strong>
+                                        <p>2020년 02월 20일</p>
+                                    </li>
+                                    <li>
+                                        <strong>좋아하는것</strong>
+                                        <p>안전한 사이버 세상</p>
+                                    </li>
+                                    <li>
+                                        <strong>싫어하는것</strong>
+                                        <p>사이버폭력</p>
+                                    </li>
+                                    <li>
+                                        <strong>취미</strong>
+                                        <p>친구들과 친사회적 역량* 실천하기</p>
+                                    </li>
+                                    <li>
+                                        <strong>특기</strong>
+                                        <p>상처받고, 소외된 이웃돕기</p>
+                                    </li>
+                                </ul>
+                                <p>*친사회적 역량 6가지<br class="mo" />(정직, 약속, 용서, 책임, 배려, 소유)</p>
+                            </div>
+                        </div>
+                        <dl class="dl_txt">
+                            <dt>나를 소개해요!</dt>
+                            <dd>푸른코끼리는 사이버폭력  예방교육 기획, 활동, 정책을 통해 사이버 세상에서 발생하는 언어폭력, 따돌림, 명예훼손, 개인정보 유출 등의 맹수로부터 우리를 지켜주는 가디언이예요. <em>정직하고, 약속을 잘 지키고, 용서도 먼저 구할 줄 알고, 책임감 있고, 다른 사람을 배려할 줄 알고, 남의 것을 탐내지 않고 나의 것만 소유할 줄 아는 친사회적 역량 마스터 푸른코끼리!</em> <br />푸른코끼리는 친구들과 함께 친사회적 역량을 실천하며 사이버폭력이 없는 안전한 디지털 세상을 만들거예요!</dd>
+                        </dl>
+                    </div>
+                </div>
+                <div id="guide" class="sec sec_guide">
+                    <h4 class="sec_tit">캐릭터 레벨업 가이드<a th:href="${filePath + '/Level.zip'}" class="btn btn_line_blue btn_lg btn_pill_8 btn_download">레벨업 캐릭터 다운로드</a></h4>
+                    <div class="sec_cont">
+                        <div class="img_area">
+                            <img src="/ClientUI/user/images/contents/img_character.jpg" alt="푸코 캐릭터" class="pc" />
+                            <img src="/ClientUI/user/images/contents/m_img_character.jpg" alt="푸코 캐릭터" class="mo" />
+                        </div>
+
+                        <table class="tbl_list mt40 mb40 pc">
+                            <caption>캐릭터 레벨업 가이드</caption>
+                            <colgroup>
+                                <col style="width:4.3%" />
+                                <col style="width:4%" />
+                                <col style="width:13.1%" />
+                                <col style="width:13.1%" />
+                                <col style="width:13.1%" />
+                                <col style="width:13.1%" />
+                                <col style="width:13.1%" />
+                                <col style="width:13.1%" />
+                                <col style="width:13.1%" />
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th scope="col" colspan="2">성장</th>
+                                <th scope="col">알</th>
+                                <th scope="col">아기</th>
+                                <th scope="col">어린이</th>
+                                <th scope="col">청소년</th>
+                                <th scope="col">대학생</th>
+                                <th scope="col">성인</th>
+                                <th scope="col">가디언</th>
+                            </tr>
+                            <tr class="bg">
+                                <th scope="col" colspan="2">단계</th>
+                                <th scope="col">1단계</th>
+                                <th scope="col">2단계</th>
+                                <th scope="col">3단계</th>
+                                <th scope="col">4단계</th>
+                                <th scope="col">5단계</th>
+                                <th scope="col">6단계</th>
+                                <th scope="col">7단계</th>
+                            </tr>
+                            </thead>
+                            <!--<tbody>
+                            <tr>
+                                <th scope="row" rowspan="5">변<br />화</th>
+                                <td>1</td>
+                                <td>작은알 <div class="num">10</div></td>
+                                <td>위아래 껍질 <div class="num">10</div></td>
+                                <td>유치원 모자, 가방 <div class="num">10</div></td>
+                                <td>학교가기(교복) <div class="num">10</div></td>
+                                <td>멋내기(염색, 귀걸이) <div class="num">10</div></td>
+                                <td>커피마시기 <div class="num">10</div></td>
+                                <td>가디언 모습(탐험가복장) <div class="num">10</div></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>알커짐 <div class="num">10</div></td>
+                                <td>아래 껍질만 <div class="num">20</div></td>
+                                <td>모래놀이 <div class="num">20</div></td>
+                                <td>축구하기 <div class="num">25</div></td>
+                                <td>노래듣기(핸드폰, 버즈) <div class="num">25</div></td>
+                                <td>요리하기 <div class="num">25</div></td>
+                                <td>핸드폰, 워치 착용 <div class="num">25</div></td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>알 더 커짐 <div class="num">10</div></td>
+                                <td>알껍질 없음(기저귀) <div class="num">30</div></td>
+                                <td>장난감 놀이 <div class="num">30</div></td>
+                                <td>밥 먹기(급식) <div class="num">40</div></td>
+                                <td>도서관가서 책고르기 <div class="num">40</div></td>
+                                <td>티비보기 <div class="num">40</div></td>
+                                <td>화상회의 <div class="num">40</div></td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>알 색 변화 <div class="num">10</div></td>
+                                <td>우유먹기(기저귀) <div class="num">40</div></td>
+                                <td>사탕먹기 <div class="num">40</div></td>
+                                <td>수학공부하기(안경) <div class="num">65</div></td>
+                                <td>기타치기(취미생활) <div class="num">65</div></td>
+                                <td>운전하기 <div class="num">65</div></td>
+                                <td>채찍 사용(백신 구하기) <div class="num">65</div></td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>알 금가기 <div class="num">10</div></td>
+                                <td>서있음(기저귀X) <div class="num">50</div></td>
+                                <td>글자 공부하기 <div class="num">50</div></td>
+                                <td>수능보기(시험지) <div class="num">80</div></td>
+                                <td>노트북 보기 <div class="num">80</div></td>
+                                <td>아이들 가르치기 <div class="num">80</div></td>
+                                <td>아기코끼리 지도하는 푸코 <div class="num">80</div></td>
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <th scope="row" colspan="2">업그레이드</th>
+                                <td>50</td>
+                                <td>120</td>
+                                <td>250</td>
+                                <td>400</td>
+                                <td>700</td>
+                                <td>1150</td>
+                                <td>1600</td>
+                            </tr>
+                            </tfoot>-->
+                        </table>
+
+                        <ul class="board_tbl_list mo">
+                            <li>
+                                <div class="tit">알</div>
+                                <div class="step">
+                                    1단계
+                                    <!--  <p>작은알 : <em>10</em></p>
+                                     <p>알커짐 : <em>10</em></p>
+                                     <p>알 더 커짐 : <em>10</em></p>
+                                     <p>알 색 변화 : <em>10</em></p>
+                                     <p>알 금가기 : <em>10</em></p>-->
+                                 </div>
+                                 <!-- <div class="upgrade">업그레이드 : 50</div> -->
+                            </li>
+                            <li>
+                                <div class="tit">아기</div>
+                                <div class="step">
+                                    2단계
+                                    <!-- <p>위아래 껍질 : <em>10</em></p>
+                                    <p>아래 껍질만 : <em>20</em></p>
+                                    <p>알껍질 없음(기저귀) : <em>30</em></p>
+                                    <p>우유먹기(기저귀) : <em>40</em></p>
+                                    <p>서있음(기저귀X) : <em>50</em></p>-->
+                                </div>
+                               <!--  <div class="upgrade">업그레이드 : 120</div>-->
+                            </li>
+                            <li>
+                                <div class="tit">어린이</div>
+                                <div class="step">
+                                    3단계
+                                <!--    <p>유치원 모자, 가방 : <em>10</em></p>
+                                        <p>모래놀이 : <em>20</em></p>
+                                        <p>장난감 놀이 : <em>30</em></p>
+                                        <p>사탕먹기 : <em>40</em></p>
+                                        <p>글자 공부하기 : <em>50</em></p>-->
+                                </div>
+                                <!-- <div class="upgrade">업그레이드 : 250</div>-->
+                            </li>
+                            <li>
+                                <div class="tit">청소년</div>
+                                <div class="step">
+                                    4단계
+                                <!--    <p>학교가기(교복) : <em>10</em></p>
+                                    <p>축구하기 : <em>25</em></p>
+                                    <p>밥 먹기(급식) : <em>40</em></p>
+                                    <p>수학공부하기(안경) : <em>65</em></p>
+                                    <p>수능보기(시험지) : <em>80</em></p>-->
+                                </div>
+                               <!--  <div class="upgrade">업그레이드 : 400</div>-->
+                            </li>
+                            <li>
+                                <div class="tit">대학생</div>
+                                <div class="step">
+                                   5단계
+                                    <!--  <p>멋내기(염색, 귀걸이) : <em>10</em></p>
+                                    <p>노래듣기(핸드폰, 버즈) : <em>25</em></p>
+                                    <p>도서관가서 책고르기 : <em>40</em></p>
+                                    <p>기타치기(취미생활) : <em>65</em></p>
+                                    <p>노트북 보기 : <em>80</em></p>-->
+                                </div>
+                               <!--  <div class="upgrade">업그레이드 : 700</div>-->
+                            </li>
+                            <li>
+                                <div class="tit">성인</div>
+                                <div class="step">
+                                    6단계
+                                    <!-- <p>커피마시기 : <em>10</em></p>
+                                    <p>요리하기 : <em>25</em></p>
+                                    <p>티비보기 : <em>40</em></p>
+                                    <p>운전하기 : <em>65</em></p>
+                                    <p>아이들 가르치기 : <em>80</em></p> -->
+                                </div>
+                               <!--  <div class="upgrade">업그레이드 : 1150</div> -->
+                            </li>
+                            <li>
+                                <div class="tit">가디언</div>
+                                <div class="step">
+                                    7단계
+                                    <!-- <p>가디언 모습(탐험가복장) : <em>10</em></p>
+                                    <p>핸드폰, 워치 착용 : <em>25</em></p>
+                                    <p>화상회의 : <em>40</em></p>
+                                    <p>채찍 사용(백신 구하기) : <em>65</em></p>
+                                    <p>아기코끼리 지도하는 푸코 : <em>80</em></p>-->
+                                </div>
+                               <!--  <div class="upgrade">업그레이드 : 1600</div> -->
+                            </li>
+                        </ul>
+
+                        <ul class="board_tbl_list">
+                            <li class="thead">
+                                <strong class="category">카테고리</strong>
+                                <strong class="point">point</strong>
+                                <strong class="mission">다음단계로 성장하기 위한 미션</strong>
+                                <strong class="max">1일 최대</strong>
+                            </li>
+                            <li>
+                                <div class="category">출석수</div>
+                                <div class="point pc">
+                                    <div>3</div>
+                                    <div>8</div>
+                                    <div>15</div>
+                                </div>
+                                <div class="mission">
+                                    <div class="bull">
+                                        <span>앱 1번 접속</span>
+                                        <span class="mo point">point : 3</span>
+                                        <p class="mo max"><span class="th">1일 최대 :</span> 1번</p>
+                                    </div>
+                                    <div class="bull">
+                                        <span>5일 연속 접속시 추가점수</span>
+                                        <span class="mo point">point : 8</span>
+                                        <p class="mo max"><span class="th">1일 최대 :</span> 1번</p>
+                                    </div>
+                                    <div class="bull">
+                                        <span>10일 연속 접속시 추가점수</span>
+                                        <span class="mo point">point : 15</span>
+                                        <p class="mo max"><span class="th">1일 최대 :</span> 1번</p>
+                                    </div>
+                                </div>
+                                <div class="max pc">
+                                    <div>1번</div>
+                                    <div>1번</div>
+                                    <div>1번</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="category">활동</div>
+                                <div class="point pc">
+                                    <div>5</div>
+                                </div>
+                                <div class="mission">
+                                    <div>
+                                        <span>사이버폭력 체험, 피해자목소리, 위로메시지 듣기, 자가진단</span>
+                                        <span class="mo point">point : 5</span>
+                                        <p class="mo max"><span class="th">1일 최대 :</span> 1번</p>
+                                    </div>
+                                </div>
+                                <div class="max pc">
+                                    <div>1번</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="category">교육</div>
+                                <div class="point pc">
+                                    <div>10</div>
+                                </div>
+                                <div class="mission">
+                                    <div>
+                                        <span>3일간 미접속</span>
+                                        <span class="mo point">point : 10</span>
+                                        <p class="mo max"><span class="th">1일 최대 :</span> 영상당 1번</p>
+                                    </div>
+                                </div>
+                                <div class="max pc">
+                                    <div>영상당 1번</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

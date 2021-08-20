@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+
+    <script>
+        $(function(){
+			//secScroll()
+            $(window).on('load resize',function(){
+                $('.nav_sec > li').each(function(){
+                    var navLi = $(this),
+                        navLiIdx = navLi.index(),
+                        secTop = $('.sec').eq(navLiIdx).offset().top - 100,
+                        secTop3 = $('.sec').eq(navLiIdx).offset().top - 110;
+
+                    navLi.children('a').on('click', function(){
+                        if(navLiIdx == 3){
+                            $('html, body').stop().animate({'scrollTop':secTop3})
+                        }else{
+                            $('html, body').stop().animate({'scrollTop':secTop})
+                        }
+                    });
+                });
+                $(window).scroll(function(){
+                   secScroll()
+                });
+            });
+        });
+
+        function secScroll(){
+            var sct = $(window).scrollTop(),
+				winH = $(window).height(),
+                sec01 = $('.sec').eq(0).offset().top - 115,
+                sec02 = $('.sec').eq(1).offset().top - 115,
+                sec03 = $('.sec').eq(2).offset().top - 115,
+                sec04 = $('.sec').eq(3).offset().top - 115,
+                navIdx;
+
+            if(sct >= sec01 && sct < sec02){
+                navIdx = 0;
+            }else if(sct >= sec02 && sct < sec03){
+                navIdx = 1;
+            }else if(sct >= sec03 && sct < sec04){
+                navIdx = 2;
+            }else if(sct >= sec04 && sct < sec04 + 300){
+                navIdx = 3;
+            }else if(sct > sec04 + 300){
+                navIdx = 4;
+            }
+            $('.nav_sec > li').eq(navIdx).addClass('active').siblings().removeClass('active')
+        }
+    </script>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+
+        <div class="contents">
+            <div class="page_top">
+                <h3 class="page_tit bg">푸른코끼리를 소개해요!</h3>
+            </div>
+            <div class="page_cont">
+                <!--<dl class="prepare">
+                    <dt><b>서비스 준비중</b> 입니다.</dt>
+                    <dd>이용에 불편을 드려 죄송합니다. <br />보다 나은 서비스 제공을 위하여 페이지 준비중에 있습니다.<br />빠른시일 내에 준비하려 찾아뵙겠습니다.</dd>
+                </dl>-->
+                <ul class="nav_sec">
+                    <li class="active"><a href="javascript:;">사이버폭력 예방사업 '푸른코끼리'</a></li>
+                    <li><a href="javascript:;">사이버폭력의 특성</a></li>
+                    <li><a href="javascript:;">어떻게 해결할 것인가?</a></li>
+                    <li><a href="javascript:;">차별성</a></li>
+                    <li><a href="javascript:;">선하 데이터 플랫폼</a></li>
+                </ul>
+                <div class="sec sec_blue">
+                    <h4 class="sec_tit">사이버폭력 예방교육 사업 <span class="fc_blue">‘푸른코끼리’</span></h4>
+                    <div class="sec_cont">
+                        <p class="txt">1995년 이후 꾸준히 감소하던 학교폭력 수치가 스마트기기 보급에 따라 2014년을 기점으로 사이버폭력 등 새로운 유형으로 진화하여 증가 추세를 보이고 있습니다. 또한, 최근 우리 사회는 청소년의 자살, N번방 사건 등 다양한 형태의 사이버폭력 문제를 마주하고 있습니다.</p>
+                        <strong class="cont_tit">푸른나무재단 전국 학교폭력 실태조사</strong>
+                        <div class="graph_area">
+                            <img src="/ClientUI/user/images/contents/img_intro_graph.jpg" alt="" class="pc" />
+                            <ul class="tip">
+                                <li>학교폭력 가해자</li>
+                                <li>학교폭력 피해자</li>
+                            </ul>
+                            <div class="m_graph_area mo">
+                                <dl>
+                                    <dt>1995-2000</dt>
+                                    <dd>
+                                        <span class="attacker">26%</span>
+                                        <span class="victim">20%</span>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt>2006</dt>
+                                    <dd>
+                                        <span class="attacker">12.6%</span>
+                                        <span class="victim">17.3%</span>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt>2010</dt>
+                                    <dd>
+                                        <span class="attacker">11.4%</span>
+                                        <span class="victim">11.8%</span>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt>2014</dt>
+                                    <dd>
+                                        <span class="attacker">3.3%</span>
+                                        <span class="victim">3.8%</span>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt>2018</dt>
+                                    <dd>
+                                        <span class="attacker">4.1%</span>
+                                        <span class="victim">6.6%</span>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <p class="txt"><span class="fc_blue">보이지 않는 사이버폭력 문제는 한 사람의 노력만으로 해결할 수 없습니다.</span> 이에 교육부·푸른나무재단·사랑의열매·삼성이 상호 협력하여 청소년의 친사회적 역량 향상을 위한 예방교육을 통해 성공적이고, 지속가능한 사이버폭력 예방 시스템의 국내·외 확산을 목적으로 10년간(2020-2029년) 진행되는 사업을 추진하게 되었습니다.</p>
+                    </div>
+                </div>
+                <div class="sec sec_cyberbullying">
+                    <h4 class="sec_tit">사이버폭력의 특성</h4>
+                    <div class="sec_cont">
+                        <ul class="circle_list">
+                            <li>
+                                <dl>
+                                    <dt>익명성</dt>
+                                    <dd>거짓정체성</dd>
+                                </dl>
+                            </li>
+                            <li>
+                                <dl>
+                                    <dt>무절제</dt>
+                                    <dd>조절어려움</dd>
+                                </dl>
+                            </li>
+                            <li>
+                                <dl>
+                                    <dt>쉬운 접근성</dt>
+                                    <dd>언제 어디서나 가능</dd>
+                                </dl>
+                            </li>
+                            <li>
+                                <dl>
+                                    <dt>고립성</dt>
+                                    <dd>도움요청어려움</dd>
+                                </dl>
+                            </li>
+                            <li>
+                                <dl>
+                                    <dt>방관자적 침묵</dt>
+                                    <dd>가해자 지지한다 착각 <br />피해자 치욕감 증폭</dd>
+                                </dl>
+                            </li>
+                        </ul>
+                        <dl class="dl_txt">
+                            <dt>사이버세상은 폭력과 불안, 유혹이 난무하는 새로운 정글</dt>
+                            <dd>
+                                <ul class="list">
+                                    <li>학교폭력과 연동하여 발생하는 신종 학교폭력, 사이버폭력이 급증하고 있음.</li>
+                                    <li>사이버폭력은 익명성, 무절제, 쉬운 접근성, 고립성, 방관자적 침묵의 특성을 갖고 있어 청소년의 우울, 불안, 자살 등의 원인이 되기도 함. <br />그러나, 현재 사이버폭력에 대응하기 위한 국가적/사회적 시스템이 미비한 상황임.</li>
+                                </ul>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="sec sec_solution">
+                    <h4 class="sec_tit">어떻게 해결할 것인가?</h4>
+                    <div class="sec_cont">
+                        <ol class="step clearfix">
+                            <li>
+                                <span class="num">1</span>
+                                <div><p>새로운 사회문제에 대한 정의, <br />실태 조사를 통한 예측, 조사/연구를 <br />통해 원인 파악, 해결책 제시</p></div>
+                            </li>
+                            <li>
+                                <span class="num">2</span>
+                                <div><p>선도와 처벌이 아닌 재미와 흥미, <br />자발적 참여를 유도하는 문화적 접근을 <br />통해 내적 변화 유도</p></div>
+                            </li>
+                            <li>
+                                <span class="num">3</span>
+                                <div><p>사이버폭력 억제와 신속한 <br />개입을 위한 예방 및 대응 조직과 <br />시스템 정비 필요</p></div>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="sec sec_distinction">
+                    <h4 class="sec_tit">차별성</h4>
+                    <div class="sec_cont">
+                        <ul class="bd_list">
+                            <li>학교(학생)을 주요 대상으로 하는 예방교육과 부모, 가족, 교사를 포함한 예방 활동 사업</li>
+                            <li>학교급별(초중고) 생애주기를 반영한 사이버폭력 예방 교육 콘텐츠를 개발 및 찾아가는 교육 실시</li>
+                            <li>사이버폭력 문제 정의, 진단, 전략, 실행의 과정을 통해 대상자 변화, 국가 정책(법률) 개선, 국제사회 연대를 유도하여 사업의 효과성 극대화</li>
+                        </ul>
+                        <dl class="dl_txt">
+                            <dt>사이버 정글 가디언 <em>푸른코끼리</em> 온·오프라인 사업 구성</dt>
+                            <dd>
+                                <p>푸른코끼리는 온라인과 오프라인 양방향(쌍방향) 교육 활동이 동시다발적 운영</p>
+                                <ul class="bg_tbl">
+                                    <li class="tit">
+                                        <p>온라인</p>
+                                        <p>오프라인</p>
+                                    </li>
+                                    <li class="bg01">
+                                        <dl class="dl">
+                                            <dt>교육기획</dt>
+                                            <dd>
+                                                <dl>
+                                                    <dt>온라인</dt>
+                                                    <dd>
+                                                        <p>모바일 앱 구축</p>
+                                                        <p>이용자 모바일 <span class="br">참여</span></p>
+                                                    </dd>
+                                                </dl>
+                                                <dl>
+                                                    <dt>오프라인</dt>
+                                                    <dd>
+                                                        <p>협력자 그룹 조직</p>
+                                                        <p>문헌조사 전문가 <br />연구 실태조사</p>
+                                                    </dd>
+                                                </dl>
+                                            </dd>
+                                        </dl>
+                                    </li>
+                                    <li class="bg02">
+                                        <dl class="dl">
+                                            <dt>교육활동</dt>
+                                            <dd>
+                                                <dl>
+                                                    <dt>온라인</dt>
+                                                    <dd>
+                                                        <p>사이버폭력 예방 <br />서명운동 동참</p>
+                                                        <p>사이버폭력 예방<br />교육 컨텐츠 제공</p>
+                                                        <p>사이버폭력 <br />신고 및 상담</p>
+                                                    </dd>
+                                                </dl>
+                                                <dl>
+                                                    <dt>오프라인</dt>
+                                                    <dd>
+                                                        <p>서울 주요 거점 <br />거리 캠페인</p>
+                                                        <p>학교로 찾아가는 <br />사이버폭력 예방교육</p>
+                                                        <p>사이버폭력 예방 <br />치유 가족캠프</p>
+                                                    </dd>
+                                                </dl>
+                                            </dd>
+                                        </dl>
+                                    </li>
+                                    <li class="bg03">
+                                        <dl class="dl">
+                                            <dt>교육정책</dt>
+                                            <dd>
+                                                <dl>
+                                                    <dt>온라인</dt>
+                                                    <dd>
+                                                        <p>영문 모바일 <span class="br">앱 지원</span></p>
+                                                    </dd>
+                                                </dl>
+                                                <dl>
+                                                    <dt>오프라인</dt>
+                                                    <dd>
+                                                        <p>UN경제사회<span>이사회</span> <br />국제포럼</p>
+                                                    </dd>
+                                                </dl>
+                                            </dd>
+                                        </dl>
+                                    </li>
+                                </ul>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="sec sec_platform">
+                    <h4 class="sec_tit">선한 데이터 플랫폼</h4>
+                    <div class="sec_cont">
+                        <p class="txt">푸른코끼리 플랫폼은 사이버폭력 예방 교육, 캠페인 참여, 상담, 신고 등 다양한 서비스를 제공합니다. 사용자들은 학교생활 또는 일상에서 푸른코끼리 플랫폼을 통해 사이버폭력 예방 활동에 동참하며, 사이버 세상을 살아가는 필수역량인 친사회적 역량을 키워 갑니다. 푸른코끼리 플랫폼 사용 내역은 데이터화 되어 개인별 포트폴리오로 제공되며, 앱 사용에 따른 소정의 리워드는 쇼핑, 영화, 어학, 기부 등으로 활용됩니다.</p>
+                        <ul class="platform">
+                            <li class="col01">
+                                <div class="box">
+                                    <p>본 디지털 세대 <br />(Born-digital)</p>
+                                </div>
+                                <p class="txt"><span>스마트폰 보급률 90%</span> <span>사이버폭력 발생률 30%</span> <span>청소년 불안, 우울, 자살</span> <span>증가하는 사회적 비용</span></p>
+                            </li>
+                            <li class="col02">
+                                <div class="area">
+                                    <div class="box">
+                                        <p>선한 모임<br />(Network)</p>
+                                        <strong class="tit">모바일 플랫폼</strong>
+                                    </div>
+                                </div>
+                                <div class="area">
+                                    <div class="box">
+                                        <p>선한 활동<br />(Activity)</p>
+                                        <p class="tip mo">
+                                            <span>교육</span>
+                                            <span>상담</span>
+                                            <span>캠페인</span>
+                                        </p>
+                                    </div>
+                                    <p class="tip pc">
+                                        <span>교육</span>
+                                        <span>상담</span>
+                                        <span>캠페인</span>
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="col03">
+                                <div class="box bg_blue">
+                                    <p>선한 데이터<br />(Data)</p>
+                                    <span class="arr"></span>
+                                    <p class="tip mo">
+                                        <span>학습</span>
+                                        <span>참여</span>
+                                        <span>제안</span>
+                                    </p>
+                                </div>
+                                <p class="tip pc">
+                                    <span>학습</span>
+                                    <span>참여</span>
+                                    <span>제안</span>
+                                </p>
+                            </li>
+                            <li class="col04">
+                                <div class="area">
+                                    <div class="box">
+                                        <p>보상<br />(Reward)</p>
+                                        <strong class="tit">선행에 대한 보상</strong>
+                                    </div>
+                                </div>
+                                <div class="area">
+                                    <div class="box">
+                                        <p>자산<br />(Portfolio)</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="col05">
+                                <div class="box bg_blue">
+                                    <p>비폭력 <span>문화 확산</span></p>
+                                </div>
+                            </li>
+                            <li class="col06">
+                                “선한 행동이 자신의 삶과 더 나은 세상에 도움이 된다는 성공의 확신”
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>
