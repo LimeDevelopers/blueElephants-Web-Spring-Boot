@@ -45,15 +45,16 @@
         <th:block th:include="fragments/snb"></th:block>
 
         <div class="contents">
-            <div class="page_top">
-                <h3 class="page_tit bg">푸코는 이런 활동을 해요!</h3>
-            </div>
             <div class="page_cont">
-                <button type="submit" class="btn btn_blue btn_pill_10">검색</button>
+                <form action="/test/page/excel/download" method="get">
+                    <button type="submit" class="btn btn_blue btn_pill_10">다운</button>
+                </form>
             </div>
         </div>
     </div>
     <th:block th:replace="fragments/footer"></th:block>
 </div>
+
+
 </body>
 </html>
