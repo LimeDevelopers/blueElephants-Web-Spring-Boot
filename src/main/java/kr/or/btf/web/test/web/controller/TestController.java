@@ -1,7 +1,5 @@
 package kr.or.btf.web.test.web.controller;
 
-import kr.or.btf.web.domain.web.BoardData;
-import kr.or.btf.web.services.web.BoardDataService;
 import kr.or.btf.web.test.web.service.TestService;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -9,9 +7,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -77,6 +73,9 @@ public class TestController {
     // 엑셀 다운로드 끝
 
     //디자인페이지 리다이렉션 start
+    @GetMapping(value = "/_temp/_index.html")
+    public String openIndex() { return "_temp/_index"; }
+
     @GetMapping(value = "/_temp/_batchManagement")
     public String openBatchManagement(){
         return "_temp/_batchManagement";
@@ -84,42 +83,43 @@ public class TestController {
 
     @GetMapping(value = "/_temp/_intro")
     public String openIntro(){
-        return "/_temp/_intro";
+        return "_temp/_intro";
     }
 
-    @RequestMapping(value = "/_temp/_character")
-    public String openCharacter(){
-        return "/_temp/_character";
-    }
+    @GetMapping(value = "/_temp/_character")
+    public String openCharacter(){ return "_temp/_character"; }
 
-    @RequestMapping(value = "/_temp/_friends")
+    @GetMapping(value = "/_temp/_friends")
     public String openFriends(){
-        return "/_temp/_friends";
+        return "_temp/_friends";
     }
 
-    @RequestMapping(value = "/_temp/_activity")
+    @GetMapping(value = "/_temp/_activity")
     public String openActivity(){
-        return "/_temp/_activity";
+        return "_temp/_activity";
     }
 
-    @RequestMapping(value = "/_temp/_schedule")
+    @GetMapping(value = "/_temp/_schedule")
     public String openSchedule(){
-        return "/_temp/_schedule";
+        return "_temp/_schedule";
     }
 
-    @RequestMapping(value = "/_temp/_location")
+    @GetMapping(value = "/_temp/_location")
     public String openLocation(){
-        return "/_temp/_location";
+        return "_temp/_location";
     }
 
-    @RequestMapping(value = "/_temp/_idFind")
+    @GetMapping(value = "/_temp/_idFind")
     public String openIdfind(){
-        return "/_temp/_idFind";
+        return "_temp/_idFind";
     }
 
-    @RequestMapping(value = "/_temp/_pwFind")
+    @GetMapping(value = "/_temp/_pwFind")
     public String openPwfind(){
-        return " /_temp/_idFind";
+        return "_temp/_pwFind";
     }
+
+    @GetMapping(value = "/_temp/_header_gnb")
+    public String openHeader(){ return "_temp/_header_gnb";}
     //디자인페이지 리다이렉션 end
 }

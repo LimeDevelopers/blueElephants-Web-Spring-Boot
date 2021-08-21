@@ -2,12 +2,27 @@
 <html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:include="fragments/header"></th:block>
+    <!--
+    **페이지 소개와 페이지 이동하는 url 입니다!**
 
-    <!--메인페이지-->
+    _batchManagement = 일괄관리 페이지 (http://localhost:19817/test/_temp/_batchManagement = _batchManagement로 이동하는 url)
+    _activity = 푸코 활동 소개페이지 (http://localhost:19817/test/_temp/_activity =_activity로 이동하는 url)
+    _character = 푸코 캐릭터 소개페이지 (http://localhost:19817/test/_temp/_character =_character로 이동하는 url)
+    _friends = 푸코 친구들 소개페이지 (http://localhost:19817/test/_temp/_friends =_friends로 이동하는 url)
+    _intro = 푸코 소개 페이지 (http://localhost:19817/test/_temp/_intro = _intro로 이동하는 url)
+    _location = 푸코 사무국 위치소개페이지 (http://localhost:19817/test/_temp/_location =_location으로 이동하는 url)
+    _schedule = 푸코 연혁 소개페이지 (http://localhost:19817/test/_temp/_schedule =_schedule로 이동하는 url)
+    _idFind = 아이디 찾기 페이지 (http://localhost:19817/test/_temp/_idFind =_idFind로 이동하는 url)
+    _pwFind = 비밀번호 찾기 페이지 (http://localhost:19817/test/_temp/_pwFind = pwFind로 이동하는 url)
+
+    **추가 혹은 수정되는 리소스들은 아래 파일에 저장해주시면 됩니다!**
+    _style.js = 추가되는 js 저장
+    _custom.css = 추가되는 css 저장
+    -->
 
     <!--추가되는 리소스 저장경로 start-->
-    <link rel="stylesheet" type="text/css" th:href="@{/_temp/_user/_custom.css}">
-    <script th:src="@{/_temp/_user/_style.js}"></script>
+    <link rel="stylesheet" type="text/css" href="_custom.css">
+    <script src="_custom.css"></script>
     <!--추가되는 리소스 저장경로 end-->
 
 

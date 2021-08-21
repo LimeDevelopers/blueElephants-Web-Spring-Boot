@@ -2,90 +2,34 @@
 <html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:include="fragments/header"></th:block>
-    <!--modal style-->
 
-    <!--마이페이지-->
+    <!--
+    **페이지 소개와 페이지 이동하는 url 입니다!**
+
+    _batchManagement = 일괄관리 페이지 (http://localhost:19817/test/_temp/_batchManagement = _batchManagement로 이동하는 url)
+    _activity = 푸코 활동 소개페이지 (http://localhost:19817/test/_temp/_activity =_activity로 이동하는 url)
+    _character = 푸코 캐릭터 소개페이지 (http://localhost:19817/test/_temp/_character =_character로 이동하는 url)
+    _friends = 푸코 친구들 소개페이지 (http://localhost:19817/test/_temp/_friends =_friends로 이동하는 url)
+    _intro = 푸코 소개 페이지 (http://localhost:19817/test/_temp/_intro = _intro로 이동하는 url)
+    _location = 푸코 사무국 위치소개페이지 (http://localhost:19817/test/_temp/_location =_location으로 이동하는 url)
+    _schedule = 푸코 연혁 소개페이지 (http://localhost:19817/test/_temp/_schedule =_schedule로 이동하는 url)
+    _idFind = 아이디 찾기 페이지 (http://localhost:19817/test/_temp/_idFind =_idFind로 이동하는 url)
+    _pwFind = 비밀번호 찾기 페이지 (http://localhost:19817/test/_temp/_pwFind = pwFind로 이동하는 url)
+
+    **추가 혹은 수정되는 리소스들은 아래 파일에 저장해주시면 됩니다!**
+    _style.js = 추가되는 js 저장
+    _custom.css = 추가되는 css 저장
+
+    -->
 
     <!--추가되는 리소스 저장경로 start-->
-    <link rel="stylesheet" type="text/css" th:href="@{/_temp/_user/_custom.css}">
-    <script th:src="@{/_temp/_user/_style.js}"></script>
+    <link rel="stylesheet" type="text/css" href="_custom.css">
+    <script src="_custom.css"></script>
     <!--추가되는 리소스 저장경로 end-->
-
-
-
-    <style>
-        .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
-            padding-top: 100px; /* Location of the box */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
-        }
-        /* Modal Content */
-        .modal-content {
-            border-radius: 20px;
-            border: solid 4px #6d95e1;
-            background-color: #fff;
-            margin: auto;
-            padding: 20px;
-            width: 80%;
-        }
-        .modal_title {
-            margin-top: 3%;
-            padding: 8%;
-            font-size: 25px;
-            font-weight: bold;
-            font-family: "Noto Sans KR";
-            text-align: center;
-            color: #8bb3ff;
-        }
-        .modal_text {
-            font-stretch: normal;
-            font-style : normal;
-            line-height: 1.56;
-            letter-spacing: 2px;
-            text-align: center;
-            color: #8c90a5;
-        }
-
-        /* The Close Button */
-        .modal_cancel {
-            color: #aaaaaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .modal_cancel:hover,
-        .modal_cancel:focus {
-            color: #000;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        .modal_input {
-            border-radius: 70px;
-            border : solid 4px #d2d4df;
-            background-color: #fff;
-            margin-bottom: 15%;
-        }
-        .gray_line{
-            width: 116px;
-            height: 1px;
-            margin: 31px 0 26px 62px;
-            opacity: 0.5;
-            background-color: #707070;
-        }
-    </style>
 
     <!--모달창 끄고 닫기-->
     <script>
-        $(function() {
+        /*$(function() {
             $(document).ready(function() {
                 $("#batchRegister").click(function() {
                     $("#batch_modal").css({
@@ -106,14 +50,33 @@
                 });
             });
         })
-
+*/
+        function batchRegister() {
+            alert("준비 중 입니다");
+        }
     </script>
 </head>
 <body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
 <div id="wrap">
     <th:block th:include="fragments/header_gnb"></th:block>
     <div id="container">
-        <th:block th:include="fragments/snb"></th:block>
+        <div class="gnb_tit gnb06">
+            <h2>마이페이지</h2>
+        </div>
+        <div class="snb">
+            <ul class="tab tab_type01">
+                <li><a href="/pages/myPage/profile">계정정보</a></li>
+                <li><a href="/pages/myPage/activity">활동내역</a></li>
+                <li><a href="/pages/myPage/learningStatus">우리반 학습현황</a></li>
+                <li><a href="/pages/myPage/learningStatusDetail">우리아이 학습현황</a></li>
+                <li><a href="/pages/myPage/peer">또래지명</a></li>
+                <li><a href="/pages/myPage/peerStatus">또래지명</a></li>
+                <li><a href="/pages/myPage/counseling">My 상담</a></li>
+                <li><a href="/pages/myPage/classroom">My 강의실</a></li>
+                <li><a href="/pages/myPage/proposal">My 제안</a></li>
+                <li><a href="/pages/myPage/selfTestResult">자가진단결과</a></li>
+            </ul>
+        </div>
 
         <div class="batch_contents">
 
@@ -163,7 +126,7 @@
                     </div>
                 </div>
             </div>
-                <div class="btn_area"><a class="btn btn_lg btn_blue btn_pill_10" id="batchRegister">일괄가입</a></div>
+                <div class="btn_area"><a class="btn btn_lg btn_blue btn_pill_10" id="batchRegister" onclick="batchRegister()">일괄가입</a></div>
         </div>
     </div>
 </div>
