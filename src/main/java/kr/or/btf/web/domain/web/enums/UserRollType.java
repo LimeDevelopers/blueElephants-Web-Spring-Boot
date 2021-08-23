@@ -9,7 +9,8 @@ public enum UserRollType {
     PARENT("부모님"),
     LECTURER("푸코강사"),
     COUNSELOR("상담사"),
-    SPT_CREW("지지크루");
+    GROUP("단체"),
+    CREW("지지크루");
 
     final private String name;
 

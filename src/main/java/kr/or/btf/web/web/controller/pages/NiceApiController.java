@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * NiceApiController [Nice 본인인증 서비스컨트롤러]
@@ -33,7 +34,12 @@ public class NiceApiController extends BaseCont {
     private final MobileAuthLogService mobileAuthLogService;
 
     @GetMapping(value = ApiNiceCall)
-    public String niceCall(Model model, @Value("${Globals.domain.full}") String domain, @Value("${nice.api.code}") String sSiteCode, @Value("${nice.api.password}") String sSitePassword, HttpSession session, HttpServletRequest request) {
+    public String niceCall(Model model,
+                           @Value("${Globals.domain.full}") String domain,
+                           @Value("${nice.api.code}") String sSiteCode,
+                           @Value("${nice.api.password}") String sSitePassword,
+                           HttpSession session,
+                           HttpServletRequest request) {
         CPClient niceCheck = new CPClient();
         String sRequestNumber = "REQ0000000001";
         sRequestNumber = niceCheck.getRequestNO(sSiteCode);

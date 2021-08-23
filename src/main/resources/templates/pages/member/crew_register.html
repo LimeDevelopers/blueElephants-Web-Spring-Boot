@@ -8,6 +8,7 @@
     -->
     <th:block th:include="fragments/header"></th:block>
     <script>
+        // 공통정보
         let loginId;
         let idDupBool;
         let email;
@@ -16,21 +17,44 @@
         let email03;
         let tempKey;
         let idNm;
-        let crewDvTy = $("#crewDvTy");
+        let eMsg;
+        let authEmailChk;
+        let authMobileChk;
+        let passChk = false;
+
+        // 일반단체
+        let groupNm;
+        let chargerNm;
+        let position;
+        let bNum;
+        let attachedFile
+        let bLicenseAttc;
+
+        // 지지크루
+        let crewNm;
+        let crewAffi;
+        let crewFNum;
+        let rptName;
+
+        let dvTy = $("#dvTy");
 
         $(function(){
-            fn_chgCrewDvTy('NM_CREW');
+            fn_chgCrewDvTy('NM');
         });
 
         function fn_chgCrewDvTy(gbn){
-            if(gbn == "NM_CREW"){
+            if(gbn == "NM"){
+                $('#authEmailChk').val(0)
+                $('#authMobileChk').val(0)
                 $('.ggCrew').hide();
                 $('.nmCrew').show();
-                crewDvTy.val('NM_CREW');
-            }else if(gbn == "GG_CREW"){
+                dvTy.val('GROUP');
+            }else if(gbn == "GG"){
+                $('#authEmailChk').val(0)
+                $('#authMobileChk').val(0)
                 $('.ggCrew').show();
                 $('.nmCrew').hide();
-                crewDvTy.val('GG_CREW');
+                dvTy.val('CREW');
             }
         }
         /*
@@ -38,8 +62,112 @@
         * 생성일 : 21.08.17
         * 생성자 : 김재일
         * */
-        function fn_chkField() {
-            let thumb_file = $('input[id=thumbFile]');
+        function fn_alert(msg) {
+            alert(msg)
+        }
+        function fn_chkField(gbn) {
+            if(gbn=='GROUP')
+            {
+                attachedFile = $('input[id=attachedFile]');
+                groupNm = $('input[id=groupNm]');
+                chargerNm = $('input[id=chargerNm]');
+                position = $('input[id=position]');
+                bNum = $('input[id=bNum]');
+                authEmailChk = $('#authEmailChk');
+                authMobileChk = $('#authMobileChk');
+                bLicenseAttc = $('#b_license_attc');
+                if(!idDupBool) {
+                    fn_alert('아이디 중복확인을 진행해주세요.')
+                    return false;
+                }
+
+                if(!passChk) {
+                    fn_alert('비밀번호를 확인하세요.')
+                    return false;
+                }
+
+                if(!groupNm.val()) {
+                    fn_alert('단체명 입력은 필수입니다.')
+                    focusAndEmpty(groupNm)
+                    return false;
+                }
+                if(!chargerNm.val()) {
+                    fn_alert('담당자 입력은 필수입니다.')
+                    focusAndEmpty(chargerNm)
+                    return false;
+                }
+                if(!position.val()) {
+                    fn_alert('직책 입력은 필수입니다.')
+                    focusAndEmpty(position)
+                    return false;
+                }
+                if(!bNum.val()) {
+                    fn_alert('사업자등록번호 입력은 필수입니다.')
+                    focusAndEmpty(bNum)
+                    return false;
+                }
+                if(authEmailChk.val()!=2){
+                    fn_alert('이메일 인증은 필수입니다.')
+                    return false;
+                }
+                if(authMobileChk.val()!=2){
+                    fn_alert('휴대폰 인증은 필수입니다.')
+                    return false;
+                }
+                if(!attachedFile.val()){
+                    bLicenseAttc.val("N")
+                } else {
+                    bLicenseAttc.val("Y")
+                }
+                return true;
+            }
+            else if(gbn=='GG')
+            {
+                authEmailChk = $('#g_authEmailChk');
+                if(!idDupBool) {
+                    fn_alert('아이디 중복확인을 진행해주세요.')
+                    return false;
+                }
+                if(crewNm=='' || crewNm==null) {
+                    fn_alert('크루명 입력은 필수입니다.')
+                    focusAndEmpty(crewNm)
+                    return false;
+                }
+                if(crewAffi=='' || crewAffi==null) {
+                    fn_alert('소속명 입력은 필수입니다.')
+                    focusAndEmpty(crewAffi)
+                    return false;
+                }
+                if(crewFNum=='' || crewFNum==null) {
+                    fn_alert('기수를 입력하세요.')
+                    focusAndEmpty(crewFNum)
+                    return false;
+                }
+                if(rptName=='' || rptName==null) {
+                    fn_alert('대표자명을 입력하세요.')
+                    focusAndEmpty(rptName)
+                    return false;
+                }
+                if(authEmailChk.val()!=2) {
+                    fn_alert('이메일 인증은 필수입니다.')
+                    return false;
+                }
+                return true
+            }
+            else
+            {
+                return false
+            }
+        }
+
+        /*
+        * focusAndEmpty(param) this 필드 초기화 및 포커싱
+        * 생성일 : 21.08.20
+        * 생성자 : 김재일
+        * */
+        function focusAndEmpty(obj){
+            obj.val('')
+            obj.focus()
         }
 
         /*
@@ -53,6 +181,9 @@
             pwdChk.siblings('.err.emph').remove();
             if (pwd.val() != pwdChk.val()) {
                 pwdChk.after('<p class="err emph">비밀번호가 일치하지 않습니다.</p>');
+                passChk = false;
+            } else {
+                passChk = true;
             }
         }
 
@@ -124,18 +255,18 @@
         * */
         function fn_chkEmailDup(g){
             let emailStr = "";
-            if(g != null) {
+            if(g == 'g') {
                 email = $("#g_email");
                 email01 = $("#g_email01");
                 email02 = $("#g_email02");
                 email03 = $("#g_email03");
-                idNm = "g_email";
+                idNm = 'g_email'
             } else {
                 email = $("#email");
                 email01 = $("#email01");
                 email02 = $("#email02");
                 email03 = $("#email03");
-                idNm = "email";
+                idNm = 'email'
             }
 
             email.siblings('.err.emph').remove();
@@ -181,7 +312,7 @@
                 type: "POST",
                 url: "/api/member/CheckMail",
                 data: {
-                    idNm: email.val()
+                    'email': email.val()
                 },
                 success: function (data) {
                     if(data > 0){
@@ -238,6 +369,53 @@
                 $('.eKey').focus();
             }
         }
+        $(function(){
+            $('#btnSave').click(function () {
+                dvTy = $('#dvTy').val();
+                $('#btnSave').prop('disabled', true);
+                if(dvTy=='GROUP')
+                {
+                    if(!fn_chkField(dvTy)){
+                        $('#btnSave').prop('disabled', false);
+                        return false;
+                    }
+                    if(bLicenseAttc.val()=="N"){
+                        let conf = confirm("첨부파일이 등록되지않았습니다. 진행하시겠습니까?");
+                        if(conf){
+                            return true
+                        } else {
+                            return false
+                        }
+                    }
+                }
+                // 지지크루
+                else if(dvTy == 'CREW')
+                {
+                    if(fn_chkField(dvTy)){
+                        alert('gg')
+                    }
+                } else {
+                    alert('정상적인 경로를 이용하세요.')
+                    return false
+                }
+
+                let formData = $("#form1").serialize();
+                $.ajax({
+                    cache : false,
+                    url: "/api/member/insert",
+                    type : 'POST',
+                    data : formData,
+                    success : function(data) {
+                        alert(data);
+                        location.href = "/login";
+                    },
+                    error : function(error) {
+                        makeErrField(error);
+                        $('#btnSave').prop('disabled', false);
+                    }
+                });
+            });
+        })
     </script>
     <style>
         .file_form label {
@@ -267,15 +445,15 @@
         <div class="contents">
             <div class="page_top">
                 <h3 class="page_tit">단체 회원가입</h3>
-                <span>고객님께서 입력하신 정보를 안전하고 정확하게 관리하기 위해 최선을 다하겠습니다.</span>
+                <span>입력하신 정보를 안전하고 정확하게 관리하기 위해 최선을 다하겠습니다.</span>
             </div>
             <div class="page_cont join_form_area">
-                <form id="form1" name="form1" method="post" modelAttribute="crewForm" enctype="multipart/form-data" >
-                    <input type="hidden" name="crewDvTy" id="crewDvTy" value="NM_CREW"/>
+                <form id="form1" name="form1" method="post" modelAttribute="groupForm" enctype="multipart/form-data" >
+                    <input type="hidden" name="dvTy" id="dvTy" value="GROUP"/>
                     <div class="tbl_select">
                         <ul class="tab tab_type02">
-                            <li class="btn_line_default btn_pill_registerSelect active"><a href="javascript:fn_chgCrewDvTy('NM_CREW');">일반</a></li>
-                            <li class="btn_line_default btn_pill_registerSelect"><a href="javascript:fn_chgCrewDvTy('GG_CREW');">지지크루</a></li>
+                            <li class="btn_line_default btn_pill_registerSelect active"><a href="javascript:fn_chgCrewDvTy('NM');">일반</a></li>
+                            <li class="btn_line_default btn_pill_registerSelect"><a href="javascript:fn_chgCrewDvTy('GG');">지지크루</a></li>
                         </ul>
                     </div>
                     <div class="sec_write">
@@ -314,20 +492,20 @@
                                 <ul>
                                     <li>
                                         <div class="th">
-                                            <label for="crew_nm">단체명</label>
+                                            <label for="groupNm">단체명</label>
                                             <span class="aster">*</span>
                                         </div>
                                         <div class="td">
-                                            <input type="text" id="crew_nm" name="crew_nm" placeholder="단체명을 입력하세요">
+                                            <input type="text" id="groupNm" name="groupNm" placeholder="단체명을 입력하세요">
                                         </div>
                                     </li>
                                     <li>
                                         <div class="th">
-                                            <label for="contact_nm">담당자명</label>
+                                            <label for="chargerNm">담당자명</label>
                                             <span class="aster">*</span>
                                         </div>
                                         <div class="td">
-                                            <input type="text" id="contact_nm" name="contact_nm" placeholder="담당자명을 입력하세요">
+                                            <input type="text" id="chargerNm" name="chargerNm" placeholder="담당자명을 입력하세요">
                                         </div>
                                     </li>
                                     <li>
@@ -341,11 +519,11 @@
                                     </li>
                                     <li>
                                         <div class="th">
-                                            <label for="enter_no">사업자등록번호</label>
+                                            <label for="bNum">사업자등록번호</label>
                                             <span class="aster">*</span>
                                         </div>
                                         <div class="td">
-                                            <input type="text" id="enter_no" name="enter_no" placeholder="사업자등록번호를 입력하세요">
+                                            <input type="text" id="bNum" name="bNum" placeholder="사업자등록번호를 입력하세요">
                                         </div>
                                     </li>
                                     <li>
@@ -362,6 +540,7 @@
                                                 </div>
                                                 <input type="file" name="attachedFile" id="attachedFile" class="multi" th:accept="${allAccept}" />
                                                 <label for="attachedFile">파일찾기</label>
+                                                <input type="hidden" name="b_license_attc" id="b_license_attc" value="N">
                                             </div>
                                         </div>
                                     </li>
@@ -386,7 +565,7 @@
                                                 </div>
                                                 <input type="text" name="email03" id="email03" class="email_inp" title="이메일주소 직접입력" onkeydown="fn_checkSpacebar()" />
                                             </div>
-                                            <button type="button" class="btn btn_lg btn_line_blue btn_pill_10" id="sendEmailBtn" onclick="return fn_chkEmailDup();">이메일인증</button>
+                                            <button type="button" class="btn btn_lg btn_line_blue btn_pill_10" id="sendEmailBtn" onclick="return fn_chkEmailDup('n');">이메일인증</button>
                                             <input type="hidden" name="email" id="email"/>
                                             <input class="eKey emph" type="text" name="emailKey" placeholder="인증번호 입력" maxlength="8" disabled>
                                             <button type="button" class="btn btn_lg btn_line_blue btn_pill_10" id="chkTempKeyBtn" onclick="return fn_chkEmailTempKey();">인증번호확인</button>
@@ -418,7 +597,7 @@
                                             <span class="aster">*</span>
                                         </div>
                                         <div class="td">
-                                            <input type="text" id="ggCrewNm" name="ggCrewNm" placeholder="지지크루명을 입력하세요." />
+                                            <input type="text" id="crewNm" name="crewNm" placeholder="지지크루명을 입력하세요." />
                                         </div>
                                     </li>
                                     <li>
@@ -427,7 +606,7 @@
                                             <span class="aster">*</span>
                                         </div>
                                         <div class="td">
-                                            <input type="text" id="affiNm" name="affiNm" placeholder="소속명을 입력하세요." />
+                                            <input type="text" id="crewAffi" name="crewAffi" placeholder="소속명을 입력하세요." />
                                         </div>
                                     </li>
                                     <li>
@@ -436,7 +615,7 @@
                                             <span class="aster">*</span>
                                         </div>
                                         <div class="td">
-                                            <input type="text" id="fNo" name="fNo" placeholder="기수를 입력하세요." />
+                                            <input type="text" id="crewFNum" name="crewFNum" placeholder="기수를 입력하세요." />
                                         </div>
                                     </li>
                                     <li>
@@ -445,7 +624,7 @@
                                             <span class="aster">*</span>
                                         </div>
                                         <div class="td">
-                                            <input type="text" id="ownerNm" name="ownerNm" placeholder="대표명을 입력하세요." />
+                                            <input type="text" id="rptNm" name="rptNm" placeholder="대표명을 입력하세요." />
                                         </div>
                                     </li>
                                     <li class="emailAuth">
@@ -469,7 +648,7 @@
                                                 </div>
                                                 <input type="text" name="gg_email03" id="g_email03" class="email_inp" title="이메일주소 직접입력" onkeydown="fn_checkSpacebar()" />
                                             </div>
-                                            <button type="button" class="btn btn_lg btn_line_blue btn_pill_10" id="g_sendEmailBtn" onclick="return fn_chkEmailDup();">이메일인증</button>
+                                            <button type="button" class="btn btn_lg btn_line_blue btn_pill_10" id="g_sendEmailBtn" onclick="return fn_chkEmailDup('g');">이메일인증</button>
                                             <input type="hidden" name="g_email" id="g_email"/>
                                             <input class="eKey emph" type="text" name="g_emailKey" placeholder="인증번호 입력" maxlength="8" disabled>
                                             <button type="button" class="btn btn_lg btn_line_blue btn_pill_10" id="g_chkTempKeyBtn" onclick="return fn_chkEmailTempKey();">인증번호확인</button>

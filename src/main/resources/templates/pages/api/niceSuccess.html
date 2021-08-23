@@ -11,19 +11,24 @@
         window.onload = function () {
             window.opener.postMessage({변수명1: '변수내용1', 변수명2: '변수내용2'}, '*');
         };
-        opener.document.getElementById("authFiledPHONE_AUTH").remove();
-        opener.document.getElementById("authFiledEMAIL_AUTH").remove()
-        opener.document.getElementById("resultText").innerText = '휴대폰 인증완료';
+        let resultText = opener.document.getElementById("resultText");
+        if(resultText){
+            opener.document.getElementById("authFiledPHONE_AUTH").remove();
+            opener.document.getElementById("authFiledEMAIL_AUTH").remove();
+            opener.document.getElementById("resultText").innerText = '휴대폰 인증완료';
+        }
         opener.document.getElementById("authMobileChk").value = '[[${resultValue}]]';
         opener.document.getElementById("moblphon").value = '[[${sMobileNo}]]';
         opener.document.getElementById("sRequestNumber").value = '[[${sRequestNumber}]]';
         opener.document.getElementById("sResponseNumber").value = '[[${sResponseNumber}]]';
+
         let sMessage = '[[${sMessage}]]';
         if (sMessage) {
             alert(sMessage);
         } else {
             alert("휴대폰인증이 완료 되었습니다.");
         }
+
         self.close();
     </script>
 </head>

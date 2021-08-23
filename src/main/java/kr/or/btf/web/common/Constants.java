@@ -30,6 +30,7 @@ public class Constants {
     public static final String FOLDERNAME_EVENT = "event";
     public static final String FOLDERNAME_EXPERIENCE = "experience";
     public static final String FOLDERNAME_BOARDDATA = "boardData";
+    public static final String FOLDERNAME_LICENSE = "lecense";
     public static final String FOLDERNAME_ADVICE = "advice";
     public static final String FOLDERNAME_COMMENT = "comment";
     public static final String FOLDERNAME_EDITOR = "editor";

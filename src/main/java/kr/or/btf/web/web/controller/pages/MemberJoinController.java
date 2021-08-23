@@ -9,13 +9,14 @@ import kr.or.btf.web.services.web.MemberService;
 import kr.or.btf.web.services.web.MobileAuthLogService;
 import kr.or.btf.web.utils.AESEncryptor;
 import kr.or.btf.web.web.controller.BaseCont;
-import kr.or.btf.web.web.form.CrewForm;
+import kr.or.btf.web.web.form.GroupForm;
 import kr.or.btf.web.web.form.MemberForm;
 import kr.or.btf.web.web.form.MobileAuthLogForm;
 import kr.or.btf.web.web.validator.MemberFormValidator;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -84,7 +86,7 @@ public class MemberJoinController extends BaseCont {
 
     @GetMapping({"/pages/member/crew_register"})
     public String crew_register(Model model,
-                                CrewForm crewForm,
+                                GroupForm crewForm,
                                 HttpSession session) {
         model.addAttribute("mc", "crewJoin");
         return "/pages/member/crew_register";
@@ -100,9 +102,54 @@ public class MemberJoinController extends BaseCont {
     }
 
     /**
+     * 단체 가입 서비스로직
+     * @date : 2021/08/20
+     * @auther : jerry
+     * @param groupForm
+     * @param attachedFile
+    **/
+    @PostMapping("/api/group/insert")
+    public ResponseEntity insert(@ModelAttribute GroupForm groupForm,
+                                 @RequestParam(name = "attachedFile", required = false) MultipartFile[] attachedFile,
+                                 Errors errors) throws Exception {
+        String msg = "";
+        boolean result = false;
+        if(groupForm.getDvTy().equals("GROUP")) {
+            if(groupForm.getB_license_attc().equals("Y")){
+                for(MultipartFile files : attachedFile) {
+                    // 첨부파일 체크
+                    if(files.isEmpty()) {
+
+                    } else {
+
+                    }
+                }
+            }
+        } else if (groupForm.getDvTy().equals("CREW")){
+
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldErrors());
+        }
+        if (groupForm.getId() == null) {
+            try {
+                result = memberService.groupInsert(groupForm, attachedFile);
+            } catch (ValidCustomException ve) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ve);
+            }
+        }
+
+        if (result) {
+            msg = "가입 심사 후 가입됩니다. (소요기간 2 ~ 3일)";
+            return ResponseEntity.ok(msg);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldErrors());
+        }
+    }
+
+
+    /**
      * 생성일 : 21.08.15
      * 생성자 : 김재일
-     *
      * @param model
      * @param memberForm
      * @param errors
@@ -277,6 +324,7 @@ public class MemberJoinController extends BaseCont {
     public int SendMail(Model model,
                         @ModelAttribute MemberForm memberForm) throws Exception {
         int tempKey;
+        log.info("이메일 : "+memberForm.getEmail());
         Account account = new Account();
         account.setEmail(memberForm.getEmail());
         if (memberService.existsByEmail(memberForm.getEmail())) {

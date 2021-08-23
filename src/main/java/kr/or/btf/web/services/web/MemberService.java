@@ -8,10 +8,15 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.or.btf.web.common.Constants;
 import kr.or.btf.web.common.exceptions.ValidCustomException;
 import kr.or.btf.web.domain.web.*;
+import kr.or.btf.web.domain.web.MemberGroup;
+import kr.or.btf.web.domain.web.enums.FileDvType;
 import kr.or.btf.web.domain.web.enums.GenderType;
+import kr.or.btf.web.domain.web.enums.TableNmType;
 import kr.or.btf.web.domain.web.enums.UserRollType;
+import kr.or.btf.web.repository.web.MemberGroupRepository;
 import kr.or.btf.web.repository.web.*;
 import kr.or.btf.web.utils.AESEncryptor;
+import kr.or.btf.web.utils.FileUtilHelper;
 import kr.or.btf.web.web.form.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +30,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -53,6 +59,8 @@ public class MemberService extends _BaseService {
     private final MemberTeacherLogRepository memberTeacherLogRepository;
     private final LoginCnntLogsRepository loginCnntLogsRepository;
     private final MemberRollRepository memberRollRepository;
+    private final FileInfoRepository fileInfoRepository;
+    private final MemberGroupRepository memberGroupRepository;
 
     public Page<Account> list(Pageable pageable, SearchForm searchForm) {
 
@@ -474,6 +482,100 @@ public class MemberService extends _BaseService {
 //                    mailService.mailSend(makeParentMailAuthLinkMessage(account));
 //                }
 //            }
+
+            return true;
+        } catch (ValidCustomException ve) {
+            throw ve;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /**
+     * 그룹 insert
+     * @param groupForm
+     * @param attachedFile
+     * @return
+     */
+    @Transactional
+    public boolean groupInsert(GroupForm groupForm, MultipartFile[] attachedFile) throws ValidCustomException {
+        try {
+            verifyDuplicateLoginId(groupForm.getLoginId()); // 아이디 중복체크
+            verifyDuplicateEmail(groupForm.getEmail());     // 이메일 중복체크
+            groupForm.setEmailAttcDtm(LocalDateTime.now());
+
+            if(groupForm.getDvTy().equals("GROUP")) {
+                if(groupForm.getMobileAttcAt().equals("Y")) {
+                    groupForm.setEmailAttcAt("N");
+                    groupForm.setMobileAttcDtm(LocalDateTime.now());
+                } else {
+                    return false;
+                }
+            }
+
+
+            groupForm.setDelAt("N");
+            groupForm.setPwd(passwordEncoder.encode(groupForm.getPwd()));
+            groupForm.setRegDtm(LocalDateTime.now());
+
+            Account account = modelMapper.map(groupForm, Account.class);
+            Account save = memberRepository.save(account);
+
+            MemberRoll memberRoll = new MemberRoll();
+            memberRoll.setMberPid(save.getId());
+            memberRoll.setMberDvTy(groupForm.getDvTy());
+            memberRoll.setRegDtm(LocalDateTime.now());
+            memberRoll.setRegPsId(save.getRegPsId());
+            memberRollRepository.save(memberRoll);
+
+            if (groupForm.getDvTy() != null) {
+                String bNum;
+                bNum = groupForm.getB_num().replaceAll("-","");
+                int parseNum = Integer.parseInt(bNum);
+                MemberGroup memberGroup = new MemberGroup();
+                memberGroup.setMberPid(account.getId());
+                memberGroup.setGroupNm(groupForm.getGroup_nm());
+                memberGroup.setAttcYn("N");
+                memberGroup.setMberEmail(groupForm.getEmail());
+                memberGroup.setMberMoblphon(groupForm.getMoblphon());
+                memberGroup.setBNum(parseNum);
+                memberGroup.setRegDtm(LocalDateTime.now());
+                memberGroup.setBLicenseAttc(groupForm.getB_license_attc());
+                MemberGroup save1 = memberGroupRepository.save(memberGroup);
+
+                if (UserRollType.GROUP.equals(groupForm.getDvTy())) {
+                    if (attachedFile != null && groupForm.getB_license_attc().equals("Y")) {
+                        for (MultipartFile multipartFile : attachedFile) {
+                            if (multipartFile.isEmpty() == false) {
+                                TableNmType tblBoardData = TableNmType.TBL_MEMBER_GROUP;
+                                FileInfo fileInfo = FileUtilHelper.writeUploadedFile(multipartFile, Constants.FOLDERNAME_LICENSE);
+                                FileInfo pid;
+                                if (fileInfo != null) {
+                                    fileInfo.setDataPid(save1.getId());
+                                    fileInfo.setTableNm(tblBoardData.name());
+                                    fileInfo.setDvTy(FileDvType.LICENSE.name());
+                                    pid = fileInfoRepository.save(fileInfo);
+                                    memberGroupRepository.updateFlPid(pid.getId(),save1.getId());
+                                }
+                            }
+                        }
+                    }
+
+                } else if (UserRollType.CREW.equals(groupForm.getDvTy())) {
+                    MemberCrew memberCrew = new MemberCrew();
+                    memberCrew.setMberPid(account.getId());
+                    memberCrew.setCrewNm(groupForm.getCrew_nm());
+                    memberCrew.setCrewAffi(groupForm.getCrew_affi());
+                    memberCrew.setAttcYn("N");
+                    memberCrew.setMberEmail(groupForm.getEmail());
+                    memberCrew.setRptNm(groupForm.getRpt_nm());
+                    memberCrew.setRegDtm(LocalDateTime.now());
+                    // memberCrewRepository.save(memberCrew);
+
+                }
+            }
+
+
 
             return true;
         } catch (ValidCustomException ve) {
