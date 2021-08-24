@@ -243,7 +243,11 @@
                                         <th scope="row"><label>성별</label></th>
                                         <td th:text="${T(kr.or.btf.web.domain.web.enums.GenderType).valueOf(item.sexPrTy).getName()}"></td>
                                         <th scope="row"><label>아이디</label></th>
-                                        <td th:text="${item.loginId}"></td>
+                                        <td>
+                                            <a th:href="|/soulGod/member/detail/${item.id}|">
+                                                <b th:text="${item.loginId}"></b>
+                                            </a>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th scope="row"><label>가입(탈퇴)일</label></th>
@@ -285,7 +289,11 @@
                                         <th scope="row"><label>성별</label></th>
                                         <td th:text="${T(kr.or.btf.web.domain.web.enums.GenderType).valueOf(item.sexPrTy).getName()}"></td>
                                         <th scope="row"><label>아이디</label></th>
-                                        <td th:text="${item.loginId}"></td>
+                                        <td>
+                                            <a th:href="|/soulGod/member/detail/${item.id}|">
+                                                <b th:text="${item.loginId}"></b>
+                                            </a>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th scope="row"><label>가입(탈퇴)일</label></th>
@@ -335,6 +343,11 @@
                                             <td th:text="${T(kr.or.btf.web.domain.web.enums.GenderType).valueOf(child.childSexPrTy).getName()}"></td>
                                             <th scope="row"><label>아이디</label></th>
                                             <td th:text="${child.childLoginId}"></td>
+                                            <td>
+                                                <a th:href="|/soulGod/member/detail/${child.childLoginId}|">
+                                                    <b th:text="${child.childLoginId}"></b>
+                                                </a>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><label>가입(탈퇴)일</label></th>
@@ -391,6 +404,7 @@
                                             <td th:text="${child.teacherSexPrTy eq null ? '' : T(kr.or.btf.web.domain.web.enums.GenderType).valueOf(child.teacherSexPrTy).getName()}"></td>
                                             <th scope="row"><label>아이디</label></th>
                                             <td th:text="${child.teacherLoginId eq null ? '' : child.teacherLoginId}"></td>
+
                                         </tr>
                                         <tr>
                                             <th scope="row"><label>가입(탈퇴)일</label></th>
@@ -529,11 +543,20 @@
                         </th:block>
 
                         <div class="fr">
-                            <div class="btn_area">
+                            <ul>
+                            <li class="btn_area">
+                                <a class="btn btn_sm btn_lightgray" href="/soulGod/member/list">
+                                    <i class="material-icons">list</i>수정
+                                </a>
+                            </li>
+
+
+                            <li class="btn_area">
                                 <a class="btn btn_sm btn_lightgray" href="/soulGod/member/list">
                                     <i class="material-icons">list</i>목록
                                 </a>
-                            </div>
+                            </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
