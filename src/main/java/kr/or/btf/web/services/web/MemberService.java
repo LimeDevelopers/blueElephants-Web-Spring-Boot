@@ -582,7 +582,6 @@ public class MemberService extends _BaseService {
                             FileInfo pid = fileInfoRepository.save(fileInfo);
                             memberGroupRepository.updateFlPid(pid.getId(),save1.getId());
                         }
-
                     }
 
                 } else if (UserRollType.CREW.equals(groupForm.getMberDvTy())) {
