@@ -20,6 +20,8 @@
         let eMsg;
         let authEmailChk;
         let authMobileChk;
+        let emailAttcAt;
+        let mobileAttcAt;
         let passChk = false;
 
         // 일반단체
@@ -36,25 +38,25 @@
         let crewFNum;
         let rptName;
 
-        let dvTy = $("#dvTy");
+        let mberDvTy = $("#mberDvTy");
 
         $(function(){
-            fn_chgCrewDvTy('NM');
+            fn_chgCrewDvTy('GROUP');
         });
 
         function fn_chgCrewDvTy(gbn){
-            if(gbn == "NM"){
+            if(gbn == "GROUP"){
                 $('#authEmailChk').val(0)
                 $('#authMobileChk').val(0)
                 $('.ggCrew').hide();
                 $('.nmCrew').show();
-                dvTy.val('GROUP');
-            }else if(gbn == "GG"){
+                mberDvTy.val('GROUP');
+            }else if(gbn == "CREW"){
                 $('#authEmailChk').val(0)
                 $('#authMobileChk').val(0)
                 $('.ggCrew').show();
                 $('.nmCrew').hide();
-                dvTy.val('CREW');
+                mberDvTy.val('CREW');
             }
         }
         /*
@@ -76,6 +78,8 @@
                 authEmailChk = $('#authEmailChk');
                 authMobileChk = $('#authMobileChk');
                 bLicenseAttc = $('#b_license_attc');
+                emailAttcAt = $('#emailAttcAt');
+                mobileAttcAt = $('#mobileAttcAt');
                 if(!idDupBool) {
                     fn_alert('아이디 중복확인을 진행해주세요.')
                     return false;
@@ -109,15 +113,19 @@
                 if(authEmailChk.val()!=2){
                     fn_alert('이메일 인증은 필수입니다.')
                     return false;
+                } else {
+                    emailAttcAt.val('Y')
                 }
                 if(authMobileChk.val()!=2){
                     fn_alert('휴대폰 인증은 필수입니다.')
                     return false;
+                } else {
+                    mobileAttcAt.val('Y')
                 }
                 if(!attachedFile.val()){
-                    bLicenseAttc.val("N")
+                    bLicenseAttc.val('N')
                 } else {
-                    bLicenseAttc.val("Y")
+                    bLicenseAttc.val('Y')
                 }
                 return true;
             }
@@ -151,6 +159,8 @@
                 if(authEmailChk.val()!=2) {
                     fn_alert('이메일 인증은 필수입니다.')
                     return false;
+                } else {
+
                 }
                 return true
             }
@@ -371,11 +381,11 @@
         }
         $(function(){
             $('#btnSave').click(function () {
-                dvTy = $('#dvTy').val();
+                mberDvTy = $('#mberDvTy').val();
                 $('#btnSave').prop('disabled', true);
-                if(dvTy=='GROUP')
+                if(mberDvTy=='GROUP')
                 {
-                    if(!fn_chkField(dvTy)){
+                    if(!fn_chkField(mberDvTy)){
                         $('#btnSave').prop('disabled', false);
                         return false;
                     }
@@ -389,9 +399,9 @@
                     }
                 }
                 // 지지크루
-                else if(dvTy == 'CREW')
+                else if(mberDvTy == 'CREW')
                 {
-                    if(fn_chkField(dvTy)){
+                    if(fn_chkField(mberDvTy)){
                         alert('gg')
                     }
                 } else {
@@ -399,12 +409,16 @@
                     return false
                 }
 
-                let formData = $("#form1").serialize();
+                const formData = new FormData();
+                formData.append("attachedFile", attachedFile.files[0]);
+
                 $.ajax({
                     cache : false,
-                    url: "/api/member/insert",
+                    url: "/api/member/groupInsert",
                     type : 'POST',
                     data : formData,
+                    processData: false,
+                    contentType: false,
                     success : function(data) {
                         alert(data);
                         location.href = "/login";
@@ -448,12 +462,14 @@
                 <span>입력하신 정보를 안전하고 정확하게 관리하기 위해 최선을 다하겠습니다.</span>
             </div>
             <div class="page_cont join_form_area">
-                <form id="form1" name="form1" method="post" modelAttribute="groupForm" enctype="multipart/form-data" >
-                    <input type="hidden" name="dvTy" id="dvTy" value="GROUP"/>
+                <form id="form1" name="form1" method="post" modelAttribute="groupForm" enctype="multipart/form-data">
+                    <input type="hidden" name="mberDvTy" id="mberDvTy" value="GROUP"/>
+                    <input type="hidden" name="emailAttcAt" id="emailAttcAt" value="N"/>
+                    <input type="hidden" name="mobileAttcAt" id="mobileAttcAt" value="N"/>
                     <div class="tbl_select">
                         <ul class="tab tab_type02">
-                            <li class="btn_line_default btn_pill_registerSelect active"><a href="javascript:fn_chgCrewDvTy('NM');">일반</a></li>
-                            <li class="btn_line_default btn_pill_registerSelect"><a href="javascript:fn_chgCrewDvTy('GG');">지지크루</a></li>
+                            <li class="btn_line_default btn_pill_registerSelect active"><a href="javascript:fn_chgCrewDvTy('GROUP');">일반</a></li>
+                            <li class="btn_line_default btn_pill_registerSelect"><a href="javascript:fn_chgCrewDvTy('CREW');">지지크루</a></li>
                         </ul>
                     </div>
                     <div class="sec_write">
@@ -531,14 +547,16 @@
                                         <div class="td">
                                             <div class="file_form">
                                                 <div th:if="${fileList != null and !fileList.isEmpty()}">
-                                                    <p class="file" th:each="item: ${fileList}">
-                                                        <span th:text="${item.sil_re_file_nm}">첨부파일.txt</span>
-                                                        <a href="javascript:;" class="btn_del" th:onclick="fn_deleteFile('[[${item.fl_pid}]]', this)">
-                                                            <span class="blind">삭제</span>
-                                                        </a>
-                                                    </p>
+                                                    <th:block th:each="item: ${fileList}">
+                                                        <p class="file" th:if="${T(kr.or.btf.web.domain.web.enums.FileDvType).THUMB.name() eq item.dvTy}">
+                                                            <span th:text="${item.flNm}">첨부파일.txt</span>
+                                                            <a href="javascript:;" class="btn_del" th:onclick="|fn_deleteFile(${item.id}, this)| ">
+                                                                <span class="blind">삭제</span>
+                                                            </a>
+                                                        </p>
+                                                    </th:block>
                                                 </div>
-                                                <input type="file" name="attachedFile" id="attachedFile" class="multi" th:accept="${allAccept}" />
+                                                <input type="file" name="attachedFile" maxlength="1"  id="attachedFile" class="multi" th:accept="${allAccept}" />
                                                 <label for="attachedFile">파일찾기</label>
                                                 <input type="hidden" name="b_license_attc" id="b_license_attc" value="N">
                                             </div>

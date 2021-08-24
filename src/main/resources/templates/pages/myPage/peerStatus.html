@@ -44,7 +44,7 @@
                                 <dt th:text="|${item.schlNm} ${item.grade}학년 ${item.ban}반|">길동초등학교 1학년 5반</dt>
                                 <dd>
                                     <p>총인원 <th:block th:text="${item.studentCnt}"></th:block>명</p>
-                                    <a href="javascript:;" th:onclick="fn_moveDetail([[${item.areaNm}]], [[${item.schlNm}]], [[${item.grade}]], [[${item.ban}]], [[${item.nm}]])" class="btn btn_lg btn_blue btn_pill_10">또래지명 바로가기</a>
+                                    <a href="javascript:;" onclick="fn_moveDetail('', '', '','', '');" class="btn btn_lg btn_blue btn_pill_10">또래지명 바로가기</a>
                                 </dd>
                             </dl>
                         </li>

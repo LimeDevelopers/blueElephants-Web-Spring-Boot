@@ -4,6 +4,7 @@ import kr.or.btf.web.common.Constants;
 import kr.or.btf.web.common.exceptions.ValidCustomException;
 import kr.or.btf.web.domain.web.Account;
 import kr.or.btf.web.domain.web.MobileAuthLog;
+import kr.or.btf.web.domain.web.enums.UserRollType;
 import kr.or.btf.web.services.web.MailService;
 import kr.or.btf.web.services.web.MemberService;
 import kr.or.btf.web.services.web.MobileAuthLogService;
@@ -108,28 +109,25 @@ public class MemberJoinController extends BaseCont {
      * @param groupForm
      * @param attachedFile
     **/
-    @PostMapping("/api/group/insert")
+    @PostMapping("/api/member/groupInsert")
     public ResponseEntity insert(@ModelAttribute GroupForm groupForm,
-                                 @RequestParam(name = "attachedFile", required = false) MultipartFile[] attachedFile,
+                                 @RequestParam("attachedFile") MultipartFile attachedFile,
                                  Errors errors) throws Exception {
         String msg = "";
         boolean result = false;
-        if(groupForm.getDvTy().equals("GROUP")) {
-            if(groupForm.getB_license_attc().equals("Y")){
-                for(MultipartFile files : attachedFile) {
-                    // 첨부파일 체크
-                    if(files.isEmpty()) {
-
-                    } else {
-
-                    }
-                }
+        if (groupForm.getAuthMobileChk() == 2) {//컨트롤러 validation
+            log.info("휴대폰 인증 여부 확인");
+            MobileAuthLogForm mobileAUthLogForm = new MobileAuthLogForm();
+            mobileAUthLogForm.setDmnNo(groupForm.getSRequestNumber());
+            mobileAUthLogForm.setRspNo(groupForm.getSResponseNumber());
+            mobileAUthLogForm.setMbtlnum(groupForm.getMoblphon());
+            MobileAuthLog load = mobileAuthLogService.load(mobileAUthLogForm);
+            if (load == null) {
+                log.info("load null");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldErrors());
             }
-        } else if (groupForm.getDvTy().equals("CREW")){
-
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldErrors());
         }
+
         if (groupForm.getId() == null) {
             try {
                 result = memberService.groupInsert(groupForm, attachedFile);

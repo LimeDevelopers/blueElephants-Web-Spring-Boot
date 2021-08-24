@@ -38,20 +38,24 @@ public class GroupForm extends SearchForm{
     @Pattern(regexp = "^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})([0-9]{3,4})([0-9]{4})$", message = "휴대전화번호 형식이 올바르지 않습니다.")
     private String moblphon;
 
+    private String nm;
+    private String sexPrTy;
+    private String ncnm;
+    private String brthdy;
+
     /* 크루 정보 */
-    private String crew_nm;         // 크루명
-    private String crew_affi;       // 크루 소속
-    private int crew_fnum;          // 크루 기수
-    private String rpt_nm;          // 크루 대표명
+    private String crewNm;         // 크루명
+    private String crewAffi;       // 크루 소속
+    private int crewNum;          // 크루 기수
+    private String rptNm;          // 크루 대표명
 
     /* 단체 정보 */
-    private String group_nm;        // 단체명
-    private String charger_nm;      // 담당자 이름
-    private String b_num;           // 사업자 등록번호
+    private String groupNm;        // 단체명
+    private String chargerNm;      // 담당자 이름
+    private String bNum;           // 사업자 등록번호
     private String b_license_attc;  // 사업자등록증 첨뷰여부
     @Enumerated(EnumType.STRING)
-    private UserRollType dvTy;
-
+    private UserRollType mberDvTy;
 
     private LocalDateTime emailAttcDtm;
     private String emailAttcAt;
@@ -65,6 +69,8 @@ public class GroupForm extends SearchForm{
     @Pattern(regexp="^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9])(?=.*[0-9]).{8,16}$", message = "비밀번호는 특수문자를 포함하여 8~16자리 이내로 입력해주세요.")
     private String pwdChgChk;
 
+    private String crewYn;
+    private String groupYn;
     private String approval = "N";
     private int authEmailChk;
     private int authMobileChk;

@@ -498,77 +498,101 @@ public class MemberService extends _BaseService {
      * @return
      */
     @Transactional
-    public boolean groupInsert(GroupForm groupForm, MultipartFile[] attachedFile) throws ValidCustomException {
+    public boolean groupInsert(GroupForm groupForm, MultipartFile attachedFile) throws ValidCustomException {
         try {
             verifyDuplicateLoginId(groupForm.getLoginId()); // 아이디 중복체크
-            verifyDuplicateEmail(groupForm.getEmail());     // 이메일 중복체크
-            groupForm.setEmailAttcDtm(LocalDateTime.now());
-
-            if(groupForm.getDvTy().equals("GROUP")) {
-                if(groupForm.getMobileAttcAt().equals("Y")) {
-                    groupForm.setEmailAttcAt("N");
-                    groupForm.setMobileAttcDtm(LocalDateTime.now());
-                } else {
-                    return false;
-                }
+            log.info("groupInsert");
+            // 이메일 중복체크
+            if(groupForm.getEmailAttcAt().equals("Y")){
+                log.info("getEmailAttcAt");
+                verifyDuplicateEmail(groupForm.getEmail());
+                groupForm.setEmailAttcDtm(LocalDateTime.now());
+            } else {
+                log.info("이메일 인증 실패");
+                return false;
             }
 
+            // 일반 단체 휴대폰 인증여부
+            if(UserRollType.GROUP.equals(groupForm.getMberDvTy())) {
+                log.info("UserRollType.GROUP");
+                groupForm.setGroupYn("Y");
+                groupForm.setCrewYn("N");
+                if(groupForm.getMobileAttcAt().equals("Y")) {
+                    log.info("setMobileAttcDtm");
+                    groupForm.setMobileAttcDtm(LocalDateTime.now());
+                } else {
+                    log.info("휴대폰 인증 실패");
+                    return false;
+                }
+            } else {
+                groupForm.setGroupYn("N");
+                groupForm.setCrewYn("Y");
+            }
 
+            log.info("setApproval");
+            // approval : N -> 로그인 불가
+            groupForm.setApproval("N");
             groupForm.setDelAt("N");
             groupForm.setPwd(passwordEncoder.encode(groupForm.getPwd()));
             groupForm.setRegDtm(LocalDateTime.now());
 
+            log.info("Account");
+            if(UserRollType.GROUP.equals(groupForm.getMberDvTy())){
+                groupForm.setNm(groupForm.getChargerNm());
+                groupForm.setNcnm(groupForm.getGroupNm());
+            } else {
+                groupForm.setNcnm(groupForm.getCrewNm());
+                groupForm.setNm(groupForm.getRptNm());
+            }
+            groupForm.setSexPrTy("NONE");
+            groupForm.setBrthdy("00000000");
             Account account = modelMapper.map(groupForm, Account.class);
+            log.info("Account"+account.getLoginId());
             Account save = memberRepository.save(account);
+            log.info("save"+save.getId());
 
             MemberRoll memberRoll = new MemberRoll();
             memberRoll.setMberPid(save.getId());
-            memberRoll.setMberDvTy(groupForm.getDvTy());
+            memberRoll.setMberDvTy(groupForm.getMberDvTy());
             memberRoll.setRegDtm(LocalDateTime.now());
             memberRoll.setRegPsId(save.getRegPsId());
             memberRollRepository.save(memberRoll);
 
-            if (groupForm.getDvTy() != null) {
-                String bNum;
-                bNum = groupForm.getB_num().replaceAll("-","");
-                int parseNum = Integer.parseInt(bNum);
+            if (groupForm.getMberDvTy() != null) {
                 MemberGroup memberGroup = new MemberGroup();
                 memberGroup.setMberPid(account.getId());
-                memberGroup.setGroupNm(groupForm.getGroup_nm());
+                memberGroup.setGroupNm(groupForm.getGroupNm());
                 memberGroup.setAttcYn("N");
                 memberGroup.setMberEmail(groupForm.getEmail());
                 memberGroup.setMberMoblphon(groupForm.getMoblphon());
-                memberGroup.setBNum(parseNum);
+                memberGroup.setBNum(groupForm.getBNum());
                 memberGroup.setRegDtm(LocalDateTime.now());
                 memberGroup.setBLicenseAttc(groupForm.getB_license_attc());
                 MemberGroup save1 = memberGroupRepository.save(memberGroup);
 
-                if (UserRollType.GROUP.equals(groupForm.getDvTy())) {
-                    if (attachedFile != null && groupForm.getB_license_attc().equals("Y")) {
-                        for (MultipartFile multipartFile : attachedFile) {
-                            if (multipartFile.isEmpty() == false) {
-                                TableNmType tblBoardData = TableNmType.TBL_MEMBER_GROUP;
-                                FileInfo fileInfo = FileUtilHelper.writeUploadedFile(multipartFile, Constants.FOLDERNAME_LICENSE);
-                                FileInfo pid;
-                                if (fileInfo != null) {
-                                    fileInfo.setDataPid(save1.getId());
-                                    fileInfo.setTableNm(tblBoardData.name());
-                                    fileInfo.setDvTy(FileDvType.LICENSE.name());
-                                    pid = fileInfoRepository.save(fileInfo);
-                                    memberGroupRepository.updateFlPid(pid.getId(),save1.getId());
-                                }
-                            }
+                if (UserRollType.GROUP.equals(groupForm.getMberDvTy())) {
+                    if (groupForm.getB_license_attc().equals("Y")) {
+                        if (attachedFile != null) {
+                            FileInfo fileInfo = FileUtilHelper.writeUploadedFile(attachedFile, Constants.FOLDERNAME_LICENSE, FileUtilHelper.imageExt);
+                            fileInfo.setDataPid(save.getId());
+                            TableNmType tblBoardData = TableNmType.TBL_MEMBER_GROUP;
+                            fileInfo.setTableNm(tblBoardData.name());
+                            fileInfo.setDvTy(FileDvType.LICENSE.name());
+
+                            FileInfo pid = fileInfoRepository.save(fileInfo);
+                            memberGroupRepository.updateFlPid(pid.getId(),save1.getId());
                         }
+
                     }
 
-                } else if (UserRollType.CREW.equals(groupForm.getDvTy())) {
+                } else if (UserRollType.CREW.equals(groupForm.getMberDvTy())) {
                     MemberCrew memberCrew = new MemberCrew();
                     memberCrew.setMberPid(account.getId());
-                    memberCrew.setCrewNm(groupForm.getCrew_nm());
-                    memberCrew.setCrewAffi(groupForm.getCrew_affi());
+                    memberCrew.setCrewNm(groupForm.getCrewNm());
+                    memberCrew.setCrewAffi(groupForm.getCrewAffi());
                     memberCrew.setAttcYn("N");
                     memberCrew.setMberEmail(groupForm.getEmail());
-                    memberCrew.setRptNm(groupForm.getRpt_nm());
+                    memberCrew.setRptNm(groupForm.getRptNm());
                     memberCrew.setRegDtm(LocalDateTime.now());
                     // memberCrewRepository.save(memberCrew);
 
