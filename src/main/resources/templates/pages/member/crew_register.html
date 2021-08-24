@@ -9,6 +9,7 @@
     <th:block th:include="fragments/header"></th:block>
     <script>
         // 공통정보
+        let frm;
         let loginId;
         let idDupBool;
         let email;
@@ -23,6 +24,8 @@
         let emailAttcAt;
         let mobileAttcAt;
         let passChk = false;
+        let sendEmailBtn;
+        let chkTempKeyBtn;
 
         // 일반단체
         let groupNm;
@@ -38,25 +41,40 @@
         let crewFNum;
         let rptName;
 
-        let mberDvTy = $("#mberDvTy");
+        let mberDvTy;
 
         $(function(){
-            fn_chgCrewDvTy('GROUP');
+            mberDvTy = $("#mberDvTy");
+            fn_chgCrewDvTy(mberDvTy.val());
+            tempKey = $('#tempKey');
+            $('#load').hide();
+            $(document).ajaxStart(function () {
+                $("#load").show();
+            }).ajaxStop(function () {
+                $("#load").hide();
+            });
         });
 
         function fn_chgCrewDvTy(gbn){
-            if(gbn == "GROUP"){
-                $('#authEmailChk').val(0)
-                $('#authMobileChk').val(0)
-                $('.ggCrew').hide();
-                $('.nmCrew').show();
-                mberDvTy.val('GROUP');
-            }else if(gbn == "CREW"){
-                $('#authEmailChk').val(0)
-                $('#authMobileChk').val(0)
-                $('.ggCrew').show();
-                $('.nmCrew').hide();
-                mberDvTy.val('CREW');
+            authEmailChk = $('#authEmailChk');
+            authMobileChk = $('#authMobileChk');
+            if(authEmailChk.val() == 2 || authMobileChk.val() == 2) {
+                alert('본인인증을 완료한 후 가입 구분을 변경할 수 없습니다. \n새로고침 후 다시 가입을 진행해주세요');
+                location.reload()
+            } else {
+                if(gbn == "GROUP"){
+                    $('#authEmailChk').val(0)
+                    $('#authMobileChk').val(0)
+                    $('.ggCrew').hide();
+                    $('.nmCrew').show();
+                    mberDvTy.val('GROUP');
+                }else if(gbn == "CREW"){
+                    $('#authEmailChk').val(0)
+                    $('#authMobileChk').val(0)
+                    $('.ggCrew').show();
+                    $('.nmCrew').hide();
+                    mberDvTy.val('CREW');
+                }
             }
         }
         /*
@@ -68,6 +86,16 @@
             alert(msg)
         }
         function fn_chkField(gbn) {
+            if(!idDupBool) {
+                fn_alert('아이디 중복확인을 진행해주세요.')
+                return false;
+            }
+
+            if(!passChk) {
+                fn_alert('비밀번호를 확인하세요.')
+                return false;
+            }
+
             if(gbn=='GROUP')
             {
                 attachedFile = $('input[id=attachedFile]');
@@ -80,15 +108,6 @@
                 bLicenseAttc = $('#b_license_attc');
                 emailAttcAt = $('#emailAttcAt');
                 mobileAttcAt = $('#mobileAttcAt');
-                if(!idDupBool) {
-                    fn_alert('아이디 중복확인을 진행해주세요.')
-                    return false;
-                }
-
-                if(!passChk) {
-                    fn_alert('비밀번호를 확인하세요.')
-                    return false;
-                }
 
                 if(!groupNm.val()) {
                     fn_alert('단체명 입력은 필수입니다.')
@@ -129,9 +148,13 @@
                 }
                 return true;
             }
-            else if(gbn=='GG')
+            else if(gbn=='CREW')
             {
-                authEmailChk = $('#g_authEmailChk');
+                crewNm = $('crewNm');
+                crewAffi = $('crewNm');
+                crewFNum = $('crewNm');
+                rptName = $('crewNm');
+                authEmailChk = $('#authEmailChk');
                 if(!idDupBool) {
                     fn_alert('아이디 중복확인을 진행해주세요.')
                     return false;
@@ -160,12 +183,13 @@
                     fn_alert('이메일 인증은 필수입니다.')
                     return false;
                 } else {
-
+                    emailAttcAt.val('Y')
                 }
                 return true
             }
             else
             {
+                fn_alert('정상적인 경로를 이용하세요.')
                 return false
             }
         }
@@ -202,7 +226,7 @@
         * 생성일 : 21.08.17
         * 생성자 : 김재일
         * */
-        function fn_checkSpacebar() {
+        function fn_checkSpacebar(event) {
             let keyCode = event.keyCode;
             if(keyCode == 32) event.returnValue = false;
         }
@@ -270,12 +294,16 @@
                 email01 = $("#g_email01");
                 email02 = $("#g_email02");
                 email03 = $("#g_email03");
+                sendEmailBtn = $('#g_sendEmailBtn');
+                chkTempKeyBtn = $('#g_chkTempKeyBtn');
                 idNm = 'g_email'
             } else {
                 email = $("#email");
                 email01 = $("#email01");
                 email02 = $("#email02");
                 email03 = $("#email03");
+                sendEmailBtn = $('#sendEmailBtn');
+                chkTempKeyBtn = $('#chkTempKeyBtn');
                 idNm = 'email'
             }
 
@@ -326,10 +354,10 @@
                 },
                 success: function (data) {
                     if(data > 0){
-                        tempKey = data;
+                        tempKey.val(data);
                         alert('인증번호를 전송하였습니다.');
-                        $('#sendEmailBtn').text('재전송');
-                        $('#chkTempKeyBtn').show();
+                        sendEmailBtn.text('재전송');
+                        chkTempKeyBtn.show();
                         $('.eKey').val('');
                         $('.eKey').attr("disabled", false);
                         $('.eKey').focus();
@@ -365,24 +393,42 @@
         *  작성자 : 김재일
         *  이메일 전송 및 난수 생성 후 인증키를 비교하여 처리한다.
         * */
-        function fn_chkEmailTempKey() {
-            if(tempKey == $('.eKey').val()) {
-                alert('인증되었습니다.');
-                $('.eKey').attr("disabled", true);
-                $('#authEmailChk').val(2);
-                $('#sendEmailBtn').attr('disabled',true);
-                $('#chkTempKeyBtn').attr('disabled',true);
-                $('#chkTempKeyBtn').text("인증 완료");
+        function fn_chkEmailTempKey(g) {
+            if(g=='g'){
+                if(tempKey.val() == $('#g_emailKey').val()) {
+                    alert('인증되었습니다.');
+                    $('#g_emailKey').attr("disabled", true);
+                    authEmailChk.val(2);
+                    sendEmailBtn.attr('disabled',true);
+                    chkTempKeyBtn.attr('disabled',true);
+                    chkTempKeyBtn.text("인증 완료");
+                } else {
+                    alert('인증번호가 올바르지않습니다.');
+                    $('#g_emailKey').text('');
+                    $('#g_emailKey').focus();
+                }
             } else {
-                alert('인증번호가 올바르지않습니다.');
-                $('.eKey').text('');
-                $('.eKey').focus();
+                if(tempKey.val() == $('#emailKey').val()) {
+                    alert('인증되었습니다.');
+                    $('#emailKey').attr("disabled", true);
+                    authEmailChk.val(2);
+                    sendEmailBtn.attr('disabled',true);
+                    chkTempKeyBtn.attr('disabled',true);
+                    chkTempKeyBtn.text("인증 완료");
+                } else {
+                    alert('인증번호가 올바르지않습니다.');
+                    $('#emailKey').text('');
+                    $('#emailKey').focus();
+                }
             }
+
         }
-        $(function(){
+        $(function () {
+            frm = $('#form1');
             $('#btnSave').click(function () {
                 mberDvTy = $('#mberDvTy').val();
                 $('#btnSave').prop('disabled', true);
+
                 if(mberDvTy=='GROUP')
                 {
                     if(!fn_chkField(mberDvTy)){
@@ -392,66 +438,48 @@
                     if(bLicenseAttc.val()=="N"){
                         let conf = confirm("첨부파일이 등록되지않았습니다. 진행하시겠습니까?");
                         if(conf){
-                            return true
+                            frm.prop('action', '/api/member/groupInsert');
+                            frm.submit();
                         } else {
                             return false
                         }
                     }
                 }
-                // 지지크루
-                else if(mberDvTy == 'CREW')
-                {
-                    if(fn_chkField(mberDvTy)){
-                        alert('gg')
-                    }
-                } else {
-                    alert('정상적인 경로를 이용하세요.')
-                    return false
-                }
+                frm.prop('action', '/api/member/groupInsert');
+                frm.submit();
 
-                const formData = new FormData();
-                formData.append("attachedFile", attachedFile.files[0]);
 
-                $.ajax({
-                    cache : false,
-                    url: "/api/member/groupInsert",
-                    type : 'POST',
-                    data : formData,
-                    processData: false,
-                    contentType: false,
-                    success : function(data) {
-                        alert(data);
-                        location.href = "/login";
-                    },
-                    error : function(error) {
-                        makeErrField(error);
-                        $('#btnSave').prop('disabled', false);
-                    }
-                });
+
+
+                // let formData = $("#form1").serialize();
+                // formData.append("attachedFile", attachedFile.files[0]);
+                //
+                // $.ajax({
+                //     cache : false,
+                //     url: "/api/member/groupInsert",
+                //     type : 'POST',
+                //     data : formData,
+                //     processData: false,
+                //     contentType: false,
+                //     success : function(data) {
+                //         alert(data);
+                //         location.href = "/login";
+                //     },
+                //     error : function(error) {
+                //         makeErrField(error);
+                //         $('#btnSave').prop('disabled', false);
+                //     }
+                // });
             });
         })
     </script>
-    <style>
-        .file_form label {
-            display: inline-block;
-            height: 35px;
-            margin-left: 0px;
-            padding: 0 15px;
-            color: #ffffff;
-            font-size: 14px;
-            font-weight: 500;
-            line-height: 34px;
-            vertical-align: top;
-            text-align: center;
-            border: 1px solid #5981ba;
-            border-radius: 10px;
-            background-color: #5981ba;
-            cursor: pointer;
-        }
-    </style>
 </head>
 
 <body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="load">
+    <img class="loadImg" src="/ClientUI/user/images/common/bg_gnb_puco.png" alt="loading..">
+</div>
+<input type="hidden" id="tempKey" value="0"/>
 <div id="wrap">
     <th:block th:include="fragments/header_gnb"></th:block>
     <div id="container">
@@ -466,6 +494,7 @@
                     <input type="hidden" name="mberDvTy" id="mberDvTy" value="GROUP"/>
                     <input type="hidden" name="emailAttcAt" id="emailAttcAt" value="N"/>
                     <input type="hidden" name="mobileAttcAt" id="mobileAttcAt" value="N"/>
+                    <input type="hidden" id="authEmailChk" name="authEmailChk" value="0"/>
                     <div class="tbl_select">
                         <ul class="tab tab_type02">
                             <li class="btn_line_default btn_pill_registerSelect active"><a href="javascript:fn_chgCrewDvTy('GROUP');">일반</a></li>
@@ -563,7 +592,6 @@
                                         </div>
                                     </li>
                                     <li class="emailAuth">
-                                        <input type="hidden" id="authEmailChk" name="authEmailChk" value="0"/>
                                         <div class="th">이메일 주소<span class="aster">*</span></div>
                                         <div class="td">
                                             <div class="email_form clearfix">
@@ -585,8 +613,8 @@
                                             </div>
                                             <button type="button" class="btn btn_lg btn_line_blue btn_pill_10" id="sendEmailBtn" onclick="return fn_chkEmailDup('n');">이메일인증</button>
                                             <input type="hidden" name="email" id="email"/>
-                                            <input class="eKey emph" type="text" name="emailKey" placeholder="인증번호 입력" maxlength="8" disabled>
-                                            <button type="button" class="btn btn_lg btn_line_blue btn_pill_10" id="chkTempKeyBtn" onclick="return fn_chkEmailTempKey();">인증번호확인</button>
+                                            <input class="eKey emph" type="text" name="emailKey" id="emailKey" placeholder="인증번호 입력" maxlength="8" disabled>
+                                            <button type="button" class="btn btn_lg btn_line_blue btn_pill_10" id="chkTempKeyBtn" onclick="return fn_chkEmailTempKey('c');">인증번호확인</button>
                                             <p class="tip emph">※ 아이디/패스워드 찾기, 회원가입 인증에 사용됩니다. 정확하게 입력해주세요.</p>
                                         </div>
                                     </li>
@@ -646,7 +674,7 @@
                                         </div>
                                     </li>
                                     <li class="emailAuth">
-                                        <input type="hidden" id="g_authEmailChk" name="g_authEmailChk" value="0"/>
+
                                         <div class="th">이메일 주소<span class="aster">*</span></div>
                                         <div class="td">
                                             <div class="email_form clearfix">
@@ -668,8 +696,8 @@
                                             </div>
                                             <button type="button" class="btn btn_lg btn_line_blue btn_pill_10" id="g_sendEmailBtn" onclick="return fn_chkEmailDup('g');">이메일인증</button>
                                             <input type="hidden" name="g_email" id="g_email"/>
-                                            <input class="eKey emph" type="text" name="g_emailKey" placeholder="인증번호 입력" maxlength="8" disabled>
-                                            <button type="button" class="btn btn_lg btn_line_blue btn_pill_10" id="g_chkTempKeyBtn" onclick="return fn_chkEmailTempKey();">인증번호확인</button>
+                                            <input class="eKey emph" type="text" name="g_emailKey" id="g_emailKey" placeholder="인증번호 입력" maxlength="8" disabled>
+                                            <button type="button" class="btn btn_lg btn_line_blue btn_pill_10" id="g_chkTempKeyBtn" onclick="return fn_chkEmailTempKey('g');">인증번호확인</button>
                                             <p class="tip emph">※ 아이디/패스워드 찾기, 회원가입 인증에 사용됩니다. 정확하게 입력해주세요.</p>
                                         </div>
                                     </li>

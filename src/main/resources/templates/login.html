@@ -12,10 +12,17 @@
         var userPw;
         var msg;
         var errormsg;
+        let rsMsg;
 
         var loginId;
         $(function () {
+            rsMsg = '[[${rsMsg}]]';
             msg = $('#msg');
+
+            if(rsMsg){
+                alert(rsMsg);
+            }
+
             if (msg.val()) {
                 alert(msg.val());
             }

@@ -25,6 +25,9 @@ public class MemberCrew {
     @Column(name="crew_affi")
     private String crewAffi;
 
+    @Column(name="crew_fnum")
+    private int crewFNum;
+
     @Column(name="rpt_nm")
     private String rptNm;
 

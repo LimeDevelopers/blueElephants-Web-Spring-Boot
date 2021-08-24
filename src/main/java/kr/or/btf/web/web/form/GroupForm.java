@@ -35,6 +35,9 @@ public class GroupForm extends SearchForm{
     @Email(message = "이메일형식이 올바르지 않습니다.")
     private String email;
 
+    @Email(message = "이메일형식이 올바르지 않습니다.")
+    private String g_email;
+
     @Pattern(regexp = "^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})([0-9]{3,4})([0-9]{4})$", message = "휴대전화번호 형식이 올바르지 않습니다.")
     private String moblphon;
 
@@ -46,12 +49,13 @@ public class GroupForm extends SearchForm{
     /* 크루 정보 */
     private String crewNm;         // 크루명
     private String crewAffi;       // 크루 소속
-    private int crewNum;          // 크루 기수
+    private int crewFNum;
     private String rptNm;          // 크루 대표명
 
     /* 단체 정보 */
     private String groupNm;        // 단체명
     private String chargerNm;      // 담당자 이름
+    private String position;
     private String bNum;           // 사업자 등록번호
     private String b_license_attc;  // 사업자등록증 첨뷰여부
     @Enumerated(EnumType.STRING)
@@ -59,6 +63,7 @@ public class GroupForm extends SearchForm{
 
     private LocalDateTime emailAttcDtm;
     private String emailAttcAt;
+    private String g_emailAttcAt;
     private String mobileAttcAt;
     private LocalDateTime mobileAttcDtm;
 

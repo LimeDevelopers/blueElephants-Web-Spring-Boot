@@ -32,6 +32,9 @@ public class MemberGroup {
     @Column(name="charger_nm")
     private String chrNm;
 
+    @Column(name="position")
+    private String position;
+
     @Column(name="b_num")
     private String bNum;
 

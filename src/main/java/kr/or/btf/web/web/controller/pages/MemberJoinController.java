@@ -108,40 +108,44 @@ public class MemberJoinController extends BaseCont {
      * @auther : jerry
      * @param groupForm
      * @param attachedFile
+     * 이슈 : 로컬서버는 파일 업로드 안됨.
     **/
     @PostMapping("/api/member/groupInsert")
-    public ResponseEntity insert(@ModelAttribute GroupForm groupForm,
-                                 @RequestParam("attachedFile") MultipartFile attachedFile,
-                                 Errors errors) throws Exception {
+    public String insert(Model model,
+                        @ModelAttribute GroupForm groupForm,
+                         @RequestParam("attachedFile") MultipartFile attachedFile,
+                         Errors errors) throws Exception {
         String msg = "";
         boolean result = false;
-        if (groupForm.getAuthMobileChk() == 2) {//컨트롤러 validation
-            log.info("휴대폰 인증 여부 확인");
+        if (groupForm.getAuthMobileChk() == 2) {
             MobileAuthLogForm mobileAUthLogForm = new MobileAuthLogForm();
             mobileAUthLogForm.setDmnNo(groupForm.getSRequestNumber());
             mobileAUthLogForm.setRspNo(groupForm.getSResponseNumber());
             mobileAUthLogForm.setMbtlnum(groupForm.getMoblphon());
             MobileAuthLog load = mobileAuthLogService.load(mobileAUthLogForm);
             if (load == null) {
-                log.info("load null");
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldErrors());
+                log.info("휴대폰 정보 로드 에러 : "+ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldErrors()));
             }
+        } else {
+            groupForm.setMobileAttcAt("N");
         }
 
         if (groupForm.getId() == null) {
             try {
                 result = memberService.groupInsert(groupForm, attachedFile);
             } catch (ValidCustomException ve) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ve);
+                log.info("그룹 멤버 가입 실패 : "+ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ve));
             }
         }
 
         if (result) {
             msg = "가입 심사 후 가입됩니다. (소요기간 2 ~ 3일)";
-            return ResponseEntity.ok(msg);
+            model.addAttribute("mc","memberJoin");
+            model.addAttribute("rsMsg",msg);
         } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldErrors());
+            log.info("/api/member/groupInsert -> error : "+ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldErrors()));
         }
+        return "/login";
     }
 
 
