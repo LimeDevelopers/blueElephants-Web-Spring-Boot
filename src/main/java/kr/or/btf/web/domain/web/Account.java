@@ -20,7 +20,6 @@ import java.util.List;
 @Table(name = "tbl_member")
 @DynamicUpdate
 public class Account implements Serializable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "mber_pid")
@@ -118,7 +117,7 @@ public class Account implements Serializable {
     private Integer mberNo;
 
     @Builder
-    public Account(Long id, String loginId, String nm, String pwd, String ncnm, LocalDateTime regDtm, LocalDateTime updDtm, UserRollType mberDvTy, List<MemberRoll> authorites, String moblphon) {
+    public Account(Long id, String loginId, String nm, String pwd, String ncnm, LocalDateTime regDtm, LocalDateTime updDtm, UserRollType mberDvTy, List<MemberRoll> authorites, String moblphon, String approval) {
 
         this.id = id;
         this.loginId = loginId;
@@ -130,6 +129,7 @@ public class Account implements Serializable {
         this.mberDvTy = mberDvTy;
         this.authorites = authorites;
         this.moblphon = moblphon;
+        this.approval = approval;
     }
 
     public void encodingPwd(PasswordEncoder pwdEncoder) {

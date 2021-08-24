@@ -57,17 +57,22 @@ public class UserDetailsService implements org.springframework.security.core.use
 
         List<MemberRoll> allByMberPid = memberRollRepository.findAllByMberPid(user.getId());
 
-        Account byLoginIdAndEmail = memberRepository.findByLoginIdAndEmail(user.getLoginId(), user.getEmail());
+        /*
+        * 이메일 인증은 이제 선택임으로 비활성화
+        * 보호자 인증여부 임시 비활성화 -- 김재일 08.24
+        * */
+        // Account byLoginIdAndEmail = memberRepository.findByLoginIdAndEmail(user.getLoginId(), user.getEmail());
 
 //        if(byLoginIdAndEmail == null || !byLoginIdAndEmail.getEmailAttcAt().equals("Y")){
 //            throw new LockedException(unAuthMsg);
 //        }
-        if(byLoginIdAndEmail == null){
-            throw new LockedException(unAuthMsg);
-        }
-        if(!byLoginIdAndEmail.getPrtctorAttcAt().equals("Y")){
-            throw new LockedException(unAuthMsg);
-        }
+//        if(byLoginIdAndEmail == null){
+//            throw new LockedException(unAuthMsg);
+//        }
+
+//        if(!byLoginIdAndEmail.getPrtctorAttcAt().equals("Y")){
+//            throw new LockedException(unAuthMsg);
+//        }
 
         Account account = Account.builder()
                 .id(user.getId())
@@ -78,6 +83,7 @@ public class UserDetailsService implements org.springframework.security.core.use
                 .mberDvTy(allByMberPid.get(0).getMberDvTy())
                 .authorites(allByMberPid)
                 .moblphon(user.getMoblphon())
+                .approval(user.getApproval())
                 .build();
 
         return new UserDetails(account);
