@@ -180,6 +180,16 @@ public class MemberController extends BaseCont{
         return "/soulGod/member/detail";
     }
 
+    @GetMapping("/soulGod/member/modify")
+    public String memberDetail(Model model,
+                           @CurrentUser Account account) {
+
+        Account load = memberService.load(account.getId());
+        model.addAttribute("form", load);
+
+        return "/soulGod/member/modify";
+    }
+
     static <T> Collector<T,?,List<T>> toSortedList(Comparator<? super T> c) {
         return Collectors.collectingAndThen(
                 Collectors.toCollection(()->new TreeSet<>(c)), ArrayList::new);
