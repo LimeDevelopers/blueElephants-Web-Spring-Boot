@@ -14,19 +14,35 @@
                 var id;
                 var loginId;
                 var pwd;
-                var pwdChk;
                 var nm;
                 var sexPrTy;
                 var mberDvTy;
-                var idDupBool = false;
+                var moblphon;
+                var email;
+                var zip;
+                var adres;
+                var dtlAdres;
+                var ncnm;
+                var secsnDtm;
+                var secsnRsn;
+                var sttTy;
 
                 function fn_chkField() {
                     id = $('#id');
                     loginId = $("#loginId");
                     pwd = $("#pwd");
                     nm = $("#nm");
+                    sexPrTy = $("#sexPrTy");
                     mberDvTy = $("#mberDvTy");
-                    var email = $("#email");
+                    moblphon = $("#moblphon");
+                    email = $("#email");
+                    zip = $("#zip");
+                    adres = $("#adres");
+                    dtlAdres = $("#dtlAdres");
+                    ncnm = $("#ncnm");
+                    secsnDtm = $("#secsnDtm");
+                    secsnRsn = $('#secsnRsn');
+                    sttTy = $('#sttTy');
 
 
                     if (!mberDvTy.val()) {
