@@ -118,7 +118,7 @@ public class MemberService extends _BaseService {
         if(searchForm.getGroupDv().equals("Y")){
             QueryResults<Account> groupList = queryFactory
                     .select(Projections.fields(Account.class,
-                            qAccount.id,
+                            qAccount.id, qAccount.email,
                             qAccount.loginId, qAccount.nm, qAccount.mberDvTy,
                             qAccount.approval, qAccount.crewYn, qAccount.groupYn,
                             qAccount.regPsId, qAccount.regDtm, qAccount.updPsId, qAccount.updDtm
