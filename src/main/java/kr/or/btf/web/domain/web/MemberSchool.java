@@ -45,6 +45,9 @@ public class MemberSchool {
     @Column(name = "mber_pid")
     private Long mberPid;
 
+    /*@Column(name = "tchr_pid")
+    private Long thcrPid;*/
+
     @Transient
     private String mberNm;
     @Transient
