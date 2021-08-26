@@ -122,4 +122,5 @@ public class SearchForm {
     private Long srchGbnParent;
     private Long srchGbnChild;
 
+    private String groupDv;
 }

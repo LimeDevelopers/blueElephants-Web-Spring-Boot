@@ -45,7 +45,7 @@ public class MemberController extends BaseCont{
                        @PageableDefault Pageable pageable,
                        @ModelAttribute SearchForm searchForm,
                        @CurrentUser Account account) {
-
+        searchForm.setGroupDv("N");
         model.addAttribute("form", searchForm);
 
         searchForm.setUserRollType(account.getMberDvTy());
@@ -55,19 +55,37 @@ public class MemberController extends BaseCont{
 
 
         model.addAttribute("mc", "member");
+        model.addAttribute("dv", "member");
         return "/soulGod/member/list";
     }
 
+    @RequestMapping("/soulGod/member/groupList")
+    public String groupList(Model model,
+                       @PageableDefault Pageable pageable,
+                       @ModelAttribute SearchForm searchForm,
+                       @CurrentUser Account account) {
+        searchForm.setGroupDv("Y");
+        model.addAttribute("form", searchForm);
 
-        @ResponseBody
-        @PostMapping("/api/soulGod/member/load")
-        public Account load(Model model,
-                              @RequestBody MemberForm memberForm) {
+        searchForm.setUserRollType(account.getMberDvTy());
+        Page<Account> members = memberService.list(pageable, searchForm);
+        model.addAttribute("members", members);
+        model.addAttribute("totCnt", members.isEmpty() ? 0 : members.getContent().size());
 
-            Account load = memberService.load(memberForm.getId());
+        model.addAttribute("mc", "member");
+        model.addAttribute("dv", "group");
+        return "/soulGod/member/list";
+    }
 
-            return load;
-        }
+    @ResponseBody
+    @PostMapping("/api/soulGod/member/load")
+    public Account load(Model model,
+                          @RequestBody MemberForm memberForm) {
+
+        Account load = memberService.load(memberForm.getId());
+
+        return load;
+    }
 
     @GetMapping("/soulGod/member/detail/{id}")
     public String detail(Model model,

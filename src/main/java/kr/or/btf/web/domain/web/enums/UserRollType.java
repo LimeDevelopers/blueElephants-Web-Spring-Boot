@@ -10,7 +10,8 @@ public enum UserRollType {
     LECTURER("푸코강사"),
     COUNSELOR("상담사"),
     GROUP("단체"),
-    CREW("지지크루");
+    CREW("지지크루"),
+    BATCH("배치");
 
     final private String name;
 

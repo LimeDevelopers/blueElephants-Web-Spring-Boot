@@ -113,22 +113,39 @@ public class MemberService extends _BaseService {
                 }
             }
         }
-
-        QueryResults<Account> mngList = queryFactory
-                .select(Projections.fields(Account.class,
-                        qAccount.id,
-                        qAccount.loginId, qAccount.nm, qAccount.mberDvTy, qAccount.secsnDtm,
-                        qAccount.sexPrTy, qAccount.moblphon, qAccount.email, qAccount.adres,
-                        qAccount.regPsId, qAccount.regDtm, qAccount.updPsId, qAccount.updDtm
-                ))
-                .from(qAccount)
-                .where(builder)
-                .limit(pageable.getPageSize())
-                .offset(pageable.getOffset())
-                .orderBy(orderSpecifier)
-                .fetchResults();
-
-        return new PageImpl<>(mngList.getResults(), pageable, mngList.getTotal());
+        // 추가 08.26
+        // 김재일
+        if(searchForm.getGroupDv().equals("Y")){
+            QueryResults<Account> groupList = queryFactory
+                    .select(Projections.fields(Account.class,
+                            qAccount.id,
+                            qAccount.loginId, qAccount.nm, qAccount.mberDvTy,
+                            qAccount.approval, qAccount.crewYn, qAccount.groupYn,
+                            qAccount.regPsId, qAccount.regDtm, qAccount.updPsId, qAccount.updDtm
+                    ))
+                    .from(qAccount)
+                    .where(qAccount.approval.eq("N"))
+                    .limit(pageable.getPageSize())
+                    .offset(pageable.getOffset())
+                    .orderBy(orderSpecifier)
+                    .fetchResults();
+            return new PageImpl<>(groupList.getResults(), pageable, groupList.getTotal());
+        } else {
+            QueryResults<Account> mngList = queryFactory
+                    .select(Projections.fields(Account.class,
+                            qAccount.id,
+                            qAccount.loginId, qAccount.nm, qAccount.mberDvTy, qAccount.secsnDtm,
+                            qAccount.sexPrTy, qAccount.moblphon, qAccount.email, qAccount.adres,
+                            qAccount.regPsId, qAccount.regDtm, qAccount.updPsId, qAccount.updDtm
+                    ))
+                    .from(qAccount)
+                    .where(builder)
+                    .limit(pageable.getPageSize())
+                    .offset(pageable.getOffset())
+                    .orderBy(orderSpecifier)
+                    .fetchResults();
+            return new PageImpl<>(mngList.getResults(), pageable, mngList.getTotal());
+        }
     }
 
     public List<Account> listByAdminUser(SearchForm searchForm) {
