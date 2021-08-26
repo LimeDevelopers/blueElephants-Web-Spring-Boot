@@ -18,12 +18,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @RestController
@@ -99,12 +95,6 @@ public class TestController extends BaseCont {
         wb.close();
     }
     // 엑셀 다운로드 끝
-    @RequestMapping(value = "/batchJoin" , method = RequestMethod.POST)
-    public void testBathRegister(MemberForm memberForm, Long tId){
-        System.out.println(memberForm.getLoginId());
-        System.out.println(memberForm.getId());
-        testService.testBathRegister(memberForm,tId);
-    }
 
     //디자인페이지 리다이렉션 start
     @GetMapping(value = "/_temp/_index.html")

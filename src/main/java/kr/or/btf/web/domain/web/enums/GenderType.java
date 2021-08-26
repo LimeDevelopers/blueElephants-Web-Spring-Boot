@@ -2,7 +2,8 @@ package kr.or.btf.web.domain.web.enums;
 
 public enum GenderType {
     MALE("남자"),
-    FEMALE("여자");
+    FEMALE("여자"),
+    NONE("단체");
 
     final private String name;
 

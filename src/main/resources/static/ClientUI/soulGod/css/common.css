@@ -73,6 +73,11 @@ dt{font-weight:400}
 body{color:#333;font-size:14px;font-family:'Nanum Gothic',Malgun Gothic,'맑은고딕',Dotum,'굴림',Gulim,Helvetica,sans-serif}
 
 /***** component *****/
+.btn_r_blue {
+	color: #fff !important;
+	border-color: #acc9ff;
+	background-color: #8bb3ff;
+}
 .clearfix:after{content:'';display:block;clear:both}
 .clearfix > *{float:left}
 .blind{position:absolute;top:-9999px;text-indent:-9999px}
