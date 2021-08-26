@@ -15,5 +15,6 @@ public class MemberSchoolForm extends SearchForm{
     private Integer no;
     private String teacherNm;
     private Long mberPid;
+    private Long tchrPid;
 
 }

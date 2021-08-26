@@ -4,9 +4,27 @@
     <th:block th:include="fragments/header"></th:block>
 
     <script>
-        function batchRegister() {
-            alert('준비중입니다.');
-        }
+        $(function() {
+            $(document).ready(function() {
+                $("#batchRegister").click(function() {
+                    $("#batch_modal").css({
+                        "display": "block"
+                    });
+                });
+                $(".modal_cancel").click(function() {
+                    $("#batch_modal").css({
+                        "display": "none"
+                    });
+                });
+                $("html").click(function(event) {
+                    if (event.target.id === "batch_modal") {
+                        $("#batch_modal").css({
+                            "display": "none"
+                        });
+                    }
+                });
+            });
+        })
     </script>
 </head>
 <body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
@@ -63,10 +81,107 @@
                     </div>
                 </div>
             </div>
-                <div class="btn_area"><a class="btn btn_lg btn_blue btn_pill_10" onclick="batchRegister()">일괄가입</a></div>
+                <div class="btn_area"><a class="btn btn_lg btn_blue btn_pill_10" id="batchRegister" href="#" onclick="batchRegister()">일괄가입</a></div>
         </div>
     </div>
 </div>
 <th:block th:replace="fragments/footer"></th:block>
+    <div id="batch_modal" class="modal fade">
+        <div id="modal-content" class="modal-content">
+            <div class="modal_title">
+                <span>일괄가입</span>
+            </div>
+
+            <input id="nm" name="nm" value="BATCH" type="hidden">
+            <input id="sexPrTy" name="sexPrTy" value="BATCH" type="hidden">
+            <input id="ncmm" name="ncmm" value="BATCH" type="hidden">
+            <input id="brthdy" name="brthdy" value="BATCH" type="hidden">
+
+            <div class="modal_text">
+                <label>선생명</label>
+            </div>
+                <input id="teacherNm" name="teacherNm" class="modal_input"/>
+            </div>
+
+            <div>
+                <div class="modal_text">
+                    <label>지역명</label>
+                </div>
+                <input id="AreaNm" name="AreaNm" class="modal_input"/>
+            </div>
+            <div>
+                <div class="modal_text">
+                    <label>학교명</label>
+                </div>
+                <input id="SchlNm" name="SchlNm" class="modal_input"/>
+            </div>
+            <div>
+                <div class="modal_text">
+                    <label>학년</label>
+                </div>
+                <input id="grade" name="grade" class="modal_input"/>
+            </div>
+            <div>
+                <div class="modal_text">
+                    <label>반</label>
+                </div>
+                <input id="ban" name="ban" class="modal_input"/>
+            </div>
+
+            <div>
+                <div class="modal_text">
+                    <label>신규로 생성하고자 하는 ID 개수</label>
+                </div>
+                <input id="batchArr" name="batchArr" class="modal_input"/>
+            </div>
+
+            <div>
+                <div class="modal_text">
+                    <label>일괄가입 되는 아이디 패턴</label>
+                </div>
+                <input id="loginId" name="loginId"class="modal_input"/>
+            </div>
+            <div>
+                <div class="modal_text">
+                    <label>초기 패스워드</label>
+                </div>
+                <input id="pwd" name="pwd" class="modal_input"/>
+            </div>
+            <div>
+                <a id="modal_confirm" class="btn btn_lg btn_blue btn_pill_10">확인</a>
+                <a id="modal_cancel" class="btn modal_cancel">취소</a>
+            </div>
+        </div>
+    </div>
 </body>
+<script>
+    $("#modal_confirm").on("click" , function (){
+        $.ajax({
+            url : "/test/batchJoin",
+            dataType : "json" ,
+            data : {
+                    /*teacherNm: $("#teacherNm").val(),
+                    AreaNm   : $("#AreaNm").val(),
+                    SchlNm   : $("#SchlNm").val,*/
+                    grade    : $("#grade").val(),
+                    ban      : $("#ban").val(),
+                    batchArr : $("#batchArr").val() ,
+                    loginId  : $("#loginId").val()  ,
+                    pwd      : $("#pwd").val(),
+                    nm       : $("#nm").val() ,
+                    sexPrTy  : $("#sexPrTy").val() ,
+                    ncmm     : $("#ncmm").val() ,
+                    brthdy   : $("#brthdy").val()
+            },
+            type : "POST" ,
+            success(result) {
+                if(result == 1) {
+                    alert("전송성공");
+                }else {
+                    alert("전송실패");
+                }
+            }
+        })
+    });
+</script>
 </html>

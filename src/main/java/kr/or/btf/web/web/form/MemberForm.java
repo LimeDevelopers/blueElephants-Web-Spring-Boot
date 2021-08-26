@@ -83,6 +83,8 @@ public class MemberForm extends SearchForm {
     private String prtctorAttcAt;
     private LocalDateTime prtctorAttcDtm;
 
+    private int BatchArr;
+
     @Enumerated(EnumType.STRING)
     private UserStatusType sttTy;
 

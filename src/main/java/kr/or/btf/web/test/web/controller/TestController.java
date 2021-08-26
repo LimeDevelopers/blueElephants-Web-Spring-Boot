@@ -1,6 +1,8 @@
 package kr.or.btf.web.test.web.controller;
 
 import kr.or.btf.web.test.web.service.TestService;
+import kr.or.btf.web.web.form.MemberForm;
+import kr.or.btf.web.web.form.MemberSchoolForm;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -8,13 +10,19 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
+@RestController
 @RequestMapping(value = "/test")
 public class TestController {
     @Autowired
@@ -71,6 +79,12 @@ public class TestController {
         wb.close();
     }
     // 엑셀 다운로드 끝
+    @RequestMapping(value = "/batchJoin" , method = RequestMethod.POST)
+    public void testBathRegister(MemberForm memberForm, Long tId){
+        System.out.println(memberForm.getLoginId());
+        System.out.println(memberForm.getId());
+        testService.testBathRegister(memberForm,tId);
+    }
 
     //디자인페이지 리다이렉션 start
     @GetMapping(value = "/_temp/_index.html")
