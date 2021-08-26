@@ -93,116 +93,119 @@ public class MemberController extends BaseCont{
 
         Account load = memberService.load(id);
         model.addAttribute("form", load);
+        if(load.getMberDvTy().equals(UserRollType.GROUP) || load.getMberDvTy().equals(UserRollType.CREW)){
 
-        if (load.getMberDvTy() == UserRollType.STUDENT) {
-            /* 학교 정보 s*/
-            MemberSchoolForm memberSchoolForm = new MemberSchoolForm();
-            memberSchoolForm.setMberPid(load.getId());
-            List<MemberSchool> memberSchools = memberSchoolService.list(memberSchoolForm);
-            model.addAttribute("memberSchools", memberSchools);
-            /* 학교 정보 e*/
+        } else {
 
-            /*교원 정보 s*/
-            List<Object> teachers = new ArrayList<>();
-
-            for (MemberSchool memberSchool : memberSchools) {
-                if (memberSchool.getAreaNm() != null && !"".equals(memberSchool.getAreaNm())
-                        && memberSchool.getSchlNm() != null && !"".equals(memberSchool.getSchlNm())
-                        && memberSchool.getGrade() != null && !"".equals(memberSchool.getGrade())
-                        && memberSchool.getBan() != null
-                ) {
-                    MemberTeacherForm memberTeacherForm = new MemberTeacherForm();
-                    memberTeacherForm.setSchlNm(memberSchool.getSchlNm());
-                    memberTeacherForm.setGrade(memberSchool.getGrade());
-                    memberTeacherForm.setBan(memberSchool.getBan());
-                    List<MemberTeacher> memberTeachers = memberTeacherService.list(memberTeacherForm);
-
-                    for (MemberTeacher memberTeacher : memberTeachers) {
-                        Account teacherLoad = memberService.load(memberTeacher.getMberPid());
-                        teachers.add(teacherLoad);
-                    }
-                }
-            }
-
-            /*교원 정보 e*/
-
-            /*부모 정보 s*/
-            MemberParentForm memberParentForm = new MemberParentForm();
-            memberParentForm.setStdntId(load.getLoginId());
-            List<MemberParent> memberParents = memberParentService.list(memberParentForm);
-
-            List<Object> parents = new ArrayList<>();
-
-            for (MemberParent memberParent : memberParents) {
-                Account parent = memberService.loadByLoginId(memberParent.getStdnprntId());
-                parents.add(parent);
-            }
-
-            model.addAttribute("userList", teachers);
-            model.addAttribute("parents", parents);
-            /*부모 정보 e*/
-
-        } else if (load.getMberDvTy() == UserRollType.TEACHER) {
-            /* 학교 정보 s*/
-            MemberTeacher memberTeacher = memberTeacherService.loadByMber(load.getId());
-            model.addAttribute("memberTeacher", memberTeacher);
-            /* 학교 정보 e*/
-
-            List<Map<String,Object>> studentList = new ArrayList<>();
-
-            if (
-                    (memberTeacher.getAreaNm() != null && !"".equals(memberTeacher.getAreaNm())) &&
-                    (memberTeacher.getSchlNm() != null && !"".equals(memberTeacher.getSchlNm())) &&
-                    (memberTeacher.getGrade() != null && !"".equals(memberTeacher.getGrade())) &&
-                    (memberTeacher.getBan() != null && !"".equals(memberTeacher.getBan()))
-            ) {
-                /*학생 정보 s*/
+            if (load.getMberDvTy() == UserRollType.STUDENT) {
+                /* 학교 정보 s*/
                 MemberSchoolForm memberSchoolForm = new MemberSchoolForm();
-                memberSchoolForm.setSchlNm(memberTeacher.getSchlNm());
-                memberSchoolForm.setGrade(memberTeacher.getGrade());
-                memberSchoolForm.setBan(memberTeacher.getBan());
-                List<MemberSchool> students = memberSchoolService.listForAdminTeacher(memberSchoolForm);
+                memberSchoolForm.setMberPid(load.getId());
+                List<MemberSchool> memberSchools = memberSchoolService.list(memberSchoolForm);
+                model.addAttribute("memberSchools", memberSchools);
+                /* 학교 정보 e*/
 
-                Map<Integer, List<MemberSchool>> testMap = students.stream().collect(Collectors.groupingBy(MemberSchool::getNo));
+                /*교원 정보 s*/
+                List<Object> teachers = new ArrayList<>();
 
-                testMap.forEach((key,value) -> {
-                    Map<String,Object> map = new HashMap<>();
-                    List<MemberSchool> memberParents = new ArrayList<>();
-                    MemberSchool v = testMap.get(key).get(0);
-                    map.put("student",v);
-                    for (MemberSchool parentInfo : value) {
-                        if (parentInfo.getParentNm() != null) {
+                for (MemberSchool memberSchool : memberSchools) {
+                    if (memberSchool.getAreaNm() != null && !"".equals(memberSchool.getAreaNm())
+                            && memberSchool.getSchlNm() != null && !"".equals(memberSchool.getSchlNm())
+                            && memberSchool.getGrade() != null && !"".equals(memberSchool.getGrade())
+                            && memberSchool.getBan() != null
+                    ) {
+                        MemberTeacherForm memberTeacherForm = new MemberTeacherForm();
+                        memberTeacherForm.setSchlNm(memberSchool.getSchlNm());
+                        memberTeacherForm.setGrade(memberSchool.getGrade());
+                        memberTeacherForm.setBan(memberSchool.getBan());
+                        List<MemberTeacher> memberTeachers = memberTeacherService.list(memberTeacherForm);
 
-                            memberParents.add(parentInfo);
+                        for (MemberTeacher memberTeacher : memberTeachers) {
+                            Account teacherLoad = memberService.load(memberTeacher.getMberPid());
+                            teachers.add(teacherLoad);
                         }
                     }
-                    map.put("memberParents",memberParents);
+                }
 
-                    studentList.add(map);
-                });
+                /*교원 정보 e*/
+
+                /*부모 정보 s*/
+                MemberParentForm memberParentForm = new MemberParentForm();
+                memberParentForm.setStdntId(load.getLoginId());
+                List<MemberParent> memberParents = memberParentService.list(memberParentForm);
+
+                List<Object> parents = new ArrayList<>();
+
+                for (MemberParent memberParent : memberParents) {
+                    Account parent = memberService.loadByLoginId(memberParent.getStdnprntId());
+                    parents.add(parent);
+                }
+
+                model.addAttribute("userList", teachers);
+                model.addAttribute("parents", parents);
+                /*부모 정보 e*/
+
+            } else if (load.getMberDvTy() == UserRollType.TEACHER) {
+                /* 학교 정보 s*/
+                MemberTeacher memberTeacher = memberTeacherService.loadByMber(load.getId());
+                model.addAttribute("memberTeacher", memberTeacher);
+                /* 학교 정보 e*/
+
+                List<Map<String,Object>> studentList = new ArrayList<>();
+
+                if (
+                        (memberTeacher.getAreaNm() != null && !"".equals(memberTeacher.getAreaNm())) &&
+                        (memberTeacher.getSchlNm() != null && !"".equals(memberTeacher.getSchlNm())) &&
+                        (memberTeacher.getGrade() != null && !"".equals(memberTeacher.getGrade())) &&
+                        (memberTeacher.getBan() != null && !"".equals(memberTeacher.getBan()))
+                ) {
+                    /*학생 정보 s*/
+                    MemberSchoolForm memberSchoolForm = new MemberSchoolForm();
+                    memberSchoolForm.setSchlNm(memberTeacher.getSchlNm());
+                    memberSchoolForm.setGrade(memberTeacher.getGrade());
+                    memberSchoolForm.setBan(memberTeacher.getBan());
+                    List<MemberSchool> students = memberSchoolService.listForAdminTeacher(memberSchoolForm);
+
+                    Map<Integer, List<MemberSchool>> testMap = students.stream().collect(Collectors.groupingBy(MemberSchool::getNo));
+
+                    testMap.forEach((key,value) -> {
+                        Map<String,Object> map = new HashMap<>();
+                        List<MemberSchool> memberParents = new ArrayList<>();
+                        MemberSchool v = testMap.get(key).get(0);
+                        map.put("student",v);
+                        for (MemberSchool parentInfo : value) {
+                            if (parentInfo.getParentNm() != null) {
+
+                                memberParents.add(parentInfo);
+                            }
+                        }
+                        map.put("memberParents",memberParents);
+
+                        studentList.add(map);
+                    });
+                }
+
+                model.addAttribute("studentList",studentList);
+
+            } else if (load.getMberDvTy() == UserRollType.PARENT) {
+
+                MemberParentForm memberParentForm = new MemberParentForm();
+                memberParentForm.setStdnprntId(load.getLoginId());
+
+                List<MemberParent> childList = memberParentService.listForAdminParent(memberParentForm);
+
+                model.addAttribute("childList",childList);
+
             }
-
-            model.addAttribute("studentList",studentList);
-
-        } else if (load.getMberDvTy() == UserRollType.PARENT) {
-
-            MemberParentForm memberParentForm = new MemberParentForm();
-            memberParentForm.setStdnprntId(load.getLoginId());
-
-            List<MemberParent> childList = memberParentService.listForAdminParent(memberParentForm);
-
-            model.addAttribute("childList",childList);
-
         }
-
         return "/soulGod/member/detail";
     }
+    // 회원관리 - 회원정보수정
+    @GetMapping("/soulGod/member/modify/{id}")
+    public String memberModify(Model model,
+                               @PathVariable(name = "id") Long id) {
 
-    @GetMapping("/soulGod/member/modify")
-    public String memberDetail(Model model,
-                           @CurrentUser Account account) {
-
-        Account load = memberService.load(account.getId());
+        Account load = memberService.load(id);
         model.addAttribute("form", load);
 
         return "/soulGod/member/modify";

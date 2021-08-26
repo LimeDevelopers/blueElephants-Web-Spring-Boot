@@ -78,6 +78,13 @@ body{color:#333;font-size:14px;font-family:'Nanum Gothic',Malgun Gothic,'맑은�
 	border-color: #acc9ff;
 	background-color: #8bb3ff;
 }
+
+.btn_disabled {
+	color: #a0a0a0 !important;
+	border-color: #969696 !important;
+	background-color: #e2e2e2 !important;
+	cursor: not-allowed;
+}
 .clearfix:after{content:'';display:block;clear:both}
 .clearfix > *{float:left}
 .blind{position:absolute;top:-9999px;text-indent:-9999px}
