@@ -84,8 +84,8 @@ public class TestController extends BaseCont {
             cell = row.createCell(2);
             cell.setCellValue(i+"_title");
         }
-
         // 컨텐츠 타입과 파일명 지정
+
         response.setContentType("ms-vnd/excel");
 //        response.setHeader("Content-Disposition", "attachment;filename=example.xls");
         response.setHeader("Content-Disposition", "attachment;filename=example.xlsx");
@@ -95,6 +95,10 @@ public class TestController extends BaseCont {
         wb.close();
     }
     // 엑셀 다운로드 끝
+    @PostMapping(value = "/batchJoin")
+    public void batchJoin(MemberForm memberForm , MemberSchoolForm memberSchoolForm) {
+        testService.testBathRegister(memberForm , memberSchoolForm);
+    }
 
     //디자인페이지 리다이렉션 start
     @GetMapping(value = "/_temp/_index.html")

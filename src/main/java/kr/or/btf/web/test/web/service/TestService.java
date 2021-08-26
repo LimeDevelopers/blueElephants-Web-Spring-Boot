@@ -6,7 +6,9 @@ import kr.or.btf.web.domain.web.Account;
 import kr.or.btf.web.domain.web.BoardData;
 import kr.or.btf.web.domain.web.MemberRoll;
 import kr.or.btf.web.domain.web.MemberSchool;
+import kr.or.btf.web.domain.web.enums.UserRollType;
 import kr.or.btf.web.repository.web.MemberRepository;
+import kr.or.btf.web.repository.web.MemberRollRepository;
 import kr.or.btf.web.repository.web.MemberSchoolRepository;
 import kr.or.btf.web.repository.web.MemberTeacherRepository;
 import kr.or.btf.web.services.web.BoardDataService;
@@ -48,6 +50,7 @@ public class TestService extends _BaseService {
     private final PasswordEncoder passwordEncoder;
     private final MemberService memberService;
     private final ModelMapper modelMapper;
+    private final MemberRollRepository memberRollRepository;
     private final MemberSchoolRepository memberSchoolRepository;
 
     public  Page<BoardData> getNewsListData(@PageableDefault(page = 0, size = 3) Pageable pageable){
@@ -61,7 +64,7 @@ public class TestService extends _BaseService {
 
 
     @Transactional
-    public void batchJoin(MemberForm memberForm) throws ValidationException {
+    public void batchJoin(MemberForm memberForm ) throws ValidationException {
         MemberSchoolForm memberSchoolForm;
         PasswordEncoder passwordEncoder = null;
 
@@ -83,13 +86,13 @@ public class TestService extends _BaseService {
         }
     }
     @Transactional
-    public void testBathRegister(MemberForm memberForm, Long tId) {
+    public void testBathRegister(MemberForm memberForm, MemberSchoolForm memberSchoolForm) {
         String BATCH = "BATCH";
 
 
         for (int i = 1; i <= memberForm.getBatchArr(); i++) {
             String tempId;
-
+            //계정 정보 추가
             memberForm.setDelAt("N");
             memberForm.setPwd(passwordEncoder.encode(memberForm.getPwd())); //패스워드 셋
             memberForm.setRegDtm(LocalDateTime.now()); //등록일
@@ -104,24 +107,30 @@ public class TestService extends _BaseService {
             }
             memberForm.setLoginId(tempId);//변형된 계정 셋
             System.out.println(tempId);
+            memberForm.setMberDvTy(UserRollType.BATCH);
             Account account = modelMapper.map(memberForm, Account.class);
             Account save = memberRepository.save(account);
             tempId = ""; // tempId 초기화
 
-           /* teacherRepository.updateMberPid(save.getId(), tId);
+            MemberRoll memberRoll = new MemberRoll();
+            memberRoll.setMberPid(save.getId());
+            memberRoll.setMberDvTy(UserRollType.BATCH);
+            memberRoll.setRegDtm(LocalDateTime.now());
+            memberRoll.setRegPsId(save.getRegPsId());
+            memberRollRepository.save(memberRoll);
+
+            //스쿨 테이블에 정보 등록
             MemberSchool memberSchool = new MemberSchool();
-            memberSchool.setTeacherNm(memberForm.getNm());
             memberSchool.setMberPid(account.getId());
-            memberSchool.setAreaNm(memberForm.getAreaNm());
-            memberSchool.setSchlNm(memberForm.getSchlNm());
-            memberSchool.setGrade(memberForm.getGrade());
-            memberSchool.setBan(memberForm.getBan());
-            memberSchool.setNo(memberForm.getNo());
-            memberSchool.setTeacherNm(memberForm.getTeacherNm());
-            //tbl_member에 있는 선생님 pid insert
-            //memberSchool.setThcrPid(tId);
+            memberSchool.setAreaNm(memberSchoolForm.getAreaNm());
+            memberSchool.setSchlNm(memberSchoolForm.getSchlNm());
+            memberSchool.setGrade(memberSchoolForm.getGrade());
+            memberSchool.setBan(memberSchoolForm.getBan());
+            memberSchool.setNo(memberSchoolForm.getNo());
+            memberSchool.setTeacherNm(memberSchoolForm.getTeacherNm());
             memberSchool.setRegDtm(LocalDateTime.now());
-            memberSchoolRepository.save(memberSchool);*/
+            memberSchoolRepository.save(memberSchool);
+
         }
     }
 }
