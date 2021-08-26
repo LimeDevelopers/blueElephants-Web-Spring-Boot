@@ -65,10 +65,10 @@
                 alert('가입 구분을 선택하세요.');
                 return false;
             } else if(type=='e') {
-                location.href='/pages/member/joinAgree';
+                location.href='/pages/member/joinAgree?dv=nm';
                 return true;
             } else {
-                alert('준비중입니다.');
+                location.href='/pages/member/joinAgree?dv=crew';
                 return false;
             }
         });

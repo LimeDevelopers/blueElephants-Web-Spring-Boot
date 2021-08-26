@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PeerQuestionItemRepository extends JpaRepository<PeerQuestionItem, Long> {
-
     void deleteAllByPeerPid(Long id);
 
 }

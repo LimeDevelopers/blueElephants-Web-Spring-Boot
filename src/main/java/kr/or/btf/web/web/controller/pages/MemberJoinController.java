@@ -4,6 +4,7 @@ import kr.or.btf.web.common.Constants;
 import kr.or.btf.web.common.exceptions.ValidCustomException;
 import kr.or.btf.web.domain.web.Account;
 import kr.or.btf.web.domain.web.MobileAuthLog;
+import kr.or.btf.web.domain.web.enums.UserRollType;
 import kr.or.btf.web.services.web.MailService;
 import kr.or.btf.web.services.web.MemberService;
 import kr.or.btf.web.services.web.MobileAuthLogService;
@@ -107,43 +108,44 @@ public class MemberJoinController extends BaseCont {
      * @auther : jerry
      * @param groupForm
      * @param attachedFile
+     * 이슈 : 로컬서버는 파일 업로드 안됨.
     **/
-    @PostMapping("/api/group/insert")
-    public ResponseEntity insert(@ModelAttribute GroupForm groupForm,
-                                 @RequestParam(name = "attachedFile", required = false) MultipartFile[] attachedFile,
-                                 Errors errors) throws Exception {
+    @PostMapping("/api/member/groupInsert")
+    public String insert(Model model,
+                        @ModelAttribute GroupForm groupForm,
+                         @RequestParam("attachedFile") MultipartFile attachedFile,
+                         Errors errors) throws Exception {
         String msg = "";
         boolean result = false;
-        if(groupForm.getDvTy().equals("GROUP")) {
-            if(groupForm.getB_license_attc().equals("Y")){
-                for(MultipartFile files : attachedFile) {
-                    // 첨부파일 체크
-                    if(files.isEmpty()) {
-
-                    } else {
-
-                    }
-                }
+        if (groupForm.getAuthMobileChk() == 2) {
+            MobileAuthLogForm mobileAUthLogForm = new MobileAuthLogForm();
+            mobileAUthLogForm.setDmnNo(groupForm.getSRequestNumber());
+            mobileAUthLogForm.setRspNo(groupForm.getSResponseNumber());
+            mobileAUthLogForm.setMbtlnum(groupForm.getMoblphon());
+            MobileAuthLog load = mobileAuthLogService.load(mobileAUthLogForm);
+            if (load == null) {
+                log.info("휴대폰 정보 로드 에러 : "+ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldErrors()));
             }
-        } else if (groupForm.getDvTy().equals("CREW")){
-
         } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldErrors());
+            groupForm.setMobileAttcAt("N");
         }
+
         if (groupForm.getId() == null) {
             try {
                 result = memberService.groupInsert(groupForm, attachedFile);
             } catch (ValidCustomException ve) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ve);
+                log.info("그룹 멤버 가입 실패 : "+ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ve));
             }
         }
 
         if (result) {
             msg = "가입 심사 후 가입됩니다. (소요기간 2 ~ 3일)";
-            return ResponseEntity.ok(msg);
+            model.addAttribute("mc","memberJoin");
+            model.addAttribute("rsMsg",msg);
         } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldErrors());
+            log.info("/api/member/groupInsert -> error : "+ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldErrors()));
         }
+        return "/login";
     }
 
 

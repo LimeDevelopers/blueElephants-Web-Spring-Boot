@@ -3,6 +3,7 @@ package kr.or.btf.web.web.controller;
 
 import kr.or.btf.web.common.annotation.CurrentUser;
 import kr.or.btf.web.common.service.SystemService;
+import kr.or.btf.web.config.security.direct.UserDetails;
 import kr.or.btf.web.config.security.direct.UserDetailsService;
 import kr.or.btf.web.domain.web.Account;
 import kr.or.btf.web.domain.web.LoginCnntLogs;
@@ -49,7 +50,7 @@ public class LoginController extends BaseCont {
 
     //private final ResourceServerTokenServices tokenServices;	//kakao login 2020.03.03  fail
 
-    // 로그인 button submit method
+    // 로그인 button submit method @CurrentUser Account account,
     @RequestMapping("/login")
     public String login(Model model,
                         HttpServletRequest request,
@@ -68,17 +69,19 @@ public class LoginController extends BaseCont {
             return "redirect:" + redirect;
         }
 
-        /*Account imsi = new Account();
-        imsi.setPwd("admin123$%^");
-        imsi.encodingPwd(passwordEncoder);
-        System.out.println(imsi.getPwd());*/
         String referrer = request.getHeader("Referer");
         request.getSession().setAttribute("prevPage", referrer);
-
         model.addAttribute("mc", "memberJoin");
         return "/login";
     }
 
+    /*
+    * if(userDetails.getAccount().getApproval().equals("N")) {
+            model.addAttribute("mc","memberJoin");
+            model.addAttribute("rsMsg","미승인 계정입니다.");
+            return "/login";
+        }
+    * */
     @RequestMapping("/pages/session/duplication")
     public String sessionDuplication(Model model) {
         /*model.addAttribute("altmsg","로그인 세션이 종료되었습니다.\n다시 로그인 해주세요");
@@ -88,7 +91,8 @@ public class LoginController extends BaseCont {
     }
 
     @RequestMapping("/loginSuccess")
-    public String loginSuccess(@CurrentUser Account account,
+    public String loginSuccess(Model model,
+                                @CurrentUser Account account,
                                HttpServletRequest request,
                                HttpServletResponse response) throws IOException {
 
@@ -96,6 +100,12 @@ public class LoginController extends BaseCont {
         //log.debug("==로그인성공 후처리시작");
 
         String redirect = "/";
+        log.info("가나다라마"+account.getApproval().equals("N"));
+        if(account.getApproval().equals("N")) {
+            model.addAttribute("mc","memberJoin");
+            model.addAttribute("rsMsg","미승인 계정입니다.");
+            return "/login";
+        }
         if(UserRollType.ADMIN.name().equals(account.getMberDvTy().name())
             || UserRollType.LECTURER.name().equals(account.getMberDvTy().name())
             || UserRollType.COUNSELOR.name().equals(account.getMberDvTy().name())) {
@@ -178,9 +188,13 @@ public class LoginController extends BaseCont {
 
     @RequestMapping("/logout")
     public String logout(HttpServletRequest request) {
+        String url = "/";
         HttpSession session = request.getSession(false);
         session.invalidate();
-        return "redirect:/";
+        if(request.getParameter("dv").equals("n")) {
+            url = "/login";
+        }
+        return "redirect:"+url;
     }
 
     @GetMapping("/member/success")

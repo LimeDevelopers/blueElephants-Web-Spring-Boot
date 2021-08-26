@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+</head>
+
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/snb"></th:block>
+        <div class="contents">
+            <div class="page_top" style="text-align: center">
+                <th:block th:if="${aurora.rspCode == 200}">
+                    <h3 class="page_tit">QR CODE 생성 완료!</h3>
+                    <img th:src="${aurora.qrcode}" alt="qrcode" class="pc" />
+                </th:block>
+                <th:block th:if="${aurora.rspCode != 200}">
+                    <h3 class="page_tit">생성된 QR CODE가 없습니다 ㅠㅠ</h3>
+                </th:block>
+            </div>
+        </div>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>
