@@ -200,12 +200,12 @@ public class MemberController extends BaseCont{
         }
         return "/soulGod/member/detail";
     }
+    // 회원관리 - 회원정보수정
+    @GetMapping("/soulGod/member/modify/{id}")
+    public String memberModify(Model model,
+                               @PathVariable(name = "id") Long id) {
 
-    @GetMapping("/soulGod/member/modify")
-    public String memberDetail(Model model,
-                           @CurrentUser Account account) {
-
-        Account load = memberService.load(account.getId());
+        Account load = memberService.load(id);
         model.addAttribute("form", load);
 
         return "/soulGod/member/modify";
