@@ -27,11 +27,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.lang.reflect.Member;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -70,6 +72,8 @@ public class MemberService extends _BaseService {
 
         QAccount qAccount = QAccount.account;
         QCommonCode qCommonCode = QCommonCode.commonCode;
+        QMemberGroup qMemberGroup = QMemberGroup.memberGroup;
+        QMemberCrew qMemberCrew = QMemberCrew.memberCrew;
 
         OrderSpecifier<Long> orderSpecifier = qAccount.id.desc();
 
@@ -116,15 +120,22 @@ public class MemberService extends _BaseService {
         // 추가 08.26
         // 김재일
         if(searchForm.getGroupDv().equals("Y")){
+            BooleanBuilder builder1 = new BooleanBuilder();
+            builder.and(qAccount.approval.eq("N"));
+
             QueryResults<Account> groupList = queryFactory
                     .select(Projections.fields(Account.class,
                             qAccount.id, qAccount.email,
                             qAccount.loginId, qAccount.nm, qAccount.mberDvTy,
                             qAccount.approval, qAccount.crewYn, qAccount.groupYn,
                             qAccount.regPsId, qAccount.regDtm, qAccount.updPsId, qAccount.updDtm
-                    ))
+                            ))
                     .from(qAccount)
-                    .where(qAccount.approval.eq("N"))
+                    .leftJoin(qMemberGroup).on(qAccount.id.eq(qMemberGroup.mberPid))
+                    .leftJoin(qMemberCrew).on(qAccount.id.eq(qMemberCrew.mberPid))
+                    .where(qAccount.approval.eq("N")
+                            .and(qAccount.crewYn.eq("Y"))
+                            .or(qAccount.groupYn.eq("Y")))
                     .limit(pageable.getPageSize())
                     .offset(pageable.getOffset())
                     .orderBy(orderSpecifier)
@@ -175,6 +186,51 @@ public class MemberService extends _BaseService {
                 .fetch();
 
         return mngList;
+    }
+
+    public FileInfo licneseLoad(Long id) {
+        QFileInfo qFileInfo = QFileInfo.fileInfo;
+
+        FileInfo file =  queryFactory
+                .select(Projections.fields(FileInfo.class,
+                        qFileInfo.flNm))
+                .from(qFileInfo)
+                .where(qFileInfo.id.eq(id))
+                .fetchFirst();
+        return file;
+    }
+
+    public MemberGroup groupLoad(Long id) {
+        QMemberGroup qGroup = QMemberGroup.memberGroup;
+
+        MemberGroup group =  queryFactory
+                .select(Projections.fields(MemberGroup.class,
+                        qGroup.id,
+                        qGroup.groupNm,
+                        qGroup.chrNm,
+                        qGroup.position,
+                        qGroup.bNum,
+                        qGroup.bLicenseAttc,
+                        qGroup.flPid))
+                        .from(qGroup)
+                        .where(qGroup.mberPid.eq(id))
+                        .fetchFirst();
+        return group;
+    }
+
+    public MemberCrew crewLoad(Long id) {
+        QMemberCrew qCrew = QMemberCrew.memberCrew;
+
+        MemberCrew crew =  queryFactory
+                .select(Projections.fields(MemberCrew.class,
+                        qCrew.id,
+                        qCrew.crewNm,
+                        qCrew.rptNm,
+                        qCrew.crewAffi))
+                .from(qCrew)
+                .where(qCrew.mberPid.eq(id))
+                .fetchFirst();
+        return crew;
     }
 
     public Account load(Long id) {

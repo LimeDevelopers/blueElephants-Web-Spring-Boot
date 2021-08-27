@@ -5,6 +5,96 @@
     <script type="text/javascript">
         let chkedVal = [];
         let i = 0;
+        let crewForm;
+        let groupForm;
+
+        // let group_id;
+        // let groupNm;
+        // let chrNm;
+        // let position;
+        // let bNum;
+        // let bLicenseAttc;
+        // let flPid;
+        //
+        // let crew_id;
+        // let crewNm;
+        // let rptNm;
+        // let crewAffi;
+        function fn_getFile(idx) {
+            $.ajax({
+                cache : false,
+                url: "/api/soulGod/member/getLicenseFile/"+idx,
+                type : 'POST',
+                dataType : 'JSON',
+                success : function(data) {
+                    location.href=data.flNm;
+                    //$('#fl_path').attr("src", data.flNm);
+                },
+                error : function(error) {
+
+                }
+            });
+        }
+        function fn_detail(idx,type) {
+            $('#fl_url').remove();
+            console.log(idx,type);
+            if(type=='GROUP'){
+                $.ajax({
+                    cache : false,
+                    url: "/api/soulGod/member/groupDetail/"+idx,
+                    type : 'POST',
+                    dataType : 'JSON',
+                    success : function(data) {
+                        crewForm.hide()
+                        $('#group_nm').text(data.groupNm+'단체 정보')
+                        $('#groupNm').text(data.groupNm)
+                        $('#group_id').text(data.id)
+                        $('#chrNm').text(data.chrNm)
+                        $('#position').text(data.position)
+                        $('#bNum').text(data.bnum)
+                        if(data.blicenseAttc =='Y') {
+                            $('#bLicenseAttc').text('등록')
+                        } else {
+                            $('#bLicenseAttc').text('미등록')
+                        }
+                        if(data.flPid == null || data.flPid == '') {
+                            $('#flPid').text('등록된 정보가 없습니다.')
+                        } else {
+                            $('#flPid').text('')
+                            $('#flPid').prepend(''+
+                                '<a id="fl_url" href="javascript:fn_getFile('+data.flPid+');">'+
+                                '<b>보기</b>'+
+                                '</a>')
+                        }
+                        groupForm.show()
+                    },
+                    error : function(error) {
+
+                    }
+                });
+            } else {
+                $.ajax({
+                    cache : false,
+                    url: "/api/soulGod/member/crewDetail/"+idx,
+                    type : 'POST',
+                    success : function(data) {
+                        groupForm.hide()
+                        $('#crew_nm').text(data.crewNm+'크루 정보')
+                        $('#crewNm').text(data.crewNm)
+                        $('#crew_id').text(data.id)
+                        $('#crewAffi').text(data.crewAffi)
+                        $('#rptNm').text(data.rptNm)
+                        $('#crewFNum').text(data.crewFNum)
+                        crewForm.show()
+                    },
+                    error : function(error) {
+
+                    }
+                });
+            }
+
+        }
+
         function fn_search() {
             var frm = $('#form1');
             frm.prop('action', '?');
@@ -17,12 +107,15 @@
             $('#srchEdDt').val('');
             $('#srchField').val('1').niceSelect('update');
             $('#srchWord').val('');
-
             fn_search();
         }
 
         ////-------- page load
         $(function () {
+            groupForm = $('.detailGroupForm')
+            crewForm = $('.detailCrewForm')
+            crewForm.hide()
+            groupForm.hide()
             var chkNum = $('input[id^=agree]').length,idx = 0;
             $('#allChk').on('change',function(){
                 if($(this).is(':checked')){
@@ -56,7 +149,22 @@
                     });
                     let result = confirm($("input[id^=agree]:checked").length+"개 단체의 가입을 승인하시겠습니까?");
                     if(result){
-                        alert("ajax");
+                        $.ajax({
+                            cache : false,
+                            url: "/api/soulGod/member/updateApporaval";
+                            type : 'POST',
+                            traditional : true,
+                            data : {
+                                'pidArray' : chkedVal
+                            },
+                            dataType : 'JSON',
+                            success : function(data) {
+
+                            },
+                            error : function(error) {
+
+                            }
+                        });
                     }else{
                         return false
                     }
@@ -82,6 +190,28 @@
             });
         });
     </script>
+    <style>   //모달에 적용한 css속성값.
+    .modal-title{
+        font-size: 17px;
+        text-align:left;
+        font-weight: bold;
+    }
+    .modal_table{
+        width:100%;
+    }
+    #modal_userImg{
+        width:50px;
+        height:50px;
+        border-radius: 75%;
+    }
+    #modal_userId{
+        width:200px;
+    }
+    #modal_userFollow{
+        margin:10px;
+        text-align: right;
+    }
+    </style>
 </head>
 <body>
 <div id="wrap">
@@ -318,7 +448,11 @@
                                                 </a>
                                             </td>
                                             <td th:text="${item.email}"></td>
-                                            <td th:text="${T(kr.or.btf.web.domain.web.enums.UserRollType).valueOf(item.mberDvTy).getName()}"></td>
+                                            <td>
+                                                <a href="javascript:void(0);" th:onclick="fn_detail([[${item.id}]],[[${item.mberDvTy}]]);">
+                                                    <b th:text="${T(kr.or.btf.web.domain.web.enums.UserRollType).valueOf(item.mberDvTy).getName()}" ></b>
+                                                </a>
+                                            </td>
                                             <td>
                                                 <th:block th:text="${#temporals.format(item.regDtm, 'yyyy-MM-dd')}"></th:block>
                                                 <br/>
@@ -335,6 +469,68 @@
                             <th:block th:replace="/soulGod/fragments/paging :: pagingbody(list=${members},
                                             link='/soulGod/member/groupList', formId='form1')"></th:block>
                         </div>
+
+                        <div class="board_list detailGroupForm">
+                            <h4 class="sec_tit" id="group_nm">--단체 정보</h4>
+                            <div class="board_detail clearfix">
+                                <table class="tbl_list">
+                                    <colgroup>
+                                        <col style="width: 60px"/>
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>그룹명</th>
+                                        <th>담당자</th>
+                                        <th>직책</th>
+                                        <th>사업자등록번호</th>
+                                        <th>사업자등록증 등록여부</th>
+                                        <th>사업자등록증</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td id="group_id">No</td>
+                                        <td id="groupNm">그룹명</td>
+                                        <td id="chrNm">담당자</td>
+                                        <td id="position">직책</td>
+                                        <td id="bNum">사업자등록번호</td>
+                                        <td id="bLicenseAttc">사업자등록증 등록여부</td>
+                                        <td id="flPid"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="board_list detailCrewForm">
+                            <h4 class="sec_tit" id="crew_nm">--크루 정보</h4>
+                            <div class="board_detail clearfix">
+                                <table class="tbl_list">
+                                    <colgroup>
+                                        <col style="width: 60px"/>
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>크루명</th>
+                                        <th>대표명</th>
+                                        <th>소속명</th>
+                                        <th>기수</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td id="crew_id">No</td>
+                                        <td id="crewNm">크루명</td>
+                                        <td id="crewAffi">소속명</td>
+                                        <td id="rptNm">대표명</td>
+                                        <td id="crewFNum">기수</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </th:block>
 
                 </div>
@@ -343,5 +539,6 @@
     </div>
     <th:block th:replace="soulGod/fragments/footer"></th:block>
 </div>
+
 </body>
 </html>

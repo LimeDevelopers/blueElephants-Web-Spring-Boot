@@ -1,6 +1,7 @@
 package kr.or.btf.web.web.controller;
 
 
+import com.google.gson.JsonObject;
 import kr.or.btf.web.common.Constants;
 import kr.or.btf.web.common.annotation.CurrentUser;
 import kr.or.btf.web.domain.web.*;
@@ -75,6 +76,33 @@ public class MemberController extends BaseCont{
         model.addAttribute("mc", "member");
         model.addAttribute("dv", "group");
         return "/soulGod/member/list";
+    }
+
+    @ResponseBody
+    @PostMapping("/api/soulGod/member/groupDetail/{id}")
+    public MemberGroup groupDetail(@PathVariable(name = "id") Long id){
+        MemberGroup load = memberService.groupLoad(id);
+        return load;
+    }
+
+    @ResponseBody
+    @PostMapping("/api/soulGod/member/crewDetail/{id}")
+    public MemberCrew crewDetail(@PathVariable(name = "id") Long id){
+        MemberCrew load = memberService.crewLoad(id);
+        return load;
+    }
+
+    @ResponseBody
+    @PostMapping("/api/soulGod/member/getLicenseFile/{id}")
+    public FileInfo getLicenseFile(@PathVariable(name = "id") Long id){
+        FileInfo load = memberService.licneseLoad(id);
+        return load;
+    }
+
+    @ResponseBody
+    @PostMapping("/api/soulGod/member/updateApporaval")
+    public void updateApporaval(@RequestParam("pidArray") String[] pid) {
+
     }
 
     @ResponseBody

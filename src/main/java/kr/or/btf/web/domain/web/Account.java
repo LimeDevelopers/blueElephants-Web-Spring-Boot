@@ -116,6 +116,34 @@ public class Account implements Serializable {
     @Transient
     private Integer mberNo;
 
+    // memberGroup
+    @Transient
+    private Long group_pid;
+    @Transient
+    private String group_nm;
+    @Transient
+    private String charger_nm;
+    @Transient
+    private String position;
+    @Transient
+    private Integer b_num;
+    @Transient
+    private String b_license_attc;
+    @Transient
+    private Long fl_pid;
+
+    // memberCrew
+    @Transient
+    private Long crew_pid;
+    @Transient
+    private String crew_nm;
+    @Transient
+    private String crew_affi;
+    @Transient
+    private Integer crew_fnum;
+    @Transient
+    private String rpt_nm;
+
     @Builder
     public Account(Long id, String loginId, String nm, String pwd, String ncnm, LocalDateTime regDtm, LocalDateTime updDtm, UserRollType mberDvTy, List<MemberRoll> authorites, String moblphon, String approval) {
 
