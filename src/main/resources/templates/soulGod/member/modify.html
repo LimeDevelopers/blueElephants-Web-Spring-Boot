@@ -185,8 +185,8 @@
                 });
             </script>
 
-            <form id="form1" name="form1" method="post" enctype="multipart/form-data">
-                <input type="hidden" id="id" name="id" />
+            <form id="form1" name="form1" method="post" enctype="multipart/form-data" th:object="${form}">
+                <input type="hidden" th:field="*{id}" />
                 <div class="contents">
 
                     <ul class="breadcrumb">
@@ -220,8 +220,19 @@
                                         <select id="mberDvTy" name="mberDvTy">
                                             <option value="">선택</option>
                                             <option th:each="tp:${T(kr.or.btf.web.domain.web.enums.UserRollType).values()}"
-                                                    th:if="${tp eq T(kr.or.btf.web.domain.web.enums.UserRollType).LECTURER || tp eq T(kr.or.btf.web.domain.web.enums.UserRollType).COUNSELOR || tp eq T(kr.or.btf.web.domain.web.enums.UserRollType).ADMIN}"
+                                                    th:if="${tp eq T(kr.or.btf.web.domain.web.enums.UserRollType).LECTURER ||
+                                                             tp eq T(kr.or.btf.web.domain.web.enums.UserRollType).COUNSELOR ||
+                                                             tp eq T(kr.or.btf.web.domain.web.enums.UserRollType).ADMIN ||
+                                                             tp eq T(kr.or.btf.web.domain.web.enums.UserRollType).NORMAL ||
+                                                             tp eq T(kr.or.btf.web.domain.web.enums.UserRollType).STUDENT ||
+                                                             tp eq T(kr.or.btf.web.domain.web.enums.UserRollType).TEACHER ||
+                                                             tp eq T(kr.or.btf.web.domain.web.enums.UserRollType).PARENT ||
+                                                             tp eq T(kr.or.btf.web.domain.web.enums.UserRollType).LECTURER ||
+                                                             tp eq T(kr.or.btf.web.domain.web.enums.UserRollType).GROUP ||
+                                                             tp eq T(kr.or.btf.web.domain.web.enums.UserRollType).CREW ||
+                                                             tp eq T(kr.or.btf.web.domain.web.enums.UserRollType).BATCH}";
                                                     th:value="${tp}" th:text="${tp.getName()}">선택</option>
+
                                         </select>
                                     </td>
                                 </tr>
@@ -229,7 +240,7 @@
                                     <th scope="row"><label>로그인ID<span class="aster">*</span></label></th>
                                     <td>
                                         <label for="loginId" class="blind">로그인ID</label>
-                                        <input type="text" id="loginId" name="loginId" class="w160" maxlength="12" placeholder="6~12자 영문 소문자, 숫자 사용" onkeydown="fn_checkSpacebar()" />
+                                        <input type="text" th:field="*{loginId}" id="loginId" name="loginId" class="w160" maxlength="12" placeholder="6~12자 영문 소문자, 숫자 사용" onkeydown="fn_checkSpacebar()" />
                                         <a href="javascript:;" class="btn btn_sm btn_line_blue btn_pill_10" onclick="return fn_chkIdDup();">중복확인</a>
                                     </td>
                                 </tr>
@@ -237,7 +248,7 @@
                                     <th scope="row"><label>비밀번호<span class="aster">*</span></label></th>
                                     <td>
                                         <div class="td">
-                                            <input type="password" id="pwd" name="pwd" placeholder="8~16자(특수 문자 포함)" onkeydown="fn_checkSpacebar();" />
+                                            <input type="password" th:field="*{pwd}" id="pwd" name="pwd" placeholder="8~16자(특수 문자 포함)" onkeydown="fn_checkSpacebar();" />
                                         </div>
                                     </td>
                                 </tr>
@@ -257,7 +268,8 @@
                                     <th scope="row"><label>성별<span class="aster">*</span></label></th>
                                     <td>
                                         <div class="radio txt" th:each="tp : ${T(kr.or.btf.web.domain.web.enums.GenderType).values()}">
-                                            <input type="radio" th:id="|sexPrTy${tp}|" name="sexPrTy" th:value="${tp}">
+                                            <input type="radio" th:id="|sexPrTy${tp}|" name="sexPrTy" th:value="${tp}"
+                                                   th:checked="${T(kr.or.btf.web.domain.web.enums.GenderType).valueOf(form.sexPrTy) eq tp}"/>
                                             <label th:for="|sexPrTy${tp}|" th:text="${tp.name}"></label>
                                         </div>
                                     </td>
@@ -265,43 +277,44 @@
                                 <tr>
                                     <th scope="row">생년월일</th>
                                     <td>
-                                        <input type="text" name="brthdy" id="brthdy" class="form_date" readonly />
+                                        <input type="text" th:field="*{brthdy}" id="brthdy" class="form_date" readonly />
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">휴대전화</th>
                                     <td>
-                                        <input type="text" name="moblphon" id="moblphon" onkeydown="fn_checkSpacebar()" />
+                                        <input type="text" th:field="*{moblphon}" id="moblphon" onkeydown="fn_checkSpacebar()" />
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <th scope="row">이메일</th>
                                     <td>
-                                        <input type="text" name="email" id="email" onkeydown="fn_checkSpacebar()" />
+                                        <input type="text" th:field="*{email}" id="email" name="email" onkeydown="fn_checkSpacebar()" />
                                     </td>
                                 </tr>
 
-                                <tr>
-                                    <th scope="row">주소</th>
-                                    <td>
-                                        <div class="address_form">
-                                            <div>
-                                                <label for="zip" class="blind">우편번호</label>
-                                                <input type="text" class="w120" placeholder="우편번호" onclick="execPostCode('zip','adres','dtlAdres');" id="zip" name="zip" readonly />
-                                                <a href="javascript:;" class="btn btn_sm btn_f7dd" onclick="execPostCode('zip','adres','dtlAdres');">주소검색</a>
-                                            </div>
-                                            <div class="mt5">
-                                                <label for="adres" class="blind">주소</label>
-                                                <input type="text" placeholder="주소" onclick="execPostCode('zip','adres','dtlAdres');" id="adres" name="adres" />
-                                            </div>
-                                            <div class="mt5">
-                                                <label for="dtlAdres" class="blind">나머지 주소</label>
-                                                <input type="text" placeholder="나머지 주소" id="dtlAdres" name="dtlAdres" />
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
+<!--                                주소 사용 안함-->
+<!--                                <tr>-->
+<!--                                    <th scope="row">주소</th>-->
+<!--                                    <td>-->
+<!--                                        <div class="address_form">-->
+<!--                                            <div>-->
+<!--                                                <label for="zip" class="blind">우편번호</label>-->
+<!--                                                <input type="text" class="w120" placeholder="우편번호" onclick="execPostCode('zip','adres','dtlAdres');" id="zip" name="zip" readonly />-->
+<!--                                                <a href="javascript:;" class="btn btn_sm btn_f7dd" onclick="execPostCode('zip','adres','dtlAdres');">주소검색</a>-->
+<!--                                            </div>-->
+<!--                                            <div class="mt5">-->
+<!--                                                <label for="adres" class="blind">주소</label>-->
+<!--                                                <input type="text" placeholder="주소" onclick="execPostCode('zip','adres','dtlAdres');" id="adres" name="adres" />-->
+<!--                                            </div>-->
+<!--                                            <div class="mt5">-->
+<!--                                                <label for="dtlAdres" class="blind">나머지 주소</label>-->
+<!--                                                <input type="text" placeholder="나머지 주소" id="dtlAdres" name="dtlAdres" />-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </td>-->
+<!--                                </tr> -->
                                 </tbody>
                             </table>
 
