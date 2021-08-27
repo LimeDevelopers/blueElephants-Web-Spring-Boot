@@ -65,11 +65,10 @@ public class TestService extends _BaseService {
 
     @Transactional
     public void testBathRegister(MemberForm memberForm, MemberSchoolForm memberSchoolForm) {
-        String BATCH = "BATCH";
 
+        String tempId = memberForm.getLoginId();
 
         for (int i = 1; i <= memberForm.getBatchArr(); i++) {
-            String tempId;
             //계정 정보 추가
             memberForm.setDelAt("N");
             memberForm.setPwd(passwordEncoder.encode(memberForm.getPwd())); //패스워드 셋
@@ -77,10 +76,8 @@ public class TestService extends _BaseService {
             memberForm.setPrtctorAttcAt("N");
 
             if(i<10){
-                tempId = memberForm.getLoginId();
                 tempId+="0"+i;
             } else {
-                tempId = memberForm.getLoginId();
                 tempId+=i;
             }
             memberForm.setLoginId(tempId);//변형된 계정 셋
@@ -88,7 +85,9 @@ public class TestService extends _BaseService {
             memberForm.setMberDvTy(UserRollType.BATCH);
             Account account = modelMapper.map(memberForm, Account.class);
             Account save = memberRepository.save(account);
-            tempId = ""; // tempId 초기화
+
+            //로그인아이디 초기화
+            tempId = "";
 
             MemberRoll memberRoll = new MemberRoll();
             memberRoll.setMberPid(save.getId());
@@ -108,7 +107,8 @@ public class TestService extends _BaseService {
             memberSchool.setNo(memberSchoolForm.getNo());
             memberSchool.setTeacherNm(memberSchoolForm.getTeacherNm());
             memberSchool.setRegDtm(LocalDateTime.now());
-            memberSchoolRepository.pr_findTid(memberSchool.getSchlNm(), memberSchool.getBan(), memberSchool.getBan());
+            //지역명 , 학교명 , 학년 , 반 순으로 받아가는 프로시져(선생님 nm , 선생님 mber_pid select , insert)
+            memberSchoolRepository.pr_findTid( memberSchool.getAreaNm() , memberSchool.getSchlNm(), memberSchool.getGrade(), memberSchool.getBan());
             memberSchoolRepository.save(memberSchool);
 
         }

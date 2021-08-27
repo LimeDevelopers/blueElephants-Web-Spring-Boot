@@ -13,5 +13,5 @@ public interface MemberSchoolRepository extends JpaRepository<MemberSchool, Long
     MemberSchool findByAreaNmAndSchlNmAndGradeAndBanAndNo(String areaNm, String schlNm, Integer grade, String ban, Integer no);
 
     @Procedure
-    MemberSchool pr_findTid(String schl_nm , String grade , String ban);
+    MemberSchool pr_findTid(String area_nm ,String schl_nm , int grade , String ban);
 }
