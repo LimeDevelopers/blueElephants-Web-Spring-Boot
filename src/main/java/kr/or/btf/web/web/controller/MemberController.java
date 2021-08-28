@@ -2,6 +2,7 @@ package kr.or.btf.web.web.controller;
 
 
 import com.google.gson.JsonObject;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import kr.or.btf.web.common.Constants;
 import kr.or.btf.web.common.annotation.CurrentUser;
 import kr.or.btf.web.domain.web.*;
@@ -101,8 +102,9 @@ public class MemberController extends BaseCont{
 
     @ResponseBody
     @PostMapping("/api/soulGod/member/updateApporaval")
-    public void updateApporaval(@RequestParam("pidArray") String[] pid) {
-
+    public Boolean updateApporaval(@RequestParam("pidArray") String[] pid) {
+        log.info("넘어온 데이터 : " + pid[0]+ pid[1]+ pid[2]+ pid[3]);
+        return true;
     }
 
     @ResponseBody
