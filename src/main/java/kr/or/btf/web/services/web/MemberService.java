@@ -667,7 +667,7 @@ public class MemberService extends _BaseService {
                     memberCrew.setCrewNm(groupForm.getCrewNm());
                     memberCrew.setCrewAffi(groupForm.getCrewAffi());
                     memberCrew.setAttcYn("N");
-                    memberCrew.setCrewFNum(groupForm.getCrewFNum());
+                    memberCrew.setCrewFNum(Integer.parseInt(groupForm.getCrewFNum()));
                     memberCrew.setRptNm(groupForm.getRptNm());
                     memberCrew.setRegDtm(LocalDateTime.now());
                     memberCrewRepository.save(memberCrew);

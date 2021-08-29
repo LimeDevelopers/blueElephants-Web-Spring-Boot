@@ -49,7 +49,7 @@ public class GroupForm extends SearchForm{
     /* 크루 정보 */
     private String crewNm;         // 크루명
     private String crewAffi;       // 크루 소속
-    private int crewFNum;
+    private String crewFNum;
     private String rptNm;          // 크루 대표명
 
     /* 단체 정보 */

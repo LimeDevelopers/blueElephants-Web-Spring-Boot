@@ -568,7 +568,7 @@
                                             <span class="aster">*</span>
                                         </div>
                                         <div class="td">
-                                            <input type="text" id="bNum" name="bNum" placeholder="사업자등록번호를 입력하세요">
+                                            <input type="text" id="bNum" name="bNum" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"placeholder="사업자등록번호를 입력하세요">
                                         </div>
                                     </li>
                                     <li>
@@ -661,7 +661,7 @@
                                             <span class="aster">*</span>
                                         </div>
                                         <div class="td">
-                                            <input type="text" id="crewFNum" name="crewFNum" placeholder="기수를 입력하세요." />
+                                            <input type="text" id="crewFNum" name="crewFNum" placeholder="기수를 입력하세요." oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
                                         </div>
                                     </li>
                                     <li>
