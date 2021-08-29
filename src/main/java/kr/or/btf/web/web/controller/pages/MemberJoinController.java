@@ -12,6 +12,7 @@ import kr.or.btf.web.utils.AESEncryptor;
 import kr.or.btf.web.web.controller.BaseCont;
 import kr.or.btf.web.web.form.GroupForm;
 import kr.or.btf.web.web.form.MemberForm;
+import kr.or.btf.web.web.form.MemberSchoolForm;
 import kr.or.btf.web.web.form.MobileAuthLogForm;
 import kr.or.btf.web.web.validator.MemberFormValidator;
 import lombok.RequiredArgsConstructor;
@@ -525,5 +526,11 @@ public class MemberJoinController extends BaseCont {
         }
         model.addAttribute("locurl", "/login");
         return "/message";
+
+    }
+    @PostMapping(value = "/batchregister")
+    public void batchRegister(MemberSchoolForm memberSchoolForm) {
+        //페이지 스텝에 맞게 밸류 수정할 것
+        memberService.batchRegister(memberSchoolForm);
     }
 }

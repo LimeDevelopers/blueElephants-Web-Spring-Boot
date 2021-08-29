@@ -6,12 +6,15 @@ import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
+
 @Repository
 public interface MemberSchoolRepository extends JpaRepository<MemberSchool, Long> {
 
     MemberSchool findByMberPid(Long mberPid);
     MemberSchool findByAreaNmAndSchlNmAndGradeAndBanAndNo(String areaNm, String schlNm, Integer grade, String ban, Integer no);
 
-    @Procedure
-    MemberSchool pr_findTid(String area_nm ,String schl_nm , int grade , String ban);
+    @Procedure(procedureName = "pr_findTID")
+    void pr_findTID(String area_nm ,String schl_nm , int grade , String ban , Long spid , LocalDateTime reg_dtm);
+
 }

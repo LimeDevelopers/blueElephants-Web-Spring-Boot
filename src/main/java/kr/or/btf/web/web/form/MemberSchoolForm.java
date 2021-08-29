@@ -17,4 +17,12 @@ public class MemberSchoolForm extends SearchForm{
     private Long mberPid;
     private Long tchrPid;
 
+    private int batchArr;
+    private String loginId;
+    private String pwd;
+    private String nm;
+    private String sexPrTy;
+    private String ncmm;
+    private String brthdy;
+
 }

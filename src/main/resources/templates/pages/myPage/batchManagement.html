@@ -4,6 +4,7 @@
     <th:block th:include="fragments/header"></th:block>
 
     <script>
+
         $(function() {
             $(document).ready(function() {
                 $("#batchRegister").click(function() {
@@ -97,83 +98,111 @@
             <input id="ncmm" name="ncmm" value="BATCH" type="hidden">
             <input id="brthdy" name="brthdy" value="BATCH" type="hidden">
 
-            <div class="modal_text">
-                <label>선생명</label>
-            </div>
-                <input id="teacherNm" name="teacherNm" class="modal_input"/>
+            <div>
+                <div class="modal_text">
+                    <label>선생명</label>
+                </div>
+                <input id="teacherNm" name="teacherNm" type="text" class="modal_input"/>
             </div>
 
             <div>
                 <div class="modal_text">
                     <label>지역명</label>
                 </div>
-                <input id="AreaNm" name="AreaNm" class="modal_input"/>
+                <input id="areaNm" name="areaNm"type="text"  class="modal_input"/>
             </div>
             <div>
                 <div class="modal_text">
                     <label>학교명</label>
                 </div>
-                <input id="SchlNm" name="SchlNm" class="modal_input"/>
+                <input id="schlNm" name="schlNm"type="text"  class="modal_input"/>
             </div>
             <div>
                 <div class="modal_text">
                     <label>학년</label>
                 </div>
-                <input id="grade" name="grade" class="modal_input"/>
+                <input id="grade" name="grade"type="text"  class="modal_input"/>
             </div>
             <div>
                 <div class="modal_text">
                     <label>반</label>
                 </div>
-                <input id="ban" name="ban" class="modal_input"/>
+                <input id="ban" name="ban" type="text" class="modal_input"/>
             </div>
 
             <div>
                 <div class="modal_text">
                     <label>신규로 생성하고자 하는 ID 개수</label>
                 </div>
-                <input id="batchArr" name="batchArr" class="modal_input"/>
+                <input id="batchArr" name="batchArr" type="text" class="modal_input"/>
             </div>
 
             <div>
                 <div class="modal_text">
                     <label>일괄가입 되는 아이디 패턴</label>
                 </div>
-                <input id="loginId" name="loginId"class="modal_input"/>
+                <input id="loginId" name="loginId"type="text" class="modal_input"/>
             </div>
             <div>
                 <div class="modal_text">
                     <label>초기 패스워드</label>
                 </div>
-                <input id="pwd" name="pwd" class="modal_input"/>
+                <input id="pwd" name="pwd" type="text" class="modal_input"/>
             </div>
             <div>
-                <a id="modal_confirm" class="btn btn_lg btn_blue btn_pill_10">확인</a>
+                <a id="modal_confirm" href="#" class="btn btn_lg btn_blue btn_pill_10">확인</a>
                 <a id="modal_cancel" class="btn modal_cancel">취소</a>
             </div>
         </div>
     </div>
 </body>
 <script>
+    let teacherNm;
+    let areaNm;
+    let schlNm;
+    let grade;
+    let ban;
+    let batchArr;
+    let loginId;
+    let pwd;
+    let nm;
+    let sexPrTy;
+    let ncmm;
+    let brthdy;
     $("#modal_confirm").on("click" , function (){
+
+        teacherNm = $("#teacherNm").val();
+        areaNm   = $("#areaNm").val();
+        schlNm   = $("#schlNm").val();
+        grade    = $("#grade").val();
+        ban      = $("#ban").val();
+        batchArr = $("#batchArr").val();
+        loginId  = $("#loginId").val();
+        pwd      = $("#pwd").val();
+        nm       = $("#nm").val();
+        sexPrTy  = $("#sexPrTy").val();
+        ncmm     = $("#ncmm").val();
+        brthdy   = $("#brthdy").val();
+
         $.ajax({
-            url : "/test/batchJoin",
-            dataType : "json" ,
+            method : "POST" ,
+            url : "/test/batchJoin" ,
             data : {
-                    /*teacherNm: $("#teacherNm").val(),
-                    AreaNm   : $("#AreaNm").val(),
-                    SchlNm   : $("#SchlNm").val,*/
-                    grade    : $("#grade").val(),
-                    ban      : $("#ban").val(),
-                    batchArr : $("#batchArr").val() ,
-                    loginId  : $("#loginId").val()  ,
-                    pwd      : $("#pwd").val(),
-                    nm       : $("#nm").val() ,
-                    sexPrTy  : $("#sexPrTy").val() ,
-                    ncmm     : $("#ncmm").val() ,
-                    brthdy   : $("#brthdy").val()
+
+                    'teacherNm': teacherNm,
+                    'areaNm'   : areaNm,
+                    'schlNm'   : schlNm,
+                    'grade'    : grade,
+                    'ban'      : ban,
+                    'batchArr' : batchArr,
+                    'loginId'  : loginId,
+                    'pwd'      : pwd,
+                    'nm'       : nm,
+                    'sexPrTy'  : sexPrTy,
+                    'ncmm'     : ncmm,
+                    'brthdy'   : brthdy
+
             },
-            type : "POST" ,
             success(result) {
                 if(result == 1) {
                     alert("전송성공");
@@ -181,7 +210,7 @@
                     alert("전송실패");
                 }
             }
-        })
+        });
     });
 </script>
 </html>

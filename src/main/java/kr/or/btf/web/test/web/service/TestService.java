@@ -63,21 +63,24 @@ public class TestService extends _BaseService {
     }
 
 
-    @Transactional
-    public void testBathRegister(MemberForm memberForm, MemberSchoolForm memberSchoolForm) {
+    /*@Transactional
+    public void testBathRegister(MemberSchoolForm memberSchoolForm) {
+        MemberForm memberForm = new MemberForm();
+        String tempId = memberSchoolForm.getLoginId();
+        String batch = "BATCH";
 
-        String tempId = memberForm.getLoginId();
-
-        for (int i = 1; i <= memberForm.getBatchArr(); i++) {
+        for (int i = 1; i <= memberSchoolForm.getBatchArr(); i++) {
             //계정 정보 추가
             memberForm.setDelAt("N");
-            memberForm.setPwd(passwordEncoder.encode(memberForm.getPwd())); //패스워드 셋
+            memberForm.setPwd(passwordEncoder.encode(memberSchoolForm.getPwd())); //패스워드 셋
             memberForm.setRegDtm(LocalDateTime.now()); //등록일
             memberForm.setPrtctorAttcAt("N");
 
             if(i<10){
+                tempId = memberSchoolForm.getLoginId();
                 tempId+="0"+i;
             } else {
+                memberSchoolForm.getLoginId();
                 tempId+=i;
             }
             memberForm.setLoginId(tempId);//변형된 계정 셋
@@ -95,22 +98,11 @@ public class TestService extends _BaseService {
             memberRoll.setRegDtm(LocalDateTime.now());
             memberRoll.setRegPsId(save.getRegPsId());
             memberRollRepository.save(memberRoll);
-
-
-            //스쿨 테이블에 정보 등록
+            //memberSchool에 인서트 해주는 프로시저 호출
             MemberSchool memberSchool = new MemberSchool();
-            memberSchool.setMberPid(account.getId());
-            memberSchool.setAreaNm(memberSchoolForm.getAreaNm());
-            memberSchool.setSchlNm(memberSchoolForm.getSchlNm());
-            memberSchool.setGrade(memberSchoolForm.getGrade());
-            memberSchool.setBan(memberSchoolForm.getBan());
-            memberSchool.setNo(memberSchoolForm.getNo());
-            memberSchool.setTeacherNm(memberSchoolForm.getTeacherNm());
-            memberSchool.setRegDtm(LocalDateTime.now());
-            //지역명 , 학교명 , 학년 , 반 순으로 받아가는 프로시져(선생님 nm , 선생님 mber_pid select , insert)
-            memberSchoolRepository.pr_findTid( memberSchool.getAreaNm() , memberSchool.getSchlNm(), memberSchool.getGrade(), memberSchool.getBan());
-            memberSchoolRepository.save(memberSchool);
-
+            System.out.println(save.getId());
+            memberSchoolRepository.pr_findTID( memberSchoolForm.getAreaNm() , memberSchoolForm.getSchlNm(),
+                    memberSchoolForm.getGrade(), memberSchoolForm.getBan() , save.getId() ,LocalDateTime.now());
         }
-    }
+    }*/
 }

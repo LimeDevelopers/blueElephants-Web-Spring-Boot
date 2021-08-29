@@ -1528,4 +1528,44 @@ public class MemberService extends _BaseService {
         if (text == null) return true;
         return text.contains(" ");
     }
+    @Transactional
+    public void batchRegister(MemberSchoolForm memberSchoolForm) {
+        MemberForm memberForm = new MemberForm();
+        String tempId = memberSchoolForm.getLoginId();
+        String batch = "BATCH";
+
+        for (int i = 1; i <= memberSchoolForm.getBatchArr(); i++) {
+            //계정 정보 추가
+            memberForm.setDelAt("N");
+            memberForm.setPwd(passwordEncoder.encode(memberSchoolForm.getPwd())); //패스워드 셋
+            memberForm.setRegDtm(LocalDateTime.now()); //등록일
+            memberForm.setPrtctorAttcAt("N");
+
+            if (i < 10) {
+                tempId = memberSchoolForm.getLoginId();
+                tempId += "0" + i;
+            } else {
+                memberSchoolForm.getLoginId();
+                tempId += i;
+            }
+            memberForm.setLoginId(tempId);//변형된 계정 셋
+            System.out.println(tempId);
+            memberForm.setMberDvTy(UserRollType.BATCH);
+            Account account = modelMapper.map(memberForm, Account.class);
+            Account save = memberRepository.save(account);
+
+            //로그인아이디 초기화
+            tempId = "";
+
+            MemberRoll memberRoll = new MemberRoll();
+            memberRoll.setMberPid(save.getId());
+            memberRoll.setMberDvTy(UserRollType.BATCH);
+            memberRoll.setRegDtm(LocalDateTime.now());
+            memberRoll.setRegPsId(save.getRegPsId());
+            memberRollRepository.save(memberRoll);
+            //memberSchool에 인서트 해주는 프로시저 호출
+            memberSchoolRepository.pr_findTID(memberSchoolForm.getAreaNm(), memberSchoolForm.getSchlNm(),
+                    memberSchoolForm.getGrade(), memberSchoolForm.getBan(), save.getId(), LocalDateTime.now());
+        }
+    }
 }

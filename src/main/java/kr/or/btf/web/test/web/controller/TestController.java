@@ -1,9 +1,12 @@
 package kr.or.btf.web.test.web.controller;
 
 import kr.or.btf.web.common.aurora.AuroraAPIService;
+import kr.or.btf.web.repository.web.MemberSchoolRepository;
 import kr.or.btf.web.test.web.service.TestService;
 import kr.or.btf.web.web.controller.BaseCont;
 import kr.or.btf.web.common.aurora.AuroraForm;
+import kr.or.btf.web.web.form.MemberForm;
+import kr.or.btf.web.web.form.MemberSchoolForm;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -12,6 +15,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +30,7 @@ public class TestController extends BaseCont {
     TestService testService;
 
     private final AuroraAPIService auroraAPIService;
+    private final MemberSchoolRepository memberSchoolRepository;
 
 
     @GetMapping(value = "/page")
@@ -91,6 +96,13 @@ public class TestController extends BaseCont {
         wb.close();
     }
     // 엑셀 다운로드 끝
+
+    //memberjoinController로 이동
+    /*@RequestMapping(value = "/batchJoin" , method = RequestMethod.POST)
+    public void testBatchJoin(MemberSchoolForm memberSchoolForm) {
+
+        testService.testBathRegister(memberSchoolForm);
+    }*/
 
     //디자인페이지 리다이렉션 start
     @GetMapping(value = "/_temp/_index.html")
