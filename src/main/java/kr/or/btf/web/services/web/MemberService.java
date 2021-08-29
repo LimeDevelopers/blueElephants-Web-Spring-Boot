@@ -133,9 +133,7 @@ public class MemberService extends _BaseService {
                     .from(qAccount)
                     .leftJoin(qMemberGroup).on(qAccount.id.eq(qMemberGroup.mberPid))
                     .leftJoin(qMemberCrew).on(qAccount.id.eq(qMemberCrew.mberPid))
-                    .where(qAccount.approval.eq("N")
-                            .and(qAccount.crewYn.eq("Y"))
-                            .or(qAccount.groupYn.eq("Y")))
+                    .where(qAccount.approval.eq("N"))
                     .limit(pageable.getPageSize())
                     .offset(pageable.getOffset())
                     .orderBy(orderSpecifier)
@@ -188,6 +186,16 @@ public class MemberService extends _BaseService {
         return mngList;
     }
 
+    public Boolean updateApproval(String pid) {
+        Long chgStr = Long.parseLong(pid);
+        int rs = memberRepository.setApproval(chgStr,"Y");
+        if(rs > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public FileInfo licneseLoad(Long id) {
         QFileInfo qFileInfo = QFileInfo.fileInfo;
 
@@ -226,6 +234,7 @@ public class MemberService extends _BaseService {
                         qCrew.id,
                         qCrew.crewNm,
                         qCrew.rptNm,
+                        qCrew.crewFNum,
                         qCrew.crewAffi))
                 .from(qCrew)
                 .where(qCrew.mberPid.eq(id))

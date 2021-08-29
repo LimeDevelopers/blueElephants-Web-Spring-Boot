@@ -4,6 +4,7 @@ import kr.or.btf.web.domain.web.Account;
 import kr.or.btf.web.web.form.CourseRequestForm;
 import kr.or.btf.web.web.form.SearchForm;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -329,8 +330,9 @@ public interface MemberRepository extends JpaRepository<Account, Long> {
             " ORDER BY pum.menu_nm", nativeQuery = true)
     List<Object[]> menuStatusResult(SearchForm form);
 
-
-
+    @Modifying
+    @Query("UPDATE Account ac SET ac.approval = :yn WHERE ac.id = :id")
+    int setApproval(Long id, String yn);
 /*
     @Query(
             value = " update TBL_MNG_INFO set lstCnntDtm=sysdate()\n" +

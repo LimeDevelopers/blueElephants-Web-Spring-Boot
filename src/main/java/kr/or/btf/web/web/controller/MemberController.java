@@ -16,9 +16,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -103,8 +106,16 @@ public class MemberController extends BaseCont{
     @ResponseBody
     @PostMapping("/api/soulGod/member/updateApporaval")
     public Boolean updateApporaval(@RequestParam("pidArray") String[] pid) {
-        log.info("넘어온 데이터 : " + pid[0]+ pid[1]+ pid[2]+ pid[3]);
-        return true;
+        Boolean result = false;
+        if(pid.length > 1) {
+            for(int i=0; i<pid.length; i++) {
+                result = memberService.updateApproval(pid[i]);
+            }
+        } else {
+            result = memberService.updateApproval(pid[0]);
+        }
+
+        return result;
     }
 
     @ResponseBody
