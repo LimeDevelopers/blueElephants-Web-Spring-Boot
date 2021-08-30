@@ -196,7 +196,7 @@ public class MemberService extends _BaseService {
         }
     }
 
-    public FileInfo licneseLoad(Long id) {
+    public FileInfo licenseLoad(Long id) {
         QFileInfo qFileInfo = QFileInfo.fileInfo;
 
         FileInfo file =  queryFactory
@@ -504,7 +504,7 @@ public class MemberService extends _BaseService {
 
 
             memberForm.setEmailAttcDtm(LocalDateTime.now());
-
+            memberForm.setApproval("Y");
             memberForm.setDelAt("N");
             memberForm.setPwd(passwordEncoder.encode(memberForm.getPwd()));
             memberForm.setRegDtm(LocalDateTime.now());
@@ -519,6 +519,12 @@ public class MemberService extends _BaseService {
             //memberForm.setPwdLstDtm(LocalDateTime.now());
             Account account = modelMapper.map(memberForm, Account.class);
             account.setBrthdy(account.getBrthdy().replaceAll("-",""));
+            account.setGroupYn("N");
+            if(memberForm.getMberDvTy().equals(UserRollType.CREW)){
+                account.setCrewYn("Y");
+            } else {
+                account.setCrewYn("N");
+            }
             Account save = memberRepository.save(account);
 
             MemberRoll memberRoll = new MemberRoll();
@@ -585,7 +591,7 @@ public class MemberService extends _BaseService {
         try {
             verifyDuplicateLoginId(groupForm.getLoginId());
             if(groupForm.getAuthEmailChk() == 2){
-                if(groupForm.getG_email()!=null){
+                if(UserRollType.CREW.equals(groupForm.getMberDvTy())){
                     groupForm.setEmail(groupForm.getG_email());
                     groupForm.setEmailAttcAt("Y");
                     verifyDuplicateEmail(groupForm.getG_email());
@@ -601,8 +607,6 @@ public class MemberService extends _BaseService {
                 groupForm.setCrewYn("N");
                 if(groupForm.getMobileAttcAt().equals("Y")) {
                     groupForm.setMobileAttcDtm(LocalDateTime.now());
-                } else {
-                    return false;
                 }
             } else {
                 groupForm.setGroupYn("N");

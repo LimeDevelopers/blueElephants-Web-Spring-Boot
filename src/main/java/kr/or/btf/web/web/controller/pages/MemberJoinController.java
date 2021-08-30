@@ -172,16 +172,17 @@ public class MemberJoinController extends BaseCont {
         }*/
         String year = memberForm.getBrthdy().substring(0, 4);
         Calendar cal = Calendar.getInstance();
-        if ((cal.get(Calendar.YEAR) - Integer.parseInt(year)) < 14) { //청소년인지 확인
-            if (memberForm.getPrtctorNm() == null || "".equals(memberForm.getPrtctorNm()) ||
-                    memberForm.getPrtctorBrthdy() == null || "".equals(memberForm.getPrtctorBrthdy()) ||
-                    memberForm.getPrtctorEmail() == null || "".equals(memberForm.getPrtctorEmail()) ||
-                    memberForm.getPrtctorEmail().split("@").length > 2 || StringUtils.countMatches(memberForm.getEmail(), " ") > 0 ||
-                    StringUtils.countMatches(memberForm.getLoginId(), " ") > 0 || StringUtils.countMatches(memberForm.getPwd(), " ") > 0 ||
-                    StringUtils.countMatches(memberForm.getPrtctorEmail(), " ") > 0) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldErrors());
-            }
-        } else { //청소년 아닐경우
+//        if ((cal.get(Calendar.YEAR) - Integer.parseInt(year)) < 14) { //청소년인지 확인
+//            if (memberForm.getPrtctorNm() == null || "".equals(memberForm.getPrtctorNm()) ||
+//                    memberForm.getPrtctorBrthdy() == null || "".equals(memberForm.getPrtctorBrthdy()) ||
+//                    memberForm.getPrtctorEmail() == null || "".equals(memberForm.getPrtctorEmail()) ||
+//                    memberForm.getPrtctorEmail().split("@").length > 2 || StringUtils.countMatches(memberForm.getEmail(), " ") > 0 ||
+//                    StringUtils.countMatches(memberForm.getLoginId(), " ") > 0 || StringUtils.countMatches(memberForm.getPwd(), " ") > 0 ||
+//                    StringUtils.countMatches(memberForm.getPrtctorEmail(), " ") > 0) {
+//                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldErrors());
+//            }
+//        } else { //청소년 아닐경우
+//        }
 
             if (memberForm.getAuthEmailChk() == 2) {
                 memberForm.setEmailAttcAt("Y");
@@ -191,7 +192,6 @@ public class MemberJoinController extends BaseCont {
                 ) {
                     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldErrors());
                 }
-            }
 
             if (memberForm.getAuthMobileChk() == 2) {//컨트롤러 validation
                 //휴대폰 인증 여부 확인

@@ -18,6 +18,7 @@
     개인/단체 선택창 이미지 버튼 마우스오버,클릭 수정
     로그인 화면 아이콘 디자인 수정
 */
+
 .file_form label {
     display: inline-block;
     height: 35px;
@@ -865,13 +866,17 @@ h4.submsg.mo{display:none}
 .board_list > li .info_area p > span:first-child:after{content:'';display:inline-block;position:relative;top:1px;width:1px;height:14px;margin:0 15px 0 14px;background-color:#ccc}
 .board_list > li .info_area .date{color:#767676;font-size:16px}
 .board_list > li .info_area .sort_area{position:absolute;top:21px;right:0}
-.board_list > li .info_area .sort{display:inline-block;min-width:75px;height:44px;margin-right:10px;padding:0 14px;font-size:16px;font-weight:500;line-height:42px;text-align:center;vertical-align:top;border:1px solid}
+.board_list > li .info_area .sort{display:inline-block;min-width:50px;height:44px;margin-right:10px;padding:0 14px;font-size:16px;font-weight:500;line-height:42px;text-align:center;vertical-align:top;border:1px solid}
 .board_list > li .info_area .sort:last-child{margin-right:0}
 .board_list > li .info_area .sort.normal{color:#7232d8;border-color:#7232d8}
 .board_list > li .info_area .sort.teenager{color:#176de4;border-color:#176de4}
 .board_list > li .info_area .sort.parent{color:#004a80;border-color:#004a80}
 .board_list > li .info_area .sort.teacher{color:#e56300;border-color:#e56300}
 .board_list > li .info_area .sort.lecturer{color:#005e20;border-color:#005e20}
+.sortstar {
+    color: #49ec36;
+    border: none !important;
+}
 .board_list > li .info_area .delete_area{margin-top:10px}
 .board_list > li .info_area .delete_area .btn{color:#8bb3ff;font-size:16px;line-height:21px;border:0;border-bottom:1px solid #8bb3ff}
 .board_list > li .info_area .delete_area .btn:before{content:'';display:inline-block;width:11px;height:14px;margin:4px 3px 0 -1px;vertical-align:top;background:url(../images/icon/ico_trash_blue.png) no-repeat 0 0}

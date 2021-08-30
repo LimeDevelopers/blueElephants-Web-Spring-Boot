@@ -105,7 +105,7 @@
                 type : 'POST',
                 dataType : 'JSON',
                 success : function(data) {
-                    location.href=data.flNm;
+                    location.href='/upload'+data.fl_pt+'/'+data.flNm;
                     //$('#fl_path').attr("src", data.flNm);
                 },
                 error : function(error) {

@@ -84,29 +84,28 @@
             sttTy = $('#sttTy');
 
             if (!loginId.val()) {
-                if(!loginIdCheck(loginId)){
-                    alert('error : loginIdCheck');
-                    return false;
-                }
+                alert("loginId");
+                return false;
             }
 
             if(!idDupBool){
                 //alert('아이디 중복체크를 해주세요.');
+                alert("idDupBool");
                 loginId.after('<p class="err emph">아이디 중복체크를 해주세요.</p>');
                 loginId.focus();
-                alert('error : idDupBool');
                 return false;
             }
 
             if (!fn_chkPwdDup()) {
+                alert("fn_chkPwdDup");
                 return false;
             }
 
             if (!nm.val()) {
                 //alert('이름을 입력하세요');
+                alert("nm");
                 nm.after('<p class="err emph">이름은 필수 값입니다.</p>');
                 nm.focus();
-                alert('error : nm');
                 return false;
             }
 
@@ -122,7 +121,6 @@
                 //alert('출생년도를 입력하세요');
                 brthdy.after('<p class="err emph">생년월일은 필수 값입니다.</p>');
                 year.focus();
-                alert('error : brthdyStr');
                 return false;
             }
 
@@ -182,93 +180,94 @@
             }
 
             if (!ncnm.val()) {
-                //alert('닉네임을 입력하세요');
+                alert("ncnm");
                 ncnm.after('<p class="err emph">닉네임은 필수 값입니다.</p>');
                 ncnm.focus();
                 return false;
             }
 
-            if (childrenCheck()) {
-                prtctorNm = $("#prtctorNm");
-                if (!prtctorNm.val()) {
-                    //alert('닉네임을 입력하세요');
-                    prtctorNm.after('<p class="err emph">보호자 이름은 필수 값입니다.</p>');
-                    prtctorNm.focus();
-                    return false;
-                }
-
-                var brthdyStr = "";
-                prtctorBrthdy = $("#prtctorBrthdy");
-                prtctorYear = $("#prtctorYear");
-                prtctorMonth = $("#prtctorMonth");
-                prtctorDay = $("#prtctorDay");
-
-                if ($.trim(prtctorYear.val())) {
-                    brthdyStr += $.trim(prtctorYear.val());
-                }else{
-                    //alert('출생년도를 입력하세요');
-                    prtctorBrthdy.after('<p class="err emph">보호자 생년월일은 필수 값입니다.</p>');
-                    prtctorYear.focus();
-                    return false;
-                }
-
-                if ($.trim(prtctorMonth.val())) {
-                    brthdyStr += $.trim(prtctorMonth.val());
-                }else{
-                    //alert('생년월일을 선택하세요');
-                    prtctorBrthdy.after('<p class="err emph">보호자 생년월일은 필수 값입니다.</p>');
-                    prtctorMonth.focus();
-                    return false;
-                }
-
-                if ($.trim(prtctorDay.val())) {
-                    brthdyStr += $.trim(prtctorDay.val());
-                }else{
-                    //alert('생년월일을 선택하세요');
-                    prtctorBrthdy.after('<p class="err emph">보호자 생년월일은 필수 값입니다.</p>');
-                    prtctorDay.focus();
-                    return false;
-                }
-
-                prtctorBrthdy.val(brthdyStr);
-
-                var emailStr = "";
-                prtctorEmail = $("#prtctorEmail");
-                prtctorEmail01 = $("#prtctorEmail01");
-                prtctorEmail02 = $("#prtctorEmail02");
-                prtctorEmail03 = $("#prtctorEmail03");
-                prtctorEmail.siblings('.err.emph').remove();
-                if ($.trim(prtctorEmail01.val())) {
-                    emailStr += $.trim(prtctorEmail01.val());
-                    emailStr += "@"
-                }else{
-                    alert('이메일을 입력하세요');
-                    prtctorEmail01.focus();
-                    return false;
-                }
-
-                if ($.trim(prtctorEmail02.val()) != "직접입력") {
-                    if(!$.trim(prtctorEmail02.val())){
-                        alert('이메일을 입력하세요');
-                        prtctorEmail02.focus();
-                        return false;
-                    }else{
-                        emailStr += $.trim(prtctorEmail02.val());
-                    }
-                }
-
-                if ($.trim(prtctorEmail02.val()) == "직접입력") {
-                    if(!$.trim(prtctorEmail03.val())){
-                        alert('이메일을 입력하세요');
-                        prtctorEmail03.focus();
-                        return false;
-                    }else{
-                        emailStr += $.trim(prtctorEmail03.val());
-                    }
-                }
-
-                prtctorEmail.val(emailStr);
-            }
+            // 보호자 수정예정 --김재일 08.30
+            // if (childrenCheck()) {
+            //     prtctorNm = $("#prtctorNm");
+            //     if (!prtctorNm.val()) {
+            //         //alert('닉네임을 입력하세요');
+            //         prtctorNm.after('<p class="err emph">보호자 이름은 필수 값입니다.</p>');
+            //         prtctorNm.focus();
+            //         return false;
+            //     }
+            //
+            //     var brthdyStr = "";
+            //     prtctorBrthdy = $("#prtctorBrthdy");
+            //     prtctorYear = $("#prtctorYear");
+            //     prtctorMonth = $("#prtctorMonth");
+            //     prtctorDay = $("#prtctorDay");
+            //
+            //     if ($.trim(prtctorYear.val())) {
+            //         brthdyStr += $.trim(prtctorYear.val());
+            //     }else{
+            //         //alert('출생년도를 입력하세요');
+            //         prtctorBrthdy.after('<p class="err emph">보호자 생년월일은 필수 값입니다.</p>');
+            //         prtctorYear.focus();
+            //         return false;
+            //     }
+            //
+            //     if ($.trim(prtctorMonth.val())) {
+            //         brthdyStr += $.trim(prtctorMonth.val());
+            //     }else{
+            //         //alert('생년월일을 선택하세요');
+            //         prtctorBrthdy.after('<p class="err emph">보호자 생년월일은 필수 값입니다.</p>');
+            //         prtctorMonth.focus();
+            //         return false;
+            //     }
+            //
+            //     if ($.trim(prtctorDay.val())) {
+            //         brthdyStr += $.trim(prtctorDay.val());
+            //     }else{
+            //         //alert('생년월일을 선택하세요');
+            //         prtctorBrthdy.after('<p class="err emph">보호자 생년월일은 필수 값입니다.</p>');
+            //         prtctorDay.focus();
+            //         return false;
+            //     }
+            //
+            //     prtctorBrthdy.val(brthdyStr);
+            //
+            //     var emailStr = "";
+            //     prtctorEmail = $("#prtctorEmail");
+            //     prtctorEmail01 = $("#prtctorEmail01");
+            //     prtctorEmail02 = $("#prtctorEmail02");
+            //     prtctorEmail03 = $("#prtctorEmail03");
+            //     prtctorEmail.siblings('.err.emph').remove();
+            //     if ($.trim(prtctorEmail01.val())) {
+            //         emailStr += $.trim(prtctorEmail01.val());
+            //         emailStr += "@"
+            //     }else{
+            //         alert('이메일을 입력하세요');
+            //         prtctorEmail01.focus();
+            //         return false;
+            //     }
+            //
+            //     if ($.trim(prtctorEmail02.val()) != "직접입력") {
+            //         if(!$.trim(prtctorEmail02.val())){
+            //             alert('이메일을 입력하세요');
+            //             prtctorEmail02.focus();
+            //             return false;
+            //         }else{
+            //             emailStr += $.trim(prtctorEmail02.val());
+            //         }
+            //     }
+            //
+            //     if ($.trim(prtctorEmail02.val()) == "직접입력") {
+            //         if(!$.trim(prtctorEmail03.val())){
+            //             alert('이메일을 입력하세요');
+            //             prtctorEmail03.focus();
+            //             return false;
+            //         }else{
+            //             emailStr += $.trim(prtctorEmail03.val());
+            //         }
+            //     }
+            //
+            //     prtctorEmail.val(emailStr);
+            // }
 
             return true;
         }
@@ -329,10 +328,6 @@
         function fn_chkIdDup(){
             loginId = $("#loginId");
             loginId.siblings('.err.emph').remove();
-
-            if(!loginIdCheck(loginId)){
-                return false;
-            }
 
             $.ajax({
                 type: "POST",
@@ -504,13 +499,13 @@
                 $('.normal').show();
                 $('.spt_crew').hide();
                 mberDvTy.val('NORMAL');
-            } else if(gbn == "SPT_CREW"){
+            } else if(gbn == "CREW"){
                 $('.teacher').hide();
                 $('.parent').hide();
                 $('.student').hide();
                 $('.normal').hide();
                 $('.spt_crew').show();
-                mberDvTy.val('SPT_CREW');
+                mberDvTy.val('CREW');
             } else{
                 $('.teacher').hide();
                 $('.parent').hide();
@@ -748,17 +743,24 @@
             $('#authPrTyEMAIL_AUTH').attr('checked','checked')
             fn_authChk('EMAIL_AUTH');
             appendYear();
-            year.change(function() {
-                if (childrenCheck()) {
-                    //청소년일경우-핸드폰입력 필수 X,부모정보
-                    $("#moblphonLabel").hide();
-                    $("#parentInfoDiv").show();
-                } else {
-                    //청소년 아닐경우 -핸드폰입력 필수 ,부모정보 X
-                    $("#moblphonLabel").show();
-                    $("#parentInfoDiv").hide();
-                }
+            $('#load').hide();
+            $(document).ajaxStart(function () {
+                $("#load").show();
+            }).ajaxStop(function () {
+                $("#load").hide();
             });
+            // 수정중 ... 김재일 08.30
+            // year.change(function() {
+            //     if (childrenCheck()) {
+            //         //청소년일경우-핸드폰입력 필수 X,부모정보
+            //         $("#moblphonLabel").hide();
+            //         $("#parentInfoDiv").show();
+            //     } else {
+            //         //청소년 아닐경우 -핸드폰입력 필수 ,부모정보 X
+            //         $("#moblphonLabel").show();
+            //         $("#parentInfoDiv").hide();
+            //     }});
+
             $("#parentInfoDiv").hide();
             fn_chgMberDvTy('STUDENT');
 
@@ -777,7 +779,7 @@
                 $('#btnSave').prop('disabled', true);
                 if(!fn_chkField()){
                     $('#btnSave').prop('disabled', false);
-                    return;
+                    return false;
                 }
                 var formData = $("#form1").serialize();
                 $.ajax({
@@ -871,8 +873,10 @@
    2. 회원가입 정보 폼 수정 ( 지역명 제거 )
    3. 마이페이지 등 메뉴 수정 ( display: table -> display: flex / justify-content: space-evenly )
 -->
-
 <body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="load">
+    <img class="loadImg" src="/ClientUI/user/images/common/loader.gif" alt="loading..">
+</div>
 <div id="wrap">
     <th:block th:include="fragments/header_gnb"></th:block>
     <div id="container">
@@ -894,7 +898,7 @@
                                     <li class="btn_line_default btn_pill_registerSelect"><a href="javascript:fn_chgMberDvTy('TEACHER');">교사</a></li>
                                     <li class="btn_line_default btn_pill_registerSelect"><a href="javascript:fn_chgMberDvTy('PARENT');">부모</a></li>
                                     <li class="btn_line_default btn_pill_registerSelect"><a href="javascript:fn_chgMberDvTy('NORMAL');">일반</a></li>
-                                    <li class="btn_line_default btn_pill_registerSelect"><a href="javascript:fn_chgMberDvTy('SPT_CREW');">지지크루</a></li>
+                                    <li class="btn_line_default btn_pill_registerSelect"><a href="javascript:fn_chgMberDvTy('CREW');">지지크루</a></li>
                                 </ul>
                             </div>
                             <div class="sec_write baseData">
@@ -1068,9 +1072,13 @@
                                     <li>
                                         <div class="th">성별<span class="aster">*</span></div>
                                         <div class="td">
-                                            <div class="register_radio" th:each="tp : ${T(kr.or.btf.web.domain.web.enums.GenderType).values()}">
-                                                <input type="radio" th:id="|sexPrTy${tp}|" name="sexPrTy" th:value="${tp}">
-                                                <label th:for="|sexPrTy${tp}|" th:text="${tp.name}"></label>
+                                            <div class="register_radio">
+                                                <input type="radio" id="sexPrTyMALE" name="sexPrTy" value="MALE" checked>
+                                                <label for="sexPrTyMALE">남자</label>
+                                            </div>
+                                            <div class="register_radio">
+                                                <input type="radio" id="sexPrTyFEMALE" name="sexPrTy" value="FEMALE">
+                                                <label for="sexPrTyFEMALE">여자</label>
                                             </div>
                                             <span id="sexPrTy"></span>
                                         </div>

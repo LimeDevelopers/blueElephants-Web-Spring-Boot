@@ -3,6 +3,21 @@
 <head>
     <th:block th:include="fragments/header"></th:block>
 </head>
+<script>
+    function fn_favData(idx){
+        let dv = $('input[id=fav_dv' +idx+ ']');
+        let icon = $('#favIcon'+idx);
+        if(dv.val() == 0) {
+            icon.removeClass('far fa-star');
+            icon.addClass('fas fa-star');
+            dv.val("1");
+        } else {
+            icon.removeClass('fas fa-star');
+            icon.addClass('far fa-star');
+            dv.val("0");
+        }
+    }
+</script>
 <body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
 <div id="wrap">
     <th:block th:include="fragments/header_gnb"></th:block>
@@ -101,6 +116,7 @@
                                     <span class="date" th:text="|등록일 : ${#temporals.format(item.ntceDt,'yyyy.MM.dd')}|">등록일 : 2020.12.31</span>
                                 </div>
                                 <div class="sort_area">
+
                                     <th:block th:if="${item.targetList ne null}" th:each="target : ${#strings.arraySplit(item.targetList,',')}">
                                         <span th:if="${target eq T(kr.or.btf.web.domain.web.enums.MberDvType).STUDENT.name()}" class="sort teenager">청소년</span>
                                         <span th:if="${target eq T(kr.or.btf.web.domain.web.enums.MberDvType).NORMAL.name()}" class="sort normal">일반</span>
@@ -108,6 +124,8 @@
                                         <span th:if="${target eq T(kr.or.btf.web.domain.web.enums.MberDvType).PARENT.name()}" class="sort parent">부모</span>
                                         <span th:if="${target eq T(kr.or.btf.web.domain.web.enums.MberDvType).LECTURER.name()}" class="sort lecturer">푸코강사</span>
                                     </th:block>
+                                    <input type="hidden" th:id="|fav_dv${idx.index}|" value="0"/>
+                                    <a href="javascript:void(0)" class="sort sortstar" th:onclick="fn_favData([[${idx.index}]])" id="fav_data"><i th:id="|favIcon${idx.index}|" class="far fa-star"></i></a>
                                 </div>
 
                             </div>

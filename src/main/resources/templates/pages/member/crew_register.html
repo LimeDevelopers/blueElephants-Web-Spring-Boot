@@ -144,6 +144,9 @@
                 if(!attachedFile.val()){
                     bLicenseAttc.val('N')
                 } else {
+                    if(!imgChk()){
+                        return false;
+                    }
                     bLicenseAttc.val('Y')
                 }
                 return true;
@@ -194,6 +197,18 @@
             }
         }
 
+        function imgChk(){
+            let fileNm = attachedFile.val();
+
+            if (fileNm != "") {
+                let ext = fileNm.slice(fileNm.lastIndexOf(".") + 1).toLowerCase();
+                if (!(ext == "gif" || ext == "jpg" || ext == "png")) {
+                    alert("이미지파일 (.jpg, .png, .gif ) 만 업로드 가능합니다.");
+                    return false;
+                }
+            }
+
+        }
         /*
         * focusAndEmpty(param) this 필드 초기화 및 포커싱
         * 생성일 : 21.08.20

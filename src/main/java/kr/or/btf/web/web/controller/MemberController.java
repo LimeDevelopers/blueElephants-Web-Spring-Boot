@@ -94,7 +94,7 @@ public class MemberController extends BaseCont{
     @ResponseBody
     @PostMapping("/api/soulGod/member/getLicenseFile/{id}")
     public FileInfo getLicenseFile(@PathVariable(name = "id") Long id){
-        FileInfo load = memberService.licneseLoad(id);
+        FileInfo load = memberService.licenseLoad(id);
         return load;
     }
 
