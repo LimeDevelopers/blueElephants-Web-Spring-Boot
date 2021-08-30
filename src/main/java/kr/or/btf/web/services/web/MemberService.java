@@ -9,6 +9,14 @@ import kr.or.btf.web.common.Constants;
 import kr.or.btf.web.common.exceptions.ValidCustomException;
 import kr.or.btf.web.domain.web.*;
 import kr.or.btf.web.domain.web.MemberGroup;
+import kr.or.btf.web.domain.web.QAccount;
+import kr.or.btf.web.domain.web.QCommonCode;
+import kr.or.btf.web.domain.web.QFileInfo;
+import kr.or.btf.web.domain.web.QLoginCnntLogs;
+import kr.or.btf.web.domain.web.QMemberCrew;
+import kr.or.btf.web.domain.web.QMemberGroup;
+import kr.or.btf.web.domain.web.QMemberSchool;
+import kr.or.btf.web.domain.web.QMemberTeacher;
 import kr.or.btf.web.domain.web.enums.FileDvType;
 import kr.or.btf.web.domain.web.enums.GenderType;
 import kr.or.btf.web.domain.web.enums.TableNmType;
@@ -471,8 +479,10 @@ public class MemberService extends _BaseService {
     */
     @Transactional
     public Account modify(MemberForm mngForm) {
+//        Account account = this.load(mngForm.getId());
+        // 신규 수정 추가 08.31
+        Account account = memberRepository.findById(mngForm.getId()).orElseGet(Account::new);
 
-        Account account = this.load(mngForm.getId());
         account.setLoginId(mngForm.getLoginId());
         account.setPwd(mngForm.getPwd());
         account.setNm(mngForm.getNm());

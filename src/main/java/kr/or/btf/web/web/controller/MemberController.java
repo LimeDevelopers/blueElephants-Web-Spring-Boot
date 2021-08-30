@@ -349,7 +349,8 @@ public class MemberController extends BaseCont{
         if (memberForm.getId() == null) {
             result = memberService.insert(memberForm);
         } else {
-            result = memberService.update(memberForm);
+            /*08.31 수정 추가
+            result = */ memberService.modify(memberForm);
         }
 
         return "redirect:/soulGod/member/list";
