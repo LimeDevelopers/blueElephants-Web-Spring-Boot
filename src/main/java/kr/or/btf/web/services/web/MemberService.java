@@ -464,21 +464,30 @@ public class MemberService extends _BaseService {
         return byNmAndEmail;
     }
 
-    /*@Transactional
+    /**
+     * MemberService [회원관리 - 수정]
+     * @auther : 고선호
+     * @craete_date : 2021-08-30, 월, 18:58
+    */
+    @Transactional
     public Account modify(MemberForm mngForm) {
 
         Account account = this.load(mngForm.getId());
-        //account.setPwd(mngForm.getPwd());
-        account.setHpNum(mngForm.getHpNum().trim());
+        account.setLoginId(mngForm.getLoginId());
+        account.setPwd(mngForm.getPwd());
+        account.setNm(mngForm.getNm());
+        account.setSexPrTy(mngForm.getSexPrTy());
+        account.setBrthdy(mngForm.getBrthdy());
+        account.setMoblphon(mngForm.getMoblphon());
         account.setEmail(mngForm.getEmail().trim());
 
-        account.setModDtm(LocalDateTime.now());
-        account.setModId(mngForm.getModId());
+        // account.setModDtm(LocalDateTime.now());
+        // account.setModId(mngForm.getModId());
 
         //account.encodingPwd(passwordEncoder);
 
         return account;
-    }*/
+    }
 
     /**
      * 회원 insert
