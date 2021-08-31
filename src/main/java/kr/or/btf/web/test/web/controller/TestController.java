@@ -1,7 +1,14 @@
 package kr.or.btf.web.test.web.controller;
 
+import kr.or.btf.web.common.annotation.CurrentUser;
 import kr.or.btf.web.common.aurora.AuroraAPIService;
+import kr.or.btf.web.domain.web.Account;
+import kr.or.btf.web.domain.web.MemberCrew;
+import kr.or.btf.web.domain.web.MemberTeacher;
+import kr.or.btf.web.repository.web.MemberCrewRepository;
 import kr.or.btf.web.repository.web.MemberSchoolRepository;
+import kr.or.btf.web.services.web.MemberService;
+import kr.or.btf.web.services.web.MemberTeacherService;
 import kr.or.btf.web.test.web.service.TestService;
 import kr.or.btf.web.web.controller.BaseCont;
 import kr.or.btf.web.common.aurora.AuroraForm;
@@ -18,9 +25,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -31,6 +40,9 @@ public class TestController extends BaseCont {
 
     private final AuroraAPIService auroraAPIService;
     private final MemberSchoolRepository memberSchoolRepository;
+    private final MemberService memberService;
+    private final MemberTeacherService memberTeacherService;
+    private final MemberCrewRepository memberCrewRepository;
 
 
     @GetMapping(value = "/page")
@@ -97,61 +109,40 @@ public class TestController extends BaseCont {
     }
     // 엑셀 다운로드 끝
 
-    //memberjoinController로 이동
-    /*@RequestMapping(value = "/batchJoin" , method = RequestMethod.POST)
-    public void testBatchJoin(MemberSchoolForm memberSchoolForm) {
+    @RequestMapping("/pages/myPage/batchManagement")
+    public String batchManagement(Model model,
+                                  @CurrentUser Account account) {
+        Account load = memberService.load(account.getId());
+        MemberTeacher memberTeacher = memberTeacherService.loadByMber(load.getId());
+        model.addAttribute("teacher", memberTeacher);
+        model.addAttribute("mc", "myPage");
 
-        testService.testBathRegister(memberSchoolForm);
-    }*/
 
-    //디자인페이지 리다이렉션 start
-    @GetMapping(value = "/_temp/_index.html")
-    public String openIndex() { return "_temp/_index"; }
 
-    @GetMapping(value = "/_temp/_batchManagement")
-    public String openBatchManagement(){
-        return "_temp/_batchManagement";
+        return "/pages/myPage/batchManagement";
     }
 
-    @GetMapping(value = "/_temp/_intro")
-    public String openIntro(){
-        return "_temp/_intro";
+    @RequestMapping(value = "/pages/myPage/batchManagement/batchRegister")
+    public void batchRegister(MemberSchoolForm memberSchoolForm){
+        memberService.batchRegister(memberSchoolForm);
     }
 
-    @GetMapping(value = "/_temp/_character")
-    public String openCharacter(){ return "_temp/_character"; }
+    @GetMapping(value = "/crewfinder")
+    public ModelAndView crewfinder(MemberCrew memberCrew) {
+        ModelAndView mav = new ModelAndView();
+        //키워드 변수 선언 및 공백제거
+        String keyword = memberCrew.getCrewNm();
+        keyword.replace(" ", "");
+        //키워드 로그
+        System.out.println(" 공백이 제거 된 키워드 로그" + keyword);
 
-    @GetMapping(value = "/_temp/_friends")
-    public String openFriends(){
-        return "_temp/_friends";
+        List<MemberCrew> memberCrewsList = memberCrewRepository.findByCrewNmContains(keyword);
+
+        System.out.println("리스트에 담겨온 로그" + memberCrewsList);
+
+        mav.addObject("Crewlist", memberCrewsList);
+        mav.setViewName("/pages/member/register");
+
+        return mav;
     }
-
-    @GetMapping(value = "/_temp/_activity")
-    public String openActivity(){
-        return "_temp/_activity";
-    }
-
-    @GetMapping(value = "/_temp/_schedule")
-    public String openSchedule(){
-        return "_temp/_schedule";
-    }
-
-    @GetMapping(value = "/_temp/_location")
-    public String openLocation(){
-        return "_temp/_location";
-    }
-
-    @GetMapping(value = "/_temp/_idFind")
-    public String openIdfind(){
-        return "_temp/_idFind";
-    }
-
-    @GetMapping(value = "/_temp/_pwFind")
-    public String openPwfind(){
-        return "_temp/_pwFind";
-    }
-
-    @GetMapping(value = "/_temp/_header_gnb")
-    public String openHeader(){ return "_temp/_header_gnb";}
-    //디자인페이지 리다이렉션 end
 }

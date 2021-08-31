@@ -5,6 +5,7 @@ import kr.or.btf.web.common.annotation.CurrentUser;
 import kr.or.btf.web.domain.web.Account;
 import kr.or.btf.web.domain.web.FileDownloadHis;
 import kr.or.btf.web.domain.web.FileInfo;
+import kr.or.btf.web.domain.web.MemberCrew;
 import kr.or.btf.web.domain.web.enums.ActionType;
 import kr.or.btf.web.services.web.ActionLogService;
 import kr.or.btf.web.services.web.FileDownloadHisService;

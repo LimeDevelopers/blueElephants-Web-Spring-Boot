@@ -2,9 +2,7 @@
 <html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:include="fragments/header"></th:block>
-
     <script>
-
         $(function() {
             $(document).ready(function() {
                 $("#batchRegister").click(function() {
@@ -27,19 +25,85 @@
             });
         })
     </script>
+    <style>
+        .layer_popup .popup_area1{position:absolute;top:0;right:0;bottom:0;left:0;width:827px;max-height:calc(90% - 90px);margin:auto;border-radius:30px;background-color:#fff;box-sizing:border-box}
+    </style>
 </head>
 <body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
 <div id="wrap">
     <th:block th:include="fragments/header_gnb"></th:block>
     <div id="container">
         <th:block th:include="fragments/snb"></th:block>
-
+        <div class="contents">
+            <div class="page_top">
+                <h3 class="page_tit">일괄가입</h3>
+                <span>선생님께서 등록하신 기본 데이터로 학생 계정을 생성합니다.</span>
+            </div>
+            <div class="page_cont join_form_area">
+            <form action="/fssd" method="post" th:object="${teacher}">
+                <div class="sec_write">
+                    <input type="hidden" id="authBothChk" value="0"/>
+                    <div class="tbl_write">
+                        <div class="sec_write">
+                            <div class="tbl_write contour">
+                                <ul>
+                                    <li>
+                                        <div class="th">지역명</div>
+                                        <div class="td">
+                                            <input type="text" id="areaNm" name="areaNm" th:value="*{areaNm}" readonly>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="th">학교명</div>
+                                        <div class="td">
+                                            <input type="text" id="schlNm" name="schlNm" th:value="*{schlNm}" readonly>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="th">학년</div>
+                                        <div class="td">
+                                            <input type="text" id="grade" name="grade" th:value="*{grade}" readonly>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="th">반</div>
+                                        <div class="td">
+                                            <input type="text" id="ban" name="ban" th:value="*{ban}" readonly>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="th">가입할 계정 개수<span class="aster">*</span></div>
+                                        <div class="td">
+                                            <input type="number" id="batchArr" name="batchArr" placeholder="생성할 계정의 개수를 입력해주세요.">
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="th">
+                                            <label for="loginId">계정 양식</label>
+                                            <span class="aster">*</span>
+                                        </div>
+                                        <div class="td">
+                                            <input type="text" id="loginId" name="loginId" placeholder="생성할 계정의 양식을 입력해주세요.">
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="th">초기 패스워드<span class="aster">*</span></div>
+                                        <div class="td">
+                                            <input type="text" id="pwd" name="pwd" placeholder="초기 패스워드를 입력해주세요.">
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            </div>
+            <div class="btn_area">
+                <button id="batch_confirm" class="btn btn_lg btn_blue btn_pill_10">승인</button>
+            </div>
+        </div>
         <div class="batch_contents">
-
-<!--            <div class="page_top">
-                <h3 class="page_tit">일괄관리</h3>
-            </div>-->
-
             <div class="page_cont">
                 <div class="sec_write_area clearfix">
                     <div class="sec_write info">
@@ -82,82 +146,15 @@
                     </div>
                 </div>
             </div>
-                <div class="btn_area"><a class="btn btn_lg btn_blue btn_pill_10" id="batchRegister" href="#" onclick="batchRegister()">일괄가입</a></div>
+                <div class="btn_area"><a class="btn btn_lg btn_blue btn_pill_10" id="batchRegister" onclick="layerShow('popBatch')">일괄가입</a></div>
         </div>
+
     </div>
 </div>
 <th:block th:replace="fragments/footer"></th:block>
-    <div id="batch_modal" class="modal fade">
-        <div id="modal-content" class="modal-content">
-            <div class="modal_title">
-                <span>일괄가입</span>
-            </div>
-
-            <input id="nm" name="nm" value="BATCH" type="hidden">
-            <input id="sexPrTy" name="sexPrTy" value="BATCH" type="hidden">
-            <input id="ncmm" name="ncmm" value="BATCH" type="hidden">
-            <input id="brthdy" name="brthdy" value="BATCH" type="hidden">
-
-            <div>
-                <div class="modal_text">
-                    <label>선생명</label>
-                </div>
-                <input id="teacherNm" name="teacherNm" type="text" class="modal_input"/>
-            </div>
-
-            <div>
-                <div class="modal_text">
-                    <label>지역명</label>
-                </div>
-                <input id="areaNm" name="areaNm"type="text"  class="modal_input"/>
-            </div>
-            <div>
-                <div class="modal_text">
-                    <label>학교명</label>
-                </div>
-                <input id="schlNm" name="schlNm"type="text"  class="modal_input"/>
-            </div>
-            <div>
-                <div class="modal_text">
-                    <label>학년</label>
-                </div>
-                <input id="grade" name="grade"type="text"  class="modal_input"/>
-            </div>
-            <div>
-                <div class="modal_text">
-                    <label>반</label>
-                </div>
-                <input id="ban" name="ban" type="text" class="modal_input"/>
-            </div>
-
-            <div>
-                <div class="modal_text">
-                    <label>신규로 생성하고자 하는 ID 개수</label>
-                </div>
-                <input id="batchArr" name="batchArr" type="text" class="modal_input"/>
-            </div>
-
-            <div>
-                <div class="modal_text">
-                    <label>일괄가입 되는 아이디 패턴</label>
-                </div>
-                <input id="loginId" name="loginId"type="text" class="modal_input"/>
-            </div>
-            <div>
-                <div class="modal_text">
-                    <label>초기 패스워드</label>
-                </div>
-                <input id="pwd" name="pwd" type="text" class="modal_input"/>
-            </div>
-            <div>
-                <a id="modal_confirm" href="#" class="btn btn_lg btn_blue btn_pill_10">확인</a>
-                <a id="modal_cancel" class="btn modal_cancel">취소</a>
-            </div>
-        </div>
-    </div>
 </body>
 <script>
-    let teacherNm;
+
     let areaNm;
     let schlNm;
     let grade;
@@ -165,13 +162,9 @@
     let batchArr;
     let loginId;
     let pwd;
-    let nm;
-    let sexPrTy;
-    let ncmm;
-    let brthdy;
-    $("#modal_confirm").on("click" , function (){
 
-        teacherNm = $("#teacherNm").val();
+    $("#batch_confirm").on("click" , function (){
+
         areaNm   = $("#areaNm").val();
         schlNm   = $("#schlNm").val();
         grade    = $("#grade").val();
@@ -179,17 +172,13 @@
         batchArr = $("#batchArr").val();
         loginId  = $("#loginId").val();
         pwd      = $("#pwd").val();
-        nm       = $("#nm").val();
-        sexPrTy  = $("#sexPrTy").val();
-        ncmm     = $("#ncmm").val();
-        brthdy   = $("#brthdy").val();
+
 
         $.ajax({
             method : "POST" ,
-            url : "/test/batchJoin" ,
+            url : "/test/pages/myPage/batchManagement/batchRegister" ,
             data : {
 
-                    'teacherNm': teacherNm,
                     'areaNm'   : areaNm,
                     'schlNm'   : schlNm,
                     'grade'    : grade,
@@ -197,10 +186,6 @@
                     'batchArr' : batchArr,
                     'loginId'  : loginId,
                     'pwd'      : pwd,
-                    'nm'       : nm,
-                    'sexPrTy'  : sexPrTy,
-                    'ncmm'     : ncmm,
-                    'brthdy'   : brthdy
 
             },
             success(result) {

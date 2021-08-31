@@ -33,6 +33,7 @@
         var grade;
         var ban;
         var classInfoArr;
+        var srchCrewNm;
 
         var prtctorNm;
         var prtctorBrthdy;
@@ -516,7 +517,24 @@
             }
 
         }
+        /* 21.08.31 김진욱 작업 중
+        function fn_srchSchlNm(){
+            srchCrewNm = $('#srchCrewNm');
+            if(!$.trim(srchCrewNm.val())) {
+                alert('크루명을 입력하세요');
+                srchCrewNm.focus();
+                return false;
+            }
+            $.ajax({
+                type: "GET" ,
+                url : "/test/crewfinder",
+                dataType : "json" ,
+                data : {
+                    "crewNm" : srchCrewNm.val()
+                },
 
+            })
+        }*/
         /*
         * fn_srchSchlNm()
         * 생성일 : 21.08.15
@@ -917,6 +935,13 @@
                                                 <button type="button" class="btn btn_lg btn_line_blue btn_pill_10" onclick="layerShow('popSchool')">학교검색</button>
                                             </div>
                                         </li>
+                                        <li class="spt_crew">
+                                            <div class="th"><label for="crewNm">크루명</label></div>
+                                            <div class="td">
+                                                <input type="text" id="crewNm" name="crewNm" readonly onclick="layerShow('popCrew')"/>
+                                                <button type="button" class="btn btn_lg btn_line_blue btn_pill_10" onclick="layerShow('popCrew')">크루검색</button>
+                                            </div>
+                                        </li>
                                         <li class="student teacher">
                                             <div class="th">학년</div>
                                             <div class="td">
@@ -961,9 +986,10 @@
                                         <li class="normal">
                                             <div class="td"><div type="text" id="normalId" name="normalId"/>일반정보는 마이페이지에서 입력가능합니다.</div>
                                         </li>
-                                        <li class="spt_crew">
-                                            <div class="td"><div type="text" id="crewId" name="crewId"/>지지크루정보는 마이페이지에서 입력가능합니다.</div>
-                                        </li>
+
+
+
+
                                     </ul>
                                 </div>
                             </div>
@@ -1273,6 +1299,41 @@
                                             <div class="scrollbar">
                                                 <span class="txt03" id="nodata">- 학교명을 검색해주세요. -</span>
                                                 <div id="srchSchlNmList"></div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="btn_area">
+                    <button type="button" class="btn btn_lg btn_blue btn_pill_10" onclick="return fn_selSchlNm();">적용</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="popCrew" class="layer_popup">
+        <div class="dim"></div>
+        <div class="popup_area">
+            <a href="javascript:layerHide('popCrew')" class="btn_close"><span class="blind">팝업닫기</span></a>
+            <div class="popup">
+                <div class="pop_tit">크루 검색</div>
+                <div class="pop_cont">
+                    <ul class="write_form mb20">
+                        <li>
+                            <div class="th">크루명</div>
+                            <div class="td">
+                                <div class="email_form clearfix">
+                                    <input type="text" id="srchCrewNm" name="srchCrewNm" placeholder="크루명을 입력해주세요.">
+                                    <button type="button" class="btn btn_lg btn_line_blue btn_pill_10" onclick="return fn_srchSchlNm();">검색</button>
+                                </div>
+                                <ul class="write_form">
+                                    <li>
+                                        <div class="td">
+                                            <div class="scrollbar">
+                                                <span class="txt03" id="c_nodata">- 크루명을 검색해주세요. -</span>
+                                                <div id="srchCrewNmList"></div>
                                             </div>
                                         </div>
                                     </li>

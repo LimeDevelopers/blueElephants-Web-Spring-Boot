@@ -528,7 +528,7 @@ public class MemberJoinController extends BaseCont {
         return "/message";
 
     }
-    @PostMapping(value = "/batchregister")
+    @PostMapping(value = "/pages/myPage/batchManagement/batchRegister")
     public void batchRegister(MemberSchoolForm memberSchoolForm) {
         //페이지 스텝에 맞게 밸류 수정할 것
         memberService.batchRegister(memberSchoolForm);
