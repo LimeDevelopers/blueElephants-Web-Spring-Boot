@@ -60,13 +60,6 @@
                         }
                     }
 
-                    if(!idDupBool){
-                        //alert('아이디 중복체크를 해주세요.');
-                        alert('아이디 중복체크를 해주세요.');
-                        loginId.focus();
-                        return false;
-                    }
-
                     if (!fn_chkPwdDup()) {
                         return false;
                     }
@@ -217,22 +210,23 @@
                                 <tr>
                                     <th scope="row"><label>회원구분<span class="aster">*</span></label></th>
                                     <td>
-                                        <select id="mberDvTy" name="mberDvTy">
-                                            <option value="">선택</option>
-                                            <option th:each="tp:${T(kr.or.btf.web.domain.web.enums.UserRollType).values()}"
-                                                    th:if="${tp eq T(kr.or.btf.web.domain.web.enums.UserRollType).LECTURER ||
-                                                             tp eq T(kr.or.btf.web.domain.web.enums.UserRollType).COUNSELOR ||
-                                                             tp eq T(kr.or.btf.web.domain.web.enums.UserRollType).ADMIN ||
-                                                             tp eq T(kr.or.btf.web.domain.web.enums.UserRollType).NORMAL ||
-                                                             tp eq T(kr.or.btf.web.domain.web.enums.UserRollType).STUDENT ||
-                                                             tp eq T(kr.or.btf.web.domain.web.enums.UserRollType).TEACHER ||
-                                                             tp eq T(kr.or.btf.web.domain.web.enums.UserRollType).PARENT ||
-                                                             tp eq T(kr.or.btf.web.domain.web.enums.UserRollType).LECTURER ||
-                                                             tp eq T(kr.or.btf.web.domain.web.enums.UserRollType).GROUP ||
-                                                             tp eq T(kr.or.btf.web.domain.web.enums.UserRollType).CREW ||
-                                                             tp eq T(kr.or.btf.web.domain.web.enums.UserRollType).BATCH}";
-                                                    th:value="${tp}" th:text="${tp.getName()}">선택</option>
+<!--                                        <select id="mberDvTy" name="mberDvTy">-->
+<!--                                            <option th:value="*{mberDvTy}" th:text="*{mberDvTy.getName()}"></option>-->
+<!--                                            <th:block th:if="*{mberDvTy ne T(kr.or.btf.web.domain.web.enums.UserRollType).STUDENT}">-->
+<!--                                                <option th:each="tp:${T(kr.or.btf.web.domain.web.enums.UserRollType).values()}"-->
+<!--                                                        th:if="${tp ne T(kr.or.btf.web.domain.web.enums.UserRollType).STUDENT}"-->
+<!--                                                        th:value="${tp}" th:text="${tp.getName()}">선택</option>-->
+<!--                                            </th:block>-->
+<!--                                                 <option th:each="tp:${T(kr.or.btf.web.domain.web.enums.UserRollType).values()}"-->
+<!--                                                         th:if="${tp ne T(kr.or.btf.web.domain.web.enums.UserRollType).ADMIN}"-->
+<!--                                                         th:value="${tp}" th:text="${tp.getName()}">선택</option>-->
 
+<!--                                        </select>-->
+                                        <select id="mberDvTy" name="mberDvTy" th:field="*{mberDvTy}">
+                                            <option th:each="tp:${T(kr.or.btf.web.domain.web.enums.UserRollType).values()}"
+                                                    th:value="${tp}"
+                                                    th:text="${tp.getName()}">
+                                            </option>
                                         </select>
                                     </td>
                                 </tr>

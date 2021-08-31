@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * MemberCrewRepository [크루 회원 repo]
  * @author : jerry
@@ -15,5 +17,8 @@ import org.springframework.stereotype.Repository;
 **/
 @Repository
 public interface MemberCrewRepository extends JpaRepository<MemberCrew, Long> {
+
+    List<MemberCrew> findByCrewNmContains(String keywored);
+
 
 }

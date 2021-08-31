@@ -1551,18 +1551,21 @@ public class MemberService extends _BaseService {
         if (text == null) return true;
         return text.contains(" ");
     }
+
     @Transactional
     public void batchRegister(MemberSchoolForm memberSchoolForm) {
         MemberForm memberForm = new MemberForm();
         String tempId = memberSchoolForm.getLoginId();
-        String batch = "BATCH";
 
         for (int i = 1; i <= memberSchoolForm.getBatchArr(); i++) {
             //계정 정보 추가
             memberForm.setDelAt("N");
             memberForm.setPwd(passwordEncoder.encode(memberSchoolForm.getPwd())); //패스워드 셋
             memberForm.setRegDtm(LocalDateTime.now()); //등록일
-            memberForm.setPrtctorAttcAt("N");
+            memberForm.setPrtctorAttcAt("Y");
+            memberForm.setNm("TEST");
+            memberForm.setSexPrTy("MALE");
+
 
             if (i < 10) {
                 tempId = memberSchoolForm.getLoginId();
