@@ -63,7 +63,14 @@ public class NewsController {
         model.addAttribute("filePath", filePath + "/" + Constants.FOLDERNAME_BOARDDATA);
 
         model.addAttribute("mc", "news");
-        model.addAttribute("pageTitle", "푸코소식");
+
+        if (mstPid == 7) {
+            model.addAttribute("pageTitle", "소식/행사");
+        } else if (mstPid == 5) {
+            model.addAttribute("pageTitle", "언론보도");
+        } else if (mstPid == 6) {
+            model.addAttribute("pageTitle", "간행물");
+        }
         return "/pages/news/list";
     }
 
@@ -80,7 +87,7 @@ public class NewsController {
         model.addAttribute("filePath", filePath + "/" + Constants.FOLDERNAME_EVENT);
 
         model.addAttribute("mc", "news");
-        model.addAttribute("pageTitle", "행사");
+        model.addAttribute("pageTitle", "캘린더");
         return "/pages/news/listForEvent";
     }
 

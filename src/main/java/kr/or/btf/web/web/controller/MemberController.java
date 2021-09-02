@@ -11,6 +11,11 @@ import kr.or.btf.web.utils.StringHelper;
 import kr.or.btf.web.web.form.*;
 import kr.or.btf.web.web.validator.MemberFormValidator;
 import lombok.RequiredArgsConstructor;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -23,6 +28,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collector;
@@ -380,5 +386,45 @@ public class MemberController extends BaseCont{
 
         return "redirect:/soulGod/member/list";
     }*/
+
+    // 엑셀 다운로드
+    @GetMapping(value = "/soulGod/member/list/download")
+    public void excelDownload(HttpServletResponse response) throws IOException {
+        Workbook wb = new XSSFWorkbook();
+        Sheet sheet = wb.createSheet("첫번째 시트");
+        Row row = null;
+        Cell cell = null;
+        int rowNum = 0;
+
+        // Header
+        row = sheet.createRow(rowNum++);
+        cell = row.createCell(0);
+        cell.setCellValue("번호");
+        cell = row.createCell(1);
+        cell.setCellValue("이름");
+        cell = row.createCell(2);
+        cell.setCellValue("제목");
+
+        // Body
+        for (int i=0; i<3; i++) {
+            row = sheet.createRow(rowNum++);
+            cell = row.createCell(0);
+            cell.setCellValue(i);
+            cell = row.createCell(1);
+            cell.setCellValue(i+"_name");
+            cell = row.createCell(2);
+            cell.setCellValue(i+"_title");
+        }
+
+        // 컨텐츠 타입과 파일명 지정
+        response.setContentType("ms-vnd/excel");
+//        response.setHeader("Content-Disposition", "attachment;filename=example.xls");
+        response.setHeader("Content-Disposition", "attachment;filename=example.xlsx");
+
+        // Excel File Output
+        wb.write(response.getOutputStream());
+        wb.close();
+    }
+    // 엑셀 다운로드 끝
 
 }
