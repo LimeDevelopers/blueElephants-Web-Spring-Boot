@@ -16,17 +16,17 @@ public class AuroraAPIService {
 
     public AuroraForm getBase64String(AuroraForm auroraForm) throws IOException {
         AuroraRawData rawData = new AuroraRawData();
-        AuroraForm result = new AuroraForm();
-
-        byte[] bytes = auroraForm.getAttachedFile().getBytes();
-        if(bytes.length > 0){
-            rawData.setRotationType(auroraForm.getRotationType());
-            rawData.setPrintText(auroraForm.getPrintText());
-            rawData.setEncodeStr(new String(Base64.encodeBase64(bytes)));
-            result = makeQrCodeImg(rawData);
-        } else {
-            result.setMsg("통신 에러");
-        }
+        rawData.setRotationType(auroraForm.getRotationType());
+        rawData.setPrintText(auroraForm.getPrintText());
+        rawData.setEncodeStr(auroraForm.getEncodeStr());
+        AuroraForm result = makeQrCodeImg(rawData);
+//        byte[] bytes = auroraForm.getAttachedFile().getBytes();
+//        if(bytes.length > 0){
+//
+////          rawData.setEncodeStr(new String(Base64.encodeBase64(bytes)));
+//        } else {
+//            result.setMsg("통신 에러");
+//        }
         return result;
     }
 

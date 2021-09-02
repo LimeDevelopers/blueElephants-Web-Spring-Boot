@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+</head>
+<script>
+    let files;
+    let uploaded;
+    let btnNextStep;
+    let base64;
+    let frm;
+    let error;
+
+    $(function () {
+        error = '[[${error}]]';
+        if(error){
+            alert(error);
+            location.href='/pages/activity/abilityCardIntro';
+        }
+        files = $('#file');
+        uploaded = $('#uploaded');
+        btnNextStep = $('#btnNextStep');
+
+        uploaded.on('click', function (e) {
+            e.preventDefault();
+            files.click();
+        });
+
+        btnNextStep.on('click', function (e) {
+            frm = $('#form1');
+            imgChk()
+            frm.prop('action', '/pages/activity/abilityCardSetp2');
+            frm.submit();
+        })
+
+    });
+
+    function imgChk() {
+        if (files.val() == "") {
+            alert("이미지를 등록하세요.");
+            return false;
+        }
+
+        if (files.val() != "") {
+            let ext = files.val().slice(files.val().lastIndexOf(".") + 1).toLowerCase();
+            if (!(ext == "jpg" || ext == "png" || ext == "jpeg")) {
+                alert("이미지파일 (.jpg, .png, .jpeg ) 만 업로드 가능합니다.");
+                return false;
+            }
+        }
+    }
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                base64 = e.target.result;
+                $('#base64').val(base64)
+                $('#uploaded').css('background',"#d2d4de url("+e.target.result+")no-repeat center center").css('background-size', '300px auto');
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+<style>
+    #file {
+        display: none;
+    }
+</style>
+
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/mo_menu"></th:block>
+        <div class="sub_container">
+            <th:block th:include="fragments/dept_menu"></th:block>
+            <!-- 이미지 미리보기 영역 -->
+            <form id="form1" name="form1" method="post">
+                <input type="hidden" id="base64" name="base64"/>
+            </form>
+            <div class="card_inner inner">
+                <h1>능력카드제작소</h1>
+                <div class="card">
+                    <div class="item_inner">
+                        <div class="item_1" id="uploaded">
+
+                        </div>
+                    </div>
+                    <input type="file" id="file" name="file" maxlength="1" onchange="readURL(this);" />
+
+                    <div class="btn_area">
+                        <button id="btnNextStep" class="btn btn_lg btn_blue btn_pill_10">나만의 카드 만들기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <th:block th:replace="fragments/footer"></th:block>
+    </div>
+</div>
+</body>
+</html>

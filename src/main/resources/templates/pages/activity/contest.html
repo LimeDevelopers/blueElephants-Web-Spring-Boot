@@ -12,47 +12,50 @@
 <div id="wrap">
     <th:block th:include="fragments/header_gnb"></th:block>
     <div id="container">
-        <th:block th:include="fragments/snb"></th:block>
+        <th:block th:include="fragments/mo_menu"></th:block>
+        <div class="sub_container">
+            <th:block th:include="fragments/dept_menu"></th:block>
 
-        <form id="form1" name="form1" method="post" th:object="${form}">
-            <div class="contents">
-                <div class="page_top pc">
-                    <h3 class="page_tit">제안</h3>
-                    <span>연구결과를 바탕으로 국내법 개정과 정책 입안을 이끌어 갑니다.</span>
-                </div>
-                <div class="page_cont">
-                    <div class="tab_ico_area">
-                        <a href="javascript:;" class="tit">공모전</a>
-                        <ul class="tab_type_ico">
-                            <li class="proposal">
-                                <a href="/pages/activity/policyProposal">정책제안</a>
-                            </li>
-                            <li class="contest active">
-                                <a href="/pages/activity/contest">공모전</a>
-                            </li>
-                        </ul>
-                        <p class="mo_page_txt">연구결과를 바탕으로 국내법 개정과 정책 입안을 이끌어 갑니다.</p>
-                        <div class="tab_cont mo_thumb">
-                            <div class="cont contest active">
-                                <div class="thumb">
-                                    <p>공모전</p>
+            <form id="form1" name="form1" method="post" th:object="${form}">
+                <div class="contents">
+                    <div class="page_top pc">
+                        <h3 class="page_tit">제안</h3>
+                        <span>연구결과를 바탕으로 국내법 개정과 정책 입안을 이끌어 갑니다.</span>
+                    </div>
+                    <div class="page_cont">
+                        <div class="tab_ico_area">
+                            <a href="javascript:;" class="tit">공모전</a>
+                            <ul class="tab_type_ico">
+                                <li class="proposal">
+                                    <a href="/pages/activity/policyProposal">정책제안</a>
+                                </li>
+                                <li class="contest active">
+                                    <a href="/pages/activity/contest">공모전</a>
+                                </li>
+                            </ul>
+                            <p class="mo_page_txt">연구결과를 바탕으로 국내법 개정과 정책 입안을 이끌어 갑니다.</p>
+                            <div class="tab_cont mo_thumb">
+                                <div class="cont contest active">
+                                    <div class="thumb">
+                                        <p>공모전</p>
+                                    </div>
+                                    <dl class="desc">
+                                        <dt></dt>
+                                        <dd>
+                                            <ul class="list">
+                                                <li>사업 2년차 부터 격년으로 진행 예정입니다.</li>
+                                                <li>사이버폭력 예방을 위한 청소년의 아이디어를 공모하여 실현가능한 아이디어를 수집합니다.</li>
+                                                <li>선정된 아이디어 제공자에게는 소정의 상금과 실행을 위한 자금을 지원합니다.</li>
+                                            </ul>
+                                        </dd>
+                                    </dl>
                                 </div>
-                                <dl class="desc">
-                                    <dt></dt>
-                                    <dd>
-                                        <ul class="list">
-                                            <li>사업 2년차 부터 격년으로 진행 예정입니다.</li>
-                                            <li>사이버폭력 예방을 위한 청소년의 아이디어를 공모하여 실현가능한 아이디어를 수집합니다.</li>
-                                            <li>선정된 아이디어 제공자에게는 소정의 상금과 실행을 위한 자금을 지원합니다.</li>
-                                        </ul>
-                                    </dd>
-                                </dl>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
     <th:block th:replace="fragments/footer"></th:block>
 </div>

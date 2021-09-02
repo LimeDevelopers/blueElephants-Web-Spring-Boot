@@ -3,6 +3,8 @@ package kr.or.btf.web.web.controller.pages;
 
 import kr.or.btf.web.common.Constants;
 import kr.or.btf.web.common.annotation.CurrentUser;
+import kr.or.btf.web.common.aurora.AuroraAPIService;
+import kr.or.btf.web.common.aurora.AuroraForm;
 import kr.or.btf.web.domain.web.*;
 import kr.or.btf.web.domain.web.dto.CourseItemDto;
 import kr.or.btf.web.domain.web.enums.*;
@@ -30,6 +32,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -75,16 +78,130 @@ public class ActivityController extends BaseCont {
     private final CourseHisService courseHisService;
     private final BannerService bannerService;
     private final MemberService memberService;
+    private final CourseRequestService courseRequestService;
+    private final NamaneService namaneService;
+    private final AuroraAPIService auroraAPIService;
 
     @GetMapping({"/pages/activity/eduIntro"})
     public String eduIntro(Model model,
                                    HttpSession session) {
         model.addAttribute("mc", "activity");
-        model.addAttribute("pageTitle", "교육");
+        model.addAttribute("pageTitle", "예방교육");
         return "/pages/activity/eduIntro";
     }
 
-    private final CourseRequestService courseRequestService;
+    @GetMapping({"/pages/activity/abilityCardIntro"})
+    public String abilityCardIntro(Model model,
+                           HttpSession session) {
+        model.addAttribute("mc", "activity");
+        model.addAttribute("pageTitle", "예방교육");
+        return "/pages/activity/abilityCardIntro";
+    }
+
+    @GetMapping({"/pages/activity/abilityCardSetp1"})
+    public String abilityCardSetp1(Model model,
+                                   @CurrentUser Account account,
+                                   HttpSession session) {
+        if(account == null) {
+            model.addAttribute("error", "로그인 후 이용 가능합니다.");
+        }
+        model.addAttribute("mc", "activity");
+        model.addAttribute("pageTitle", "예방교육");
+        return "/pages/activity/abilityCardSetp1";
+    }
+
+    @PostMapping({"/pages/activity/abilityCardSetp2"})
+    public String abilityCardSetp2(Model model,
+                                   @RequestParam("base64")  String url,
+                                   @CurrentUser Account account,
+                                   HttpSession session) {
+        if(account == null) {
+            model.addAttribute("error", "로그인 후 이용 가능합니다.");
+        }
+        model.addAttribute("url",url);
+        model.addAttribute("mc", "activity");
+        model.addAttribute("pageTitle", "예방교육");
+        return "/pages/activity/abilityCardSetp2";
+    }
+
+    @GetMapping({"/pages/activity/abilityCardSetp3"})
+    public String abilityCardSetp3(Model model,
+                                   @CurrentUser Account account,
+                                   HttpSession session) {
+        if(account == null) {
+            model.addAttribute("error", "로그인 후 이용 가능합니다.");
+        }
+        model.addAttribute("mc", "activity");
+        model.addAttribute("pageTitle", "예방교육");
+        return "/pages/activity/abilityCardSetp3";
+    }
+
+    @GetMapping({"/pages/activity/abilityCardSetp4"})
+    public String abilityCardSetp4(Model model,
+                                   @CurrentUser Account account,
+                                   HttpSession session) {
+        if(account == null) {
+            model.addAttribute("error", "로그인 후 이용 가능합니다.");
+        }
+        model.addAttribute("mc", "activity");
+        model.addAttribute("pageTitle", "예방교육");
+        return "/pages/activity/abilityCardSetp4";
+    }
+
+    @PostMapping({"/api/namane/set"})
+    public String setAblityCard(Model model,
+                                @CurrentUser Account account,
+                                @ModelAttribute AuroraForm auroraForm) throws IOException {
+        if(account == null) {
+            model.addAttribute("error", "로그인 후 이용 가능합니다.");
+        } else {
+            if(account.getId() != null){
+                if(auroraForm.getPrintText().equals("") || auroraForm.getPrintText().isEmpty()) {
+                    model.addAttribute("msg", "등록된 이미지가 존재하지않습니다.");
+                } else {
+                    AuroraForm result = auroraAPIService.getBase64String(auroraForm);
+                    if (!namaneService.set(result, account.getId())) {
+                        model.addAttribute("msg", "에러 발생. 다시 카드를 발행해주세요.");
+                    }
+                    model.addAttribute("aurora",result);
+                }
+
+            }
+        }
+        model.addAttribute("mc", "activity");
+        model.addAttribute("pageTitle", "예방교육");
+        return "redirect:/pages/activity/abilityCardSetp3";
+    }
+
+    @GetMapping({"/api/namane/get"})
+    public String getAblityCard(Model model,
+                                @CurrentUser Account account){
+        if(account == null) {
+            model.addAttribute("error", "로그인 후 이용 가능합니다.");
+        }
+        List<NamaneTemp> cardList = namaneService.get(account.getId());
+        model.addAttribute("list",cardList);
+        model.addAttribute("mc", "activity");
+        model.addAttribute("pageTitle", "예방교육");
+        return "/pages/activity/abilityCardSetp4";
+    }
+
+    @GetMapping({"/pages/activity/importantEducation1"})
+    public String importantEducation1(Model model,
+                           HttpSession session) {
+        model.addAttribute("mc", "activity");
+        model.addAttribute("pageTitle", "예방교육");
+        return "/pages/activity/importantEducation1";
+    }
+
+    @GetMapping({"/pages/activity/importantEducation2"})
+    public String importantEducation2(Model model,
+                           HttpSession session) {
+        model.addAttribute("mc", "activity");
+        model.addAttribute("pageTitle", "예방교육");
+        return "/pages/activity/importantEducation2";
+    }
+
 
     @RequestMapping({"/pages/activity/preventionEdu", "/pages/activity/preventionEdu/{userGbn}"})
     public String list(Model model,
@@ -116,7 +233,7 @@ public class ActivityController extends BaseCont {
         model.addAttribute("userGbn", userGbn);
 
         model.addAttribute("mc", "activity");
-        model.addAttribute("pageTitle", "교육");
+        model.addAttribute("pageTitle", "예방교육");
         return "/pages/activity/preventionEdu";
     }
 
@@ -179,9 +296,17 @@ public class ActivityController extends BaseCont {
         model.addAttribute("boardMaster", boardMaster);
 
         model.addAttribute("mc", "activity");
-        model.addAttribute("pageTitle", "교육");
+        model.addAttribute("pageTitle", "예방교육");
         model.addAttribute("rootPath", rootPath);
         return "/pages/activity/eduDataRoom";
+    }
+
+
+    @RequestMapping({ "/pages/activity/namane"})
+    public String namanePage(Model model){
+        model.addAttribute("mc","activity");
+        model.addAttribute("pageTitle", "예방교육");
+        return "/pages/activity/namane";
     }
 
     @GetMapping({"/pages/activity/eduDataRoomDetail/{id}"})
@@ -237,7 +362,7 @@ public class ActivityController extends BaseCont {
         boardDataService.updateByReadCnt(boardDataForm);
 
         model.addAttribute("mc", "activity");
-        model.addAttribute("pageTitle", "교육");
+        model.addAttribute("pageTitle", "예방교육");
         model.addAttribute("rootPath", rootPath);
         return "/pages/activity/eduDataRoomDetail";
     }
@@ -260,7 +385,7 @@ public class ActivityController extends BaseCont {
         model.addAttribute("filePath", rootPath + "/" + Constants.FOLDERNAME_POSTSCRIPT);
 
         model.addAttribute("mc", "activity");
-        model.addAttribute("pageTitle", "교육");
+        model.addAttribute("pageTitle", "예방교육");
         model.addAttribute("rootPath", rootPath);
         return "/pages/activity/postscript";
     }
@@ -303,7 +428,7 @@ public class ActivityController extends BaseCont {
         model.addAttribute("accept", StringUtil.join(",", ArrayUtils.addAll(FileUtilHelper.imageExt)));
 
         model.addAttribute("mc", "activity");
-        model.addAttribute("pageTitle", "교육");
+        model.addAttribute("pageTitle", "예방교육");
         return "/pages/activity/postscriptRegister";
     }
 
@@ -355,7 +480,7 @@ public class ActivityController extends BaseCont {
         model.addAttribute("userGbn", account != null ? account.getMberDvTy() : "");
 
         model.addAttribute("mc", "activity");
-        model.addAttribute("pageTitle", "교육");
+        model.addAttribute("pageTitle", "예방교육");
         return "/pages/activity/eduMasterClass";
     }
 
@@ -375,13 +500,13 @@ public class ActivityController extends BaseCont {
             boolean b = checkCourseSn(account.getId(), crsMstPid, sn);
             if (!b && atnlcReqPid != null) {
                 if (sn == 3) {
-                    model.addAttribute("altmsg","사전교육을 수강하기 전 \n사전검사를 먼저 수행해야 합니다.");
+                    model.addAttribute("altmsg","사전예방교육을 수강하기 전 \n사전검사를 먼저 수행해야 합니다.");
                     model.addAttribute("locurl","/pages/activity/preInspection/"+crsMstPid + "/" + (sn-1));
                 } else if (sn == 4) {
-                    model.addAttribute("altmsg","현장교육을 진행하기 전 \n사전교육을 먼저 수행해야 합니다.");
+                    model.addAttribute("altmsg","현장예방교육을 진행하기 전 \n사전예방교육을 먼저 수행해야 합니다.");
                     model.addAttribute("locurl","/pages/activity/eduMasterClass/"+crsMstPid);
                 } else if (sn == 5) {
-                    model.addAttribute("altmsg","사후교육을 수강하기 전 \n현장교육을 먼저 수행해야 합니다.");
+                    model.addAttribute("altmsg","사후예방교육을 수강하기 전 \n현장예방교육을 먼저 수행해야 합니다.");
                     model.addAttribute("locurl","/pages/activity/eduMasterClass/"+crsMstPid);
                 } else {
                     model.addAttribute("altmsg","이미 진행하셨습니다.");
@@ -426,7 +551,7 @@ public class ActivityController extends BaseCont {
         model.addAttribute("filePath", filePath+"/"+ Constants.FOLDERNAME_COURSEITEM);
 
         model.addAttribute("mc", "activity");
-        model.addAttribute("pageTitle", "교육");
+        model.addAttribute("pageTitle", "예방교육");
         return "/pages/activity/eduClass";
     }
 
@@ -447,13 +572,13 @@ public class ActivityController extends BaseCont {
             completeBool = checkCourseSn(account.getId(), crsMstPid, sn);
             if (!completeBool && atnlcReqPid != null && atnlcReqPid != 0L) {
                 if (sn == 3) {
-                    model.addAttribute("altmsg","사전교육을 수강하기 전 \n사전검사를 먼저 수행해야 합니다.");
+                    model.addAttribute("altmsg","사전예방교육을 수강하기 전 \n사전검사를 먼저 수행해야 합니다.");
                     model.addAttribute("locurl","/pages/activity/preInspection/"+crsMstPid + "/" + (sn-1));
                 } else if (sn == 4) {
-                    model.addAttribute("altmsg","현장교육을 진행하기 전 \n사전교육을 먼저 수행해야 합니다.");
+                    model.addAttribute("altmsg","현장예방교육을 진행하기 전 \n사전예방교육을 먼저 수행해야 합니다.");
                     model.addAttribute("locurl","/pages/activity/eduMasterClass/"+crsMstPid);
                 } else if (sn == 5) {
-                    model.addAttribute("altmsg","사후교육을 수강하기 전 \n현장교육을 먼저 수행해야 합니다.");
+                    model.addAttribute("altmsg","사후예방교육을 수강하기 전 \n현장예방교육을 먼저 수행해야 합니다.");
                     model.addAttribute("locurl","/pages/activity/eduMasterClass/"+crsMstPid);
                 } else {
                     model.addAttribute("altmsg","이미 진행하셨습니다.");
@@ -513,7 +638,7 @@ public class ActivityController extends BaseCont {
         model.addAttribute("filePath", filePath+"/"+ Constants.FOLDERNAME_COURSEITEM);
 
         model.addAttribute("mc", "activity");
-        model.addAttribute("pageTitle", "교육");
+        model.addAttribute("pageTitle", "예방교육");
         return "/pages/activity/eduClassDetail";
     }
 
@@ -534,7 +659,7 @@ public class ActivityController extends BaseCont {
         model.addAttribute("filePath", filePath+"/"+ Constants.FOLDERNAME_COURSEITEM);
 
         model.addAttribute("mc", "activity");
-        model.addAttribute("pageTitle", "교육");
+        model.addAttribute("pageTitle", "예방교육");
         return "/pages/activity/eduTasteDetail";
     }
 
@@ -542,7 +667,7 @@ public class ActivityController extends BaseCont {
     public String videoLecture(Model model,
                                  HttpSession session) {
         model.addAttribute("mc", "activity");
-        model.addAttribute("pageTitle", "교육");
+        model.addAttribute("pageTitle", "예방교육");
         return "/pages/activity/popup/videoLecture";
     }
 
@@ -669,7 +794,7 @@ public class ActivityController extends BaseCont {
         model.addAttribute("rtnMap", rtnMap);
 
         model.addAttribute("mc", "activity");
-        model.addAttribute("pageTitle", "교육");
+        model.addAttribute("pageTitle", "예방교육");
         return "/pages/activity/preInspection01";
     }
 
@@ -826,7 +951,7 @@ public class ActivityController extends BaseCont {
         model.addAttribute("sn", courseMasterRelForm.getSn());
 
         model.addAttribute("mc", "activity");
-        model.addAttribute("pageTitle", "교육");
+        model.addAttribute("pageTitle", "예방교육");
         return "/pages/activity/preInspection03";
     }
 
@@ -890,7 +1015,7 @@ public class ActivityController extends BaseCont {
 
         model.addAttribute("crsMstPid", crsMstPid);
         model.addAttribute("mc", "activity");
-        model.addAttribute("pageTitle", "교육");
+        model.addAttribute("pageTitle", "예방교육");
         return "/pages/activity/satisfactionTest";
     }
 
@@ -1030,7 +1155,7 @@ public class ActivityController extends BaseCont {
         model.addAttribute("messagePid", experienceMessagePid);
 
         model.addAttribute("mc", "activity");
-        model.addAttribute("pageTitle", "체험");
+        model.addAttribute("pageTitle", "체험하기");
         return "/pages/activity/experienceList";
     }
 
@@ -1100,7 +1225,7 @@ public class ActivityController extends BaseCont {
         model.addAttribute("dvCodePid", dvCodePid);
         model.addAttribute("filePath", filepath+"/"+ Constants.FOLDERNAME_CAMPAIGN);
         model.addAttribute("mc", "activity");
-        model.addAttribute("pageTitle", "문화");
+        model.addAttribute("pageTitle", "문화만들기");
         return "/pages/activity/cultureIntro";
     }
 
@@ -1139,7 +1264,7 @@ public class ActivityController extends BaseCont {
         model.addAttribute("dvCodePid", dvCodePid);
         model.addAttribute("filePath", filepath+"/"+ Constants.FOLDERNAME_CAMPAIGN);
         model.addAttribute("mc", "activity");
-        model.addAttribute("pageTitle", "문화");
+        model.addAttribute("pageTitle", "문화만들기");
         return "/pages/activity/cultureList";
     }
 
@@ -1181,7 +1306,7 @@ public class ActivityController extends BaseCont {
         campaignService.updateByReadCnt(campaignForm);
 
         model.addAttribute("mc", "activity");
-        model.addAttribute("pageTitle", "문화");
+        model.addAttribute("pageTitle", "문화만들기");
         return "/pages/activity/cultureDetail";
     }
 
@@ -1190,7 +1315,7 @@ public class ActivityController extends BaseCont {
 
 
         model.addAttribute("mc", "activity");
-        model.addAttribute("pageTitle", "치유");
+        model.addAttribute("pageTitle", "도움요청");
         return "/pages/activity/healIntro";
     }
 
@@ -1212,7 +1337,7 @@ public class ActivityController extends BaseCont {
         model.addAttribute("bannerFilePath", filePath + "/" + Constants.FOLDERNAME_BANNER);
 
         model.addAttribute("mc", "activity");
-        model.addAttribute("pageTitle", "치유");
+        model.addAttribute("pageTitle", "도움요청");
         return "/pages/activity/helpCounseling";
     }
 
@@ -1227,7 +1352,7 @@ public class ActivityController extends BaseCont {
 
 
         model.addAttribute("mc", "activity");
-        model.addAttribute("pageTitle", "치유");
+        model.addAttribute("pageTitle", "도움요청");
         return "/pages/activity/helpRequest";
     }
 
@@ -1266,7 +1391,7 @@ public class ActivityController extends BaseCont {
         model.addAttribute("loadAnswer", loadAnswer);
 
         model.addAttribute("mc", "activity");
-        model.addAttribute("pageTitle", "치유");
+        model.addAttribute("pageTitle", "도움요청");
         return "/pages/activity/helpRequestDetail";
     }
 
@@ -1345,7 +1470,7 @@ public class ActivityController extends BaseCont {
         model.addAttribute("accept", StringUtil.join(",", ArrayUtils.addAll(FileUtilHelper.getAllExt())));
 
         model.addAttribute("mc", "activity");
-        model.addAttribute("pageTitle", "치유");
+        model.addAttribute("pageTitle", "도움요청");
         return "/pages/activity/helpRequestRegister";
     }
 
@@ -1367,7 +1492,7 @@ public class ActivityController extends BaseCont {
         model.addAttribute("boardMaster", boardMaster);
 
         model.addAttribute("mc", "activity");
-        model.addAttribute("pageTitle", "치유");
+        model.addAttribute("pageTitle", "도움요청");
         model.addAttribute("rootPath", rootPath);
         return "/pages/activity/helpDataRoom";
     }
@@ -1402,7 +1527,7 @@ public class ActivityController extends BaseCont {
         boardDataService.updateByReadCnt(boardDataForm);
 
         model.addAttribute("mc", "activity");
-        model.addAttribute("pageTitle", "치유");
+        model.addAttribute("pageTitle", "도움요청");
         model.addAttribute("rootPath", rootPath);
         return "/pages/activity/helpDataRoomDetail";
     }
@@ -1412,7 +1537,7 @@ public class ActivityController extends BaseCont {
 
 
         model.addAttribute("mc", "activity");
-        model.addAttribute("pageTitle", "치유");
+        model.addAttribute("pageTitle", "도움요청");
         return "/pages/activity/familyTherapy";
     }
 
@@ -1421,14 +1546,14 @@ public class ActivityController extends BaseCont {
 
 
         model.addAttribute("mc", "activity");
-        model.addAttribute("pageTitle", "치유");
+        model.addAttribute("pageTitle", "도움요청");
         return "/pages/activity/mindSharing";
     }
 
     @RequestMapping("/pages/activity/factualSurvey")
     public String factualSurvey(Model model) {
         model.addAttribute("mc", "activity");
-        model.addAttribute("pageTitle", "연구");
+        model.addAttribute("pageTitle", "진단하기");
         return "/pages/activity/factualSurvey";
     }
 
@@ -1460,14 +1585,14 @@ public class ActivityController extends BaseCont {
         model.addAttribute("list", rtnList);
 
         model.addAttribute("mc", "activity");
-        model.addAttribute("pageTitle", "연구");
+        model.addAttribute("pageTitle", "진단하기");
         return "/pages/activity/factualSurveyTest";
     }
 
     @RequestMapping("/pages/activity/research")
     public String research(Model model) {
         model.addAttribute("mc", "activity");
-        model.addAttribute("pageTitle", "연구");
+        model.addAttribute("pageTitle", "진단하기");
         return "/pages/activity/research";
     }
 
@@ -1489,7 +1614,7 @@ public class ActivityController extends BaseCont {
         model.addAttribute("boardMaster", boardMaster);
 
         model.addAttribute("mc", "activity");
-        model.addAttribute("pageTitle", "제안");
+        model.addAttribute("pageTitle", "제안하기");
         return "/pages/activity/policyProposal";
     }
 
@@ -1523,7 +1648,7 @@ public class ActivityController extends BaseCont {
         model.addAttribute("filePath", filepath+"/"+ Constants.FOLDERNAME_BOARDDATA);
 
         model.addAttribute("mc", "activity");
-        model.addAttribute("pageTitle", "제안");
+        model.addAttribute("pageTitle", "제안하기");
         return "/pages/activity/policyProposalDetail";
     }
 
@@ -1556,21 +1681,21 @@ public class ActivityController extends BaseCont {
         model.addAttribute("allAccept", StringUtil.join(",", ArrayUtils.addAll(FileUtilHelper.getAllExt())));
 
         model.addAttribute("mc", "activity");
-        model.addAttribute("pageTitle", "제안");
+        model.addAttribute("pageTitle", "제안하기");
         return "/pages/activity/policyProposalRegister";
     }
 
     @RequestMapping("/pages/activity/contest")
     public String contest(Model model) {
         model.addAttribute("mc", "activity");
-        model.addAttribute("pageTitle", "제안");
+        model.addAttribute("pageTitle", "제안하기");
         return "/pages/activity/contest";
     }
 
     @RequestMapping("/pages/activity/networking")
     public String networking(Model model) {
         model.addAttribute("mc", "activity");
-        model.addAttribute("pageTitle", "네트워킹");
+        model.addAttribute("pageTitle", "푸코포럼");
         return "/pages/activity/networking";
     }
 
@@ -1895,7 +2020,7 @@ public class ActivityController extends BaseCont {
                 return "/message";
             }
         } else {
-            model.addAttribute("altmsg", "이미 내 교육자료실에 저장되어 있습니다.");
+            model.addAttribute("altmsg", "이미 내 예방교육자료실에 저장되어 있습니다.");
             model.addAttribute("locurl", "/pages/activity/eduDataRoomDetail/" + dataPid);
             return "/message";
         }

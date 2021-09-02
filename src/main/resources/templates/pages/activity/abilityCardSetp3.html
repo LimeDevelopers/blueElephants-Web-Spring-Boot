@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+</head>
+<script>
+    let free;
+    let point;
+    let pay;
+    let msg;
+    let error;
+
+    $(document).ready(function (e) {
+        msg = '[[${msg}]]';
+        error = '[[${error}]]';
+        if(error){
+            alert(error);
+            location.href='/pages/activity/abilityCardIntro';
+        }
+        if(msg){
+           alert(msg);
+           location.href='/pages/activity/abilityCardIntro'
+        }
+        $('#free').on('click', function (e){
+            location.href = '/api/namane/get'
+        })
+
+        $('#point').on('click', function (e){
+            alert('준비중입니다.')
+            return false;
+        })
+
+        $('#pay').on('click', function (e){
+            alert('준비중입니다.')
+            return false;
+        })
+    })
+
+</script>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+    <div id="wrap">
+        <th:block th:include="fragments/header_gnb"></th:block>
+        <div id="container">
+            <th:block th:include="fragments/mo_menu"></th:block>
+            <div class="sub_container">
+                <th:block th:include="fragments/dept_menu"></th:block>
+
+                <div class="card_inner inner">
+                    <h1>능력카드제작소</h1>
+                    <b>결제방식</b>
+                    <div class="card_point">
+                        <h2>결제방식</h2>
+                        <div class="item_inner_3">
+                            <div class="type_01 type" id="free">
+                                <b>무료 카드 만들기 (잔여 1회)</b>
+                                <span>*4차시 교육수강 완료자에 한해 무료 지급</span>
+                            </div>
+                            <div class="type_02 type" id="point">
+                                <b>포인트 차감</b>
+                            </div>
+                            <div class="type_03 type" id="pay">
+                                <b>무통장입금</b>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <th:block th:replace="fragments/footer"></th:block>
+            <div class="card_modal">
+                <div class="modal_inner">
+                    <b>발급 신청이 정상적으로<br>
+                        처리되었습니다.</b>
+                    <a class="cf_btn" href="#none">확인</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -84,6 +84,13 @@ public class Account implements Serializable {
     private String groupYn;
     @Column(name = "crew_yn")
     private String crewYn;
+    @Column(name = "online_edu")
+    private String onlineEdu;
+    @Column(name = "edu_reset")
+    private String eduReset;
+    @Column(name = "card_reset")
+    private String cardReset;
+
 
     @Transient
     private String areaNm;

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+</head>
+<script>
+    $(document).ready(function (e){
+        $('.more_btn').on('click', function (e) {
+            location.href = '/pages/activity/abilityCardSetp1'
+        })
+    })
+</script>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+    <div id="wrap">
+        <th:block th:include="fragments/header_gnb"></th:block>
+        <div id="container">
+            <th:block th:include="fragments/mo_menu"></th:block>
+            <div class="sub_container">
+                <th:block th:include="fragments/dept_menu"></th:block>
+
+                <div class="card_inner inner">
+                    <h1>능력카드제작소</h1>
+                    <b>나만의카드</b>
+                    <div class="card_list">
+                        <h2>능력카드 저장 내역</h2>
+                        <div class="item_inner_5">
+                            <div class="card_list_inner">
+                                <div class="list_view" th:each="item,idx:${list}">
+                                    <div class="view_item">
+                                        <div class="item">
+                                            <div class="photo">
+                                                <img th:src="${item.timg}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span th:text="${item.yn eq 'N' ? '발급대기' : '배송중'}">상태</span>
+                                </div>
+
+                                <div class="list_view">
+                                    <div class="view_item">
+                                        <div class="more">
+                                            <button class="more_btn">
+                                            </button>
+                                            <small>새 카드 만들기</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <th:block th:replace="fragments/footer"></th:block>
+        </div>
+    </div>
+</body>
+</html>

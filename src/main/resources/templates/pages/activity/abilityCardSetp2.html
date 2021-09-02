@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+</head>
+<script>
+    let url;
+    let error;
+    let btnNextStep;
+    let frm;
+
+    $(document).ready(function (e) {
+        url = '[[${url}]]';
+        error = '[[${error}]]';
+        btnNextStep = $('#btnNextStep');
+        if(error){
+            alert(error);
+            location.href='/pages/activity/abilityCardIntro';
+        }
+        if (!url) {
+            alert('등록된 이미지가 존재하지않습니다.')
+            history.back();
+        } else {
+            $('.item_2').css('background', "#d2d4de url(" + url + ")no-repeat center center");
+            $('#encodeStr').val(url)
+        }
+
+        btnNextStep.on('click', function (e) {
+            frm = $('#form1');
+            frm.prop('action', '/api/namane/set');
+            frm.submit();
+        })
+    })
+
+    function fn_step1() {
+        location.href = '/pages/activity/abilityCardSetp1'
+    }
+
+    function characterCheck() {
+        var RegExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi;
+        let obj = $('#printText');
+        if (RegExp.test(obj.val())) {
+            alert("특수문자는 입력하실 수 없습니다.");
+            obj.val('');
+        }
+    }
+
+
+
+</script>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/mo_menu"></th:block>
+        <div class="sub_container">
+            <th:block th:include="fragments/dept_menu"></th:block>
+
+                <div class="card_inner inner">
+                    <h1>능력카드제작소</h1>
+                    <b>나만의카드</b>
+                    <div class="card">
+                        <small>두손가락으로 이미지를 확대 또는 회전 가능<br>
+                            (카드에 사진 전체적용 X)</small>
+                        <form id="form1" name="form1" modelAttribute="auroraForm" method="post">
+                            <input type="hidden" id="encodeStr" name="encodeStr"/>
+                            <input type="hidden" id="rotationType" name="rotationType" value="HORIZONTAL"/>
+                        <div class="item_inner_2">
+                            <div class="item_2">
+                            </div>
+                            <input type="text" id="printText" onkeyup="characterCheck()" name="printText" placeholder="(문구입력 / 이모티콘 X)" maxlength="30" >
+                            <label onclick="fn_step1()" id="chg">사진변경</label>
+                        </div>
+                        </form>
+                        <div class="btn_area">
+                            <button id="btnNextStep" class="btn btn_lg btn_blue btn_pill_10">다음</button>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <th:block th:replace="fragments/footer"></th:block>
+    </div>
+</div>
+</body>
+</html>

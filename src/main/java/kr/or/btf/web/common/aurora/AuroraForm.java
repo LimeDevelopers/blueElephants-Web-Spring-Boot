@@ -41,4 +41,5 @@ public class AuroraForm extends SearchForm {
     private String URL = "/uploadMyPhoto/PUCO";
     private String base64;
     private String msg;
+    private String type;
 }
