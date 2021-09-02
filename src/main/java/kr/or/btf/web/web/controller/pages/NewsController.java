@@ -63,7 +63,7 @@ public class NewsController {
         model.addAttribute("filePath", filePath + "/" + Constants.FOLDERNAME_BOARDDATA);
 
         model.addAttribute("mc", "news");
-        model.addAttribute("pageTitle", "푸코소식");
+        model.addAttribute("pageTitle", "소식/행사");
         return "/pages/news/list";
     }
 
@@ -80,7 +80,7 @@ public class NewsController {
         model.addAttribute("filePath", filePath + "/" + Constants.FOLDERNAME_EVENT);
 
         model.addAttribute("mc", "news");
-        model.addAttribute("pageTitle", "행사");
+        model.addAttribute("pageTitle", "캘린더");
         return "/pages/news/listForEvent";
     }
 
