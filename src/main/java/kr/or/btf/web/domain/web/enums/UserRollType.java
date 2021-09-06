@@ -11,7 +11,7 @@ public enum UserRollType {
     COUNSELOR("상담사"),
     GROUP("단체"),
     CREW("지지크루"),
-    BATCH("배치");
+    BATCH("일괄가입");
 
     final private String name;
 

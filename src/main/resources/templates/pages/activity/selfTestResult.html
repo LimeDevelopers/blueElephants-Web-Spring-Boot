@@ -7,58 +7,71 @@
 <div id="wrap">
     <th:block th:include="fragments/header_gnb"></th:block>
     <div id="container">
-        <th:block th:include="fragments/snb"></th:block>
+        <th:block th:include="fragments/mo_menu"></th:block>
+        <div class="sub_container">
+            <th:block th:include="fragments/dept_menu"></th:block>
 
-        <div class="contents">
-            <div class="page_top mo">
-                <h3 class="page_tit">사이버폭력예방교육 사전검사</h3>
-            </div>
-            <div class="page_cont">
-                <div class="view_cont inspection">
-                    <!--1단계 : s-->
-                    <div class="self_test_result lv01" th:if="${grade eq 1}">
-                        <dl>
-                            <dt><img src="/ClientUI/user/images/contents/tit_self_test01.png" alt="푸른코끼리가 슬퍼하고 있어요!" /></dt>
-                            <dd>하지만 걱정 말아요. <br>푸른코끼리와 교육을 듣고 <br>안전한 사이버세상을 위해 함께 노력해요!<br><br><span>사이버폭력 상담전화 1588-9128</span></dd>
-                        </dl>
-                    </div>
-                    <!--1단계 : e-->
+            <div class="contents">
+                <div class="page_top mo">
+                    <h3 class="page_tit">사이버폭력예방교육 사전검사</h3>
+                </div>
+                <div class="page_cont">
+                    <div class="view_cont inspection">
+                        <!--1단계 : s-->
+                        <div class="self_test_result lv01" th:if="${grade eq 1}">
+                            <dl>
+                                <dt><img src="/ClientUI/user/images/contents/tit_self_test01.png"
+                                         alt="푸른코끼리가 슬퍼하고 있어요!"/></dt>
+                                <dd>하지만 걱정 말아요. <br>푸른코끼리와 교육을 듣고 <br>안전한 사이버세상을 위해 함께 노력해요!<br><br><span>사이버폭력 상담전화 1588-9128</span>
+                                </dd>
+                            </dl>
+                        </div>
+                        <!--1단계 : e-->
 
-                    <!--2단계 : s-->
-                    <div class="self_test_result lv02" th:if="${grade eq 2}">
-                        <dl>
-                            <dt><img src="/ClientUI/user/images/contents/tit_self_test02.png" alt="사이버세상을 다시 살펴보아요." /></dt>
-                            <dd>괜찮아요! <br>조금 더 노력한다면 <br>나도 푸른코끼리가 될 수 있어요!<br><br><span>사이버폭력 상담전화 1588-9128</span></dd>
-                        </dl>
-                    </div>
-                    <!--2단계 : e-->
+                        <!--2단계 : s-->
+                        <div class="self_test_result lv02" th:if="${grade eq 2}">
+                            <dl>
+                                <dt><img src="/ClientUI/user/images/contents/tit_self_test02.png"
+                                         alt="사이버세상을 다시 살펴보아요."/></dt>
+                                <dd>괜찮아요! <br>조금 더 노력한다면 <br>나도 푸른코끼리가 될 수 있어요!<br><br><span>사이버폭력 상담전화 1588-9128</span>
+                                </dd>
+                            </dl>
+                        </div>
+                        <!--2단계 : e-->
 
-                    <!--3단계 : s-->
-                    <div class="self_test_result lv03" th:if="${grade eq 3}">
-                        <dl>
-                            <dt><img src="/ClientUI/user/images/contents/tit_self_test03.png" alt="사이버폭력 예방을 위해 노력해줘서 고마워요" /></dt>
-                            <dd>오늘도 사이버폭력 예방을 위해 <br>노력하고 함께해줘서 고마워요 <br>푸른코끼리와 조금 더 노력해봐요! <br><br><span>사이버폭력 상담전화 1588-9128</span></dd>
-                        </dl>
-                    </div>
-                    <!--3단계 : e-->
+                        <!--3단계 : s-->
+                        <div class="self_test_result lv03" th:if="${grade eq 3}">
+                            <dl>
+                                <dt><img src="/ClientUI/user/images/contents/tit_self_test03.png"
+                                         alt="사이버폭력 예방을 위해 노력해줘서 고마워요"/></dt>
+                                <dd>오늘도 사이버폭력 예방을 위해 <br>노력하고 함께해줘서 고마워요 <br>푸른코끼리와 조금 더 노력해봐요! <br><br><span>사이버폭력 상담전화 1588-9128</span>
+                                </dd>
+                            </dl>
+                        </div>
+                        <!--3단계 : e-->
 
-                    <!--4단계 : s-->
-                    <div class="self_test_result lv04" th:if="${grade eq 4}">
-                        <dl>
-                            <dt><img src="/ClientUI/user/images/contents/tit_self_test04.png" alt="사이버폭력 예방 엄지척!" /></dt>
-                            <dd>사이버폭력예방을위해 <br>노력하고 있는 우리 친구 <br>엄지척! 칭찬해요! <br><br><span>사이버폭력 상담전화 1588-9128</span></dd>
-                        </dl>
-                    </div>
-                    <!--4단계 : e-->
+                        <!--4단계 : s-->
+                        <div class="self_test_result lv04" th:if="${grade eq 4}">
+                            <dl>
+                                <dt><img src="/ClientUI/user/images/contents/tit_self_test04.png" alt="사이버폭력 예방 엄지척!"/>
+                                </dt>
+                                <dd>사이버폭력예방을위해 <br>노력하고 있는 우리 친구 <br>엄지척! 칭찬해요!
+                                    <br><br><span>사이버폭력 상담전화 1588-9128</span></dd>
+                            </dl>
+                        </div>
+                        <!--4단계 : e-->
 
-                    <!--5단계 : s-->
-                    <div class="self_test_result lv05" th:if="${grade eq 5}">
-                        <dl>
-                            <dt><img src="/ClientUI/user/images/contents/tit_self_test05.png" alt="나는야 가디언즈 푸른코끼리" /></dt>
-                            <dd>사이버폭력을 예방하고 스스로도 <br>약속을 잘 지키는 가디언즈 푸코! <br>도움이 필요한 친구를 만나면 도와주세요!<br><br><span>사이버폭력 상담전화 1588-9128</span></dd>
-                        </dl>
+                        <!--5단계 : s-->
+                        <div class="self_test_result lv05" th:if="${grade eq 5}">
+                            <dl>
+                                <dt><img src="/ClientUI/user/images/contents/tit_self_test05.png" alt="나는야 가디언즈 푸른코끼리"/>
+                                </dt>
+                                <dd>사이버폭력을 예방하고 스스로도 <br>약속을 잘 지키는 가디언즈 푸코! <br>도움이 필요한 친구를 만나면 도와주세요!<br><br><span>사이버폭력 상담전화 1588-9128</span>
+                                </dd>
+                            </dl>
+                        </div>
+                        <!--5단계 : e-->
                     </div>
-                    <!--5단계 : e-->
                 </div>
             </div>
         </div>

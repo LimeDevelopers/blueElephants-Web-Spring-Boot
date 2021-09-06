@@ -7,7 +7,9 @@
 <div id="wrap">
     <th:block th:include="fragments/header_gnb"></th:block>
     <div id="container">
-        <th:block th:include="fragments/snb"></th:block>
+        <th:block th:include="fragments/mo_menu"></th:block>
+        <div class="sub_container">
+            <th:block th:include="fragments/dept_menu"></th:block>
 
         <form id="form1" name="form1" method="post" th:object="${form}">
 
@@ -19,11 +21,6 @@
                 <div class="page_cont">
                     <div class="tab_ico_area">
                         <a href="javascript:;" class="tit">소개</a>
-                        <ul class="tab_type_ico">
-                            <li class="help"><a href="/pages/activity/helpCounseling">도움상담</a>
-                            <li class="therapy"><a href="/pages/activity/familyTherapy">가족테라피</a></li>
-                            <li class="mind"><a href="/pages/activity/mindSharing">마음나눔</a></li>
-                        </ul>
                         <p class="mo_page_txt">사이버폭력으로 인한 상담과 도움을 요청하세요.</p>
                         <div class="tab_cont">
                             <div class="cont intro">
@@ -87,6 +84,7 @@
                 </div>
             </div>
         </form>
+        </div>
     </div>
     <th:block th:replace="fragments/footer"></th:block>
 </div>

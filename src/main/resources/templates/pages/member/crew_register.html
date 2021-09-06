@@ -460,11 +460,15 @@
                         }
                     }
                 }
+
+                if(mberDvTy=='CREW') {
+                    if(!fn_chkField(mberDvTy)){
+                        $('#btnSave').prop('disabled', false);
+                        return false;
+                    }
+                }
                 frm.prop('action', '/api/member/groupInsert');
                 frm.submit();
-
-
-
 
                 // let formData = $("#form1").serialize();
                 // formData.append("attachedFile", attachedFile.files[0]);

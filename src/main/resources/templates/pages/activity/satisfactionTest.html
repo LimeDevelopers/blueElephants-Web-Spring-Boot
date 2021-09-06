@@ -11,11 +11,11 @@
             var msg = "";
             var checked = true;
 
-            $("input[name=question]").each(function() {
+            $("input[name=question]").each(function () {
                 var qesitm_id = $(this).val();
-                var answer_cnt = $("#answer_cnt"+qesitm_id).val();
-                var rspns_cnt = $("#rspns_cnt"+qesitm_id).val();
-                var count = $("#count"+qesitm_id).val();
+                var answer_cnt = $("#answer_cnt" + qesitm_id).val();
+                var rspns_cnt = $("#rspns_cnt" + qesitm_id).val();
+                var count = $("#count" + qesitm_id).val();
 
                 if (rspns_cnt > 0) {  //필수일 경우만 체크
                     if (answer_cnt > 0) {  //객관식
@@ -23,8 +23,8 @@
                         if (answer.length != rspns_cnt) {
                             checked = false;
                             msg = count + '번 문항에 답변을 ' + rspns_cnt + '개 선택해주세요.';
-                            var offset = $('#step_'+count).offset();
-                            $('html, body').animate({scrollTop : offset.top}, 400);
+                            var offset = $('#step_' + count).offset();
+                            $('html, body').animate({scrollTop: offset.top}, 400);
                             return false;
                         }
                     } else {    //주관식
@@ -57,7 +57,7 @@
                     success: function (data) {
                         if (data === 'ok') {
                             alert('제출완료 되었습니다.');
-                            location.href='/pages/activity/eduIntro';
+                            location.href = '/pages/activity/eduIntro';
                         } else {
                             alert('실패되었습니다 관리자에게 문의 하세요');
                         }
@@ -74,72 +74,83 @@
 <div id="wrap">
     <th:block th:include="fragments/header_gnb"></th:block>
     <div id="container">
-        <th:block th:include="fragments/snb"></th:block>
+        <th:block th:include="fragments/mo_menu"></th:block>
+        <div class="sub_container">
+            <th:block th:include="fragments/dept_menu"></th:block>
 
-        <form id="form1" name="form1" method="post" th:object="${form}">
-            <input type="hidden" id="id" name="id" th:value="*{id}"/>
-            <input type="hidden" id="crsMstPid" name="crsMstPid" th:value="${crsMstPid}"/>
-            <div class="contents">
-                <div class="page_top mo">
-                    <h3 class="page_tit">사이버폭력예방교육 만족도 검사</h3>
-                </div>
-                <div class="page_cont">
-                    <div class="view_cont satisfaction">
-                        <strong class="tit pc center" th:text="*{ttl}">사이버폭력예방교육 만족도 검사</strong>
-                        <div class="step_area">
-                            <th:block th:each="item,idx : ${list}" th:with="question = ${item.question}, caseList = ${item.caseList}">
-                                <p>
+            <form id="form1" name="form1" method="post" th:object="${form}">
+                <input type="hidden" id="id" name="id" th:value="*{id}"/>
+                <input type="hidden" id="crsMstPid" name="crsMstPid" th:value="${crsMstPid}"/>
+                <div class="contents">
+                    <div class="page_top mo">
+                        <h3 class="page_tit">사이버폭력예방교육 만족도 검사</h3>
+                    </div>
+                    <div class="page_cont">
+                        <div class="view_cont satisfaction">
+                            <strong class="tit pc center" th:text="*{ttl}">사이버폭력예방교육 만족도 검사</strong>
+                            <div class="step_area">
+                                <th:block th:each="item,idx : ${list}"
+                                          th:with="question = ${item.question}, caseList = ${item.caseList}">
+                                    <p>
                                     <span class="step" th:id="${'step_'+idx.count}">
                                             STEP <th:block th:text="${idx.count}"></th:block>
                                         </span>
-                                    <th:block th:text="${question.qestnQesitm}">지금 기분이 어떠한 가요?</th:block>
-                                    <th:block th:if="${question.rspnsCnt >1}">
-                                        <th:block th:text="${'(답변 '+question.rspnsCnt+'개)'}"></th:block>
-                                    </th:block>
+                                        <th:block th:text="${question.qestnQesitm}">지금 기분이 어떠한 가요?</th:block>
+                                        <th:block th:if="${question.rspnsCnt >1}">
+                                            <th:block th:text="${'(답변 '+question.rspnsCnt+'개)'}"></th:block>
+                                        </th:block>
 
-                                    <input type="hidden" name="question" th:id="${'question'+question.id}" th:value="${question.id}"/>
-                                    <input type="hidden" th:id="${'answer_cnt'+question.id}" th:value="${question.answerCnt}"/>
-                                    <input type="hidden" th:id="${'rspns_cnt'+question.id}" th:value="${question.rspnsCnt}"/>
-                                    <input type="hidden" th:id="${'count'+question.id}" th:value="${idx.count}"/>
-                                </p>
-                                <th:block th:if="${question.aswDvTy eq T(kr.or.btf.web.domain.web.enums.AnswerType).CHOICE.name()}">
-                                    <th:block th:if="${question.rspnsCnt >1}"> <!--객관식 복수선택-->
-                                        <div class="checkbox_area">
-                                            <div class="checkbox txt" th:each="case: ${caseList}">
-                                                <input type="checkbox" th:value="${case.id}"
-                                                       th:name="${'answer'+question.id}"
-                                                       th:id="${'answer'+question.id+'_'+case.id}"/>
-                                                <label th:for="${'answer'+question.id+'_'+case.id}"
-                                                       th:text="${case.answerCnts}"></label>
+                                        <input type="hidden" name="question" th:id="${'question'+question.id}"
+                                               th:value="${question.id}"/>
+                                        <input type="hidden" th:id="${'answer_cnt'+question.id}"
+                                               th:value="${question.answerCnt}"/>
+                                        <input type="hidden" th:id="${'rspns_cnt'+question.id}"
+                                               th:value="${question.rspnsCnt}"/>
+                                        <input type="hidden" th:id="${'count'+question.id}" th:value="${idx.count}"/>
+                                    </p>
+                                    <th:block
+                                            th:if="${question.aswDvTy eq T(kr.or.btf.web.domain.web.enums.AnswerType).CHOICE.name()}">
+                                        <th:block th:if="${question.rspnsCnt >1}"> <!--객관식 복수선택-->
+                                            <div class="checkbox_area">
+                                                <div class="checkbox txt" th:each="case: ${caseList}">
+                                                    <input type="checkbox" th:value="${case.id}"
+                                                           th:name="${'answer'+question.id}"
+                                                           th:id="${'answer'+question.id+'_'+case.id}"/>
+                                                    <label th:for="${'answer'+question.id+'_'+case.id}"
+                                                           th:text="${case.answerCnts}"></label>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </th:block>
+                                        <th:block th:unless="${question.rspnsCnt >1}"><!--객관식 단일선택-->
+                                            <div class="radio_area">
+                                                <div class="radio txt" th:each="case: ${caseList}">
+                                                    <input type="radio" th:value="${case.id}"
+                                                           th:name="${'answer'+question.id}"
+                                                           th:id="${'answer'+question.id+'_'+case.id}"/>
+                                                    <label th:for="${'answer'+question.id+'_'+case.id}"
+                                                           th:text="${case.answerCnts}"></label>
+                                                </div>
+                                            </div>
+                                        </th:block>
                                     </th:block>
-                                    <th:block th:unless="${question.rspnsCnt >1}"><!--객관식 단일선택-->
-                                        <div class="radio_area">
-                                            <div class="radio txt" th:each="case: ${caseList}">
-                                                <input type="radio" th:value="${case.id}"
-                                                       th:name="${'answer'+question.id}"
-                                                       th:id="${'answer'+question.id+'_'+case.id}"/>
-                                                <label th:for="${'answer'+question.id+'_'+case.id}"
-                                                       th:text="${case.answerCnts}"></label>
-                                            </div>
+                                    <th:block
+                                            th:unless="${question.aswDvTy eq T(kr.or.btf.web.domain.web.enums.AnswerType).CHOICE.name()}">
+                                        <div class="txt_area">
+                                            <textarea th:name="${'answer'+question.id}"
+                                                      th:id="${'answer'+question.id}"></textarea>
                                         </div>
                                     </th:block>
                                 </th:block>
-                                <th:block th:unless="${question.aswDvTy eq T(kr.or.btf.web.domain.web.enums.AnswerType).CHOICE.name()}">
-                                    <div class="txt_area">
-                                        <textarea th:name="${'answer'+question.id}" th:id="${'answer'+question.id}"></textarea>
-                                    </div>
-                                </th:block>
-                            </th:block>
-                        </div>
-                        <div class="btn_area">
-                            <a href="#" onclick="return fn_register();" class="btn btn_lg btn_blue btn_pill_10">완료</a>
+                            </div>
+                            <div class="btn_area">
+                                <a href="#" onclick="return fn_register();"
+                                   class="btn btn_lg btn_blue btn_pill_10">완료</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
     <th:block th:replace="fragments/footer"></th:block>
 </div>

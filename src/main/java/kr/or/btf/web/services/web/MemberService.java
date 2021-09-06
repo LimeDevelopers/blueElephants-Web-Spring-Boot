@@ -73,6 +73,31 @@ public class MemberService extends _BaseService {
     private final MemberGroupRepository memberGroupRepository;
     private final MemberCrewRepository memberCrewRepository;
 
+    public List<Account> findAll(){
+        return memberRepository.findAll();
+    }
+
+    public List<MemberSchool> srchTchr(String TeacherNm) {
+        QMemberSchool qMemberSchool = QMemberSchool.memberSchool;
+        BooleanBuilder builder = new BooleanBuilder();
+        builder.and(qMemberSchool.teacherNm.eq(TeacherNm));
+
+
+        List<MemberSchool> memberSchoolList = queryFactory
+                .select(Projections.fields(MemberSchool.class,
+                        qMemberSchool.areaNm,
+                        qMemberSchool.teacherNm,
+                        qMemberSchool.schlNm,
+                        qMemberSchool.grade,
+                        qMemberSchool.ban ))
+                .from(qMemberSchool)
+                .distinct()
+                .where(qMemberSchool.teacherNm.contains(TeacherNm))
+                .fetch();
+
+        return memberSchoolList;
+    }
+
     public Page<Account> list(Pageable pageable, SearchForm searchForm) {
 
         int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
@@ -153,7 +178,8 @@ public class MemberService extends _BaseService {
                             qAccount.id,
                             qAccount.loginId, qAccount.nm, qAccount.mberDvTy, qAccount.secsnDtm,
                             qAccount.sexPrTy, qAccount.moblphon, qAccount.email, qAccount.adres,
-                            qAccount.regPsId, qAccount.regDtm, qAccount.updPsId, qAccount.updDtm
+                            qAccount.regPsId, qAccount.regDtm, qAccount.updPsId, qAccount.updDtm,
+                            qAccount.onlineEdu, qAccount.eduReset, qAccount.cardReset
                     ))
                     .from(qAccount)
                     .where(builder)
@@ -197,6 +223,15 @@ public class MemberService extends _BaseService {
     public Boolean updateApproval(String pid) {
         Long chgStr = Long.parseLong(pid);
         int rs = memberRepository.setApproval(chgStr,"Y");
+        if(rs > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public Boolean updateEduType(Long pid, String type) {
+        int rs = memberRepository.setEduType(pid,type);
         if(rs > 0) {
             return true;
         } else {

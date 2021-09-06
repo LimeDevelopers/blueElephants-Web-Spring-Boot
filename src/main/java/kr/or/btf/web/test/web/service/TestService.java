@@ -61,7 +61,39 @@ public class TestService extends _BaseService {
         Page<BoardData> noticeList = boardDataService.list(pageable, searchForm, boardDataForm);
         return noticeList;
     }
+    @Transactional
+    public void batchRegister(MemberForm memberForm) {
+        String tempId = memberForm.getLoginId();
+        int cnt = 0;
+        for (int i = 1; i <= memberForm.getBatchArr(); i++) {
+            cnt = cnt+i;
+            //계정 정보 추가
+            memberForm.setDelAt("N");
+            memberForm.setPwd(passwordEncoder.encode(memberForm.getPwd())); //패스워드 셋
+            memberForm.setRegDtm(LocalDateTime.now()); //등록일
+            memberForm.setPrtctorAttcAt("Y");
+            memberForm.setNm("TEST");
+            memberForm.setSexPrTy("MALE");
 
+            memberForm.setLoginId(memberForm.getLoginId()+ i);
+
+            memberForm.setMberDvTy(UserRollType.BATCH);
+            Account account = modelMapper.map(memberForm, Account.class);
+            Account save = memberRepository.save(account);
+
+            //로그인아이디 초기화
+
+
+            MemberRoll memberRoll = new MemberRoll();
+            memberRoll.setMberPid(save.getId());
+            memberRoll.setMberDvTy(UserRollType.BATCH);
+            memberRoll.setRegDtm(LocalDateTime.now());
+            memberRoll.setRegPsId(save.getRegPsId());
+            memberRollRepository.save(memberRoll);
+            memberSchoolRepository.pr_findTID(memberForm.getAreaNm(), memberForm.getSchlNm(),
+                    memberForm.getGrade(), memberForm.getBan(), save.getId(), LocalDateTime.now());
+        }
+    }
 
     /*@Transactional
     public void testBathRegister(MemberSchoolForm memberSchoolForm) {

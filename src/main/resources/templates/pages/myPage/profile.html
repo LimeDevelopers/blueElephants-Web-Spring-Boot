@@ -177,7 +177,9 @@
                 </div>
                 <div class="btn_area">
                     <a href="javascript:;" onclick="fn_openLayer();" class="btn btn_lg btn_blue btn_pill_10">수정</a>
-                    <a href="/test/pages/myPage/batchManagement" class="btn btn_lg btn_blue btn_pill_10">일괄관리</a>
+                    <th:block th:if="${form.getMberDvTy().toString().equals('TEACHER') }">
+                        <a href="/test/pages/myPage/batchManagement" class="btn btn_lg btn_blue btn_pill_10">일괄관리</a>
+                    </th:block>
                 </div>
             </div>
         </form>

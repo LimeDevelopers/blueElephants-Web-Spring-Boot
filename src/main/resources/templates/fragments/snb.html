@@ -2,15 +2,16 @@
     수정일 : 21.08.18
     수정자 : 고선호
     수정내용 : memberJoin 비어있는 제목 추가
-
 -->
+<!-- tes -->
 
-<div class="gnb_tit" th:classappend="${mc eq 'blueElephant' ? 'gnb01' : ''} + ${mc eq 'activity' ? 'gnb02' : ''} + ${mc eq 'news' ? 'gnb03' : ''} + ${mc eq 'classRegis' ? 'gnb04' : ''} + ${mc eq 'memberJoin' ? 'gnb05' : ''} + ${mc eq 'myPage' ? 'gnb06' : ''} + ${mc eq 'customerCenter' ? 'gnb07' : ''} + ${mc eq 'searchResult' ? 'gnb08' : ''} + ${mc eq 'privacy' ? 'gnb08' : ''} + ${mc eq 'terms' ? 'gnb08' : ''} + ${mc eq 'mailDeny' ? 'gnb08' : ''} + ${mc eq 'sitemap' ? 'gnb08' : ''}" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<div class="gnb_tit" th:classappend="${mc eq 'blueElephant' ? 'gnb01' : ''} + ${mc eq 'activity' ? 'gnb02' : ''} + ${mc eq 'news' ? 'gnb03' : ''} + ${mc eq 'classRegis' ? 'gnb04' : ''} + ${mc eq 'memberJoin' ? 'gnb05' : ''} + ${mc eq 'crewJoin' ? 'gnb05' : ''} + ${mc eq 'myPage' ? 'gnb06' : ''} + ${mc eq 'customerCenter' ? 'gnb07' : ''} + ${mc eq 'searchResult' ? 'gnb08' : ''} + ${mc eq 'privacy' ? 'gnb08' : ''} + ${mc eq 'terms' ? 'gnb08' : ''} + ${mc eq 'mailDeny' ? 'gnb08' : ''} + ${mc eq 'sitemap' ? 'gnb08' : ''}" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <h2 th:if="${mc eq 'blueElephant'}">푸른코끼리</h2>
     <h2 th:if="${mc eq 'activity'}">푸른코끼리 활동</h2>
     <h2 th:if="${mc eq 'news'}">푸코소식</h2>
     <h2 th:if="${mc eq 'classRegis'}">강의신청</h2>
     <h2 th:if="${mc eq 'memberJoin'}">회원</h2>
+    <h2 th:if="${mc eq 'crewJoin'}">단체</h2>
     <h2 th:if="${mc eq 'myPage'}">마이페이지</h2>
     <h2 th:if="${mc eq 'customerCenter'}">고객센터</h2>
     <h2 th:if="${mc eq 'searchResult'}">검색결과</h2>
@@ -18,10 +19,9 @@
     <h2 th:if="${mc eq 'terms'}">이용약관</h2>
     <h2 th:if="${mc eq 'mailDeny'}">이메일무단수집거부</h2>
     <h2 th:if="${mc eq 'sitemap'}">사이트맵</h2>
-    <!--    test    -->
 </div>
 
-<div class="snb" th:if="${mc eq 'blueElephant' || mc eq 'activity' || mc eq 'classRegis' || mc eq 'myPage'}"
+<div class="snb" th:if="${mc eq 'blueElephant' || mc eq 'activity' || mc eq 'classRegis' || mc eq 'myPage' || mc eq 'news'}"
      th:classappend="${mc eq 'blueElephant' ? 'mo_bb' : ''}"
      xmlns:th="http://www.thymeleaf.org"
      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
@@ -50,13 +50,13 @@
             <li th:classappend="${pageTitle eq '제안' ? 'active' : ''}"><a href="/pages/activity/policyProposal">제안하기</a></li>
             <!--            <li th:classappend="${pageTitle eq '네트워킹' ? 'active' : ''}"><a href="/pages/activity/networking">네트워킹</a></li>-->
         </th:block>
-        <!--<th:block th:if="${mc eq 'news'}">
-            <li th:classappend="${pageTitle eq '연구조사' ? 'active' : ''}"><a href="/pages/board/">연구조사</a></li>
-            <li th:classappend="${pageTitle eq '언론보도' ? 'active' : ''}"><a href="/pages/board/">언론보도</a></li>
-            <li th:classappend="${pageTitle eq '간행물' ? 'active' : ''}"><a href="/pages/board/">간행물</a></li>
-            <li th:classappend="${pageTitle eq '소식/행사' ? 'active' : ''}"><a href="/pages/board/">소식/행사</a></li>
-            <li th:classappend="${pageTitle eq '공지사항' ? 'active' : ''}"><a href="/pages/board/">공지사항</a></li>
-        </th:block>-->
+        <th:block th:if="${mc eq 'news'}">
+            <li th:classappend="${pageTitle eq '캘린더' ? 'active' : ''}"><a href="/pages/news/event">캘린더</a></li>
+            <li th:classappend="${pageTitle eq '언론보도' ? 'active' : ''}"><a href="/pages/news/list/5">언론보도</a></li>
+            <li th:classappend="${pageTitle eq '간행물' ? 'active' : ''}"><a href="/pages/news/list/6">간행물</a></li>
+            <li th:classappend="${pageTitle eq '소식/행사' ? 'active' : ''}"><a href="/pages/news/list/7">소식/행사</a></li>
+            <li th:classappend="${pageTitle eq '공지사항' ? 'active' : ''}"><a href="/pages/news/notice">공지사항</a></li>
+        </th:block>
         <!-- <th:block th:if="${mc eq 'classRegis'}">
             <li th:classappend="${pageTitle eq '강의신청' ? 'active' : ''}"><a href="/pages/classRegis/intro">강의신청</a></li>
         </th:block> -->

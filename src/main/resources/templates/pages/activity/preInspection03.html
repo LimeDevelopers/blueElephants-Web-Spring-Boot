@@ -9,7 +9,7 @@
             var sn = $('#sn').val();
             var jsonData = {
                 'crsMstPid': crsMstPid,
-                'sn' : sn
+                'sn': sn
             };
 
             $.ajax({
@@ -37,28 +37,41 @@
 </head>
 <body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
 <form id="form1" name="form1" method="post">
-    <input type="hidden" id="crsMstPid" name="crsMstPid" th:value="${crsMstPid}" />
-    <input type="hidden" id="sn" name="sn" th:value="${sn}" />
+    <input type="hidden" id="crsMstPid" name="crsMstPid" th:value="${crsMstPid}"/>
+    <input type="hidden" id="sn" name="sn" th:value="${sn}"/>
 
     <div id="wrap">
         <th:block th:include="fragments/header_gnb"></th:block>
         <div id="container">
-            <th:block th:include="fragments/snb"></th:block>
+            <th:block th:include="fragments/mo_menu"></th:block>
+            <div class="sub_container">
+                <th:block th:include="fragments/dept_menu"></th:block>
 
-            <div class="contents">
-                <div class="page_top mo">
-                    <h3 class="page_tit">사이버폭력예방교육 <th:block th:text="${sn eq 2 ? '사전' : '사후'}"></th:block>검사</h3>
-                </div>
-                <div class="page_cont">
-                    <div class="view_cont inspection">
-                        <div class="inspection_end_area">
-                            <!-- <strong><th:block th:text="${sn eq 2 ? '사전' : '사후'}"></th:block> 검사를<br/> 모두 완료하셨습니다.</strong>
-                            <p>수고 하셨습니다.</p> -->
-                            <p>이와 같이 사전 검사 후 총 7차시의 교육을 수강하고, <br>사후 검사를 통해 학급 내 또래관계 리포트를 담임교사에게 제공합니다.</p> <!-- 임시 문구 -->
-                            <div class="btn_area btn_num03">
-                                <a href="javascript:;" onclick="fn_hisBack()" class="btn btn_lg btn_line_blue btn_white btn_pill_10">이전</a>
-                                <a th:href="|/pages/activity/eduMasterClass/${crsMstPid}|" class="btn btn_lg btn_line_blue btn_white btn_pill_10">교육장으로 이동</a> <!-- 마침 클릭시 검사 전 수강하기 클릭했던 페이지로 이동 -->
-                                <a th:href="|/pages/myPage/classroomDetail/${atnlcReqPid}|" class="btn btn_lg btn_blue btn_pill_10">마이페이지로 이동</a> <!-- 마이페이지 유효성 검사 결과로 이동 --> <!--TODO 원래는 결과확인하기 였는데 결과를 학생에게 보여줄수 있는 화면이 없어서 마이페이지로이동으로 바꿔둠-->
+                <div class="contents">
+                    <div class="page_top mo">
+                        <h3 class="page_tit">사이버폭력예방교육
+                            <th:block th:text="${sn eq 2 ? '사전' : '사후'}"></th:block>
+                            검사
+                        </h3>
+                    </div>
+                    <div class="page_cont">
+                        <div class="view_cont inspection">
+                            <div class="inspection_end_area">
+                                <!-- <strong><th:block th:text="${sn eq 2 ? '사전' : '사후'}"></th:block> 검사를<br/> 모두 완료하셨습니다.</strong>
+                                <p>수고 하셨습니다.</p> -->
+                                <p>이와 같이 사전 검사 후 총 7차시의 교육을 수강하고, <br>사후 검사를 통해 학급 내 또래관계 리포트를 담임교사에게 제공합니다.</p>
+                                <!-- 임시 문구 -->
+                                <div class="btn_area btn_num03">
+                                    <a href="javascript:;" onclick="fn_hisBack()"
+                                       class="btn btn_lg btn_line_blue btn_white btn_pill_10">이전</a>
+                                    <a th:href="|/pages/activity/eduMasterClass/${crsMstPid}|"
+                                       class="btn btn_lg btn_line_blue btn_white btn_pill_10">교육장으로 이동</a>
+                                    <!-- 마침 클릭시 검사 전 수강하기 클릭했던 페이지로 이동 -->
+                                    <a th:href="|/pages/myPage/classroomDetail/${atnlcReqPid}|"
+                                       class="btn btn_lg btn_blue btn_pill_10">마이페이지로 이동</a>
+                                    <!-- 마이페이지 유효성 검사 결과로 이동 -->
+                                    <!--TODO 원래는 결과확인하기 였는데 결과를 학생에게 보여줄수 있는 화면이 없어서 마이페이지로이동으로 바꿔둠-->
+                                </div>
                             </div>
                         </div>
                     </div>

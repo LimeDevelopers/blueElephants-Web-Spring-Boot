@@ -4,9 +4,11 @@
     <th:block th:include="soulGod/fragments/header"></th:block>
     <script type="text/javascript">
         let chkedVal = [];
+        let eduType = [];
         let i = 0;
         let crewForm;
         let groupForm;
+        let selectedVal;
 
         // let group_id;
         // let groupNm;
@@ -27,6 +29,7 @@
             crewForm.hide()
             groupForm.hide()
             let chkNum = $('input[id^=agree]').length,idx = 0;
+            let chkNum1 = $('input[id^=agree1]').length,idx1 = 0;
 
             $('#allChk').on('change',function(){
                 if($(this).is(':checked')){
@@ -48,6 +51,28 @@
                     }
                 }
             });
+
+            $('#memAllChk').on('change',function(){
+                if($(this).is(':checked')){
+                    idx1 = chkNum1;
+                    $('input[id^=agree1]').prop('checked',true)
+                }else{
+                    idx1 = 0;
+                    $('input[id^=agree1]').prop('checked',false)
+                }
+            });
+            $('input[id^=agree1]').on('change',function(){
+                if($(this).is(':checked')){
+                    idx1--;
+                    if(idx1 == chkNum1){
+                        $('#memAllChk').prop('checked',true)
+                    }else{
+                        idx1++;
+                        $('#memAllChk').prop('checked',false)
+                    }
+                }
+            });
+
             $('#resBtn').on('click',function(){
                 chkedVal = [];
 
@@ -68,9 +93,13 @@
                             data : {
                                 'pidArray' : chkedVal
                             },
-                            dataType : 'JSON',
                             success : function(data) {
-                                location.reload()
+                                if(data == false) {
+                                    alert('통신 에러')
+                                } else {
+                                    alert('변경되었습니다.')
+                                    location.reload()
+                                }
                             }
                         });
                     }else{
@@ -105,8 +134,8 @@
                 type : 'POST',
                 dataType : 'JSON',
                 success : function(data) {
-                    location.href='/upload'+data.fl_pt+'/'+data.flNm;
-                    //$('#fl_path').attr("src", data.flNm);
+                    location.href='/upload/license/'+data.flNm;
+                    //$('#fl_path').attr("src", data.flNm);ㅁ
                 },
                 error : function(error) {
 
@@ -188,6 +217,22 @@
             fn_search();
         }
 
+
+        function fn_chgEduType(t){
+            selectedVal = $('.'+t).children('.list').children('.option.selected').data('value');
+            $.ajax({
+                cache : false,
+                url: "/api/soulGod/member/updateEduType",
+                type : 'POST',
+                data : {
+                    'pid' : t,
+                    'onlineEdu' : selectedVal
+                },
+                success : function(data) {
+                    alert('변경되었습니다.')
+                }
+            });
+        }
 
     </script>
     <style>
@@ -320,10 +365,9 @@
                                         <th>아이디</th>
                                         <th>성별</th>
                                         <th>구분</th>
-
                                         <th>휴대폰</th>
                                         <th>이메일</th>
-                                        <th>주소</th>
+                                        <th>현장교육</th>
                                         <th>가입(탈퇴)일</th>
                                     </tr>
                                     </thead>
@@ -343,9 +387,20 @@
                                         </td>
                                         <td th:text="${T(kr.or.btf.web.domain.web.enums.GenderType).valueOf(item.sexPrTy).getName()}"></td>
                                         <td th:text="${T(kr.or.btf.web.domain.web.enums.UserRollType).valueOf(item.mberDvTy).getName()}"></td>
-                                        <td th:text="${item.moblphon}"></td>
-                                        <td th:text="${item.email}"></td>
-                                        <td th:text="${item.adres}"></td>
+                                        <td th:text="${item.moblphon eq null || item.moblphon eq''? '등록된 휴대폰 없음' : item.moblphon}"></td>
+                                        <td th:text="${item.email eq null || item.moblphon eq ''? '등록된 이메일 없음' : item.email}"></td>
+                                        <td>
+                                            <select th:onchange="fn_chgEduType([[${item.id}]])" th:name="|onlineEdu${idx.index}|" th:class="|w120 ${item.id}|">
+                                                <th:block th:if="${item.onlineEdu eq 'Y'}">
+                                                    <option th:value="|Y|">오프라인</option>
+                                                    <option th:value="|N|">온라인</option>
+                                                </th:block>
+                                                <th:block th:if="${item.onlineEdu ne 'Y'}">
+                                                    <option th:value="|N|">온라인</option>
+                                                    <option th:value="|Y|">오프라인</option>
+                                                </th:block>
+                                            </select>
+                                        </td>
                                         <td>
                                             <th:block th:text="${#temporals.format(item.regDtm, 'yyyy-MM-dd')}"></th:block>
                                             <br/>
@@ -386,6 +441,7 @@
                                     <colgroup>
                                         <col style="width: 60px"/>
                                         <col style="width: 60px"/>
+                                        <col style="width: 100px"/>
                                     </colgroup>
                                     <thead>
                                     <tr>
@@ -436,6 +492,11 @@
                             </div>
                             <th:block th:replace="/soulGod/fragments/paging :: pagingbody(list=${members},
                                             link='/soulGod/member/groupList', formId='form1')"></th:block>
+                            <div class="fr">
+                                <a href="/soulGod/member/register" class="btn btn_sm btn_blue">
+                                    <i class="material-icons mt0">add</i>관리자/푸코강사/상담사 추가
+                                </a>
+                            </div>
                         </div>
 
                         <div class="board_list detailGroupForm">

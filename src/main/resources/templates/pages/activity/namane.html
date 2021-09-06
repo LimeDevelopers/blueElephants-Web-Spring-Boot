@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+    <div id="wrap">
+        <th:block th:include="fragments/header_gnb"></th:block>
+        <div id="container">
+            <th:block th:include="fragments/mo_menu"></th:block>
+            <div class="sub_container">
+                <th:block th:include="fragments/dept_menu"></th:block>
+
+                <div class="card_inner inner">
+                    <h1>능력카드제작소</h1>
+                    <div class="card">
+                        <div class="item_inner">
+                            <div class="item_1">
+
+                            </div>
+                        </div>
+                        <div class="file_form">
+                            <input type="file" name="attachedFile" maxlength="1"  id="attachedFile" class="multi" />
+                            <label for="attachedFile">나만의 카드 만들기</label>
+                            <input type="hidden" name="b_license_attc" id="b_license_attc" value="N">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card_inner inner hi">
+                    <h1>능력카드제작소</h1>
+                    <b>능력카드제작소</b>
+                    <div class="user_type">
+                        <button class="user_type_01">
+                            처음이세요?
+                        </button>
+                        <button class="user_type_02">
+                            예방교육<b></b> 수강중이신가요?
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card_inner inner">
+                    <h1>능력카드제작소</h1>
+                    <b>나만의카드</b>
+                    <div class="card">
+                        <small>두손가락으로 이미지를 확대 또는 회전 가능<br>
+                            (카드에 사진 전체적용 X)</small>
+                        <div class="item_inner_2">
+                            <div class="item_2">
+                            </div>
+                            <input type="text" id="printText" name="printText" placeholder="(문구입력 / 이모티콘 X)">
+                            <!-- <input type="file" name="attachedFile" maxlength="1"  id="attachedFile" class="multi"/> -->
+                            <label for="attachedFile">사진변경</label>
+                            <input type="hidden" name="b_license_attc" id="b_license_attc" value="N">
+                        </div>
+                        <div class="file_form">
+                            <label for="">다음</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card_inner inner">
+                    <h1>능력카드제작소</h1>
+                    <b>능력카드 저장 내역</b>
+                    <div class="card_list">
+                        <h2>능력카드 저장 내역</h2>
+                        <div class="item_inner_4">
+                            <div class="card_qr">
+                                <div class="tit">능력카드 제목내용</div>
+                                <small>2021-10-11</small>
+                                <img src="" alt="">
+                                <button class="card_btn">제작요청</button>
+                            </div>
+                            <div class="card_download">
+                                <div class="item_inner_2">
+                                    <div class="item_2"></div>
+                                </div>
+                                <button class="down_btn">다운로드</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card_inner inner">
+                    <h1>능력카드제작소</h1>
+                    <b>결제방식</b>
+                    <div class="card_point">
+                        <h2>결제방식</h2>
+                        <div class="item_inner_3">
+                            <div class="type_01 type">
+                                <b>무료 카드 만들기 (잔여 1회)</b>
+                                <span>*4차시 교육수강 완료자에 한해 무료 지급</span>
+                            </div>
+                            <div class="type_02 type">
+                                <b>포인트 차감</b>
+                            </div>
+                            <div class="type_03 type">
+                                <b>무통장입금</b>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card_inner inner">
+                    <h1>능력카드제작소</h1>
+                    <b>나만의카드</b>
+                    <div class="card_list">
+                        <h2>능력카드 저장 내역</h2>
+                        <div class="item_inner_5">
+                            <div class="card_list_inner">
+                                <div class="list_view">
+                                    <div class="view_item">
+                                        <div class="item">
+                                            <div class="photo"></div>
+                                        </div>
+                                    </div>
+                                    <span>발급대기</span>
+                                </div>
+                                <div class="list_view">
+                                    <div class="view_item">
+                                        <div class="item">
+                                            <div class="photo"></div>
+                                        </div>
+                                    </div>
+                                    <span>배송중</span>
+                                </div>
+                                <div class="list_view">
+                                    <div class="view_item">
+                                        <div class="more">
+                                            <button class="more_btn">
+                                            </button>
+                                            <small>새 카드 만들기</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card_modal">
+                    <div class="modal_inner">
+                        <b>발급 신청이 정상적으로<br>
+                            처리되었습니다.</b>
+                        <a class="cf_btn" href="#none">확인</a>
+                    </div>
+                </div>
+            </div>
+            <th:block th:replace="fragments/footer"></th:block>
+        </div>
+    </div>
+</body>
+</html>

@@ -12,52 +12,62 @@
 <div id="wrap">
     <th:block th:include="fragments/header_gnb"></th:block>
     <div id="container">
-        <th:block th:include="fragments/snb"></th:block>
+        <th:block th:include="fragments/mo_menu"></th:block>
+        <div class="sub_container">
+            <th:block th:include="fragments/dept_menu"></th:block>
 
-        <form id="form1" name="form1" method="post" th:object="${form}">
-            <div class="contents">
-                <div class="page_top pc">
-                    <h3 class="page_tit">연구</h3>
-                    <span>사이버폭력 예방을 위한 연구 / 조사 자료를 확인하세요.</span>
-                </div>
-                <div class="page_cont">
-                    <div class="tab_ico_area mb0">
-                        <a href="javascript:;" class="tit">연구조사</a>
-                        <ul class="tab_type_ico">
-                            <li class="fact">
-                                <a href="/pages/activity/factualSurvey">실태조사</a>
-                            </li>
-                            <li class="research active">
-                                <a href="/pages/activity/research">연구조사</a>
-                            </li>
-                        </ul>
-                        <p class="mo_page_txt">사이버폭력 예방을 위한 연구 / 조사 자료를 확인하세요.</p>
-                        <div class="tab_cont mo_thumb">
-                            <div class="cont research active">
-                                <div class="thumb">
-                                    <p>연구조사</p>
+            <form id="form1" name="form1" method="post" th:object="${form}">
+                <div class="contents">
+                    <div class="page_top pc">
+                        <h3 class="page_tit">연구</h3>
+                        <span>사이버폭력 예방을 위한 연구 / 조사 자료를 확인하세요.</span>
+                    </div>
+                    <div class="page_cont">
+                        <div class="tab_ico_area mb0">
+                            <a href="javascript:;" class="tit">연구조사</a>
+                            <ul class="tab_type_ico">
+                                <li class="fact">
+                                    <a href="/pages/activity/factualSurvey">실태조사</a>
+                                </li>
+                                <li class="research active">
+                                    <a href="/pages/activity/research">연구조사</a>
+                                </li>
+                            </ul>
+                            <p class="mo_page_txt">사이버폭력 예방을 위한 연구 / 조사 자료를 확인하세요.</p>
+                            <div class="tab_cont mo_thumb">
+                                <div class="cont research active">
+                                    <div class="thumb">
+                                        <p>연구조사</p>
+                                    </div>
+                                    <dl class="desc">
+                                        <dt class="fc_blue"><strong>연구 방법</strong></dt>
+                                        <dd>본 연구는 2020년 12월부터 2021년 1월까지 전국 초등학교 2학년에서 고등학교 2학년에 재학 중인 청소년 1,500명을 대상으로
+                                            분석하였다. 설문은 학교와 담임교사의 지도하에 학생들이 자기보고식 방법으로 진행하였다. 표본 오차는 95% 신뢰수준에서 오차 범위는
+                                            ±2.20%로 보고되었다. 모집단의 정보는 한국교육개발원의 교육통계 서비스의 자료를 사용하였다.
+                                        </dd>
+                                    </dl>
                                 </div>
-                                <dl class="desc">
-                                    <dt class="fc_blue"><strong>연구 방법</strong></dt>
-                                    <dd>본 연구는 2020년 12월부터 2021년 1월까지 전국 초등학교 2학년에서 고등학교 2학년에 재학 중인 청소년 1,500명을 대상으로 분석하였다. 설문은 학교와 담임교사의 지도하에 학생들이 자기보고식 방법으로 진행하였다. 표본 오차는 95% 신뢰수준에서 오차 범위는 ±2.20%로 보고되었다. 모집단의 정보는 한국교육개발원의 교육통계 서비스의 자료를 사용하였다.</dd>
-                                </dl>
-                            </div>
-                            <div class="cont research active mt">
-                                <dl class="desc">
-                                    <dt class="fc_blue"><strong>연구 내용</strong></dt>
-                                    <dd>본 연구의 내용은 성별, 학년, 지역 등 인구통계학적 정보를 알 수 있는 문항과 사이버폭력 관련 문항으로 구성하였다. 사이버폭력 관련 문항에는 사이버폭력 인식과 견해를 묻는 ‘인식 및 일반 실태’, 사이버폭력 피해 경험을 묻는 ‘피해 실태’, 가해 경험을 묻는 ‘가해 실태’, 목격 및 방관 경험을 묻는 ‘목격 및 방관 실태’, 사이버폭력 예방교육 및 대책에 대한 기타 내용으로 알아보는 ‘예방 및 정책 실태’ 등으로 구성하여 진행하였다.</dd>
-                                </dl>
+                                <div class="cont research active mt">
+                                    <dl class="desc">
+                                        <dt class="fc_blue"><strong>연구 내용</strong></dt>
+                                        <dd>본 연구의 내용은 성별, 학년, 지역 등 인구통계학적 정보를 알 수 있는 문항과 사이버폭력 관련 문항으로 구성하였다. 사이버폭력 관련
+                                            문항에는 사이버폭력 인식과 견해를 묻는 ‘인식 및 일반 실태’, 사이버폭력 피해 경험을 묻는 ‘피해 실태’, 가해 경험을 묻는 ‘가해
+                                            실태’, 목격 및 방관 경험을 묻는 ‘목격 및 방관 실태’, 사이버폭력 예방교육 및 대책에 대한 기타 내용으로 알아보는 ‘예방 및 정책
+                                            실태’ 등으로 구성하여 진행하였다.
+                                        </dd>
+                                    </dl>
+                                </div>
                             </div>
                         </div>
+                        <ul class="img_research">
+                            <li><img src="/ClientUI/user/images/contents/img_research2019_01.jpg" alt=""/></li>
+                            <li><img src="/ClientUI/user/images/contents/img_research2019_02.jpg" alt=""/></li>
+                            <li><img src="/ClientUI/user/images/contents/img_research2019_03.jpg" alt=""/></li>
+                        </ul>
                     </div>
-                    <ul class="img_research">
-                        <li><img src="/ClientUI/user/images/contents/img_research2019_01.jpg" alt="" /></li>
-                        <li><img src="/ClientUI/user/images/contents/img_research2019_02.jpg" alt="" /></li>
-                        <li><img src="/ClientUI/user/images/contents/img_research2019_03.jpg" alt="" /></li>
-                    </ul>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
     <th:block th:replace="fragments/footer"></th:block>
 </div>

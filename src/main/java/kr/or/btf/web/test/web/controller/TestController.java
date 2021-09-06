@@ -4,6 +4,7 @@ import kr.or.btf.web.common.annotation.CurrentUser;
 import kr.or.btf.web.common.aurora.AuroraAPIService;
 import kr.or.btf.web.domain.web.Account;
 import kr.or.btf.web.domain.web.MemberCrew;
+import kr.or.btf.web.domain.web.MemberSchool;
 import kr.or.btf.web.domain.web.MemberTeacher;
 import kr.or.btf.web.repository.web.MemberCrewRepository;
 import kr.or.btf.web.repository.web.MemberSchoolRepository;
@@ -56,6 +57,37 @@ public class TestController extends BaseCont {
         return "/pages/blueElephant/namane";
     }
 
+    @GetMapping(value = "/soulGod/member/batchregister")
+    public String register(){
+
+        return "/soulGod/member/batchregister";
+    }
+
+    @PostMapping(value = "/soulGod/member/batchregister/join" )
+    public String batchJoin(MemberForm memberForm) {
+        String[] val = memberForm.getValues().split(",");
+
+        memberForm.setAreaNm(val[0]);
+        memberForm.setSchlNm(val[1]);
+        memberForm.setTeacherNm(val[2]);
+        memberForm.setGrade(Integer.parseInt(val[3]));
+        memberForm.setBan(val[4]);
+
+        testService.batchRegister(memberForm);
+        return "redirect:/soulGod/member/list" ;
+    }
+    @ResponseBody
+    @PostMapping(value = "/soulGod/member/batchregister/srchTchrNm")
+    public List<MemberSchool> srchTchrNm(Model model , @RequestParam(name = "TeacherNm") String TeacherNm) {
+
+        //System.out.println("아약스결과 조회 : " + TeacherNm);
+
+        //선생이름 , 학교 , 학년 , 반 , mber_pid 순으로 뽑아옴.
+        List<MemberSchool> memberSchoolList = memberService.srchTchr(TeacherNm);
+
+        return memberSchoolList;
+    }
+
     @PostMapping(value = "/getQrImg")
     public String getQrImg(Model model, @ModelAttribute AuroraForm auroraForm) throws IOException {
         AuroraForm result = auroraAPIService.getBase64String(auroraForm);
@@ -64,7 +96,7 @@ public class TestController extends BaseCont {
         return "/pages/blueElephant/namane_result";
     }
     // 엑셀 다운로드 시작
-    @GetMapping(value = "/page/excel/download")
+   // @GetMapping(value = "/page/excel/download")
 //    public String testExcel(Model model){
 //        Pageable pageable = null;
 //        model.addAttribute("noticeList", testService.getNewsListData(pageable));

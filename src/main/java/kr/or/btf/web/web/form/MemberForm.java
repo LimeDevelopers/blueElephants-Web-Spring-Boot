@@ -5,6 +5,7 @@ import kr.or.btf.web.domain.web.enums.UserStatusType;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Transient;
@@ -112,6 +113,13 @@ public class MemberForm extends SearchForm {
     private String teacherNm;
     @Transient
     private Integer mberPid;
+    @Transient
+    private String onlineEdu;
+    @Transient
+    private String eduReset;
+    @Transient
+    private String cardReset;
+    private String values;
 
     private String approval = "N";
     private int authEmailChk;

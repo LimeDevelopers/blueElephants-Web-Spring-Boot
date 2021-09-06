@@ -48,7 +48,9 @@
 <div id="wrap">
     <th:block th:include="fragments/header_gnb"></th:block>
     <div id="container">
-        <th:block th:include="fragments/snb"></th:block>
+        <th:block th:include="fragments/mo_menu"></th:block>
+        <div class="sub_container">
+            <th:block th:include="fragments/dept_menu"></th:block>
 
         <form id="form1" name="form1" method="post" th:object="${form}">
             <div class="contents">
@@ -57,29 +59,6 @@
                     <span>사이버폭력 예방을 위한 연구 / 조사 자료를 확인하세요.</span>
                 </div>
                 <div class="page_cont">
-                    <div class="tab_ico_area mb0">
-                        <a href="javascript:;" class="tit">실태조사</a>
-                        <ul class="tab_type_ico">
-                            <li class="fact active">
-                                <a href="/pages/activity/factualSurvey">실태조사</a>
-                            </li>
-                            <li class="research">
-                                <a href="/pages/activity/research">연구조사</a>
-                            </li>
-                        </ul>
-                        <p class="mo_page_txt">사이버폭력 예방을 위한 연구 / 조사 자료를 확인하세요.</p>
-                        <div class="tab_cont mo_thumb">
-                            <div class="cont fact active">
-                                <div class="thumb">
-                                    <p>실태조사</p>
-                                </div>
-                                <dl class="desc">
-                                    <dt class="fc_blue"><strong>연구 목적</strong></dt>
-                                    <dd>본 조사의 목적은 2020년도 우리나라 전국 초등학교 2학년부터 고등학교 2학년 학생들을 대상으로 사이버폭력 실태조사를 통해 현재 사이버폭력 실태 및 경향성을 정확히 파악하는데 있습니다. 또한, 이에 대한 결과를 바탕으로 사이버폭력에 대한 대처 방법과 올바른 실천적·정책적 과제를 모색하고자 합니다.</dd>
-                                </dl>
-                            </div>
-                        </div>
-                    </div>
                     <div class="btn_area">
                         <a href="#" th:onclick="|return fn_factualTest(${#authentication.principal != 'anonymousUser'});|"
                            class="btn btn_lg btn_blue btn_pill_10">조사하기</a>
@@ -91,6 +70,7 @@
                 </div>
             </div>
         </form>
+        </div>
     </div>
     <th:block th:replace="fragments/footer"></th:block>
 </div>

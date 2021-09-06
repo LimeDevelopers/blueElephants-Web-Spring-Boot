@@ -333,6 +333,11 @@ public interface MemberRepository extends JpaRepository<Account, Long> {
     @Modifying
     @Query("UPDATE Account ac SET ac.approval = :yn WHERE ac.id = :id")
     int setApproval(Long id, String yn);
+
+    @Modifying
+    @Query("UPDATE Account ac SET ac.onlineEdu = :yn WHERE ac.id = :id")
+    int setEduType(Long id, String yn);
+
 /*
     @Query(
             value = " update TBL_MNG_INFO set lstCnntDtm=sysdate()\n" +

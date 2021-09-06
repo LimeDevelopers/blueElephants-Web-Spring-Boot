@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 @Configuration
 public class RetrofitConfig {
-    private static final String baseURL = "https://stapi.sphokidz.com";
+    private static final String baseURL = "https://api.sphokidz.com";
 
     @Bean
     public OkHttpClient okHttpClient() {

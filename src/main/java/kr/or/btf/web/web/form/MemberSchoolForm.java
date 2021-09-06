@@ -24,5 +24,5 @@ public class MemberSchoolForm extends SearchForm{
     private String sexPrTy;
     private String ncmm;
     private String brthdy;
-
+    private String keyword;
 }

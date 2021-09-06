@@ -197,7 +197,7 @@ body{color:#54586a;font-size:14px;font-family:'Noto Sans KR', Malgun Gothic, '�
 .select select{width:100%;height:100%;opacity:0;cursor:pointer}
 /*.select select[multiple]:focus{height:120px;opacity:1}*/
 /*** btn ***/
-.btn{display:inline-block;position:relative;vertical-align:top;border:1px solid;box-sizing:border-box}
+.btn{display:inline-block;position:relative;vertical-align:top;box-sizing:border-box}
 /* 기본 사각 버튼 */
 .btn_basic{width:150px;padding:0 25px;font-size:15px;font-weight:700;line-height:46px}
 /* 작은 사각 버튼 */

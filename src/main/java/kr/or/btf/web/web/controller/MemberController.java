@@ -46,6 +46,53 @@ public class MemberController extends BaseCont{
     private final MemberFormValidator memberFormValidator;
     private final PasswordEncoder passwordEncoder;
 
+    // 엑셀 다운로드
+    @GetMapping(value = "/soulGod/member/list/download")
+    public void excelDownload(HttpServletResponse response) throws IOException {
+        Workbook wb = new XSSFWorkbook();
+        Sheet sheet = wb.createSheet("첫번째 시트");
+        Row row = null;
+        Cell cell = null;
+        int rowNum = 0;
+
+        // Header
+        row = sheet.createRow(rowNum++);
+        cell = row.createCell(0);
+        cell.setCellValue("pid");
+        cell = row.createCell(1);
+        cell.setCellValue("아이디");
+        cell = row.createCell(2);
+        cell.setCellValue("이름");
+
+        // Body
+        List<Account> accounts = allListGet();
+        for (int i=0; i<accounts.size(); i++) {
+            row = sheet.createRow(rowNum++);
+            cell = row.createCell(0);
+            cell.setCellValue(accounts.get(i).getId());
+            cell = row.createCell(1);
+            cell.setCellValue(accounts.get(i).getLoginId());
+            cell = row.createCell(2);
+            cell.setCellValue(accounts.get(i).getNm());
+        }
+
+        // 컨텐츠 타입과 파일명 지정
+        response.setContentType("ms-vnd/excel");
+        response.setHeader("Content-Disposition", "attachment;filename=memberList.xlsx");
+
+        // Excel File Output
+        wb.write(response.getOutputStream());
+        wb.close();
+    }
+    // 엑셀 다운로드 끝
+
+
+    public List<Account> allListGet() {
+        List<Account> accounts = memberService.findAll();
+        return accounts;
+    }
+
+
     @RequestMapping("/soulGod/member/list")
     public String list(Model model,
                        @PageableDefault Pageable pageable,
@@ -104,6 +151,7 @@ public class MemberController extends BaseCont{
         return load;
     }
 
+
     @ResponseBody
     @PostMapping("/api/soulGod/member/updateApporaval")
     public Boolean updateApporaval(@RequestParam("pidArray") String[] pid) {
@@ -116,6 +164,15 @@ public class MemberController extends BaseCont{
             result = memberService.updateApproval(pid[0]);
         }
 
+        return result;
+    }
+
+    @ResponseBody
+    @PostMapping("/api/soulGod/member/updateEduType")
+    public Boolean updateApporaval(@RequestParam("pid") Long pid,
+                                   @RequestParam("onlineEdu") String type) {
+        Boolean result = false;
+        result = memberService.updateEduType(pid,type);
         return result;
     }
 
@@ -386,45 +443,4 @@ public class MemberController extends BaseCont{
 
         return "redirect:/soulGod/member/list";
     }*/
-
-    // 엑셀 다운로드
-    @GetMapping(value = "/soulGod/member/list/download")
-    public void excelDownload(HttpServletResponse response) throws IOException {
-        Workbook wb = new XSSFWorkbook();
-        Sheet sheet = wb.createSheet("첫번째 시트");
-        Row row = null;
-        Cell cell = null;
-        int rowNum = 0;
-
-        // Header
-        row = sheet.createRow(rowNum++);
-        cell = row.createCell(0);
-        cell.setCellValue("번호");
-        cell = row.createCell(1);
-        cell.setCellValue("이름");
-        cell = row.createCell(2);
-        cell.setCellValue("제목");
-
-        // Body
-        for (int i=0; i<3; i++) {
-            row = sheet.createRow(rowNum++);
-            cell = row.createCell(0);
-            cell.setCellValue(i);
-            cell = row.createCell(1);
-            cell.setCellValue(i+"_name");
-            cell = row.createCell(2);
-            cell.setCellValue(i+"_title");
-        }
-
-        // 컨텐츠 타입과 파일명 지정
-        response.setContentType("ms-vnd/excel");
-//        response.setHeader("Content-Disposition", "attachment;filename=example.xls");
-        response.setHeader("Content-Disposition", "attachment;filename=example.xlsx");
-
-        // Excel File Output
-        wb.write(response.getOutputStream());
-        wb.close();
-    }
-    // 엑셀 다운로드 끝
-
 }

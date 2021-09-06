@@ -50,7 +50,9 @@
 <div id="wrap">
     <th:block th:include="fragments/header_gnb"></th:block>
     <div id="container">
-        <th:block th:include="fragments/snb"></th:block>
+        <th:block th:include="fragments/mo_menu"></th:block>
+        <div class="sub_container">
+            <th:block th:include="fragments/dept_menu"></th:block>
 
         <form id="form1" name="form1" method="post" th:object="${form}">
             <input type="hidden" id="id" name="id" />
@@ -234,6 +236,7 @@
                 </th:block>
             </div>
         </form>
+        </div>
     </div>
     <th:block th:replace="fragments/footer"></th:block>
 </div>

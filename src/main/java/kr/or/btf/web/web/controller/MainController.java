@@ -110,7 +110,7 @@ public class MainController extends BaseCont {
 
         //
         model.addAttribute("mc", "main");
-        return "/index";
+        return "/newIndex";
     }
 
 
