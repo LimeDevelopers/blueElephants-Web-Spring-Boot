@@ -1143,22 +1143,14 @@
 	}
 	.depths_02_inner .slide_menu {
 		display: flex;
-		padding: 7px 0;
-		padding-left: 20px;
+		padding: 7px 0 7px 20px;
 		overflow: hidden;
 		position: relative;
 		display: block;
+		z-index:10;
 	}
 	.sm_tit {
 		position: relative;
-	}
-	.depths_02_inner .slide_menu > div .sm_tit h3 {
-		color: #8c90a5;
-		text-align: center;
-		font-weight: 300;
-		border-radius: 8px;
-		padding: 6px 0;
-		font-size: 13px;
 	}
 	.depths_02_inner .slide_menu > div .sm_tit h3.sd_on {
 		background-color: #8bb3ff;
@@ -1189,9 +1181,7 @@
 	.depths_02_inner .slide_menu > div .sm_tit h3.sd_on:after {
 		display: none;
 	}
-	.depths_02_inner .slide_menu > div ul.slide_sub.sd_on {
-		display: block;
-	}
+
 	.depths_02_inner .slide_menu > div ul.slide_sub li {
 		box-sizing: border-box;
 		padding: 6px 0;
@@ -1905,6 +1895,7 @@
 		overflow: hidden;
 		position: relative;
 		display: block;
+		z-index:10;
 	}
 	.sm_tit {
 		position: relative;
@@ -1916,11 +1907,6 @@
 		border-radius: 8px;
 		padding: 6px 0;
 		font-size: 13px;
-	}
-	.depths_02_inner .slide_menu > div .sm_tit h3.sd_on {
-		background-color: #8bb3ff;
-		color: #fff;
-		font-weight: 500;
 	}
 	.depths_02_inner .slide_menu > div ul.slide_sub {
 		display: flex;
@@ -1943,11 +1929,9 @@
 		margin-top: -10px;
 		padding-top: 10px;
 	}
-	.depths_02_inner .slide_menu > div .sm_tit h3.sd_on:after {
-		display: none;
-	}
 	.depths_02_inner .slide_menu > div ul.slide_sub.sd_on {
 		display: block;
+		z-index: 10;
 	}
 	.depths_02_inner .slide_menu > div ul.slide_sub li {
 		box-sizing: border-box;
@@ -2361,16 +2345,12 @@
 		width: 100% !important;
 		height: 350px !important;
 	}
-
-
-
-
-
-
 }
 
 @media (max-width:768px) {
-
+	.gnb_tit>h2 {
+		font-size: 35px;
+	}
 	/* Footer */
 	#footer>.top {
 		height: auto;
@@ -2755,6 +2735,275 @@
 		display: none;
 	}
 
+	/* 활동_ 예방교육 시작 */
+	.lecture{
+		flex-direction: column;
+		top: 66%;
+	}
+	.lecture > .sub_title{
+		display: none;
+	}
+	.lecture > .lecture_content{
+		justify-content: center;
+		margin: 0px;
+		min-width: 500px;
+		padding-bottom: 50px;
+	}
+	.lecture > .lecture_content:nth-child(3), .lecture_content:nth-child(6), .lecture_content:nth-child(9){
+		margin: 0px !important;
+	}
+	.lecture > .lecture_content > .lecture_item > .lecture_sumnail{
+		display: inline-block;
+		vertical-align: middle;
+
+	}
+	.lecture > .lecture_content > .lecture_item > .lecture_text{
+		display: inline-block;
+		margin-left: 20px;
+	}
+	.lecture > .lecture_content > .lecture_item > .lecture_sumnail > .lecture_st{
+		color: #bbd2f8;
+	}
+	.lecture > .lecture_hid_content > .lecture_item > .lecture_sumnail > .lecture_st{
+		color: #cbd2df;
+	}
+	.lecture > .lecture_hid_content > .lecture_item > .lecture_sumnail{
+		border : solid 3px #d0daee;
+	}
+	/* 활동_ 예방교육 끝 */
+
+
+
+	/* 일반교육 CSS */
+	.edu_video iframe {
+		max-width: 884px;
+		width: 884px;
+		height:200px;
+		border-radius: 20px;
+	}
+	.html5-video-player a {
+		font-size: 15px;
+	}
+	.general_education > .edu_title{
+		text-align: left;
+	}
+	.general_education > .edu_form > .edu_list_box > .lecture_sumnail > .sumnail{
+		margin-top: 20px;
+		margin-bottom: 10px;
+	}
+	.general_education > .edu_form > .edu_list_box > .edu_btn_box > .edu_btn{
+		padding: 15px 79px;
+	}
+	.general_education > .edu_form > .edu_list_box > .edu_btn_box{
+		margin-bottom: 60px;
+	}
+	.general_education > .edu_title{
+		font-size: 24px;
+	}
+	.general_education > .edu_des{
+		font-size: 14px;
+		padding: 20px;
+	}
+	.general_education > .edu_form > .edu_list_box > .edu_text_box > .edu_tag{
+		font-size: 14px;
+	}
+	.general_education > .edu_form > .edu_list_box > .edu_text_box > .edu_form_title{
+		font-size: 18px;
+		margin-bottom: 30px;
+		margin-top: 5px;
+	}
+	.general_education > .edu_form > .edu_list_box > .edu_btn_box > .edu_btn button{
+		font-size: 14px;
+	}
+	/* 일반교육 CSS 끝 */
+
+
+
+
+	/* 소개_ 푸른코끼리 시작*/
+	.page_top .top_banner {
+		padding: 20px;
+		height: auto;
+	}
+	.page_top .top_banner h1 {
+		font-size: 22px;
+	}
+	.page_top .top_banner h1:before {
+		width: 50px;
+		height: 50px;
+		left: -60px;
+		background-size: contain;
+	}
+	.page_top .top_banner p {
+		font-size: 12px;
+		text-align: left;
+		margin-top: 15px;
+	}
+	.page_top .top_banner p b {
+		display: inline;
+	}
+	.page_top .top_banner p small {
+		font-size: 12px;
+		letter-spacing: -1px;
+	}
+	.intro_item_01 .sec_tit h1, .intro_item_02 .sec_tit h1 {
+		font-size: 22px;
+	}
+	.intro_item_01 .sec_tit h1:before, .intro_item_02 .sec_tit h1:before {
+		top: 110%;
+	}
+	.intro_item_01 .sec_tit .desc {
+		font-size: 12px;
+	}
+	.intro_item_01 .sec_tit .desc span {
+		display: block;
+	}
+	.intro_item_01 .small_tit {
+		flex-direction: column;
+		margin-top: 30px;
+	}
+
+	.intro_item_01 .small_tit h3 {
+		font-size: 13px;
+		font-weight: normal;
+		padding-left: 10px;
+	}
+	.intro_item_01 .small_tit h3:before {
+		width: 3px;
+	}
+	.intro_item_01 .small_tit a.btn_more {
+		width: 150px;
+		font-size: 14px;
+		margin-top: 15px;
+	}
+	.intro_item_01 .graph {
+		background: url('../images/contents/intro_graph_m.png')no-repeat center center;
+		background-size: contain;
+		width: 100%;
+		height: 250px;
+		margin-top: 10px;
+	}
+	.intro_item_01 > .desc {
+		font-size: 14px;
+		text-align: left;
+	}
+	.intro_item_01 > .desc span {
+		display: inline;
+	}
+	.box_item {
+		flex-direction: column;
+		margin-top: 30px;
+		width: 80%;
+		margin: 0 auto;
+	}
+	.box_item .item {
+	}
+	.box_item .item .box {
+		flex: 2;
+	}
+	.box_item .item.boy {
+		margin-bottom: 30px;
+	}
+	.box_item .boy .box,
+	.box_item .girl .box {
+		margin-right: 0;
+		background-size: 80% 100%;
+	}
+	.box_item .item .box p {
+		font-size: 14px;
+	}
+	.box_item .item .boy img,
+	.box_item .item .girl img {
+		margin: auto;
+		width: 60px;
+	}
+	.box_item .item .box p {
+		font-size: 11px;
+	}
+	.intro_item_01 .btns {
+		width: 100%;
+	}
+	.intro_item_01 .btns > a {
+		font-size: 14px;
+		padding: 5px 10px;
+		border-radius: 10px;
+		text-align: center;
+		margin-right: 5px;
+	}
+	.intro_item_01 .btns > a b {
+		display: block;
+	}
+	.intro_item_01 .btns > a:last-child {
+		margin-right: 0;
+	}
+	.box_item_2 {
+		padding: 20px 10px;
+		margin-bottom: 50px;
+	}
+	.box_item_2 .list_inner {
+		padding: 30px 10px;
+	}
+	.box_item_2 .list_inner ul.list {
+		width: 80%;
+		margin: auto;
+	}
+	.box_item_2 .list_inner ul.list li {
+		font-size: 12px;
+		margin-bottom: 12px;
+	}
+	.box_item_2 .list_inner ul.list li:before {
+		left: -25px;
+		width: 13px;
+		height: 25px;
+		top: 30%;
+	}
+	.box_item_2 .list_inner b{
+		lefT: 20px;
+		font-size: 14px;
+		padding: 0 20px;
+		padding-lefT: 50px;
+	}
+	.box_item_2 .list_inner b:before {
+		width: 25px;
+		height: 25px;
+	}
+	/* 어떻게 해결할 것인가? */
+	.sec_intro_02 {
+		padding-top: 20px;
+		flex-direction: column;
+		margin-top: 10px;
+	}
+	.sec_intro_02 .problem_item {
+		padding: 10px 20px;
+		margin-right: 0;
+		width: 80%;
+		margin-left: auto;
+		margin-bottom: 0;
+		border-radius: 10px;
+	}
+	.sec_intro_02 .problem_item p {
+		font-size: 12px;
+	}
+	.sec_intro_02 .problem_item:before {
+		display: none;
+	}
+	.problem_inner {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 20px;
+	}
+	.problem_inner > img {
+		display: block;
+		width: 50px;
+		height: 50px;
+	}
+	.btn_puco a.puco_more_btn {
+		padding: 15px 60px;
+		margin-top: 30px;
+	}
+
+	/* 소개_ 푸른코끼리 끝*/
 }
 
 /* Tablet Device */
@@ -2801,41 +3050,137 @@
 	#footer>.bottom .info_area>.logo_area li:nth-child(2) {
 		width: 120px;
 	}
+	.gnb_tit>h2 {
+		font-size: 45px;
+	}
+	.gnb_tit {
+		height: 150px;
+		background-size: auto 150%;
+		background-size: cover;
+	}
+	.depths_02_inner {
+		height: 60px;
+	}
+	.depths_02_inner .slide_menu > div .sm_tit h3 {
+		font-size: 18px;
+		border-radius: 10px;
+	}
+	.depths_02_inner .slide_menu > div ul.slide_sub li {
+		padding: 12px 0;
+	}
+	.depths_02_inner .slide_menu > div ul.slide_sub li a {
+		font-size: 16px;
+	}
+
+
+	/* 일반교육 CSS */
+	.general_education > .edu_des {
+		font-size: 18px;
+	}
+	.edu_video iframe {
+		max-width: 884px;
+		width: 884px;
+		height:370px;
+		border-radius: 20px;
+	}
+	.general_education > .edu_title{
+		text-align: left;
+	}
+	.general_education > .edu_form > .edu_list_box > .lecture_sumnail > .sumnail{
+		margin-top: 20px;
+	}
+	.general_education > .edu_form > .edu_list_box > .edu_btn_box > .edu_btn{
+		padding: 20px 79px;
+	}
+	.general_education > .edu_form > .edu_list_box > .edu_btn_box{
+		margin-bottom: 60px;
+	}
+	/* 일반교육 CSS 끝 */
+
+
+
+
+	/* 소개_ 푸른코끼리 시작 */
+	.page_top .top_banner h1 {
+		font-size: 28px;
+	}
+	.page_top .top_banner p {
+		font-size: 20px;
+	}
+	.page_top .top_banner p small {
+		font-size: 14px;
+	}
+	.intro_item_01 .sec_tit .desc {
+		font-size: 16px;
+	}
+	.intro_item_01 .sec_tit .desc span {
+		display: inline;
+	}
+	.intro_item_01 .small_tit h3 {
+		font-size: 22px;
+	}
+	.intro_item_01 .small_tit a.btn_more {
+		width: 200px;
+		font-size: 18px;
+	}
+	.intro_item_01 .graph {
+		height: 420px;
+		margin: 30px 0;
+	}
+	.intro_item_01 > .desc {
+		font-size: 18px;
+	}
+	.box_item {
+		margin-top: 50px;
+
+	}
+	.box_item .item .boy img, .box_item .item .girl img {
+		width: 130px;
+	}
+	.box_item .item .box p {
+		font-size: 16px;
+	}
+	.intro_item_01 .btns {
+		width: 65%;
+		justify-content: space-betweens;
+	}
+	.intro_item_01 .btns > a {
+		font-size: 20px;
+		padding: 15px;
+		margin-right: 0;
+	}
+	.intro_item_01 .btns > a b {
+		display: block;
+	}
+	.box_item_2 .list_inner b {
+		font-size: 20px;
+	}
+	.box_item_2 .list_inner ul.list li {
+		font-size: 16px;
+		margin-bottom: 20px;
+	}
+	.box_item_2 .list_inner ul.list li:before {
+		top: 50%;
+	}
+	.problem_inner > img {
+		width: 80px;
+		height: 80px;
+	}
+	.sec_intro_02 .problem_item {
+		padding: 30px 40px;
+		text-align: center;
+		width: 85%;
+	}
+	.sec_intro_02 .problem_item p {
+		font-size: 18px;
+	}
+	.sec_intro_02 .problem_item p span {
+		display: block;
+	}
+	.btn_puco a.puco_more_btn {
+		font-size: 20px;
+	}
+	/* 소개_푸른코끼리 CSS 끝 */
+
 
 }
-/* 활동_ 예방교육 시작 */
-.lecture{
-	flex-direction: column;
-	top: 66%;
-}
-.lecture > .sub_title{
-	display: none;
-}
-.lecture > .lecture_content{
-	justify-content: center;
-	margin: 0px;
-	min-width: 500px;
-	padding-bottom: 50px;
-}
-.lecture > .lecture_content:nth-child(3), .lecture_content:nth-child(6), .lecture_content:nth-child(9){
-	margin: 0px !important;
-}
-.lecture > .lecture_content > .lecture_item > .lecture_sumnail{
-	display: inline-block;
-	vertical-align: middle;
-
-}
-.lecture > .lecture_content > .lecture_item > .lecture_text{
-	display: inline-block;
-	margin-left: 20px;
-}
-.lecture > .lecture_content > .lecture_item > .lecture_sumnail > .lecture_st{
-	color: #bbd2f8;
-}
-.lecture > .lecture_hid_content > .lecture_item > .lecture_sumnail > .lecture_st{
-	color: #cbd2df;
-}
-.lecture > .lecture_hid_content > .lecture_item > .lecture_sumnail{
-	border : solid 3px #d0daee;
-}
-/* 활동_ 예방교육 끝 */

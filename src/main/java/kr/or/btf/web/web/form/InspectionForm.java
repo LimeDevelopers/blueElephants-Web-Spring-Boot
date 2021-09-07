@@ -12,6 +12,7 @@ public class InspectionForm extends SearchForm implements Cloneable{
     private String inspctCn;
     private String opnAt;
     private String mberDvTy;
+    private String onlineEdu;
 
     private String inspctDvTy;
 

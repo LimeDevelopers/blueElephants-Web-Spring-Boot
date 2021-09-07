@@ -16,6 +16,7 @@ public class AjaxSessionCheckFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
 
+        // 배포시 수정 필 @@ --김재일
         res.setHeader("X-Frame-Options", "ALLOW-FROM http://localhost");
 
         if (isAjaxRequest(req)) {

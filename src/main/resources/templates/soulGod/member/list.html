@@ -85,14 +85,14 @@
                     });
                     let result = confirm($("input[id^=agree]:checked").length+"개 단체의 가입을 승인하시겠습니까?");
                     if(result){
+                        let jsonData = {
+                            'dvCodePidArr' : chkedVal
+                        };
                         $.ajax({
                             cache : false,
-                            url: "/api/soulGod/member/updateApporaval",
+                            url: "/api/soulGod/member/updateApporaval/"+chkedVal,
                             type : 'POST',
-                            traditional : true,
-                            data : {
-                                'pidArray' : chkedVal
-                            },
+                            contentType: "application/json",
                             success : function(data) {
                                 if(data == false) {
                                     alert('통신 에러')
@@ -220,14 +220,16 @@
 
         function fn_chgEduType(t){
             selectedVal = $('.'+t).children('.list').children('.option.selected').data('value');
+            let jsonData = {
+                'id' : t,
+                'onlineEdu' : selectedVal
+            }
             $.ajax({
                 cache : false,
-                url: "/api/soulGod/member/updateEduType",
+                url: "/api/soulGod/member/updateEduType/"+t+"/"+selectedVal,
                 type : 'POST',
-                data : {
-                    'pid' : t,
-                    'onlineEdu' : selectedVal
-                },
+                contentType: "application/json",
+                datatype: 'json',
                 success : function(data) {
                     alert('변경되었습니다.')
                 }

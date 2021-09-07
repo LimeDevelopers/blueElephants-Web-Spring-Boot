@@ -49,7 +49,7 @@ import java.util.*;
 
 @Slf4j
 @Service
-@Transactional(readOnly = true)
+@Transactional(readOnly = false)
 @RequiredArgsConstructor
 public class MemberService extends _BaseService {
 

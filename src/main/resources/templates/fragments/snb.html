@@ -21,11 +21,7 @@
     <h2 th:if="${mc eq 'sitemap'}">사이트맵</h2>
 </div>
 
-<<<<<<< HEAD
-<div class="snb" th:if="${mc eq 'blueElephant' || mc eq 'activity' || mc eq 'classRegis' || mc eq 'myPage' || mc eq 'news'}"
-=======
 <div class="snb" th:if="${mc eq 'blueElephant' || mc eq 'activity' || mc eq 'classRegis' || mc eq 'news' || mc eq 'myPage'}"
->>>>>>> a2302e9539bfcd6c9416eff63a59a58ecf699ae8
      th:classappend="${mc eq 'blueElephant' ? 'mo_bb' : ''}"
      xmlns:th="http://www.thymeleaf.org"
      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
@@ -55,19 +51,11 @@
             <!--            <li th:classappend="${pageTitle eq '네트워킹' ? 'active' : ''}"><a href="/pages/activity/networking">네트워킹</a></li>-->
         </th:block>
         <th:block th:if="${mc eq 'news'}">
-<<<<<<< HEAD
-            <li th:classappend="${pageTitle eq '캘린더' ? 'active' : ''}"><a href="/pages/news/event">캘린더</a></li>
-            <li th:classappend="${pageTitle eq '언론보도' ? 'active' : ''}"><a href="/pages/news/list/5">언론보도</a></li>
-            <li th:classappend="${pageTitle eq '간행물' ? 'active' : ''}"><a href="/pages/news/list/6">간행물</a></li>
-            <li th:classappend="${pageTitle eq '소식/행사' ? 'active' : ''}"><a href="/pages/news/list/7">소식/행사</a></li>
-            <li th:classappend="${pageTitle eq '공지사항' ? 'active' : ''}"><a href="/pages/news/notice">공지사항</a></li>
-=======
             <li th:classappend="${pageTitle eq '공지사항' ? 'active' : ''}"><a href="/pages/news/notice">공지사항</a></li>
             <li th:classappend="${pageTitle eq '소식/행사' ? 'active' : ''}"><a th:href="|/pages/news/list/${@environment.getProperty('common.code.newsCdPid')}|">소식/행사</a></li>
             <li th:classappend="${pageTitle eq '캘린더' ? 'active' : ''}"><a href="/pages/news/event">캘린더</a></li>
             <li th:classappend="${pageTitle eq '언론보도' ? 'active' : ''}"><a th:href="|/pages/news/list/${@environment.getProperty('common.code.mediaCdPid')}|">언론보도</a></li>
             <li th:classappend="${pageTitle eq '간행물' ? 'active' : ''}"><a th:href="|/pages/news/list/${@environment.getProperty('common.code.publicationCdPid')}|">간행물</a></li>
->>>>>>> a2302e9539bfcd6c9416eff63a59a58ecf699ae8
         </th:block>
         <!-- <th:block th:if="${mc eq 'classRegis'}">
             <li th:classappend="${pageTitle eq '강의신청' ? 'active' : ''}"><a href="/pages/classRegis/intro">강의신청</a></li>

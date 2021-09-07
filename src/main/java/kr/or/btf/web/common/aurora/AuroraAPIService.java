@@ -1,9 +1,11 @@
 package kr.or.btf.web.common.aurora;
 
 import kr.or.btf.web.common.retrofit.ServerAPIs;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import retrofit2.Call;
 import retrofit2.Response;
 

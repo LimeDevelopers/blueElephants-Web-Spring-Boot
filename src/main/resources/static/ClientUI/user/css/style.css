@@ -1387,56 +1387,57 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
 
 .gnb_tit {
     width: 100%;
-    height: 453px
+    height: 453px;
+    border: 1px solid #000;
+    position: relative;
 }
 
 .gnb_tit.gnb01 {
-    background: url(../images/contents/bg_sub_banner01.jpg) no-repeat 50% 0;
-    background-size: cover
+    background: url('../images/contents/bg_sub_banner01.jpg')no-repeat center center;
+    background-size: auto 100%;
 }
 
 /*푸른코끼리*/
 .gnb_tit.gnb02 {
-    background: url(../images/contents/bg_sub_banner02.jpg) no-repeat 50% 0;
-    background-size: cover
+    background: url('../images/contents/bg_sub_banner02.jpg')no-repeat center center;
+    background-size: auto 100%;
 }
 
 /*푸른코끼리 활동*/
 .gnb_tit.gnb03 {
-    background: url(../images/contents/bg_sub_banner03.jpg) no-repeat 50% 0;
-    background-size: cover
+    background: url('../images/contents/bg_sub_banner03.jpg')no-repeat center center;
+    background-size: auto 100%;
 }
 
 /*푸코소식*/
 .gnb_tit.gnb04 {
-    background: url(../images/contents/bg_sub_banner03.jpg) no-repeat 50% 0;
-    background-size: cover
+    background: url('../images/contents/bg_sub_banner03.jpg')no-repeat center center;
+    background-size: auto 100%;
 }
 
 /*강의신청 - 추후 이미지 변경*/
 .gnb_tit.gnb05 {
-    background: url(../images/contents/bg_sub_banner05.jpg) no-repeat 50% 0;
-    background-size: cover
+    background: url('../images/contents/bg_sub_banner05.jpg')no-repeat center center;
+    background-size: auto 100%;
 }
 
 /*회원*/
 .gnb_tit.gnb06 {
-    background: url(../images/contents/bg_sub_banner06.jpg) no-repeat 50% 0;
-    background-size: cover
+    background: url('../images/contents/bg_sub_banner06.jpg')no-repeat center center;
+    background-size: auto 100%;
 }
 
 /*마이페이지*/
 .gnb_tit.gnb07 {
-    background: url(../images/contents/bg_sub_banner07.jpg) no-repeat 50% 0;
-    background-size: cover
+    background: url('../images/contents/bg_sub_banner07.jpg')no-repeat center center;
+    background-size: auto 100%;
 }
 
 /*고객센터*/
 .gnb_tit.gnb08 {
-    background: url(../images/contents/bg_sub_banner08.jpg) no-repeat 50% 0;
-    background-size: cover
+    background: url('../images/contents/bg_sub_banner08.jpg')no-repeat center center;
+    background-size: auto 100%;
 }
-
 
 /* 서브페이지 서브메뉴 */
 .pc_menu_inner {
@@ -1517,12 +1518,16 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
 
 /*검색결과*/
 .gnb_tit>h2 {
-    color: #346079;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #6193f0;
     font-size: 52px;
     font-weight: 900;
-    line-height: 453px;
     text-align: center
 }
+
 
 .gnb_tit.gnb08>h2 {
     color: #fff
@@ -1642,8 +1647,8 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
 }
 
 .sec .sec_tit {
-    float: left;
-    width: 228px;
+    /*float: left;*/
+    /*width: 228px;*/
     margin-right: 30px;
     padding: 0 0 10px 5px;
     color: #000;
@@ -1651,7 +1656,7 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     font-weight: 500;
     line-height: 34px;
     word-break: keep-all;
-    border-bottom: 2px solid #000
+    /*border-bottom: 2px solid #000*/
 }
 
 .sec .sec_cont {
@@ -9865,7 +9870,7 @@ text.shadow {
     padding-bottom: 16.6px;
     margin-bottom: 91.3px;
 }
-.lecture{
+.lecture {
     flex-direction: row;
     justify-content: end;
     flex-wrap: wrap;
@@ -9969,3 +9974,419 @@ text.shadow {
     color: #dfdfdf;
 }
 /* 활동_ 예방교육 끝 */
+
+/* 일반교육 CSS 시작 */
+.general_education{
+    text-align: center;
+}
+.general_education > .edu_title{
+    font-size: 28px;
+    font-weight: bold;
+    color: #555868;
+    text-align: center;
+    margin-top: 82px;
+}
+.general_education > .edu_des{
+    text-align: left;
+    max-width: 1200px;
+    min-height: 134px;
+    border-radius: 20px;
+    background-color: #e8ebf1;
+    font-size: 18px;
+    font-weight: normal;
+    color: #9499ad;
+    line-height: 1.56;
+    padding: 42px 64px;
+    margin: 0 auto;
+    margin-top: 22px;
+    margin-bottom: 65px;
+}
+.general_education > .edu_video{
+    text-align: center;
+}
+.general_education > .edu_form{
+    display: inline-block;
+}
+.general_education > .edu_form > .edu_list_box{
+    display: inline-block;
+    text-align: left;
+}
+.general_education > .edu_form > .edu_list_box > .lecture_sumnail > .sumnail{
+    border: 2px solid #dddddd;
+    border-radius: 40px;
+    margin-top: 80px;
+    margin-bottom: 28px;
+    margin-right: 30px;
+}
+.general_education > .edu_form > .edu_list_box > .edu_text_box{
+    padding-left: 20px;
+}
+.general_education > .edu_form > .edu_list_box > .edu_text_box > .edu_tag{
+    border-radius: 37px;
+    background-color: #8bb3ff;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: -0.96px;
+    color: #fff;
+    padding: 4px 8px;
+}
+.general_education > .edu_form > .edu_list_box > .edu_text_box > .edu_form_title{
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: -0.6px;
+    color: #54586a;
+    margin-top:10px;
+    margin-bottom: 77px;
+}
+.general_education > .edu_form > .edu_list_box > .edu_btn_box{
+    text-align: center;
+}
+.general_education > .edu_form > .edu_list_box > .edu_btn_box > .edu_btn{
+    border-radius: 78px;
+    background-color: #6d95e1;
+    padding: 12px 79px;
+}
+.general_education > .edu_form > .edu_list_box > .edu_btn_box > .edu_btn button{
+    font-size: 16px;
+    font-weight: 500;
+    color: #fff;
+    vertical-align: initial;
+}
+/* 일반교육 CSS 끝 */
+
+
+
+/* 소개_푸른코끼리 CSS 시작 */
+/* ****************소개**************** */
+.page_top {}
+.page_top .top_banner {
+    position: relative;
+    border: 10px solid #eef4ff;
+    padding: 40px;
+    height: 300px;
+    border-radius: 40px;
+    text-align: center;
+    box-sizing: border-box;
+}
+.page_top .top_banner:after {
+    top: -10px;
+    border-radius: 40px;
+    left: -10px;
+    border: 2px solid #85b4f7;
+    width: calc(100% + 20px);
+    height: calc(100% + 20px);
+    position: absolute;
+    content:'';
+}
+/*  사이버폭력, 왜 문제인가? */
+.page_top .top_banner h1:before {
+    content:'';
+    position: absolute;
+    height: 60px;
+    top: 50%;
+    transform:  translateY(-50%);
+    width: 95px;
+    left: -100px;
+    background: url('../images/icon/tit_icon.png')no-repeat center center;
+}
+.page_top .top_banner h1 {
+    display: inline-block;
+    position: relative;
+    font-size: 38px;
+    color: #6193f0;
+}
+.page_top .top_banner p {
+    font-size: 20px;
+    color: #8c90a5;
+    font-weight: normal;
+    line-height: 1.4;
+    margin-top: 30px;
+}
+.page_top .top_banner p b {
+    display: block;
+}
+.page_top .top_banner p small {
+    text-align: right;
+    margin-top: 30px;
+    display: block;
+    font-weight: normal;
+    letter-spacing: -1.53px;
+    font-size: 17px;
+}
+.intro_item_01 {}
+.intro_item_01 .sec_tit {}
+.intro_item_01 .sec_tit h1,
+.intro_item_02 .sec_tit h1 {
+    font-size: 28px;
+    color: #555868;
+    position: relative;
+}
+.intro_item_01 .sec_tit h1:before,
+.intro_item_02 .sec_tit h1:before {
+    content:'';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: #85b4f7;
+    top: 130%;
+    left: 0;
+}
+.intro_item_01 .sec_tit .desc {
+    padding-top: 40px;
+    font-size: 24px;
+}
+.intro_item_01 .sec_tit .desc span {
+    display: inline;
+}
+.intro_item_01 .small_tit {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 55px;
+}
+.intro_item_01 .small_tit h3:before {
+    content:'';
+    position: absolute;
+    width: 6px;
+    height: 70%;
+    transform: translateY(-50%);
+    background-color: #6c93e9;
+    top: 50%;
+    left: 0;
+    border-radius: 10px;
+}
+.intro_item_01 .small_tit h3 {
+    padding-left: 20px;
+    position: relative;
+    font-weight: bold;
+    font-size: 24px;
+    color: #555868;
+}
+.intro_item_01 .small_tit a.btn_more {
+    color: #6c93e9;
+    border: 1px solid #6c93e9;
+    border-radius: 30px;
+    width: 250px;
+    padding: 10px;
+    font-size: 16px;
+    text-align: center;
+}
+.intro_item_01 > .desc {
+    text-align: center;
+    font-size: 20px;
+    margin-top: 20px;
+}
+.intro_item_01 > .desc span {
+    display: block;
+}
+.intro_item_01 .btns {
+    width:60%;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    margin-top: 62px;
+}
+.intro_item_01 .btns > a {
+    margin: auto;
+    padding: 15px 30px;
+    border: 2px solid #85b4f8;
+    color: #6c93e9;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 20px;
+}
+.intro_item_01 .btns > a b {
+    display: inline;
+}
+.intro_item_01 .btns > a.btn_more_01 {
+    color: #fff;
+    background-color: #85b4f7;
+}
+.box_item {
+    display: flex;
+    margin-top: 60px;
+}
+.box_item > div {
+    flex: 1;
+    display: flex;
+}
+.box_item .item .boy,
+.box_item .item .girl {
+}
+.box_item .item .boy img,
+.box_item .item .girl img {
+    margin: auto;
+    width: 120px;
+}
+.box_item .item .box {
+    flex: 2;
+
+    position: relative;
+}
+.box_item .item .box p {
+    position: absolute;
+    text-align: left;
+    width: 60%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 17px;
+    line-height: 1.3;
+}
+.box_item .boy .box {
+    background: url('../images/contents/box_l.png')no-repeat center center;
+    background-size: 100% 100%;
+    margin-right: 40px;
+}
+.box_item .girl .box {
+    padding-left: 50px;
+    background: url('../images/contents/box_r.png')no-repeat center center;
+    background-size: 100% 100%;
+}
+.intro_item_01 .graph {
+    background: url('../images/contents/intro_graph_pc.png')no-repeat center center;
+    width: 100%;
+    height: 500px;
+    margin-top: 10px;
+}
+.box_item_2 {
+    background-color: #eef4ff;
+    border-radius: 35px;
+    width: 100%;
+    padding: 52px;
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+.box_item_2 .list_inner {
+    border: 2px solid #85b4f7;
+    border-radius: 35px;
+    padding: 70px 150px;
+    position: relative;
+}
+.box_item_2 .list_inner b:before {
+    content:'';
+    position: absolute;
+    background: url('../images/icon/list_tit.png')no-repeat center center;
+    background-size: contain;
+    width: 30px;
+    height: 40px;
+    top: 0;
+    left: 20px;
+}
+.box_item_2 .list_inner b {
+    display: block;
+    color: #85b4f7;
+    font-size: 24px;
+    font-weight: bold;
+    position: absolute;
+    top: 0;
+    transform: translateY(-50%);
+    left: 100px;
+    background-color: #eef4ff;
+    padding: 0 50px;
+    padding-left: 70px;
+}
+.box_item_2 .list_inner ul.list li {
+    margin-bottom: 22px;
+    position: relative;
+    font-size: 18px;
+    color: #555868;
+}
+.box_item_2 .list_inner ul.list li:before {
+    content:'';
+    position: absolute;
+    width: 20px;
+    height: 30px;
+    background: url('../images/icon/dot.png')no-repeat center center;
+    background-size: contain;
+    top: 50%;
+    left: -40px;
+    transform: translateY(-50%);
+}
+/* 어떻게 해결할 것인가? */
+.sec_intro_02 {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 120px;
+}
+.sec_intro_02 .problem_item {
+    padding: 40px;
+    border: 1px solid #b9d3fb;
+    border-radius: 20px;
+    margin-right: 35px;
+    position: relative;
+}
+.problem_inner > img {
+    display: none;
+}
+.sec_intro_02 .problem_item:before {
+    content:'';
+    position: absolute;
+    top:0;
+    left: 50%;
+    transform: translate(-50%, -70%);
+    width: 100px;
+    height: 100px;
+}
+.sec_intro_02 .problem_item:nth-child(1):before {
+    background: url('../images/icon/number_1.png')no-repeat center center;
+    background-size: contain;
+}
+.sec_intro_02 .problem_item:nth-child(2):before {
+    background: url('../images/icon/number_2.png')no-repeat center center;
+    background-size: contain;
+}
+.sec_intro_02 .problem_item:nth-child(3):before {
+    background: url('../images/icon/number_3.png')no-repeat center center;
+    background-size: contain;
+}
+.sec_intro_02 .problem_item p {
+    font-size: 18px;
+}
+.sec_intro_02 .problem_item p span {
+    display: inline;
+}
+.btn_puco {
+    width: 100%;
+    text-align: center;
+}
+.btn_puco a.puco_more_btn {
+    background-color: #6d95e1;
+    color: #fff;
+    font-size: 17px;
+    padding: 15px 78px;
+    border-radius: 30px;
+    display: inline-block;
+    margin: 100px 0;
+}
+/* 소개_푸른코끼리 CSS 끝 */
+
+
+/* 20210903_서브메뉴 디자인 변경 시작 */
+.pc_menu_inner > li.pc_on > a {
+    background-color: #8bb3ff;
+    color: #fff;
+    font-weight: 500;
+    padding: 10px 50px;
+    border-radius: 20px;
+}
+/* .pc_menu_inner > li.pc_on > a:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #6193f0;
+} */
+.depths_02_inner {
+    width: 100%;
+    background-color: #eef4fe;
+    height: 70px;
+    /* border-bottom: 1px solid #dbdbdb; */
+    z-index: 100;
+}
+.pc_menu_inner > li:hover.pc_on > a {
+    color: #fff;
+}
+
+/* 20210903_서브메뉴 디자인 변경 끝 */

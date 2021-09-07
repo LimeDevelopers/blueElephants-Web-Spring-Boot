@@ -307,6 +307,7 @@ function termForm(){
 	})
 }
 
+
 //해상도에 따른 스크립트
 function winSize(){
 	var winW = $(window).width();
@@ -321,7 +322,7 @@ function winSize(){
 		$('.search_form').css({'right':asideW - position - 103})
 
 		//20210831_서브페이지 슬라이드메뉴
-		$('.sm_tit h3').on('click', function(){
+		$('.sm_tit h3').on('click', function () {
 			$(this).addClass('sd_on')
 			$(this).parent().parent().siblings().children('.sm_tit').children('h3').removeClass('sd_on')
 		})
@@ -347,11 +348,10 @@ function winSize(){
 		$('.search_form').removeAttr('style')
 
 
-		//20210831_서브페이지 슬라이드메뉴
-		$('.sm_tit h3').on('click', function(){
+		$('.sm_tit h3').on('click', function () {
 			$(this).addClass('sd_on')
 			$(this).parent().parent().siblings().children('.sm_tit').children('h3').removeClass('sd_on')
-			$(this).parent().siblings('ul.slide_sub').addClass('sd_on')
+			$(this).parent().siblings('ul.slide_sub').toggleClass('sd_on')
 			$(this).parent().parent().siblings().children('ul.slide_sub').removeClass('sd_on')
 		})
 

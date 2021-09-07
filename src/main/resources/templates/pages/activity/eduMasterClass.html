@@ -115,6 +115,130 @@
         <div class="sub_container">
             <th:block th:include="fragments/dept_menu"></th:block>
 
+            <div class="lecture_inner inner">
+                <div class="lecture">
+                    <h1 class="sub_title">수강신청</h1>
+                    <div class="lecture_content">
+                        <div class="lecture_item">
+                            <div class="lecture_sumnail">
+                                <a class="sumnail_icon" href="#none">
+                                    <img src="/ClientUI/user/images/contents/lecture/sumnail01.png" alt="sumnail01">
+                                </a>
+                                <span class="lecture_st">1차시</span>
+                            </div>
+                            <div class="lecture_text">
+                                <p class="lecture_title">푸코와 함께하는 1차시</p>
+                                <p class="lecture_sub">
+                                    사이버폭력에 대한<br>
+                                    예방 및 대처방법을 알아보아요!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lecture_content">
+                        <div class="lecture_item">
+                            <div class="lecture_sumnail">
+                                <a class="sumnail_icon" href="#none">
+                                    <img src="/ClientUI/user/images/contents/lecture/sumnail02.png" alt="sumnail02">
+                                </a>
+                                <span class="lecture_st">2차시</span>
+                            </div>
+                            <div class="lecture_text">
+                                <p class="lecture_title">푸코와 함께하는 2차시</p>
+                                <p class="lecture_sub">
+                                    사이버폭력에 대한<br>
+                                    예방 및 대처방법을 알아보아요!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lecture_content">
+                        <div class="lecture_item">
+                            <div class="lecture_sumnail">
+                                <a class="sumnail_icon" href="#none">
+                                    <img src="/ClientUI/user/images/contents/lecture/sumnail03.png" alt="sumnai03">
+                                </a>
+                                <span class="lecture_st">3차시</span>
+                            </div>
+                            <div class="lecture_text">
+                                <p class="lecture_title">푸코와 함께하는 3차시</p>
+                                <p class="lecture_sub">
+                                    사이버폭력에 대한<br>
+                                    예방 및 대처방법을 알아보아요!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lecture_content">
+                        <div class="lecture_item">
+                            <div class="lecture_sumnail">
+                                <a class="sumnail_icon" href="#none">
+                                    <img src="/ClientUI/user/images/contents/lecture/sumnail04.png" alt="sumnail04">
+                                </a>
+                                <span class="lecture_st">4차시</span>
+                            </div>
+                            <div class="lecture_text">
+                                <p class="lecture_title">푸코와 함께하는 4차시</p>
+                                <p class="lecture_sub">
+                                    사이버폭력에 대한<br>
+                                    예방 및 대처방법을 알아보아요!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lecture_content">
+                        <div class="lecture_item">
+                            <div class="lecture_sumnail">
+                                <a class="sumnail_icon" href="#none">
+                                    <img src="/ClientUI/user/images/contents/lecture/sumnail05.png" alt="sumnail05">
+                                </a>
+                                <span class="lecture_st">5차시</span>
+                            </div>
+                            <div class="lecture_text">
+                                <p class="lecture_title">푸코와 함께하는 5차시</p>
+                                <p class="lecture_sub">
+                                    사이버폭력에 대한<br>
+                                    예방 및 대처방법을 알아보아요!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lecture_content">
+                        <div class="lecture_item">
+                            <div class="lecture_sumnail">
+                                <a class="sumnail_icon" href="#none">
+                                    <img src="/ClientUI/user/images/contents/lecture/sumnail06.png" alt="sumnail06">
+                                </a>
+                                <span class="lecture_st">6차시</span>
+                            </div>
+                            <div class="lecture_text">
+                                <p class="lecture_title">푸코와 함께하는 6차시</p>
+                                <p class="lecture_sub">
+                                    사이버폭력에 대한<br>
+                                    예방 및 대처방법을 알아보아요!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lecture_content">
+                        <div class="lecture_item">
+                            <div class="lecture_sumnail">
+                                <a class="sumnail_icon" href="#none">
+                                    <img src="/ClientUI/user/images/contents/lecture/sumnail07.png" alt="sumnail07">
+                                </a>
+                                <span class="lecture_st">7차시</span>
+                            </div>
+                            <div class="lecture_text">
+                                <p class="lecture_title">푸코와 함께하는 7차시</p>
+                                <p class="lecture_sub">
+                                    사이버폭력에 대한<br>
+                                    예방 및 대처방법을 알아보아요!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         <form id="form1" name="form1" method="post" th:object="${form}">
             <input type="hidden" id="sectionIndex" name="sectionIndex" value="0" />
             <input type="hidden" id="inspctDvTy" name="inspctDvTy" value="" />
@@ -122,15 +246,6 @@
                 <div class="page_top">
                     <h3 class="page_tit" th:text="*{crsNm}">사이버폭력 예방 교육</h3>
                     <span th:utext="*{#strings.replace(crsCn, T(System).getProperty('line.separator'), '&lt;br /&gt;')}"> 관리자에서 입력한 내용이 나오는 교육 개요 내용입니다.</span>
-                    <ul class="tab_type_ico">
-                        <li class="teenager"><a href="/pages/activity/preventionEdu/STUDENT">청소년</a></li>
-                        <li class="parent"><a href="/pages/activity/preventionEdu/PARENT">부모</a></li>
-                        <li class="teacher"><a href="/pages/activity/preventionEdu/TEACHER">교원</a></li>
-                        <li class="normal"><a href="/pages/activity/preventionEdu/NORMAL">일반</a></li>
-                        <!--<li class="lecturer"><a href="/pages/activity/preventionEdu/LECTURER">푸코강사</a></li>-->
-                        <li class="dataroom"><a href="/pages/activity/eduDataRoom">자료실</a></li>
-                        <li class="review"><a href="/pages/activity/postscript">교육후기</a></li>
-                    </ul>
                 </div>
                 <div class="page_cont">
                     <ul class="thumb_list clearfix">

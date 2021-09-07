@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <th:block th:include="fragments/header"></th:block>
+  <script type="text/javascript">
+    function fn_courseRequest(id,atnlcReqPid) {
+
+      var mberDvTy = '[[${form.mberDvTy}]]';
+      var userGbn = '[[${userGbn}]]'
+      var atnlcReqPid = '[[${atnlcReqPid}]]'
+
+      if (userGbn == '') {
+        alert('로그인 후 수강신청 할 수 있습니다.');
+        return false;
+      }
+
+      if (mberDvTy != userGbn) {
+        alert('수강신청 대상이 아닙니다.');
+        return false;
+      }
+
+      if (atnlcReqPid != 0) {
+        alert('이미 수강신청한 과정입니다.');
+        return false;
+      }
+
+      if (!confirm('수강신청 하시겠습니까?')) {
+        return false;
+      }
+      var jsonData = {
+        'crsMstPid':id
+      }
+      $.ajax({
+        type: 'post',
+        url: '/api/pages/courseRequest/register',
+        contentType: "application/json",
+        data: JSON.stringify(jsonData),
+        datatype: 'text',
+        success: function (data) {
+          if (data === 'ok') {
+            alert('정상처리 되었습니다.');
+            location.reload();
+          } else {
+            alert('실패되었습니다 관리자에게 문의 하세요');
+          }
+        },
+        error: function (error) {
+          //alert('save error!!!');
+          alert('error::' + error.statusText);
+        }
+      });
+    }
+
+    function fn_message() {
+      alert('대상이 아닙니다.');
+      return false;
+    }
+
+    function fn_eduClass(sn,id,crsMstPid) {
+      if (sn == 1) {
+        location.href = '/pages/activity/eduTasteDetail/' + crsMstPid + '/' + id;
+        return false;
+      }
+
+      location.href = '/pages/activity/eduClass/' + crsMstPid + '/' + id + '/' + sn;
+    }
+
+    function preInspcetion(crsMstPid,sn) {
+      if (sn == 2) {
+        $('#inspctDvTy').val("BEFORE");
+      }
+
+      if (sn == 6) {
+        $('#inspctDvTy').val("AFTER");
+      }
+
+      var frm = $('#form1');
+
+      frm.prop('action', '/pages/activity/preInspection/'+crsMstPid+'/'+sn);
+      frm.submit();
+    }
+
+    function fn_satisfaction() {
+      var crsMstPid = '[[${form.id}]]';
+      var jsonData = {
+        'crsMstPid' : crsMstPid
+      }
+      $.ajax({
+        type: 'post',
+        url: '/api/activity/satisfactionTest',
+        contentType: "application/json",
+        data: JSON.stringify(jsonData),
+        datatype: 'text',
+        success: function (data) {
+          if(data.id != null){
+            alert('이미 만족도 검사에 참여하였습니다.');
+            return false;
+          }else{
+            location.href = '/pages/activity/satisfactionTest/'+crsMstPid;
+          }
+        },
+        error: function (error) {
+          //alert('save error!!!');
+          alert('error::' + error.statusText);
+        }
+      });
+    }
+  </script>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+  <th:block th:include="fragments/header_gnb"></th:block>
+  <div id="container">
+    <th:block th:include="fragments/mo_menu"></th:block>
+    <div class="sub_container">
+      <th:block th:include="fragments/dept_menu"></th:block>
+
+      <div class="lecture_inner lecture_inner2 inner">
+        <div class="lecture">
+          <h1 class="sub_title">수강신청</h1>
+          <div class="lecture_content">
+            <div class="lecture_item">
+              <div class="lecture_sumnail">
+                <a class="sumnail_icon2" href="#none">
+                  <img src="/Users/jerry/Documents/9900/ClientUI/user/images/contents/lecture/sumnail-01.png" alt="sumnail01">
+                </a>
+                <span class="lecture_st">사전교육</span>
+              </div>
+              <div class="lecture_text">
+                <p class="lecture_title">푸코와 함께하는 사전교육</p>
+                <ul class="list">
+                  <li><a href="#">1차시</a></li>
+                  <li><a href="#">2차시</a></li>
+                </ul>
+                <p class="lecture_sub">
+                  사이버폭력에 대한<br/>
+                  예방 및 대처방법을 알아보아요!
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="lecture_content lecture_hid_content">
+            <div class="lecture_item">
+              <div class="lecture_sumnail">
+                <a class="sumnail_icon2" href="#none">
+                  <img src="/Users/jerry/Documents/9900/ClientUI/user/images/contents/lecture/sumnail-02.png" alt="sumnail02">
+                </a>
+                <span class="lecture_st">현장교육</span>
+              </div>
+              <div class="lecture_text">
+                <p class="lecture_title">푸코와 함께하는 현장교육</p>
+                <ul class="list">
+                  <li><a href="#">1차시</a></li>
+                  <li><a href="#">2차시</a></li>
+                  <li><a href="#">3차시</a></li>
+                  <li><a href="#">4차시</a></li>
+                </ul>
+                <p class="lecture_sub">
+                  사이버폭력에 대한<br/>
+                  예방 및 대처방법을 알아보아요!
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="lecture_content lecture_hid_content">
+            <div class="lecture_item">
+              <div class="lecture_sumnail">
+                <a class="sumnail_icon2" href="#none">
+                  <img src="/Users/jerry/Documents/9900/ClientUI/user/images/contents/lecture/sumnail-03.png" alt="sumnai03">
+                </a>
+                <span class="lecture_st">사후교육</span>
+              </div>
+              <div class="lecture_text">
+                <p class="lecture_title">푸코와 함께하는 사후교육</p>
+                <ul class="list">
+                  <li><a href="#">1차시</a></li>
+                </ul>
+                <p class="lecture_sub">
+                  사이버폭력에 대한<br/>
+                  예방 및 대처방법을 알아보아요!
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>
