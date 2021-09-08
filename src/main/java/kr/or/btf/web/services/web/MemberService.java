@@ -1598,6 +1598,8 @@ public class MemberService extends _BaseService {
             memberForm.setPwd(passwordEncoder.encode(memberSchoolForm.getPwd())); //패스워드 셋
             memberForm.setRegDtm(LocalDateTime.now()); //등록일
             memberForm.setPrtctorAttcAt("Y");
+            memberForm.setOnlineEdu("N"); // 현장교육 N = 오프라인
+            memberForm.setApproval("Y"); // 승인여부
             memberForm.setNm("TEST");
             memberForm.setSexPrTy("MALE");
 

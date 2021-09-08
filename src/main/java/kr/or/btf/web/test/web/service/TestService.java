@@ -1,5 +1,6 @@
 package kr.or.btf.web.test.web.service;
 
+import kr.or.btf.web.common.Base;
 import kr.or.btf.web.common.Constants;
 import kr.or.btf.web.common.exceptions.ValidCustomException;
 import kr.or.btf.web.domain.web.Account;
@@ -45,10 +46,8 @@ public class TestService extends _BaseService {
     @Autowired
     BoardDataService boardDataService;
 
-    private final MemberTeacherRepository teacherRepository;
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
-    private final MemberService memberService;
     private final ModelMapper modelMapper;
     private final MemberSchoolRepository memberSchoolRepository;
     private final MemberRollRepository memberRollRepository;
@@ -61,7 +60,7 @@ public class TestService extends _BaseService {
         Page<BoardData> noticeList = boardDataService.list(pageable, searchForm, boardDataForm);
         return noticeList;
     }
-    @Transactional
+    /*@Transactional
     public void batchRegister(MemberForm memberForm) {
         String tempId = memberForm.getLoginId();
         int cnt = 0;
@@ -93,36 +92,34 @@ public class TestService extends _BaseService {
             memberSchoolRepository.pr_findTID(memberForm.getAreaNm(), memberForm.getSchlNm(),
                     memberForm.getGrade(), memberForm.getBan(), save.getId(), LocalDateTime.now());
         }
-    }
+    }*/
+    //폼에서 데이터를 전달 받음
+    @Transactional
+    public void batchRegister(MemberForm memberForm) {
+        String temp = memberForm.getLoginId();
 
-    /*@Transactional
-    public void testBathRegister(MemberSchoolForm memberSchoolForm) {
-        MemberForm memberForm = new MemberForm();
-        String tempId = memberSchoolForm.getLoginId();
-        String batch = "BATCH";
+        for (int i = 1; i <= memberForm.getBatchArr(); i++) {
+            log.info(temp+i);
 
-        for (int i = 1; i <= memberSchoolForm.getBatchArr(); i++) {
-            //계정 정보 추가
             memberForm.setDelAt("N");
-            memberForm.setPwd(passwordEncoder.encode(memberSchoolForm.getPwd())); //패스워드 셋
+            memberForm.setPwd(passwordEncoder.encode(memberForm.getPwd())); //패스워드 셋
             memberForm.setRegDtm(LocalDateTime.now()); //등록일
-            memberForm.setPrtctorAttcAt("N");
+            memberForm.setOnlineEdu("N"); // 현장교육 N = 오프라인
+            memberForm.setApproval("Y"); // 승인여부
+            memberForm.setPrtctorAttcAt("Y");
+            memberForm.setNm("TEST");
+            memberForm.setSexPrTy("MALE");
 
-            if(i<10){
-                tempId = memberSchoolForm.getLoginId();
-                tempId+="0"+i;
+            if (i < 10) {
+                memberForm.setLoginId(temp+"0"+i);//변형된 계정 셋
             } else {
-                memberSchoolForm.getLoginId();
-                tempId+=i;
+                memberForm.setLoginId(temp+i);//변형된 계정 셋
             }
-            memberForm.setLoginId(tempId);//변형된 계정 셋
-            System.out.println(tempId);
+
             memberForm.setMberDvTy(UserRollType.BATCH);
             Account account = modelMapper.map(memberForm, Account.class);
             Account save = memberRepository.save(account);
 
-            //로그인아이디 초기화
-            tempId = "";
 
             MemberRoll memberRoll = new MemberRoll();
             memberRoll.setMberPid(save.getId());
@@ -131,10 +128,19 @@ public class TestService extends _BaseService {
             memberRoll.setRegPsId(save.getRegPsId());
             memberRollRepository.save(memberRoll);
             //memberSchool에 인서트 해주는 프로시저 호출
-            MemberSchool memberSchool = new MemberSchool();
-            System.out.println(save.getId());
-            memberSchoolRepository.pr_findTID( memberSchoolForm.getAreaNm() , memberSchoolForm.getSchlNm(),
-                    memberSchoolForm.getGrade(), memberSchoolForm.getBan() , save.getId() ,LocalDateTime.now());
+            memberSchoolRepository.pr_findTID(memberForm.getAreaNm(), memberForm.getSchlNm(),
+                    memberForm.getGrade(), memberForm.getBan(), save.getId(), LocalDateTime.now());
+
         }
-    }*/
+    }
+
+    public Boolean existsByBatchLoginId(String loginId){
+        Account account = memberRepository.findByLoginId(loginId).orElseGet(Account::new);
+        return (account != null && account.getId() != null);
+    }
+
+    public boolean existsSpace(String text) {
+        if (text == null) return true;
+        return text.contains(" ");
+    }
 }
