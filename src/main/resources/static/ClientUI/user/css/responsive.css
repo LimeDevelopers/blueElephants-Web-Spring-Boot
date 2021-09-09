@@ -18,10 +18,18 @@
 	#header .mnu {
 		display: none;
 	}
+
+
+	/* 20210903_contents padding추가 */
 	.contents {
 		width: 100%;
 		padding-bottom: 0;
+		padding: 0 20px;
 	}
+
+
+
+
 	/* 행복한 하루보내세요 */
 	.mo_top_nav_wrap {
 		display: block;
@@ -35,6 +43,7 @@
 		/* height: auto; */
 		padding-bottom: 120px;
 		height: 250px;
+		/* display: none; */
 	}
 
 	.mo_top_nav_wrap .mo_info .helloMsg {
@@ -1100,6 +1109,8 @@
 	.inner {
 		padding: 0 20px;
 		padding-top: 20px;
+		box-sizing: border-box;
+		width: 100%;
 	}
 	.depths_02_inner {
 		display: block;
@@ -1113,10 +1124,589 @@
 
 
 
+	/* **************** 소개 **************** */
+	.sec {
+		margin-top: 40px;
+	}
+	.page_top {
+		padding: 30px 0 0;
+	}
+	.page_top .top_banner {
+		width: 100%;
+		padding: 30px 20px;
+	}
+	/* 소개_ 사이버폭력이란 시작*/
+	.page_top .intro_banner {
+		height: auto;
+		background: url('../images/contents/box_2_m.png')no-repeat center center;
+		background-size: 100% 100%;
+	}
+	.page_top .top_banner h1 {
+		font-size: 20px;
+		padding-left: 30px;
+	}
+	.page_top .top_banner h1:before {
+		width: 45px;
+		height: 45px;
+		left: -20px;
+		background-size: contain;
+	}
+	.page_top .top_banner p {
+		font-size: 12px;
+		text-align: left;
+		margin-top: 15px;
+	}
+	.page_top .top_banner p b {
+		display: inline;
+	}
+	.page_top .top_banner p small {
+		font-size: 12px;
+		letter-spacing: -1px;
+	}
+	.intro_item_01 .sec_tit h1, .intro_item_02 .sec_tit h1 {
+		font-size: 22px;
+	}
+	.intro_item_01 .sec_tit h1:before, .intro_item_02 .sec_tit h1:before {
+		top: 110%;
+	}
+	.intro_item_01 .sec_tit .desc {
+		font-size: 12px;
+	}
+	.intro_item_01 .sec_tit .desc span {
+		display: block;
+	}
+	.intro_item_01 .small_tit {
+		flex-direction: column;
+		margin-top: 30px;
+	}
+
+	.intro_item_01 .small_tit h3 {
+		font-size: 13px;
+		font-weight: normal;
+		padding-left: 10px;
+	}
+	.intro_item_01 .small_tit h3:before {
+		width: 3px;
+	}
+	.intro_item_01 .small_tit a.btn_more {
+		width: 150px;
+		font-size: 14px;
+		margin-top: 15px;
+	}
+	.intro_item_01 .graph {
+		background: url('../images/contents/intro_graph_m.png')no-repeat center center;
+		background-size: contain;
+		width: 100%;
+		height: 250px;
+		margin-top: 10px;
+	}
+	.intro_item_01 > .desc {
+		font-size: 14px;
+		text-align: left;
+	}
+	.intro_item_01 > .desc span {
+		display: inline;
+	}
+	.box_item {
+		flex-direction: column;
+		margin-top: 30px;
+		width: 80%;
+		margin: 0 auto;
+	}
+	.box_item .item {
+	}
+	.box_item .item .box {
+		flex: 2;
+	}
+	.box_item .item.boy {
+		margin-bottom: 30px;
+	}
+	.box_item .boy .box,
+	.box_item .girl .box {
+		margin-right: 0;
+		background-size: 80% 100%;
+	}
+	.box_item .item .box p {
+		font-size: 14px;
+	}
+	.box_item .item .boy img,
+	.box_item .item .girl img {
+		margin: auto;
+		width: 60px;
+	}
+	.box_item .item .box p {
+		font-size: 11px;
+	}
+	.intro_item_01 .btns {
+		width: 100%;
+	}
+	.intro_item_01 .btns > a {
+		font-size: 14px;
+		padding: 5px 10px;
+		border-radius: 10px;
+		text-align: center;
+		margin-right: 5px;
+	}
+	.intro_item_01 .btns > a b {
+		display: block;
+	}
+	.intro_item_01 .btns > a:last-child {
+		margin-right: 0;
+	}
+	.box_item_2 {
+		padding: 20px 10px;
+		margin-bottom: 50px;
+	}
+	.box_item_2 .list_inner {
+		padding: 30px 10px;
+	}
+	.box_item_2 .list_inner ul.list {
+		width: 80%;
+		margin: auto;
+	}
+	.box_item_2 .list_inner ul.list li {
+		font-size: 12px;
+		margin-bottom: 12px;
+	}
+	.box_item_2 .list_inner ul.list li:before {
+		left: -25px;
+		width: 13px;
+		height: 25px;
+		top: 30%;
+	}
+	.box_item_2 .list_inner b{
+		lefT: 20px;
+		font-size: 14px;
+		padding: 0 20px;
+		padding-lefT: 50px;
+	}
+	.box_item_2 .list_inner b:before {
+		width: 25px;
+		height: 25px;
+	}
+	/* 어떻게 해결할 것인가? */
+	.sec_intro_02 {
+		padding-top: 20px;
+		flex-direction: column;
+		margin-top: 10px;
+	}
+	.sec_intro_02 .problem_item {
+		padding: 10px 20px;
+		margin-right: 0;
+		width: 80%;
+		margin-left: auto;
+		margin-bottom: 0;
+		border-radius: 10px;
+	}
+	.sec_intro_02 .problem_item p {
+		font-size: 12px;
+	}
+	.sec_intro_02 .problem_item:before {
+		display: none;
+	}
+	.problem_inner {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 20px;
+	}
+	.problem_inner > img {
+		display: block;
+		width: 50px;
+		height: 50px;
+	}
+	.btn_puco a.puco_more_btn {
+		padding: 15px 60px;
+		margin-top: 30px;
+	}
+
+	/* 소개_ 사이버폭력이란 끝*/
+
+
+
+	/* 소개_ 푸른코끼리 시작 */
+	.intro_banner h1 span {
+		font-size: 15px;
+		padding-right: 5px;
+	}
+	.puco_site .site_desc .site_img img {
+		width: 100%;
+	}
+	.about_btn a.btn_download {
+		font-size: 12px;
+		padding: 10px 12px;
+		width: 125px;
+	}
+	.about_btn .down-btn {
+		margin-right: 10px;
+	}
+	.gyeonggi_tit {
+		margin: 20px 0;
+		font-size: 16px;
+	}
+	.pucoabout_inner .puco_items {
+		top: 850px;
+	}
+	.pucoabout_inner .puco_items .bg_inner {
+		padding: 40px 0;
+	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item {
+		flex-direction: column;
+		height: 400px;
+	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item > div {
+		width: 100%;
+		padding: 100px 0;
+	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item .item_01 {
+		background-size: cover;
+	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item .item_02 {
+		background-size: cover;
+	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item .item_03 {
+		background-size: cover;
+	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item .item_04 {
+		background-size: cover;
+	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item .item_05 {
+		background: url('../images/contents/puco_banner_5_m.png')no-repeat center center;
+		background-size: contain;
+		flex: 0.5;
+		padding: 0 !important;
+	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item:nth-child(3) {
+		height: 400px;
+	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item > div .item_tit {
+		padding: 5px 20px;
+		font-size: 14px;
+		border-radius: 5px;
+		left: 30px;
+		top: 8px;
+	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item > div .desc {
+		top: 12%;
+	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item > div .desc p {
+		font-size: 12px;
+		margin-bottom: 5px;
+	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item > div .desc span small {
+		font-size: 10px;
+		padding: 4px;
+	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item > div .desc {
+		font-size: 18px;
+		top: 20%;
+	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item > div .desc span b {
+		margin-bottom: 0;
+	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item > div .more_btn {
+		font-size: 11px;
+		right: 40px;
+	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item > div .more_btn:before {
+		width: 14px;
+		height: 14px;
+		left: -25px;
+	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item .item_05 .desc {
+		left: 38%;
+	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item > div .desc span {
+		display: inline;
+	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item > div .desc b {
+		display: block;
+	}
+	/* 소개_ 푸른코끼리 끝 */
+
+
+
+
+	/* 소개_ 푸른캐릭터 시작 */
+	.page_top .character_banner {
+		padding: 20px;
+		height: auto;
+		background: url('../images/contents/box_1_m.png')no-repeat center center;
+		background-size: contain;
+	}
+	.ci_inner {
+		flex-direction: column;
+		margin-top: 20px;
+	}
+	.ci_inner .ci_sum {
+		width: 100%;
+		border: 0;
+		padding: 30px;
+	}
+	.puco_ch .ci_inner .ci_sum {
+		display: none;
+	}
+	.character_down {
+		display: flex;
+	}
+	.level_puco .level_pc {
+		display: none;
+	}
+	.level_puco .level_m {
+		display: block;
+	}
+	.ci_inner .ci_desc p {
+		font-size: 14px;
+	}
+	.ci_inner .ci_desc .ci_download {
+		margin: 0 auto;
+		padding: 8px 40px;
+		margin-top: 30px;
+	}
+	.puco_ch .ci_inner .ci_desc .ch_01 {
+		margin-left: auto;
+		height: 230px;
+		position: relative;
+	}
+	.level_graph .graph_01 {
+		margin-bottom: 15px;
+	}
+	.puco_ch .ci_inner .ci_desc .ch_01:before {
+		content:'';
+		position: absolute;
+		width: 100px;
+		height: 150px;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		left: 0;
+		background: url('../images/contents/m_obj_mascot.png')no-repeat center center;
+		background-size: contain;
+	}
+	.ci_inner .ci_desc small {
+		font-size: 10px;
+		margin-left: auto;
+	}
+	.puco_ch .ci_inner .ci_desc ul.character_info {
+		width: 80%;
+		left: 60%;
+	}
+	.puco_ch .ci_inner .ci_desc ul.character_info li > * {
+		font-size: 10px;
+	}
+	.ci_desc .ch_02 .about_puco {
+		margin-top: 40px;
+	}
+	.ci_desc .ch_02 .about_puco h4 {
+		font-size: 16px;
+	}
+	.ci_desc .ch_02 .about_puco a:before {
+		width: 20px;
+	}
+	.ci_desc .ch_02 .about_puco a:after {
+		height: 20px;
+		left: -35px
+	}
+	.ci_desc .ch_02 .about_puco a {
+		font-size: 14px;
+	}
+	.puco_ch .ci_inner .ci_desc .ch_02 p.about_puco_desc b {
+		display: inline;
+	}
+	.character_down a.btn_download {
+		padding: 8px 20px;
+		font-size: 12px;
+	}
+	.character_down a.btn_download {
+		background: url('../images/icon/download.png')no-repeat center right 20px;
+		background-size: 12px;
+		padding-right: 30px;
+	}
+	.level_puco {
+		margin-top: 30px;
+	}
+	.level_graph {
+		margin-top: 30px;
+	}
+	.level_graph div > table tr td {
+		font-size: 11px;
+		padding: 5px 3px;
+		color: #9399af;
+	}
+	.level_graph .graph_02 table tr td:nth-child(2) {
+		width: 40px;
+	}
+	/* 소개_ 푸른캐릭터 끝 */
+
+
+
+
+
 	/* ****************활동**************** */
-	/* 활동_ 사이버폭력 예방교육_능력카드제작 시작*/
+	/* 20210903_수강신청 시작*/
+	/* 활동_ 예방교육 시작 */
+	.lecture{
+		flex-direction: column;
+		top: 66%;
+		display: contents;
+	}
+	.lecture > .sub_title{
+		display: none;
+	}
+	.lecture > .lecture_content{
+		justify-content: space-between;
+		margin: 0px;
+		min-width: auto;
+		padding-bottom: 50px;
+	}
+	.lecture > .lecture_content:nth-child(3), .lecture_content:nth-child(6), .lecture_content:nth-child(9){
+		margin: 0px !important;
+	}
+	.lecture > .lecture_content > .lecture_item {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.lecture > .lecture_content > .lecture_item > .lecture_sumnail{
+		min-width: 130px;
+		height: 130px;
+		display: inline-block;
+		border: solid 3px #8bb3ff;
+		vertical-align: middle;
+	}
+	.lecture > .lecture_content > .lecture_item > .lecture_text{
+		display: inline-block;
+		margin-left: 10px;
+		vertical-align: middle;
+		margin-top: 0px;
+	}
+	.lecture > .lecture_content > .lecture_item > .lecture_sumnail > .lecture_st{
+		color: #bbd2f8;
+		font-size: 20px;
+		padding-right: 16px;
+		padding-top: 16px;
+	}
+	.lecture > .lecture_content > .lecture_item > .lecture_sumnail > .sumnail_icon {
+		left: -10px;
+	}
+	.lecture > .lecture_content:nth-of-type(1) > .lecture_item > .lecture_sumnail > .sumnail_icon2 {
+		bottom: -10px;
+	}
+	.sumnail_icon > img{
+		width: 55%;
+	}
+	.lecture > .lecture_content:nth-of-type(1) > .lecture_item > .lecture_sumnail > .sumnail_icon2 > img {
+		width: 70%;
+	}
+
+	.sub_container > .lecture_inner{
+		height: 1330px;
+	}
+	.sub_container > .lecture_inner2{
+		height: 630px;
+	}
+	.lecture > .lecture_content > .lecture_item > .lecture_text > .lecture_sub{
+		margin-top: 22px;
+		margin-bottom: 0px;
+	}
+	.lecture > .lecture_hid_content > .lecture_item > .lecture_sumnail > .lecture_st{
+		color: #cbd2df;
+	}
+	.lecture > .lecture_hid_content > .lecture_item > .lecture_sumnail{
+		border : solid 3px #d0daee;
+	}
+	.lecture > .lecture_content > .lecture_item > .lecture_text > .lecture_title{
+		font-size: 16px;
+	}
+	.lecture > .lecture_content > .lecture_item > .lecture_text > .lecture_sub{
+		font-size: 12px;
+	}
+	/* 활동_ 예방교육 끝 */
+	/* 20210903_수강신청 끝*/
+
+
+	/* 일반교육 CSS */
+	.edu_video iframe {
+		width: 100%;
+		height: 200px;
+		border-radius: 20px;
+	}
+	.html5-video-player a {
+		font-size: 15px;
+	}
+	.general_education > .edu_title{
+		text-align: left;
+	}
+	.general_education > .edu_form > .edu_list_box > .lecture_sumnail > .sumnail{
+		margin-top: 20px;
+		margin-bottom: 10px;
+	}
+	.general_education > .edu_form > .edu_list_box > .edu_btn_box > .edu_btn{
+		padding: 15px 79px;
+	}
+	.general_education > .edu_form > .edu_list_box > .edu_btn_box{
+		margin-bottom: 60px;
+	}
+	.general_education > .edu_title{
+		font-size: 24px;
+	}
+	.general_education > .edu_des{
+		font-size: 14px;
+		padding: 20px;
+	}
+	.general_education > .edu_form > .edu_list_box > .edu_text_box > .edu_tag{
+		font-size: 14px;
+	}
+	.general_education > .edu_form > .edu_list_box > .edu_text_box > .edu_form_title{
+		font-size: 18px;
+		margin-bottom: 30px;
+		margin-top: 5px;
+	}
+	.general_education > .edu_form > .edu_list_box > .edu_btn_box > .edu_btn button{
+		font-size: 14px;
+	}
+	/* 일반교육 CSS 끝 */
+
+
+
+
+	/* 활동_ 예방교육_능력카드제작 시작*/
+
+	/* 처음이세요? / 예방교육수강중이신가요? */
+	.hi {
+		background: url('../images/icon/hi.png')no-repeat bottom 30px right -18px;
+		background-size: 120px auto;
+	}
+	.card_inner > h2 {
+		display: block;
+		/* display: none; */
+	}
+	.user_type {
+		width: 220px;
+		margin: 50px auto;
+	}
+	.user_type a button {
+		width: 100%;
+		margin: 0 auto;
+		background-color: #6d95e1;
+		color: #fff;
+		padding: 0;
+		padding-left: 75px;
+		border-radius: 50px;
+		font-size: 16px;
+		margin-bottom: 20px;
+		font-weight: 500;
+		height: 70px;
+	}
+	.user_type a .user_type_02 b {
+		display: block;
+	}
+
+
 	/* 나만의 카드 만들기 */
-	.sub_container {}
+	.card .item_inner {
+		width: 55%;
+		margin-top: 20px;
+	}
 	.sub_container .sub_intro_banner {
 		height: 100px;
 		margin-top: 70px;
@@ -1140,17 +1730,26 @@
 		background-color: #eef4fe;
 		height: 45px;
 		padding: 0;
+		border-bottom: 0;
 	}
 	.depths_02_inner .slide_menu {
 		display: flex;
-		padding: 7px 0 7px 20px;
+		padding: 7px 0;
+		padding-left: 20px;
 		overflow: hidden;
 		position: relative;
 		display: block;
-		z-index:10;
 	}
 	.sm_tit {
 		position: relative;
+	}
+	.depths_02_inner .slide_menu > div .sm_tit h3 {
+		color: #8c90a5;
+		text-align: center;
+		font-weight: 300;
+		border-radius: 8px;
+		padding: 6px 0;
+		font-size: 13px;
 	}
 	.depths_02_inner .slide_menu > div .sm_tit h3.sd_on {
 		background-color: #8bb3ff;
@@ -1181,7 +1780,9 @@
 	.depths_02_inner .slide_menu > div .sm_tit h3.sd_on:after {
 		display: none;
 	}
-
+	.depths_02_inner .slide_menu > div ul.slide_sub.sd_on {
+		display: block;
+	}
 	.depths_02_inner .slide_menu > div ul.slide_sub li {
 		box-sizing: border-box;
 		padding: 6px 0;
@@ -1199,13 +1800,18 @@
 		position: relative;
 		height: calc(100vh - 215px);
 		box-sizing: border-box;
-		z-index: -1;
 	}
 	.card_inner > h1 {
 		display: none;
+		color: #555868;
+		font-size: 16px;
+	}
+	.card_inner > h1:after {
+		display: none;
 	}
 	.card_inner > b {
-		display: none;
+		font-size: 16px;
+		padding-top: 0;
 	}
 	.card {
 		position: absolute;
@@ -1239,9 +1845,14 @@
 		width: 180px;
 	}
 	.card .item_inner .item_1 {
-		background-color: #e1e0e0;
+		background: #d2d4de url('../images/icon/upload.png')no-repeat center center;
+		background-size: 35px auto;
 		width: 100%;
-		height: 100%;
+		height: 90%;
+	}
+	.card .item_inner .item_1 small {
+		color: #fff;
+		padding-top: 100px;
 	}
 	.card small {
 		display: inline-block;
@@ -1252,18 +1863,20 @@
 		font-weight: 300;
 		line-height: 1.3;
 		margin-bottom: 10px;
+		margin-top: 60px;
 	}
 	.item_inner_2 {
 		padding: 15px;
 		width: 65% !important;
-		height: 300px;
+		height: 300px !important;
 		border: 1px solid #dcd8d8;
 		margin-bottom: 10px;
+		padding-bottom: 0;
 	}
 	.item_inner_2 .item_2 {
 		background-color: #8bb3ff;
 		width: 100%;
-		height: 100%;
+		height: 80%;
 	}
 	.card .item_inner_2 label {
 		float: right;
@@ -1276,7 +1889,7 @@
 		font-weight: 300;
 		height: auto;
 		line-height: inherit;
-		margin-top: 30px;
+		margin-top: 15px;
 	}
 	.card .file_form {}
 	.card .item_inner_2 input[type=text] {
@@ -1297,6 +1910,7 @@
 		margin: 0;
 		border: 0;
 	}
+
 	/* 결제방식 */
 	.card_inner .card_point h2 {
 		display: block;
@@ -1305,7 +1919,7 @@
 		color: #555868;
 		margin-bottom: 25px;
 	}
-	.card_inner .card_point .type {
+	.card_inner .card_point .item_inner_3 .type {
 		width: 100%;
 		border: 1px solid #c7c7c7;
 		padding: 30px;
@@ -1324,13 +1938,41 @@
 	}
 
 	/* 능력카드 저장 내역 */
+	.card_download .item_inner_2 {
+		height: 250px;
+		padding-bottom: 15px;
+	}
+
+
+	/* 발급신청이 정상적으로 처리되었습니다. */
+	.card_modal .modal_inner {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		background-color: #fff;
+		width: 90%;
+		height: auto;
+		border-radius: 20px;
+		padding-top: 50px;
+		padding-bottom: 20px;
+		text-align: center;
+	}
+	.card_modal .modal_inner b {
+		display: block;
+		font-weight: bold;
+		line-height: 1.3;
+		font-size: 14px;
+		margin-bottom: 40px;
+	}
+
 	.card_inner .card_list {}
 	.card_inner .card_list h2 {
 		margin-right: auto;
 		font-size: 16px;
 		color: #555868;
 		position: relative;
-		display: block;
+
 	}
 	.card_inner .card_list h2:after {
 		content:'';
@@ -1391,6 +2033,13 @@
 		margin-bottom: 50px;
 	}
 	/* 나만의 카드만들기 리스트 */
+	.list_view {
+		margin-bottom: 20px;
+	}
+
+	.card_list_inner {
+		padding: 20px 0;
+	}
 	.list_view .view_item {
 		background-color: #edeff4;
 		width: 50%;
@@ -1398,7 +2047,8 @@
 		position: relative;
 	}
 	.list_view span {
-		padding: 0 50px;
+		width: 80%;
+		margin: 0 auto;
 	}
 
 	.card_list_inner {
@@ -1413,6 +2063,147 @@
 
 
 
+
+	/* 20210903_소개_모바일수정*/
+	/* 활동_사이버폭력 예방교육_소개 시작 */
+	.edu_intro_area {
+	}
+	.edu_intro_area .video_area {
+		margin-bottom: 30px;
+	}
+	.edu_intro_area .video_area>div {
+		display: inline-block;
+		width: 100% !important;
+		vertical-align: top
+	}
+	.edu_intro_area .video_area>div.intro01 {
+		margin-right: 10px;
+	}
+	.tab_ico_area .tab_cont .cont .desc dt {
+		font-size: 15px;
+	}
+	.edu_intro_area .video_area a+span {
+		font-size: 15px;
+	}
+	.edu_intro_area .virtue_area li strong {
+		margin-top: 8px;
+		font-size: 20px;
+	}
+	.edu_intro_area .video_area>div.intro01 {
+		margin-bottom: 20px;
+	}
+	.edu_intro_area .virtue_area p {
+		font-size: 15px;
+	}
+	.edu_intro_area .virtue_area {
+		box-sizing: border-box;
+	}
+	.edu_intro_area .virtue_area li {
+		height: 180px;
+		padding: 5px 10px;
+		margin: 0 5px 20px 0;
+		width: calc(33.33% - 5px);
+		/* width: 33.33%; */
+	}
+	.edu_intro_area .virtue_area li:before {
+		position: absolute;
+		width: 35px;
+		height: 35px;
+		background: rgba(0, 0, 0, .3) url(../images/icon/m_sp_ico_virtue.png) no-repeat 50% auto;
+		top: 10px;
+		right: 10px;
+	}
+	.edu_intro_area .virtue_area li span {
+		font-size: 13px;
+		padding-top: 20px;
+		display: inline-block;
+	}
+	.edu_intro_area .virtue_area li.honesty:before {
+		background-position: -15px -15px;
+	}
+
+	.edu_intro_area .virtue_area li.promise:before {
+		background-position: -79px -15px;
+	}
+
+	.edu_intro_area .virtue_area li.forgive:before {
+		background-position: -142px -15px;
+	}
+
+	.edu_intro_area .virtue_area li.duty:before {
+		background-position: -207px -15px;
+	}
+
+	.edu_intro_area .virtue_area li.consider:before {
+		background-position: -271px -15px;
+	}
+
+	.edu_intro_area .virtue_area li.own:before {
+		background-position: -335px -15px;
+	}
+
+
+
+	.edu_intro_area .virtue_area p.caution {
+		font-size: 11px;
+	}
+	/* 교육구성 */
+	.edu_intro_area .config_area .edu_model .top strong {
+		font-size: 20px;
+	}
+	.edu_intro_area .config_area .edu_model .top {
+		font-size: 14px;
+	}
+	.edu_intro_area .config_area .edu_model>div span {
+		font-size: 16px;
+	}
+	.edu_intro_area .config_area .six_virtue li {
+		flex:1;
+		margin-right: 0;
+		margin-right: 5px;
+		font-size: 20px;
+		line-height: 60px;
+	}
+	.edu_intro_area .config_area .six_virtue {
+	}
+	.six_virtue .clearfix {
+		display: flex;
+		justify-content: space-between;
+	}
+	.edu_intro_area .config_area .six_virtue strong {
+		font-size: 20px;
+	}
+	/* 교육전개 */
+	.edu_intro_area .develop_area .clearfix {
+		/* display: flex;
+		justify-content: space-between; */
+	}
+	.edu_intro_area .develop_area .clearfix li {
+		/* flex: 1; */
+		margin-right: 0;
+		margin-bottom: 20px;
+		width: 48%;
+	}
+	.edu_intro_area .develop_area .clearfix li:nth-of-type(1),
+	.edu_intro_area .develop_area .clearfix li:nth-of-type(3) {
+		margin-right: 10px;
+	}
+	.edu_intro_area .develop_area .clearfix li:last-child {
+		margin-right: 0;
+	}
+	.edu_intro_area .develop_area li strong {
+		font-size: 16px;
+		font-weight: 500;
+	}
+	.edu_intro_area .develop_area li span {
+		font-size: 13px;
+		padding: 0;
+	}
+
+	/* 활동_사이버폭력 예방교육_소개 끝 */
+
+
+
 	/* SubPage 끝*/
 
 
@@ -1422,6 +2213,14 @@
 
 /* Tablet Device */
 @media (min-width:768px) and (max-width:1024px) {
+
+	/* 20210903_서브페이지 헤더 */
+	.gnb_tit {
+		height: 150px;
+		background-size: auto 150%;
+		background-size: cover;
+	}
+
 
 	/* Common CSS */
 	/*Header*/
@@ -1439,10 +2238,19 @@
 	#header .mnu {
 		display: none;
 	}
+
+
+
+	/* 20210903_contents padding추가 */
 	.contents {
 		width: 100%;
 		margin: 0;
+		padding: 0 20px;
 	}
+
+
+
+
 	/*Footer*/
 	#footer>.bottom .info_area>.txt_area p.text_m span b {
 		font-size: 16px;
@@ -1752,477 +2560,284 @@
 		line-height: 120px;
 	}
 
-	/* 활동 */
-	.sub_container .sub_intro_banner {
-		height: 150px;
+
+	/* **************** 소개 **************** */
+	.page_top .top_banner {
+		padding: 40px;
 	}
-	.card small {
-		font-size: 16px;
-		margin-bottom: 40px;
+	/* 소개_ 사이버폭력이란 시작 */
+	.page_top .top_banner h1 {
+		font-size: 28px;
 	}
-	.card > .item_inner_2 {
-		height: 550px;
-	}
-	.card .item_inner_2 label {
-		font-size: 16px;
-	}
-	/* 결제방식 */
-	.card_inner .card_point h2 {
-		font-size: 22px;
-	}
-	.card_inner .card_point .item_inner_3 .type {
-		width: 80%;
-		padding: 50px;
-	}
-	.card_inner .card_point .item_inner_3 .type b {
+	.page_top .top_banner p {
 		font-size: 20px;
 	}
-	.card_inner .card_point .item_inner_3 .type span {
-		font-size: 18px;
+	.page_top .top_banner p small {
+		font-size: 14px;
 	}
-	/* 능력카드 저장 내역 */
-	.card_inner .card_list h2 {
+	.intro_item_01 .sec_tit .desc {
+		font-size: 16px;
+	}
+	.intro_item_01 .sec_tit .desc span {
+		display: inline;
+	}
+	.intro_item_01 .small_tit h3 {
 		font-size: 22px;
 	}
-	.item_inner_4 .card_qr .tit {
-		font-size: 20px;
-	}
-	.item_inner_4 .card_qr small {
-		font-size: 18px;
-	}
-	.item_inner_4 .card_qr img {
-		width: 160px;
-		height: 160px;
-		margin: 20px 0;
-	}
-	.item_inner_4 .card_download .down_btn,
-	.item_inner_4 .card_qr button.card_btn {
+	.intro_item_01 .small_tit a.btn_more {
 		width: 200px;
 		font-size: 18px;
-		border-radius: 30px;
 	}
-	.item_inner_4 .card_download {
-		padding-top: 60px;
+	.intro_item_01 .graph {
+		height: 420px;
+		margin: 30px 0;
 	}
-	.card_download .item_inner_2 {
-		width: 100% !important;
+	.intro_item_01 > .desc {
+		font-size: 18px;
 	}
-}
+	.box_item {
+		margin-top: 50px;
 
-
-/* Mobile Device */
-@media (max-width:768px) {
-
-	.inner {
-		padding: 0 20px;
-		padding-top: 20px;
-		box-sizing: border-box;
-		width: 100%;
 	}
-	.depths_02_inner {
+	.box_item .item .boy img, .box_item .item .girl img {
+		width: 130px;
+	}
+	.box_item .item .box p {
+		font-size: 16px;
+	}
+	.intro_item_01 .btns {
+		width: 65%;
+		justify-content: space-betweens;
+	}
+	.intro_item_01 .btns > a {
+		font-size: 20px;
+		padding: 15px;
+		margin-right: 0;
+	}
+	.intro_item_01 .btns > a b {
 		display: block;
 	}
-
-
-
-	/* ****************활동**************** */
-	/* 활동_ 사이버폭력 예방교육_능력카드제작 시작*/
-	/* 처음이세요? / 예방교육수강중이신가요? */
-	.hi {
-		background: url('../images/icon/hi.png')no-repeat bottom 30px right -18px;
-		background-size: 120px auto;
+	.box_item_2 .list_inner b {
+		font-size: 20px;
 	}
-	.card_inner > h2 {
-		display: block;
-		/* display: none; */
-	}
-	.user_type {
-		width: 220px;
-		margin: 50px auto;
-	}
-	.user_type > button {
-		width: 100%;
-		margin: 0 auto;
-		background-color: #6d95e1;
-		color: #fff;
-		padding: 0;
-		padding-left: 75px;
-		border-radius: 50px;
+	.box_item_2 .list_inner ul.list li {
 		font-size: 16px;
 		margin-bottom: 20px;
-		font-weight: 500;
-		height: 70px;
 	}
-	.user_type .user_type_02 b {
-		display: block;
-	}
-
-
-	/* 나만의 카드 만들기 */
-	.card .item_inner {
-		width: 55%;
-		margin-top: 20px;
-	}
-	.sub_container .sub_intro_banner {
-		height: 100px;
-		margin-top: 70px;
-	}
-	#container .sub_container .b_02 {
-		background: url('../images/common/bg_sub_banner02.jpg')no-repeat center center;
-		background-size: auto 150%;
-		position: relative;
-	}
-	#container .sub_container .sub_intro_banner h1 {
-		color: #6193f0;
-		font-size: 30px;
-		font-weight: bold;
-		position: absolute;
+	.box_item_2 .list_inner ul.list li:before {
 		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
 	}
-	.depths_02_inner {
-		width: 100%;
-		background-color: #eef4fe;
-		height: 45px;
-		padding: 0;
-		border-bottom: 0;
+	.problem_inner > img {
+		width: 80px;
+		height: 80px;
 	}
-	.depths_02_inner .slide_menu {
-		display: flex;
-		padding: 7px 0;
-		padding-left: 20px;
-		overflow: hidden;
-		position: relative;
-		display: block;
-		z-index:10;
-	}
-	.sm_tit {
-		position: relative;
-	}
-	.depths_02_inner .slide_menu > div .sm_tit h3 {
-		color: #8c90a5;
+	.sec_intro_02 .problem_item {
+		padding: 30px 40px;
 		text-align: center;
-		font-weight: 300;
-		border-radius: 8px;
-		padding: 6px 0;
-		font-size: 13px;
+		width: 85%;
 	}
-	.depths_02_inner .slide_menu > div ul.slide_sub {
-		display: flex;
-		flex-direction: column;
-		position: absolute;
-		text-align: center;
-		background-color: #426aa1d7;
-		color: #fff !important;
-		bottom: 0;
-		left: 0;
-		z-index: 10;
-		width: 100%;
-		box-sizing: border-box;
-		height: auto;
-		overflow: visible;
-		position: initial;
-		border-radius: 0 0 8px 8px;
-		z-index: 1000;
-		display: none;
-		margin-top: -10px;
-		padding-top: 10px;
+	.sec_intro_02 .problem_item p {
+		font-size: 18px;
 	}
-	.depths_02_inner .slide_menu > div ul.slide_sub.sd_on {
+	.sec_intro_02 .problem_item p span {
 		display: block;
-		z-index: 10;
 	}
-	.depths_02_inner .slide_menu > div ul.slide_sub li {
-		box-sizing: border-box;
-		padding: 6px 0;
-		border-bottom: 0.5px solid #fff;
+	.btn_puco a.puco_more_btn {
+		font-size: 20px;
 	}
-	.depths_02_inner .slide_menu > div ul.slide_sub li:last-child {
-		border-bottom: 0;
-	}
-	.depths_02_inner .slide_menu > div ul.slide_sub li a {
-		color: #fff;
-		font-size: 13px;
-		font-weight: 300;
-	}
-	.card_inner {
-		position: relative;
-		height: calc(100vh - 215px);
-		box-sizing: border-box;
-	}
-	.card_inner > h1 {
-		display: none;
-		color: #555868;
-		font-size: 16px;
-	}
-	.card_inner > h1:after {
-		display: none;
-	}
-	.card_inner > b {
-		font-size: 16px;
-		padding-top: 0;
-	}
-	.card {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		width: 100%;
-		margin-top: 0;
-	}
-	.card  .item_inner {
-		width: 65%;
-		height: 300px;
-		border: 1px solid #dcd8d8;
-		padding: 7px;
-	}
+	/* 소개_ 사이버폭력이란 끝 */
 
-	.file_form label {
-		margin: 0 auto;
-		background-color: #6d95e1;
-		color: #fff;
-		border-radius: 20px;
-		font-size: 13px;
-		font-weight: normal;
-		padding: 10px 0;
-		height: auto;
-		line-height:inherit;
-		margin-top: 20px;
-		width: 180px;
-	}
-	.card .item_inner .item_1 {
-		background: #d2d4de url('../images/icon/upload.png')no-repeat center center;
-		background-size: 35px auto;
-		width: 100%;
-		height: 90%;
-	}
-	.card .item_inner .item_1 small {
-		color: #fff;
-		padding-top: 100px;
-	}
-	.card small {
-		display: inline-block;
-		width: 100%;
-		text-align: center;
-		color: #8d90a3;
-		font-size: 11px;
-		font-weight: 300;
-		line-height: 1.3;
-		margin-bottom: 10px;
-		margin-top: 60px;
-	}
-	.item_inner_2 {
-		padding: 15px;
-		width: 65% !important;
-		height: 300px !important;
-		border: 1px solid #dcd8d8;
-		margin-bottom: 10px;
-		padding-bottom: 0;
-	}
-	.item_inner_2 .item_2 {
-		background-color: #8bb3ff;
-		width: 100%;
-		height: 80%;
-	}
-	.card .item_inner_2 label {
-		float: right;
-		text-decoration: underline;
-		color: #8c90a5;
-		font-size: 12px;
-		margin: 0 auto;
-		color: #8c90a5;
-		border-radius: 20px;
-		font-weight: 300;
-		height: auto;
-		line-height: inherit;
-		margin-top: 15px;
-	}
-	.card .file_form {}
-	.card .item_inner_2 input[type=text] {
-		border: 1px solid #000;
-	}
-	.card .item_inner_2 input[id=printText] {
-		display: inline-block;
-		float: right;
-		border: 0;
-	}
-	.card .item_inner_2 input[id=printText]::placeholder {
-		/* background-color: #000; */
-		color: #fff;
-	}
-	.card .item_inner_2 input[type=file] {
-		width: 0;
-		height: 0;
-		margin: 0;
-		border: 0;
-	}
 
-	/* 결제방식 */
-	.card_inner .card_point h2 {
-		display: block;
-		margin-right: auto;
-		font-size: 16px;
-		color: #555868;
+
+	/* 소개_ 푸른코끼리 시작 */
+	.pucoabout_inner .puco_items {
+		top: 1350px;
+	}
+	.gyeonggi_tit {
+		font-size: 24px;
+		margin: 40px 0;
+	}
+	.about_btn a.btn_download {
+		font-size: 18px;
+		width: 200px;
+	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item {
+		height: 700px;
+	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item > div .desc p {
+		font-size: 20px;
 		margin-bottom: 25px;
 	}
-	.card_inner .card_point .item_inner_3 .type {
-		width: 100%;
-		border: 1px solid #c7c7c7;
-		padding: 30px;
-		text-align: center;
-		margin-bottom: 15px;
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item > div {
 	}
-	.card_inner .card_point .type b {
-		display: block;
-		color: 333333;
-		font-weight: 500;
-	}
-	.card_inner .card_point .type span {
-		font-size: 12px;
-		color: #8c90a5;
-		font-weight: 300;
-	}
-
-	/* 능력카드 저장 내역 */
-	.card_download .item_inner_2 {
-		height: 250px;
-		padding-bottom: 15px;
-	}
-
-
-	/* 발급신청이 정상적으로 처리되었습니다. */
-	.card_modal .modal_inner {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		background-color: #fff;
-		width: 90%;
-		height: auto;
-		border-radius: 20px;
-		padding-top: 50px;
-		padding-bottom: 20px;
-		text-align: center;
-	}
-	.card_modal .modal_inner b {
-		display: block;
-		font-weight: bold;
-		line-height: 1.3;
-		font-size: 14px;
-		margin-bottom: 40px;
-	}
-
-	.card_inner .card_list {}
-	.card_inner .card_list h2 {
-		margin-right: auto;
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item > div .desc span small {
 		font-size: 16px;
-		color: #555868;
-		position: relative;
-
+		padding: 5px 15px;
 	}
-	.card_inner .card_list h2:after {
-		content:'';
-		position: absolute;
-		bottom: -10px;
-		left: 0;
-		width: 100%;
-		background-color: #8eb3f2;
-		height: 2px;
-	}
-	.item_inner_4 {
-		max-width: 1000px;
-		display: flex;
-		justify-content: space-around;
-		flex-direction: column;
-		margin: 0 auto;
-	}
-	.item_inner_4 .card_qr {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		padding-top: 30px;
-	}
-	.item_inner_4 .card_qr .tit {
-		display: block;
-	}
-	.item_inner_4 .card_qr small {
-		color: #9399af;
-		display: block;
-	}
-	.item_inner_4 .card_qr img {
-		width: 110px;
-		height: 110px;
-		border: 1px solid #c7c7c7;
-		margin: 10px 0;
-	}
-	.item_inner_4 .card_qr button.card_btn {
-		width: 150px;
-		padding: 10px 0;
-		border-radius: 20px;
-		color: #6d95e1;
-		border: 1px solid #6d95e1;
-		cursor: pointer;
-	}
-	.item_inner_4  .card_download {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		padding-top: 30px;
-		margin: 0 auto;
-	}
-	.item_inner_4  .card_download .down_btn {
-		width: 150px;
-		padding: 10px 0;
-		border-radius: 20px;
-		background-color: #6d95e1;
-		color: #Fff;
-		margin-bottom: 50px;
-	}
-	/* 나만의 카드만들기 리스트 */
-	.list_view {
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item > div .desc span b {
 		margin-bottom: 20px;
 	}
-
-	.card_list_inner {
-		padding: 20px 0;
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item > div .item_tit {
+		font-size: 20px;
+		padding: 10px 30px;
+		left: 60px;
 	}
-	.list_view .view_item {
-		background-color: #edeff4;
-		width: 50%;
-		height: 50%;
-		position: relative;
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item > div .more_btn {
+		font-size: 16px;
+		right: 80px;
 	}
-	.list_view span {
-		width: 80%;
-		margin: 0 auto;
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item .item_05 {
+		flex: 0.85;
 	}
+	/* 소개_ 푸른코끼리 끝 */
 
-	.card_list_inner {
-		flex-direction: column;
+
+
+
+	/* 소개_ 푸른캐릭터 시작 */
+	.page_top .character_banner {
+		background-size: 100% 100%;
+		padding: 40px;
 	}
-	.list_view .view_item {
-		width: 80%;
-		height: 300px;
-		margin: 10px auto;
+	.page_top .character_banner h1:before {
+		width: 120px;
+		left: -80px;
 	}
-	/* 활동_ 사이버폭력 예방교육_능력카드제작 끝*/
-
-
-
-
-
-}
-
-
-/* Tablet Device */
-@media (min-width:768px) and (max-width:1024px) {
+	.page_top .character_banner h1 {
+		font-size: 35px;
+	}
+	.ci_inner .ci_desc p {
+		font-size: 20px;
+	}
+	.ci_inner .ci_sum {
+		padding: 80px;
+	}
+	.ci_desc .ch_02 .about_puco h4 {
+		font-size: 22px;
+	}
+	.ci_desc .ch_02 .about_puco a {
+		font-size: 20px;
+	}
+	.ci_desc .ch_02 .about_puco a:before {
+		left: -30px;
+	}
+	.puco_ch .ci_inner .ci_desc ul.character_info li > * {
+		font-size: 15px;
+	}
+	.puco_ch .ci_inner .ci_desc .ch_01:before {
+		width: 180px;
+		height: 180px;
+	}
+	.puco_ch .ci_inner .ci_desc ul.character_info {
+		width: 60%;
+	}
+	.ci_inner .ci_desc small {
+		font-size: 14px;
+		margin-top: 20px;
+	}
+	.ci_inner .ci_desc .ci_download,
+	.character_down a.btn_download {
+		padding: 10px 40px;
+		font-size: 18px;
+	}
+	.character_down {
+		justify-content: center;
+	}
+	.level_graph {
+		margin-top: 50px;
+	}
+	.level_graph div > table tr td {
+		font-size: 16px;
+	}
+	/* 소개_ 푸른캐릭터 끝 */
 
 
 	/* 활동 */
+	/* 20210903_수강신청 시작 * /
+	/* 활동_ 예방교육 시작 */
+	.lecture{
+		flex-direction: column;
+		top: 66%;
+	}
+	.lecture > .sub_title{
+		display: none;
+	}
+	.lecture > .lecture_content{
+		justify-content: flex-start;
+		margin: 0px;
+		width: 100%;
+		/*min-width: 500px;*/
+		padding-left: 50px;
+		padding-bottom: 50px;
+	}
+	.lecture > .lecture_content:nth-child(3), .lecture_content:nth-child(6), .lecture_content:nth-child(9){
+		margin: 0px !important;
+	}
+	.sumnail_icon > img{
+		/*width: 78%;*/
+		width: 80%;
+	}
+	.sumnail_icon2 > img{
+		/*width: 78%;*/
+		width: 80%;
+	}
+	.lecture > .lecture_content > .lecture_item > .lecture_sumnail{
+		width: 180px;
+		height: 180px;
+		display: inline-block;
+		vertical-align: middle;
+	}
+	.lecture > .lecture_content > .lecture_item > .lecture_text{
+		display: inline-block;
+		margin-left: 20px;
+	}
+	.lecture > .lecture_content > .lecture_item > .lecture_sumnail > .lecture_st{
+		color: #bbd2f8;
+		font-size: 24px;
+	}
+	.lecture > .lecture_hid_content > .lecture_item > .lecture_sumnail > .lecture_st{
+		color: #cbd2df;
+	}
+	.lecture > .lecture_hid_content > .lecture_item > .lecture_sumnail{
+		border : solid 3px #d0daee;
+	}
+	.lecture > .lecture_content > .lecture_item > .lecture_text > .lecture_title{
+		font-size: 26px;
+	}
+	.lecture > .lecture_content > .lecture_item > .lecture_text > .lecture_sub{
+		font-size: 16px;
+	}
+	/* 활동_ 예방교육 끝 */
+	/* 20210903_수강신청 끝 * /
+
+	/* 활동_강의실 시작 */
+	.edu_video iframe {
+		width: 100%;
+		height:370px;
+		border-radius: 20px;
+	}
+	.general_education > .edu_des {
+		font-size: 18px;
+	}
+	.general_education > .edu_title{
+		text-align: left;
+	}
+	.general_education > .edu_form > .edu_list_box > .lecture_sumnail > .sumnail{
+		margin-top: 20px;
+	}
+	.general_education > .edu_form > .edu_list_box > .edu_btn_box > .edu_btn{
+		padding: 20px 79px;
+	}
+	.general_education > .edu_form > .edu_list_box > .edu_btn_box{
+		margin-bottom: 60px;
+	}
+	/* 활동_강의실 끝 */
+
+
+
+
+
+
 	.card_inner > b
 	{
 		font-size: 24px;
@@ -2243,7 +2858,7 @@
 		width: 400px;
 		margin: 50px auto;
 	}
-	.user_type > button {
+	.user_type a button {
 		width: 100%;
 		margin: 0 auto;
 		background-color: #6d95e1;
@@ -2256,7 +2871,7 @@
 		font-weight: 500;
 		height: 100px;
 	}
-	.user_type > button:before {
+	.user_type a button:before {
 		width: 80px;
 		height: 80px;
 	}
@@ -2345,842 +2960,63 @@
 		width: 100% !important;
 		height: 350px !important;
 	}
-}
 
-@media (max-width:768px) {
-	.gnb_tit>h2 {
-		font-size: 35px;
+
+
+
+
+
+
+
+	/* 20210903_소개_모바일수정*/
+	/* 활동_사이버폭력 예방교육_소개 시작 */
+	.edu_intro_area .virtue_area {
+		margin-top: 80px;
 	}
-	/* Footer */
-	#footer>.top {
-		height: auto;
-		padding: 16px 0;
-		text-align: center;
-		border-top: 0;
-	}
-
-	#footer>.top .contents {
-		max-width: 400px;
-		margin: 0 auto;
-		font-size: 0
-	}
-
-	#footer>.top li {
-		display: inline-block;
-		float: none;
-		vertical-align: top
-	}
-
-	#footer>.top li.sitemap {
-		display: none
-	}
-
-
-
-	#footer>.top li:nth-child(5):after {
-		display: none
-	}
-
-	#footer>.top li a {
-		line-height: 165%;
-		font-size: 11px;
-	}
-
-	#footer>.bottom {
-		padding: 20px;
-	}
-
-	#footer>.bottom .info_area>strong {
-		display: block;
-		float: none;
-		width: 144px;
-		height: 41px;
-		margin: 0 auto;
-		margin-bottom: 20px;
-	}
-
-
-
-	#footer>.bottom .info_area>.logo_area {
-		top: 150px;
-		left: 0;
-		width: 100%;
-		font-size: 0;
-		text-align: center
-	}
-
-	#footer>.bottom .info_area>.logo_area li {
-		display: inline-block;
-		float: none;
-		margin-right: 3px !important;
-		margin-bottom: 0 !important;
-		vertical-align: top
-	}
-
-	#footer>.bottom .info_area>.logo_area li:nth-child(1) {
-		width: 72px;
-		margin-top: 2px
-	}
-
-	#footer>.bottom .info_area>.logo_area li:nth-child(2) {
-		width: 83px;
-		margin-right: 15px
-	}
-
-	#footer>.bottom .info_area>.logo_area li:nth-child(3) {
-		width: 78px;
-		margin-top: 5px
-	}
-
-	#footer>.bottom .info_area>.logo_area li:nth-child(4) {
-		width: 78px;
-		margin-top: 7px
-	}
-
-	#footer>.bottom .info_area>.logo_area li a {
-		display: block
-	}
-
-	#footer>.bottom .info_area>.txt_area {
-		display: block;
-		float: none;
-		width: 100%;
-		text-align: center
-	}
-
-	#footer>.bottom .info_area>.txt_area .btn_mo_open {
-		display: inline-block;
-		transition: all .4s;
-		width: 22px;
-		height: 22px;
-		font-size: 0;
-		vertical-align: top;
-		background: #f7f7f7 url(../images/common/btn_footer_summary.png) no-repeat 50% 50%;
-		background-size: 10px;
-		border: 1px solid #ccc;
-		border-radius: 50%
-	}
-
-	#footer>.bottom .info_area>.txt_area.active .btn_mo_open {
-		transform: rotate(180deg)
-	}
-
-	#footer>.bottom .info_area>.txt_area p {
-		color: #999;
-		font-size: 16px;
-		line-height: 150%;
-		word-break: keep-all
-	}
-
-	#footer>.bottom .info_area>.txt_area p.txt01 {
-		padding-bottom: 10px;
-		border-bottom: 1px solid #e0e0e0
-	}
-
-	#footer>.bottom .info_area>.txt_area p.txt01>strong {
-		margin-right: 12px
-	}
-
-	#footer>.bottom .info_area>.txt_area p.txt01>span {
-		display: inline-block;
-		margin-right: 8px;
-		vertical-align: top
-	}
-
-	#footer>.bottom .info_area>.txt_area p.txt02,
-	#footer>.bottom .info_area>.txt_area p.txt03,
-	#footer>.bottom .info_area>.txt_area address {
-		color: #999;
-		display: none
-	}
-
-	#footer>.bottom .info_area>.txt_area p.txt02 {
-		margin-top: 12px
-	}
-
-	#footer>.bottom .info_area>.txt_area.active p.txt02,
-	#footer>.bottom .info_area>.txt_area.active p.txt03,
-	#footer>.bottom .info_area>.txt_area.active address {
-		display: block
-	}
-
-	#footer>.bottom .info_area>.txt_area address {
-		font-size: 16px;
-		line-height: 150%;
-		word-break: keep-all
-	}
-
-	#footer>.bottom .info_area>.txt_area p.txt03 {
-		margin: 0;
-		padding: 0;
-		border: 0
-	}
-
-	#footer>.bottom .info_area>.txt_area p.text_m span {
+	.edu_intro_area .video_area>div.intro01 {
 		margin-right: 0;
-		vertical-align: top;
-		font-size: 11px;
+	}
+	.edu_intro_area .video_area>div.intro01 a {
+		background:url(../images/contents/bg_edu_intro_video01.jpg) no-repeat 100% auto;
+	}
+	.edu_intro_area .video_area a+span {
+		font-size: 18px;
+	}
+	.edu_intro_area .virtue_area p {
+		font-size: 18px;
 		text-align: left;
-		line-height: 1.4;
-		padding-bottom: 5px;
+		margin: 0 auto;
+		padding-bottom: 25px;
 	}
-	#footer>.bottom .info_area>.txt_area p.text_m span > * {
-		float: left;
+	.edu_intro_area .virtue_area p:nth-of-type(2) {
+		padding-bottom: 0;
 	}
-	#footer>.bottom .info_area>.txt_area p>span small {
-		font-size: 13px;
-		float: right;
-		width: 80%;
+	.edu_intro_area .virtue_area p b {
+		display: block;
 	}
-	#footer>.bottom .info_area>.txt_area p.text_m span b {
-		width: 20%;
-		display: inline;
-		font-size: 13px;
-		float: left;
+	.edu_intro_area .virtue_area li {
+		padding: 12px;
 	}
-
-	#footer>.bottom .info_area>.txt_area p>span:after {
-		display: inline-block;
-		position: relative;
-		top: 0;
-		right: 0;
-		width: 1px;
-		height: 10px;
-		margin: 0 7px 0 10px
-	}
-
-	#footer>.bottom .info_area>.txt_area .copyright {
-		padding-top: 100px;
-		color: #555868;
-		font-weight: 300;
-		text-align: left;
-		font-size: 10px;
-	}
-
-	#footer>.bottom .info_area>.txt_area .copyright>strong {
-		font-size: 10px;
-		font-weight: 300;
-	}
-	/*  Footer  */
-	#footer+#popCertificate .popup_area {
-		height: 740px
-	}
-
-	#footer+#popCertificate #printOut .title_area {
-		margin-top: 22px
-	}
-
-	#footer+#popCertificate #printOut .top .logo_elephant {
-		width: 100px;
-		height: 30px;
-		background-size: contain
-	}
-
-	#footer+#popCertificate #printOut .top .logo_etc {
-		width: 100px;
-		height: 30px;
-		background-size: contain
-	}
-
-	#footer+#popCertificate #printOut .desc_area:after {
-		width: 200px;
-		height: 160px
-	}
-
-	#footer+#popCertificate #printOut .desc_area .tit {
-		font-size: 27px
-	}
-
-	#footer+#popCertificate #printOut {
-		padding: 31px 24px;
-		border-width: 8px
-	}
-
-	#footer+#popCertificate #printOut .desc_area .info_area dt {
-		padding-left: 55px;
-		text-indent: -55px
-	}
-
-	#footer+#popCertificate .popup .desc_area .info_area dd {
-		width: calc(100% - 64px);
-		word-break: keep-all
-	}
-
-	#footer+#popCertificate #printOut .title_area {
-		margin-top: 30px
-	}
-
-	#footer+#popCertificate #printOut .title_area .issue_num {
-		font-size: 15px;
-		line-height: 28px
-	}
-
-	#footer+#popCertificate #printOut .desc_area {
-		position: relative;
-		top: 0;
-		left: 0;
-		transform: translate(0, 0);
-		width: 100%
-	}
-
-	#footer+#popCertificate #printOut .desc_area .tit {
-		font-size: 34px
-	}
-
-	#footer+#popCertificate #printOut .desc_area .info_area {
-		width: 100%
-	}
-
-	#footer+#popCertificate #printOut .desc_area .info_area dl {
-		line-height: 20px
-	}
-
-	#footer+#popCertificate #printOut .desc_area .info_area dt,
-	#footer+#popCertificate .popup .desc_area .info_area dd {
-		font-size: 14px
-	}
-
-	#footer+#popCertificate #printOut .desc_area .info_area+p {
-		font-size: 15px;
-		line-height: 24px
-	}
-
-	#footer+#popCertificate #printOut .desc_area .date {
-		font-size: 15px
-	}
-
-	#footer+#popCertificate #printOut .desc_area .chairman {
-		width: 260px;
-		font-size: 20px;
-		line-height: 40px
-	}
-
-	#footer+#popCertificate #printOut .desc_area .chairman:before {
-		width: 40px;
-		height: 40px;
-		background-size: cover
-	}
-
-	#footer+#popCertificate #printOut .bottom {
-		bottom: 20px;
-		width: 90%;
-		margin-left: 0;
-		transform: translate(-50%, -50%)
-	}
-
-	#footer+#popCertificate #printOut .bottom li {
-		width: 24% !important;
-		margin-right: 3%;
-		background-size: contain !important
-	}
-
-	#footer+#popCertificate #printOut .bottom li:nth-child(1) {
-		width: 20% !important;
-		margin-left: 3%
-	}
-
-	#footer+#popCertificate #printOut .bottom li:nth-child(3) {
-		width: 22% !important
-	}
-
-	#footer+#popCertificate #printOut .bottom li:nth-child(4) {
-		width: 22% !important;
-		margin-right: 0
-	}
-
-	#footer>.top {
-		border-bottom: 0.5px solid #e1e8f2;
-	}
-
-	#footer>.top .contents {
-		flex-direction: column;
-	}
-
-	#footer>.top li:after {
-		width: 1px;
-		height: 12px;
-		margin: 0 3px;
-	}
-
-	#footer>.bottom .info_area>strong a {
-		background-size: 100%;
-	}
-	#footer>.top .contents {
-		padding: 0 20px;
-	}
-	#footer>.top .contents .info_item span {
-		font-size: 12px;
-		letter-spacing: -1px;
-	}
-	#footer>.top .contents .info_item {
-		width: 100%;
-		padding-top: 10px;
-	}
-	#footer>.top .contents .info_item span b {
-		font-size: 12px;
-		padding-left: 20px;
-		text-align: left;
-		width: 200px;
-	}
-	#footer>.top .contents .info_item span b small {
-		padding-left:5px;
-		font-size: 10px;
-		color: #555868;
-		font-weight: normal;
-	}
-	#footer>.top .contents {
-		max-width: 100%;
-	}
-	#container #footer {
-		display: none;
-	}
-
-	/* 활동_ 예방교육 시작 */
-	.lecture{
-		flex-direction: column;
-		top: 66%;
-	}
-	.lecture > .sub_title{
-		display: none;
-	}
-	.lecture > .lecture_content{
-		justify-content: center;
-		margin: 0px;
-		min-width: 500px;
-		padding-bottom: 50px;
-	}
-	.lecture > .lecture_content:nth-child(3), .lecture_content:nth-child(6), .lecture_content:nth-child(9){
-		margin: 0px !important;
-	}
-	.lecture > .lecture_content > .lecture_item > .lecture_sumnail{
-		display: inline-block;
-		vertical-align: middle;
-
-	}
-	.lecture > .lecture_content > .lecture_item > .lecture_text{
-		display: inline-block;
-		margin-left: 20px;
-	}
-	.lecture > .lecture_content > .lecture_item > .lecture_sumnail > .lecture_st{
-		color: #bbd2f8;
-	}
-	.lecture > .lecture_hid_content > .lecture_item > .lecture_sumnail > .lecture_st{
-		color: #cbd2df;
-	}
-	.lecture > .lecture_hid_content > .lecture_item > .lecture_sumnail{
-		border : solid 3px #d0daee;
-	}
-	/* 활동_ 예방교육 끝 */
-
-
-
-	/* 일반교육 CSS */
-	.edu_video iframe {
-		max-width: 884px;
-		width: 884px;
-		height:200px;
-		border-radius: 20px;
-	}
-	.html5-video-player a {
-		font-size: 15px;
-	}
-	.general_education > .edu_title{
-		text-align: left;
-	}
-	.general_education > .edu_form > .edu_list_box > .lecture_sumnail > .sumnail{
-		margin-top: 20px;
-		margin-bottom: 10px;
-	}
-	.general_education > .edu_form > .edu_list_box > .edu_btn_box > .edu_btn{
-		padding: 15px 79px;
-	}
-	.general_education > .edu_form > .edu_list_box > .edu_btn_box{
-		margin-bottom: 60px;
-	}
-	.general_education > .edu_title{
+	.edu_intro_area .virtue_area li strong {
 		font-size: 24px;
 	}
-	.general_education > .edu_des{
-		font-size: 14px;
-		padding: 20px;
-	}
-	.general_education > .edu_form > .edu_list_box > .edu_text_box > .edu_tag{
-		font-size: 14px;
-	}
-	.general_education > .edu_form > .edu_list_box > .edu_text_box > .edu_form_title{
+	.edu_intro_area .virtue_area li span {
 		font-size: 18px;
-		margin-bottom: 30px;
-		margin-top: 5px;
 	}
-	.general_education > .edu_form > .edu_list_box > .edu_btn_box > .edu_btn button{
-		font-size: 14px;
-	}
-	/* 일반교육 CSS 끝 */
-
-
-
-
-	/* 소개_ 푸른코끼리 시작*/
-	.page_top .top_banner {
-		padding: 20px;
-		height: auto;
-	}
-	.page_top .top_banner h1 {
-		font-size: 22px;
-	}
-	.page_top .top_banner h1:before {
-		width: 50px;
-		height: 50px;
-		left: -60px;
-		background-size: contain;
-	}
-	.page_top .top_banner p {
-		font-size: 12px;
-		text-align: left;
-		margin-top: 15px;
-	}
-	.page_top .top_banner p b {
-		display: inline;
-	}
-	.page_top .top_banner p small {
-		font-size: 12px;
-		letter-spacing: -1px;
-	}
-	.intro_item_01 .sec_tit h1, .intro_item_02 .sec_tit h1 {
-		font-size: 22px;
-	}
-	.intro_item_01 .sec_tit h1:before, .intro_item_02 .sec_tit h1:before {
-		top: 110%;
-	}
-	.intro_item_01 .sec_tit .desc {
-		font-size: 12px;
-	}
-	.intro_item_01 .sec_tit .desc span {
-		display: block;
-	}
-	.intro_item_01 .small_tit {
-		flex-direction: column;
-		margin-top: 30px;
-	}
-
-	.intro_item_01 .small_tit h3 {
-		font-size: 13px;
-		font-weight: normal;
-		padding-left: 10px;
-	}
-	.intro_item_01 .small_tit h3:before {
-		width: 3px;
-	}
-	.intro_item_01 .small_tit a.btn_more {
-		width: 150px;
-		font-size: 14px;
-		margin-top: 15px;
-	}
-	.intro_item_01 .graph {
-		background: url('../images/contents/intro_graph_m.png')no-repeat center center;
-		background-size: contain;
-		width: 100%;
-		height: 250px;
-		margin-top: 10px;
-	}
-	.intro_item_01 > .desc {
-		font-size: 14px;
-		text-align: left;
-	}
-	.intro_item_01 > .desc span {
-		display: inline;
-	}
-	.box_item {
-		flex-direction: column;
-		margin-top: 30px;
-		width: 80%;
-		margin: 0 auto;
-	}
-	.box_item .item {
-	}
-	.box_item .item .box {
-		flex: 2;
-	}
-	.box_item .item.boy {
-		margin-bottom: 30px;
-	}
-	.box_item .boy .box,
-	.box_item .girl .box {
-		margin-right: 0;
-		background-size: 80% 100%;
-	}
-	.box_item .item .box p {
-		font-size: 14px;
-	}
-	.box_item .item .boy img,
-	.box_item .item .girl img {
-		margin: auto;
-		width: 60px;
-	}
-	.box_item .item .box p {
-		font-size: 11px;
-	}
-	.intro_item_01 .btns {
-		width: 100%;
-	}
-	.intro_item_01 .btns > a {
-		font-size: 14px;
-		padding: 5px 10px;
-		border-radius: 10px;
-		text-align: center;
-		margin-right: 5px;
-	}
-	.intro_item_01 .btns > a b {
-		display: block;
-	}
-	.intro_item_01 .btns > a:last-child {
-		margin-right: 0;
-	}
-	.box_item_2 {
-		padding: 20px 10px;
-		margin-bottom: 50px;
-	}
-	.box_item_2 .list_inner {
-		padding: 30px 10px;
-	}
-	.box_item_2 .list_inner ul.list {
-		width: 80%;
-		margin: auto;
-	}
-	.box_item_2 .list_inner ul.list li {
-		font-size: 12px;
-		margin-bottom: 12px;
-	}
-	.box_item_2 .list_inner ul.list li:before {
-		left: -25px;
-		width: 13px;
-		height: 25px;
-		top: 30%;
-	}
-	.box_item_2 .list_inner b{
-		lefT: 20px;
-		font-size: 14px;
-		padding: 0 20px;
-		padding-lefT: 50px;
-	}
-	.box_item_2 .list_inner b:before {
-		width: 25px;
-		height: 25px;
-	}
-	/* 어떻게 해결할 것인가? */
-	.sec_intro_02 {
-		padding-top: 20px;
-		flex-direction: column;
-		margin-top: 10px;
-	}
-	.sec_intro_02 .problem_item {
-		padding: 10px 20px;
-		margin-right: 0;
-		width: 80%;
-		margin-left: auto;
-		margin-bottom: 0;
-		border-radius: 10px;
-	}
-	.sec_intro_02 .problem_item p {
-		font-size: 12px;
-	}
-	.sec_intro_02 .problem_item:before {
-		display: none;
-	}
-	.problem_inner {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		margin-bottom: 20px;
-	}
-	.problem_inner > img {
-		display: block;
-		width: 50px;
-		height: 50px;
-	}
-	.btn_puco a.puco_more_btn {
-		padding: 15px 60px;
-		margin-top: 30px;
-	}
-
-	/* 소개_ 푸른코끼리 끝*/
-}
-
-/* Tablet Device */
-@media (min-width:768px) and (max-width:1024px) {
-	/*Footer*/
-	#footer>.bottom .info_area>.txt_area p.text_m span b {
-		font-size: 16px;
-	}
-	#footer>.bottom .info_area>.txt_area p.text_m span {
-		line-height: none;
-		padding-bottom: 10px;
-	}
-	#footer>.bottom .info_area>.txt_area p>span small {
-		font-size: 16px;
-	}
-	#footer>.top li a {
-		font-size: 16px;
-	}
-	#footer>.top .contents .info_item span {
-		font-size: 18px;
-		width: 85%;
-		margin: 0 auto;
-	}
-	#footer>.top .contents .info_item span b {
-		font-size: 20px;
-		width: 300px;
-	}
-	#footer>.top .contents .info_item span b small {
-		font-size: 14px;
-	}
-	#footer>.bottom .info_area>.txt_area .copyright,
-	#footer>.bottom .info_area>.txt_area p>strong {
+	.edu_intro_area .virtue_area p.caution {
 		font-size: 15px;
 	}
-	#footer>.bottom .info_area>.logo_area li:nth-child(1) {
-		width: 120px;
+	.edu_intro_area .config_area .edu_model .top {
+		font-size: 15px;
 	}
-	#footer>.bottom .info_area>.logo_area li:nth-child(2) {
-		width: 120px;
-	}
-	#footer>.bottom .info_area>.logo_area li:nth-child(3) {
-		width: 120px;
-	}
-	#footer>.bottom .info_area>.logo_area li:nth-child(2) {
-		width: 120px;
-	}
-	.gnb_tit>h2 {
-		font-size: 45px;
-	}
-	.gnb_tit {
-		height: 150px;
-		background-size: auto 150%;
-		background-size: cover;
-	}
-	.depths_02_inner {
-		height: 60px;
-	}
-	.depths_02_inner .slide_menu > div .sm_tit h3 {
-		font-size: 18px;
-		border-radius: 10px;
-	}
-	.depths_02_inner .slide_menu > div ul.slide_sub li {
-		padding: 12px 0;
-	}
-	.depths_02_inner .slide_menu > div ul.slide_sub li a {
-		font-size: 16px;
-	}
-
-
-	/* 일반교육 CSS */
-	.general_education > .edu_des {
-		font-size: 18px;
-	}
-	.edu_video iframe {
-		max-width: 884px;
-		width: 884px;
-		height:370px;
-		border-radius: 20px;
-	}
-	.general_education > .edu_title{
-		text-align: left;
-	}
-	.general_education > .edu_form > .edu_list_box > .lecture_sumnail > .sumnail{
-		margin-top: 20px;
-	}
-	.general_education > .edu_form > .edu_list_box > .edu_btn_box > .edu_btn{
-		padding: 20px 79px;
-	}
-	.general_education > .edu_form > .edu_list_box > .edu_btn_box{
-		margin-bottom: 60px;
-	}
-	/* 일반교육 CSS 끝 */
-
-
-
-
-	/* 소개_ 푸른코끼리 시작 */
-	.page_top .top_banner h1 {
-		font-size: 28px;
-	}
-	.page_top .top_banner p {
-		font-size: 20px;
-	}
-	.page_top .top_banner p small {
-		font-size: 14px;
-	}
-	.intro_item_01 .sec_tit .desc {
-		font-size: 16px;
-	}
-	.intro_item_01 .sec_tit .desc span {
-		display: inline;
-	}
-	.intro_item_01 .small_tit h3 {
+	.edu_intro_area .config_area .edu_model .top strong {
 		font-size: 22px;
 	}
-	.intro_item_01 .small_tit a.btn_more {
-		width: 200px;
-		font-size: 18px;
-	}
-	.intro_item_01 .graph {
-		height: 420px;
-		margin: 30px 0;
-	}
-	.intro_item_01 > .desc {
-		font-size: 18px;
-	}
-	.box_item {
-		margin-top: 50px;
 
-	}
-	.box_item .item .boy img, .box_item .item .girl img {
-		width: 130px;
-	}
-	.box_item .item .box p {
-		font-size: 16px;
-	}
-	.intro_item_01 .btns {
-		width: 65%;
-		justify-content: space-betweens;
-	}
-	.intro_item_01 .btns > a {
-		font-size: 20px;
-		padding: 15px;
-		margin-right: 0;
-	}
-	.intro_item_01 .btns > a b {
-		display: block;
-	}
-	.box_item_2 .list_inner b {
-		font-size: 20px;
-	}
-	.box_item_2 .list_inner ul.list li {
-		font-size: 16px;
-		margin-bottom: 20px;
-	}
-	.box_item_2 .list_inner ul.list li:before {
-		top: 50%;
-	}
-	.problem_inner > img {
-		width: 80px;
-		height: 80px;
-	}
-	.sec_intro_02 .problem_item {
-		padding: 30px 40px;
-		text-align: center;
-		width: 85%;
-	}
-	.sec_intro_02 .problem_item p {
-		font-size: 18px;
-	}
-	.sec_intro_02 .problem_item p span {
-		display: block;
-	}
-	.btn_puco a.puco_more_btn {
-		font-size: 20px;
-	}
-	/* 소개_푸른코끼리 CSS 끝 */
+
+
+	/* 활동_사이버폭력 예방교육_소개 끝 */
+
 
 
 }

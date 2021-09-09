@@ -214,8 +214,8 @@ public class ActivityController extends BaseCont {
         if (userGbn != null) {
             searchForm.setMberDvType(MberDvType.valueOf(userGbn));
         }
-
-        searchForm.setPageSize(Constants.DEFAULT_THUMBNAIL_PAGESIZE);
+        // 수정중 김재일
+        searchForm.setPageSize(Constants.DEFAULT_PAGESIZE_3);
         searchForm.setApplyAble(true);
         if (account != null) {
             searchForm.setUserPid(account.getId());
@@ -230,7 +230,7 @@ public class ActivityController extends BaseCont {
 
         model.addAttribute("filePath", filePath+"/"+ Constants.FOLDERNAME_COURSEMASTERSEQ);
 
-        model.addAttribute("userGbn", userGbn);
+        model.addAttribute("userGbn", account != null ? account.getMberDvTy() : "");
 
         model.addAttribute("mc", "activity");
         model.addAttribute("pageTitle", "예방교육");
@@ -243,8 +243,9 @@ public class ActivityController extends BaseCont {
                            HttpServletResponse response,
                            @RequestBody CourseRequestForm courseRequestForm,
                            @CurrentUser Account account) {
-
+        String msg = "";
          if (account.getMberDvTy() == UserRollType.STUDENT) {
+
             MemberSchool memberSchool = memberSchoolService.loadByMber(account.getId());
             courseRequestForm.setAreaNm(memberSchool.getAreaNm());
             courseRequestForm.setSchlNm(memberSchool.getSchlNm());
@@ -264,7 +265,7 @@ public class ActivityController extends BaseCont {
         boolean result = false;
         result = courseRequestService.insert(courseRequestForm, courseMasterRels);
 
-        String msg = "";
+
         if (result) {
             msg = "ok";
             response.setStatus(200);
@@ -450,6 +451,7 @@ public class ActivityController extends BaseCont {
         List<CourseMasterRel> masters = courseMasterRelService.list(masterForm);
        for (CourseMasterRel master : masters) {
             Map<String, Object> item = new HashMap<>();
+                // 수정중 김재일
             if (!master.getSn().equals(2) && !master.getSn().equals(6) && !master.getSn().equals(7)) {
                 rtnList.add(master);
             }
@@ -469,6 +471,7 @@ public class ActivityController extends BaseCont {
             }
 
         }
+        log.info("테스트 @@@ " + account.getMberDvTy());
         model.addAttribute("afterInspection", afterInspection);
         model.addAttribute("satisfaction", satisfaction);
         model.addAttribute("atnlcReqPid",atnlcReqPid);

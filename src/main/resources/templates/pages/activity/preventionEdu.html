@@ -18,10 +18,18 @@
             <th:block th:include="fragments/dept_menu"></th:block>
 
             <form id="form1" name="form1" method="post">
-                <div class="contents">
-                    <div class="page_top pc">
-                        <h3 class="page_tit">강의실</h3>
-                        <span>다양한 강의가 빠르게 업데이트 됩니다. </span>
+                <div class="contents general_education">
+                    <!-- 일반 교육 contents -->
+                    <h1 class="edu_title">일반교육</h1>
+                    <div class="edu_des">
+                        학교로 찾아가는 예방교육 전문강사를 양성하고 모든 사람들이 사이버폭력 예방-대처방법을 알 수 있도록 교육을 진행합니다.<br/>
+                        ※ 본 교육 프로그램은 푸른나무재단이 기획하고 개발한 프로그램으로 이를 무단으로 배포하거나 영리목적으로 사용할 수 없습니다.
+                    </div>
+                    <div class="edu_video">
+                        <iframe src="https://www.youtube.com/embed/Ob5-y39FHSo" title="YouTube video player"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
                     </div>
                     <div class="page_cont">
                         <ul class="thumb_list clearfix">
@@ -30,35 +38,112 @@
                                     <div>등록된 게시글이 없습니다.</div>
                                 </li>
                             </th:block>
-                            <li th:each="item,idx:${masterSeqs}">
-                                <a th:href="${'/pages/activity/eduMasterClass/'+item.id}">
-                                <span class="thumb">
-                                    <img th:src="${filePath +'/'+ item.imgFl}" th:alt="${item.crsNm}"
-                                         onerror="this.src='/ClientUI/user/images/contents/data01.jpg '"/>
-                                </span>
-                                    <strong class="tit">
-                                        <th:block th:text="${item.crsNm}"/>
-                                    </strong>
-                                    <th:block th:if="${item.atnlcReqPid eq null}">
-                                        <span class="lbl lbl_apply">수강신청</span>
-                                    </th:block>
-                                    <th:block th:unless="${item.atnlcReqPid eq null}">
-                                        <th:block th:if="${item.completeCnt < 6}">
-                                            <span class="lbl lbl_ing">수강중</span>
-                                        </th:block>
-                                        <th:block th:if="${item.completeCnt eq 6}">
-                                            <span class="lbl lbl_end">수강완료</span>
-                                        </th:block>
-
-                                    </th:block>
-                                </a>
-                            </li>
                         </ul>
                     </div>
+                    <div class="edu_form" th:each="item,idx:${masterSeqs}">
+                        <div class="edu_list_box">
+                            <a th:href="${'/pages/activity/eduMasterClass/'+item.id}" class="lecture_sumnail">
+                                <img src="/ClientUI/user/images/contents/lecture/lecture.jpg" alt="lecture_sumnail"
+                                     class="sumnail">
+                            </a>
+                            <div class="edu_text_box">
+                                <span class="edu_tag">온라인교육</span>
+                                <p class="edu_form_title" th:text="${item.crsNm}">[청소년] 푸른코끼리 사이버폭력 예방교육</p>
+                            </div>
+                            <div class="edu_btn_box">
+
+                                <th:block th:if="${item.atnlcReqPid eq null}">
+                                    <a th:href="${'/pages/activity/eduMasterClass/'+item.id}" class="edu_btn">
+                                        <button>수강신청</button>
+                                    </a>
+                                </th:block>
+                                <th:block th:unless="${item.atnlcReqPid eq null}">
+                                    <th:block th:if="${item.completeCnt < 6}">
+                                        <a th:href="${'/pages/activity/eduMasterClass/'+item.id}" class="edu_btn_ing">
+                                            <button>수강중</button>
+                                        </a>
+                                    </th:block>
+                                    <th:block th:if="${item.completeCnt eq 6}">
+                                        <a th:href="${'/pages/activity/eduMasterClass/'+item.id}" class="edu_btn_complete">
+                                            <button>수강완료</button>
+                                        </a>
+                                    </th:block>
+                                </th:block>
+
+                            </div>
+                        </div>
+                    </div>
+<!--                    <div class="page_cont">-->
+<!--                        <ul class="thumb_list clearfix">-->
+<!--                            <th:block th:if="${masterSeqs == null or masterSeqs.isEmpty()}">&lt;!&ndash;등록된 글이 없을 경우&ndash;&gt;-->
+<!--                                <li class="nodata">-->
+<!--                                    <div>등록된 게시글이 없습니다.</div>-->
+<!--                                </li>-->
+<!--                            </th:block>-->
+<!--                            <li th:each="item,idx:${masterSeqs}">-->
+<!--                                <a th:href="${'/pages/activity/eduMasterClass/'+item.id}">-->
+<!--                                <span class="thumb">-->
+<!--                                    <img th:src="${filePath +'/'+ item.imgFl}" th:alt="${item.crsNm}"-->
+<!--                                         onerror="this.src='/ClientUI/user/images/contents/data01.jpg '"/>-->
+<!--                                </span>-->
+<!--                                    <strong class="tit">-->
+<!--                                        <th:block th:text="${item.crsNm}"/>-->
+<!--                                    </strong>-->
+<!--                                    <th:block th:if="${item.atnlcReqPid eq null}">-->
+<!--                                        <span class="lbl lbl_apply">수강신청</span>-->
+<!--                                    </th:block>-->
+
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
                     <th:block
                             th:replace="/fragments/paging :: pagingbody(list=${masterSeqs}, link='/pages/activity/preventionEdu/' + ${userGbn}, formId='form1')"></th:block>
-                </div>
+
             </form>
+
+<!--            <form id="form1" name="form1" method="post">-->
+<!--                <div class="contents">-->
+<!--                    <div class="page_top pc">-->
+<!--                        <h3 class="page_tit">강의실</h3>-->
+<!--                        <span>다양한 강의가 빠르게 업데이트 됩니다. </span>-->
+<!--                    </div>-->
+<!--                    <div class="page_cont">-->
+<!--                        <ul class="thumb_list clearfix">-->
+<!--                            <th:block th:if="${masterSeqs == null or masterSeqs.isEmpty()}">&lt;!&ndash;등록된 글이 없을 경우&ndash;&gt;-->
+<!--                                <li class="nodata">-->
+<!--                                    <div>등록된 게시글이 없습니다.</div>-->
+<!--                                </li>-->
+<!--                            </th:block>-->
+<!--                            <li th:each="item,idx:${masterSeqs}">-->
+<!--                                <a th:href="${'/pages/activity/eduMasterClass/'+item.id}">-->
+<!--                                <span class="thumb">-->
+<!--                                    <img th:src="${filePath +'/'+ item.imgFl}" th:alt="${item.crsNm}"-->
+<!--                                         onerror="this.src='/ClientUI/user/images/contents/data01.jpg '"/>-->
+<!--                                </span>-->
+<!--                                    <strong class="tit">-->
+<!--                                        <th:block th:text="${item.crsNm}"/>-->
+<!--                                    </strong>-->
+<!--                                    <th:block th:if="${item.atnlcReqPid eq null}">-->
+<!--                                        <span class="lbl lbl_apply">수강신청</span>-->
+<!--                                    </th:block>-->
+<!--                                    <th:block th:unless="${item.atnlcReqPid eq null}">-->
+<!--                                        <th:block th:if="${item.completeCnt < 6}">-->
+<!--                                            <span class="lbl lbl_ing">수강중</span>-->
+<!--                                        </th:block>-->
+<!--                                        <th:block th:if="${item.completeCnt eq 6}">-->
+<!--                                            <span class="lbl lbl_end">수강완료</span>-->
+<!--                                        </th:block>-->
+
+<!--                                    </th:block>-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                    <th:block-->
+<!--                            th:replace="/fragments/paging :: pagingbody(list=${masterSeqs}, link='/pages/activity/preventionEdu/' + ${userGbn}, formId='form1')"></th:block>-->
+<!--                </div>-->
+<!--            </form>-->
         </div>
     </div>
     <th:block th:replace="fragments/footer"></th:block>
@@ -67,7 +152,8 @@
 <div id="popIntroVideo01" class="layer_popup">
     <div class="dim" onclick="pauseVid('introVideo01')"></div>
     <div class="popup_area">
-        <a href="javascript:layerHide('popIntroVideo01'); pauseVid('introVideo01')" class="btn_close"><span class="blind">팝업닫기</span></a>
+        <a href="javascript:layerHide('popIntroVideo01'); pauseVid('introVideo01')" class="btn_close"><span
+                class="blind">팝업닫기</span></a>
         <div class="popup">
             <div class="video_area">
                 <video id="introVideo01" src="http://qmfrjbfusyhx5463976.cdn.ntruss.com/푸른나무재단 소개영상.mp4"

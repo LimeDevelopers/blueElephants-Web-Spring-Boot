@@ -22,26 +22,26 @@
         <div class="slider slide_menu">
             <div>
                 <div class="sm_tit">
+                    <h3 th:classappend="${pageTitle eq '사이버폭력' ? 'sd_on pageon' : ''}">
+                        <a href="/pages/blueElephant/cyberBullying">사이버폭력이란</a></h3>
+                </div>
+            </div>
+            <div>
+                <div class="sm_tit">
                     <h3 th:classappend="${pageTitle eq '푸른코끼리' ? 'sd_on pageon' : ''}">
-                        <a href="/pages/blueElephant/intro">푸른코끼리</a></h3>
+                        <a href="/pages/blueElephant/blueElephant">푸른코끼리</a></h3>
                 </div>
             </div>
             <div>
                 <div class="sm_tit">
-                    <h3 th:classappend="${pageTitle eq '푸코캐릭터' ? 'sd_on pageon' : ''}">
-                        <a href="/pages/blueElephant/character">푸코캐릭터</a></h3>
+                    <h3 th:classappend="${pageTitle eq '푸른캐릭터' ? 'sd_on pageon' : ''}">
+                        <a href="/pages/blueElephant/character">푸른캐릭터</a></h3>
                 </div>
             </div>
             <div>
                 <div class="sm_tit">
-                    <h3 th:classappend="${pageTitle eq '푸코친구들' ? 'sd_on pageon' : ''}">
-                        <a href="/pages/blueElephant/friends">푸코친구들</a></h3>
-                </div>
-            </div>
-            <div>
-                <div class="sm_tit">
-                    <h3 th:classappend="${pageTitle eq '푸코활동' ? 'sd_on pageon' : ''}">
-                        <a href="/pages/blueElephant/activity">푸코활동</a></h3>
+                    <h3 th:classappend="${pageTitle eq '푸른친구들' ? 'sd_on pageon' : ''}">
+                        <a href="/pages/blueElephant/friends">푸른친구들</a></h3>
                 </div>
             </div>
             <div>
@@ -142,17 +142,17 @@
     <th:block th:if="${mc eq 'blueElephant'}">
         <div class="pc_menu">
             <ul class="pc_menu_inner">
+                <li th:class="${pageTitle eq '사이버폭력' ? 'pc_on' : ''}">
+                    <a href="/pages/blueElephant/cyberBullying">사이버폭력이란</a>
+                </li>
                 <li th:class="${pageTitle eq '푸른코끼리' ? 'pc_on' : ''}">
-                    <a href="/pages/blueElephant/intro">푸른코끼리</a>
+                    <a href="/pages/blueElephant/blueElephant">푸른코끼리</a>
                 </li>
-                <li th:class="${pageTitle eq '푸코캐릭터' ? 'pc_on' : ''}">
-                    <a href="/pages/blueElephant/character">푸코캐릭터</a>
+                <li th:class="${pageTitle eq '푸른캐릭터' ? 'pc_on' : ''}">
+                    <a href="/pages/blueElephant/character">푸른캐릭터</a>
                 </li>
-                <li th:class="${pageTitle eq '푸코친구들' ? 'pc_on' : ''}">
-                    <a href="/pages/blueElephant/friends">푸코친구들</a>
-                </li>
-                <li th:class="${pageTitle eq '푸코활동' ? 'pc_on' : ''}">
-                    <a href="/pages/blueElephant/activity">푸코활동</a>
+                <li th:class="${pageTitle eq '푸른친구들' ? 'pc_on' : ''}">
+                    <a href="/pages/blueElephant/friends">푸른친구들</a>
                 </li>
                 <li th:class="${pageTitle eq '푸코연혁' ? 'pc_on' : ''}">
                     <a href="/pages/blueElephant/schedule">푸코연혁</a>

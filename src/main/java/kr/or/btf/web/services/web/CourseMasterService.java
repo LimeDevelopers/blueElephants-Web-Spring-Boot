@@ -113,7 +113,8 @@ public class CourseMasterService extends _BaseService {
     public Page<CourseMaster> listByRequest(Pageable pageable, SearchForm searchForm) {
 
         int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
-        pageable = PageRequest.of(page, Constants.DEFAULT_PAGESIZE); // <- Sort 추가
+        // 수정중 김재일
+        pageable = PageRequest.of(page, Constants.DEFAULT_PAGESIZE_3); // <- Sort 추가
 
         QCourseMaster qCourseMaster = QCourseMaster.courseMaster;
         QCourseMasterRel qCourseMasterRel = QCourseMasterRel.courseMasterRel;
@@ -125,13 +126,14 @@ public class CourseMasterService extends _BaseService {
         OrderSpecifier<Long> orderSpecifier = qCourseMaster.id.desc();
 
         BooleanBuilder builder = new BooleanBuilder();
-        builder.and(qCourseMaster.delAt.eq("N"));
+        builder.and(qCourseMaster.delAt.eq("N")); // 삭제여부
 
-        if (searchForm.getApplyAble() != null && searchForm.getApplyAble()) {
-            builder.and(JPAExpressions.select(qCourseMasterRel.count())
-                    .from(qCourseMasterRel)
-                    .where(qCourseMasterRel.crsMstPid.eq(qCourseMaster.id)).eq(Constants.satisfSvySn.longValue()));
-        }
+        // 수정중 김재일
+//        if (searchForm.getApplyAble() != null && searchForm.getApplyAble()) {
+//            builder.and(JPAExpressions.select(qCourseMasterRel.count())
+//                    .from(qCourseMasterRel)
+//                    .where(qCourseMasterRel.crsMstPid.eq(qCourseMaster.id)).eq(Constants.satisfSvySn.longValue()));
+//        }
         if (searchForm.getMberDvType() != null) {
             builder.and(qCourseMaster.mberDvTy.eq(searchForm.getMberDvType().name()));
         }

@@ -2,53 +2,53 @@
 <html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:include="fragments/header"></th:block>
-<!--    <script>-->
-<!--        $(function(){-->
-<!--			//secScroll()-->
-<!--            $(window).on('load resize',function(){-->
-<!--                $('.nav_sec > li').each(function(){-->
-<!--                    var navLi = $(this),-->
-<!--                        navLiIdx = navLi.index(),-->
-<!--                        secTop = $('.sec').eq(navLiIdx).offset().top - 100,-->
-<!--                        secTop3 = $('.sec').eq(navLiIdx).offset().top - 110;-->
+    <!--    <script>-->
+    <!--        $(function(){-->
+    <!--			//secScroll()-->
+    <!--            $(window).on('load resize',function(){-->
+    <!--                $('.nav_sec > li').each(function(){-->
+    <!--                    var navLi = $(this),-->
+    <!--                        navLiIdx = navLi.index(),-->
+    <!--                        secTop = $('.sec').eq(navLiIdx).offset().top - 100,-->
+    <!--                        secTop3 = $('.sec').eq(navLiIdx).offset().top - 110;-->
 
-<!--                    navLi.children('a').on('click', function(){-->
-<!--                        if(navLiIdx == 3){-->
-<!--                            $('html, body').stop().animate({'scrollTop':secTop3})-->
-<!--                        }else{-->
-<!--                            $('html, body').stop().animate({'scrollTop':secTop})-->
-<!--                        }-->
-<!--                    });-->
-<!--                });-->
-<!--                $(window).scroll(function(){-->
-<!--                   secScroll()-->
-<!--                });-->
-<!--            });-->
-<!--        });-->
+    <!--                    navLi.children('a').on('click', function(){-->
+    <!--                        if(navLiIdx == 3){-->
+    <!--                            $('html, body').stop().animate({'scrollTop':secTop3})-->
+    <!--                        }else{-->
+    <!--                            $('html, body').stop().animate({'scrollTop':secTop})-->
+    <!--                        }-->
+    <!--                    });-->
+    <!--                });-->
+    <!--                $(window).scroll(function(){-->
+    <!--                   secScroll()-->
+    <!--                });-->
+    <!--            });-->
+    <!--        });-->
 
-<!--        function secScroll(){-->
-<!--            var sct = $(window).scrollTop(),-->
-<!--				winH = $(window).height(),-->
-<!--                sec01 = $('.sec').eq(0).offset().top - 115,-->
-<!--                sec02 = $('.sec').eq(1).offset().top - 115,-->
-<!--                sec03 = $('.sec').eq(2).offset().top - 115,-->
-<!--                sec04 = $('.sec').eq(3).offset().top - 115,-->
-<!--                navIdx;-->
+    <!--        function secScroll(){-->
+    <!--            var sct = $(window).scrollTop(),-->
+    <!--				winH = $(window).height(),-->
+    <!--                sec01 = $('.sec').eq(0).offset().top - 115,-->
+    <!--                sec02 = $('.sec').eq(1).offset().top - 115,-->
+    <!--                sec03 = $('.sec').eq(2).offset().top - 115,-->
+    <!--                sec04 = $('.sec').eq(3).offset().top - 115,-->
+    <!--                navIdx;-->
 
-<!--            if(sct >= sec01 && sct < sec02){-->
-<!--                navIdx = 0;-->
-<!--            }else if(sct >= sec02 && sct < sec03){-->
-<!--                navIdx = 1;-->
-<!--            }else if(sct >= sec03 && sct < sec04){-->
-<!--                navIdx = 2;-->
-<!--            }else if(sct >= sec04 && sct < sec04 + 300){-->
-<!--                navIdx = 3;-->
-<!--            }else if(sct > sec04 + 300){-->
-<!--                navIdx = 4;-->
-<!--            }-->
-<!--            $('.nav_sec > li').eq(navIdx).addClass('active').siblings().removeClass('active')-->
-<!--        }-->
-<!--    </script>-->
+    <!--            if(sct >= sec01 && sct < sec02){-->
+    <!--                navIdx = 0;-->
+    <!--            }else if(sct >= sec02 && sct < sec03){-->
+    <!--                navIdx = 1;-->
+    <!--            }else if(sct >= sec03 && sct < sec04){-->
+    <!--                navIdx = 2;-->
+    <!--            }else if(sct >= sec04 && sct < sec04 + 300){-->
+    <!--                navIdx = 3;-->
+    <!--            }else if(sct > sec04 + 300){-->
+    <!--                navIdx = 4;-->
+    <!--            }-->
+    <!--            $('.nav_sec > li').eq(navIdx).addClass('active').siblings().removeClass('active')-->
+    <!--        }-->
+    <!--    </script>-->
 </head>
 <body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
 <div id="wrap">
@@ -57,56 +57,10 @@
         <th:block th:include="fragments/mo_menu"></th:block>
         <div class="sub_container">
             <th:block th:include="fragments/dept_menu"></th:block>
-            <form id="form1" name="form1" method="post">
-                <div class="contents general_education">
-                    <!-- 일반 교육 contents -->
-                    <h1 class="edu_title">일반교육</h1>
-                    <div class="edu_des">
-                        학교로 찾아가는 예방교육 전문강사를 양성하고 모든 사람들이 사이버폭력 예방-대처방법을 알 수 있도록 교육을 진행합니다.<br/>
-                        ※ 본 교육 프로그램은 푸른나무재단이 기획하고 개발한 프로그램으로 이를 무단으로 배포하거나 영리목적으로 사용할 수 없습니다.
-                    </div>
-                    <div class="edu_video">
-                        <iframe src="https://www.youtube.com/embed/Ob5-y39FHSo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                    <div class="edu_form">
-                        <div class="edu_list_box">
-                            <a href="#" class="lecture_sumnail">
-                                <img src="/ClientUI/user/images/contents/lecture/lecture.jpg" alt="lecture_sumnail" class="sumnail">
-                            </a>
-                            <div class="edu_text_box">
-                                <span class="edu_tag">온라인교육</span>
-                                <p class="edu_form_title">[청소년] 푸른코끼리 사이버폭력 예방교육</p>
-                            </div>
-                            <div class="edu_btn_box">
-                                <a href="#" class="edu_btn">
-                                    <button>수강신청</button>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="edu_form">
-                        <div class="edu_list_box">
-                            <a href="#" class="lecture_sumnail">
-                                <img src="/ClientUI/user/images/contents/lecture/lecture.jpg" alt="lecture_sumnail" class="sumnail">
-                            </a>
-                            <img src="" alt="">
-                            <div class="edu_text_box">
-                                <span class="edu_tag">온라인교육</span>
-                                <p class="edu_form_title">[청소년] 푸른코끼리 사이버폭력 예방교육</p>
-                            </div>
-                            <div class="edu_btn_box">
-                                <a href="#" class="edu_btn">
-                                    <button>수강신청</button>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
             <div class="inner">
                 <div class="page_cont">
                     <div class="page_top">
-                        <div class="top_banner">
+                        <div class="top_banner intro_banner">
                             <h1>사이버폭력이란?</h1>
                             <p>
                                 의사소통을 목적으로 하는 다양한 전자기기를 매개로 발생하며, 연령과 상관없는 대상(개인 혹은 집단, 또래 혹인 성인)으로 부터 본인이 <b></b>원하지 않는 피해를 받았다고 인식하고, 일회적 혹은 반복적으로 발생하여 피해를 주는 부정적인 모든행위
@@ -135,7 +89,7 @@
                             <div class="box_item">
                                 <div class="item boy">
                                     <div class="boy">
-                                        <img src="/ClientUI/user/images/contents/m_char_boy.png" alt="">
+                                        <img src="/Users/jerry/Documents/ClientUI/user/images/contents/m_char_boy.png" alt="">
                                     </div>
                                     <div class="box">
                                         <p>
@@ -150,7 +104,7 @@
                                         </p>
                                     </div>
                                     <div class="girl">
-                                        <img src="/ClientUI/user/images/contents/m_char_girl.png" alt="">
+                                        <img src="/Users/jerry/Documents/ClientUI/user/images/contents/m_char_girl.png" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -183,7 +137,7 @@
                             </div>
                             <div class="sec_intro_02">
                                 <div class="problem_inner">
-                                    <img src="/ClientUI/user/images/icon/number_1_m.png" alt="">
+                                    <img src="/Users/jerry/Documents/ClientUI/user/images/icon/number_1_m.png" alt="">
                                     <div class="problem_item">
                                         <p>
                                             새로운 사회문제에 대한 정의, 실태조사를 통한<span></span><b>예측, 조사/연구를 통해 원인 파악, 해결책제시</b>
@@ -191,7 +145,7 @@
                                     </div>
                                 </div>
                                 <div class="problem_inner">
-                                    <img src="/ClientUI/user/images/icon/number_2_m.png" alt="">
+                                    <img src="/Users/jerry/Documents/ClientUI/user/images/icon/number_2_m.png" alt="">
                                     <div class="problem_item">
                                         <p>
                                             선도와 처벌이 아닌 재미와 흥미, 자발적 참여를 <span></span>  유도하는 문화적 접근을 통해 <b>내적변화 유도</b>
@@ -199,7 +153,7 @@
                                     </div>
                                 </div>
                                 <div class="problem_inner">
-                                    <img src="/ClientUI/user/images/icon/number_3_m.png" alt="">
+                                    <img src="/Users/jerry/Documents/ClientUI/user/images/icon/number_3_m.png" alt="">
                                     <div class="problem_item">
                                         <p>
                                             새로운 사회문제에 대한 정의, 실태조사를 통한<span></span><b>예측, 조사/연구를 통해 원인 파악, 해결책제시</b>

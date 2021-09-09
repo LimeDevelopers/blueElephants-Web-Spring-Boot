@@ -154,11 +154,12 @@ public class CourseMasterController extends BaseCont {
 
         if ("Y".equals(form.getOpenAt())) {
             Long aLong = courseMasterRelService.countByCrsMstPid(form.getId());
-            if (aLong != Constants.satisfSvySn.longValue()) {
-                model.addAttribute("altmsg","모든 강좌/설문을 등록하지 않으면 게시 할 수 없습니다.");
-                model.addAttribute("locurl","/soulGod/courseMaster/modify/"+form.getId());
-                return "/message";
-            }
+            // 수정중 김재일
+//            if (aLong != Constants.satisfSvySn.longValue()) {
+//                model.addAttribute("altmsg","모든 강좌/설문을 등록하지 않으면 게시 할 수 없습니다.");
+//                model.addAttribute("locurl","/soulGod/courseMaster/modify/"+form.getId());
+//                return "/message";
+//            }
         }
 
         boolean result = courseMasterService.update(form,attachImgFl);

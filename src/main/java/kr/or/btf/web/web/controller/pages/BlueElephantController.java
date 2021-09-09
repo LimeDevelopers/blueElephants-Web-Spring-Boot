@@ -12,34 +12,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class BlueElephantController {
 
-    @RequestMapping("/pages/blueElephant/intro")
+    @RequestMapping("/pages/blueElephant/cyberBullying")
     public String intro(Model model) {
         model.addAttribute("mc", "blueElephant");
-        model.addAttribute("pageTitle", "푸른코끼리");
-        return "/pages/blueElephant/intro";
+        model.addAttribute("pageTitle", "사이버폭력");
+        return "/pages/blueElephant/cyberBullying";
     }
 
-    @RequestMapping("/pages/blueElephant/character")
+    @RequestMapping("/pages/blueElephant/blueElephant")
     public String character(Model model,
                             @Value("${Globals.fileStoreUriPath}") String filePath) {
         model.addAttribute("filePath", filePath + "/" + Constants.FOLDERNAME_IMAGES);
         model.addAttribute("mc", "blueElephant");
-        model.addAttribute("pageTitle", "푸코캐릭터");
+        model.addAttribute("pageTitle", "푸른코끼리");
+        return "/pages/blueElephant/blueElephant";
+    }
+
+    @RequestMapping("/pages/blueElephant/character")
+    public String friends(Model model) {
+        model.addAttribute("mc", "blueElephant");
+        model.addAttribute("pageTitle", "푸른캐릭터");
         return "/pages/blueElephant/character";
     }
 
     @RequestMapping("/pages/blueElephant/friends")
-    public String friends(Model model) {
-        model.addAttribute("mc", "blueElephant");
-        model.addAttribute("pageTitle", "푸코친구들");
-        return "/pages/blueElephant/friends";
-    }
-
-    @RequestMapping("/pages/blueElephant/activity")
     public String activity(Model model) {
         model.addAttribute("mc", "blueElephant");
-        model.addAttribute("pageTitle", "푸코활동");
-        return "/pages/blueElephant/activity";
+        model.addAttribute("pageTitle", "푸른친구들");
+        return "/pages/blueElephant/friends";
     }
 
     @RequestMapping("/pages/blueElephant/schedule")
