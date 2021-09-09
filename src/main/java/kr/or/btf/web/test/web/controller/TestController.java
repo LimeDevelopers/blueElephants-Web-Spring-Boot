@@ -22,9 +22,12 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -47,23 +50,23 @@ public class TestController extends BaseCont {
 
 
     @GetMapping(value = "/page")
-    public String getMenuList(){
+    public String getMenuList() {
         return "/pages/blueElephant/testPage";
     }
 
     @GetMapping(value = "/namane")
-    public String namaneTestPage(Model model){
-        model.addAttribute("mc","memberJoin");
+    public String namaneTestPage(Model model) {
+        model.addAttribute("mc", "memberJoin");
         return "/pages/blueElephant/namane";
     }
 
     @GetMapping(value = "/soulGod/member/batchregister")
-    public String register(){
+    public String register() {
 
         return "/soulGod/member/batchregister";
     }
 
-    @PostMapping(value = "/soulGod/member/batchregister/join" )
+    @PostMapping(value = "/soulGod/member/batchregister/join")
     public String batchJoin(MemberForm memberForm) {
         String[] val = memberForm.getValues().split(",");
 
@@ -74,11 +77,12 @@ public class TestController extends BaseCont {
         memberForm.setBan(val[4]);
 
         testService.batchRegister(memberForm);
-        return "redirect:/soulGod/member/list" ;
+        return "redirect:/soulGod/member/list";
     }
+
     @ResponseBody
     @PostMapping(value = "/soulGod/member/batchregister/srchTchrNm")
-    public List<MemberSchool> srchTchrNm(Model model , @RequestParam(name = "TeacherNm") String TeacherNm) {
+    public List<MemberSchool> srchTchrNm(Model model, @RequestParam(name = "TeacherNm") String TeacherNm) {
 
         //System.out.println("아약스결과 조회 : " + TeacherNm);
 
@@ -91,12 +95,13 @@ public class TestController extends BaseCont {
     @PostMapping(value = "/getQrImg")
     public String getQrImg(Model model, @ModelAttribute AuroraForm auroraForm) throws IOException {
         AuroraForm result = auroraAPIService.getBase64String(auroraForm);
-        model.addAttribute("mc","memberJoin");
-        model.addAttribute("aurora",result);
+        model.addAttribute("mc", "memberJoin");
+        model.addAttribute("aurora", result);
         return "/pages/blueElephant/namane_result";
     }
+
     // 엑셀 다운로드 시작
-   // @GetMapping(value = "/page/excel/download")
+    // @GetMapping(value = "/page/excel/download")
 //    public String testExcel(Model model){
 //        Pageable pageable = null;
 //        model.addAttribute("noticeList", testService.getNewsListData(pageable));
@@ -120,14 +125,14 @@ public class TestController extends BaseCont {
         cell.setCellValue("제목");
 
         // Body
-        for (int i=0; i<3; i++) {
+        for (int i = 0; i < 3; i++) {
             row = sheet.createRow(rowNum++);
             cell = row.createCell(0);
             cell.setCellValue(i);
             cell = row.createCell(1);
-            cell.setCellValue(i+"_name");
+            cell.setCellValue(i + "_name");
             cell = row.createCell(2);
-            cell.setCellValue(i+"_title");
+            cell.setCellValue(i + "_title");
         }
 
         // 컨텐츠 타입과 파일명 지정
@@ -150,12 +155,11 @@ public class TestController extends BaseCont {
         model.addAttribute("mc", "myPage");
 
 
-
         return "/pages/myPage/batchManagement";
     }
 
     @RequestMapping(value = "/pages/myPage/batchManagement/batchRegister")
-    public void batchRegister(MemberSchoolForm memberSchoolForm){
+    public void batchRegister(MemberSchoolForm memberSchoolForm) {
         memberService.batchRegister(memberSchoolForm);
     }
 
@@ -176,5 +180,38 @@ public class TestController extends BaseCont {
         mav.setViewName("/pages/member/register");
 
         return mav;
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/api/member/isExistByBatchLoginId")
+    public ResponseEntity isExistsByBatchloginId(@ModelAttribute MemberForm memberForm,
+                                                 BindingResult bindingResult) {
+
+        for (int i = 1; i <= memberForm.getBatchArr(); i++) {
+            String loginId = memberForm.getLoginId();
+
+            if (i < 10) {
+                loginId += "0" + i;
+            } else {
+                loginId += i;
+            }
+
+            if (testService.existsByBatchLoginId(loginId)) {
+                bindingResult.rejectValue("loginId", "invalid ID", new Object[]{memberForm.getLoginId()}, "이미 사용 중인 계정 양식 입니다");
+            }
+            if (bindingResult.hasFieldErrors("loginId")) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult.getFieldError("loginId").getDefaultMessage());
+            } else {
+                return ResponseEntity.ok(memberForm);
+            }
+        }
+            if (testService.existsSpace(memberForm.getLoginId())) {
+                bindingResult.rejectValue("loginId", "invalid ID", new Object[]{memberForm.getLoginId()}, "아이디에는 공백을 사용 할 수 없습니다.");
+            }
+            if (bindingResult.hasFieldErrors("loginId")) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult.getFieldError("loginId").getDefaultMessage());
+            } else {
+                return ResponseEntity.ok(memberForm);
+            }
     }
 }

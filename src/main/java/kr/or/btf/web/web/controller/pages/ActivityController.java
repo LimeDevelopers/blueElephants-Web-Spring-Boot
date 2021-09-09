@@ -79,7 +79,7 @@ public class ActivityController extends BaseCont {
     private final BannerService bannerService;
     private final MemberService memberService;
     private final CourseRequestService courseRequestService;
-    private final NamaneService namaneService;
+    // private final NamaneService namaneService;
     private final AuroraAPIService auroraAPIService;
 
     @GetMapping({"/pages/activity/eduIntro"})
@@ -148,43 +148,43 @@ public class ActivityController extends BaseCont {
         return "/pages/activity/abilityCardSetp4";
     }
 
-    @PostMapping({"/api/namane/set"})
-    public String setAblityCard(Model model,
-                                @CurrentUser Account account,
-                                @ModelAttribute AuroraForm auroraForm) throws IOException {
-        if(account == null) {
-            model.addAttribute("error", "로그인 후 이용 가능합니다.");
-        } else {
-            if(account.getId() != null){
-                if(auroraForm.getPrintText().equals("") || auroraForm.getPrintText().isEmpty()) {
-                    model.addAttribute("msg", "등록된 이미지가 존재하지않습니다.");
-                } else {
-                    AuroraForm result = auroraAPIService.getBase64String(auroraForm);
-                    if (!namaneService.set(result, account.getId())) {
-                        model.addAttribute("msg", "에러 발생. 다시 카드를 발행해주세요.");
-                    }
-                    model.addAttribute("aurora",result);
-                }
+//    @PostMapping({"/api/namane/set"})
+//    public String setAblityCard(Model model,
+//                                @CurrentUser Account account,
+//                                @ModelAttribute AuroraForm auroraForm) throws IOException {
+//        if(account == null) {
+//            model.addAttribute("error", "로그인 후 이용 가능합니다.");
+//        } else {
+//            if(account.getId() != null){
+//                if(auroraForm.getPrintText().equals("") || auroraForm.getPrintText().isEmpty()) {
+//                    model.addAttribute("msg", "등록된 이미지가 존재하지않습니다.");
+//                } else {
+//                    AuroraForm result = auroraAPIService.getBase64String(auroraForm);
+//                    if (!namaneService.set(result, account.getId())) {
+//                        model.addAttribute("msg", "에러 발생. 다시 카드를 발행해주세요.");
+//                    }
+//                    model.addAttribute("aurora",result);
+//                }
+//
+//            }
+//        }
+//        model.addAttribute("mc", "activity");
+//        model.addAttribute("pageTitle", "예방교육");
+//        return "redirect:/pages/activity/abilityCardSetp3";
+//    }
 
-            }
-        }
-        model.addAttribute("mc", "activity");
-        model.addAttribute("pageTitle", "예방교육");
-        return "redirect:/pages/activity/abilityCardSetp3";
-    }
-
-    @GetMapping({"/api/namane/get"})
-    public String getAblityCard(Model model,
-                                @CurrentUser Account account){
-        if(account == null) {
-            model.addAttribute("error", "로그인 후 이용 가능합니다.");
-        }
-        List<NamaneTemp> cardList = namaneService.get(account.getId());
-        model.addAttribute("list",cardList);
-        model.addAttribute("mc", "activity");
-        model.addAttribute("pageTitle", "예방교육");
-        return "/pages/activity/abilityCardSetp4";
-    }
+//    @GetMapping({"/api/namane/get"})
+//    public String getAblityCard(Model model,
+//                                @CurrentUser Account account){
+//        if(account == null) {
+//            model.addAttribute("error", "로그인 후 이용 가능합니다.");
+//        }
+//        List<NamaneTemp> cardList = namaneService.get(account.getId());
+//        model.addAttribute("list",cardList);
+//        model.addAttribute("mc", "activity");
+//        model.addAttribute("pageTitle", "예방교육");
+//        return "/pages/activity/abilityCardSetp4";
+//    }
 
     @GetMapping({"/pages/activity/importantEducation1"})
     public String importantEducation1(Model model,

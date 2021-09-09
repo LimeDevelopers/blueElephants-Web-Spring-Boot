@@ -3,6 +3,61 @@
 <head>
     <th:block th:include="fragments/header"></th:block>
     <script>
+        let areaNm;
+        let schlNm;
+        let grade;
+        let ban;
+        let batchArr;
+        let loginId;
+        let pwd;
+        let pwdChk;
+        let idDupBool;
+        let err;
+
+        //승인 ajax
+        $(function (){
+            $("#btnSave").on('click' , function() {
+                $("#btnSave").prop('disabled' , true);
+                if(!fn_chkField()){
+                    $('#btnSave').prop('disabled' , false);
+                    return false;
+
+                } else {
+
+                    areaNm   = $("#areaNm").val();
+                    schlNm   = $("#schlNm").val();
+                    grade    = $("#grade").val();
+                    ban      = $("#ban").val();
+                    batchArr = $("#batchArr").val();
+                    loginId  = $("#loginId").val();
+                    pwd      = $("#pwd").val();
+
+                    $.ajax({
+                        method : "POST" ,
+                        url : "/test/pages/myPage/batchManagement/batchRegister" ,
+                        data : {
+
+                            'areaNm'   : areaNm,
+                            'schlNm'   : schlNm,
+                            'grade'    : grade,
+                            'ban'      : ban,
+                            'batchArr' : batchArr,
+                            'loginId'  : loginId,
+                            'pwd'      : pwd,
+
+                        },
+                        success(result) {
+                            if(result == 1) {
+                                alert("전송성공");
+                            }else {
+                                alert("전송실패");
+                            }
+                        }
+                    });
+                }
+            })
+        })
+
         $(function() {
             $(document).ready(function() {
                 $("#batchRegister").click(function() {
@@ -24,6 +79,129 @@
                 });
             });
         })
+
+        function fn_chkField(){
+            loginId = $('#loginId');
+            pwd = $('#pwd');
+            pwdChk = $('#pwdChk');
+            batchArr = $('#batchArr');
+            btnchk = $('#btnchk');
+            err = $('#err');
+
+            if (batchArr.val() == "" || batchArr.val() == null) {
+                alert('ID개수는 필수 값입니다.')
+                batchArr.focus()
+                return false
+            }
+
+            if(!idDupBool){
+                alert("아이디 중복체크를 해주세요.");
+                loginId.after('<p class="err emph">아이디 중복체크를 해주세요.</p>')
+                loginId.focus();
+                return false;
+            }
+
+            if (!$.trim(loginId.val())) {
+                alert('아이디는 필수 값입니다.');
+                loginId.focus();
+                return false;
+            } else {
+                if (!loginIdCheck(loginId)) {
+                    return false;
+                }
+            }
+
+            if(!fn_chkPwdDup()){
+                return false;
+            }
+            return true;
+        }
+        //선생님
+        function fn_chkIdDup(){
+            loginId = $("#loginId");
+            batchArr = $("#batchArr");
+            loginId.siblings('.err.emph').remove();
+
+            if(!$.trim(batchArr.val())) {
+                alert('생성하실 계정의 개수를 먼저 입력 하세요.')
+                batchArr.focus();
+                return false;
+            } else {
+
+                if(!loginIdCheck(loginId)){
+                    return false;
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: "/test/api/member/isExistByBatchLoginId",
+                    data: {
+                        "loginId": $.trim(loginId.val()),
+                        "batchArr" : $.trim(batchArr.val())
+                    },
+                    success: function (data) {
+                        if($.trim(loginId.val()) != ''){
+                            alert('사용가능한 계정 양식 입니다.');
+                            idDupBool = true;
+                        }
+                    },
+                    error: function (error) {
+                        alert(error.responseText);
+                        idDupBool = false;
+                        loginId.val('');
+                        loginId.focus();
+                    }
+                });
+            }
+        }
+
+
+        function fn_chkPwdDup() {
+            pwd = $('#pwd');
+            pwdChk = $('#pwdChk');
+
+            pwd.siblings('.err.emph').remove();
+            if(!$.trim(pwdChk.val())){
+                alert('비밀번호는 필수입력사항 입니다.');
+                pwd.focus();
+                return false;
+            } else {
+                if(!pwdCheck(pwd)) {
+                    pwd.val("");
+                    pwd.focus();
+                    return false;
+                }
+            }
+
+            pwdChk.siblings('.err.emph').remove();
+            if(!$.trim(pwdChk.val())){
+                alert('비밀번호 재입력은 필수입력사항 입니다.');
+                pwdChk.focus();
+                return false;
+            } else {
+                if (!pwdCheck(pwdChk)){
+                    pwdChk.val("");
+                    pwdChk.focus();
+                    return false;
+                }
+            }
+
+            if($.trim(pwd.val()) != $.trim(pwdChk.val())){
+                alert('비밀번호가 일치하지 않습니다.');
+                pwdChk.focus();
+                return false;
+            } else {
+                return true;
+            }
+        }
+        function fn_comparePwd(){
+            pwd = $("#pwd");
+            pwdChk = $("#pwdChk");
+            pwdChk.siblings('.err.emph').remove();
+            if(pwd.val() != pwdChk.val()) {
+                pwdChk.after('<p class="err emph">비밀번호가 일치하지 않습니다.</p>')
+            }
+        }
     </script>
     <style>
         .layer_popup .popup_area1{position:absolute;top:0;right:0;bottom:0;left:0;width:827px;max-height:calc(90% - 90px);margin:auto;border-radius:30px;background-color:#fff;box-sizing:border-box}
@@ -47,6 +225,12 @@
                         <div class="sec_write">
                             <div class="tbl_write contour">
                                 <ul>
+                                    <li>
+                                        <div class="th">지역명</div>
+                                        <div class="td">
+                                            <input type="text" id="nm" name="nm" th:value="*{areaNm}" readonly>
+                                        </div>
+                                    </li>
                                     <li>
                                         <div class="th">지역명</div>
                                         <div class="td">
@@ -82,14 +266,26 @@
                                             <label for="loginId">계정 양식</label>
                                             <span class="aster">*</span>
                                         </div>
-                                        <div class="td">
-                                            <input type="text" id="loginId" name="loginId" placeholder="생성할 계정의 양식을 입력해주세요.">
+                                        <div>
+                                            <label for="loginId" class="blind">로그인ID</label>
+                                            <div class="td">
+                                                <input type="text" id="loginId" name="loginId" placeholder="생성할 계정의 양식을 입력해주세요.">
+                                            </div>
+                                            <div class="td">
+                                                <a id="btnchk" class="btn btn_lg btn_line_blue btn_pill_10" onclick="return fn_chkIdDup();">중복확인</a>
+                                            </div>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="th">초기 패스워드<span class="aster">*</span></div>
                                         <div class="td">
-                                            <input type="text" id="pwd" name="pwd" placeholder="초기 패스워드를 입력해주세요.">
+                                            <input type="password" id="pwd" name="pwd" placeholder="초기 패스워드를 입력해주세요." onkeyup="fn_comparePwd()">
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="th">비밀번호 재확인<span class="aster">*</span></div>
+                                        <div class="td">
+                                            <input type="password" id="pwdChk" name="pwdChk" placeholder="초기 패스워드를 다시 입력해주세요." onkeyup="fn_comparePwd()">
                                         </div>
                                     </li>
                                 </ul>
@@ -100,7 +296,7 @@
             </form>
             </div>
             <div class="btn_area">
-                <button id="batch_confirm" class="btn btn_lg btn_blue btn_pill_10">승인</button>
+                <button id="btnSave" class="btn btn_lg btn_blue btn_pill_10">가입</button>
             </div>
         </div>
         <div class="batch_contents">
@@ -153,49 +349,4 @@
 </div>
 <th:block th:replace="fragments/footer"></th:block>
 </body>
-<script>
-
-    let areaNm;
-    let schlNm;
-    let grade;
-    let ban;
-    let batchArr;
-    let loginId;
-    let pwd;
-
-    $("#batch_confirm").on("click" , function (){
-
-        areaNm   = $("#areaNm").val();
-        schlNm   = $("#schlNm").val();
-        grade    = $("#grade").val();
-        ban      = $("#ban").val();
-        batchArr = $("#batchArr").val();
-        loginId  = $("#loginId").val();
-        pwd      = $("#pwd").val();
-
-
-        $.ajax({
-            method : "POST" ,
-            url : "/test/pages/myPage/batchManagement/batchRegister" ,
-            data : {
-
-                    'areaNm'   : areaNm,
-                    'schlNm'   : schlNm,
-                    'grade'    : grade,
-                    'ban'      : ban,
-                    'batchArr' : batchArr,
-                    'loginId'  : loginId,
-                    'pwd'      : pwd,
-
-            },
-            success(result) {
-                if(result == 1) {
-                    alert("전송성공");
-                }else {
-                    alert("전송실패");
-                }
-            }
-        });
-    });
-</script>
 </html>

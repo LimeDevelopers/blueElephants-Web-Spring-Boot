@@ -16,26 +16,42 @@
     var pwdChk;
     var idDupBool = false;
     let frm;
+    let TeacherNm;
 
     function fn_chkField() {
         id = $('#id');
         loginId = $("#loginId");
         pwd = $("#pwd");
+        pwdChk = $("#pwdChk");
         nm = $("#nm");
         mberDvTy = $("#mberDvTy");
-        var email = $("#email");
+        batchArr = $("#batchArr");
+        values = $("#values");
+        TeacherNm = $("#TeacherNm");
 
-        if (!batchArr.val()) {
+        /*if(values.val() == "" || values.val() == null){
+            alert('선생님 정보를 입력하세요.')
+            TeacherNm.focus()
+            return false
+        }*/
+
+
+        if (batchArr.val() == "" || batchArr.val() == null) {
             alert('ID개수는 필수 값입니다.')
             batchArr.focus()
             return false
         }
 
-        if (batchArr < 10) {
-            alert('일괄가입은 한 번에 10개까지 진행 할 수 있습니다.')
-            batchArr.focus()
-            return false
+
+        if(!idDupBool){
+            alert("아이디 중복체크를 해주세요.");
+            loginId.after('<p class="err emph">아이디 중복체크를 해주세요.</p>')
+            loginId.focus();
+            return false;
         }
+
+
+
 
         if (!$.trim(loginId.val())) {
             alert('아이디는 필수 값입니다.');
@@ -47,7 +63,7 @@
             }
         }
 
-        if (!fn_chkPwdDup()) {
+        if(!fn_chkPwdDup()){
             return false;
         }
         return true;
@@ -89,6 +105,7 @@
             pwdChk.focus();
             return false;
         } else {
+
             return true;
         }
     }
@@ -131,35 +148,83 @@
 
 
                     html += "   <input type=\"radio\" name=\"values\" id=\" values \" value=\" " + _areaNm + "," + _schlNm + "," + _teacherNm + "," + _grade + "," + _ban + " \">";
-                    html += "   <label for=\"areaNm\" \"> (" + _areaNm + ")" + _schlNm + "    " + _grade + "학년" + _ban + "반" + "</label>";
-
-                    //히든        //<label for="areaNm"> (_areaNm) 서울방배중학교 _grade 학년 _ban반 선생님 </label>
-                    /*html += "   <input type=\"hidden\" name=\"areaNm\" id=\"areaNm\" value=\"" + _areaNm + "\">"
-                    html += "   <input type=\"hidden\" name=\"schlNm\" id=\"schlNm\" value=\"" + _schlNm + "\">"
-                    html += "   <input type=\"hidden\" name=\"grade\" id=\"grade\" value=\"" + _grade + "\">";
-                    html += "   <input type=\"hidden\" name=\"ban\" id=\"ban\" value=\"" + _ban + "\">";*/
-
+                    html += "   <label for=\"areaNm\" \"> (" + _areaNm + ")" + _schlNm + " " + _grade + "학년" + _ban + "반" + "</label>";
 
                 }
-                $('#nodata').hide();
+                $('#values').hide();
                 $('#TeacherNmList').append(html);
             },
             error: function (error) {
                 alert(error.responseText);
                 $('#TeacherNmList').append();
-                $('#nodata').show();
+                $('#values').show();
             }
         });
     }
+    //관리자
+    function fn_chkIdDup(){
+        loginId = $("#loginId");
+        batchArr = $("#batchArr");
+        loginId.siblings('.err.emph').remove();
 
+        if(!$.trim(batchArr.val())) {
+            alert('생성하실 계정의 개수를 먼저 입력 하세요.')
+            batchArr.focus();
+            return false;
+        } else {
+
+            if(!loginIdCheck(loginId)){
+                return false;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/test/api/member/isExistByBatchLoginId",
+                data: {
+                    "loginId": $.trim(loginId.val()),
+                    "batchArr" : $.trim(batchArr.val())
+                },
+                success: function (data) {
+                    if($.trim(loginId.val()) != ''){
+                        alert('사용가능한 계정 양식 입니다.');
+                        idDupBool = true;
+                    }
+                },
+                error: function (error) {
+                    alert(error.responseText);
+                    idDupBool = false;
+                    loginId.val('');
+                    loginId.focus();
+                }
+            });
+        }
+    }
+
+    function fn_comparePwd() {
+        pwd = $("#pwd");
+        pwdChk = $('#pwdChk');
+        pwdChk.siblings('.err.emph').remove();
+        if (pwd.val() != pwdChk.val()) {
+            pwdChk.after('<p class="err emph">비밀번호가 일치하지 않습니다.</p>');
+        }
+    }
+
+    //form prop
     $(document).ready(function (e) {
         frm = $('#form1');
         $('#btnSave').on('click', function (e) {
+            $('#btnSave').prop('disalbed' , true)
+            if(!fn_chkField(e)){
+                $('#btnSave').prop('disabled' , false);
+                return false;
+            }
 
             frm.prop('action', '/test/soulGod/member/batchregister/join');
             frm.submit();
         });
     })
+
+
 </script>
 
 
@@ -202,7 +267,7 @@
                                 <tr>
                                     <th scope="row"><label>선생님 조회<span class="aster">*</span></label></th>
                                     <td>
-                                        <label for="loginId" class="blind">이름 조회</label>
+                                        <label for="TeacherNm" class="blind">이름 조회</label>
                                         <input type="text" id="TeacherNm" name="TeacherNm" class="w160" maxlength="12"/>
 
                                         <a href="javascript:;" class="btn btn_sm btn_line_blue btn_pill_10"
@@ -217,19 +282,7 @@
                                             <li>
                                                 <div class="td">
                                                     <div class="scrollbar">
-                                                        <!--<th:block th:if="${srchList.isEmpty()}">
-                                                            <span>조회된 정보가 없습니다!</span>>
-                                                        </th:block>-->
-                                                        <!--<th:block th:if="${!srchList.isEmpty()}">
-                                                            <th:block th:each=" srch : ${srchList}">
-                                                                <span th:text="${srch.getTeacherNm()}"></span>
-                                                                <span th:text="${srch.getAreaNm()}"></span>
-                                                                <span th:text="${srch.getSchlNm()}"></span>
-                                                                <span th:text="${srch.getGrade()}"></span>
-                                                                <span th:text="${srch.getBan()}"></span>
-                                                            </th:block>
-                                                        </th:block>-->
-                                                        <sapn id="nodata">조회된 정보가 없습니다.</sapn>
+                                                        <sapn id="values">조회된 정보가 없습니다.</sapn>
                                                         <div id="TeacherNmList">
 
                                                         </div>
@@ -239,32 +292,8 @@
                                         </ul>
                                     </td>
                                 </tr>
-                                <!--<tr>
-                                    <th scope="row"><label>학교<span class="aster">*</span></label></th>
-                                    <td>
-                                        <div class="td">
-                                            <input type="text" id="schlNm" name="schlNm" readonly onkeydown="fn_checkSpacebar();" />
-                                        </div>
-                                    </td>
-                                </tr>
                                 <tr>
-                                    <th scope="row"><label>학년<span class="aster">*</span></label></th>
-                                    <td>
-                                        <div class="td">
-                                            <input type="text" id="grade" name="grade" readonly onkeydown="fn_checkSpacebar();" />
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><label>반<span class="aster">*</span></label></th>
-                                    <td>
-                                        <div class="td">
-                                            <input type="text" id="ban" name="ban" readonly onkeydown="fn_checkSpacebar();" />
-                                        </div>
-                                    </td>
-                                </tr>-->
-                                <tr>
-                                    <th scope="row"><label>ID 개수<span class="aster">*</span></label></th>
+                                    <th scope="row"><label>가입할 계정 개수<span class="aster">*</span></label></th>
                                     <td>
                                         <div class="td">
                                             <input type="number" id="batchArr" name="batchArr"
@@ -273,11 +302,11 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row"><label>생성 할 ID<span class="aster">*</span></label></th>
+                                    <th scope="row"><label>계정 양식<span class="aster">*</span></label></th>
                                     <td>
                                         <label for="loginId" class="blind">로그인ID</label>
-                                        <input type="text" id="loginId" name="loginId" class="w170" maxlength="12"
-                                               placeholder="6~12자 영문 소문자, 숫자 사용" onkeydown="fn_checkSpacebar()"/>
+                                        <input type="text" id="loginId" name="loginId" class="w160" maxlength="12" placeholder="6~12자 영문 소문자, 숫자 사용" onkeydown="fn_checkSpacebar()"/>
+                                        <a href="javascript:;" class="btn btn_sm btn_line_blue btn_pill_10" onclick="return fn_chkIdDup();">중복확인</a>
                                     </td>
                                 </tr>
                                 <tr>
@@ -285,7 +314,7 @@
                                     <td>
                                         <div class="td">
                                             <input type="password" id="pwd" name="pwd" placeholder="8~16자(특수 문자 포함)"
-                                                   onkeydown="fn_checkSpacebar();"/>
+                                                   onkeydown="fn_checkSpacebar()" onkeyup="fn_comparePwd()"/>
                                         </div>
                                     </td>
                                 </tr>
@@ -294,7 +323,7 @@
                                     <td>
                                         <div class="td">
                                             <input type="password" name="pwdChk" id="pwdChk" placeholder="비밀번호 확인"
-                                                   onkeydown="fn_checkSpacebar()"/>
+                                                   onkeydown="fn_checkSpacebar()" onkeyup="fn_comparePwd()"/>
                                         </div>
                                     </td>
                                 </tr>
@@ -306,7 +335,7 @@
                                 <i class="material-icons">delete</i>삭제
                             </button>-->
                             <button id="btnSave" class="btn btn_sm btn_blue">
-                                <i class="material-icons fz17">done</i>가입
+                                <i class="material-icons fz17">done</i>등록
                             </button>
                             <a class="btn btn_sm btn_lightgray" href="/soulGod/member/list">
                                 <i class="material-icons">list</i>목록

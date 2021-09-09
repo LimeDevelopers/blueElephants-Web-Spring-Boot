@@ -5,7 +5,7 @@
 -->
 <!-- tes -->
 
-<div class="gnb_tit" th:classappend="${mc eq 'blueElephant' ? 'gnb01' : ''} + ${mc eq 'activity' ? 'gnb02' : ''} + ${mc eq 'news' ? 'gnb03' : ''} + ${mc eq 'classRegis' ? 'gnb04' : ''} + ${mc eq 'memberJoin' ? 'gnb05' : ''} + ${mc eq 'crewJoin' ? 'gnb05' : ''} + ${mc eq 'myPage' ? 'gnb06' : ''} + ${mc eq 'customerCenter' ? 'gnb07' : ''} + ${mc eq 'searchResult' ? 'gnb08' : ''} + ${mc eq 'privacy' ? 'gnb08' : ''} + ${mc eq 'terms' ? 'gnb08' : ''} + ${mc eq 'mailDeny' ? 'gnb08' : ''} + ${mc eq 'sitemap' ? 'gnb08' : ''}" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<div class="gnb_tit" th:classappend="${mc eq 'blueElephant' ? 'gnb01' : ''} + ${mc eq 'activity' ? 'gnb02' : ''} + ${mc eq 'news' ? 'gnb03' : ''} + ${mc eq 'classRegis' ? 'gnb04' : ''} + ${mc eq 'memberJoin' ? 'gnb05' : ''} + ${mc eq 'crewJoin' ? 'gnb05' : ''} + ${mc eq 'myPage' ? 'gnb06' : ''} + ${mc eq 'customerCenter' ? 'gnb07' : ''} + ${mc eq 'searchResult' ? 'gnb08' : ''} + ${mc eq 'privacy' ? 'gnb08' : ''} + ${mc eq 'terms' ? 'gnb08' : ''} + ${mc eq 'mailDeny' ? 'gnb08' : ''} + ${mc eq 'sitemap' ? 'gnb08' : ''} + ${mc eq 'application' ? 'gnb01' : ''}" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <h2 th:if="${mc eq 'blueElephant'}">푸른코끼리</h2>
     <h2 th:if="${mc eq 'activity'}">푸른코끼리 활동</h2>
     <h2 th:if="${mc eq 'news'}">푸코소식</h2>
@@ -19,9 +19,10 @@
     <h2 th:if="${mc eq 'terms'}">이용약관</h2>
     <h2 th:if="${mc eq 'mailDeny'}">이메일무단수집거부</h2>
     <h2 th:if="${mc eq 'sitemap'}">사이트맵</h2>
+    <h2 th:if="${mc eq 'application'}">신청</h2>
 </div>
 
-<div class="snb" th:if="${mc eq 'blueElephant' || mc eq 'activity' || mc eq 'classRegis' || mc eq 'news' || mc eq 'myPage'}"
+<div class="snb" th:if="${mc eq 'blueElephant' || mc eq 'activity' || mc eq 'classRegis' || mc eq 'news' || mc eq 'myPage' || mc eq 'application'}"
      th:classappend="${mc eq 'blueElephant' ? 'mo_bb' : ''}"
      xmlns:th="http://www.thymeleaf.org"
      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
@@ -71,6 +72,16 @@
             <li th:classappend="${pageTitle eq 'My 강의실' ? 'active' : ''}"><a href="/pages/myPage/classroom">My 강의실</a></li>
             <li th:classappend="${pageTitle eq 'My 제안' ? 'active' : ''}"><a href="/pages/myPage/proposal">My 제안</a></li>
             <li th:classappend="${pageTitle eq '자가진단결과' ? 'active' : ''}"><a href="/pages/myPage/selfTestResult">자가진단결과</a></li>
+        </th:block>
+
+        <th:block th:if="${mc eq 'application'}">
+            <li th:classappend="${pageTitle eq '예방교육' ? 'active' : ''}"><a href="/pages/application/preeducation">예방교육</a></li>
+            <li th:classappend="${pageTitle eq '강사교육' ? 'active' : ''}"><a href="/pages/application/inseducation">강사교육</a></li>
+            <li th:classappend="${pageTitle eq '지지크루' ? 'active' : ''}"><a href="/pages/application/zzcrew">지지크루</a></li>
+            <li th:classappend="${pageTitle eq '지지선언' ? 'active' : ''}"><a href="/pages/application/zzdeclareation">지지선언</a></li>
+            <li th:classappend="${pageTitle eq '파트너스' ? 'active' : ''}"><a href="/pages/application/partners">파트너스</a></li>
+            <li th:classappend="${pageTitle eq '공모전'  ? 'active' : ''}"><a href="/pages/application/contest">공모전</a></li>
+            <li th:classappend="${pageTitle eq '행사' ? 'active' : ''}"><a href="/pages/application/event">행사</a></li>
         </th:block>
     </ul>
 </div>
