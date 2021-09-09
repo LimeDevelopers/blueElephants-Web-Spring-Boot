@@ -29,8 +29,8 @@ public class ActivityApplication {
     @Column(name = "fl_pid")
     private Long flPid;
 
-    @Column(name = "login_id")
-    private String loginId;
+   /* @Column(name = "login_id")
+    private String loginId;*/
 
     @Column(name = "nm")
     private String nm;
@@ -54,8 +54,8 @@ public class ActivityApplication {
     @Column(name = "reg_dtm")
     private LocalDateTime regDtm;
 
-    @Column(name = "upd_dtm")
-    private LocalDateTime updDtm;
+    /*@Column(name = "upd_dtm")
+    private LocalDateTime updDtm;*/
 
     @Column(name = "del_at")
     private String delAt;

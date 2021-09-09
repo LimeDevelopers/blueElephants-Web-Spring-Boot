@@ -3,6 +3,8 @@ package kr.or.btf.web.web.controller.pages;
 
 
 import kr.or.btf.web.domain.web.enums.AppRollType;
+import kr.or.btf.web.services.web.ApplicationService;
+import kr.or.btf.web.web.controller.BaseCont;
 import kr.or.btf.web.web.form.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -12,27 +14,26 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequiredArgsConstructor
 public class  ApplicationController {
+    private final ApplicationService applicationService;
 
-    @RequestMapping("/pages/application/partners")
-    private String appPartners(Model model,
-                               @ModelAttribute ApplicationForm applicationForm){
-        // ROLL 타입이 파트너스일 경우
-        if(AppRollType.PARTNERS.getName().equals(applicationForm.getAppDvTy())) {
 
-        }
-        return "/pages/application/partners";
+
+
+    @PostMapping(value = "/pages/application/partnersRegister/register")
+    public String PartnersRegister(ApplicationForm applicationForm){
+        System.out.println("신청자 : "  + applicationForm.getNm());
+        System.out.println("폰번호 : " + applicationForm.getMoblphon());
+        System.out.println("소속 : " + applicationForm.getAffi());
+        applicationService.partnersRegister(applicationForm);
+
+        return "pages/application/partners";
     }
 
-    @PostMapping("/pages/application/partnersRegister")
-    private String appPartnersRegister(Model model,
-                               @ModelAttribute ApplicationForm applicationForm){
-        // ROLL 타입이 파트너스일 경우
-        if(AppRollType.PARTNERS.getName().equals(applicationForm.getAppDvTy())) {
 
-        }
-        return "/pages/application/partnersRegister";
-    }
 
+
+
+    //페이지 이동 컨트롤러
     @GetMapping("/pages/application/preeducation")
     public String PreEducation(Model model) {
         model.addAttribute("mc", "application");
@@ -78,6 +79,18 @@ public class  ApplicationController {
         model.addAttribute("mc", "application");
         model.addAttribute("pageTitle", "행사");
         return "pages/application/event";
+    }
+    @GetMapping("/pages/application/partnersRegister")
+    private String appPartnersRegister(Model model,
+                                       @ModelAttribute ApplicationForm applicationForm){
+        // ROLL 타입이 파트너스일 경우
+        if(AppRollType.PARTNERS.getName().equals(applicationForm.getAppDvTy())) {
+
+        }
+        model.addAttribute("mc", "application");
+        model.addAttribute("pageTitle", "파트너스");
+
+        return "/pages/application/partnersRegister";
     }
 
 }
