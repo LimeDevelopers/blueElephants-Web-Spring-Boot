@@ -2207,7 +2207,413 @@
 	/* SubPage 끝*/
 
 
+	/* 소개_ 푸른캐릭터 시작 */
+	.page_top .character_banner {
+		padding: 20px;
+		height: auto;
+		background: url('../images/contents/box_1_m.png')no-repeat center center;
+		background-size: contain;
+	}
+	.ci_inner {
+		flex-direction: column;
+		margin-top: 20px;
+	}
+	.ci_inner .ci_sum {
+		width: 100%;
+		border: 0;
+		padding: 30px;
+	}
+	.puco_ch .ci_inner .ci_sum {
+		display: none;
+	}
+	.character_down {
+		display: flex;
+	}
+	.level_puco .level_pc {
+		display: none;
+	}
+	.level_puco .level_m {
+		display: block;
+	}
+	.ci_inner .ci_desc p {
+		font-size: 14px;
+	}
+	.ci_inner .ci_desc .ci_download {
+		margin: 0 auto;
+		padding: 8px 40px;
+		margin-top: 30px;
+	}
+	.puco_ch .ci_inner .ci_desc .ch_01 {
+		margin-left: auto;
+		height: 230px;
+		position: relative;
+	}
+	.level_graph .graph_01 {
+		margin-bottom: 15px;
+	}
+	.puco_ch .ci_inner .ci_desc .ch_01:before {
+		content:'';
+		position: absolute;
+		width: 100px;
+		height: 150px;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		left: 0;
+		background: url('../images/contents/m_obj_mascot.png')no-repeat center center;
+		background-size: contain;
+	}
+	.ci_inner .ci_desc small {
+		font-size: 10px;
+		margin-left: auto;
+	}
+	.puco_ch .ci_inner .ci_desc ul.character_info {
+		width: 80%;
+		left: 60%;
+	}
+	.puco_ch .ci_inner .ci_desc ul.character_info li > * {
+		font-size: 10px;
+	}
+	.ci_desc .ch_02 .about_puco {
+		margin-top: 40px;
+	}
+	.ci_desc .ch_02 .about_puco h4 {
+		font-size: 16px;
+	}
+	.ci_desc .ch_02 .about_puco a:before {
+		width: 20px;
+	}
+	.ci_desc .ch_02 .about_puco a:after {
+		height: 20px;
+		left: -35px
+	}
+	.ci_desc .ch_02 .about_puco a {
+		font-size: 14px;
+	}
+	.puco_ch .ci_inner .ci_desc .ch_02 p.about_puco_desc b {
+		display: inline;
+	}
+	.character_down a.btn_download {
+		padding: 8px 20px;
+		font-size: 12px;
+	}
+	.character_down a.btn_download {
+		background: url('../images/icon/download.png')no-repeat center right 20px;
+		background-size: 12px;
+		padding-right: 30px;
+	}
+	.level_puco {
+		margin-top: 30px;
+	}
+	.level_graph {
+		margin-top: 30px;
+	}
+	.level_graph div > table tr td {
+		font-size: 11px;
+		padding: 5px 3px;
+		color: #9399af;
+	}
+	.level_graph .graph_02 table tr td:nth-child(2) {
+		width: 40px;
+	}
+	/* 소개_ 푸른캐릭터 끝 */
 
+
+
+	/* 소개_ 푸른코끼리 시작 */
+	.intro_banner h1 span {
+		font-size: 15px;
+		padding-right: 5px;
+	}
+	.puco_site .site_desc .site_img img {
+		width: 100%;
+	}
+	.about_btn a.btn_download {
+		font-size: 12px;
+		padding: 10px 12px;
+		width: 125px;
+	}
+	.about_btn .down-btn {
+		margin-right: 10px;
+	}
+	.gyeonggi_tit {
+		margin: 20px 0;
+		font-size: 16px;
+	}
+	.pucoabout_inner .puco_items {
+		top: 850px;
+	}
+	.pucoabout_inner .puco_items .bg_inner {
+		padding: 40px 0;
+	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item {
+		flex-direction: column;
+		height: 400px;
+	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item > div {
+		width: 100%;
+		padding: 100px 0;
+	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item .item_01 {
+		background-size: cover;
+	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item .item_02 {
+		background-size: cover;
+	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item .item_03 {
+		background-size: cover;
+	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item .item_04 {
+		background-size: cover;
+	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item .item_05 {
+		background: url('../images/contents/puco_banner_5_m.png')no-repeat center center;
+		background-size: contain;
+		flex: 0.5;
+		padding: 0 !important;
+	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item:nth-child(3) {
+		height: 400px;
+	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item > div .item_tit {
+		padding: 5px 20px;
+		font-size: 14px;
+		border-radius: 5px;
+		left: 30px;
+		top: 8px;
+	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item > div .desc {
+		top: 12%;
+	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item > div .desc p {
+		font-size: 12px;
+		margin-bottom: 5px;
+	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item > div .desc span small {
+		font-size: 10px;
+		padding: 4px;
+	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item > div .desc {
+		font-size: 18px;
+		top: 20%;
+	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item > div .desc span b {
+		margin-bottom: 0;
+	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item > div .more_btn {
+		font-size: 11px;
+		right: 40px;
+	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item > div .more_btn:before {
+		width: 14px;
+		height: 14px;
+		left: -25px;
+	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item .item_05 .desc {
+		left: 38%;
+	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item > div .desc span {
+		display: inline;
+	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item > div .desc b {
+		display: block;
+	}
+	/* 소개_ 푸른코끼리 끝 */
+
+
+	/* 소개_ 푸코연혁 시작 */
+	.intro_item_01 .year_inner {
+		flex-direction: column;
+	}
+	.intro_item_01 .year_inner .years_sum {
+		width: 100%;
+		height: 150px;
+		margin-bottom: 30px;
+	}
+	.intro_item_01 .year_inner {
+		margin-top: 30px;
+	}
+	.intro_item_01 .year_inner .years_desc label:before {
+		width: 20px;
+		height: 20px;
+		background-size: contain;
+		left: 2px;
+	}
+	.intro_item_01 .year_inner .years_desc label:after {
+		width: 12px;
+		height: 12px;
+		background-size: contain;
+	}
+	.intro_item_01 .year_inner .years_desc label {
+		font-size: 22px;
+		padding-left: 30px;
+		padding-right: 25px;
+	}
+	.intro_item_01 .year_inner .years_desc .detail_desc > li {
+		font-size: 16px;
+		margin-bottom: 12px;
+		display: flex;
+	}
+	.intro_item_01 .year_inner .years_desc .detail_desc > li > ul {
+		font-size: 12px;
+		flex: 5;
+	}
+	.intro_item_01 .year_inner .years_desc .detail_desc > li > span {
+		flex: 1;
+		font-size: 14px;
+	}
+	.intro_item_01 .year_inner .years_desc .detail_desc {
+		padding-left: 30px;
+		padding-top: 25px;
+	}
+	.intro_item_01 .year_inner .years_desc .detail_desc:before {
+		left: 10px;
+		height: calc(100% - 25px);
+	}
+	.intro_item_01 .inner_20 .years_desc .detail_desc:before {
+		height: calc(100% - 80px);
+	}
+	.intro_item_01 .year_inner .years_desc .detail_desc > li:after {
+		background-size: contain;
+		width: 8px;
+		height: 8px;
+		left: -23px;
+	}
+	.intro_item_01 .year_inner .years_desc .detail_desc > li > ul li {
+		margin-bottom: 0;
+		font-weight: normal;
+	}
+	.intro_item_01 .inner_21,
+	.intro_item_01 .inner_19 {
+		margin-top: 70px;
+	}
+	/* 소개_ 푸코연혁 끝 */
+
+
+
+
+	/* 소개_ 푸코사무국 시작 */
+
+	.intro_item_01 .puco_office_1 .map {
+		height: 270px;
+	}
+	.intro_item_01 .puco_office_1 .map_info {
+		flex-direction: column;
+		margin-bottom: 0 !important;
+	}
+	.intro_item_01 .puco_office_1 .map_info .map_item {
+		width: 100%;
+		border-right: 0;
+	}
+	.intro_item_01 .puco_office_1 .item_03 {
+		background: none;
+		padding: 0 !important;
+	}
+	.intro_item_01 .puco_office_1 .item_03 .tel {
+		display: none;
+	}
+	.intro_item_01 .puco_office_1 .sns {
+		margin-top: 20px;
+	}
+	.intro_item_01 .puco_office_1 .map_info .map_item span,
+	.intro_item_01 .puco_office_1 .sns span {
+		font-size: 18px;
+		margin-bottom: 15px;
+	}
+	.intro_item_01 .puco_office_1 .map_info .map_item div small {
+		font-size: 14px;
+		padding-left: 25px;
+	}
+	.intro_item_01 .puco_office_1 .map_info .map_item div small:before {
+		width: 20px;
+		height: 20px;
+	}
+	.intro_item_01 .puco_office_1 .map_info .map_item:nth-child(2) {
+		padding-left: 0;
+		padding-right: 0;
+	}
+	.intro_item_01 .puco_office_1 .sns .sns_inner {
+		margin-top: 25px;
+	}
+	.intro_item_01 .puco_office_1 .sns .sns_inner a {
+		width: 90%;
+	}
+	.intro_item_01 .puco_office_1 .sns .sns_inner .sns_item {
+		padding-left: 10px;
+	}
+	.intro_item_01 .puco_office_1 .sns .sns_inner .sns_item:before {
+		width: 35px;
+		height: 35px;
+		left: 10%;
+	}
+	.intro_item_01 .puco_office_1 .sns .sns_inner .sns_item small {
+		display: none;
+	}
+	.tel_m {
+		display: block;
+		background: url('../images/contents/box_3_m.png')no-repeat center center;
+		background-size: contain;
+		margin-top: 40px;
+		height: 150px;
+		padding: 0 20px;
+	}
+	.tel_m b {
+		text-align: center;
+		width: 100%;
+		display: inline-block;
+		color: #85b4f7;
+		margin-bottom: 5px;
+		font-size: 16px;
+		padding-top: 20px;
+	}
+	.tel_m div {
+		display: flex;
+		flex-direction: column;
+	}
+	.tel_m div u {
+		color: #6e9be2;
+		font-weight: bold;
+		font-size: 24px;
+		text-decoration: none;
+	}
+	.tel_m div u i {
+		font-size: 12px;
+	}
+	.intro_item_02 .puco_office_2 {
+		margin-top: 10px;
+	}
+	.intro_item_02 .puco_office_2 .info_item {
+		padding: 15px 0;
+	}
+	.intro_item_02 .puco_office_2 .info_item > span:before {
+		width: 25px;
+		height: 25px;
+	}
+	.intro_item_02 .puco_office_2 .info_item > span {
+		font-size: 18px;
+		padding-left: 40px;
+	}
+	.intro_item_02 .puco_office_2 .info_item > .desc span {
+		font-size: 13px;
+		padding: 0 10px;
+	}
+	.intro_item_02 .puco_office_2 .info_item > .desc {
+		margin-top: 20px;
+	}
+	.intro_item_02 .puco_office_2 .info_item > .desc .desc_inner_1 u {
+		display: block;
+	}
+	.intro_item_02 .puco_office_2 .info_item > .desc span.tag img {
+		height: 17px;
+	}
+	.intro_item_02 .puco_office_2 .info_item > .desc .desc_inner_1 span:after {
+		width: 10px;
+		height: 10px;
+	}
+	.intro_item_02 .puco_office_2 .info_item > .desc .desc_inner_2 small {
+		display: block;
+		margin-bottom: 10px;
+	}
+	/* 소개_ 푸코사무국 끝 */
 
 }
 
@@ -3017,6 +3423,95 @@
 
 	/* 활동_사이버폭력 예방교육_소개 끝 */
 
+
+
+	/* 소개_ 푸코연혁 시작 */
+	.intro_item_01 .inner_21, .intro_item_01 .inner_19 {
+		margin-top: 40px;
+	}
+	.intro_item_01 .year_inner {
+		margin-top: 50px;
+	}
+	.intro_item_01 .year_inner .years_sum {
+		height: 250px;
+	}
+	.intro_item_01 .year_inner .years_desc label {
+		font-size: 30px;
+		padding-left: 40px;
+		padding-right: 40px;
+	}
+	.intro_item_01 .year_inner .years_desc .detail_desc {
+		padding-left: 40px;
+	}
+	.intro_item_01 .year_inner .years_desc .detail_desc > li {
+		margin-bottom: 20px;
+	}
+	.intro_item_01 .year_inner .years_desc .detail_desc > li:after {
+		left: -33px;
+	}
+	.intro_item_01 .year_inner .years_desc .detail_desc > li > ul {
+		font-size: 16px;
+	}
+	.intro_item_01 .year_inner .years_desc .detail_desc > li > span {
+		font-size: 17px;
+	}
+	.intro_item_01 .year_inner .years_desc .detail_desc:before {
+		height: calc(100% - 32px);
+	}
+	.intro_item_01 .inner_20 .years_desc .detail_desc:before {
+		height: calc(100% - 80px);
+	}
+	/* 소개_ 푸코연혁 끝 */
+
+
+
+	/* 소개_ 푸코사무국 시작 */
+	.intro_item_01 .puco_office_1 .map_info .map_item span, .intro_item_01 .puco_office_1 .sns span {
+		font-size: 22px;
+	}
+	.intro_item_01 .puco_office_1 .map_info .map_item div small {
+		font-size: 18px;
+		padding-left: 40px;
+	}
+	.intro_item_01 .puco_office_1 .map_info .map_item div small:before {
+		width: 30px;
+		height: 30px;
+	}
+	.intro_item_01 .puco_office_1 .sns .sns_inner {
+		margin-top: 35px;
+	}
+	.intro_item_01 .puco_office_1 .sns .sns_inner .sns_item:before {
+		width: 50px;
+		height: 50px;
+	}
+	.tel_m {
+		width: 80%;
+		margin: 0 auto;
+		height: 200px;
+		margin-top: 70px;
+		padding: 0 80px;
+	}
+	.tel_m b {
+		font-size: 28px;
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+	.tel_m div u {
+		font-size: 24px;
+	}
+	.tel_m div u i {
+		font-size: 16px;
+	}
+	.intro_item_02 .puco_office_2 .info_item > .desc span {
+		font-size: 18px;
+	}
+	.intro_item_02 .puco_office_2 .info_item > .desc span.tag img {
+		height: 25px;
+	}
+	.intro_item_02 .puco_office_2 .info_item > .desc .desc_inner_1 u {
+		display: inline;
+	}
+	/* 소개_ 푸코사무국 끝 */
 
 
 }

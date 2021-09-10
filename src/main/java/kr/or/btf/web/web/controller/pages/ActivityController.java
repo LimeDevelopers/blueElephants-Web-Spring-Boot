@@ -239,45 +239,55 @@ public class ActivityController extends BaseCont {
 
     @ResponseBody
     @RequestMapping("/api/pages/courseRequest/register")
-    public String authSave(Model model,
+    public HashMap<String, String> authSave(Model model,
                            HttpServletResponse response,
                            @RequestBody CourseRequestForm courseRequestForm,
                            @CurrentUser Account account) {
-        String msg = "";
-         if (account.getMberDvTy() == UserRollType.STUDENT) {
-
+        HashMap<String, String> rest = new HashMap<>();
+         if (account.getMberDvTy().equals(UserRollType.STUDENT)) {
+             // 수정중 김재일
             MemberSchool memberSchool = memberSchoolService.loadByMber(account.getId());
-            courseRequestForm.setAreaNm(memberSchool.getAreaNm());
-            courseRequestForm.setSchlNm(memberSchool.getSchlNm());
-            courseRequestForm.setGrade(memberSchool.getGrade());
-            courseRequestForm.setBan(memberSchool.getBan());
-            courseRequestForm.setNo(memberSchool.getNo());
-        }
+            if(memberSchool != null) {
+                log.info("테스트@@"+memberSchool.getAreaNm());
+                courseRequestForm.setAreaNm(memberSchool.getAreaNm());
+                courseRequestForm.setSchlNm(memberSchool.getSchlNm());
+                courseRequestForm.setGrade(memberSchool.getGrade());
+                courseRequestForm.setBan(memberSchool.getBan());
+                courseRequestForm.setNo(memberSchool.getNo());
+                courseRequestForm.setRegDtm(LocalDateTime.now());
+                courseRequestForm.setConfmAt("Y");
+                courseRequestForm.setMberPid(account.getId());
 
-        courseRequestForm.setRegDtm(LocalDateTime.now());
-        courseRequestForm.setConfmAt("Y");
-        courseRequestForm.setMberPid(account.getId());
+                CourseMasterRelForm courseMasterRelForm = new CourseMasterRelForm();
+                courseMasterRelForm.setCrsMstPid(courseRequestForm.getCrsMstPid());
+                List<CourseMasterRel> courseMasterRels = courseMasterRelService.list(courseMasterRelForm);
 
-        CourseMasterRelForm courseMasterRelForm = new CourseMasterRelForm();
-        courseMasterRelForm.setCrsMstPid(courseRequestForm.getCrsMstPid());
-        List<CourseMasterRel> courseMasterRels = courseMasterRelService.list(courseMasterRelForm);
-
-        boolean result = false;
-        result = courseRequestService.insert(courseRequestForm, courseMasterRels);
-
-
-        if (result) {
-            msg = "ok";
-            response.setStatus(200);
+                boolean result = false;
+                result = courseRequestService.insert(courseRequestForm, courseMasterRels);
+                if (result) {
+                    rest.put("status","200");
+                    rest.put("msg","신청되었습니다");
+                    response.setStatus(200);
+                } else {
+                    rest.put("status","402");
+                    rest.put("msg","에러, 관리자에게 문의하세요 ");
+                    response.setStatus(200);
+                }
+            } else {
+                rest.put("status","401");
+                rest.put("msg","학교 정보가 등록되있지않습니다.");
+                response.setStatus(200);
+            }
         } else {
-            msg = "fail";
-            response.setStatus(401);
-        }
+             rest.put("status","401");
+             rest.put("msg","학생만 수강신청이 가능합니다.");
+             response.setStatus(200);
+         }
 
         response.setContentType("text/html");
         response.setCharacterEncoding("utf-8");
 
-        return msg;
+        return rest;
     }
 
     @RequestMapping({"/pages/activity/eduDataRoom"})
@@ -433,6 +443,7 @@ public class ActivityController extends BaseCont {
         return "/pages/activity/postscriptRegister";
     }
 
+    // 수정중 김재일
     @GetMapping("/pages/activity/eduMasterClass/{id}")
     public String eduMasterClass(Model model,
                                  @Value("${Globals.fileStoreUriPath}") String filePath,
@@ -444,11 +455,11 @@ public class ActivityController extends BaseCont {
         CourseMaster masterSeqLoad = courseMasterService.load(id);
         model.addAttribute("form", masterSeqLoad);
 
-
         List<CourseMasterRel> rtnList = new ArrayList<>();
         CourseMasterRelForm masterForm = new CourseMasterRelForm();
         masterForm.setCrsMstPid(masterSeqLoad.getId());
-        List<CourseMasterRel> masters = courseMasterRelService.list(masterForm);
+        List<CourseMasterRel> masters = courseMasterRelService.eduList(masterForm);
+        // 하위과정을 중간과정으로 넣는 로직
        for (CourseMasterRel master : masters) {
             Map<String, Object> item = new HashMap<>();
                 // 수정중 김재일

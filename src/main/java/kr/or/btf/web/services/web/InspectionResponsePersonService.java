@@ -141,6 +141,7 @@ public class InspectionResponsePersonService extends _BaseService {
      * @param form
      * @return
      */
+    // 수정중 김재일
     @Transactional
     public boolean insert(InspectionResponsePersonForm form, List<List<InspectionResponseForm>> responseFormList, Integer sectionIndex, CourseRequestCompleteForm courseRequestCompleteForm) {
 
