@@ -2,6 +2,8 @@ package kr.or.btf.web.web.controller.pages;
 
 
 
+import kr.or.btf.web.common.annotation.CurrentUser;
+import kr.or.btf.web.domain.web.Account;
 import kr.or.btf.web.domain.web.enums.AppRollType;
 import kr.or.btf.web.services.web.ApplicationService;
 import kr.or.btf.web.web.controller.BaseCont;
@@ -10,6 +12,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Controller
 @RequiredArgsConstructor
@@ -17,21 +22,18 @@ public class  ApplicationController {
     private final ApplicationService applicationService;
 
 
-
-
     @PostMapping(value = "/pages/application/partnersRegister/register")
-    public String PartnersRegister(ApplicationForm applicationForm){
-        System.out.println("신청자 : "  + applicationForm.getNm());
-        System.out.println("폰번호 : " + applicationForm.getMoblphon());
-        System.out.println("소속 : " + applicationForm.getAffi());
-        applicationService.partnersRegister(applicationForm);
+    public String PartnersRegister(@ModelAttribute ApplicationForm applicationForm ,
+                                   @RequestParam("attachedFile") MultipartFile attachedFile ,
+                                   @CurrentUser Account account,
+                                   Error error ) throws Exception {
+        if(account != null) {
+            applicationForm.setMberPid(account.getId());
+        }
+        applicationService.partnersApplier(applicationForm , attachedFile);
 
         return "pages/application/partners";
     }
-
-
-
-
 
     //페이지 이동 컨트롤러
     @GetMapping("/pages/application/preeducation")
@@ -61,12 +63,7 @@ public class  ApplicationController {
         model.addAttribute("pageTitle", "지지선언");
         return "pages/application/zzdeclaration";
     }
-    @GetMapping("/pages/application/partners")
-    public String patners(Model model) {
-        model.addAttribute("mc", "application");
-        model.addAttribute("pageTitle", "파트너스");
-        return "pages/application/partners";
-    }
+
 
     @GetMapping("/pages/application/contest")
     public String contest(Model model) {

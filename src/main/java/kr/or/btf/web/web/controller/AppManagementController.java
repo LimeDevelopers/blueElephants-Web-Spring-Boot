@@ -1,9 +1,10 @@
-package kr.or.btf.web.web.controller.pages;
+package kr.or.btf.web.web.controller;
 
 import kr.or.btf.web.common.annotation.CurrentUser;
 import kr.or.btf.web.domain.web.Account;
 import kr.or.btf.web.domain.web.ActivityApplication;
 import kr.or.btf.web.domain.web.enums.UserRollType;
+import kr.or.btf.web.services.web.AppManagementService;
 import kr.or.btf.web.web.form.SearchForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -16,7 +17,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 @Controller
 @RequiredArgsConstructor
-public class SoulGodApplicationConrtoller {
+public class AppManagementController extends BaseCont  {
+    private final AppManagementService appManagementService;
 
     @GetMapping("/soulGod/application/partners")
     public String partnersPage(Model model,
@@ -27,10 +29,9 @@ public class SoulGodApplicationConrtoller {
         model.addAttribute("form", searchForm);
 
         searchForm.setUserRollType(account.getMberDvTy());
-        Page<ActivityApplication> applications = memberService.list(pageable, searchForm);
-        model.addAttribute("members", applications);
+        Page<ActivityApplication> applications = appManagementService.list(pageable, searchForm);
+        model.addAttribute("partners", applications);
         model.addAttribute("totCnt", applications.isEmpty() ? 0 : applications.getContent().size());
-
 
         model.addAttribute("mc", "application");
         model.addAttribute("dv", "application");

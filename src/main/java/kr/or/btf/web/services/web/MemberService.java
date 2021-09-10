@@ -31,10 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -1616,6 +1613,7 @@ public class MemberService extends _BaseService {
             memberForm.setMberDvTy(UserRollType.BATCH);
             Account account = modelMapper.map(memberForm, Account.class);
             Account save = memberRepository.save(account);
+            ApplicationForm applicationForm = new ApplicationForm();
 
             //로그인아이디 초기화
             tempId = "";

@@ -40,8 +40,8 @@ public enum TableNmType {
     TBL_BANNER ("배너"),
     TBL_POSTSCRIPT("교육후기"),
     TBL_POSTSCRIPT_IMAGE("교육후기이미지"),
-    TBL_MEMBER_GROUP("사업자등록증");
-
+    TBL_MEMBER_GROUP("사업자등록증"),
+    TBL_APPLICATION("신청");
 
     private String value;
     public String getValue() {

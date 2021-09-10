@@ -3,16 +3,9 @@
 <head>
     <th:block th:include="fragments/header"></th:block>
 </head>
-<!--<script>
-    prop가 중요
-    $(document).ready(function(e) {
-        frm = $('#form1');
-        $('#btnSave').on('click', function (e){
-            frm.prop('action' , '/pages/application/partnersRegister/register')
-            frm.submit();
-        })
-    })
-</script>-->
+<script>
+
+</script>
 <body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
 <div id="wrap">
     <th:block th:include="fragments/header_gnb"></th:block>
@@ -45,8 +38,22 @@
                                 </li>
 
                                 <li>
-                                    <input type="file" name="attachedFile" maxlength="1"  id="attachedFile" class="multi" />
-                                    <label for="attachedFile">파일찾기</label>
+                                    <div class="th">첨부파일<span class="aster">*</span></div>
+                                    <div class="td file_form">
+                                        <div th:if="${fileList != null and !fileList.isEmpty()}">
+                                            <th:block th:each="item: ${fileList}">
+                                                <p class="file" th:if="${T(kr.or.btf.web.domain.web.enums.FileDvType).THUMB.name() eq item.dvTy}">
+                                                    <span th:text="${item.flNm}">첨부파일.txt</span>
+                                                    <a href="javascript:;" class="btn_del" th:onclick="|fn_deleteFile(${item.id}, this)| ">
+                                                        <span class="blind">삭제</span>
+                                                    </a>
+                                                </p>
+                                            </th:block>
+                                        </div>
+                                        <input type="file" name="attachedFile" maxlength="1"  id="attachedFile" class="multi" th:accept="${allAccept}" />
+                                        <label for="attachedFile">파일찾기</label>
+                                        <input type="hidden" name="b_license_attc" id="b_license_attc" value="N">
+                                    </div>
                                 </li>
 
                             </ul>

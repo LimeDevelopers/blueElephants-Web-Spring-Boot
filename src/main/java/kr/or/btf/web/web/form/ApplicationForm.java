@@ -1,6 +1,7 @@
 package kr.or.btf.web.web.form;
 
 import kr.or.btf.web.domain.web.enums.AppRollType;
+import kr.or.btf.web.domain.web.enums.UserRollType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,7 +20,7 @@ public class ApplicationForm extends SearchForm{
     private String moblphon;
     private String email;
     private LocalDateTime regDtm;
-    /*private LocalDateTime updDtm;*/
+    private LocalDateTime updDtm;
     private String delAt;
     private String approval;
 }
