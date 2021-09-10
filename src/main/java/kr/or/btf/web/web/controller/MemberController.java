@@ -42,8 +42,6 @@ public class MemberController extends BaseCont{
     private final MemberSchoolService memberSchoolService;
     private final MemberParentService memberParentService;
     private final MemberTeacherService memberTeacherService;
-    private final CommonCodeService commonCodeService;
-    private final MemberFormValidator memberFormValidator;
     private final PasswordEncoder passwordEncoder;
 
     // 엑셀 다운로드

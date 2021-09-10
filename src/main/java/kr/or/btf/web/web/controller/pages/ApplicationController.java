@@ -2,37 +2,40 @@ package kr.or.btf.web.web.controller.pages;
 
 
 
+import kr.or.btf.web.common.annotation.CurrentUser;
+import kr.or.btf.web.domain.web.Account;
 import kr.or.btf.web.domain.web.enums.AppRollType;
+import kr.or.btf.web.services.web.ApplicationService;
+import kr.or.btf.web.web.controller.BaseCont;
 import kr.or.btf.web.web.form.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Controller
 @RequiredArgsConstructor
 public class  ApplicationController {
+    private final ApplicationService applicationService;
 
-    @RequestMapping("/pages/application/partners")
-    private String appPartners(Model model,
-                               @ModelAttribute ApplicationForm applicationForm){
-        // ROLL 타입이 파트너스일 경우
-        if(AppRollType.PARTNERS.getName().equals(applicationForm.getAppDvTy())) {
 
+    @PostMapping(value = "/pages/application/partnersRegister/register")
+    public String PartnersRegister(@ModelAttribute ApplicationForm applicationForm ,
+                                   @RequestParam("attachedFile") MultipartFile attachedFile ,
+                                   @CurrentUser Account account,
+                                   Error error ) throws Exception {
+        if(account != null) {
+            applicationForm.setMberPid(account.getId());
         }
-        return "/pages/application/partners";
+        applicationService.partnersApplier(applicationForm , attachedFile);
+
+        return "pages/application/partners";
     }
 
-    @PostMapping("/pages/application/partnersRegister")
-    private String appPartnersRegister(Model model,
-                               @ModelAttribute ApplicationForm applicationForm){
-        // ROLL 타입이 파트너스일 경우
-        if(AppRollType.PARTNERS.getName().equals(applicationForm.getAppDvTy())) {
-
-        }
-        return "/pages/application/partnersRegister";
-    }
-
+    //페이지 이동 컨트롤러
     @GetMapping("/pages/application/preeducation")
     public String PreEducation(Model model) {
         model.addAttribute("mc", "application");
@@ -60,12 +63,7 @@ public class  ApplicationController {
         model.addAttribute("pageTitle", "지지선언");
         return "pages/application/zzdeclaration";
     }
-    @GetMapping("/pages/application/partners")
-    public String patners(Model model) {
-        model.addAttribute("mc", "application");
-        model.addAttribute("pageTitle", "파트너스");
-        return "pages/application/partners";
-    }
+
 
     @GetMapping("/pages/application/contest")
     public String contest(Model model) {
@@ -78,6 +76,18 @@ public class  ApplicationController {
         model.addAttribute("mc", "application");
         model.addAttribute("pageTitle", "행사");
         return "pages/application/event";
+    }
+    @GetMapping("/pages/application/partnersRegister")
+    private String appPartnersRegister(Model model,
+                                       @ModelAttribute ApplicationForm applicationForm){
+        // ROLL 타입이 파트너스일 경우
+        if(AppRollType.PARTNERS.getName().equals(applicationForm.getAppDvTy())) {
+
+        }
+        model.addAttribute("mc", "application");
+        model.addAttribute("pageTitle", "파트너스");
+
+        return "/pages/application/partnersRegister";
     }
 
 }

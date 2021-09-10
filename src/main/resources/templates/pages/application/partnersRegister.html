@@ -3,6 +3,9 @@
 <head>
     <th:block th:include="fragments/header"></th:block>
 </head>
+<script>
+
+</script>
 <body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
 <div id="wrap">
     <th:block th:include="fragments/header_gnb"></th:block>
@@ -11,7 +14,7 @@
         <div class="sub_container">
             <th:block th:include="fragments/dept_menu"></th:block>
 
-            <form id="form1" name="form1" method="post" enctype="multipart/form-data">
+            <form action="/pages/application/partnersRegister/register" id="form1" name="form1" method="post" enctype="multipart/form-data">
 
                 <div class="contents">
                     <div class="page_top pc">
@@ -23,22 +26,38 @@
                             <ul>
                                 <li>
                                     <div class="th">신청자 이름<span class="aster">*</span></div>
-                                    <div class="td"><input type="text"/></div>
+                                    <div class="td"><input id="nm" name="nm" type="text"/></div>
                                 </li>
                                 <li>
                                     <div class="th">신청자 핸드폰<span class="aster">*</span></div>
-                                    <div class="td"><input type="text"/></div>
+                                    <div class="td"><input id="moblphon" name="moblphon" type="number"/></div>
                                 </li>
                                 <li>
                                     <div class="th">소속<span class="aster">*</span></div>
-                                    <div class="td"><input type="text"/></div>
+                                    <div class="td"><input id="affi" name="affi" type="text"/></div>
                                 </li>
+
                                 <li>
-                                    <input type="file" name="attachedFile" maxlength="1"  id="attachedFile" class="multi" />
-                                    <label for="attachedFile">파일찾기</label>
+                                    <div class="th">첨부파일<span class="aster">*</span></div>
+                                    <div class="td file_form">
+                                        <div th:if="${fileList != null and !fileList.isEmpty()}">
+                                            <th:block th:each="item: ${fileList}">
+                                                <p class="file" th:if="${T(kr.or.btf.web.domain.web.enums.FileDvType).THUMB.name() eq item.dvTy}">
+                                                    <span th:text="${item.flNm}">첨부파일.txt</span>
+                                                    <a href="javascript:;" class="btn_del" th:onclick="|fn_deleteFile(${item.id}, this)| ">
+                                                        <span class="blind">삭제</span>
+                                                    </a>
+                                                </p>
+                                            </th:block>
+                                        </div>
+                                        <input type="file" name="attachedFile" maxlength="1"  id="attachedFile" class="multi" th:accept="${allAccept}" />
+                                        <label for="attachedFile">파일찾기</label>
+                                        <input type="hidden" name="b_license_attc" id="b_license_attc" value="N">
+                                    </div>
                                 </li>
+
                             </ul>
-                            <div class="btn_area"><button id="btnSave" class="btn btn_lg btn_blue btn_pill_10">등록</button></div>
+                            <div class="btn_area"><button id="btnSave" type="submit" class="btn btn_lg btn_blue btn_pill_10">등록</button></div>
                         </div>
                     </div>
                 </div>
