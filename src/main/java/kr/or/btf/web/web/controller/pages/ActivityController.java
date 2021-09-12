@@ -482,7 +482,6 @@ public class ActivityController extends BaseCont {
             }
 
         }
-        log.info("테스트 @@@ " + account.getMberDvTy());
         model.addAttribute("afterInspection", afterInspection);
         model.addAttribute("satisfaction", satisfaction);
         model.addAttribute("atnlcReqPid",atnlcReqPid);
@@ -491,6 +490,7 @@ public class ActivityController extends BaseCont {
         model.addAttribute("courseTestsFolder", Constants.FOLDERNAME_COURSETASTE);
         model.addAttribute("courseFolder", Constants.FOLDERNAME_COURSE);
 
+        model.addAttribute("eduTy", account != null ? account.getOnlineEdu() : "");
         model.addAttribute("userGbn", account != null ? account.getMberDvTy() : "");
 
         model.addAttribute("mc", "activity");
@@ -569,6 +569,7 @@ public class ActivityController extends BaseCont {
         return "/pages/activity/eduClass";
     }
 
+    // 수정중 김재일 (온/오프)
     @RequestMapping({"/pages/activity/eduClassDetail/{crsMstPid}/{id}/{sn}"})
     public String eduClassDetail(Model model,
                                  @Value("${Globals.fileStoreUriPath}") String filePath,

@@ -84,6 +84,9 @@ public class UserDetailsService implements org.springframework.security.core.use
                 .authorites(allByMberPid)
                 .moblphon(user.getMoblphon())
                 .approval(user.getApproval())
+                .onlineEdu(user.getOnlineEdu())
+                .cardReset(user.getCardReset())
+                .eduReset(user.getEduReset())
                 .build();
 
         return new UserDetails(account);

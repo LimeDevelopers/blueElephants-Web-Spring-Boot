@@ -324,6 +324,9 @@ public class MemberService extends _BaseService {
                         qAccount.prtctorEmail,
                         qAccount.prtctorAttcAt,
                         qAccount.prtctorAttcDtm,
+                        qAccount.approval,
+                        qAccount.onlineEdu,
+                        qAccount.cardReset,
                         qLoginCnntLogs.cnctDtm,
                         qMemberSchool.no.as("mberNo")
                         ))

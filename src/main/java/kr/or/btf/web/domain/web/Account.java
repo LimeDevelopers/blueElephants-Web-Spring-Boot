@@ -152,7 +152,13 @@ public class Account implements Serializable {
     private String rpt_nm;
 
     @Builder
-    public Account(Long id, String loginId, String nm, String pwd, String ncnm, LocalDateTime regDtm, LocalDateTime updDtm, UserRollType mberDvTy, List<MemberRoll> authorites, String moblphon, String approval) {
+    public Account(Long id,
+                   String loginId,
+                   String nm, String pwd,
+                   String ncnm, LocalDateTime regDtm,
+                   LocalDateTime updDtm, UserRollType mberDvTy,
+                   List<MemberRoll> authorites, String moblphon,
+                   String approval, String onlineEdu, String eduReset, String cardReset) {
 
         this.id = id;
         this.loginId = loginId;
@@ -165,6 +171,9 @@ public class Account implements Serializable {
         this.authorites = authorites;
         this.moblphon = moblphon;
         this.approval = approval;
+        this.onlineEdu = onlineEdu;
+        this.eduReset = eduReset;
+        this.cardReset = cardReset;
     }
 
     public void encodingPwd(PasswordEncoder pwdEncoder) {

@@ -5,6 +5,7 @@
     <script type="text/javascript">
         function fn_courseRequest(id,atnlcReqPid) {
 
+            let eduTy
             var mberDvTy = '[[${form.mberDvTy}]]';
             var userGbn = '[[${userGbn}]]'
             var atnlcReqPid = '[[${atnlcReqPid}]]'
@@ -120,35 +121,35 @@
         <th:block th:include="fragments/mo_menu"></th:block>
         <div class="sub_container">
             <th:block th:include="fragments/dept_menu"></th:block>
-            <div class="lecture_inner lecture_inner2 inner" th:object="${form}">
-                <div class="lecture">
-                    <h1 class="sub_title">수강신청</h1>
-                    <th:block th:each="item,idx:${masters}">
-                        <div class="lecture_content">
-                            <div class="lecture_item">
-                                <div class="lecture_sumnail">
-                                    <a class="sumnail_icon2" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|">
-                                        <img th:src="|/ClientUI/user/images/contents/lecture/sumnail-0${idx.index+1}.png|" th:alt="${item.pidNm}">
-                                    </a>
-                                    <span class="lecture_st">사전교육</span>
-                                </div>
-                                <div class="lecture_text">
-                                    <p class="lecture_title">푸코와 함께하는 사전교육</p>
-                                    <ul class="list">
-                                        <li><a href="#">1차시</a></li>
-                                        <li><a href="#">2차시</a></li>
-                                    </ul>
-                                    <p class="lecture_sub" >
-                                        사이버폭력에 대한<br/>
-                                        예방 및 대처방법을 알아보아요!
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </th:block>
-                </div>
-            </div>
 
+<!--            <div class="lecture_inner lecture_inner2 inner" th:object="${form}">-->
+<!--                <div class="lecture">-->
+<!--                    <h1 class="sub_title" th:text="|*{crsNm} 수강신청|">수강신청</h1>-->
+<!--                    <th:block th:each="item,idx:${masters}">-->
+<!--                        <div class="lecture_content">-->
+<!--                            <div class="lecture_item">-->
+<!--                                <div class="lecture_sumnail">-->
+<!--                                    <a class="sumnail_icon2" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|">-->
+<!--                                        <img th:src="|/ClientUI/user/images/contents/lecture/sumnail-0${idx.index+1}.png|" th:alt="${item.pidNm}">-->
+<!--                                    </a>-->
+<!--                                    <span class="lecture_st">사전교육</span>-->
+<!--                                </div>-->
+<!--                                <div class="lecture_text">-->
+<!--                                    <p class="lecture_title">푸코와 함께하는 사전교육</p>-->
+<!--                                    <ul class="list">-->
+<!--                                        <li><a href="#">1차시</a></li>-->
+<!--                                        <li><a href="#">2차시</a></li>-->
+<!--                                    </ul>-->
+<!--                                    <p class="lecture_sub" >-->
+<!--                                        사이버폭력에 대한<br/>-->
+<!--                                        예방 및 대처방법을 알아보아요!-->
+<!--                                    </p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </th:block>-->
+<!--                </div>-->
+<!--            </div>-->
 <!--            <div class="lecture_inner inner" th:object="${form}">-->
 <!--                <div class="lecture">-->
 <!--                    <h1 class="sub_title" th:text="|*{crsNm} 수강신청|">수강신청</h1>-->
@@ -176,7 +177,6 @@
 <!--                            </div>-->
 <!--                        </div>-->
 <!--                    </th:block>-->
-
 <!--                </div>-->
 <!--            </div>-->
         <form id="form1" name="form1" method="post" th:object="${form}">
