@@ -4352,12 +4352,12 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
 }
 /* 소개_ 사이버폭력이란 끝 */
 
-
-
-/* 소개_ 푸른코끼리 시작 */
+/* 소개_ 푸른코끼리 시작 (09/12수정 : 고선호) */
 .intro_banner h1 span {
     font-size: 30px;
     padding-right: 10px;
+}
+.puco_site {
 }
 .puco_site .site_desc .site_img img {
     margin: 0 auto;
@@ -4392,25 +4392,20 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
 .gyeonggi_tit b {
     display: block;
 }
-.puco_items {}
 .pucoabout_inner .puco_items {
     width: 100%;
-    position: absolute;
-    top: 2100px;
-    left: 0;
+    background-color: #eef4ff;
+    padding: 120px 0;
 }
 .pucoabout_inner .puco_items .bg_inner {
-    width: 100%;
-    height: inherit;
-    background-color: #eef4ff;
-    position: absolute;
-    top: 0;
-    padding: 120px 0;
-    left: 0;
 }
 .pucoabout_inner .puco_items .bg_inner .item_inner {
     max-width: 1200px;
     margin: 0 auto;
+    display: block;
+}
+.bg_inner .item_inner_m .item_m {
+    display: none;
 }
 .pucoabout_inner .puco_items .bg_inner .item_inner .item {
     display: flex;
@@ -4485,6 +4480,7 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
 .pucoabout_inner .puco_items .bg_inner .item_inner .item .item_05 {
     background: url('../images/contents/puco_banner_5.png')no-repeat center center;
     background-size: 100% auto;
+    display: block;
 }
 .pucoabout_inner .puco_items .bg_inner .item_inner .item > div .desc {
     position: absolute;
@@ -4535,7 +4531,7 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     background-color: #ffc9272a;
     color: #ffb40b;
 }
-/* 소개_ 푸른코끼리 끝 */
+/* 소개_ 푸른코끼리 끝 (09/12수정 : 고선호) */
 
 
 /* 소개_ 푸른캐릭터 시작 */
