@@ -2500,6 +2500,217 @@
 	}
 	/* 소개_ 푸코사무국 끝 */
 
+	/* 소개_ 푸코친구들 시작 0913 고선호 수정 */
+	/*푸코홍보대사*/
+	.friends_inner .friends_item > .idol_puco {
+		background: url('../images/contents/m_ab6ix.png')no-repeat center bottom 30px;
+		background-size: contain;
+		padding-bottom: 100px;
+	}
+	.friends_inner .friends_item > .idol_puco img {
+		height: 150px;
+	}
+	.friends_inner .friends_item .idol_inner {
+		display: flex;
+		margin-top: 20px;
+	}
+	.friends_inner .friends_item .idol_inner > div {
+		margin-right: 20px;
+	}
+	.friends_inner .friends_item .idol_inner > div img {
+		width: 100px;
+	}
+	.friends_inner .firends_tit {
+		border: 4px solid #a6073e;
+		font-size: 15px;
+		line-height: 1.2;
+		padding: 15px 0;
+		margin-top: 20px;
+	}
+	.friends_inner .firends_tit span {
+		display: block;
+	}
+	.firends_desc {
+		flex-direction: column;
+	}
+	.firends_desc .item {
+		margin-bottom: 10px;
+	}
+	.firends_desc .item .idol_tit {
+		font-size: 16px;
+		padding: 3px;
+	}
+	.firends_desc .item .idol_desc {
+		margin-top: 5px;
+		font-size: 15px;
+	}
+	.intro_item_01 .friends_02 .friends_inner .partner_top {
+		margin-top: 30px;
+		font-size: 14px;
+	}
+	.intro_item_01 .friends_02 .friends_inner .partner_top span span {
+		display: block;
+	}
+	.partner_inner .item_inner {
+		flex-direction: column;
+	}
+	.partner_inner .pat_1 .partners_item:nth-of-type(1) {
+		background: url('../images/contents/partners_01.png')no-repeat center left 20px;
+		margin-bottom: 20px;
+		background-size: auto 60%;
+	}
+	.partner_inner .pat_1 .partners_item:nth-child(2) {
+		background: url('../images/contents/partners_02.png')no-repeat center left 20px;
+		background-size: auto 60%;
+		margin-bottom: 20px;
+	}
+	.partner_inner .pat_1 .partners_item:nth-child(3) {
+		background: url('../images/contents/partners_03.png')no-repeat center left 17px;
+		background-size: auto 40%;
+		margin-bottom: 20px;
+	}
+	.partner_inner .pat_1 .partners_item:nth-child(4) {
+		background: url('../images/contents/partners_04.png')no-repeat center left 20px;
+		background-size: auto 60%;
+		margin-bottom: 20px;
+	}
+	.partner_inner .pat_2 .partners_item:nth-child(1) {
+		background: url('../images/contents/partners_05.png')no-repeat center left 20px;
+		background-size: auto 60%;
+		margin-bottom: 20px;
+	}
+	.partner_inner .pat_2 .partners_item:nth-child(2) {
+		background: url('../images/contents/partners_06.png')no-repeat center left 16px;
+		background-size: auto 55%;
+		margin-bottom: 20px;
+	}
+	.partner_inner .pat_2 .partners_item:nth-child(3) {
+		background: url('../images/contents/partners_07.png')no-repeat center left 22px;
+		background-size: auto 55%;
+		margin-bottom: 20px;
+	}
+	.partner_inner .pat_2 .partners_item:nth-child(4) {
+		background: url('../images/contents/partners_08.png')no-repeat center left 16px;
+		background-size: auto 55%;
+		margin-bottom: 20px;
+	}
+	.partner_inner .item_inner .partners_item {
+		width: 100%;
+		align-items: flex-start;
+		padding: 20px;
+		padding-left: 110px;
+	}
+	.partner_inner .pat_1 {
+		margin-bottom: 0;
+	}
+	.partners_item .partners_tit {
+		padding: 5px;
+		width: 80px;
+		font-size: 15px;
+		margin-bottom: 10px;
+	}
+	.partner_inner .item_inner .partners_item .partners_img {
+		display: none;
+	}
+	.partner_inner .item_inner .partners_item .partners_desc {
+		font-size: 13px;
+		text-align: left;
+	}
+	.partner_inner .item_inner .partners_item .partners_desc span {
+		display: inline;
+	}
+	.partners_item .partners_desc small {
+		font-size: 11px;
+		text-align: left;
+	}
+	.intro_item_01 .friends_02 .friends_inner .partners_btn {
+		margin-bottom: 50px;
+	}
+	.intro_item_01 .friends_02 .friends_inner .partners_btn, .intro_item_01 .friends_03 .friends_inner .ch_down_btn {
+		padding-top: 10px;
+		padding-bottom: 0;
+	}
+	.friends_03 .friends_inner .gyeonggi_tit {
+		font-weight: 500;
+		font-size: 18px;
+		margin-bottom: 50px;
+		margin-top: 50px;
+	}
+	.friends_03 .friends_inner .gyeonggi_tit span {
+		display: block;
+	}
+	.friends_03 .friends_inner .other_ch {
+		margin-top: 20px;
+		display: flex;
+		flex-direction: column;
+	}
+	.friends_03 .friends_inner .other_ch > div {
+		width: 100%;
+		flex: 0.5;
+	}
+	.friends_03 .friends_inner .other_ch > .other_ch_inner {
+		display: flex;
+		flex-direction: row;
+		margin-bottom: 10px;
+	}
+	.friends_03 .friends_inner .other_ch > .other_ch_inner > div {
+		width: 90%;
+		border: 5px solid #c7d9f8;
+	}
+	.friends_03 .friends_inner .other_ch > .other_ch_inner .ch {
+		height: 100px;
+	}
+	.friends_03 .friends_inner .other_ch > .other_ch_inner img:nth-child(2) {
+		width: 100px;
+	}
+	.friends_03 .friends_inner .other_ch > .other_ch_inner p {
+		font-size: 12px;
+		padding: 10px;
+		height: 80px;
+	}
+	.friends_03 .friends_inner .puco_platform {
+		flex-direction: column;
+	}
+	.friends_03 .friends_inner .puco_platform .item {
+		flex-direction: row;
+		padding-bottom: 50px;
+	}
+	.friends_03 .friends_inner .puco_platform .item .platform_img {
+		height: 120px;
+	}
+	.friends_03 .friends_inner .puco_platform .item .platform_img img {
+		height: inherit;
+	}
+	.friends_03 .friends_inner .puco_platform .item .platform_desc {
+		padding-left: 20px;
+	}
+	.friends_03 .friends_inner .puco_platform .item .platform_desc span {
+		font-size: 18px;
+		padding: 0;
+		text-align: left;
+	}
+	.friends_03 .friends_inner .puco_platform .item {
+	}
+	.friends_03 .friends_inner .puco_platform .item:before {
+		position: absolute;
+		content:'';
+		bottom: 15px;
+		left: 15%;
+		width: 20px;
+		height: 20px;
+		background: url('../images/icon/next_b_2.png')no-repeat center center;
+		background-size: contain;
+	}
+	.friends_03 .friends_inner .puco_platform .item:last-child:before {
+		display: none;
+	}
+	.friends_03 .friends_inner .puco_platform .item:after {
+		display: none;
+	}
+	.friends_03 .friends_inner .puco_platform .item .platform_desc p {
+		font-size: 12px;
+	}
+	/* 소개_ 푸코친구들 끝 0913 고선호 수정 */
 
 }
 
@@ -2939,49 +3150,6 @@
 	}
 	/* 소개_ 사이버폭력이란 끝 */
 
-
-
-	/* 소개_ 푸른코끼리 시작 */
-	.pucoabout_inner .puco_items {
-		top: 1350px;
-	}
-	.gyeonggi_tit {
-		font-size: 24px;
-		margin: 40px 0;
-	}
-	.about_btn a.btn_download {
-		font-size: 18px;
-		width: 200px;
-	}
-	.pucoabout_inner .puco_items .bg_inner .item_inner .item {
-		height: 700px;
-	}
-	.pucoabout_inner .puco_items .bg_inner .item_inner .item > div .desc p {
-		font-size: 20px;
-		margin-bottom: 25px;
-	}
-	.pucoabout_inner .puco_items .bg_inner .item_inner .item > div {
-	}
-	.pucoabout_inner .puco_items .bg_inner .item_inner .item > div .desc span small {
-		font-size: 16px;
-		padding: 5px 15px;
-	}
-	.pucoabout_inner .puco_items .bg_inner .item_inner .item > div .desc span b {
-		margin-bottom: 20px;
-	}
-	.pucoabout_inner .puco_items .bg_inner .item_inner .item > div .item_tit {
-		font-size: 20px;
-		padding: 10px 30px;
-		left: 60px;
-	}
-	.pucoabout_inner .puco_items .bg_inner .item_inner .item > div .more_btn {
-		font-size: 16px;
-		right: 80px;
-	}
-	.pucoabout_inner .puco_items .bg_inner .item_inner .item .item_05 {
-		flex: 0.85;
-	}
-	/* 소개_ 푸른코끼리 끝 */
 	/* 소개_ 푸른코끼리 시작 (09/12 고선호 수정) */
 	.pucoabout_inner .puco_items {
 		top: 1350px;
@@ -3085,6 +3253,50 @@
 		font-size: 16px;
 	}
 	/* 소개_ 푸른캐릭터 끝 */
+
+	/* 소개_ 푸코친구들 시작 0913 고선호 수정 */
+	.friends_inner .firends_tit {
+		font-size: 20px;
+	}
+	.firends_desc .item .idol_tit {
+		font-size: 18px;
+	}
+	.firends_desc .item .idol_desc {
+		font-size: 17px;
+	}
+	.intro_item_01 .friends_02 .friends_inner .partner_top {
+		font-size: 16px;
+	}
+	.partners_item .partners_tit {
+		font-size: 16px;
+	}
+	.partner_inner .item_inner .partners_item .partners_desc {
+		font-size: 16px;
+	}
+	.friends_03 .friends_inner .other_ch > .other_ch_inner p {
+		font-size: 16px;
+		height: 100px;
+	}
+	.friends_03 .friends_inner .gyeonggi_tit {
+		font-size: 22px;
+	}
+	.friends_03 .friends_inner .puco_platform .item {
+		width: 100%;
+	}
+	.friends_03 .friends_inner .puco_platform .item .platform_img {
+		height: 200px;
+	}
+	.friends_03 .friends_inner .puco_platform .item .platform_desc span {
+		font-size: 30px;
+		margin-bottom: 20px;
+	}
+	.friends_03 .friends_inner .puco_platform .item .platform_desc p {
+		font-size: 16px;
+	}
+	.friends_03 .friends_inner .puco_platform .item .platform_desc p b {
+		font-size: 18px;
+	}
+	/* 소개_ 푸코친구들 끝 0913 고선호 수정 */
 
 
 	/* 활동 */
