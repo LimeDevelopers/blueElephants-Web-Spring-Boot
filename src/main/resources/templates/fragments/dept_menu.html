@@ -1,5 +1,5 @@
 <div class="gnb_tit"
-     th:classappend="${mc eq 'blueElephant' ? 'gnb01' : ''} + ${mc eq 'activity' ? 'gnb02' : ''} + ${mc eq 'news' ? 'gnb03' : ''} + ${mc eq 'classRegis' ? 'gnb04' : ''} + ${mc eq 'memberJoin' ? 'gnb05' : ''} + ${mc eq 'crewJoin' ? 'gnb05' : ''} + ${mc eq 'myPage' ? 'gnb06' : ''} + ${mc eq 'customerCenter' ? 'gnb07' : ''} + ${mc eq 'searchResult' ? 'gnb08' : ''} + ${mc eq 'privacy' ? 'gnb08' : ''} + ${mc eq 'terms' ? 'gnb08' : ''} + ${mc eq 'mailDeny' ? 'gnb08' : ''} + ${mc eq 'sitemap' ? 'gnb08' : ''}"
+     th:classappend="${mc eq 'blueElephant' ? 'gnb01' : ''} + ${mc eq 'activity' ? 'gnb02' : ''} + ${mc eq 'news' ? 'gnb03' : ''} + ${mc eq 'classRegis' ? 'gnb04' : ''} + ${mc eq 'memberJoin' ? 'gnb05' : ''} + ${mc eq 'crewJoin' ? 'gnb05' : ''} + ${mc eq 'myPage' ? 'gnb06' : ''} + ${mc eq 'customerCenter' ? 'gnb07' : ''} + ${mc eq 'searchResult' ? 'gnb08' : ''} + ${mc eq 'privacy' ? 'gnb08' : ''} + ${mc eq 'terms' ? 'gnb08' : ''} + ${mc eq 'mailDeny' ? 'gnb08' : ''} + ${mc eq 'sitemap' ? 'gnb08' : ''} + ${mc eq 'application' ? 'gnb01' : ''}"
      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <h2 th:if="${mc eq 'blueElephant'}">푸른코끼리</h2>
     <h2 th:if="${mc eq 'activity'}">활동</h2>
@@ -14,6 +14,7 @@
     <h2 th:if="${mc eq 'terms'}">이용약관</h2>
     <h2 th:if="${mc eq 'mailDeny'}">이메일무단수집거부</h2>
     <h2 th:if="${mc eq 'sitemap'}">사이트맵</h2>
+    <h2 th:if="${mc eq 'application'}">신청</h2>
 </div>
 
 <div class="depths_02_inner" xmlns:th="http://www.thymeleaf.org"
@@ -220,6 +221,81 @@
                     <a href="#none">푸코포럼</a>
                 </li>
             </ul>
+        </div>
+    </th:block>
+    <!--신청 pc-->
+    <th:block th:if="${mc eq 'application'}">
+        <div class="pc_menu">
+            <ul class="pc_menu_inner">
+                <li th:class="${pageTitle eq '예방교육' ? 'pc_on' : ''}">
+                    <a href="/pages/application/preeducation">예방교육</a>
+                </li>
+                <li th:class="${pageTitle eq '강사교육' ? 'pc_on' : ''}">
+                    <a href="/pages/application/inseducation">강사교육</a>
+                </li>
+                <li th:class="${pageTitle eq '지지크루' ? 'pc_on' : ''}">
+                    <a href="/pages/application/zzcrewRegister">지지크루</a>
+                </li>
+                <li th:class="${pageTitle eq '지지선언' ? 'pc_on' : ''}">
+                    <a href="/pages/application/zzdeclaration">지지선언</a>
+                </li>
+                <li th:class="${pageTitle eq '파트너스' ? 'pc_on' : ''}">
+                    <a href="/pages/application/partnersRegister">파트너스</a>
+                </li>
+                <li th:class="${pageTitle eq '공모전' ? 'pc_on' : ''}">
+                    <a href="/pages/application/contest">공모전</a>
+                </li>
+                <li th:class="${pageTitle eq '행사' ? 'pc_on' : ''}">
+                    <a href="/pages/application/event">행사</a>
+                </li>
+            </ul>
+        </div>
+    </th:block>
+    <!--신청 모바일 dept-->
+    <th:block th:if="${mc eq 'application'}">
+        <div class="slider slide_menu">
+            <div>
+                <div class="sm_tit">
+                    <h3 th:classappend="${pageTitle eq '예방교육' ? 'sd_on pageon' : ''}">
+                        <a href="/pages/application/preeducation">예방교육</a></h3>
+                </div>
+            </div>
+            <div>
+                <div class="sm_tit">
+                    <h3 th:classappend="${pageTitle eq '강사교육' ? 'sd_on pageon' : ''}">
+                        <a href="/pages/application/inseducation">강사교육</a></h3>
+                </div>
+            </div>
+            <div>
+                <div class="sm_tit">
+                    <h3 th:classappend="${pageTitle eq '지지크루' ? 'sd_on pageon' : ''}">
+                        <a href="/pages/application/zzcrewRegister">지지크루</a></h3>
+                </div>
+            </div>
+            <div>
+                <div class="sm_tit">
+                    <h3 th:classappend="${pageTitle eq '지지선언' ? 'sd_on pageon' : ''}">
+                        <a href="/pages/application/zzdeclaration">지지선언</a></h3>
+                </div>
+            </div>
+            <div>
+                <div class="sm_tit">
+                    <h3 th:classappend="${pageTitle eq '파트너스' ? 'sd_on pageon' : ''}">
+                        <a href="/pages/application/partnersRegister">파트너스</a></h3>
+                </div>
+            </div>
+            <div>
+                <div class="sm_tit">
+                    <h3 th:classappend="${pageTitle eq '공모전' ? 'sd_on pageon' : ''}">
+                        <a href="/pages/application/contest">공모전</a></h3>
+                </div>
+            </div>
+            <div>
+                <div class="sm_tit">
+                    <h3 th:classappend="${pageTitle eq '행사' ? 'sd_on pageon' : ''}">
+                        <a href="/pages/application/event">행사</a></h3>
+                </div>
+            </div>
         </div>
     </th:block>
 </div>
