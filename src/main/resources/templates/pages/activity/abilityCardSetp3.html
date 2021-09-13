@@ -9,6 +9,7 @@
     let pay;
     let msg;
     let error;
+    let cnt;
 
     $(document).ready(function (e) {
         msg = '[[${msg}]]';
@@ -22,7 +23,13 @@
            location.href='/pages/activity/abilityCardIntro'
         }
         $('#free').on('click', function (e){
-            location.href = '/api/namane/get'
+            if(cnt > 0){
+                location.href = '/api/namane/get'
+            } else {
+                alert('강의 진행도가 50% 미만입니다.')
+                return false;
+            }
+
         })
 
         $('#point').on('click', function (e){

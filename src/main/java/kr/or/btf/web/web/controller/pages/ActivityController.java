@@ -148,10 +148,13 @@ public class ActivityController extends BaseCont {
         return "/pages/activity/abilityCardSetp4";
     }
 
+    // 수정중 김재일
     @PostMapping({"/api/namane/set"})
     public String setAblityCard(Model model,
                                 @CurrentUser Account account,
-                                @ModelAttribute AuroraForm auroraForm) throws IOException {
+                                @ModelAttribute AuroraForm auroraForm,
+                                @PageableDefault Pageable pageable) throws IOException {
+        int cnt = 0;
         if(account == null) {
             model.addAttribute("error", "로그인 후 이용 가능합니다.");
         } else {
@@ -159,15 +162,20 @@ public class ActivityController extends BaseCont {
                 if(auroraForm.getPrintText().equals("") || auroraForm.getPrintText().isEmpty()) {
                     model.addAttribute("msg", "등록된 이미지가 존재하지않습니다.");
                 } else {
+
+                    Page<CourseMaster> courseMasters = courseMasterService.listForMyPage(pageable,account.getId());
+                    for (CourseMaster master : courseMasters) {
+                        cnt = courseMasterService.cntCompleteSn4(master.getAtnlcReqPid());
+                    }
                     AuroraForm result = auroraAPIService.getBase64String(auroraForm);
                     if (!namaneService.set(result, account.getId())) {
                         model.addAttribute("msg", "에러 발생. 다시 카드를 발행해주세요.");
                     }
                     model.addAttribute("aurora",result);
                 }
-
             }
         }
+        model.addAttribute("cnt",cnt);
         model.addAttribute("mc", "activity");
         model.addAttribute("pageTitle", "예방교육");
         return "redirect:/pages/activity/abilityCardSetp3";

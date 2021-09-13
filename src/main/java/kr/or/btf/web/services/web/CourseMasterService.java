@@ -180,7 +180,9 @@ public class CourseMasterService extends _BaseService {
 
         return new PageImpl<>(mngList.getResults(), pageable, mngList.getTotal());
     }
-
+    public int cntCompleteSn4(Long reqId){
+        return courseMasterRepository.cntCompleteSn4(reqId);
+    }
     public Page<CourseMaster> listForMyPage(Pageable pageable, Long mberPid) {
 
         int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);

@@ -717,6 +717,7 @@ public class MyPageController extends BaseCont {
         return courseRequestDtoList;
     }
 
+    // 수정중 김재일
     @RequestMapping("/pages/myPage/classroom")
     public String classroom(Model model,
                             @CurrentUser Account account,
