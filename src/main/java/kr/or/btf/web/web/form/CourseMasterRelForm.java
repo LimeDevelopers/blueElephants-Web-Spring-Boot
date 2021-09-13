@@ -11,5 +11,6 @@ public class CourseMasterRelForm extends SearchForm {
     private Long crsPid;
     private Integer sn;
     private Integer[] snArr;
+    private String onlineEdu;
 
 }

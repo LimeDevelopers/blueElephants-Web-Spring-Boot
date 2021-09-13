@@ -20,4 +20,5 @@ public class CourseRequestForm extends SearchForm {
     private Long crsMstPid;
     private Long mberPid;
     private Integer sn;
+    private String onlineEdu;
 }

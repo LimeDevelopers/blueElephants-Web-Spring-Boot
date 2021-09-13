@@ -5070,7 +5070,7 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
 /* 활동_ 예방교육 시작 */
 .sub_container > .lecture_inner{
     position: relative;
-    height: 1550px;
+    height: 1250px;
 }
 .lecture > .sub_tit_inner {
     display: flex;
@@ -5098,12 +5098,22 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     padding: 10px 0;
     margin-bottom: 10px;
 }
+.lecture > .sub_tit_inner .class_btn_inner a {
+    border: 1px solid #6c93e9;
+    background-color: #6c93e9;
+    color: #FFFFFF;
+    border-radius: 30px;
+    width: 130px;
+    padding: 10px 0;
+    margin-bottom: 10px;
+    text-align: center;
+}
 .lecture > .sub_tit_inner .class_btn_inner .class_btn_01 {
     margin-right: 10px;
 }
 .lecture{
     flex-direction: row;
-    justify-content: end;
+    /*justify-content: end;*/
     align-items: center;
     flex-wrap: wrap;
     max-width: 1200px;
@@ -5154,7 +5164,7 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
 }
 .lecture > .lecture_content > .lecture_item > .lecture_text > .lecture_title{
     /* font-family: NotoSansCJKkr; */
-    font-size: 23px;
+    font-size: 21px;
     font-weight: 500;
     line-height: 1.17;
     color: #54586a;

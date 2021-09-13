@@ -16,45 +16,66 @@
         <th:block th:include="fragments/mo_menu"></th:block>
         <div class="sub_container">
             <th:block th:include="fragments/dept_menu"></th:block>
-
-        <div class="contents" th:object="${form}">
-            <div class="page_top">
-                <h3 class="page_tit" th:text="*{crsNm}">사이버폭력 예방 교육</h3>
-                <span th:utext="*{#strings.replace(crsCn, T(System).getProperty('line.separator'), '&lt;br /&gt;')}" class="editor"> 관리자에서 입력한 내용이 나오는 교육 개요 내용입니다.</span>
-            </div>
-            <div class="page_cont">
-                <ul class="thumb_list clearfix">
+            <div class="lecture_inner" th:object="${form}">
+                <div class="lecture">
+                    <div class="sub_tit_inner">
+                        <h1 class="sub_title" th:text="*{crsNm}">수강신청</h1>
+                        <div class="class_btn_inner">
+                            <a href="/pages/activity/preventionEdu" class="class_btn_01">교육 처음으로</a>
+                            <a th:href="|/pages/activity/eduMasterClass/${crsMstPid}|" class="class_btn_02">목록</a>
+                        </div>
+                    </div>
                     <th:block th:if="${courseItems == null or courseItems.isEmpty()}"><!--등록된 글이 없을 경우-->
-                        <li class="nodata">
+                        <div class="lecture_content">
                             <div>등록된 게시글이 없습니다.</div>
-                        </li>
+                        </div>
                     </th:block>
-                    <li th:each="item,idx:${courseItems}">
-                        <a href="#" th:onclick="|return fn_eduDetail(${item.id},${crsMstPid},${sn});|">
-                            <span class="thumb"><img th:src="${filePath+'/'+item.imgFl}" alt="6강. 사전교육의 이해" onerror="this.src='/ClientUI/user/images/contents/nodata01.png'" /></span>
-                            <strong class="tit" th:text="${item.ttl}">6강. 사전교육의 이해</strong>
 
-                            <!--수강중 -> lbl_ing / 수강완료 -> lbl_end-->
-                            <th:block th:if="${item.procNm eq null}">
-                                <span class="lbl">수강전</span>
-                            </th:block>
-                            <th:block th:unless="${item.procNm eq null}">
-                                <th:block th:switch="${item.procNm}">
-                                    <span th:case="${T(kr.or.btf.web.domain.web.enums.CompleteStatusType).APPLY.name()}" class="lbl lbl_ing">수강중</span>
-                                    <span th:case="${T(kr.or.btf.web.domain.web.enums.CompleteStatusType).COMPLETE.name()}" class="lbl lbl_end">수강완료</span>
-                                    <span th:case="*" class="lbl">수강전</span>
+                    <div class="lecture_content" th:each="item,idx:${courseItems}" th:onclick="|return fn_eduDetail(${item.id},${crsMstPid},${sn});|">
+                        <div class="lecture_item">
+                            <div class="lecture_sumnail">
+                                <a class="sumnail_icon" th:onclick="|return fn_eduDetail(${item.id},${crsMstPid},${sn});|">
+                                    <th:block th:if="${sn == 3}">
+                                        <img th:src="|/ClientUI/user/images/contents/lecture/sumnail0${idx.index+1}.svg|" th:alt="${item.ttl}">
+                                    </th:block>
+                                    <th:block th:if="${sn == 4}">
+                                        <img th:src="|/ClientUI/user/images/contents/lecture/sumnail0${idx.index+3}.svg|" th:alt="${item.ttl}">
+                                    </th:block>
+                                    <th:block th:if="${sn == 5}">
+                                        <img th:src="|/ClientUI/user/images/contents/lecture/sumnail07.svg|" th:alt="${item.ttl}">
+                                    </th:block>
+                                </a>
+                                <th:block th:if="${item.procNm eq null}">
+                                    <span class="lecture_st" th:text="수강전">-차시</span>
                                 </th:block>
-                            </th:block>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="btn_area btn_num02">
-                <a href="/pages/activity/preventionEdu" class="btn btn_lg btn_line_blue btn_pill_10">교육 처음으로</a>
-                <a th:href="|/pages/activity/eduMasterClass/${crsMstPid}|" class="btn btn_lg btn_line_blue btn_pill_10">목록</a>
-            </div>
-        </div>
+                                <th:block th:unless="${item.procNm eq null}">
+                                    <th:block th:switch="${item.procNm}">
+                                        <span th:case="${T(kr.or.btf.web.domain.web.enums.CompleteStatusType).APPLY.name()}" class="lecture_st" style="color:#ff6d00">수강중</span>
+                                        <span th:case="${T(kr.or.btf.web.domain.web.enums.CompleteStatusType).COMPLETE.name()}" class="lecture_st" style="color:#5a5a5a">수강완료</span>
+                                        <span th:case="*" class="lecture_st">수강전</span>
+                                    </th:block>
+                                </th:block>
 
+                            </div>
+                            <div class="lecture_text">
+                                <th:block th:if="${sn == 3}">
+                                    <a href="#s" th:onclick="|return fn_eduDetail(${item.id},${crsMstPid},${sn});|" class="lecture_title" th:text="|푸코와 함께하는 ${idx.index+1}차시|">푸코와 함께하는 -차시</a>
+                                </th:block>
+                                <th:block th:if="${sn == 4}">
+                                    <a href="#s" th:onclick="|return fn_eduDetail(${item.id},${crsMstPid},${sn});|" class="lecture_title" th:text="|푸코와 함께하는 ${idx.index+3}차시|">푸코와 함께하는 -차시</a>
+                                </th:block>
+                                <th:block th:if="${sn == 5}">
+                                    <a href="#s" th:onclick="|return fn_eduDetail(${item.id},${crsMstPid},${sn});|" class="lecture_title" th:text="|푸코와 함께하는 ${idx.index+7}차시|">푸코와 함께하는 -차시</a>
+                                </th:block>
+                                <p class="lecture_sub" th:text="${item.ttl}">
+                                    사이버폭력에 대한
+                                    예방 및 대처방법을 알아보아요!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <th:block th:replace="fragments/footer"></th:block>

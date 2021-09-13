@@ -79,7 +79,7 @@ public class ActivityController extends BaseCont {
     private final BannerService bannerService;
     private final MemberService memberService;
     private final CourseRequestService courseRequestService;
-    // private final NamaneService namaneService;
+    private final NamaneService namaneService;
     private final AuroraAPIService auroraAPIService;
 
     @GetMapping({"/pages/activity/eduIntro"})
@@ -148,43 +148,43 @@ public class ActivityController extends BaseCont {
         return "/pages/activity/abilityCardSetp4";
     }
 
-//    @PostMapping({"/api/namane/set"})
-//    public String setAblityCard(Model model,
-//                                @CurrentUser Account account,
-//                                @ModelAttribute AuroraForm auroraForm) throws IOException {
-//        if(account == null) {
-//            model.addAttribute("error", "로그인 후 이용 가능합니다.");
-//        } else {
-//            if(account.getId() != null){
-//                if(auroraForm.getPrintText().equals("") || auroraForm.getPrintText().isEmpty()) {
-//                    model.addAttribute("msg", "등록된 이미지가 존재하지않습니다.");
-//                } else {
-//                    AuroraForm result = auroraAPIService.getBase64String(auroraForm);
-//                    if (!namaneService.set(result, account.getId())) {
-//                        model.addAttribute("msg", "에러 발생. 다시 카드를 발행해주세요.");
-//                    }
-//                    model.addAttribute("aurora",result);
-//                }
-//
-//            }
-//        }
-//        model.addAttribute("mc", "activity");
-//        model.addAttribute("pageTitle", "예방교육");
-//        return "redirect:/pages/activity/abilityCardSetp3";
-//    }
+    @PostMapping({"/api/namane/set"})
+    public String setAblityCard(Model model,
+                                @CurrentUser Account account,
+                                @ModelAttribute AuroraForm auroraForm) throws IOException {
+        if(account == null) {
+            model.addAttribute("error", "로그인 후 이용 가능합니다.");
+        } else {
+            if(account.getId() != null){
+                if(auroraForm.getPrintText().equals("") || auroraForm.getPrintText().isEmpty()) {
+                    model.addAttribute("msg", "등록된 이미지가 존재하지않습니다.");
+                } else {
+                    AuroraForm result = auroraAPIService.getBase64String(auroraForm);
+                    if (!namaneService.set(result, account.getId())) {
+                        model.addAttribute("msg", "에러 발생. 다시 카드를 발행해주세요.");
+                    }
+                    model.addAttribute("aurora",result);
+                }
 
-//    @GetMapping({"/api/namane/get"})
-//    public String getAblityCard(Model model,
-//                                @CurrentUser Account account){
-//        if(account == null) {
-//            model.addAttribute("error", "로그인 후 이용 가능합니다.");
-//        }
-//        List<NamaneTemp> cardList = namaneService.get(account.getId());
-//        model.addAttribute("list",cardList);
-//        model.addAttribute("mc", "activity");
-//        model.addAttribute("pageTitle", "예방교육");
-//        return "/pages/activity/abilityCardSetp4";
-//    }
+            }
+        }
+        model.addAttribute("mc", "activity");
+        model.addAttribute("pageTitle", "예방교육");
+        return "redirect:/pages/activity/abilityCardSetp3";
+    }
+
+    @GetMapping({"/api/namane/get"})
+    public String getAblityCard(Model model,
+                                @CurrentUser Account account){
+        if(account == null) {
+            model.addAttribute("error", "로그인 후 이용 가능합니다.");
+        }
+        List<NamaneTemp> cardList = namaneService.get(account.getId());
+        model.addAttribute("list",cardList);
+        model.addAttribute("mc", "activity");
+        model.addAttribute("pageTitle", "예방교육");
+        return "/pages/activity/abilityCardSetp4";
+    }
 
     @GetMapping({"/pages/activity/importantEducation1"})
     public String importantEducation1(Model model,
@@ -517,7 +517,11 @@ public class ActivityController extends BaseCont {
                     model.addAttribute("altmsg","사전예방교육을 수강하기 전 \n사전검사를 먼저 수행해야 합니다.");
                     model.addAttribute("locurl","/pages/activity/preInspection/"+crsMstPid + "/" + (sn-1));
                 } else if (sn == 4) {
-                    model.addAttribute("altmsg","현장예방교육을 진행하기 전 \n사전예방교육을 먼저 수행해야 합니다.");
+                    if(account.getOnlineEdu().equals("N")) {
+                        model.addAttribute("altmsg","오프라인 현장교육 대상자입니다.");
+                    } else {
+                        model.addAttribute("altmsg","현장예방교육을 진행하기 전 \n사전예방교육을 먼저 수행해야 합니다.");
+                    }
                     model.addAttribute("locurl","/pages/activity/eduMasterClass/"+crsMstPid);
                 } else if (sn == 5) {
                     model.addAttribute("altmsg","사후예방교육을 수강하기 전 \n현장예방교육을 먼저 수행해야 합니다.");
@@ -527,6 +531,12 @@ public class ActivityController extends BaseCont {
                     model.addAttribute("locurl","/pages/activity/eduMasterClass/"+crsMstPid);
                 }
                 return "/message";
+            } else {
+                if(sn == 4 && account.getOnlineEdu().equals("N")){
+                    model.addAttribute("altmsg","오프라인 현장교육 대상자입니다.");
+                    model.addAttribute("locurl","/pages/activity/eduMasterClass/"+crsMstPid);
+                    return "/message";
+                }
             }
         } else {
             if (sn != 1) {
@@ -590,7 +600,11 @@ public class ActivityController extends BaseCont {
                     model.addAttribute("altmsg","사전예방교육을 수강하기 전 \n사전검사를 먼저 수행해야 합니다.");
                     model.addAttribute("locurl","/pages/activity/preInspection/"+crsMstPid + "/" + (sn-1));
                 } else if (sn == 4) {
-                    model.addAttribute("altmsg","현장예방교육을 진행하기 전 \n사전예방교육을 먼저 수행해야 합니다.");
+                    if(account.getOnlineEdu().equals("N")) {
+                        model.addAttribute("altmsg","오프라인 현장교육 대상자입니다.");
+                    } else {
+                        model.addAttribute("altmsg","현장예방교육을 진행하기 전 \n사전예방교육을 먼저 수행해야 합니다.");
+                    }
                     model.addAttribute("locurl","/pages/activity/eduMasterClass/"+crsMstPid);
                 } else if (sn == 5) {
                     model.addAttribute("altmsg","사후예방교육을 수강하기 전 \n현장예방교육을 먼저 수행해야 합니다.");
@@ -600,10 +614,15 @@ public class ActivityController extends BaseCont {
                     model.addAttribute("locurl","/pages/activity/eduMasterClass/"+crsMstPid);
                 }
                 return "/message";
+            } else {
+                if(sn == 4 && account.getOnlineEdu().equals("N")){
+                    model.addAttribute("altmsg","오프라인 현장교육 대상자입니다.");
+                    model.addAttribute("locurl","/pages/activity/eduMasterClass/"+crsMstPid);
+                    return "/message";
+                }
             }
         }
         model.addAttribute("atnlcReqPid", atnlcReqPid);
-
         model.addAttribute("crsMstPid", crsMstPid);
         model.addAttribute("crssqPid", id);
         model.addAttribute("sn", sn);
