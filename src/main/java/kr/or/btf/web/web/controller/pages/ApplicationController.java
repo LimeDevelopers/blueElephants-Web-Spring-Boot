@@ -6,15 +6,13 @@ import kr.or.btf.web.common.annotation.CurrentUser;
 import kr.or.btf.web.domain.web.Account;
 import kr.or.btf.web.domain.web.enums.AppRollType;
 import kr.or.btf.web.services.web.ApplicationService;
-import kr.or.btf.web.web.controller.BaseCont;
 import kr.or.btf.web.web.form.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
 
 @Controller
 @RequiredArgsConstructor
@@ -22,7 +20,7 @@ public class  ApplicationController {
     private final ApplicationService applicationService;
 
 
-    @PostMapping(value = "/pages/application/partnersRegister/register")
+    @PostMapping(value = "/pages/application/partners/partnersregister")
     public String PartnersRegister(@ModelAttribute ApplicationForm applicationForm ,
                                    @RequestParam("attachedFile") MultipartFile attachedFile ,
                                    @CurrentUser Account account,
@@ -30,9 +28,67 @@ public class  ApplicationController {
         if(account != null) {
             applicationForm.setMberPid(account.getId());
         }
-        applicationService.partnersApplier(applicationForm , attachedFile);
+        applicationService.partnersRegister(applicationForm , attachedFile);
 
-        return "pages/application/partners";
+        return "pages/application/partnersRegister";
+    }
+
+    @PostMapping(value = "/pages/application/zzcrew/zzcrewregister")
+    public String ZzCrewRegister(@ModelAttribute ApplicationForm applicationForm ,
+                                 @RequestParam("attachedFile") MultipartFile attachedFile ,
+                                 @CurrentUser Account account ,
+                                 Error error) throws Exception {
+        if(account != null) {
+            applicationForm.setMberPid(account.getId());
+        }
+        applicationService.zzcrewRegister(applicationForm , attachedFile);
+
+        return "pages/application/zzcrewRegister";
+    }
+
+    @ResponseBody
+    @PostMapping("/api/soulGod/application/updateApporaval/{id}")
+    public Boolean applicationApporval(@PathVariable(name = "id") String id){
+        Boolean result = false;
+        String[] pid = id.split(",");
+        if (pid.length > 1) {
+            for (int i = 0; i < pid.length; i++) {
+                result = applicationService.updateApproval(pid[i]);
+            }
+        } else {
+            result = applicationService.updateApproval(pid[0]);
+        }
+
+        return result;
+    }
+
+    @PostMapping("/pages/application/zzdeclareRegister")
+    public String zzcrewRegister(@ModelAttribute ApplicationForm applicationForm ,
+                                  @RequestParam("attachedFile") MultipartFile attachedFile ,
+                                  @CurrentUser Account account ,
+                                  Error error) throws Exception {
+        String Schedule = applicationForm.getYear() + applicationForm.getMonth() + applicationForm.getDay();
+
+        System.out.println("이름  : " + applicationForm.getNm());
+        System.out.println("신청자 이름 : " + applicationForm.getAffi());
+        System.out.println("신청자 연락처 : " + applicationForm.getMoblphon());
+        System.out.println("신청사유 : " + applicationForm.getReason());
+        System.out.println("희망일정 : " + Schedule);
+        System.out.println("경로 : " + applicationForm.getRoot());
+        System.out.println("학교명 : " + applicationForm.getSchlNm());
+        System.out.println("대표자 번호 : " + applicationForm.getPrincipalNm());
+        System.out.println("주소 : " + applicationForm.getSchlAdress());
+        System.out.println("전교생 수 : " + applicationForm.getStudentNum());
+        System.out.println("사고수 : " + applicationForm.getAccidentsNum());
+        System.out.println("학교장 성함 : " + applicationForm.getPrincipalNm());
+        System.out.println("학교장 휴대폰 : " + applicationForm.getPrincipalPhone());
+        System.out.println("학교장 이메일 : " + applicationForm.getPrincipalEmail());
+        System.out.println("티셔츠 사이즈 : " + applicationForm.getSize());
+
+        applicationService.zzdeclareRegister(applicationForm , attachedFile);
+
+
+        return "pages/application/zzdeclaration";
     }
 
     //페이지 이동 컨트롤러
@@ -50,14 +106,18 @@ public class  ApplicationController {
         return "pages/application/inseducation";
     }
 
-    @GetMapping("/pages/application/zzcrew")
-    public String zzcrew(Model model) {
+    @GetMapping("/pages/application/zzcrewRegister")
+    public String zzcrew(Model model ,
+                         @ModelAttribute ApplicationForm applicationForm) {
+        if(AppRollType.CREW.getName().equals(applicationForm.getAppDvTy())) {
+
+        }
         model.addAttribute("mc", "application");
         model.addAttribute("pageTitle", "지지크루");
-        return "/pages/application/zzcrew";
+        return "pages/application/zzcrewRegister";
     }
 
-    @GetMapping("/pages/application/zzdeclareation")
+    @GetMapping("/pages/application/zzdeclaration")
     public String zzdeclaration(Model model) {
         model.addAttribute("mc", "application");
         model.addAttribute("pageTitle", "지지선언");

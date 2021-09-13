@@ -11,4 +11,8 @@ public interface ApplicationRepository  extends JpaRepository<ActivityApplicatio
     @Modifying
     @Query("UPDATE ActivityApplication SET flPid = :flPid WHERE id = :id")
     int updateFlPid(Long flPid, Long id);
+
+    @Modifying
+    @Query("UPDATE ActivityApplication SET approval = :yn WHERE id = :id")
+    int setApproval(Long id, String yn);
 }

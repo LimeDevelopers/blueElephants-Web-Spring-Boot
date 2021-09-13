@@ -106,7 +106,7 @@
                         return false
                     }
                 } else {
-                    alert("확인할 파트너스를 선택하세요.")
+                    alert("확인할 지지크루를 선택하세요.")
                 }
 
             });
@@ -176,7 +176,7 @@
                     <ul class="breadcrumb">
                         <li><i class="material-icons">home</i></li>
                         <li>신청관리</li>
-                        <li>파트너스</li>
+                        <li>지지크루</li>
                     </ul>
 
                     <!--                    <th:block th:if="${dv == 'application'}">-->
@@ -229,7 +229,7 @@
                                     <b>
                                         신청수:
                                         <th:block
-                                                th:text="${#numbers.formatInteger(partners.totalElements, 0, 'COMMA')}">
+                                                th:text="${#numbers.formatInteger(zzcrew.totalElements, 0, 'COMMA')}">
                                             000
                                         </th:block>
                                         명
@@ -251,7 +251,7 @@
                                 <tr>
                                     <th><input type="checkbox" id="allChk"></th>
                                     <th>No</th>
-                                    <th>이름</th>
+                                    <th>크루명</th>
                                     <th>소속명</th>
                                     <th>휴대폰</th>
                                     <th>신청일</th>
@@ -260,14 +260,14 @@
                                 </thead>
                                 <tbody>
                                 <!-- 등록된 데이터가 없을 때만 노출 : s -->
-                                <tr th:if="${partners == null or partners.isEmpty()}">
+                                <tr th:if="${zzcrew == null or zzcrew.isEmpty()}">
                                     <td colspan="9">등록된 정보 없습니다.</td>
                                 </tr>
                                 <!-- 등록된 이벤트가 없을 때만 노출 : e -->
-                                <tr th:each="item,idx:${partners}">
+                                <tr th:each="item,idx:${zzcrew}">
                                     <td><input type="checkbox" id="agree" name="agree" th:value="${item.id}"></td>
-                                    <td th:text="${partners.totalElements - partners.pageable.pageSize * partners.pageable.pageNumber - idx.index}"></td>
-                                    <td th:text="${item.nm}"></td>
+                                    <td th:text="${zzcrew.totalElements - zzcrew.pageable.pageSize * zzcrew.pageable.pageNumber - idx.index}"></td>
+                                    <td th:text="${item.crewNm}"></td>
                                     <td th:text="${item.affi eq null || item.affi eq ''? '소속 없음' : item.affi}"></td>
                                     <td th:text="${item.moblphon eq null || item.moblphon eq ''? '등록된 휴대폰 없음' : item.moblphon}"></td>
                                     <td>
@@ -280,8 +280,8 @@
                                 </tbody>
                             </table>
                         </div>
-                        <th:block th:replace="/soulGod/fragments/paging :: pagingbody(list=${partners},
-                                            link='/soulGod/application/partners', formId='form1')"></th:block>
+                        <th:block th:replace="/soulGod/fragments/paging :: pagingbody(list=${zzcrew},
+                                            link='/soulGod/application/zzcrew', formId='form1')"></th:block>
                     </div>
 
                     <th:block th:if="${dv == 'group'}">

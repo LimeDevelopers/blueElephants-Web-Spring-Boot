@@ -155,8 +155,8 @@ public class MemberController extends BaseCont{
     public Boolean updateApporaval(@PathVariable(name = "id") String id) {
         Boolean result = false;
         String[] pid = id.split(",");
-        if(pid.length > 1) {
-            for(int i=0; i<pid.length; i++) {
+        if (pid.length > 1) {
+            for (int i = 0; i < pid.length; i++) {
                 result = memberService.updateApproval(pid[i]);
             }
         } else {

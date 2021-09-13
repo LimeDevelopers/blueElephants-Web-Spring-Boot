@@ -2,32 +2,265 @@
 <html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:include="fragments/header"></th:block>
-
 </head>
+<script>
+    var year;
+    var month;
+    var day;
+    var schedule;
+
+    $(function (){
+        appendYear()
+    })
+
+    function appendYear() {
+        var date = new Date();
+        var crrntYear = date.getFullYear();
+        year = $("#year");
+        year.append("<option value=''>선택</option>");
+        for (var y = (crrntYear + 0); (crrntYear + 5) >= y; y++) {
+            year.append("<option value='" + y + "'>" + y + "년" + "</option>");
+        }
+    }
+
+</script>
 <body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
 <div id="wrap">
     <th:block th:include="fragments/header_gnb"></th:block>
     <div id="container">
-        <th:block th:include="fragments/snb"></th:block>
+        <th:block th:include="fragments/mo_menu"></th:block>
+        <div class="sub_container">
+            <th:block th:include="fragments/dept_menu"></th:block>
 
-        <div class="contents">
-            <div class="page_top">
-                <h3 class="page_tit bg">지지선언페이지</h3>
-            </div>
-            <div class="page_cont preparing">
-                <!--준비중 img-->
-                <div class="img">
-                    <img src="/ClientUI/user/images/common/under_construction.png" alt="공사중"/>
-                </div>
-                <div class="word">
-                    푸하!(푸코하이란뜻)<br/><br/>
-                    여러분이 더 쉽게 교육/푸코활동을 신청할 수 있도록 <br/>폼을 만들고 있어요.<br/>
-                    당분간은 메일/전화로 연락주세요.<br/><br/>
+            <form action="/pages/application/zzdeclareRegister" id="form1" name="form1" method="post" enctype="multipart/form-data">
 
-                    메일 : cybersoscenter@btf.or.kr<br/>
-                    전화 : 070-7165-1091<br/>
+                <div class="contents">
+                    <div class="page_top pc">
+                        <h3 class="page_tit">지지선언 신청</h3>
+                    </div>
+                    <div class="sec_write">
+                        <h4 class="subtit">신청자 정보</h4>
+                        <div class="tbl_write contour">
+                            <ul>
+                                <li>
+                                    <div class="th">신청자 성함<span class="aster">*</span></div>
+                                    <div class="td"><input id="nm" name="nm" type="text"/></div>
+                                </li>
+
+                                <li>
+                                    <div class="th">소속학교<span class="aster">*</span></div>
+                                    <div class="td"><input id="affi" name="affi" type="text"/></div>
+                                </li>
+                                <li>
+                                    <div class="th">신청자 연락처<span class="aster">*</span></div>
+                                    <div class="td"><input id="moblphon" name="moblphon" type="number"/></div>
+                                </li>
+
+                                <li>
+                                    <div class="th">첨부파일<span class="aster">*</span></div>
+                                    <div class="td file_form">
+                                        <div th:if="${fileList != null and !fileList.isEmpty()}">
+                                            <th:block th:each="item: ${fileList}">
+                                                <p class="file" th:if="${T(kr.or.btf.web.domain.web.enums.FileDvType).THUMB.name() eq item.dvTy}">
+                                                    <span th:text="${item.flNm}">첨부파일.txt</span>
+                                                    <a href="javascript:;" class="btn_del" th:onclick="|fn_deleteFile(${item.id}, this)| ">
+                                                        <span class="blind">삭제</span>
+                                                    </a>
+                                                </p>
+                                            </th:block>
+                                        </div>
+                                        <input type="file" name="attachedFile" maxlength="1"  id="attachedFile" class="multi" th:accept="${allAccept}" />
+                                        <label for="attachedFile">파일찾기</label>
+                                        <input type="hidden" name="b_license_attc" id="b_license_attc" value="N">
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul>
+                                <li>
+                                    <div class="th">신청사유<span class="aster">*</span></div>
+                                    <div class="td"><input id="reason" name="reason" type="text"/></div>
+                                </li>
+                                <li>
+                                    <div class="th">희망일정<span class="aster">*</span></div>
+                                    <div class="td">
+                                        <div class="birth_form clearfix">
+                                            <div class="select">
+                                                <label for="year">선택</label>
+                                                <select name="year" id="year">
+                                                </select>
+                                            </div>
+                                            <div class="select">
+                                                <label for="month">선택</label>
+                                                <select name="month" id="month">
+                                                    <option value="">선택</option>
+                                                    <option value="01">1월</option>
+                                                    <option value="02">2월</option>
+                                                    <option value="03">3월</option>
+                                                    <option value="04">4월</option>
+                                                    <option value="05">5월</option>
+                                                    <option value="06">6월</option>
+                                                    <option value="07">7월</option>
+                                                    <option value="08">8월</option>
+                                                    <option value="09">9월</option>
+                                                    <option value="10">10월</option>
+                                                    <option value="11">11월</option>
+                                                    <option value="12">12월</option>
+                                                </select>
+                                            </div>
+                                            <div class="select">
+                                                <label for="day">선택</label>
+                                                <select name="day" id="day">
+                                                    <option value="">선택</option>
+                                                    <option value="01">1일</option>
+                                                    <option value="02">2일</option>
+                                                    <option value="03">3일</option>
+                                                    <option value="04">4일</option>
+                                                    <option value="05">5일</option>
+                                                    <option value="06">6일</option>
+                                                    <option value="07">7일</option>
+                                                    <option value="08">8일</option>
+                                                    <option value="09">9일</option>
+                                                    <option value="10">10일</option>
+                                                    <option value="11">11일</option>
+                                                    <option value="12">12일</option>
+                                                    <option value="13">13일</option>
+                                                    <option value="14">14일</option>
+                                                    <option value="15">15일</option>
+                                                    <option value="16">16일</option>
+                                                    <option value="17">17일</option>
+                                                    <option value="18">18일</option>
+                                                    <option value="19">19일</option>
+                                                    <option value="20">20일</option>
+                                                    <option value="21">21일</option>
+                                                    <option value="22">22일</option>
+                                                    <option value="23">23일</option>
+                                                    <option value="24">24일</option>
+                                                    <option value="25">25일</option>
+                                                    <option value="26">26일</option>
+                                                    <option value="27">27일</option>
+                                                    <option value="28">28일</option>
+                                                    <option value="29">29일</option>
+                                                    <option value="30">30일</option>
+                                                    <option value="31">31일</option>
+                                                </select>
+                                            </div>
+                                            <input type="hidden" name="schedule" id="schedule" value=""/>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+
+                            <h4 class="subtit" style="margin-top: 50px">학교장 선언운동을 알게 된 경로</h4>
+                            <div class="tbl_write contour">
+                                <ul>
+                                    <li>
+                                        <div class="th">경로<span class="aster">*</span></div>
+                                        <div class="td">
+                                            <div class="register_radio">
+                                                <input type="radio" id="instargram" name="root" value="instargram" checked>
+                                                <label for="instargram">인스타그램</label>
+                                            </div>
+                                            <div class="register_radio">
+                                                <input type="radio" id="youtube" name="root" value="youtube">
+                                                <label for="youtube">유튜브</label>
+                                            </div>
+                                            <div class="register_radio">
+                                                <input type="radio" id="facebook" name="root" value="facebook">
+                                                <label for="facebook">페이스북</label>
+                                            </div>
+                                            <div class="register_radio">
+                                                <input type="radio" id="naverblog" name="root" value="naverblog">
+                                                <label for="naverblog">네이버 블로그</label>
+                                            </div>
+                                            <div class="register_radio">
+                                                <input type="radio" id="kakaochannel" name="root" value="kakaochannel">
+                                                <label for="kakaochannel">카카오 채널</label>
+                                            </div>
+                                            <div class="register_radio">
+                                                <input type="radio" id="bluetreehome" name="root" value="bluetreehome">
+                                                <label for="bluetreehome">푸른나무재단 홈페이지</label>
+                                            </div>
+                                            <div class="register_radio">
+                                                <input type="radio" id="friend" name="root" value="friend">
+                                                <label for="friend">지인추천</label>
+                                            </div>
+                                            <div class="register_radio">
+                                                <input type="radio" id="blueelphome" name="root" value="blueelphome">
+                                                <label for="blueelphome">푸른코끼리 홈페이지</label>
+                                            </div>
+                                            <div class="register_radio">
+                                                <input type="radio" id="blueelpapp" name="root" value="blueelpapp">
+                                                <label for="blueelpapp">푸른코끼리 앱</label>
+                                            </div>
+                                            <div class="register_radio">
+                                                <input type="radio" id="etc" name="root" value="etc">
+                                                <label for="etc">기타</label>
+                                            </div>
+
+                                            <span id="root"></span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <h4 class="subtit" style="margin-top: 50px">학교상세 정보</h4>
+                            <div class="tbl_write contour">
+                                <ul>
+                                    <li>
+                                        <div class="th">학교명<span class="aster">*</span></div>
+                                        <div class="td"><input id="schlNm" name="schlNm" type="text"/></div>
+                                    </li>
+                                    <li>
+                                        <div class="th">대표자 번호<span class="aster">*</span></div>
+                                        <div class="td"><input id="representPhone" name="representPhone" type="text"/></div>
+                                    </li>
+                                    <li>
+                                        <div class="th">주소<span class="aster">*</span></div>
+                                        <div class="td"><input id="schlAdress" name="schlAdress" type="text"/></div>
+                                    </li>
+                                    <li>
+                                        <div class="th">전교생 수<span class="aster">*</span></div>
+                                        <div class="td"><input id="studentNum" name="studentNum" type="text"/></div>
+                                    </li>
+                                    <li>
+                                        <div class="th">교내 학교폭력 신고 접수 건수<span class="aster">*</span></div>
+                                        <div class="td"><input id="accidentsNum" name="accidentsNum" type="number"/></div>건
+                                    </li>
+                                    <li>
+                                        <div class="th">학교장 성함<span class="aster">*</span></div>
+                                        <div class="td"><input id="principalNm" name="principalNm" type="text"/></div>
+                                    </li>
+                                    <li>
+                                        <div class="th">학교장 휴대폰<span class="aster">*</span></div>
+                                        <div class="td"><input id="principalPhone" name="principalPhone" type="text"/></div>
+                                    </li>
+                                    <li>
+                                        <div class="th">학교장 이메일<span class="aster">*</span></div>
+                                        <div class="td"><input id="principalEmail" name="principalEmail" type="text"/></div>
+                                    </li>
+                                    <li>
+                                        <div class="th">티셔츠 사이즈<span class="aster">*</span></div>
+                                        <div class="td">
+                                            <div class="select">
+                                                <label for="size">선택</label>
+                                                <select name="size" id="size">
+                                                    <option value="">선택</option>
+                                                    <option value="XS">XS</option>
+                                                    <option value="S">S</option>
+                                                    <option value="M">M</option>
+                                                    <option value="L">L</option>
+                                                    <option value="XL">XL</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="btn_area"><button id="btnSave" type="submit" class="btn btn_lg btn_blue btn_pill_10">등록</button></div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
     <th:block th:replace="fragments/footer"></th:block>

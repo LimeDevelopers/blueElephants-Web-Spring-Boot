@@ -37,4 +37,41 @@ public class AppManagementController extends BaseCont  {
         model.addAttribute("dv", "application");
         return "soulGod/application/partners";
     }
+
+    @GetMapping("/soulGod/application/zzcrew")
+    public String zzcrewPage(Model model,
+                               @PageableDefault Pageable pageable,
+                               @ModelAttribute SearchForm searchForm,
+                               @CurrentUser Account account) {
+        searchForm.setGroupDv("N");
+        model.addAttribute("form", searchForm);
+
+        searchForm.setUserRollType(account.getMberDvTy());
+        Page<ActivityApplication> applications = appManagementService.zzcrewlist(pageable, searchForm);
+        model.addAttribute("zzcrew", applications);
+        model.addAttribute("totCnt", applications.isEmpty() ? 0 : applications.getContent().size());
+
+        model.addAttribute("mc", "application");
+        model.addAttribute("dv", "application");
+        return "soulGod/application/zzcrew";
+    }
+
+    @GetMapping("/soulGod/application/zzdeclaration")
+    public String zzdeclarationPage(Model model,
+                             @PageableDefault Pageable pageable,
+                             @ModelAttribute SearchForm searchForm,
+                             @CurrentUser Account account) {
+        searchForm.setGroupDv("N");
+        model.addAttribute("form", searchForm);
+
+        searchForm.setUserRollType(account.getMberDvTy());
+        Page<ActivityApplication> applications = appManagementService.zzdeclarationlist(pageable, searchForm);
+        model.addAttribute("declare", applications);
+        model.addAttribute("totCnt", applications.isEmpty() ? 0 : applications.getContent().size());
+
+        model.addAttribute("mc", "application");
+        model.addAttribute("dv", "application");
+
+        return "soulGod/application/zzdeclaration";
+    }
 }

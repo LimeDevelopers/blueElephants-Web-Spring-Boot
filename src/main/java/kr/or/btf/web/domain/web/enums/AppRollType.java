@@ -5,7 +5,8 @@ public enum AppRollType {
     SUPPORT("지지선언"),
     PARTNERS("파트너스"),
     CONTEST("공모전"),
-    EVENT("행사");
+    EVENT("행사"),
+    DECLARE("지지선언");
 
     final private String name;
 

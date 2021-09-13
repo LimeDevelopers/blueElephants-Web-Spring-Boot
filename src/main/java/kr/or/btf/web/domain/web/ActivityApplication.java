@@ -63,4 +63,43 @@ public class ActivityApplication {
     @Column(name = "approval")
     private String approval;
 
+
+
+
+    @Column(name = "reason")
+    private String reason;
+
+    @Column(name = "schedule")
+    private String schedule;
+
+    @Column(name = "root")
+    private String root;
+
+    @Column(name = "schl_nm")
+    private String schlNm;
+
+    @Column(name = "represent_phone")
+    private String representPhone;
+
+    @Column(name = "schl_adress")
+    private String schlAdress;
+
+    @Column(name = "student_num")
+    private Integer studentNum;
+
+    @Column(name = "accidents_num")
+    private Integer accidentsNum;
+
+    @Column(name = "principal_nm")
+    private String principalNm;
+
+    @Column(name = "principal_phone")
+    private String principalPhone;
+
+    @Column(name = "principal_email")
+    private String principalEmail;
+
+    @Column(name = "size")
+    private String size;
+
 }
