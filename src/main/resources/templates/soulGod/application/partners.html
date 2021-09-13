@@ -2,6 +2,241 @@
 <html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:include="soulGod/fragments/header"></th:block>
+    <script type="text/javascript">
+        let chkedVal = [];
+        let eduType = [];
+        let i = 0;
+        let crewForm;
+        let groupForm;
+        let selectedVal;
+
+        // let group_id;
+        // let groupNm;
+        // let chrNm;
+        // let position;
+        // let bNum;
+        // let bLicenseAttc;
+        // let flPid;
+        //
+        // let crew_id;
+        // let crewNm;
+        // let rptNm;
+        // let crewAffi;
+        ////-------- page load
+        $(document).ready(function() {
+            groupForm = $('.detailGroupForm');
+            crewForm = $('.detailCrewForm');
+            crewForm.hide()
+            groupForm.hide()
+            let chkNum = $('input[id^=agree]').length,idx = 0;
+            let chkNum1 = $('input[id^=agree1]').length,idx1 = 0;
+
+            $('#allChk').on('change',function(){
+                if($(this).is(':checked')){
+                    idx = chkNum;
+                    $('input[id^=agree]').prop('checked',true)
+                }else{
+                    idx = 0;
+                    $('input[id^=agree]').prop('checked',false)
+                }
+            });
+            $('input[id^=agree]').on('change',function(){
+                if($(this).is(':checked')){
+                    idx--;
+                    if(idx == chkNum){
+                        $('#allChk').prop('checked',true)
+                    }else{
+                        idx++;
+                        $('#allChk').prop('checked',false)
+                    }
+                }
+            });
+
+            $('#memAllChk').on('change',function(){
+                if($(this).is(':checked')){
+                    idx1 = chkNum1;
+                    $('input[id^=agree1]').prop('checked',true)
+                }else{
+                    idx1 = 0;
+                    $('input[id^=agree1]').prop('checked',false)
+                }
+            });
+            $('input[id^=agree1]').on('change',function(){
+                if($(this).is(':checked')){
+                    idx1--;
+                    if(idx1 == chkNum1){
+                        $('#memAllChk').prop('checked',true)
+                    }else{
+                        idx1++;
+                        $('#memAllChk').prop('checked',false)
+                    }
+                }
+            });
+
+            $('#resBtn').on('click',function(){
+                chkedVal = [];
+
+                if(0 < $("input[id^=agree]:checked").length){
+                    $("input[id^=agree]:checked").each(function(){
+                        if(this.checked){
+                            chkedVal[i] = $(this).val();
+                            i++
+                        }
+                    });
+                    let result = confirm($("input[id^=agree]:checked").length+" 인처리하겠습니까?");
+                    if(result){
+                        let jsonData = {
+                            'dvCodePidArr' : chkedVal
+                        };
+                        $.ajax({
+                            cache : false,
+                            url: "/api/soulGod/member/updateApporaval/"+chkedVal,
+                            type : 'POST',
+                            contentType: "application/json",
+                            success : function(data) {
+                                if(data == false) {
+                                    alert('통신 에러')
+                                } else {
+                                    alert('변경되었습니다.')
+                                    location.reload()
+                                }
+                            }
+                        });
+                    }else{
+                        return false
+                    }
+                } else {
+                    alert("확인할 파트너스를 선택하세요.")
+                }
+
+            });
+
+            fn_setDatePicker('#srchStDt', {
+                onShow:function( ct ){
+                    this.setOptions({
+                        maxDate:$('#srchEdDt').val()?$('#srchEdDt').val():false
+                    });
+                }
+            });
+            fn_setDatePicker('#srchEdDt', {
+                onShow:function( ct ){
+                    this.setOptions({
+                        minDate:$('#srchStDt').val()?$('#srchStDt').val():false
+                    });
+                }
+            });
+        });
+
+        function fn_getFile(idx) {
+            $.ajax({
+                cache : false,
+                url: "/api/soulGod/member/getLicenseFile/"+idx,
+                type : 'POST',
+                dataType : 'JSON',
+                success : function(data) {
+                    location.href='/upload/license/'+data.flNm;
+                    //$('#fl_path').attr("src", data.flNm);
+                },
+                error : function(error) {
+
+                }
+            });
+        }
+        function fn_detail(idx,type) {
+            $('#fl_url').remove();
+            console.log(idx,type);
+            if(type=='GROUP'){
+                $.ajax({
+                    cache : false,
+                    url: "/api/soulGod/member/groupDetail/"+idx,
+                    type : 'POST',
+                    dataType : 'JSON',
+                    success : function(data) {
+                        crewForm.hide()
+                        $('#group_nm').text(data.groupNm+'단체 정보')
+                        $('#groupNm').text(data.groupNm)
+                        $('#group_id').text(data.id)
+                        $('#chrNm').text(data.chrNm)
+                        $('#position').text(data.position)
+                        $('#bNum').text(data.bnum)
+                        if(data.blicenseAttc =='Y') {
+                            $('#bLicenseAttc').text('등록')
+                        } else {
+                            $('#bLicenseAttc').text('미등록')
+                        }
+                        if(data.flPid == null || data.flPid == '') {
+                            $('#flPid').text('등록된 정보가 없습니다.')
+                        } else {
+                            $('#flPid').text('')
+                            $('#flPid').prepend(''+
+                                '<a id="fl_url" href="javascript:fn_getFile('+data.flPid+');">'+
+                                '<b>보기</b>'+
+                                '</a>')
+                        }
+                        groupForm.show()
+                    },
+                    error : function(error) {
+
+                    }
+                });
+            } else {
+                $.ajax({
+                    cache : false,
+                    url: "/api/soulGod/member/crewDetail/"+idx,
+                    type : 'POST',
+                    success : function(data) {
+                        groupForm.hide()
+                        $('#crew_nm').text(data.crewNm+'크루 정보')
+                        $('#crewNm').text(data.crewNm)
+                        $('#crew_id').text(data.id)
+                        $('#crewAffi').text(data.crewAffi)
+                        $('#rptNm').text(data.rptNm)
+                        $('#crewFNum').text(data.crewFNum)
+                        crewForm.show()
+                    },
+                    error : function(error) {
+
+                    }
+                });
+            }
+
+        }
+
+        function fn_search() {
+            var frm = $('#form1');
+            frm.prop('action', '?');
+            frm.submit();
+        }
+
+        function fn_reset() {
+            $('#srchGbn').val('').niceSelect('update');
+            $('#srchStDt').val('');
+            $('#srchEdDt').val('');
+            $('#srchField').val('1').niceSelect('update');
+            $('#srchWord').val('');
+            fn_search();
+        }
+
+
+        function fn_chgEduType(t){
+            selectedVal = $('.'+t).children('.list').children('.option.selected').data('value');
+            let jsonData = {
+                'id' : t,
+                'onlineEdu' : selectedVal
+            }
+            $.ajax({
+                cache : false,
+                url: "/api/soulGod/member/updateEduType/"+t+"/"+selectedVal,
+                type : 'POST',
+                contentType: "application/json",
+                datatype: 'json',
+                success : function(data) {
+                    alert('변경되었습니다.')
+                }
+            });
+        }
+
+    </script>
 </head>
 <body>
 <div id="wrap">
@@ -74,6 +309,11 @@
                                         명
                                     </b>
                                 </div>
+                                <div class="fr">
+                                    <a href="javascript:" class="btn btn_sm btn_r_blue" id="resBtn">
+                                        <i class="material-icons mt0">check</i>승인
+                                    </a>
+                                </div>
                             </div>
                         </div>
                         <div class="board_detail clearfix">
@@ -83,11 +323,13 @@
                                 </colgroup>
                                 <thead>
                                 <tr>
+                                    <th><input type="checkbox" id="allChk"></th>
                                     <th>No</th>
                                     <th>이름</th>
                                     <th>소속명</th>
                                     <th>휴대폰</th>
                                     <th>신청일</th>
+                                    <th>승인여부</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -97,6 +339,7 @@
                                 </tr>
                                 <!-- 등록된 이벤트가 없을 때만 노출 : e -->
                                 <tr th:each="item,idx:${partners}">
+                                    <td><input type="checkbox" id="agree" name="agree" th:value="${item.id}"></td>
                                     <td th:text="${partners.totalElements - partners.pageable.pageSize * partners.pageable.pageNumber - idx.index}"></td>
                                     <td th:text="${item.nm}"></td>
                                     <td th:text="${item.affi eq null || item.affi eq''? '소속 없음' : item.affi}"></td>
@@ -105,6 +348,7 @@
                                     <td>
                                         <th:block th:text="${#temporals.format(item.regDtm, 'yyyy-MM-dd')}"></th:block>
                                     </td>
+                                    <td th:text="${item.approval == 'Y' ? '승인' : '미승인'}" th:style="${item.approval == 'Y' ? 'font-weight: bold; color:#8bb3ff' : 'font-weight: bold; color:red'}"></td>
                                 </tr>
                                 </tbody>
                             </table>
