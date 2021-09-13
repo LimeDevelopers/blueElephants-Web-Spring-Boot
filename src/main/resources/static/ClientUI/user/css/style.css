@@ -5065,6 +5065,249 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
 }
 /* 소개_ 푸코사무국 끝 */
 
+/* 소개_ 푸코친구들 시작 0913 고선호 수정 */
+/*푸코홍보대사*/
+.intro_item_01 .friends_01 {
+    margin-bottom: 100px;
+    margin-top: 50px;
+}
+.intro_item_01 .friends_01 .friends_01 {}
+.friends_01 .friends_inner {
+    margin-top: 60px;
+}
+.friends_inner .friends_item {
+    display: flex;
+    flex-direction: column;
+}
+.friends_inner .friends_item > .idol_puco {
+    margin: auto;
+    display: inline-block;
+}
+.friends_inner .friends_item .idol_inner {
+    overflow: hidden;
+    margin: auto;
+    display: inline-block;
+    margin-top: 45px;
+}
+.friends_inner .friends_item .idol_inner > div {
+    float: left;
+    margin-right: 50px;
+}
+.friends_inner .friends_item .idol_inner > div:last-child {
+    margin-right: 0;
+}
+.friends_inner .friends_item .idol_inner > div img {
+    width: 165px;
+}
+.friends_inner .firends_tit {
+    width: 100%;
+    border-radius: 10px;
+    border: 4px solid #a6073e;
+    color: #a6073e;
+    text-align: center;
+    padding: 20px 0;
+    font-weight: 500;
+    font-size: 20px;
+    margin-top:40px;
+}
+.friends_inner .firends_tit span {
+    display: inline;
+}
+.firends_desc {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 35px;
+}
+.firends_desc .item {
+    flex: 1;
+}
+.firends_desc .item .idol_tit {
+    background-color: #e6d6dc;
+    color: #a6073e;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 30px;
+    padding: 10px;
+    font-weight: bold;
+}
+.firends_desc .item .idol_desc {
+    text-align: center;
+    font-size: 17px;
+    color: #555868;
+    margin-top: 25px;
+}
+/*푸코파트너스*/
+.intro_item_01 .friends_02 {}
+.intro_item_01 .friends_02 .friends_inner {}
+.intro_item_01 .friends_02 .friends_inner .partner_top {
+    background-color: #eef4ff;
+    font-size: 20px;
+    border-radius: 30px;
+    padding: 20px;
+    text-align: center;
+    margin-top: 60px;
+}
+.partner_inner {
+    margin-top: 60px;
+}
+.partner_inner .pat_1 {
+    margin-bottom: 30px;
+}
+.partner_inner .item_inner {
+    display: flex;
+}
+.partner_inner .item_inner > div {
+    flex: 1;
+    border: 1px solid #e3e3e3;
+    border-radius: 20px;
+    margin-right: 35px;
+}
+.partner_inner .item_inner > div:last-child {
+    margin-right: 0;
+}
+.partner_inner .item_inner .partners_item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 25px;
+    padding-bottom: 40px;
+}
+.partners_item .partners_tit {
+    background-color: #eef4ff;
+    color: #6c93e9;
+    font-size: 20px;
+    font-weight: bold;
+    width: 140px;
+    padding: 10px 0;
+    border-radius: 10px;
+    text-align: center;
+}
+.partners_item .partners_img {
+    padding: 20px 0;
+}
+.partners_item .partners_desc {
+    text-align: center;
+    font-size: 17px;
+}
+.partner_inner .item_inner .partners_item .partners_desc span {
+    display: block;
+}
+.partners_item .partners_desc small {
+    display: block;
+    font-size: 15px;
+    color: #9399af;
+}
+.intro_item_01 .friends_02 .friends_inner .partners_btn,
+.intro_item_01 .friends_03 .friends_inner .ch_down_btn {
+    width: 100%;
+    text-align: center;
+    padding-top: 60px;
+    padding-bottom: 100px;
+}
+.intro_item_01 .friends_02 .friends_inner .partners_btn button,
+.intro_item_01 .friends_03 .friends_inner .ch_down_btn button {
+    padding: 15px;
+    border: 1px solid #6c93e9;
+    color: #6c93e9;
+    border-radius: 30px;
+    text-align: center;
+    width: 300px;
+    padding: 15px 0;
+    font-size: 16px;
+    font-weight: 500;
+}
+.intro_item_01 .friends_03 .friends_inner .ch_down_btn button {
+    background: url('../images/icon/download.png')no-repeat center right 50px;
+    background-size: 15px;
+}
+/* 푸코약정기관 */
+.friends_03 .friends_inner .other_ch {
+    display: flex;
+    margin: 0 auto;
+    margin-top: 60px;
+    justify-content: center;
+}
+.friends_03 .friends_inner .other_ch > .other_ch_inner {
+    display: flex;
+    flex-direction: row;
+}
+.friends_03 .friends_inner .other_ch > .other_ch_inner > div {
+    padding: 10px;
+    padding-top: 50px;
+    border: 10px solid #c7d9f8;
+    flex: 1;
+    width: 250px;
+    border-radius: 35px;
+    margin-right: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.friends_03 .friends_inner .other_ch > .other_ch_inner img:nth-child(2) {
+    margin: 20px 0;
+}
+.friends_03 .friends_inner .other_ch > .other_ch_inner p {
+    background-color: #eef4ff;
+    font-size: 17px;
+    text-align: center;
+    border-radius: 20px;
+    width: 100%;
+    padding: 20px;
+    height: 130px;
+    margin-top: auto;
+}
+.friends_03 .friends_inner .other_ch > .other_ch_inner .ch {
+    height: 180px;
+}
+.friends_03 .friends_inner .gyeonggi_tit {
+    margin-bottom: 100px;
+    margin-top: 0;
+}
+.friends_03 .friends_inner {}
+.friends_03 .friends_inner .puco_platform {
+    display: flex;
+}
+.friends_03 .friends_inner .puco_platform .item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+.friends_03 .friends_inner .puco_platform .item:last-child:after {
+    display: none;
+}
+.friends_03 .friends_inner .puco_platform .item:after {
+    content: '';
+    position: absolute;
+    top: 22%;
+    right: -12px;
+    width: 30px;
+    height: 20px;
+    background: url('../images/icon/next_blue.png')no-repeat center center;
+    background-size: contain;
+}
+.friends_03 .friends_inner .puco_platform .item:nth-child(1) .platform_desc p {
+    background: url('../images/contents/platform.png')no-repeat center bottom;
+    background-size: contain;
+    padding-bottom: 40px;
+}
+.friends_03 .friends_inner .puco_platform .item .platform_desc span {
+    font-weight: bold;
+    color: #6e9be2;
+    font-size: 24px;
+    padding: 20px 0;
+    text-align: center;
+    display: block;
+}
+.friends_03 .friends_inner .puco_platform .item .platform_desc p {
+    font-size: 15px;
+}
+.friends_03 .friends_inner .puco_platform .item .platform_desc p b {
+    display: block;
+}
+/* 소개_ 푸코친구들 끝 0913 고선호 수정*/
+
 
 /* ****************활동**************** */
 /* 활동_ 예방교육 시작 */
