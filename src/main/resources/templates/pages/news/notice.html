@@ -74,28 +74,30 @@
                             <input type="search" th:field="*{srchWord}" placeholder="검색어를 입력해 주세요" />
                         </div>
                         <button type="submit" class="btn btn_blue btn_pill_10">검색</button>
-                        <div class="select w160">
-                            <label th:for="sorting">
-                                <th:block th:if="*{sorting eq 'latest' or sorting eq null or sorting eq ''}">최신순</th:block>
-                                <th:block th:if="*{sorting eq 'old'}">오래된순</th:block>
-                                <th:block th:if="*{sorting eq 'readCnt'}">조회순</th:block>
-                                <th:block th:if="*{sorting eq 'alphabetically'}">가나다순</th:block>
-                            </label>
-                            <select th:field="*{sorting}" onchange="fn_search()">
-                                <option value="latest" selected>최신순</option>
-                                <option value="old">오래된순</option>
-                                <option value="readCnt">조회순</option>
-                                <option value="alphabetically">가나다순</option>
-                            </select>
-                        </div>
+
                     </div>
+                    <div role="option" class="option">
+                        <label th:for="sorting">
+                            <th:block th:if="*{sorting eq 'latest' or sorting eq null or sorting eq ''}">최신순</th:block>
+                            <th:block th:if="*{sorting eq 'old'}">오래된순</th:block>
+                            <th:block th:if="*{sorting eq 'readCnt'}">조회순</th:block>
+                            <th:block th:if="*{sorting eq 'alphabetically'}">가나다순</th:block>
+                        </label>
+                        <select th:field="*{sorting}" onchange="fn_search()">
+                            <option value="latest" selected>최신순</option>
+                            <option value="old">오래된순</option>
+                            <option value="readCnt">조회순</option>
+                            <option value="alphabetically">가나다순</option>
+                        </select>
+                    </div>
+
                     <ul class="board_tbl_list type01">
                         <li class="thead">
                             <strong class="no">No</strong>
                             <strong class="tit">제목</strong>
-                            <strong class="writer">등록자</strong>
-                            <strong class="date">등록일</strong>
-                            <strong class="hits">조회수</strong>
+                            <strong class="writer">제안자</strong>
+                            <strong class="date">작성일</strong>
+                            <strong class="hits">조회</strong>
                         </li>
                         <th:block th:if="${(boardDatas == null or boardDatas.isEmpty()) and (fixList == null or fixList.isEmpty())}">
                             <li class="nodata">
