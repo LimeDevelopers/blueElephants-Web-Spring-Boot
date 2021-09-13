@@ -1518,16 +1518,27 @@
 
 
 
+
 	/* ****************활동**************** */
 	/* 20210903_수강신청 시작*/
 	/* 활동_ 예방교육 시작 */
+	.lecture_inner {
+		padding: 40px 20px;
+	}
 	.lecture{
 		flex-direction: column;
 		top: 66%;
 		display: contents;
 	}
-	.lecture > .sub_title{
+	.lecture > .sub_tit_inner {
+		min-width: 100%;
+		margin-bottom: 30px;
+	}
+	.lecture > .sub_tit_inner .sub_title {
 		display: none;
+	}
+	.lecture > .sub_tit_inner .class_btn_inner {
+		margin: 0 auto;
 	}
 	.lecture > .lecture_content{
 		justify-content: space-between;
@@ -1540,8 +1551,8 @@
 	}
 	.lecture > .lecture_content > .lecture_item {
 		display: flex;
-		justify-content: space-between;
 		align-items: center;
+		width: 100%;
 	}
 	.lecture > .lecture_content > .lecture_item > .lecture_sumnail{
 		min-width: 130px;
@@ -3085,6 +3096,7 @@
 	}
 	.lecture > .sub_title{
 		display: none;
+		width: 100%;
 	}
 	.lecture > .lecture_content{
 		justify-content: flex-start;
@@ -3133,6 +3145,7 @@
 	}
 	/* 활동_ 예방교육 끝 */
 	/* 20210903_수강신청 끝 * /
+
 
 	/* 활동_강의실 시작 */
 	.edu_video iframe {

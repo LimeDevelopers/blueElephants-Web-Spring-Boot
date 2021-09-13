@@ -5072,20 +5072,39 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     position: relative;
     height: 1550px;
 }
-.lecture > .sub_title{
+.lecture > .sub_tit_inner {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 50px;
+    min-width: 1200px;
+    border-bottom: solid 2px #85b4f7;
+}
+.lecture > .sub_tit_inner .sub_title {
     font-size: 32px;
     font-weight: bold;
     line-height: 1.25;
     color: #555868;
-    border-bottom: solid 2px #85b4f7;
     width: 1200px;
     margin: 0 auto;
-    padding-bottom: 16.6px;
-    margin-bottom: 91.3px;
+}
+.lecture > .sub_tit_inner .class_btn_inner {
+    display: flex;
+}
+.lecture > .sub_tit_inner .class_btn_inner button {
+    border: 1px solid #6c93e9;
+    color: #6c93e9;
+    border-radius: 30px;
+    width: 130px;
+    padding: 10px 0;
+    margin-bottom: 10px;
+}
+.lecture > .sub_tit_inner .class_btn_inner .class_btn_01 {
+    margin-right: 10px;
 }
 .lecture{
     flex-direction: row;
     justify-content: end;
+    align-items: center;
     flex-wrap: wrap;
     max-width: 1200px;
     position: absolute;
@@ -5094,7 +5113,7 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     left: 50%;
     transform: translate(-50%, -50%);
 }
-.lecture > .lecture_content{
+.lecture > .lecture_content {
     display: flex;
     margin: 0 52px;
 }
@@ -5103,6 +5122,9 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
 }
 .lecture > .lecture_content:nth-child(3),.lecture_content:nth-child(6),.lecture_content:nth-child(9){
     margin: 0px 131px !important;
+}
+.lecture > .lecture_content > .lecture_item {
+    width: 223.3px;
 }
 .lecture > .lecture_content > .lecture_item > .lecture_sumnail{
     min-width: 223.3px;
@@ -5201,6 +5223,7 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     color: #dfdfdf;
 }
 /* 활동_ 예방교육 끝 */
+
 
 /* 활동_강의실 시작 */
 .general_education{
