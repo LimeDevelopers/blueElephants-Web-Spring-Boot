@@ -10780,5 +10780,392 @@ text.shadow {
 
 /***** e 또래지명 *****/
 
+/*
+ 2021/09/14
+ kjw
+ 예방교육 css 추가
+ */
+.school_edu_inner .school_info h2 span {
+    color: #7595db;
+}
+.school_edu_inner .school_info h2 small {
+    font-size: 14px;
+    color: #5a5a5a;
+    opacity: 0.5;
+    font-weight: normal;
+    margin-left: 10px;
+}
+.school_info .tbl_write ul li.date .td > div {
+    margin-bottom: 10px;
+}
+.school_info .tbl_write ul li.date .td span {
+    width: 100px;
+    display: inline-block;
+}
+.school_info .join {
+    overflow: hidden;
+}
+.school_info .join .chk_item {
+    width: 33.3333%;
+    float: left;
+    margin-top: 40px;
+    padding: 0 10px;
+    padding-left: 10px;
+}
+.school_info .join .chk_item > span {
+    font-size: 17px;
+}
+.school_info .join .chk_item .radio_inner {
+    display: flex;
+    justify-content: flex-start;
+    padding: 20px 0;
+}
+.school_info .join .chk_item .radio_inner > div {
+    flex: 1;
+}
+
+/*.scool_info .join .chk_item .radio_inner > div:nth-of-type(1) {}*/
+/* 확인사항  */
+.school_info .join .chk_item .radio_inner > div label span {
+    position: relative;
+    padding-left: 30px;
+    font-size: 15px;
+    cursor: pointer;
+    color: #5a5a5a;
+    font-weight: normal;
+}
+.school_info .join .chk_item .radio_inner > div label span:after {
+    position: absolute;
+    content: '';
+    background: url('../images/button/chk.svg')no-repeat center right;
+    background-size: cover;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    width: 30px;
+    height: 30px;
+}
+.school_info .join .chk_item .radio_inner > div input[type="radio"]:checked + label span:after {
+    background: url('../images/button/chk.svg')no-repeat center left;
+    background-size: cover;
+}
+/* 개인정보 동의서 */
+.agree_inner_02 {
+    margin-top: 60px;
+}
+.agree_inner_02 h2 {
+    display: none;
+}
+.agree_inner_02 .agree_item_01 {
+    margin-bottom: 30px;
+}
+.agree_inner_02 .agree_item .agree_top {
+    background-color: #e8ebf1;
+    font-size: 16px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-left: 60px;
+}
+.agree_inner_02 .agree_item .agree_top u {
+    color: #5a5a5a;
+    opacity: 0.5;
+    font-size: 16px;
+    font-weight: normal;
+    float: right;
+}
+.agree_inner_02 .agree_item .agree_top label span {
+    position: relative;
+    cursor: pointer;
+    width: 90%;
+    display: inline-block;
+}
+.agree_inner_02 .agree_item .agree_top label span:before {
+    position: absolute;
+    content: '';
+    background: url('../images/button/chk.svg')no-repeat center right;
+    background-size: cover;
+    top: 50%;
+    transform: translateY(-50%);
+    left: -60px;
+    width: 30px;
+    height: 30px;
+}
+.agree_inner_02 .agree_item .agree_top input[type="checkbox"]:checked + label span:before {
+    background: url('../images/button/chk.svg')no-repeat center left;
+    background-size: cover;
+}
+.agree_inner_02 .agree_item .agree_contents {
+    /* background-color: #f7f8fa; */
+    padding: 20px;
+    margin-top: 20px;
+    margin-left: 60px;
+    font-size: 16px;
+    display: none;
+}
+.agree_inner_02 .agree_item .agree_contents.agree_on {
+    display: block;
+}
+.agree_inner_02 .agree_item .agree_contents p.agree_desc {
+    margin-bottom: 5px;
+    color: #333333;
+    opacity: 0.6;
+}
+.agree_inner_02 .agree_item .agree_contents p:nth-child(1) {
+    color: #333333;
+    margin-bottom: 20px;
+}
+.agree_inner_02 .agree_item .agree_contents p b {
+    display: block;
+}
+.agree_inner_02 .agree_item .agree_contents span {
+    display: inline-block;
+    margin-top: 25px;
+    color: #333333;
+    opacity: 0.6;
+}
+.agree_inner_02 .more_info {
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+.agree_inner_02 .more_info span {
+    display: block;
+}
+.partners_edu_btn {
+    display: flex;
+    margin-bottom: 50px;
+    justify-content: center;
+    margin-top: 40px;
+}
+.partners_edu_btn a {
+    width: 200px;
+    padding: 10px;
+    border-radius: 20px;
+    text-align: center;
+}
+.partners_edu_btn a.save_btn {
+    border: 1px solid #6d95e1;
+    color: #6d95e1;
+    margin-right: 10px;
+}
+.partners_edu_btn a.join_btn {
+    background-color: #6d95e1;
+    color: #fff;
+}
+
+/*
+ 2021/09/14
+ kjw
+ 파트너 css 추가
+ */
+.page_cont .partners_text_box {
+    width: 100%;
+    max-width: 1200px;
+    background-color: #e8ebf1;
+    height: 110px;
+    padding-left: 30px;
+}
+.page_cont .partners_text_box .text {
+    width: 100%;
+}
+.page_cont .partners_text_box .text b {
+    display: block;
+}
+.partners_btn {
+    width: 100%;
+    padding-top: 60px;
+    padding-bottom: 100px;
+}
+.partners_btn a.join_btn {
+    width: 300px;
+    display: block;
+    padding: 15px 0;
+    font-size: 17px;
+    color: #fff;
+    background-color: #6d95e1;
+    text-align: center;
+    border-radius: 30px;
+    font-weight: 500;
+    margin: 0 auto;
+}
+/* 파트너스신청 */
+.partners {
+    margin-top: 30px;
+}
+.join {
+    border-top: 2px solid;
+    border-color: #95b3ed;
+}
+.join .upload ul li .td input[type="file"] {
+    display: none;
+}
+.join .upload ul li .td #box {
+    height: 44px;
+    border: 1px solid #ccc;
+    width: 500px;
+    color: #a5a5a5;
+    font-size: 15px;
+    margin-right: 12px;
+}
+.join .upload ul li .td label {
+    border: 1px solid #85b4f7;
+    border-radius: 10px;
+    color: #85b4f7;
+    height: 44px;
+    display: inline-block;
+    padding: 0 15px;
+    cursor: pointer;
+    line-height: 44px;
+}
+.info_accordion {
+    display: flex;
+    margin-top: 30px;
+}
+.info_accordion .agree_inner {
+    flex: 9;
+    padding: 12px 20px;
+    color: #5a5a5a;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #e7ebf1;
+}
+.info_accordion .agree_inner span {
+    position: relative;
+    display: block;
+}
+.info_accordion .agree_inner span:after {
+    content:'';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background: url('../images/button/arrow_bottom.png')no-repeat center center;
+    background-size: 20px;
+    width: 30px;
+    height: 30px;
+}
+.info_accordion .agree_inner ul.agree_on {
+    height: 100%;
+    cursor: pointer;
+    display: block;
+}
+.info_accordion .agree_inner ul li {
+    display: none;
+    padding-top: 20px;
+}
+.info_accordion .agree_inner ul.agree_on li {
+    display: block;
+}
+.info_accordion .checkbox {
+    flex: 1;
+    margin-left: 15px;
+}
+.info_accordion .checkbox label {
+    color: #333333;
+    font-size: 17px;
+    height: 44px;
+    line-height: 42px;
+    position: relative;
+    margin-left: 10px;
+}
+.checkbox label:after {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.info_accordion .agree_contents ul li p {}
+.info_accordion .agree_contents ul li p.agree_desc {
+    color: #333333;
+    opacity: 0.5;
+    margin: 40px 0;
+}
+.info_accordion .agree_contents ul li p.agree_desc b {
+    display: block;
+    margin-bottom: 5px;
+}
+/*
+ 2021/09/14
+ kjw
+ 지지선언 css 추가
+ */
 
 
+.partners .friends_inner .banner_inner {
+    width: 560px;
+    height: 900px;
+    background-color: #ccc;
+    margin: 0 auto;
+}
+.join .upload ul .sns .sns_chk_inner {
+    margin-right: 15px;
+}
+.join .upload ul .sns .sns_chk_inner label {
+    border: 0;
+    color: #5a5a5a;
+    font-size: 16px;
+    padding: 0;
+    padding-left: 20px;
+}
+.join .upload ul .sns .td i {
+    display: inline;
+}
+.join .upload ul .sns .td b {
+    display: block;
+}
+.school_info h2 {
+    font-size: 26px;
+    font-weight: bold;
+    margin-top: 60px;
+}
+.school_info .sec_write {
+    margin-top: 20px;
+}
+.school_info .tbl_write ul li.small_bx .td input {
+    width: 150px;
+}
+.school_info .tbl_write ul li.small_bx .th label b {
+    display: block;
+}
+.school_info p.more_text {
+    text-align: right;
+    margin-top: 30px;
+}
+.school_info p.more_text span {
+    display: block;
+    font-size: 15px;
+}
+.school_info p.more_text small {
+    color: #6d95e1;
+    font-size: 15px;
+    padding-left: 10px;
+}
+.school_info .join .tbl_write ul li button.btn_line_blue {
+    border-radius: 10px;
+    padding: 0 15px;
+    line-height: 42px;
+    height: 44px;
+    font-size: 15px;
+    margin-left: 15px;
+}
+/**2021/09/14 kjw 미적용본 추가 **/
+.sub_text_box {
+    max-width: 1200px;
+    width: 100%;
+    border-radius: 20px;
+    background-color: #e8ebf1;
+    margin-top: 53px;
+    position: relative;
+}
+.page_cont > .sub_text_box > img {
+    position: absolute;
+    bottom: 10px;
+    left: 45px;
+}
+.page_cont > .sub_text_box > .text{
+    width: 72%;
+    float: right;
+    font-size: 18px;
+    font-weight: normal;
+    line-height: 1.56;
+    letter-spacing: -1.62px;
+    padding: 25px 0px;
+}

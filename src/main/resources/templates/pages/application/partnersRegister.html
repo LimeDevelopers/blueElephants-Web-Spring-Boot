@@ -1,67 +1,133 @@
 <!DOCTYPE html>
-<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko">
 <head>
     <th:block th:include="fragments/header"></th:block>
 </head>
 <script>
+    $(document).ready(function (){
 
+        <!--2021/09/21 kjw 개인정보활용동의서-->
+        $('.info_accordion .agree_inner ul').click(function(){
+            $(this).toggleClass('agree_on')
+        })
+
+        //20210913_소개_예방교육 개인정보활용동의서
+        $('.agree_item_01 .agree_top u').click(function(){
+            $('.agr_cont1').toggleClass('agree_on')
+        })
+        $('.agree_item_02 .agree_top u').click(function(){
+            $('.agr_cont2').toggleClass('agree_on')
+        })
+
+    })
 </script>
 <body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
-<div id="wrap">
+<div class="wrap">
     <th:block th:include="fragments/header_gnb"></th:block>
     <div id="container">
         <th:block th:include="fragments/mo_menu"></th:block>
         <div class="sub_container">
             <th:block th:include="fragments/dept_menu"></th:block>
-
-            <form action="/pages/application/partners/partnersregister" id="form1" name="form1" method="post" enctype="multipart/form-data">
-
-                <div class="contents">
-                    <div class="page_top pc">
-                        <h3 class="page_tit">신청</h3>
-                    </div>
-                    <div class="sec_write">
-                        <h4 class="subtit">파트너스 신청</h4>
-                        <div class="tbl_write contour">
-                            <ul>
-                                <li>
-                                    <div class="th">신청자 이름<span class="aster">*</span></div>
-                                    <div class="td"><input id="nm" name="nm" type="text"/></div>
-                                </li>
-                                <li>
-                                    <div class="th">신청자 핸드폰<span class="aster">*</span></div>
-                                    <div class="td"><input id="moblphon" name="moblphon" type="number"/></div>
-                                </li>
-                                <li>
-                                    <div class="th">소속<span class="aster">*</span></div>
-                                    <div class="td"><input id="affi" name="affi" type="text"/></div>
-                                </li>
-
-                                <li>
-                                    <div class="th">첨부파일<span class="aster">*</span></div>
-                                    <div class="td file_form">
-                                        <div th:if="${fileList != null and !fileList.isEmpty()}">
-                                            <th:block th:each="item: ${fileList}">
-                                                <p class="file" th:if="${T(kr.or.btf.web.domain.web.enums.FileDvType).THUMB.name() eq item.dvTy}">
-                                                    <span th:text="${item.flNm}">첨부파일.txt</span>
-                                                    <a href="javascript:;" class="btn_del" th:onclick="|fn_deleteFile(${item.id}, this)| ">
-                                                        <span class="blind">삭제</span>
-                                                    </a>
-                                                </p>
-                                            </th:block>
-                                        </div>
-                                        <input type="file" name="attachedFile" maxlength="1"  id="attachedFile" class="multi" th:accept="${allAccept}" />
-                                        <label for="attachedFile">파일찾기</label>
-                                        <input type="hidden" name="b_license_attc" id="b_license_attc" value="N">
+            <div class="inner">
+                <form action="/pages/application/partners/partnersregister" id="form1" name="form1" method="post" enctype="multipart/form-data">
+                    <div class="page_cont">
+                        <h4 class="subtit pc review_title">파트너스 신청</h4>
+                        <div class="partners">
+                            <div class="partners_inner ">
+                                <div class="sec_write join">
+                                    <div class="tbl_write">
+                                        <ul>
+                                            <li>
+                                                <div class="th">
+                                                    <label for="nm">신청자 이름</label>
+                                                </div>
+                                                <div class="td">
+                                                    <input id="nm" name="nm" type="text">
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="th">
+                                                    <label for="moblphon">신청자 핸드폰</label>
+                                                </div>
+                                                <div class="td">
+                                                    <input id="moblphon" name="moblphon" type="text">
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="th">
+                                                    <label for="affi">소속</label>
+                                                </div>
+                                                <div class="td">
+                                                    <input id="affi" name="affi" type="text">
+                                                </div>
+                                            </li>
+                                        </ul>
                                     </div>
-                                </li>
+                                </div>
+                                <div class="info_accordion">
+                                    <div class="agree_inner agree_contents">
+                                        <ul>
+                                            <span>개인정보 활용 동의서(필수)</span>
+                                            <li>
+                                                <p>
+                                                    푸른나무재단에서 2021 청소년 사이버폭력 예방교육 사업 푸른코끼리 학교로 찾아가는 교육 신청서 접수 및 결과 안내를 목적으로 아래와 같이 개인정보를 수집 및 이용합니다.
+                                                </p>
+                                                <p class="agree_desc">
+                                                    ▪︎ 목적 : 신청서 접수 및 출강 여부 결과 회신 동의 서비스 제공 <b></b>
+                                                    ▪︎ 수집 항목 : 정보주체의 성명, 소속, 주소, 업무 등<b></b>
+                                                    ▪︎ 보유 및 이용시간 : 개인정보 수집 및 이용목적이 달성된 후에는 해당정보를 즉기 파기합니다. 단, 출강 확정 후 서비스 제공 및 민원 처리 동의 소속 작업물 위해 3년간 보유 및 이용됩니다. 또한, 신청서 삭제 요청 시 까지 위 이용 목적을 위하여 보유이용됩니다. 그러나 신청서 삭제 요청 시 신청자의 개인정보를 재생 불가능한 방법으로 즉시 파기합니다. <b></b>
+                                                </p>
+                                                <b>
+                                                    ※ 귀하는 이에 대한 동의를 거부할 수 있으며, 다만 동의가 없을 경우 교육신청 접속에 제한 할 수 있음을 알려드립니다.
+                                                </b>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="checkbox">
+                                        <input type="checkbox" id="agree002">
+                                        <label for="agree002">
+                                            <span>동의함</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="sec_write join join_m">
+                                    <div class="tbl_write upload m_upload">
+                                        <ul>
+                                            <li>
+                                                <div class="th">
+                                                    <label>증빙서류</label>
+                                                </div>
 
-                            </ul>
-                            <div class="btn_area"><button id="btnSave" type="submit" class="btn btn_lg btn_blue btn_pill_10">등록</button></div>
+                                                <div class="td">
+                                                    <div th:if="${fileList != null and !fileList.isEmpty()}">
+                                                        <th:block th:each="item: ${fileList}">
+                                                            <p class="file" th:if="${T(kr.or.btf.web.domain.web.enums.FileDvType).THUMB.name() eq item.dvTy}">
+                                                                <span th:text="${item.flNm}">첨부파일.txt</span>
+                                                                <a href="javascript:;" class="btn_del" th:onclick="|fn_deleteFile(${item.id}, this)| ">
+                                                                    <span class="blind">삭제</span>
+                                                                </a>
+                                                            </p>
+                                                        </th:block>
+                                                    </div>
+                                                    <input type="file" name="attachedFile" id="attachedFile" >
+                                                    <label for="attachedFile" id="box" >지지크루 관련 자료를 업로드하세요</label>
+                                                    <label for="attachedFile">파일검색</label>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!--<div class="partners_btn">
+                                    <a class="join_btn" type="submit">제출</a>
+                                </div>-->
+                                <div class="btn_area"><button id="btnSave" type="submit" class="btn btn_lg btn_blue btn_pill_10">등록</button></div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </form>
+                </form>
+                    <!--<th:block
+                            th:replace="/fragments/paging :: pagingbody(list=${postscripts}, link='/pages/activity/postscript', formId='form1')"></th:block>-->
+            </div>
         </div>
     </div>
     <th:block th:replace="fragments/footer"></th:block>

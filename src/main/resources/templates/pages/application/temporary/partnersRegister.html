@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+</head>
+<script>
+
+</script>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/mo_menu"></th:block>
+        <div class="sub_container">
+            <th:block th:include="fragments/dept_menu"></th:block>
+
+            <form action="/pages/application/partners/partnersregister" id="form1" name="form1" method="post" enctype="multipart/form-data">
+                <div class="contents">
+                    <div class="page_top pc">
+                        <h3 class="page_tit">신청</h3>
+                    </div>
+                    <div class="sec_write">
+                        <h4 class="subtit">파트너스 신청</h4>
+                        <div class="tbl_write contour">
+                            <ul>
+                                <li>
+                                    <div class="th">신청자 이름<span class="aster">*</span></div>
+                                    <div class="td"><input id="nm" name="nm" type="text"/></div>
+                                </li>
+                                <li>
+                                    <div class="th">신청자 핸드폰<span class="aster">*</span></div>
+                                    <div class="td"><input id="moblphon" name="moblphon" type="number"/></div>
+                                </li>
+                                <li>
+                                    <div class="th">소속<span class="aster">*</span></div>
+                                    <div class="td"><input id="affi" name="affi" type="text"/></div>
+                                </li>
+
+                                <li>
+                                    <div class="th">첨부파일<span class="aster">*</span></div>
+
+                                    <div class="td file_form">
+
+                                        <div th:if="${fileList != null and !fileList.isEmpty()}">
+                                            <th:block th:each="item: ${fileList}">
+                                                <p class="file" th:if="${T(kr.or.btf.web.domain.web.enums.FileDvType).THUMB.name() eq item.dvTy}">
+                                                    <span th:text="${item.flNm}">첨부파일.txt</span>
+                                                    <a href="javascript:;" class="btn_del" th:onclick="|fn_deleteFile(${item.id}, this)| ">
+                                                        <span class="blind">삭제</span>
+                                                    </a>
+                                                </p>
+                                            </th:block>
+                                        </div>
+                                        <input type="file" name="attachedFile" maxlength="1"  id="attachedFile" class="multi" th:accept="${allAccept}" />
+                                        <label for="attachedFile">파일찾기</label>
+                                        <input type="hidden" name="b_license_attc" id="b_license_attc" value="N">
+
+                                    </div>
+                                </li>
+
+                            </ul>
+                            <div class="btn_area"><button id="btnSave" type="submit" class="btn btn_lg btn_blue btn_pill_10">등록</button></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

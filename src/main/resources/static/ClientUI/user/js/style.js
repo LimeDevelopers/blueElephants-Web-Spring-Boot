@@ -657,3 +657,15 @@ function stdntNoCheck(obj, e) {
 	if (!charStr.match(/^[1-9]+$/))
 		e.preventDefault();
 }
+<!--2021/09/21 kjw 개인정보활용동의서-->
+$('.info_accordion .agree_inner ul').click(function(){
+	$(this).toggleClass('agree_on')
+})
+
+//20210913_소개_예방교육 개인정보활용동의서
+$('.agree_item_01 .agree_top u').click(function(){
+	$('.agr_cont1').toggleClass('agree_on')
+})
+$('.agree_item_02 .agree_top u').click(function(){
+	$('.agr_cont2').toggleClass('agree_on')
+})

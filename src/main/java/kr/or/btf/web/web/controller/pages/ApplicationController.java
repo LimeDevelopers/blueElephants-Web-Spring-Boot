@@ -8,7 +8,6 @@ import kr.or.btf.web.domain.web.enums.AppRollType;
 import kr.or.btf.web.services.web.ApplicationService;
 import kr.or.btf.web.web.form.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class  ApplicationController {
     private final ApplicationService applicationService;
 
-
+    //등록 수행 컨트롤러
     @PostMapping(value = "/pages/application/partners/partnersregister")
     public String PartnersRegister(@ModelAttribute ApplicationForm applicationForm ,
                                    @RequestParam("attachedFile") MultipartFile attachedFile ,
@@ -43,9 +42,22 @@ public class  ApplicationController {
         }
         applicationService.zzcrewRegister(applicationForm , attachedFile);
 
-        return "pages/application/zzcrewRegister";
+        return "pages/application/zzcrew";
     }
 
+    @PostMapping("/pages/application/zzdeclareRegister")
+    public String zzcrewRegister(@ModelAttribute ApplicationForm applicationForm ,
+                                 @RequestParam("attachedFile") MultipartFile attachedFile ,
+                                 @CurrentUser Account account ,
+                                 Error error) throws Exception {
+        String Schedule = applicationForm.getYear() + applicationForm.getMonth() + applicationForm.getDay();
+        applicationService.zzdeclareRegister(applicationForm , attachedFile);
+
+
+        return "pages/application/zzdeclaration";
+    }
+
+    //승인여부 변경 컨트롤러 applicationapproval
     @ResponseBody
     @PostMapping("/api/soulGod/application/updateApporaval/{id}")
     public Boolean applicationApporval(@PathVariable(name = "id") String id){
@@ -62,34 +74,7 @@ public class  ApplicationController {
         return result;
     }
 
-    @PostMapping("/pages/application/zzdeclareRegister")
-    public String zzcrewRegister(@ModelAttribute ApplicationForm applicationForm ,
-                                  @RequestParam("attachedFile") MultipartFile attachedFile ,
-                                  @CurrentUser Account account ,
-                                  Error error) throws Exception {
-        String Schedule = applicationForm.getYear() + applicationForm.getMonth() + applicationForm.getDay();
 
-        System.out.println("이름  : " + applicationForm.getNm());
-        System.out.println("신청자 이름 : " + applicationForm.getAffi());
-        System.out.println("신청자 연락처 : " + applicationForm.getMoblphon());
-        System.out.println("신청사유 : " + applicationForm.getReason());
-        System.out.println("희망일정 : " + Schedule);
-        System.out.println("경로 : " + applicationForm.getRoot());
-        System.out.println("학교명 : " + applicationForm.getSchlNm());
-        System.out.println("대표자 번호 : " + applicationForm.getPrincipalNm());
-        System.out.println("주소 : " + applicationForm.getSchlAdress());
-        System.out.println("전교생 수 : " + applicationForm.getStudentNum());
-        System.out.println("사고수 : " + applicationForm.getAccidentsNum());
-        System.out.println("학교장 성함 : " + applicationForm.getPrincipalNm());
-        System.out.println("학교장 휴대폰 : " + applicationForm.getPrincipalPhone());
-        System.out.println("학교장 이메일 : " + applicationForm.getPrincipalEmail());
-        System.out.println("티셔츠 사이즈 : " + applicationForm.getSize());
-
-        applicationService.zzdeclareRegister(applicationForm , attachedFile);
-
-
-        return "pages/application/zzdeclaration";
-    }
 
     //페이지 이동 컨트롤러
     @GetMapping("/pages/application/preeducation")
@@ -106,17 +91,6 @@ public class  ApplicationController {
         return "pages/application/inseducation";
     }
 
-    @GetMapping("/pages/application/zzcrewRegister")
-    public String zzcrew(Model model ,
-                         @ModelAttribute ApplicationForm applicationForm) {
-        if(AppRollType.CREW.getName().equals(applicationForm.getAppDvTy())) {
-
-        }
-        model.addAttribute("mc", "application");
-        model.addAttribute("pageTitle", "지지크루");
-        return "pages/application/zzcrewRegister";
-    }
-
     @GetMapping("/pages/application/zzdeclaration")
     public String zzdeclaration(Model model) {
         model.addAttribute("mc", "application");
@@ -124,19 +98,40 @@ public class  ApplicationController {
         return "pages/application/zzdeclaration";
     }
 
-
     @GetMapping("/pages/application/contest")
     public String contest(Model model) {
         model.addAttribute("mc", "application");
         model.addAttribute("pageTitle", "공모전");
         return "pages/application/contest";
     }
+
     @GetMapping("/pages/application/event")
     public String event(Model model) {
         model.addAttribute("mc", "application");
         model.addAttribute("pageTitle", "행사");
         return "pages/application/event";
     }
+
+    @GetMapping("/pages/application/partners")
+    public String partnersPage(Model model) {
+        model.addAttribute("mc", "application");
+        model.addAttribute("pageTitle", "파트너스");
+        return "pages/application/partners";
+    }
+
+
+    //등록페이지 이동 컨트롤러
+    @GetMapping("/pages/application/zzcrew")
+    public String zzcrew(Model model ,
+                         @ModelAttribute ApplicationForm applicationForm) {
+        if(AppRollType.CREW.getName().equals(applicationForm.getAppDvTy())) {
+
+        }
+        model.addAttribute("mc", "application");
+        model.addAttribute("pageTitle", "지지크루");
+        return "pages/application/zzcrew";
+    }
+
     @GetMapping("/pages/application/partnersRegister")
     private String appPartnersRegister(Model model,
                                        @ModelAttribute ApplicationForm applicationForm){
@@ -149,5 +144,14 @@ public class  ApplicationController {
 
         return "/pages/application/partnersRegister";
     }
+    @GetMapping("/pages/application/zzdeclarationRegister")
+    private String zzdeclarationRegister(Model model ,
+                                         @ModelAttribute ApplicationForm applicationForm) {
+        if(AppRollType.DECLARE.getName().equals(applicationForm.getAppDvTy())) {
 
+        }
+        model.addAttribute("mc", "application");
+        model.addAttribute("pageTitle", "파트너스");
+        return "pages/application/zzdeclarationRegister";
+    }
 }
