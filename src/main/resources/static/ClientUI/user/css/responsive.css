@@ -2711,6 +2711,177 @@
 		font-size: 12px;
 	}
 	/* 소개_ 푸코친구들 끝 0913 고선호 수정 */
+	.info_accordion .checkbox label span {
+		padding-left: 15px;
+	}
+
+
+
+	/* 예방교육 리스트 게시판 */
+	.board_top {
+		text-align: left;
+	}
+	.board_top > * {
+		margin-right: 6px;
+	}
+	.select label {
+		line-height: 42px;
+		font-size: 13px;
+	}
+	.select label:after {
+		background-color: #fff;
+		border-left: 0;
+	}
+	.board_top .w401:nth-of-type(1),
+	.board_top .w401:nth-of-type(2) {
+		width: 100px;
+	}
+	.board_top>.search.news {
+		width: inherit;
+	}
+	.board_top .w401_txt {
+		width: 70%;
+		margin-top: 10px;
+	}
+	.board_top>.btn {
+		font-size: 13px;
+		margin-top: 10px;
+	}
+	.board_tbl_list>li {
+		display: flex;
+		flex-direction: column;
+		padding: 10px 0;
+	}
+	.board_tbl_list>li.thead>strong {
+		font-size: 14px;
+	}
+	.board_tbl_list>li>div {
+		font-size: 14px;
+		height: auto;
+	}
+	.board_tbl_list>li.thead {
+		display: none;
+	}
+	.board_tbl_list>li .no, div .no {
+		display: none;
+	}
+	.board_tbl_list>li .hits {
+		display: none;
+	}
+	.board_tbl_list>li>div.tit {
+		width: 100%;
+		padding-left: 0;
+		font-weight: 500;
+		font-size: 16px;
+	}
+	.board_tbl_list>li .writer {
+		margin-top: 8px;
+		font-size: 14px;
+	}
+	.board_tbl_list>li .date {
+		font-size: 12px;
+	}
+
+
+	/* 신청_ 강사교육 시작 */
+	.teacher_info {
+		flex-direction: column;
+	}
+	.teacher_info .tea_01 {
+		position: relative
+	}
+	.teacher_info .tea_01 label {
+		width: 40%;
+		height: 180px;
+		left: 50%;
+		transform: translateX(-50%);
+	}
+	.teacher_info .tea_01 label p span {
+		font-size: 13px;
+	}
+	.certificate .join .tbl_write ul li .
+	.certificate .join .tbl_write ul li {
+		display: flex;
+		flex-direction: column;
+	}
+	.chk_more .join .chk_item {
+		border-right: 0;
+		height: inherit;
+		padding: 0;
+		margin-top: 20px;
+	}
+	.chk_more .join .chk_item:nth-of-type(2) {
+		padding-left: 0;
+	}
+	.chk_more .join .chk_item:nth-of-type(3) {
+		margin-top: 0;
+	}
+	.chk_more .join .chk_item .sns_inner .sns_chk_inner span {
+		font-size: 13px;
+	}
+	.certificate .join .tbl_write ul li > .td small {
+		font-size: 13px;
+	}
+	.more_info_2 {
+		margin-top: 20px;
+	}
+	.more_info_2 b {
+		display: block;
+		margin-bottom: 0;
+	}
+	.more_info_2 span {
+		margin-top: 20px;
+		display: inline-block;
+		font-size: 12px;
+	}
+	/* 신청_ 강사교육 끝 */
+
+
+
+	/*2021/09/14 kjw*/
+	/* 신청_ 지지크루 시작 */
+	/* 지지크루 상세페이지 */
+	.detail_cont .top .info_area {
+		padding: 10px
+	}
+	.detail_cont .top .info_area .tit {
+		background-color: #fff;
+		font-size: 15px;
+	}
+	.detail_cont .top .info_area .count span {
+		font-size: 14px;
+	}
+	.detail_cont .top .info_area .detail_item .d_day span {
+		font-size: 14px;
+		margin-right: 6px;
+	}
+	.detail_cont .top .info_area .detail_item .d_day b {
+		font-size: 14px;
+		padding: 4px 10px;
+		font-size: 12px;
+	}
+	.detail_cont .top .info_area .tit small, .detail_cont .top .info_area .count_2 span small {
+		width: 80px;
+		font-size: 12px;
+	}
+	.btn_area {
+		display: flex;
+		margin: 0 atuo;
+		text-align: center;
+	}
+	.btn_area .btn {
+		margin-right: 0;
+		width: 50%;
+	}
+	.btn_area a.list_btn {
+		margin-right: 15px;
+	}
+	.btn_area a.list_btn, .btn_area a.crew_btn {
+		font-size: 13px;
+		/* width: 150px;/ */
+	}
+	/* 신청_ 지지크루 끝 */
+
 
 
 
@@ -3686,6 +3857,65 @@
 		display: inline;
 	}
 	/* 소개_ 푸코사무국 끝 */
+	/*2021/09/14 kjw 추가함*/
+	/* 예방교육 리스트 게시판 */
+	.board_top > * {
+		margin-right: 10px !important;
+		margin-top: 0;
+	}
+	.board_top .w401_txt {
+		margin-top: 0;
+	}
+	.board_top>.btn {
+		margin-top: 0;
+	}
+	.board_tbl_list>li>div.tit a {
+		font-size: 18px;
+	}
+	.board_tbl_list>li .writer {
+		text-align: left;
+		font-size: 16px;
+	}
+	.board_tbl_list>li .date {
+		text-align: left;
+		font-size: 15px;
 
+
+
+	/* 신청_ 강사교육 시작 */
+	.teacher_info .tea_01 label {
+		height: 350px;
+	}
+	.chk_more .join .chk_item .sns_inner .sns_chk_inner span {
+		font-size: 16px;
+	}
+	.more_info_2 span {
+		font-size: 16px;
+	}
+	/* 신청_ 강사교육 끝 */
+
+	/* 신청_ 지지크루 시작 */
+	.detail_cont .top .info_area .tit small, .detail_cont .top .info_area .count_2 span small {
+		font-size: 16px;
+	}
+	.detail_cont .top .info_area .count span {
+		font-size: 16px;
+	}
+	.detail_cont .top .info_area .tit {
+		font-size: 17px;
+	}
+	.detail_cont .top .info_area .detail_item .d_day span {
+		font-size: 18px;
+	}
+	.detail_cont .top .info_area .detail_item .d_day b {
+		font-size: 18px;
+	}
+	.btn_area {
+		justify-content: center;
+	}
+	.btn_area a.list_btn, .btn_area a.crew_btn {
+		font-size: 16px;
+	}
+	/* 신청_ 지지크루 끝 */
 
 }

@@ -89,11 +89,18 @@ public class  ApplicationController {
 
 
     //페이지 이동 컨트롤러
-    @GetMapping("/pages/application/preeducation")
+    @GetMapping("/pages/application/preeducationRegister")
     public String PreEducation(Model model) {
         model.addAttribute("mc", "application");
         model.addAttribute("pageTitle", "예방교육");
-        return "pages/application/preeducation";
+        return "pages/application/preeducationRegister";
+    }
+
+    @GetMapping("/pages/application/preeducationList")
+    public String preeducationList(Model model) {
+        model.addAttribute("mc", "application");
+        model.addAttribute("pageTitle", "예방교육");
+        return "pages/application/preeducationList";
     }
 
     @GetMapping("/pages/application/inseducation")
@@ -130,6 +137,7 @@ public class  ApplicationController {
         model.addAttribute("pageTitle", "파트너스");
         return "pages/application/partners";
     }
+
 
 
     //등록페이지 이동 컨트롤러
