@@ -2839,6 +2839,303 @@
 
 
 	/*2021/09/14 kjw*/
+	.school_info h2 {
+		font-size: 22px;
+		margin-top: 30px;
+	}
+	.school_info .sec_write {
+		margin-top: 15px;
+	}
+	.school_info .tbl_write ul li.date .td > div {
+		display: flex;
+	}
+	.school_edu_inner .school_info h2 small {
+		font-size: 12px;
+	}
+	.school_info .join .tbl_write ul li .td input::placeholder {
+		font-size: 12px;
+	}
+	.school_info .join .chk_item {
+		width: 100%;
+	}
+	.school_info .join .chk_item > span {
+		font-size: 15px;
+	}
+	.school_info .join .chk_item .radio_inner {
+		justify-content: flex-start;
+	}
+	.school_info .join .chk_item .radio_inner > div:nth-of-type(1) {
+		margin-right: 20px;
+	}
+	.school_info .join .chk_item .radio_inner > div label span {
+		font-size: 13px;
+	}
+	.agree_inner_02 .agree_item .agree_top label span {
+		width: 80%;
+	}
+	.agree_inner_02 .agree_item .agree_top {
+		font-size: 13px;
+		padding: 0;
+		background-color: #fff;
+	}
+	.agree_inner_02 .agree_item .agree_top u {
+		font-size: 14px;
+	}
+	.agree_inner_02 .agree_item .agree_contents {
+		margin-left: 0;
+		background-color: #f7f8fa;
+		font-size: 12px;
+	}
+	.agree_inner_02 .agree_item .agree_contents p.agree_desc b {
+		margin-bottom: 5px;
+	}
+	.agree_inner_02 p.more_info {
+		margin: 30px 0;
+	}
+	.agree_inner_02 p.more_info span {
+		display: block;
+		font-size: 12px;
+		margin-bottom: 10px;
+	}
+	.partners_edu_btn {
+		display: flex;
+		margin-bottom: 50px;
+	}
+	.partners_edu_btn a {
+		width: 50%;
+		padding: 10px;
+		border-radius: 20px;
+		text-align: center;
+	}
+	.partners_edu_btn a.save_btn {
+		border: 1px solid #6d95e1;
+		color: #6d95e1;
+		margin-right: 10px;
+	}
+	.partners_edu_btn a.join_btn {
+		background-color: #6d95e1;
+		color: #fff;
+	}
+	.school_info .join ul li.date {
+		border-bottom: 1px solid #cccccc;
+	}
+	.school_info .join ul li.date .th {
+		width: 20%;
+	}
+	/* 신청_ 예방교육 끝 */
+
+
+	/* 신청_ 지지선언 시작 */
+	.partners .friends_inner .banner_inner {
+		width: 100%;
+		height: 500px;
+	}
+	.join .upload ul .sns {
+		display: flex;
+		flex-direction: column;
+		padding-bottom: 40px;
+	}
+	.join .upload ul .sns .th {
+		width: 100%;
+	}
+	.join .upload ul .sns .td {
+		/* display: flex;
+        flex-direction: row */
+	}
+	.join .upload ul .sns .td b {
+		display: inline;
+	}
+	.join .upload ul .sns .td i {
+		display: block;
+		border: 1px solid #000;
+	}
+	.join .upload ul .sns .sns_chk_inner {
+		/* border: 1px solid #000;
+		width: 33.3333%; */
+	}
+	.join .upload ul .sns .sns_chk_inner {
+		margin-right: 8px;
+	}
+	.join .upload ul li.sns .td {
+		display: inline;
+	}
+	.join .upload ul .sns .sns_chk_inner label {
+		font-size: 12px;
+	}
+	.join .upload ul .m_mode {
+		display: flex;
+		flex-direction: column;
+	}
+	.school_info .join .tbl_write ul .small_bx {}
+	.school_info .join .tbl_write ul .small_bx .th {
+		width: 80%;
+	}
+	.school_info p.more_text span {
+		font-size: 13px;
+		margin-bottom: 10px;
+	}
+	.school_info p.more_text small {
+		font-size: 13px;
+		display: block;
+	}
+	.school_info .join .tbl_write ul li.row .td {
+		display: flex;
+		font-size: 14px;
+	}
+	.school_info .join .tbl_write ul li.row .td input {
+		width: 40%;
+	}
+	/* 신청_ 지지선언 끝 */
+
+
+	/* 신청_ 파트너스 시작 */
+	.sub_text_box {
+		margin-top: 20px;
+	}
+	.page_cont > .sub_text_box > .text {
+		padding: 20px;
+	}
+	.partners {
+		margin-top: 15px;
+	}
+	.page_cont .partners_text_box {
+		height: 130px;
+	}
+	.page_cont .partners_text_box .text b {
+		display: inline;
+	}
+	.page_cont .partners_text_box {
+		padding-left: 0;
+	}
+	.partners .friends_inner .partner_inner {
+		margin-top: 30px;
+	}
+	.partner_inner .pat_1 .partners_item:nth-of-type(1) {
+		background: url('../images/contents/partners_01.png')no-repeat center left 20px;
+		margin-bottom: 20px;
+		background-size: auto 60%;
+	}
+	.partner_inner .pat_1 .partners_item:nth-child(2) {
+		background: url('../images/contents/partners_02.png')no-repeat center left 20px;
+		background-size: auto 60%;
+		margin-bottom: 20px;
+	}
+	.partner_inner .pat_1 .partners_item:nth-child(3) {
+		background: url('../images/contents/partners_03.png')no-repeat center left 17px;
+		background-size: auto 40%;
+		margin-bottom: 20px;
+	}
+	.partner_inner .pat_1 .partners_item:nth-child(4) {
+		background: url('../images/contents/partners_04.png')no-repeat center left 20px;
+		background-size: auto 60%;
+		margin-bottom: 20px;
+	}
+	.partner_inner .pat_2 .partners_item:nth-child(1) {
+		background: url('../images/contents/partners_05.png')no-repeat center left 20px;
+		background-size: auto 60%;
+		margin-bottom: 20px;
+	}
+	.partner_inner .pat_2 .partners_item:nth-child(2) {
+		background: url('../images/contents/partners_06.png')no-repeat center left 16px;
+		background-size: auto 55%;
+		margin-bottom: 20px;
+	}
+	.partner_inner .pat_2 .partners_item:nth-child(3) {
+		background: url('../images/contents/partners_07.png')no-repeat center left 22px;
+		background-size: auto 55%;
+		margin-bottom: 20px;
+	}
+	.partner_inner .pat_2 .partners_item:nth-child(4) {
+		background: url('../images/contents/partners_08.png')no-repeat center left 16px;
+		background-size: auto 55%;
+		margin-bottom: 20px;
+	}
+	.partner_inner .item_inner .partners_item {
+		width: 100%;
+		align-items: flex-start;
+		padding: 20px;
+		padding-left: 110px;
+	}
+	.partners_btn a.join_btn {
+		width: 150px;
+		padding: 10px 0;
+	}
+
+
+
+	/* 파트너스 신청 */
+	.tbl_write > ul > li {
+		border-bottom: 0;
+	}
+	.tbl_write .th {
+		width: 40%;
+		text-align: left;
+		background-color: #fff;
+		font-size: 15px;
+	}
+	.sec_write {
+		margin-top: 20px;
+	}
+	.tbl_write .td {
+		padding: 8px 0;
+		width: 100%;
+	}
+	.tbl_write .td input {
+		width: 100%;
+	}
+	.join_m {
+		border-top: 0;
+		margin-top: 0;
+	}
+	.join .upload ul li .td #box {
+		width: 100%;
+	}
+	.join .tbl_write ul {
+		margin-top: 0;
+	}
+	.info_accordion .checkbox label {
+		font-size: 14px;
+	}
+	.info_accordion .checkbox label span {
+		padding-left: 5px;
+	}
+	.info_accordion {
+		flex-direction: column;
+		align-items: flex-end;
+	}
+	.info_accordion .agree_inner {
+		width: 100%;
+		padding: 8px 20px;
+	}
+	.info_accordion .agree_inner span:after {
+		background-size: 15px;
+		width: 20px;
+		height: 20px;
+	}
+	.info_accordion .agree_inner span {
+		font-size: 14px;
+	}
+	.join .m_upload ul li {
+		display: flex;
+		flex-direction: column;
+	}
+	.tbl_write .td {
+		width: 100%;
+	}
+	.join .upload ul li .td {
+		display: flex;
+	}
+	.join .upload ul li .td #box {
+		font-size: 13px;
+		flex: 3;
+	}
+	.join .upload ul li .td label {
+		flex: 1;
+		text-align: center;
+	}
+	/* 신청_ 파트너스 끝 */
+
+
 	/* 신청_ 지지크루 시작 */
 	/* 지지크루 상세페이지 */
 	.detail_cont .top .info_area {
@@ -3858,6 +4155,8 @@
 	}
 	/* 소개_ 푸코사무국 끝 */
 	/*2021/09/14 kjw 추가함*/
+
+
 	/* 예방교육 리스트 게시판 */
 	.board_top > * {
 		margin-right: 10px !important;
@@ -3918,4 +4217,65 @@
 	}
 	/* 신청_ 지지크루 끝 */
 
+	/*2021/09/15 kjw*/
+
+	/* 신청_ 예방교육 시작 */
+	.tbl_write .th {
+		font-size: 16px;
+	}
+	.school_info .join .chk_item > span {
+		font-size: 18px;
+	}
+	.school_info .join .chk_item .radio_inner > div label span {
+		font-size: 16px;
+	}
+	.agree_inner_02 .agree_item .agree_top label span {
+		font-size: 16px;
+	}
+	.agree_inner_02 .agree_item .agree_contents p {
+		font-size: 16px;
+	}
+	.agree_inner_02 .agree_item .agree_contents p.agree_desc {
+		font-size: 16px;
+	}
+	.agree_inner_02 .agree_item .agree_contents span {
+		font-size: 16px;
+	}
+	.agree_inner_02 p.more_info span {
+		font-size: 14px;
+	}
+	.partners_edu_btn a {
+		padding: 15px;
+		font-size: 16px;
+		border-radius: 30px;
+	}
+	/* 신청_ 예방교육 끝 */
+
+	/* 신청_ 지지선언 시작 */
+	.page_cont .partners_text_box {
+		height: 100px;
+	}
+	.page_cont > .sub_text_box > .text {
+		font-size: 16px;
+	}
+	.partners .friends_inner .banner_inner {
+		height: 800px;
+	}
+	.partners_btn a.join_btn  {
+		padding: 15px 0;
+	}
+	/* 지지신청 */
+	.join .upload ul .sns .sns_chk_inner {
+		margin-right: 12px;
+	}
+	.join .upload ul .sns .sns_chk_inner label {
+		font-size: 16px;
+	}
+	.school_info .join .tbl_write ul .small_bx .th {
+		width: 40%;
+	}
+	.school_info .tbl_write ul li.small_bx .td input {
+		width: 40%;
+	}
+	/* 신청_ 지지선언 끝 */
 }
