@@ -29,6 +29,10 @@ public class ActivityApplication {
     @Column(name = "fl_pid")
     private Long flPid;
 
+    //행사신청 컬럼
+    @Column(name = "event_pid")
+    private Long event_pid;
+
    /* @Column(name = "login_id")
     private String loginId;*/
 
@@ -65,7 +69,7 @@ public class ActivityApplication {
 
 
 
-
+    //지지선언 컬럼
     @Column(name = "reason")
     private String reason;
 
@@ -101,5 +105,6 @@ public class ActivityApplication {
 
     @Column(name = "size")
     private String size;
+
 
 }

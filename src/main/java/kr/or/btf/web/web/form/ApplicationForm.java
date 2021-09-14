@@ -12,6 +12,8 @@ public class ApplicationForm extends SearchForm{
     private Long appPid;
     private Long mberPid;
     private Long flPid;
+    private Long eventPid;
+
     /*private String loginId;*/
     private String nm;
     private String affi;
@@ -40,5 +42,6 @@ public class ApplicationForm extends SearchForm{
     private String year;
     private String month;
     private String day;
+
 
 }
