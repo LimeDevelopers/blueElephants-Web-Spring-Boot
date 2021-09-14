@@ -4,18 +4,18 @@
     <th:block th:include="fragments/header"></th:block>
 </head>
 <script>
-    $(document).ready(function (){
+    $(document).ready(function () {
 
         <!--2021/09/21 kjw 개인정보활용동의서-->
-        $('.info_accordion .agree_inner ul').click(function(){
+        $('.info_accordion .agree_inner ul').click(function () {
             $(this).toggleClass('agree_on')
         })
 
         //20210913_소개_예방교육 개인정보활용동의서
-        $('.agree_item_01 .agree_top u').click(function(){
+        $('.agree_item_01 .agree_top u').click(function () {
             $('.agr_cont1').toggleClass('agree_on')
         })
-        $('.agree_item_02 .agree_top u').click(function(){
+        $('.agree_item_02 .agree_top u').click(function () {
             $('.agr_cont2').toggleClass('agree_on')
         })
 
@@ -28,279 +28,289 @@
         <th:block th:include="fragments/mo_menu"></th:block>
         <div class="sub_container">
             <th:block th:include="fragments/dept_menu"></th:block>
-            <div class="inner">
+            <form id="form1" name="form1" method="post">
+                <div class="inner">
                     <div class="page_cont">
                         <h4 class="subtit pc review_title">학교로 찾아가는 예방교육</h4>
-                            <div class="school_edu_inner">
-                                <div class="school_info">
-                                    <h2>신청 학교 정보<span class="aster">*</span></h2>
-                                    <div class="sec_write join">
-                                        <div class="tbl_write">
-                                            <ul>
-                                                <li class="row">
-                                                    <div class="th">
-                                                        <label for="schlNm">학교명</label>
-                                                        <span class="aster">*</span>
-                                                    </div>
-                                                    <div class="td">
-                                                        <input type="text" id="schlNm" name="schlNm">
-                                                        <button tpye="button" class="btn_line_blue" id="schl_chk">중복확인</button>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="th">
-                                                        <label for="representPhone">대표번호</label>
-                                                        <span class="aster">*</span>
-                                                    </div>
-                                                    <div class="td">
-                                                        <input type="text" id="representPhone" name="representPhone">
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="th">
-                                                        <label for="adress">주소</label>
-                                                        <span class="aster">*</span>
-                                                    </div>
-                                                    <div class="td">
-                                                        <input type="text" id="adress" name="adress">
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
+                        <div class="school_edu_inner">
+                            <div class="school_info">
+                                <h2>신청 학교 정보<span class="aster">*</span></h2>
+                                <div class="sec_write join">
+                                    <div class="tbl_write">
+                                        <ul>
+                                            <li class="row">
+                                                <div class="th">
+                                                    <label for="schlNm">학교명</label>
+                                                    <span class="aster">*</span>
+                                                </div>
+                                                <div class="td">
+                                                    <input type="text" id="schlNm" name="schlNm">
+                                                    <button tpye="button" class="btn_line_blue" id="schl_chk">중복확인
+                                                    </button>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="th">
+                                                    <label for="representPhone">대표번호</label>
+                                                    <span class="aster">*</span>
+                                                </div>
+                                                <div class="td">
+                                                    <input type="text" id="representPhone" name="representPhone">
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="th">
+                                                    <label for="adress">주소</label>
+                                                    <span class="aster">*</span>
+                                                </div>
+                                                <div class="td">
+                                                    <input type="text" id="adress" name="adress">
+                                                </div>
+                                            </li>
+                                        </ul>
                                     </div>
-                                </div>
-                                <div class="school_info">
-                                    <h2>교육 신청 정보<span class="aster">*</span></h2>
-                                    <div class="sec_write join">
-                                        <div class="tbl_write">
-                                            <ul>
-                                                <li>
-                                                    <div class="th">
-                                                        <label for="banNum">학급수</label>
-                                                        <span class="aster"></span>
-                                                    </div>
-                                                    <div class="td">
-                                                        <!--임의id-->
-                                                        <input type="text" id="banNum" name="banNum" placeholder="총 학급수를 입력해주세요">
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="th">
-                                                        <label for="personnel">인원</label>
-                                                        <span class="aster">*</span>
-                                                    </div>
-                                                    <div class="td">
-                                                        <input type="text" id="personnel" name="personnel" placeholder="총 인원수를 입력해주세요(단위 : 명)">
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="school_info">
-                                    <h2>희망일정<span class="aster">*</span><small>희망일정에 대한 설명입니다.</small></h2>
-                                    <div class="sec_write join">
-                                        <div class="tbl_write">
-                                            <ul>
-                                                <li class="date">
-                                                    <div class="th">
-                                                        <label>1안</label>
-                                                        <span class="aster"></span>
-                                                    </div>
-                                                    <div class="td">
-                                                        <div>
-                                                            <span>인원</span>
-                                                            <!--임의id-->
-                                                            <input type="text" id="1an_personnel" name="1an_personnel">
-                                                        </div>
-                                                        <div>
-                                                            <span>교육시간</span>
-                                                            <!--임의id-->
-                                                            <input type="text" id="1an_edu_time" name="1an_edu_time">
-
-                                                        </div>
-                                                        <div>
-                                                            <span>일과시간</span>
-                                                            <!--임의id-->
-                                                            <input type="text" id="1an_run_time" name="1an_run_time">
-
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="date">
-                                                    <div class="th">
-                                                        <label>2안</label>
-                                                        <span class="aster"></span>
-                                                    </div>
-                                                    <div class="td">
-                                                        <div>
-                                                            <span>인원</span>
-                                                            <!--임의id-->
-                                                            <input type="text" id="2an_personnel" name="2an_personnel">
-                                                        </div>
-                                                        <div>
-                                                            <span>교육시간</span>
-                                                            <!--임의id-->
-                                                            <input type="text" id="2an_edu_time" name="2an_edu_time">
-                                                        </div>
-                                                        <div>
-                                                            <span>일과시간</span>
-                                                            <!--임의id-->
-                                                            <input type="text" id="2an_run_time" name="2an_run_time">
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="school_info">
-                                    <h2>확인사항</h2>
-                                    <div class="sec_write join">
-                                        <div class="chk_item">
-                                            <span>① 교육대상 사이버폭력 설문조사 가능 여부</span>
-                                            <div class="radio_inner">
-                                                <div>
-                                                    <input type="radio" name="chk001" id="chk_01">
-                                                    <label for="chk_01">
-                                                        <span>가능함</span>
-                                                    </label>
-                                                </div>
-                                                <div>
-                                                    <input type="radio" name="chk001" id="chk_02">
-                                                    <label for="chk_02">
-                                                        <span>가능하지않음</span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="chk_item">
-                                            <span>② 교육대상 개인정보 수집 이용 동의 요청 가능 여부</span>
-                                            <div class="radio_inner">
-                                                <div>
-                                                    <input type="radio" name="chk002" id="chk_03">
-                                                    <label for="chk_03">
-                                                        <span>가능함</span>
-                                                    </label>
-                                                </div>
-                                                <div>
-                                                    <input type="radio" name="chk002" id="chk_04">
-                                                    <label for="chk_04">
-                                                        <span>가능하지않음</span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="chk_item">
-                                            <span>③ 푸른코끼리 학교장 선언 운동 참여 의사</span>
-                                            <div class="radio_inner">
-                                                <div>
-                                                    <input type="radio" name="chk003" id="chk_05">
-                                                    <label for="chk_05">
-                                                        <span>있음</span>
-                                                    </label>
-                                                </div>
-                                                <div>
-                                                    <input type="radio" name="chk003" id="chk_06">
-                                                    <label for="chk_06">
-                                                        <span>없음</span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="chk_item">
-                                            <span>④ 푸른코끼리 지지크루(동아리) 신청 의사</span>
-                                            <div class="radio_inner">
-                                                <div>
-                                                    <input type="radio" name="chk004" id="chk_07">
-                                                    <label for="chk_07">
-                                                        <span>있음</span>
-                                                    </label>
-                                                </div>
-                                                <div>
-                                                    <input type="radio" name="chk004" id="chk_08">
-                                                    <label for="chk_08">
-                                                        <span>없음</span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="chk_item">
-                                            <span>⑤ 푸른코끼리 대국민 비폭력 캠페인 참여 의사</span>
-                                            <div class="radio_inner">
-                                                <div>
-                                                    <input type="radio" name="chk005" id="chk_09">
-                                                    <label for="chk_09">
-                                                        <span>있음</span>
-                                                    </label>
-                                                </div>
-                                                <div>
-                                                    <input type="radio" name="chk005" id="chk_10">
-                                                    <label for="chk_10">
-                                                        <span>없음</span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="agree_inner_02">
-                                    <h2>개인정보 수집 ・ 이용 동의서</h2>
-                                    <div class="agree_item_01 agree_item">
-                                        <div class="agree_top">
-                                            <input type="checkbox" id="chk_11">
-                                            <label for="chk_11">
-                                                <span>[ 개인정보 수집 이용에 대한 동의 ]</span>
-                                            </label>
-                                            <u>보기</u>
-                                        </div>
-                                        <div class="agree_contents agr_cont1">
-                                            <p>
-                                                푸른나무재단에서 2021 청소년 사이버폭력 예방교육 사업 푸른코끼리 학교로 찾아가는 교육 신청서 접수 및 결과 안내를 목적으로 아래와 같이 개인정보를 수집 및 이용합니다. 
-                                            </p>
-                                            <p class="agree_desc">
-                                                ▪︎ 목적 : 신청서 접수 및 출강 여부 결과 회신 동의 서비스 제공 <b></b>
-                                                ▪︎ 수집 항목 : 정보주체의 성명, 소속, 주소, 업무 등<b></b>
-                                                ▪︎ 보유 및 이용시간 : 개인정보 수집 및 이용목적이 달성된 후에는 해당정보를 즉기 파기합니다. 단, 출강 확정 후 서비스 제공 및 민원 처리 동의 소속 작업물 위해 3년간 보유 및 이용됩니다. 또한, 신청서 삭제 요청 시 까지 위 이용 목적을 위하여 보유이용됩니다. 그러나 신청서 삭제 요청 시 신청자의 개인정보를 재생 불가능한 방법으로 즉시 파기합니다. <b></b>
-                                            </p>
-                                            <span>
-                                                ※ 귀하는 이에 대한 동의를 거부할 수 있으며, 다만 동의가 없을 경우 교육신청 접속에 제한 할 수 있음을 알려드립니다.
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="agree_item_02 agree_item">
-                                        <div class="agree_top">
-                                            <input type="checkbox" id="chk_12">
-                                            <label for="chk_12">
-                                                <span>[ 개인정보의 제3자 제공에 대한 동의  ]</span>
-                                            </label>
-                                            <u>보기</u>
-                                        </div>
-                                        <div class="agree_contents agr_cont2">
-                                            <p class="agree_desc">
-                                                ▪︎ 제공받는 곳 : 교육부, 시랑의열매, 삼성경제연구소, 감성전자, 삼성디스플레이, 삼성전기, 삼성SDI, 삼성SDS <b></b>
-                                                ▪︎ 목적 : 배분 사업 수행 관련 증빙서류 제출<b></b>
-                                                ▪︎ 수집 항목 : 정보주체의 성명, 소속, 연락처, 주소 업무 등 <b></b>
-                                                ▪︎ 보유 및 이용기간 10년 <b></b>
-                                            </p>
-                                            <span>
-                                                ※ 개인정보 제공자가 불리한 내용 외의 다른 목적으로 활용하지 않으며, 제공한 개인정보의 이용을 거부하고자 할 때에는 열람, 정정, 삭제를 요구할 수 있습니다.
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <p class="more_info">
-                                        <span>・신청서 작성 후 임시저장 버튼 클릭시 신청기간 중 언제라도 신청서를 다시 수정 하실 수 있습니다.</span>
-                                        <span>・신청기간 내 제출하기 버튼을 클릭하지 않을 시 접수 처리가 되지 않으니 이 점 유의하시기 바랍니다.</span>
-                                    </p>
-                                </div>
-                                <div class="partners_edu_btn">
-                                    <a class="save_btn" href="#none" id="btnTemSave">임시저장</a>
-                                    <a class="join_btn" href="#none" id="btnSave">제출하기</a>
                                 </div>
                             </div>
+                            <div class="school_info">
+                                <h2>교육 신청 정보<span class="aster">*</span></h2>
+                                <div class="sec_write join">
+                                    <div class="tbl_write">
+                                        <ul>
+                                            <li>
+                                                <div class="th">
+                                                    <label for="banNum">학급수</label>
+                                                    <span class="aster"></span>
+                                                </div>
+                                                <div class="td">
+                                                    <!--임의id-->
+                                                    <input type="text" id="banNum" name="banNum"
+                                                           placeholder="총 학급수를 입력해주세요">
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="th">
+                                                    <label for="personnel">인원</label>
+                                                    <span class="aster">*</span>
+                                                </div>
+                                                <div class="td">
+                                                    <input type="text" id="personnel" name="personnel"
+                                                           placeholder="총 인원수를 입력해주세요(단위 : 명)">
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="school_info">
+                                <h2>희망일정<span class="aster">*</span><small>희망일정에 대한 설명입니다.</small></h2>
+                                <div class="sec_write join">
+                                    <div class="tbl_write">
+                                        <ul>
+                                            <li class="date">
+                                                <div class="th">
+                                                    <label>1안</label>
+                                                    <span class="aster"></span>
+                                                </div>
+                                                <div class="td">
+                                                    <div>
+                                                        <span>인원</span>
+                                                        <!--임의id-->
+                                                        <input type="text" id="1an_personnel" name="1an_personnel">
+                                                    </div>
+                                                    <div>
+                                                        <span>교육시간</span>
+                                                        <!--임의id-->
+                                                        <input type="text" id="1an_edu_time" name="1an_edu_time">
+
+                                                    </div>
+                                                    <div>
+                                                        <span>일과시간</span>
+                                                        <!--임의id-->
+                                                        <input type="text" id="1an_run_time" name="1an_run_time">
+
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="date">
+                                                <div class="th">
+                                                    <label>2안</label>
+                                                    <span class="aster"></span>
+                                                </div>
+                                                <div class="td">
+                                                    <div>
+                                                        <span>인원</span>
+                                                        <!--임의id-->
+                                                        <input type="text" id="2an_personnel" name="2an_personnel">
+                                                    </div>
+                                                    <div>
+                                                        <span>교육시간</span>
+                                                        <!--임의id-->
+                                                        <input type="text" id="2an_edu_time" name="2an_edu_time">
+                                                    </div>
+                                                    <div>
+                                                        <span>일과시간</span>
+                                                        <!--임의id-->
+                                                        <input type="text" id="2an_run_time" name="2an_run_time">
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="school_info">
+                                <h2>확인사항</h2>
+                                <div class="sec_write join">
+                                    <div class="chk_item">
+                                        <span>① 교육대상 사이버폭력 설문조사 가능 여부</span>
+                                        <div class="radio_inner">
+                                            <div>
+                                                <input type="radio" name="chk001" id="chk_01">
+                                                <label for="chk_01">
+                                                    <span>가능함</span>
+                                                </label>
+                                            </div>
+                                            <div>
+                                                <input type="radio" name="chk001" id="chk_02">
+                                                <label for="chk_02">
+                                                    <span>가능하지않음</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="chk_item">
+                                        <span>② 교육대상 개인정보 수집 이용 동의 요청 가능 여부</span>
+                                        <div class="radio_inner">
+                                            <div>
+                                                <input type="radio" name="chk002" id="chk_03">
+                                                <label for="chk_03">
+                                                    <span>가능함</span>
+                                                </label>
+                                            </div>
+                                            <div>
+                                                <input type="radio" name="chk002" id="chk_04">
+                                                <label for="chk_04">
+                                                    <span>가능하지않음</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="chk_item">
+                                        <span>③ 푸른코끼리 학교장 선언 운동 참여 의사</span>
+                                        <div class="radio_inner">
+                                            <div>
+                                                <input type="radio" name="chk003" id="chk_05">
+                                                <label for="chk_05">
+                                                    <span>있음</span>
+                                                </label>
+                                            </div>
+                                            <div>
+                                                <input type="radio" name="chk003" id="chk_06">
+                                                <label for="chk_06">
+                                                    <span>없음</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="chk_item">
+                                        <span>④ 푸른코끼리 지지크루(동아리) 신청 의사</span>
+                                        <div class="radio_inner">
+                                            <div>
+                                                <input type="radio" name="chk004" id="chk_07">
+                                                <label for="chk_07">
+                                                    <span>있음</span>
+                                                </label>
+                                            </div>
+                                            <div>
+                                                <input type="radio" name="chk004" id="chk_08">
+                                                <label for="chk_08">
+                                                    <span>없음</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="chk_item">
+                                        <span>⑤ 푸른코끼리 대국민 비폭력 캠페인 참여 의사</span>
+                                        <div class="radio_inner">
+                                            <div>
+                                                <input type="radio" name="chk005" id="chk_09">
+                                                <label for="chk_09">
+                                                    <span>있음</span>
+                                                </label>
+                                            </div>
+                                            <div>
+                                                <input type="radio" name="chk005" id="chk_10">
+                                                <label for="chk_10">
+                                                    <span>없음</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="agree_inner_02">
+                                <h2>개인정보 수집 ・ 이용 동의서</h2>
+                                <div class="agree_item_01 agree_item">
+                                    <div class="agree_top">
+                                        <input type="checkbox" id="chk_11">
+                                        <label for="chk_11">
+                                            <span>[ 개인정보 수집 이용에 대한 동의 ]</span>
+                                        </label>
+                                        <u>보기</u>
+                                    </div>
+                                    <div class="agree_contents agr_cont1">
+                                        <p>
+                                            푸른나무재단에서 2021 청소년 사이버폭력 예방교육 사업 푸른코끼리 학교로 찾아가는 교육 신청서 접수 및 결과 안내를 목적으로 아래와
+                                            같이
+                                            개인정보를 수집 및 이용합니다.
+                                        </p>
+                                        <p class="agree_desc">
+                                            ▪︎ 목적 : 신청서 접수 및 출강 여부 결과 회신 동의 서비스 제공 <b></b>
+                                            ▪︎ 수집 항목 : 정보주체의 성명, 소속, 주소, 업무 등<b></b>
+                                            ▪︎ 보유 및 이용시간 : 개인정보 수집 및 이용목적이 달성된 후에는 해당정보를 즉기 파기합니다. 단, 출강 확정 후 서비스 제공 및
+                                            민원 처리
+                                            동의 소속 작업물 위해 3년간 보유 및 이용됩니다. 또한, 신청서 삭제 요청 시 까지 위 이용 목적을 위하여 보유이용됩니다. 그러나
+                                            신청서 삭제
+                                            요청 시 신청자의 개인정보를 재생 불가능한 방법으로 즉시 파기합니다. <b></b>
+                                        </p>
+                                        <span>
+                                                ※ 귀하는 이에 대한 동의를 거부할 수 있으며, 다만 동의가 없을 경우 교육신청 접속에 제한 할 수 있음을 알려드립니다.
+                                            </span>
+                                    </div>
+                                </div>
+                                <div class="agree_item_02 agree_item">
+                                    <div class="agree_top">
+                                        <input type="checkbox" id="chk_12">
+                                        <label for="chk_12">
+                                            <span>[ 개인정보의 제3자 제공에 대한 동의  ]</span>
+                                        </label>
+                                        <u>보기</u>
+                                    </div>
+                                    <div class="agree_contents agr_cont2">
+                                        <p class="agree_desc">
+                                            ▪︎ 제공받는 곳 : 교육부, 시랑의열매, 삼성경제연구소, 감성전자, 삼성디스플레이, 삼성전기, 삼성SDI, 삼성SDS <b></b>
+                                            ▪︎ 목적 : 배분 사업 수행 관련 증빙서류 제출<b></b>
+                                            ▪︎ 수집 항목 : 정보주체의 성명, 소속, 연락처, 주소 업무 등 <b></b>
+                                            ▪︎ 보유 및 이용기간 10년 <b></b>
+                                        </p>
+                                        <span>
+                                                ※ 개인정보 제공자가 불리한 내용 외의 다른 목적으로 활용하지 않으며, 제공한 개인정보의 이용을 거부하고자 할 때에는 열람, 정정, 삭제를 요구할 수 있습니다.
+                                            </span>
+                                    </div>
+                                </div>
+                                <p class="more_info">
+                                    <span>・신청서 작성 후 임시저장 버튼 클릭시 신청기간 중 언제라도 신청서를 다시 수정 하실 수 있습니다.</span>
+                                    <span>・신청기간 내 제출하기 버튼을 클릭하지 않을 시 접수 처리가 되지 않으니 이 점 유의하시기 바랍니다.</span>
+                                </p>
+                            </div>
+                            <div class="partners_edu_btn">
+                                <a class="save_btn" href="#none" id="btnTemSave">임시저장</a>
+                                <a class="join_btn" href="#none" id="btnSave">제출하기</a>
+                            </div>
+                        </div>
                     </div>
-                    <th:block th:replace="/fragments/paging :: pagingbody(list=${postscripts}, link='/pages/activity/postscript', formId='form1')"></th:block>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
     <th:block th:replace="fragments/footer"></th:block>
