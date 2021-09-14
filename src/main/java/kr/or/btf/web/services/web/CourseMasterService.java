@@ -129,11 +129,11 @@ public class CourseMasterService extends _BaseService {
         builder.and(qCourseMaster.delAt.eq("N")); // 삭제여부
 
         // 수정중 김재일
-//        if (searchForm.getApplyAble() != null && searchForm.getApplyAble()) {
-//            builder.and(JPAExpressions.select(qCourseMasterRel.count())
-//                    .from(qCourseMasterRel)
-//                    .where(qCourseMasterRel.crsMstPid.eq(qCourseMaster.id)).eq(Constants.satisfSvySn.longValue()));
-//        }
+        if (searchForm.getApplyAble() != null && searchForm.getApplyAble()) {
+            builder.and(JPAExpressions.select(qCourseMasterRel.count())
+                    .from(qCourseMasterRel)
+                    .where(qCourseMasterRel.crsMstPid.eq(qCourseMaster.id)).eq(Constants.satisfSvySn.longValue()));
+        }
         if (searchForm.getMberDvType() != null) {
             builder.and(qCourseMaster.mberDvTy.eq(searchForm.getMberDvType().name()));
         }

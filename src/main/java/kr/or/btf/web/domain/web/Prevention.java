@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "tbl_application_lecture")
+@Table(name = "tbl_prevention")
 @DynamicUpdate
 /**
  * ApplicationLecture 예방교육 신청 Entity
@@ -20,10 +20,10 @@ import java.time.LocalDateTime;
  * @version : 1.0.0
  * 작성일 : 2021/09/14
 **/
-public class ApplicationLecture {
+public class Prevention {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "app_lec_pid")
+    @Column(name = "pre_pid")
     private Long id;
 
     @Column(name="mber_pid")

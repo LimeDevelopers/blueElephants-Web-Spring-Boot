@@ -5,7 +5,8 @@ public enum MberDvType {
     NORMAL("일반"),
     TEACHER("교원"),
     PARENT("부모"),
-    LECTURER("푸코강사");
+    LECTURER("푸코강사"),
+    INSTRUCTOR("예방교육강사");
 
     final private String name;
 
