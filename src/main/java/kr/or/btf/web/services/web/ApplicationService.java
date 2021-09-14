@@ -118,8 +118,6 @@ public class ApplicationService {
         if(applicationForm.getMberPid() == null) {
             applicationForm.setMberPid(0L);
         }
-        //희망일정 합치기
-        applicationForm.setSchedule(applicationForm.getYear() + applicationForm.getMonth() + applicationForm.getDay());
         applicationForm.setApproval("N");
         applicationForm.setDelAt("N");
         applicationForm.setRegDtm(LocalDateTime.now());

@@ -23,10 +23,14 @@ public class  ApplicationController {
     public String PartnersRegister(@ModelAttribute ApplicationForm applicationForm ,
                                    @RequestParam("attachedFile") MultipartFile attachedFile ,
                                    @CurrentUser Account account,
+                                   Model model,
                                    Error error ) throws Exception {
         if(account != null) {
             applicationForm.setMberPid(account.getId());
         }
+        model.addAttribute("mc", "application");
+        model.addAttribute("pageTitle", "파트너스");
+
         applicationService.partnersRegister(applicationForm , attachedFile);
 
         return "pages/application/partnersRegister";
@@ -36,23 +40,31 @@ public class  ApplicationController {
     public String ZzCrewRegister(@ModelAttribute ApplicationForm applicationForm ,
                                  @RequestParam("attachedFile") MultipartFile attachedFile ,
                                  @CurrentUser Account account ,
+                                 Model model,
                                  Error error) throws Exception {
         if(account != null) {
             applicationForm.setMberPid(account.getId());
         }
+
+        model.addAttribute("mc", "application");
+        model.addAttribute("pageTitle", "파트너스");
         applicationService.zzcrewRegister(applicationForm , attachedFile);
 
         return "pages/application/zzcrew";
     }
 
     @PostMapping("/pages/application/zzdeclareRegister")
-    public String zzcrewRegister(@ModelAttribute ApplicationForm applicationForm ,
+    public String zzdeclareRegister(@ModelAttribute ApplicationForm applicationForm ,
                                  @RequestParam("attachedFile") MultipartFile attachedFile ,
                                  @CurrentUser Account account ,
+                                 Model model,
                                  Error error) throws Exception {
-        String Schedule = applicationForm.getYear() + applicationForm.getMonth() + applicationForm.getDay();
-        applicationService.zzdeclareRegister(applicationForm , attachedFile);
 
+        model.addAttribute("mc", "application");
+        model.addAttribute("pageTitle", "파트너스");
+
+        //String Schedule = applicationForm.getYear() + applicationForm.getMonth() + applicationForm.getDay();
+        applicationService.zzdeclareRegister(applicationForm , attachedFile);
 
         return "pages/application/zzdeclaration";
     }
