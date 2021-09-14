@@ -1,37 +1,140 @@
 package kr.or.btf.web.services.web;
 
+import com.querydsl.core.QueryResults;
+import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.Projections;
+import com.querydsl.jpa.impl.JPAQuery;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.querydsl.jpa.impl.JPAUpdateClause;
 import kr.or.btf.web.common.Constants;
-import kr.or.btf.web.common.annotation.CurrentUser;
-import kr.or.btf.web.common.exceptions.ValidCustomException;
-import kr.or.btf.web.domain.web.Account;
-import kr.or.btf.web.domain.web.ActivityApplication;
-import kr.or.btf.web.domain.web.FileInfo;
+import kr.or.btf.web.domain.web.*;
 import kr.or.btf.web.domain.web.enums.AppRollType;
 import kr.or.btf.web.domain.web.enums.FileDvType;
 import kr.or.btf.web.domain.web.enums.TableNmType;
 import kr.or.btf.web.repository.web.ApplicationRepository;
 import kr.or.btf.web.repository.web.FileInfoRepository;
-import kr.or.btf.web.repository.web.MemberRepository;
+import kr.or.btf.web.repository.web.PreventionMasterRepository;
+import kr.or.btf.web.repository.web.PreventionRepository;
 import kr.or.btf.web.utils.FileUtilHelper;
 import kr.or.btf.web.web.form.ApplicationForm;
+import kr.or.btf.web.web.form.PreventionMasterForm;
+import kr.or.btf.web.web.form.SearchForm;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import org.yaml.snakeyaml.scanner.Constant;
-
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @Transactional(readOnly = false)
 @RequiredArgsConstructor
-public class ApplicationService {
+public class ApplicationService extends _BaseService {
+    private final PreventionRepository preventionRepository;
+    private final PreventionMasterRepository preventionMasterRepository;
     private final ApplicationRepository applicationRepository;
     private final FileInfoRepository fileInfoRepository;
     private final ModelMapper modelMapper;
+    private final JPAQueryFactory queryFactory;
 
+    public PreventionMaster getPreEduMst(Long prePid, Long mberPid) {
+        return preventionMasterRepository.findByPrePidAndMberPid(prePid,mberPid);
+    }
+
+    public List<PreventionMaster> getPreEduMstList(Long id) {
+        return preventionMasterRepository.findByMberPid(id);
+    }
+
+    public boolean registerPreEdu(PreventionMasterForm preventionMasterForm) {
+        preventionMasterForm.setApproval("N");
+        preventionMasterForm.setDelAt("N");
+        preventionMasterForm.setRegDtm(LocalDateTime.now());
+        PreventionMaster preventionMaster = modelMapper.map(preventionMasterForm, PreventionMaster.class);
+        PreventionMaster save = preventionMasterRepository.save(preventionMaster);
+        if(save.getId()!=null){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean updatePreEdu(PreventionMasterForm preventionMasterForm) {
+        if(preventionMasterForm.getApproval() == null) {
+            preventionMasterForm.setApproval("N");
+        }
+        if(preventionMasterForm.getDelAt() == null) {
+            preventionMasterForm.setApproval("N");
+        }
+        try {
+            PreventionMaster pre = preventionMasterRepository.findById(preventionMasterForm.getPreMstPid()).orElseGet(PreventionMaster::new);
+            pre.setAddress(preventionMasterForm.getAddress());
+            pre.setClassesNum(preventionMasterForm.getClassesNum());
+            pre.setTel(preventionMasterForm.getTel());
+            pre.setResultQna1(preventionMasterForm.getResultQna1());
+            pre.setResultQna2(preventionMasterForm.getResultQna2());
+            pre.setResultQna3(preventionMasterForm.getResultQna3());
+            pre.setResultQna4(preventionMasterForm.getResultQna4());
+            pre.setResultQna5(preventionMasterForm.getResultQna5());
+            pre.setHpSchd1Personnel(preventionMasterForm.getHpSchd1Personnel());
+            pre.setHpSchd1Wt(preventionMasterForm.getHpSchd1Wt());
+            pre.setHpSchd1Et(preventionMasterForm.getHpSchd1Et());
+            pre.setHpSchd2Personnel(preventionMasterForm.getHpSchd2Personnel());
+            pre.setHpSchd2Wt(preventionMasterForm.getHpSchd2Wt());
+            pre.setHpSchd2Et(preventionMasterForm.getHpSchd2Et());
+            pre.setUpdDtm(LocalDateTime.now());
+            pre.setApproval(preventionMasterForm.getApproval());
+            pre.setDelAt(preventionMasterForm.getDelAt());
+            pre.setTempSave(preventionMasterForm.getTempSave());
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    /**
+     * 예방교육 리스트
+     * @author : jerry
+     * @version : 1.0.0
+     * 작성일 : 2021/09/15
+    **/
+    public Page<Prevention> getPreEduList(Pageable pageable,
+                                          SearchForm searchForm) {
+        if(searchForm.getSrchWord() == null || searchForm.getSrchWord().equals("")){
+            searchForm.setSrchWord("");
+        }
+        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
+        pageable = PageRequest.of(page, (searchForm.getPageSize() == null ? Constants.DEFAULT_PAGESIZE : searchForm.getPageSize()));
+        QPrevention qPrevention = QPrevention.prevention;
+        OrderSpecifier<Long> orderSpecifier = qPrevention.id.desc();
+        JPAQuery<Prevention> list = queryFactory
+                .select(Projections.fields(Prevention.class,
+                        qPrevention.id,
+                        qPrevention.schlNm,
+                        qPrevention.address,
+                        qPrevention.tel,
+                        qPrevention.regDtm,
+                        qPrevention.delAt,
+                        qPrevention.approval))
+                .from(qPrevention)
+                .where(qPrevention.schlNm.contains(searchForm.getSrchWord())
+                        .or(qPrevention.address.contains(searchForm.getSrchWord()))
+                        .or(qPrevention.tel.contains(searchForm.getSrchWord())))
+                .where()
+                .limit(pageable.getPageSize())
+                .offset(pageable.getOffset());
+                list.orderBy(orderSpecifier);
+        QueryResults<Prevention> mngList = list.fetchResults();
+        return new PageImpl<>(mngList.getResults(), pageable, mngList.getTotal());
+    }
+
+    public Prevention getPreEdu(Long id) {
+        return preventionRepository.findByIdAndDelAt(id,"N");
+    }
 
     //파트너스 신청
     public boolean partnersRegister(ApplicationForm applicationForm, MultipartFile attachedFile) throws Exception {
@@ -42,7 +145,6 @@ public class ApplicationService {
         applicationForm.setApproval("N");
         applicationForm.setDelAt("N");
         applicationForm.setRegDtm(LocalDateTime.now());
-        applicationForm.setUpdDtm(LocalDateTime.now());
         applicationForm.setAppDvTy(AppRollType.PARTNERS);
 
         //첨부파일이 있을 때
@@ -83,7 +185,6 @@ public class ApplicationService {
         applicationForm.setApproval("N");
         applicationForm.setDelAt("N");
         applicationForm.setRegDtm(LocalDateTime.now());
-        applicationForm.setUpdDtm(LocalDateTime.now());
         applicationForm.setAppDvTy(AppRollType.CREW);
 
         //첨부파일이 있을 때
@@ -121,7 +222,6 @@ public class ApplicationService {
         applicationForm.setApproval("N");
         applicationForm.setDelAt("N");
         applicationForm.setRegDtm(LocalDateTime.now());
-        applicationForm.setUpdDtm(LocalDateTime.now());
         applicationForm.setAppDvTy(AppRollType.DECLARE);
 
         //첨부파일이 있을 때

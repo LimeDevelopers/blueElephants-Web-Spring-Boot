@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "tbl_prevention")
+@Table(name = "tbl_prevention_master")
 @DynamicUpdate
 /**
  * ApplicationLecture 예방교육 신청 Entity
@@ -20,17 +20,17 @@ import java.time.LocalDateTime;
  * @version : 1.0.0
  * 작성일 : 2021/09/14
 **/
-public class Prevention {
+public class PreventionMaster {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pre_pid")
+    @Column(name = "pre_mst_pid")
     private Long id;
 
     @Column(name="mber_pid")
     private Long mberPid;
 
-    @Column(name="schl_pid")
-    private Long schlPid;
+    @Column(name="pre_pid")
+    private Long prePid;
 
     @Column(name="schl_nm")
     private String schlNm;
@@ -91,4 +91,7 @@ public class Prevention {
 
     @Column(name = "approval")
     private String approval;
+
+    @Column(name = "temp_save")
+    private String tempSave;
 }

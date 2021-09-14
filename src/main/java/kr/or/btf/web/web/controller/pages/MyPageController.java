@@ -93,6 +93,7 @@ public class MyPageController extends BaseCont {
     private final SurveyResponseService surveyResponseService;
     private final SurveyQuestionItemService surveyQuestionItemService;
     private final SurveyAnswerItemService surveyAnswerItemService;
+    private final ApplicationService applicationService;
 
     @RequestMapping("/pages/myPage/profile")
     public String profile(Model model,
@@ -128,6 +129,9 @@ public class MyPageController extends BaseCont {
                 }
             }
             model.addAttribute("childList", childList);
+        } else if (load.getMberDvTy().equals(UserRollType.INSTRUCTOR)) {
+            List<PreventionMaster> preventionMasters = applicationService.getPreEduMstList(load.getId());
+            model.addAttribute("preList", preventionMasters);
         }
 
         model.addAttribute("mc", "myPage");

@@ -10951,6 +10951,21 @@ text.shadow {
     background-color: #6d95e1;
     color: #fff;
 }
+.partners_edu_btn button {
+    width: 200px;
+    padding: 10px;
+    border-radius: 20px;
+    text-align: center;
+}
+.partners_edu_btn button.save_btn {
+    border: 1px solid #6d95e1;
+    color: #6d95e1;
+    margin-right: 10px;
+}
+.partners_edu_btn button.join_btn {
+    background-color: #6d95e1;
+    color: #fff;
+}
 
 /*
  2021/09/14

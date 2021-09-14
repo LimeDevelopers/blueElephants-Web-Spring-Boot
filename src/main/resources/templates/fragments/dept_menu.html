@@ -140,6 +140,53 @@
             </div>
         </div>
     </th:block>
+    <!--신청 모바일 dept-->
+    <th:block th:if="${mc eq 'application'}">
+        <div class="slider slide_menu">
+            <div>
+                <div class="sm_tit">
+                    <h3 th:classappend="${pageTitle eq '예방교육' ? 'sd_on pageon' : ''}">
+                        <a href="/pages/application/preeducationList">예방교육</a></h3>
+                </div>
+            </div>
+            <div>
+                <div class="sm_tit">
+                    <h3 th:classappend="${pageTitle eq '강사교육' ? 'sd_on pageon' : ''}">
+                        <a href="/pages/application/inseducation">강사교육</a></h3>
+                </div>
+            </div>
+            <div>
+                <div class="sm_tit">
+                    <h3 th:classappend="${pageTitle eq '지지크루' ? 'sd_on pageon' : ''}">
+                        <a href="/pages/application/zzcrew">지지크루</a></h3>
+                </div>
+            </div>
+            <div>
+                <div class="sm_tit">
+                    <h3 th:classappend="${pageTitle eq '지지선언' ? 'sd_on pageon' : ''}">
+                        <a href="/pages/application/zzdeclaration">지지선언</a></h3>
+                </div>
+            </div>
+            <div>
+                <div class="sm_tit">
+                    <h3 th:classappend="${pageTitle eq '파트너스' ? 'sd_on pageon' : ''}">
+                        <a href="/pages/application/partners">파트너스</a></h3>
+                </div>
+            </div>
+            <div>
+                <div class="sm_tit">
+                    <h3 th:classappend="${pageTitle eq '공모전' ? 'sd_on pageon' : ''}">
+                        <a href="/pages/application/contest">공모전</a></h3>
+                </div>
+            </div>
+            <div>
+                <div class="sm_tit">
+                    <h3 th:classappend="${pageTitle eq '행사' ? 'sd_on pageon' : ''}">
+                        <a href="/pages/application/event">행사</a></h3>
+                </div>
+            </div>
+        </div>
+    </th:block>
     <th:block th:if="${mc eq 'blueElephant'}">
         <div class="pc_menu">
             <ul class="pc_menu_inner">
@@ -251,51 +298,5 @@
             </ul>
         </div>
     </th:block>
-    <!--신청 모바일 dept-->
-    <th:block th:if="${mc eq 'application'}">
-        <div class="slider slide_menu">
-            <div>
-                <div class="sm_tit">
-                    <h3 th:classappend="${pageTitle eq '예방교육' ? 'sd_on pageon' : ''}">
-                        <a href="/pages/application/preeducation">예방교육</a></h3>
-                </div>
-            </div>
-            <div>
-                <div class="sm_tit">
-                    <h3 th:classappend="${pageTitle eq '강사교육' ? 'sd_on pageon' : ''}">
-                        <a href="/pages/application/inseducation">강사교육</a></h3>
-                </div>
-            </div>
-            <div>
-                <div class="sm_tit">
-                    <h3 th:classappend="${pageTitle eq '지지크루' ? 'sd_on pageon' : ''}">
-                        <a href="/pages/application/zzcrew">지지크루</a></h3>
-                </div>
-            </div>
-            <div>
-                <div class="sm_tit">
-                    <h3 th:classappend="${pageTitle eq '지지선언' ? 'sd_on pageon' : ''}">
-                        <a href="/pages/application/zzdeclaration">지지선언</a></h3>
-                </div>
-            </div>
-            <div>
-                <div class="sm_tit">
-                    <h3 th:classappend="${pageTitle eq '파트너스' ? 'sd_on pageon' : ''}">
-                        <a href="/pages/application/partners">파트너스</a></h3>
-                </div>
-            </div>
-            <div>
-                <div class="sm_tit">
-                    <h3 th:classappend="${pageTitle eq '공모전' ? 'sd_on pageon' : ''}">
-                        <a href="/pages/application/contest">공모전</a></h3>
-                </div>
-            </div>
-            <div>
-                <div class="sm_tit">
-                    <h3 th:classappend="${pageTitle eq '행사' ? 'sd_on pageon' : ''}">
-                        <a href="/pages/application/event">행사</a></h3>
-                </div>
-            </div>
-        </div>
-    </th:block>
+
 </div>

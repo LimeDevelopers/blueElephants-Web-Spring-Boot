@@ -4,8 +4,140 @@
     <th:block th:include="fragments/header"></th:block>
 </head>
 <script>
-    $(document).ready(function () {
+    /* 기본정보 */
+    let schlNm;
+    let tel;
+    let address;
+    let classesNum;
+    let personnel;
 
+    let hp_schd1_personnel;
+    let hp_schd1_et;
+    let hp_schd1_wt;
+
+    let hp_schd2_personnel;
+    let hp_schd2_et;
+    let hp_schd2_wt;
+
+    let result_qna1;
+    let result_qna2;
+    let result_qna3;
+    let result_qna4;
+    let result_qna5;
+
+    let agree1;
+    let agree2;
+
+    let tpSaveUs;
+
+    function fn_chkFiled() {
+        schlNm = $('#schlNm');
+        tel = $('#tel');
+        address = $('#address');
+        classesNum = $('#classesNum');
+        personnel = $('#personnel');
+
+        hp_schd1_personnel = $('#hp_schd1_personnel');
+        hp_schd1_et = $('#hp_schd1_et');
+        hp_schd1_wt = $('#hp_schd1_wt');
+
+        hp_schd2_personnel = $('#hp_schd2_personnel');
+        hp_schd2_et = $('#hp_schd2_et');
+        hp_schd2_wt = $('#hp_schd2_wt');
+
+        result_qna1 = $('input[name=resultQna1]');
+        result_qna2 = $('input[name=resultQna2]');
+        result_qna3 = $('input[name=resultQna3]');
+        result_qna4 = $('input[name=resultQna4]');
+        result_qna5 = $('input[name=resultQna5]');
+
+        agree1 = $('input[name=agree1]');
+        agree2 = $('input[name=agree2]');
+        if(!schlNm.val() || !tel.val() || !address.val() || !classesNum.val() || !personnel.val()) {
+            alert('학교정보가 존재하지않습니다. \n정상적인 경로를 이용하세요.')
+            location.href ='/pages/application/preeducationList'
+            return false;
+        }
+
+        if(!hp_schd1_personnel.val()) {
+            alert('희망 1안 작성은 필수입니다.')
+            hp_schd1_personnel.focus()
+            return false;
+        }
+        if(!hp_schd1_et.val()) {
+            alert('희망 1안 작성은 필수입니다.')
+            hp_schd1_et.focus()
+            return false;
+        }
+        if(!hp_schd1_wt.val()) {
+            alert('희망 1안 작성은 필수입니다.')
+            hp_schd1_wt.focus()
+            return false;
+        }
+
+        if(!result_qna1.is(":checked")) {
+            alert('확인사항을 체크하세요.')
+            result_qna1.focus()
+            return false;
+        }
+        if(!result_qna2.is(":checked")) {
+            alert('확인사항을 체크하세요.')
+            result_qna2.focus()
+            return false;
+        }
+        if(!result_qna3.is(":checked")) {
+            alert('확인사항을 체크하세요.')
+            result_qna3.focus()
+            return false;
+        }
+        if(!result_qna4.is(":checked")) {
+            alert('확인사항을 체크하세요.')
+            result_qna4.focus()
+            return false;
+        }
+        if(!result_qna5.is(":checked")) {
+            alert('확인사항을 체크하세요.')
+            result_qna5.focus()
+            return false;
+        }
+
+        if(!agree1.is(":checked")) {
+            alert('개인정보 수집 동의는 필수입니다..')
+            agree1.focus()
+            return false;
+        }
+        if(!agree2.is(":checked")) {
+            alert('개인정보 제공 동의는 필수입니다.')
+            agree2.focus()
+            return false;
+        }
+        return true;
+    }
+
+    function fn_register(gbn) {
+        $('#btnTemSave').prop('disabled', true);
+        $('#btnSave').prop('disabled', true);
+
+        if (!fn_chkFiled()) {
+            $('#btnTemSave').prop('disabled', false);
+            $('#btnSave').prop('disabled', false);
+            return false;
+        }
+        $('#tpSaveUs').val(gbn);
+        let frm = $('#form1');
+        frm.prop('action','/api/application/registerPreEdu')
+        frm.submit();
+    }
+    $(function(){
+        let pp = '[[${preventionMst.prePid}]]';
+        let ap = '[[${pre_pid}]]';
+
+        if(pp==ap){
+            alert("임시 저장된 데이터가 로드됩니다.");
+        }
+    });
+
+    $(document).ready(function () {
         <!--2021/09/21 kjw 개인정보활용동의서-->
         $('.info_accordion .agree_inner ul').click(function () {
             $(this).toggleClass('agree_on')
@@ -29,6 +161,11 @@
         <div class="sub_container">
             <th:block th:include="fragments/dept_menu"></th:block>
             <form id="form1" name="form1" method="post">
+                <th:block th:if="${preventionMst != null}">
+                    <input type="hidden" name="preMstPid" th:value="${preventionMst.id}">
+                </th:block>
+                <input type="hidden" name="prePid" th:value="${pre_pid}">
+                <input type="hidden" id="tpSaveUs" name="tempSave" value="N">
                 <div class="inner">
                     <div class="page_cont">
                         <h4 class="subtit pc review_title">학교로 찾아가는 예방교육</h4>
@@ -44,27 +181,41 @@
                                                     <span class="aster">*</span>
                                                 </div>
                                                 <div class="td">
-                                                    <input type="text" id="schlNm" name="schlNm">
-                                                    <button tpye="button" class="btn_line_blue" id="schl_chk">중복확인
-                                                    </button>
+                                                    <th:block th:if="${preventionMst == null}">
+                                                        <input type="text" id="schlNm" name="schlNm" th:value="${prevention.schlNm}" readonly>
+                                                    </th:block>
+                                                    <th:block th:if="${prevention == null}">
+                                                        <input type="text" id="schlNm" name="schlNm" th:value="${preventionMst.schlNm}" readonly>
+                                                    </th:block>
                                                 </div>
                                             </li>
                                             <li>
                                                 <div class="th">
-                                                    <label for="representPhone">대표번호</label>
+                                                    <label for="tel">대표번호</label>
                                                     <span class="aster">*</span>
                                                 </div>
                                                 <div class="td">
-                                                    <input type="text" id="representPhone" name="representPhone">
+                                                    <th:block th:if="${preventionMst == null}">
+                                                        <input type="text" id="tel" name="tel" th:value="${prevention.tel}" readonly>
+                                                    </th:block>
+                                                    <th:block th:if="${prevention == null}">
+                                                        <input type="text" id="tel" name="tel" th:value="${preventionMst.tel}" readonly>
+                                                    </th:block>
+
                                                 </div>
                                             </li>
                                             <li>
                                                 <div class="th">
-                                                    <label for="adress">주소</label>
+                                                    <label for="address">주소</label>
                                                     <span class="aster">*</span>
                                                 </div>
                                                 <div class="td">
-                                                    <input type="text" id="adress" name="adress">
+                                                    <th:block th:if="${preventionMst == null}">
+                                                        <input type="text" id="address" name="address" th:value="${prevention.address}" readonly>
+                                                    </th:block>
+                                                    <th:block th:if="${prevention == null}">
+                                                        <input type="text" id="address" name="address" th:value="${preventionMst.address}" readonly>
+                                                    </th:block>
                                                 </div>
                                             </li>
                                         </ul>
@@ -78,13 +229,16 @@
                                         <ul>
                                             <li>
                                                 <div class="th">
-                                                    <label for="banNum">학급수</label>
+                                                    <label for="classesNum">학급수</label>
                                                     <span class="aster"></span>
                                                 </div>
                                                 <div class="td">
-                                                    <!--임의id-->
-                                                    <input type="text" id="banNum" name="banNum"
-                                                           placeholder="총 학급수를 입력해주세요">
+                                                    <th:block th:if="${preventionMst == null}">
+                                                        <input type="text" id="classesNum" name="classesNum" placeholder="총 학급수를 입력해주세요"  th:value="${prevention.classesNum}" readonly>
+                                                    </th:block>
+                                                    <th:block th:if="${prevention == null}">
+                                                        <input type="text" id="classesNum" name="classesNum" placeholder="총 학급수를 입력해주세요"  th:value="${preventionMst.classesNum}" readonly>
+                                                    </th:block>
                                                 </div>
                                             </li>
                                             <li>
@@ -93,8 +247,12 @@
                                                     <span class="aster">*</span>
                                                 </div>
                                                 <div class="td">
-                                                    <input type="text" id="personnel" name="personnel"
-                                                           placeholder="총 인원수를 입력해주세요(단위 : 명)">
+                                                    <th:block th:if="${preventionMst == null}">
+                                                        <input type="text" id="personnel" name="personnel" th:value="${prevention.personnel}" readonly>
+                                                    </th:block>
+                                                    <th:block th:if="${prevention == null}">
+                                                        <input type="text" id="personnel" name="personnel" th:value="${preventionMst.personnel}" readonly>
+                                                    </th:block>
                                                 </div>
                                             </li>
                                         </ul>
@@ -102,7 +260,7 @@
                                 </div>
                             </div>
                             <div class="school_info">
-                                <h2>희망일정<span class="aster">*</span><small>희망일정에 대한 설명입니다.</small></h2>
+                                <h2>희망일정<span class="aster">*</span><small>희망일정에 대한 설명입니다. (1안만 작성 가능)</small></h2>
                                 <div class="sec_write join">
                                     <div class="tbl_write">
                                         <ul>
@@ -114,20 +272,30 @@
                                                 <div class="td">
                                                     <div>
                                                         <span>인원</span>
-                                                        <!--임의id-->
-                                                        <input type="text" id="1an_personnel" name="1an_personnel">
+                                                        <th:block th:if="${preventionMst == null}">
+                                                            <input type="text" id="hp_schd1_personnel" name="hpSchd1Personnel" placeholder="희망 인원을 입력하세요.">
+                                                        </th:block>
+                                                        <th:block th:if="${prevention == null}">
+                                                            <input type="text" id="hp_schd1_personnel" name="hpSchd1Personnel" placeholder="희망 인원을 입력하세요." th:value="${preventionMst.hpSchd1Personnel}">
+                                                        </th:block>
                                                     </div>
                                                     <div>
                                                         <span>교육시간</span>
-                                                        <!--임의id-->
-                                                        <input type="text" id="1an_edu_time" name="1an_edu_time">
-
+                                                        <th:block th:if="${preventionMst == null}">
+                                                            <input type="text" id="hp_schd1_et" name="hpSchd1Et" placeholder="ex) 09:00 ~ 12:00">
+                                                        </th:block>
+                                                        <th:block th:if="${prevention == null}">
+                                                            <input type="text" id="hp_schd1_et" name="hpSchd1Et" placeholder="희망 인원을 입력하세요." th:value="${preventionMst.hpSchd1Et}">
+                                                        </th:block>
                                                     </div>
                                                     <div>
                                                         <span>일과시간</span>
-                                                        <!--임의id-->
-                                                        <input type="text" id="1an_run_time" name="1an_run_time">
-
+                                                        <th:block th:if="${preventionMst == null}">
+                                                            <input type="text" id="hp_schd1_wt" name="hpSchd1Wt" placeholder="ex) 09:00 ~ 12:00">
+                                                        </th:block>
+                                                        <th:block th:if="${prevention == null}">
+                                                            <input type="text" id="hp_schd1_wt" name="hpSchd1Wt" placeholder="희망 인원을 입력하세요." th:value="${preventionMst.hpSchd1Wt}">
+                                                        </th:block>
                                                     </div>
                                                 </div>
                                             </li>
@@ -139,18 +307,30 @@
                                                 <div class="td">
                                                     <div>
                                                         <span>인원</span>
-                                                        <!--임의id-->
-                                                        <input type="text" id="2an_personnel" name="2an_personnel">
+                                                        <th:block th:if="${preventionMst == null}">
+                                                            <input type="text" id="hp_schd2_personnel" name="hpSchd2Personnel" placeholder="희망 인원을 입력하세요.">
+                                                        </th:block>
+                                                        <th:block th:if="${prevention == null}">
+                                                            <input type="text" id="hp_schd2_personnel" name="hpSchd2Personnel" placeholder="희망 인원을 입력하세요." th:value="${preventionMst.hpSchd2Personnel}">
+                                                        </th:block>
                                                     </div>
                                                     <div>
                                                         <span>교육시간</span>
-                                                        <!--임의id-->
-                                                        <input type="text" id="2an_edu_time" name="2an_edu_time">
+                                                        <th:block th:if="${preventionMst == null}">
+                                                            <input type="text" id="hp_schd2_et" name="hpSchd2Et" placeholder="ex) 09:00 ~ 12:00">
+                                                        </th:block>
+                                                        <th:block th:if="${prevention == null}">
+                                                            <input type="text" id="hp_schd2_et" name="hpSchd2Et" placeholder="희망 인원을 입력하세요." th:value="${preventionMst.hpSchd2Et}">
+                                                        </th:block>
                                                     </div>
                                                     <div>
                                                         <span>일과시간</span>
-                                                        <!--임의id-->
-                                                        <input type="text" id="2an_run_time" name="2an_run_time">
+                                                        <th:block th:if="${preventionMst == null}">
+                                                            <input type="text" id="hp_schd2_wt" name="hpSchd2Wt" placeholder="ex) 09:00 ~ 12:00">
+                                                        </th:block>
+                                                        <th:block th:if="${prevention == null}">
+                                                            <input type="text" id="hp_schd2_wt" name="hpSchd2Wt" placeholder="희망 인원을 입력하세요." th:value="${preventionMst.hpSchd2Wt}">
+                                                        </th:block>
                                                     </div>
                                                 </div>
                                             </li>
@@ -163,88 +343,178 @@
                                 <div class="sec_write join">
                                     <div class="chk_item">
                                         <span>① 교육대상 사이버폭력 설문조사 가능 여부</span>
-                                        <div class="radio_inner">
-                                            <div>
-                                                <input type="radio" name="chk001" id="chk_01">
-                                                <label for="chk_01">
-                                                    <span>가능함</span>
-                                                </label>
+                                        <th:block th:if="${preventionMst == null}">
+                                            <div class="radio_inner">
+                                                <div>
+                                                    <input type="radio" name="resultQna1" id="chk_01" value="Y">
+                                                    <label for="chk_01">
+                                                        <span>가능함</span>
+                                                    </label>
+                                                </div>
+                                                <div>
+                                                    <input type="radio" name="resultQna1" id="chk_02" value="N">
+                                                    <label for="chk_02">
+                                                        <span>가능하지않음</span>
+                                                    </label>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <input type="radio" name="chk001" id="chk_02">
-                                                <label for="chk_02">
-                                                    <span>가능하지않음</span>
-                                                </label>
+                                        </th:block>
+                                        <th:block th:if="${prevention == null}">
+                                            <div class="radio_inner">
+                                                <div>
+                                                    <input type="radio" name="resultQna1" id="chk_01" value="Y" th:checked="${preventionMst.resultQna1 == 'Y' ? true : false}">
+                                                    <label for="chk_01">
+                                                        <span>가능함</span>
+                                                    </label>
+                                                </div>
+                                                <div>
+                                                    <input type="radio" name="resultQna1" id="chk_02" value="N" th:checked="${preventionMst.resultQna1 == 'N' ? true : false}">
+                                                    <label for="chk_02">
+                                                        <span>가능하지않음</span>
+                                                    </label>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </th:block>
                                     </div>
                                     <div class="chk_item">
                                         <span>② 교육대상 개인정보 수집 이용 동의 요청 가능 여부</span>
-                                        <div class="radio_inner">
-                                            <div>
-                                                <input type="radio" name="chk002" id="chk_03">
-                                                <label for="chk_03">
-                                                    <span>가능함</span>
-                                                </label>
+                                        <th:block th:if="${preventionMst == null}">
+                                            <div class="radio_inner">
+                                                <div>
+                                                    <input type="radio" name="resultQna2" id="chk_03" value="Y">
+                                                    <label for="chk_03">
+                                                        <span>가능함</span>
+                                                    </label>
+                                                </div>
+                                                <div>
+                                                    <input type="radio" name="resultQna2" id="chk_04" value="N">
+                                                    <label for="chk_04">
+                                                        <span>가능하지않음</span>
+                                                    </label>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <input type="radio" name="chk002" id="chk_04">
-                                                <label for="chk_04">
-                                                    <span>가능하지않음</span>
-                                                </label>
+                                        </th:block>
+                                        <th:block th:if="${prevention == null}">
+                                            <div class="radio_inner">
+                                                <div>
+                                                    <input type="radio" name="resultQna2" id="chk_03" value="Y" th:checked="${preventionMst.resultQna2 == 'Y' ? true : false}">
+                                                    <label for="chk_03">
+                                                        <span>가능함</span>
+                                                    </label>
+                                                </div>
+                                                <div>
+                                                    <input type="radio" name="resultQna2" id="chk_04" value="N" th:checked="${preventionMst.resultQna2 == 'N' ? true : false}">
+                                                    <label for="chk_04">
+                                                        <span>가능하지않음</span>
+                                                    </label>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </th:block>
                                     </div>
                                     <div class="chk_item">
                                         <span>③ 푸른코끼리 학교장 선언 운동 참여 의사</span>
-                                        <div class="radio_inner">
-                                            <div>
-                                                <input type="radio" name="chk003" id="chk_05">
-                                                <label for="chk_05">
-                                                    <span>있음</span>
-                                                </label>
+                                        <th:block th:if="${preventionMst == null}">
+                                            <div class="radio_inner">
+                                                <div>
+                                                    <input type="radio" name="resultQna3" id="chk_05" value="Y">
+                                                    <label for="chk_05">
+                                                        <span>있음</span>
+                                                    </label>
+                                                </div>
+                                                <div>
+                                                    <input type="radio" name="resultQna3" id="chk_06" value="N">
+                                                    <label for="chk_06">
+                                                        <span>없음</span>
+                                                    </label>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <input type="radio" name="chk003" id="chk_06">
-                                                <label for="chk_06">
-                                                    <span>없음</span>
-                                                </label>
+                                        </th:block>
+                                        <th:block th:if="${prevention == null}">
+                                            <div class="radio_inner">
+                                                <div>
+                                                    <input type="radio" name="resultQna3" id="chk_05" value="Y" th:checked="${preventionMst.resultQna3 == 'Y' ? true : false}">
+                                                    <label for="chk_05">
+                                                        <span>가능함</span>
+                                                    </label>
+                                                </div>
+                                                <div>
+                                                    <input type="radio" name="resultQna3" id="chk_06" value="N" th:checked="${preventionMst.resultQna3 == 'N' ? true : false}">
+                                                    <label for="chk_06">
+                                                        <span>가능하지않음</span>
+                                                    </label>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </th:block>
                                     </div>
                                     <div class="chk_item">
                                         <span>④ 푸른코끼리 지지크루(동아리) 신청 의사</span>
-                                        <div class="radio_inner">
-                                            <div>
-                                                <input type="radio" name="chk004" id="chk_07">
-                                                <label for="chk_07">
-                                                    <span>있음</span>
-                                                </label>
+                                        <th:block th:if="${preventionMst == null}">
+                                            <div class="radio_inner">
+                                                <div>
+                                                    <input type="radio" name="resultQna4" id="chk_07" value="Y">
+                                                    <label for="chk_07">
+                                                        <span>있음</span>
+                                                    </label>
+                                                </div>
+                                                <div>
+                                                    <input type="radio" name="resultQna4" id="chk_08" value="N">
+                                                    <label for="chk_08">
+                                                        <span>없음</span>
+                                                    </label>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <input type="radio" name="chk004" id="chk_08">
-                                                <label for="chk_08">
-                                                    <span>없음</span>
-                                                </label>
+                                        </th:block>
+                                        <th:block th:if="${prevention == null}">
+                                            <div class="radio_inner">
+                                                <div>
+                                                    <input type="radio" name="resultQna4" id="chk_07" value="Y" th:checked="${preventionMst.resultQna4 == 'Y' ? true : false}">
+                                                    <label for="chk_07">
+                                                        <span>가능함</span>
+                                                    </label>
+                                                </div>
+                                                <div>
+                                                    <input type="radio" name="resultQna4" id="chk_08" value="N" th:checked="${preventionMst.resultQna4 == 'N' ? true : false}">
+                                                    <label for="chk_08">
+                                                        <span>가능하지않음</span>
+                                                    </label>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </th:block>
                                     </div>
                                     <div class="chk_item">
                                         <span>⑤ 푸른코끼리 대국민 비폭력 캠페인 참여 의사</span>
-                                        <div class="radio_inner">
-                                            <div>
-                                                <input type="radio" name="chk005" id="chk_09">
-                                                <label for="chk_09">
-                                                    <span>있음</span>
-                                                </label>
+                                        <th:block th:if="${preventionMst == null}">
+                                            <div class="radio_inner">
+                                                <div>
+                                                    <input type="radio" name="resultQna5" id="chk_09" value="Y">
+                                                    <label for="chk_09">
+                                                        <span>있음</span>
+                                                    </label>
+                                                </div>
+                                                <div>
+                                                    <input type="radio" name="resultQna5" id="chk_10" value="N">
+                                                    <label for="chk_10">
+                                                        <span>없음</span>
+                                                    </label>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <input type="radio" name="chk005" id="chk_10">
-                                                <label for="chk_10">
-                                                    <span>없음</span>
-                                                </label>
+                                        </th:block>
+                                        <th:block th:if="${prevention == null}">
+                                            <div class="radio_inner">
+                                                <div>
+                                                    <input type="radio" name="resultQna5" id="chk_09" value="Y" th:checked="${preventionMst.resultQna5 == 'Y' ? true : false}">
+                                                    <label for="chk_09">
+                                                        <span>가능함</span>
+                                                    </label>
+                                                </div>
+                                                <div>
+                                                    <input type="radio" name="resultQna5" id="chk_10" value="N" th:checked="${preventionMst.resultQna5 == 'N' ? true : false}">
+                                                    <label for="chk_10">
+                                                        <span>가능하지않음</span>
+                                                    </label>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </th:block>
                                     </div>
                                 </div>
                             </div>
@@ -252,7 +522,7 @@
                                 <h2>개인정보 수집 ・ 이용 동의서</h2>
                                 <div class="agree_item_01 agree_item">
                                     <div class="agree_top">
-                                        <input type="checkbox" id="chk_11">
+                                        <input type="checkbox" id="chk_11" name="agree1">
                                         <label for="chk_11">
                                             <span>[ 개인정보 수집 이용에 대한 동의 ]</span>
                                         </label>
@@ -280,7 +550,7 @@
                                 </div>
                                 <div class="agree_item_02 agree_item">
                                     <div class="agree_top">
-                                        <input type="checkbox" id="chk_12">
+                                        <input type="checkbox" id="chk_12" name="agree2">
                                         <label for="chk_12">
                                             <span>[ 개인정보의 제3자 제공에 대한 동의  ]</span>
                                         </label>
@@ -304,8 +574,8 @@
                                 </p>
                             </div>
                             <div class="partners_edu_btn">
-                                <a class="save_btn" href="#none" id="btnTemSave">임시저장</a>
-                                <a class="join_btn" href="#none" id="btnSave">제출하기</a>
+                                <button class="save_btn" id="btnTemSave" onclick="return fn_register('Y')">임시저장</button>
+                                <button class="join_btn" id="btnSave" onclick="return fn_register('N')">제출하기</button>
                             </div>
                         </div>
                     </div>

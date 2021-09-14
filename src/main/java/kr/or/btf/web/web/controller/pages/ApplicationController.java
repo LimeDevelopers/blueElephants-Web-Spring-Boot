@@ -4,16 +4,25 @@ package kr.or.btf.web.web.controller.pages;
 
 import kr.or.btf.web.common.annotation.CurrentUser;
 import kr.or.btf.web.domain.web.Account;
+import kr.or.btf.web.domain.web.Prevention;
+import kr.or.btf.web.domain.web.PreventionMaster;
 import kr.or.btf.web.domain.web.enums.AppRollType;
+import kr.or.btf.web.domain.web.enums.MberDvType;
 import kr.or.btf.web.domain.web.enums.UserRollType;
 import kr.or.btf.web.services.web.ApplicationService;
 import kr.or.btf.web.web.form.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Optional;
+
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class  ApplicationController {
@@ -76,10 +85,73 @@ public class  ApplicationController {
     }
 
 
+    @RequestMapping("/pages/application/preeducationList")
+    public String PreEducationList(Model model,
+                                   @CurrentUser Account account,
+                                   Pageable pageable,
+                                   SearchForm searchForm) {
+        if(account == null) {
+            model.addAttribute("altmsg", "로그인 후 이용가능합니다.");
+            model.addAttribute("locurl", "/login");
+            return "/message";
+        } else {
+            if(!account.getMberDvTy().equals(UserRollType.INSTRUCTOR)){
+                model.addAttribute("altmsg", "예방 강사만 이용 가능합니다.");
+                model.addAttribute("locurl", "/");
+                return "/message";
+            } else {
+                Page<Prevention> preventionPage = applicationService.getPreEduList(pageable, searchForm);
+                model.addAttribute("preList", preventionPage);
+            }
+        }
+        model.addAttribute("mc", "application");
+        model.addAttribute("pageTitle", "예방교육");
+        return "pages/application/preeducationList";
+    }
+
+    @PostMapping("/api/application/registerPreEdu")
+    public String registerPreEdu(Model model,
+                                 @CurrentUser Account account,
+                                 PreventionMasterForm preventionMasterForm) {
+        boolean result;
+        if(account!=null && account.getMberDvTy().equals(UserRollType.INSTRUCTOR)) {
+            PreventionMaster preventionMaster = applicationService.getPreEduMst(preventionMasterForm.getPrePid(), account.getId());
+            if(preventionMaster != null) {
+                if(preventionMaster.getTempSave().equals("N")){
+                    model.addAttribute("altmsg", "이미 신청완료된 학교입니다. \n 결과 승인은 평일 기준 3-5일 소요됩니다.");
+                    model.addAttribute("locurl", "/pages/application/preeducationList");
+                    return "/message";
+                }
+                result = applicationService.updatePreEdu(preventionMasterForm);
+            } else {
+                preventionMasterForm.setMberPid(account.getId());
+                result = applicationService.registerPreEdu(preventionMasterForm);
+            }
+        } else {
+            if(account!=null){
+                model.addAttribute("altmsg", "예방 강사만 이용 가능합니다.");
+                model.addAttribute("locurl", "/");
+            } else {
+                model.addAttribute("altmsg", "로그인 후 이용가능합니다.");
+                model.addAttribute("locurl", "/login");
+            }
+            return "/message";
+        }
+        if(!result){
+            model.addAttribute("altmsg", "에러발생! 관리자에게 문의하세요.");
+            model.addAttribute("locurl", "/pages/application/preeducationList");
+            return "/message";
+        }
+
+        model.addAttribute("mc", "MyPage");
+        model.addAttribute("pageTitle", "마이페이지");
+        return "pages/myPage/preEduList";
+    }
 
     //페이지 이동 컨트롤러
-    @GetMapping("/pages/application/preeducation")
+    @GetMapping("/pages/application/preeducation/{id}")
     public String PreEducation(Model model,
+                               @PathVariable("id") Long id,
                                @CurrentUser Account account) {
         if(account == null) {
             model.addAttribute("altmsg", "로그인 후 이용가능합니다.");
@@ -91,12 +163,29 @@ public class  ApplicationController {
                 model.addAttribute("locurl", "/");
                 return "/message";
             } else {
-
+                PreventionMaster preventionMaster = applicationService.getPreEduMst(id,account.getId());
+                if(preventionMaster==null){
+                    Prevention prevention = applicationService.getPreEdu(id);
+                    model.addAttribute("prevention", prevention);
+                    if(prevention.getDelAt().equals("Y")){
+                        model.addAttribute("altmsg", "삭제된 게시글입니다.");
+                        model.addAttribute("locurl", "/pages/application/preeducationList");
+                        return "/message";
+                    }
+                } else {
+                    if(preventionMaster.getTempSave().equals("N")){
+                        model.addAttribute("altmsg", "이미 신청완료된 학교입니다. \n 결과 승인은 평일 기준 3-5일 소요됩니다.");
+                        model.addAttribute("locurl", "/pages/application/preeducationList");
+                        return "/message";
+                    }
+                    model.addAttribute("preventionMst", preventionMaster);
+                }
             }
         }
+        model.addAttribute("pre_pid", id);
         model.addAttribute("mc", "application");
         model.addAttribute("pageTitle", "예방교육");
-        return "pages/application/preeducation";
+        return "pages/application/preeducationRegister";
     }
 
     @GetMapping("/pages/application/inseducation")

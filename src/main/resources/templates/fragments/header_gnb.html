@@ -53,7 +53,7 @@
                     <th:block th:if="${#authorization.getAuthentication() != null and #authorization.expression('isAuthenticated()')}">
                         <a href="javascript:;" class="btn_login btn_user"><th:block sec:authentication="principal.account.ncnm"></th:block>님</a>
                         <ul class="user_mnu">
-                            <li class="pc" sec:authorize="hasAnyRole('ROLE_NORMAL', 'ROLE_STUDENT', 'ROLE_PARENT', 'ROLE_TEACHER')">
+                            <li class="pc" sec:authorize="hasAnyRole('ROLE_NORMAL', 'ROLE_STUDENT', 'ROLE_PARENT', 'ROLE_TEACHER', 'ROLE_INSTRUCTOR')">
                                 <a href="/pages/myPage/profile">마이페이지</a>
                             </li>
                             <li sec:authorize="hasAnyRole('ROLE_MASTER', 'ROLE_ADMIN', 'ROLE_LECTURER', 'ROLE_COUNSELOR')">
@@ -120,7 +120,7 @@
                     </li>
                     <li th:classappend="${mc eq 'application' ? 'active' : ''}">
                         <!--                        <a href="/pages/activity/preventionEdu/NORMAL">신청</a>-->
-                        <a href="/pages/application/preeducation">신청</a>
+                        <a href="/pages/application/preeducationList">신청</a>
                         <ul class="sub_list">
                             <li><a href="/pages/application/preeducationList">예방교육</a></li>
                             <li><a href="/pages/application/inseducation">강사교육</a></li>
@@ -227,7 +227,7 @@
                         </ul>-->
                         <strong>신청</strong>
                         <ul class="mo_mnu_list">
-                            <li><a href="/pages/application/preeducation">예방교육</a></li>
+                            <li><a href="/pages/application/preeducationList">예방교육</a></li>
                             <li><a href="/pages/application/inseducation">강사교육</a></li>
                             <li><a href="/pages/application/zzcrew">지지크루</a></li>
                             <li><a href="/pages/application/zzdeclaration">지지선언</a></li>
