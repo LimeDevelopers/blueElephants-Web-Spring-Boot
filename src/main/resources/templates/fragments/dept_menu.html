@@ -298,5 +298,19 @@
             </ul>
         </div>
     </th:block>
-
+    <th:block th:if="${mc eq 'insMyPage'}">
+        <div class="pc_menu">
+            <ul class="pc_menu_inner">
+                <li th:class="${pageTitle eq '계정정보' ? 'pc_on' : ''}">
+                    <a href="/pages/blueElephant/cyberBullying">계정정보</a>
+                </li>
+                <li th:class="${pageTitle eq '푸른코끼리' ? 'pc_on' : ''}">
+                    <a href="/pages/blueElephant/blueElephant">푸른코끼리</a>
+                </li>
+                <li th:class="${pageTitle eq '푸른캐릭터' ? 'pc_on' : ''}">
+                    <a href="/pages/blueElephant/character">푸른캐릭터</a>
+                </li>
+            </ul>
+        </div>
+    </th:block>
 </div>

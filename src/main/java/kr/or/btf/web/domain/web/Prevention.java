@@ -47,39 +47,6 @@ public class Prevention {
     @Column(name="personnel")
     private Integer personnel;
 
-    @Column(name = "hp_schd1_personnel")
-    private String hpSchd1Personnel;
-
-    @Column(name = "hp_schd1_et")
-    private String hpSchd1Et;
-
-    @Column(name = "hp_schd1_wt")
-    private String hpSchd1Wt;
-
-    @Column(name = "hp_schd2_personnel")
-    private String hpSchd2Personnel;
-
-    @Column(name = "hp_schd2_et")
-    private String hpSchd2Et;
-
-    @Column(name = "hp_schd2_wt")
-    private String hpSchd2Wt;
-
-    @Column(name = "result_qna1")
-    private String resultQna1;
-
-    @Column(name = "result_qna2")
-    private String resultQna2;
-
-    @Column(name = "result_qna3")
-    private String resultQna3;
-
-    @Column(name = "result_qna4")
-    private String resultQna4;
-
-    @Column(name = "result_qna5")
-    private String resultQna5;
-
     @Column(name = "reg_dtm")
     private LocalDateTime regDtm;
 

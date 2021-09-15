@@ -30,6 +30,9 @@
 
     let tpSaveUs;
 
+    let atPid;
+    let pid;
+
     function fn_chkFiled() {
         schlNm = $('#schlNm');
         tel = $('#tel');
@@ -128,17 +131,14 @@
         frm.prop('action','/api/application/registerPreEdu')
         frm.submit();
     }
-    $(function(){
-        let pp = '[[${preventionMst.prePid}]]';
-        let ap = '[[${pre_pid}]]';
-
-        if(pp==ap){
-            alert("임시 저장된 데이터가 로드됩니다.");
-        }
-    });
 
     $(document).ready(function () {
-        <!--2021/09/21 kjw 개인정보활용동의서-->
+        atPid = $('#atPrePid');
+        pid = $('#prePid');
+        if(atPid.val()==pid.val()){
+            alert("임시 저장된 데이터가 로드됩니다.");
+        }
+
         $('.info_accordion .agree_inner ul').click(function () {
             $(this).toggleClass('agree_on')
         })
@@ -162,9 +162,10 @@
             <th:block th:include="fragments/dept_menu"></th:block>
             <form id="form1" name="form1" method="post">
                 <th:block th:if="${preventionMst != null}">
-                    <input type="hidden" name="preMstPid" th:value="${preventionMst.id}">
+                    <input type="hidden" id="preMstPid" name="preMstPid" th:value="${preventionMst.id}">
+                    <input type="hidden" id="atPrePid" th:value="${preventionMst.prePid}">
                 </th:block>
-                <input type="hidden" name="prePid" th:value="${pre_pid}">
+                <input type="hidden" name="prePid" id="prePid" th:value="${pre_pid}">
                 <input type="hidden" id="tpSaveUs" name="tempSave" value="N">
                 <div class="inner">
                     <div class="page_cont">

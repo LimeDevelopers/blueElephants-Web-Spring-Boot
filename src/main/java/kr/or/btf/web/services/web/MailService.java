@@ -10,6 +10,7 @@ import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 
 import javax.mail.MessagingException;
+import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Map;
 
@@ -29,9 +30,12 @@ public class MailService {
 
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
+        InternetAddress from = new InternetAddress();
 
+        from = new InternetAddress("푸른코끼리<btf0098@naver.com>");
+        helper.setFrom(from);
         //메일 세팅
-        helper.setFrom(MailService.FROM_ADDRESS);
+        //helper.setFrom(new InternetAddress(MailService.FROM_ADDRESS));
         helper.setTo(mail.getAddress());
         helper.setSubject(mail.getTitle());
         //helper.setText(mail.getMessage());
