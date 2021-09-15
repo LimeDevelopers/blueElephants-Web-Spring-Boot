@@ -19,6 +19,58 @@
 
 <div class="depths_02_inner" xmlns:th="http://www.thymeleaf.org"
      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <th:block th:if="${mc eq 'myPage'}">
+        <div class="slider slide_menu">
+            <div class="sm_tit">
+                <h3 th:classappend="${pageTitle eq '계정정보' ? 'sd_on pageon' : ''}">
+                    <a href="/pages/myPage/profile">계정정보</a></h3>
+            </div>
+            <div class="sm_tit">
+                <h3 th:classappend="${pageTitle eq '교육신청관리' ? 'sd_on pageon' : ''}" sec:authorize="hasAnyRole('ROLE_INSTRUCTOR')">
+                    <a href="/pages/myPage/selfTestResult">교육신청관리</a></h3>
+            </div>
+            <div class="sm_tit">
+                <h3 th:classappend="${pageTitle eq '프로필관리' ? 'sd_on pageon' : ''}" sec:authorize="hasAnyRole('ROLE_INSTRUCTOR')">
+                    <a href="/pages/myPage/selfTestResult">프로필관리</a></h3>
+            </div>
+            <div class="sm_tit">
+                <h3 th:classappend="${pageTitle eq '활동내역' ? 'sd_on pageon' : ''}"sec:authorize="!hasAnyRole('ROLE_INSTRUCTOR')">
+                    <a href="/pages/myPage/activity">활동내역</a></h3>
+            </div>
+            <div class="sm_tit">
+                <h3 th:classappend="${pageTitle eq '학습현황' ? 'sd_on pageon' : ''}" sec:authorize="hasAnyRole('ROLE_TEACHER')">
+                    <a href="/pages/myPage/learningStatus">우리반 학습현황</a>
+            </div>
+            <div class="sm_tit">
+                <h3 th:classappend="${pageTitle eq '학습현황' ? 'sd_on pageon' : ''}" sec:authorize="hasAnyRole('ROLE_PARENT')">
+                    <a href="/pages/myPage/learningStatusDetail">우리아이 학습현황</a></h3>
+            </div>
+            <div class="sm_tit">
+                <h3 th:classappend="${pageTitle eq '또래지명' ? 'sd_on pageon' : ''}" sec:authorize="hasAnyRole('ROLE_STUDENT')">
+                    <a href="/pages/myPage/peer">또래지명</a></h3>
+            </div>
+            <div class="sm_tit">
+                <h3 th:classappend="${pageTitle eq '또래지명' ? 'sd_on pageon' : ''}" sec:authorize="hasAnyRole('ROLE_TEACHER')">
+                    <a href="/pages/myPage/peerStatus">또래지명</a></h3>
+            </div>
+            <div class="sm_tit">
+                <h3 th:classappend="${pageTitle eq 'My 상담' ? 'sd_on pageon' : ''}" sec:authorize="!hasAnyRole('ROLE_INSTRUCTOR')">
+                    <a href="/pages/myPage/counseling">My 상담</a></h3>
+            </div>
+            <div class="sm_tit">
+                <h3 th:classappend="${pageTitle eq 'My 강의실' ? 'sd_on pageon' : ''}" sec:authorize="!hasAnyRole('ROLE_INSTRUCTOR')">
+                    <a href="/pages/myPage/classroom">My 강의실</a></h3>
+            </div>
+            <div class="sm_tit">
+                <h3 th:classappend="${pageTitle eq 'My 제안' ? 'sd_on pageon' : ''}" sec:authorize="!hasAnyRole('ROLE_INSTRUCTOR')">
+                    <a href="/pages/myPage/proposal">My 제안</a></h3>
+            </div>
+            <div class="sm_tit">
+                <h3 th:classappend="${pageTitle eq '자가진단결과' ? 'sd_on pageon' : ''}" sec:authorize="!hasAnyRole('ROLE_INSTRUCTOR')">
+                    <a href="/pages/myPage/selfTestResult">자가진단결과</a></h3>
+            </div>
+        </div>
+    </th:block>
     <th:block th:if="${mc eq 'blueElephant'}">
         <div class="slider slide_menu">
             <div>
@@ -298,18 +350,22 @@
             </ul>
         </div>
     </th:block>
-    <th:block th:if="${mc eq 'insMyPage'}">
+
+    <th:block th:if="${mc eq 'myPage'}">
         <div class="pc_menu">
             <ul class="pc_menu_inner">
-                <li th:class="${pageTitle eq '계정정보' ? 'pc_on' : ''}">
-                    <a href="/pages/blueElephant/cyberBullying">계정정보</a>
-                </li>
-                <li th:class="${pageTitle eq '푸른코끼리' ? 'pc_on' : ''}">
-                    <a href="/pages/blueElephant/blueElephant">푸른코끼리</a>
-                </li>
-                <li th:class="${pageTitle eq '푸른캐릭터' ? 'pc_on' : ''}">
-                    <a href="/pages/blueElephant/character">푸른캐릭터</a>
-                </li>
+                <li th:classappend="${pageTitle eq '계정정보' ? 'pc_on' : ''}"><a href="/pages/myPage/profile">계정정보</a></li>
+                <li th:classappend="${pageTitle eq '교육신청관리' ? 'pc_on' : ''}" sec:authorize="hasAnyRole('ROLE_INSTRUCTOR')"><a href="/pages/myPage/selfTestResult">교육신청관리</a></li>
+                <li th:classappend="${pageTitle eq '프로필관리' ? 'pc_on' : ''}" sec:authorize="hasAnyRole('ROLE_INSTRUCTOR')"><a href="/pages/myPage/selfTestResult">프로필관리</a></li>
+                <li th:classappend="${pageTitle eq '활동내역' ? 'pc_on' : ''}" sec:authorize="!hasAnyRole('ROLE_INSTRUCTOR')"><a href="/pages/myPage/activity">활동내역</a></li>
+                <li th:classappend="${pageTitle eq '학습현황' ? 'pc_on' : ''}" sec:authorize="hasAnyRole('ROLE_TEACHER')"><a href="/pages/myPage/learningStatus">우리반 학습현황</a></li>
+                <li th:classappend="${pageTitle eq '학습현황' ? 'pc_on' : ''}" sec:authorize="hasAnyRole('ROLE_PARENT')"><a href="/pages/myPage/learningStatusDetail">우리아이 학습현황</a></li>
+                <li th:classappend="${pageTitle eq '또래지명' ? 'pc_on' : ''}" sec:authorize="hasAnyRole('ROLE_STUDENT')"><a href="/pages/myPage/peer">또래지명</a></li>
+                <li th:classappend="${pageTitle eq '또래지명' ? 'pc_on' : ''}" sec:authorize="hasAnyRole('ROLE_TEACHER')"><a href="/pages/myPage/peerStatus">또래지명</a></li>
+                <li th:classappend="${pageTitle eq 'My 상담' ? 'pc_on' : ''}" sec:authorize="!hasAnyRole('ROLE_INSTRUCTOR')"><a href="/pages/myPage/counseling">My 상담</a></li>
+                <li th:classappend="${pageTitle eq 'My 강의실' ? 'pc_on' : ''}" sec:authorize="!hasAnyRole('ROLE_INSTRUCTOR')"><a href="/pages/myPage/classroom">My 강의실</a></li>
+                <li th:classappend="${pageTitle eq 'My 제안' ? 'pc_on' : ''}" sec:authorize="!hasAnyRole('ROLE_INSTRUCTOR')"><a href="/pages/myPage/proposal">My 제안</a></li>
+                <li th:classappend="${pageTitle eq '자가진단결과' ? 'pc_on' : ''}" sec:authorize="!hasAnyRole('ROLE_INSTRUCTOR')"><a href="/pages/myPage/selfTestResult">자가진단결과</a></li>
             </ul>
         </div>
     </th:block>

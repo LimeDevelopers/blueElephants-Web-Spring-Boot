@@ -2,71 +2,6 @@
 <html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:include="fragments/header"></th:block>
-    <script>
-        $(function(){
-            characSize();
-            $(window).resize(function(){
-                characSize();
-            });
-
-            $("#pwd").keydown(function(key) {
-                if (key.keyCode == 13) {
-                    //fn_moveDetail();
-                    fn_checkPw();
-                }
-            });
-        });
-
-        function characSize(){
-            var winW = $(window).width();
-
-            if(winW > 1023){
-                var characH = $('.sec_write.info > .tbl_write').outerHeight();
-                $('.my_character').css({'height':characH});
-            }else{
-                $('.my_character').removeAttr('style');
-            }
-        }
-
-        function fn_checkPw() {
-            var pwd = $('#pwd').val();
-            var jsonData = {
-                'pwd': pwd
-            }
-            $.ajax({
-                type: 'post',
-                url: '/api/profile/checkPwd',
-                contentType: "application/json",
-                data: JSON.stringify(jsonData),
-                datatype: 'text',
-                success: function (data) {
-                    if (data === 'ok') {
-                        fn_moveDetail();
-                    } else {
-                        alert('비밀번호가 다릅니다.');
-                        $('#pwd').val('');
-                        $('#pwd').focus();
-                    }
-                },
-                error: function (error) {
-                    //alert('save error!!!');
-                    alert('error::' + error.statusText);
-                }
-            });
-        }
-
-        function fn_moveDetail() {
-            var frm = $('#form2');
-            frm.prop("action", "/pages/myPage/profileRegister");
-            frm.submit();
-        }
-
-        function fn_openLayer() {
-            $('#pwd').val('');
-            layerShow('popPw');
-            $('#pwd').focus();
-        }
-    </script>
 </head>
 <body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
 <div id="wrap">
@@ -75,60 +10,7 @@
         <th:block th:include="fragments/mo_menu"></th:block>
         <div class="sub_container">
             <th:block th:include="fragments/dept_menu"></th:block>
-        <form id="form1" name="form1" method="post" th:object="${form}">
-            <div class="contents">
-                <div class="page_top">
-                    <h3 class="page_tit">계정정보</h3>
-                    <span>회원정보를 최신정보로 관리해주세요. <br class="mo" />새로운 푸코소식과 보안을 위해 회원정보를 최신으로 업데이트 해주세요.</span>
-                </div>
-                <div class="page_cont my_profile">
-                    <div class="sec_write_area clearfix">
-                        <div class="sec_write info" style="width: auto">
-                            <h4 class="subtit">회원 기본정보</h4>
-                            <div class="tbl_write">
-                                <ul>
-                                    <li>
-                                        <div class="th">이름</div>
-                                        <div class="td td_txt" th:text="*{nm}">홍길동</div>
-                                    </li>
-                                    <li>
-                                        <div class="th">아이디</div>
-                                        <div class="td td_txt" th:text="*{loginId}">hong</div>
-                                    </li>
-                                    <li>
-                                        <div class="th">생년월일</div>
-                                        <div class="td td_txt" th:text="*{brthdy}">2007.01.15</div>
-                                    </li>
-                                    <li>
-                                        <div class="th">성별</div>
-                                        <div class="td td_txt">
-                                            <th:block th:each="tp : ${T(kr.or.btf.web.domain.web.enums.GenderType).values()}">
-                                                <th:block th:if="${form.sexPrTy eq tp.name()}" th:text="${tp.getName()}"></th:block>
-                                            </th:block>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="th">이메일 주소</div>
-                                        <div class="td td_txt" th:text="*{email}">hong@naver.com</div>
-                                    </li>
-                                    <li>
-                                        <div class="th">휴대전화</div>
-                                        <div class="td td_txt" th:text="*{moblphon}">010-1234-5678</div>
-                                    </li>
-                                    <li>
-                                        <div class="th">닉네임</div>
-                                        <div class="td td_txt" th:text="*{ncnm}">푸꼬</div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="btn_area">
-                    <a href="javascript:;" onclick="fn_openLayer();" class="btn btn_lg btn_blue btn_pill_10">수정</a>
-                </div>
-            </div>
-        </form>
+        dasd
     </div>
     <th:block th:replace="fragments/footer"></th:block>
 </div>

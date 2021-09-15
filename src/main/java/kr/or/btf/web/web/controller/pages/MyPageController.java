@@ -95,15 +95,6 @@ public class MyPageController extends BaseCont {
     private final SurveyAnswerItemService surveyAnswerItemService;
     private final ApplicationService applicationService;
 
-    @RequestMapping("/pages/myPage/insProfile")
-    public String insProfile(Model model,
-                          @CurrentUser Account account) {
-
-        model.addAttribute("form", account);
-        model.addAttribute("mc", "insMyPage");
-        model.addAttribute("pageTitle", "계정정보");
-        return "/pages/myPage/insProfile";
-    }
 
     @RequestMapping("/pages/myPage/profile")
     public String profile(Model model,
