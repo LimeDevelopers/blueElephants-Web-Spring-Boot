@@ -7,50 +7,62 @@
 <div id="wrap">
     <th:block th:include="fragments/header_gnb"></th:block>
     <div id="container">
-        <th:block th:include="fragments/snb"></th:block>
+        <th:block th:include="fragments/mo_menu"></th:block>
+        <div class="sub_container">
+            <th:block th:include="fragments/dept_menu"></th:block>
 
-        <form id="form1" name="form1" method="post">
-            <div class="contents">
-                <div class="page_top pc">
-                    <h3 class="page_tit">My 강의실</h3>
-                    <span>회원정보를 최신정보로 관리해주세요. 새로운 푸코소식과 보안을 위해 회원정보를 최신으로 업데이트 해주세요.</span>
-                </div>
-                <div class="page_cont">
-                    <div class="tab_ico_area">
-                        <a href="javascript:;" class="tit">수강내역</a>
-                        <ul class="tab_type_ico">
-                            <li class="active"><a href="/pages/myPage/classroom">수강내역</a></li>
-                            <li class="mydataroom"><a href="/pages/myPage/eduDataRoom">내 교육자료실</a></li>
-                            <li class="certificate"><a href="/pages/myPage/certificate">교육이수증발급</a></li>
-                        </ul>
-                        <p class="mo_page_txt">회원정보를 최신정보로 관리해주세요. <br class="mo" />새로운 푸코소식과 보안을 위해 회원정보를 최신으로 업데이트 해주세요.</p>
+            <form id="form1" name="form1" method="post">
+                <div class="contents">
+                    <div class="page_top pc">
+                        <h3 class="page_tit">My 강의실</h3>
+                        <span>회원정보를 최신정보로 관리해주세요. 새로운 푸코소식과 보안을 위해 회원정보를 최신으로 업데이트 해주세요.</span>
                     </div>
-                    <h4 class="subtit pc">수강내역</h4>
-                    <p class="tip_tbl mb">※ 강의 제목을 클릭하시면, 상세내역 페이지로 이동합니다.</p>
-                    <ul class="board_tbl_list">
-                        <li class="thead">
-                            <strong class="no">No</strong>
-                            <strong class="tit">강의 제목</strong>
-                            <strong class="state">수강상태</strong>
-                            <strong class="date">수강신청일</strong>
-                        </li>
-                        <!--수강 중인 강의가 없을경우 : s-->
-                        <li class="nodata" th:if="${courseMasters == null or courseMasters.isEmpty()}">
-                            <div>수강 중인 강의가 없습니다.</div>
-                        </li>
-                        <!--수강 중인 강의가 없을경우 : e-->
-                        <li th:each="item,idx : ${courseMasters}">
-                            <div class="no" th:text="${courseMasters.totalElements - courseMasters.pageable.pageSize * courseMasters.pageable.pageNumber - idx.index}">4</div>
-                            <div class="tit"><a th:href="|/pages/myPage/classroomDetail/${item.atnlcReqPid}|" th:text="${item.crsNm}"> 사이버폭력예방교육 part1</a></div>
-                            <div class="state" th:text="${item.ingCnt > 0 ? '수강중' : '수강완료'}"></div>
-                            <div class="date"><span class="th">수강신청일 : </span><th:block th:text="${#temporals.format(item.requestRegDtm,'yyyy-MM-dd')}"></th:block></div>
-                        </li>
+                    <div class="page_cont">
+                        <div class="tab_ico_area">
+                            <a href="javascript:;" class="tit">수강내역</a>
+                            <ul class="tab_type_ico">
+                                <li class="active"><a href="/pages/myPage/classroom">수강내역</a></li>
+                                <li class="mydataroom"><a href="/pages/myPage/eduDataRoom">내 교육자료실</a></li>
+                                <li class="certificate"><a href="/pages/myPage/certificate">교육이수증발급</a></li>
+                            </ul>
+                            <p class="mo_page_txt">회원정보를 최신정보로 관리해주세요. <br class="mo"/>새로운 푸코소식과 보안을 위해 회원정보를 최신으로 업데이트
+                                해주세요.</p>
+                        </div>
+                        <h4 class="subtit pc">수강내역</h4>
+                        <p class="tip_tbl mb">※ 강의 제목을 클릭하시면, 상세내역 페이지로 이동합니다.</p>
+                        <ul class="board_tbl_list">
+                            <li class="thead">
+                                <strong class="no">No</strong>
+                                <strong class="tit">강의 제목</strong>
+                                <strong class="state">수강상태</strong>
+                                <strong class="date">수강신청일</strong>
+                            </li>
+                            <!--수강 중인 강의가 없을경우 : s-->
+                            <li class="nodata" th:if="${courseMasters == null or courseMasters.isEmpty()}">
+                                <div>수강 중인 강의가 없습니다.</div>
+                            </li>
+                            <!--수강 중인 강의가 없을경우 : e-->
+                            <li th:each="item,idx : ${courseMasters}">
+                                <div class="no"
+                                     th:text="${courseMasters.totalElements - courseMasters.pageable.pageSize * courseMasters.pageable.pageNumber - idx.index}">
+                                    4
+                                </div>
+                                <div class="tit"><a th:href="|/pages/myPage/classroomDetail/${item.atnlcReqPid}|"
+                                                    th:text="${item.crsNm}"> 사이버폭력예방교육 part1</a></div>
+                                <div class="state" th:text="${item.ingCnt > 0 ? '수강중' : '수강완료'}"></div>
+                                <div class="date"><span class="th">수강신청일 : </span>
+                                    <th:block
+                                            th:text="${#temporals.format(item.requestRegDtm,'yyyy-MM-dd')}"></th:block>
+                                </div>
+                            </li>
 
-                    </ul>
-                    <th:block th:replace="/fragments/paging :: pagingbody(list=${courseMasters}, link='/pages/myPage/classroom', formId='form1')"></th:block>
+                        </ul>
+                        <th:block
+                                th:replace="/fragments/paging :: pagingbody(list=${courseMasters}, link='/pages/myPage/classroom', formId='form1')"></th:block>
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
     <th:block th:replace="fragments/footer"></th:block>
 </div>

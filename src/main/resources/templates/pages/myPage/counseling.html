@@ -12,116 +12,134 @@
 <div id="wrap">
     <th:block th:include="fragments/header_gnb"></th:block>
     <div id="container">
-        <th:block th:include="fragments/snb"></th:block>
+        <th:block th:include="fragments/mo_menu"></th:block>
+        <div class="sub_container">
+            <th:block th:include="fragments/dept_menu"></th:block>
 
-        <form id="form1" name="form1" method="post">
-            <div class="contents">
-                <div class="page_top">
-                    <h3 class="page_tit">My 상담</h3>
-                    <span>회원정보를 최신정보로 관리해주세요. <br class="mo" />새로운 푸코소식과 보안을 위해 회원정보를 최신으로 업데이트 해주세요.</span>
+            <form id="form1" name="form1" method="post">
+                <div class="contents">
+                    <div class="page_top">
+                        <h3 class="page_tit">My 상담</h3>
+                        <span>회원정보를 최신정보로 관리해주세요. <br class="mo"/>새로운 푸코소식과 보안을 위해 회원정보를 최신으로 업데이트 해주세요.</span>
+                    </div>
+                    <div class="page_cont my_counseling">
+                        <div class="txt_box">
+                            <p>※ 비로그인 상담내역은 마이페이지에 나오지 않으며, 도움요청 메뉴에서 확인 가능합니다.</p>
+                            <p>※ 법률상담, 채팅, 화해분쟁조정은 도움요청 메뉴에서 확인 가능합니다.</p>
+                        </div>
+
+                        <div class="sec">
+                            <h4 class="subtit">게시판 상담내역</h4>
+                            <ul class="board_tbl_list">
+                                <li class="thead">
+                                    <strong class="no">No</strong>
+                                    <strong class="tit">제목</strong>
+                                    <strong class="date02">등록/답변일</strong>
+                                    <strong class="state">상태</strong>
+                                </li>
+                                <li class="nodata" th:if="${adviceRequests == null or adviceRequests.isEmpty()}">
+                                    <!--등록된 글 없을경우-->
+                                    <div>등록된 상담이 없습니다.</div>
+                                </li>
+                                <li th:each="item,idx:${adviceRequests}">
+                                    <div class="no"
+                                         th:text="${adviceRequests.totalElements - adviceRequests.pageable.pageSize * adviceRequests.pageable.pageNumber - idx.index}">
+                                        2
+                                    </div>
+                                    <!--<div class="tit ico_lock">-->
+                                    <div class="tit">
+                                        <a th:href="|/pages/myPage/counselingDetail/board/${item.id}|">
+                                            <b th:text="${item.ttl}"></b>
+                                        </a>
+                                    </div>
+                                    <div class="date02">
+                                        <span class="th">등록/답변일 :</span>
+                                        <th:block th:text="${#temporals.format(item.regDtm,'yyyy-MM-dd')}"></th:block>
+                                        <th:block th:if="${item.answerDtm ne null}">
+                                            <th:block
+                                                    th:text="${'/ ' + #temporals.format(item.answerDtm,'yyyy-MM-dd')}"></th:block>
+                                        </th:block>
+                                    </div>
+                                    <div class="state" th:text="${item.processTy.getName()}">상담대기</div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="sec">
+                            <h4 class="subtit">전화상담 내역</h4>
+                            <ul class="board_tbl_list type01">
+                                <li class="thead">
+                                    <strong class="no">No</strong>
+                                    <strong class="tit">제목</strong>
+                                    <strong class="date02">희망일</strong>
+                                    <strong class="time">등록일</strong>
+                                </li>
+                                <li class="nodata" th:if="${adviceTelList == null or adviceTelList.isEmpty()}">
+                                    <!--등록된 글 없을경우-->
+                                    <div>등록된 상담이 없습니다.</div>
+                                </li>
+                                <li th:each="item,idx:${adviceTelList}">
+                                    <div class="no"
+                                         th:text="${adviceTelList.totalElements - adviceTelList.pageable.pageSize * adviceTelList.pageable.pageNumber - idx.index}">
+                                        2
+                                    </div>
+                                    <div class="tit">
+                                        <a th:href="|/pages/myPage/counselingDetail/tel/${item.id}|">
+                                            <b th:text="${item.ttl}"></b>
+                                        </a>
+                                    </div>
+                                    <div class="date02">
+                                        <span class="th">희망일 :</span>
+                                        <th:block
+                                                th:text="${#dates.format(item.hopeStYmd,'yyyy-MM-dd') + ' ~ ' + #dates.format(item.hopeEndYmd,'yyyy-MM-dd')}"></th:block>
+                                    </div>
+                                    <div class="time">
+                                        <span class="th">등록일 :</span>
+                                        <th:block th:text="${#temporals.format(item.regDtm,'yyyy-MM-dd')}"></th:block>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="sec">
+                            <h4 class="subtit">대면상담 내역</h4>
+                            <ul class="board_tbl_list type01">
+                                <li class="thead">
+                                    <div class="no">NO</div>
+                                    <strong class="tit">제목</strong>
+                                    <strong class="date02">희망일</strong>
+                                    <strong class="time">등록일</strong>
+                                </li>
+                                <li class="nodata" th:if="${adviceFaceList == null or adviceFaceList.isEmpty()}">
+                                    <!--등록된 글 없을경우-->
+                                    <div>등록된 상담이 없습니다.</div>
+                                </li>
+                                <li th:each="item,idx:${adviceFaceList}">
+                                    <div class="no"
+                                         th:text="${adviceFaceList.totalElements - adviceFaceList.pageable.pageSize * adviceFaceList.pageable.pageNumber - idx.index}">
+                                        2
+                                    </div>
+                                    <div class="tit">
+                                        <a th:href="|/pages/myPage/counselingDetail/face/${item.id}|">
+                                            <b th:text="${item.ttl}"></b>
+                                        </a>
+                                    </div>
+                                    <div class="date02">
+                                        <span class="th">희망일 :</span>
+                                        <th:block
+                                                th:text="${#dates.format(item.hopeStYmd,'yyyy-MM-dd') + ' ~ ' + #dates.format(item.hopeEndYmd,'yyyy-MM-dd')}"></th:block>
+                                    </div>
+                                    <div class="time">
+                                        <span class="th">등록일 :</span>
+                                        <th:block th:text="${#temporals.format(item.regDtm,'yyyy-MM-dd')}"></th:block>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <div class="page_cont my_counseling">
-                    <div class="txt_box">
-                        <p>※ 비로그인 상담내역은 마이페이지에 나오지 않으며, 도움요청 메뉴에서 확인 가능합니다.</p>
-                        <p>※ 법률상담, 채팅, 화해분쟁조정은 도움요청 메뉴에서 확인 가능합니다.</p>
-                    </div>
-
-                    <div class="sec">
-                        <h4 class="subtit">게시판 상담내역</h4>
-                        <ul class="board_tbl_list">
-                            <li class="thead">
-                                <strong class="no">No</strong>
-                                <strong class="tit">제목</strong>
-                                <strong class="date02">등록/답변일</strong>
-                                <strong class="state">상태</strong>
-                            </li>
-                            <li class="nodata" th:if="${adviceRequests == null or adviceRequests.isEmpty()}"><!--등록된 글 없을경우-->
-                                <div>등록된 상담이 없습니다.</div>
-                            </li>
-                            <li th:each="item,idx:${adviceRequests}">
-                                <div class="no" th:text="${adviceRequests.totalElements - adviceRequests.pageable.pageSize * adviceRequests.pageable.pageNumber - idx.index}">2</div>
-                                <!--<div class="tit ico_lock">-->
-                                <div class="tit">
-                                    <a th:href="|/pages/myPage/counselingDetail/board/${item.id}|">
-                                        <b th:text="${item.ttl}"></b>
-                                    </a>
-                                </div>
-                                <div class="date02">
-                                    <span class="th">등록/답변일 :</span>
-                                    <th:block th:text="${#temporals.format(item.regDtm,'yyyy-MM-dd')}"></th:block>
-                                    <th:block th:if="${item.answerDtm ne null}">
-                                        <th:block th:text="${'/ ' + #temporals.format(item.answerDtm,'yyyy-MM-dd')}"></th:block>
-                                    </th:block>
-                                </div>
-                                <div class="state" th:text="${item.processTy.getName()}">상담대기</div>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="sec">
-                        <h4 class="subtit">전화상담 내역</h4>
-                        <ul class="board_tbl_list type01">
-                            <li class="thead">
-                                <strong class="no">No</strong>
-                                <strong class="tit">제목</strong>
-                                <strong class="date02">희망일</strong>
-                                <strong class="time">등록일</strong>
-                            </li>
-                            <li class="nodata" th:if="${adviceTelList == null or adviceTelList.isEmpty()}"><!--등록된 글 없을경우-->
-                                <div>등록된 상담이 없습니다.</div>
-                            </li>
-                            <li th:each="item,idx:${adviceTelList}">
-                                <div class="no" th:text="${adviceTelList.totalElements - adviceTelList.pageable.pageSize * adviceTelList.pageable.pageNumber - idx.index}">2</div>
-                                <div class="tit">
-                                    <a th:href="|/pages/myPage/counselingDetail/tel/${item.id}|">
-                                        <b th:text="${item.ttl}"></b>
-                                    </a>
-                                </div>
-                                <div class="date02">
-                                    <span class="th">희망일 :</span>
-                                    <th:block th:text="${#dates.format(item.hopeStYmd,'yyyy-MM-dd') + ' ~ ' + #dates.format(item.hopeEndYmd,'yyyy-MM-dd')}"></th:block>
-                                </div>
-                                <div class="time">
-                                    <span class="th">등록일 :</span>
-                                    <th:block th:text="${#temporals.format(item.regDtm,'yyyy-MM-dd')}"></th:block>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="sec">
-                        <h4 class="subtit">대면상담 내역</h4>
-                        <ul class="board_tbl_list type01">
-                            <li class="thead">
-                                <div class="no">NO</div>
-                                <strong class="tit">제목</strong>
-                                <strong class="date02">희망일</strong>
-                                <strong class="time">등록일</strong>
-                            </li>
-                            <li class="nodata" th:if="${adviceFaceList == null or adviceFaceList.isEmpty()}"><!--등록된 글 없을경우-->
-                                <div>등록된 상담이 없습니다.</div>
-                            </li>
-                            <li th:each="item,idx:${adviceFaceList}">
-                                <div class="no" th:text="${adviceFaceList.totalElements - adviceFaceList.pageable.pageSize * adviceFaceList.pageable.pageNumber - idx.index}">2</div>
-                                <div class="tit">
-                                    <a th:href="|/pages/myPage/counselingDetail/face/${item.id}|">
-                                        <b th:text="${item.ttl}"></b>
-                                    </a>
-                                </div>
-                                <div class="date02">
-                                    <span class="th">희망일 :</span>
-                                    <th:block th:text="${#dates.format(item.hopeStYmd,'yyyy-MM-dd') + ' ~ ' + #dates.format(item.hopeEndYmd,'yyyy-MM-dd')}"></th:block>
-                                </div>
-                                <div class="time">
-                                    <span class="th">등록일 :</span>
-                                    <th:block th:text="${#temporals.format(item.regDtm,'yyyy-MM-dd')}"></th:block>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
     <th:block th:replace="fragments/footer"></th:block>
 </div>

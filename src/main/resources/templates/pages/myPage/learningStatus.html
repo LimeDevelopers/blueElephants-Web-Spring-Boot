@@ -19,14 +19,16 @@
 <body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
 <div id="wrap">
     <th:block th:include="fragments/header_gnb"></th:block>
-    <div id="container">
+    <th:block th:include="fragments/mo_menu"></th:block>
+    <div class="sub_container">
+        <th:block th:include="fragments/dept_menu"></th:block>
         <th:block th:include="fragments/snb"></th:block>
         <form id="form1" name="form1" method="post">
-            <input type="hidden" name="areaNm" id="areaNm" />
-            <input type="hidden" name="schlNm" id="schlNm" />
-            <input type="hidden" name="grade" id="grade" />
-            <input type="hidden" name="ban" id="ban" />
-            <input type="hidden" name="teacherNm" id="teacherNm" />
+            <input type="hidden" name="areaNm" id="areaNm"/>
+            <input type="hidden" name="schlNm" id="schlNm"/>
+            <input type="hidden" name="grade" id="grade"/>
+            <input type="hidden" name="ban" id="ban"/>
+            <input type="hidden" name="teacherNm" id="teacherNm"/>
 
             <div class="contents">
                 <div class="page_top">
@@ -35,15 +37,21 @@
                 </div>
                 <div class="page_cont my_learning">
                     <ul class="learn_list">
-                        <li class="nodata" th:if="${memberTeacherLogDtoList == null or memberTeacherLogDtoList.isEmpty()}">
+                        <li class="nodata"
+                            th:if="${memberTeacherLogDtoList == null or memberTeacherLogDtoList.isEmpty()}">
                             <div>등록된 데이터가 없습니다.</div>
                         </li>
                         <li th:each="item,idx : ${memberTeacherLogDtoList}">
                             <dl>
                                 <dt th:text="|${item.schlNm} ${item.grade}학년 ${item.ban}반|">길동초등학교 1학년 5반</dt>
                                 <dd>
-                                    <p>총인원 <th:block th:text="${item.studentCnt}"></th:block>명</p>
-                                    <a href="javascript:;" th:onclick="fn_moveDetail([[${item.areaNm}]], [[${item.schlNm}]], [[${item.grade}]], [[${item.ban}]], [[${item.nm}]])" class="btn btn_lg btn_blue btn_pill_10">학습현황 바로가기</a>
+                                    <p>총인원
+                                        <th:block th:text="${item.studentCnt}"></th:block>
+                                        명
+                                    </p>
+                                    <a href="javascript:;"
+                                       th:onclick="fn_moveDetail([[${item.areaNm}]], [[${item.schlNm}]], [[${item.grade}]], [[${item.ban}]], [[${item.nm}]])"
+                                       class="btn btn_lg btn_blue btn_pill_10">학습현황 바로가기</a>
                                 </dd>
                             </dl>
                         </li>
@@ -70,7 +78,8 @@
             </div>
         </form>
     </div>
-    <th:block th:replace="fragments/footer"></th:block>
+</div>
+<th:block th:replace="fragments/footer"></th:block>
 </div>
 </body>
 </html>

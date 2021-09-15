@@ -3,20 +3,20 @@
 <head>
     <th:block th:include="fragments/header"></th:block>
     <script>
-        $(function(){
+        $(function () {
             scrollTop();
 
-            $(window).resize(function(){
+            $(window).resize(function () {
                 scrollTop();
             });
         });
 
-        function scrollTop(){
+        function scrollTop() {
             var winW = $(window).width()
-            if(winW < 1024){ //모바일에서 또래지명 질문 선택 시 우리반으로 스크롤 이동
+            if (winW < 1024) { //모바일에서 또래지명 질문 선택 시 우리반으로 스크롤 이동
                 var top = $('.our_class').offset().top - $('#header').outerHeight() - 30;
-                $('input[name=qn]').on('change', function(){
-                    if($(this).is(':checked')){
+                $('input[name=qn]').on('change', function () {
+                    if ($(this).is(':checked')) {
                         $('html, body').stop().animate({'scrollTop': top});
                     }
                 });
@@ -47,7 +47,7 @@
                             '<div class="score">' +
                             '<span class="th">5점 점수 : </span>' +
                             '<input type="hidden" name="tgtMberPid" id="tgtMberPid' + responseList[i].tgtMberPid + '" value="' + responseList[i].tgtMberPid + '"/>';
-                            '<input type="hidden" name="no" value="' + responseList[i].no + '"/>';
+                        '<input type="hidden" name="no" value="' + responseList[i].no + '"/>';
                         for (var j = 0; j < answerItems.length; j++) {
                             html += '<div class="radio txt">' +
                                 '<input type="radio" name="score' + responseList[i].tgtMberPid + '" id="score' + responseList[i].tgtMberPid + '_' + j + '" value="' + answerItems[j].id + '" ';
@@ -84,19 +84,19 @@
             //validationCheck
             var cnt = $('input[name=tgtMberPid]').length; //총 학생수
             var checkCnt = $('input[name^=score]:checked').length;//점수를 체크한 갯수
-            if (cnt >checkCnt) {
+            if (cnt > checkCnt) {
                 alert('모든 학생의 점수를 체크해주세요.');
                 return false;
             }
 
             var formData = $('#form1').serialize();
             $.ajax({
-                type : 'post',
-                url : '/api/peer/register',
-                data : formData,
+                type: 'post',
+                url: '/api/peer/register',
+                data: formData,
                 //contentType: 'application/json',
-                datatype : 'text',
-                success : function(data) {
+                datatype: 'text',
+                success: function (data) {
                     if (data === 'ok') {
                         //location.reload();
                         alert('저장이 완료되었습니다.');
@@ -105,7 +105,7 @@
                         //alert('실패되었습니다 관리자에게 문의 하세요');
                     }
                 },
-                error : function(error) {
+                error: function (error) {
                     //alert('save error!!!');
                     alert('error::' + error.statusText);
                 }
@@ -127,564 +127,576 @@
 <div id="wrap">
     <th:block th:include="fragments/header_gnb"></th:block>
     <div id="container">
-        <th:block th:include="fragments/snb"></th:block>
-        <form id="form1" name="form1" method="post">
-            <input type="hidden" id="qesitmPid" name="qesitmPid" />
+        <th:block th:include="fragments/mo_menu"></th:block>
+        <div class="sub_container">
+            <th:block th:include="fragments/dept_menu"></th:block>
+            <form id="form1" name="form1" method="post">
+                <input type="hidden" id="qesitmPid" name="qesitmPid"/>
 
-            <div class="contents">
-                <div class="page_top">
-                    <h3 class="page_tit">또래지명</h3>
-                </div>
-                <div class="page_cont my_peer">
-                    <div class="tbl_write">
-                        <ul>
-                            <li>
-                                <div class="th">학교명</div>
-                                <div class="td td_txt" th:text="|${memberSchool.schlNm} ${memberSchool.grade}학년 ${memberSchool.ban}반|">OOO 중학교 00학년 00반</div>
-                            </li>
-                        </ul>
+                <div class="contents">
+                    <div class="page_top">
+                        <h3 class="page_tit">또래지명</h3>
                     </div>
-                    <div class="sec_write_area clearfix">
-                        <div class="sec_write peer_q">
-                            <h4 class="subtit">또래지명 질문</h4>
-                            <div class="scrollbar">
-                                <ul class="board_tbl_list">
-                                    <li class="thead">
-                                        <strong class="no">선택</strong>
-                                        <strong class="question">질문</strong>
-                                        <strong class="complete">완료</strong>
-                                    </li>
-                                    <th:block th:if="${questionItems == null or questionItems.isEmpty()}">
-                                        <li class="nodata">
-                                            <div>등록된 질문이 없습니다.</div>
-                                        </li>
-                                    </th:block>
-                                    <li th:each="item,idx : ${questionItems}">
-                                        <div class="no">
-                                            <div class="radio">
-                                                <input type="radio" name="qn" th:id="|qn_${item.id}|" th:onclick="|fn_ourClassList(${item.id})|"/>
-                                                <label th:for="|qn_${item.id}|"><span class="blind">선택</span></label>
-                                            </div>
-                                        </div>
-                                        <div class="question"><label th:for="|qn_${item.id}|" th:text="${item.qestnQesitm}">온라인에서 이 아이는 다른 아이에게 기분 나쁜 말을 한다.</label></div>
-                                        <div class="complete">
-                                            <span th:if="${item.studentCnt eq item.responseCnt}" class="chk"></span>
-                                        </div>
-                                    </li>
-                                    <!--<li>
-                                        <div class="no">
-                                            <div class="radio">
-                                                <input type="radio" name="qn" id="qn01" />
-                                                <label for="qn01"><span class="blind">선택</span></label>
-                                            </div>
-                                        </div>
-                                        <div class="question"><label for="qn01">온라인에서 이 아이는 다른 아이에게 기분 나쁜 말을 한다.</label></div>
-                                    </li>-->
-                                </ul>
-                            </div>
+                    <div class="page_cont my_peer">
+                        <div class="tbl_write">
+                            <ul>
+                                <li>
+                                    <div class="th">학교명</div>
+                                    <div class="td td_txt"
+                                         th:text="|${memberSchool.schlNm} ${memberSchool.grade}학년 ${memberSchool.ban}반|">
+                                        OOO 중학교 00학년 00반
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
-                        <div class="sec_write our_class">
-                            <div class="tit_area clearfix">
-                                <h4 class="subtit">우리반</h4>
-                                <div class="fr">
-                                    <a href="javascript:;" onclick="fn_resetAnswer()" class="btn btn_sm btn_line_blue btn_pill_10">초기화</a>
-                                    <a href="javascript:;" onclick="fn_saveAnswer()" class="btn btn_sm btn_blue btn_pill_10">저장</a>
+                        <div class="sec_write_area clearfix">
+                            <div class="sec_write peer_q">
+                                <h4 class="subtit">또래지명 질문</h4>
+                                <div class="scrollbar">
+                                    <ul class="board_tbl_list">
+                                        <li class="thead">
+                                            <strong class="no">선택</strong>
+                                            <strong class="question">질문</strong>
+                                            <strong class="complete">완료</strong>
+                                        </li>
+                                        <th:block th:if="${questionItems == null or questionItems.isEmpty()}">
+                                            <li class="nodata">
+                                                <div>등록된 질문이 없습니다.</div>
+                                            </li>
+                                        </th:block>
+                                        <li th:each="item,idx : ${questionItems}">
+                                            <div class="no">
+                                                <div class="radio">
+                                                    <input type="radio" name="qn" th:id="|qn_${item.id}|"
+                                                           th:onclick="|fn_ourClassList(${item.id})|"/>
+                                                    <label th:for="|qn_${item.id}|"><span
+                                                            class="blind">선택</span></label>
+                                                </div>
+                                            </div>
+                                            <div class="question"><label th:for="|qn_${item.id}|"
+                                                                         th:text="${item.qestnQesitm}">온라인에서 이 아이는 다른
+                                                아이에게 기분 나쁜 말을 한다.</label></div>
+                                            <div class="complete">
+                                                <span th:if="${item.studentCnt eq item.responseCnt}" class="chk"></span>
+                                            </div>
+                                        </li>
+                                        <!--<li>
+                                            <div class="no">
+                                                <div class="radio">
+                                                    <input type="radio" name="qn" id="qn01" />
+                                                    <label for="qn01"><span class="blind">선택</span></label>
+                                                </div>
+                                            </div>
+                                            <div class="question"><label for="qn01">온라인에서 이 아이는 다른 아이에게 기분 나쁜 말을 한다.</label></div>
+                                        </li>-->
+                                    </ul>
                                 </div>
                             </div>
-                            <div class="scrollbar">
-                                <ul class="board_tbl_list">
-                                    <li class="thead" id="ourClass">
-                                        <strong class="no">No</strong>
-                                        <strong class="name">이름</strong>
-                                        <strong class="num">번호</strong>
-                                        <strong class="score">5점 점수</strong>
-                                    </li>
-                                    <li class="add_row nodata_q">
-                                        <div>질문을 선택해 주세요.</div>
-                                    </li>
-                                    <!--<li>
-                                        <div class="no">17</div>
-                                        <div class="name"><span class="th">이름 : </span> 최만석</div>
-                                        <div class="num"><span class="th">번호 : </span> 28</div>
-                                        <div class="score">
-                                            <span class="th">5점 점수 : </span>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score28" id="score28_01" />
-                                                <label for="score28_01">매우 그렇지 않다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score28" id="score28_02" />
-                                                <label for="score28_02">그렇지 않다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score28" id="score28_03" />
-                                                <label for="score28_03">보통이다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score28" id="score28_04" />
-                                                <label for="score28_04">그렇다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score28" id="score28_05" />
-                                                <label for="score28_05">매우 그렇다</label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="no">16</div>
-                                        <div class="name"><span class="th">이름 : </span> 양호준</div>
-                                        <div class="num"><span class="th">번호 : </span> 08</div>
-                                        <div class="score">
-                                            <span class="th">5점 점수 : </span>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score08" id="score08_01" />
-                                                <label for="score08_01">매우 그렇지 않다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score08" id="score08_02" />
-                                                <label for="score08_02">그렇지 않다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score08" id="score08_03" />
-                                                <label for="score08_03">보통이다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score08" id="score08_04" />
-                                                <label for="score08_04">그렇다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score08" id="score08_05" />
-                                                <label for="score08_05">매우 그렇다</label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="no">15</div>
-                                        <div class="name"><span class="th">이름 : </span> 김희재</div>
-                                        <div class="num"><span class="th">번호 : </span> 11</div>
-                                        <div class="score">
-                                            <span class="th">5점 점수 : </span>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score11" id="score11_01" />
-                                                <label for="score11_01">매우 그렇지 않다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score11" id="score11_02" />
-                                                <label for="score11_02">그렇지 않다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score11" id="score11_03" />
-                                                <label for="score11_03">보통이다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score11" id="score11_04" />
-                                                <label for="score11_04">그렇다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score11" id="score11_05" />
-                                                <label for="score11_05">매우 그렇다</label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="no">14</div>
-                                        <div class="name"><span class="th">이름 : </span> 구민준</div>
-                                        <div class="num"><span class="th">번호 : </span> 34</div>
-                                        <div class="score">
-                                            <span class="th">5점 점수 : </span>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score34" id="score34_01" />
-                                                <label for="score34_01">매우 그렇지 않다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score34" id="score34_02" />
-                                                <label for="score34_02">그렇지 않다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score34" id="score34_03" />
-                                                <label for="score34_03">보통이다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score34" id="score34_04" />
-                                                <label for="score34_04">그렇다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score34" id="score34_05" />
-                                                <label for="score34_05">매우 그렇다</label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="no">13</div>
-                                        <div class="name"><span class="th">이름 : </span> 이석희</div>
-                                        <div class="num"><span class="th">번호 : </span> 23</div>
-                                        <div class="score">
-                                            <span class="th">5점 점수 : </span>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score23" id="score23_01" />
-                                                <label for="score23_01">매우 그렇지 않다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score23" id="score23_02" />
-                                                <label for="score23_02">그렇지 않다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score23" id="score23_03" />
-                                                <label for="score23_03">보통이다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score23" id="score23_04" />
-                                                <label for="score23_04">그렇다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score23" id="score23_05" />
-                                                <label for="score23_05">매우 그렇다</label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="no">12</div>
-                                        <div class="name"><span class="th">이름 : </span> 김희재</div>
-                                        <div class="num"><span class="th">번호 : </span> 10</div>
-                                        <div class="score">
-                                            <span class="th">5점 점수 : </span>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score10" id="score10_01" />
-                                                <label for="score10_01">매우 그렇지 않다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score10" id="score10_02" />
-                                                <label for="score10_02">그렇지 않다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score10" id="score10_03" />
-                                                <label for="score10_03">보통이다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score10" id="score10_04" />
-                                                <label for="score10_04">그렇다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score10" id="score10_05" />
-                                                <label for="score10_05">매우 그렇다</label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="no">11</div>
-                                        <div class="name"><span class="th">이름 : </span> 김희재</div>
-                                        <div class="num"><span class="th">번호 : </span> 21</div>
-                                        <div class="score">
-                                            <span class="th">5점 점수 : </span>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score21" id="score21_01" />
-                                                <label for="score21_01">매우 그렇지 않다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score21" id="score21_02" />
-                                                <label for="score21_02">그렇지 않다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score21" id="score21_03" />
-                                                <label for="score21_03">보통이다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score21" id="score21_04" />
-                                                <label for="score21_04">그렇다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score21" id="score21_05" />
-                                                <label for="score21_05">매우 그렇다</label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="no">10</div>
-                                        <div class="name"><span class="th">이름 : </span> 김희재</div>
-                                        <div class="num"><span class="th">번호 : </span> 14</div>
-                                        <div class="score">
-                                            <span class="th">5점 점수 : </span>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score14" id="score14_01" />
-                                                <label for="score14_01">매우 그렇지 않다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score14" id="score14_02" />
-                                                <label for="score14_02">그렇지 않다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score14" id="score14_03" />
-                                                <label for="score14_03">보통이다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score14" id="score14_04" />
-                                                <label for="score14_04">그렇다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score14" id="score14_05" />
-                                                <label for="score14_05">매우 그렇다</label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="no">09</div>
-                                        <div class="name"><span class="th">이름 : </span> 김희재</div>
-                                        <div class="num"><span class="th">번호 : </span> 01</div>
-                                        <div class="score">
-                                            <span class="th">5점 점수 : </span>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score01" id="score01_01" />
-                                                <label for="score01_01">매우 그렇지 않다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score01" id="score01_02" />
-                                                <label for="score01_02">그렇지 않다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score01" id="score01_03" />
-                                                <label for="score01_03">보통이다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score01" id="score01_04" />
-                                                <label for="score01_04">그렇다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score01" id="score01_05" />
-                                                <label for="score01_05">매우 그렇다</label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="no">08</div>
-                                        <div class="name"><span class="th">이름 : </span> 김희재</div>
-                                        <div class="num"><span class="th">번호 : </span> 05</div>
-                                        <div class="score">
-                                            <span class="th">5점 점수 : </span>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score05" id="score05_01" />
-                                                <label for="score05_01">매우 그렇지 않다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score05" id="score05_02" />
-                                                <label for="score05_02">그렇지 않다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score05" id="score05_03" />
-                                                <label for="score05_03">보통이다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score05" id="score05_04" />
-                                                <label for="score05_04">그렇다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score05" id="score05_05" />
-                                                <label for="score05_05">매우 그렇다</label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="no">07</div>
-                                        <div class="name"><span class="th">이름 : </span> 김희재</div>
-                                        <div class="num"><span class="th">번호 : </span> 13</div>
-                                        <div class="score">
-                                            <span class="th">5점 점수 : </span>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score13" id="score13_01" />
-                                                <label for="score13_01">매우 그렇지 않다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score13" id="score13_02" />
-                                                <label for="score13_02">그렇지 않다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score13" id="score13_03" />
-                                                <label for="score13_03">보통이다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score13" id="score13_04" />
-                                                <label for="score13_04">그렇다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score13" id="score13_05" />
-                                                <label for="score13_05">매우 그렇다</label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="no">06</div>
-                                        <div class="name"><span class="th">이름 : </span> 김희재</div>
-                                        <div class="num"><span class="th">번호 : </span> 22</div>
-                                        <div class="score">
-                                            <span class="th">5점 점수 : </span>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score22" id="score22_01" />
-                                                <label for="score22_01">매우 그렇지 않다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score22" id="score22_02" />
-                                                <label for="score22_02">그렇지 않다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score22" id="score22_03" />
-                                                <label for="score22_03">보통이다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score22" id="score22_04" />
-                                                <label for="score22_04">그렇다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score22" id="score22_05" />
-                                                <label for="score22_05">매우 그렇다</label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="no">05</div>
-                                        <div class="name"><span class="th">이름 : </span> 김희재</div>
-                                        <div class="num"><span class="th">번호 : </span> 38</div>
-                                        <div class="score">
-                                            <span class="th">5점 점수 : </span>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score38" id="score38_01" />
-                                                <label for="score38_01">매우 그렇지 않다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score38" id="score38_02" />
-                                                <label for="score38_02">그렇지 않다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score38" id="score38_03" />
-                                                <label for="score38_03">보통이다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score38" id="score38_04" />
-                                                <label for="score38_04">그렇다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score38" id="score38_05" />
-                                                <label for="score38_05">매우 그렇다</label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="no">04</div>
-                                        <div class="name"><span class="th">이름 : </span> 김희재</div>
-                                        <div class="num"><span class="th">번호 : </span> 27</div>
-                                        <div class="score">
-                                            <span class="th">5점 점수 : </span>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score11" id="score27_01" />
-                                                <label for="score27_01">매우 그렇지 않다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score11" id="score27_02" />
-                                                <label for="score27_02">그렇지 않다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score11" id="score27_03" />
-                                                <label for="score27_03">보통이다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score11" id="score27_04" />
-                                                <label for="score27_04">그렇다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score11" id="score27_05" />
-                                                <label for="score27_05">매우 그렇다</label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="no">03</div>
-                                        <div class="name"><span class="th">이름 : </span> 김희재</div>
-                                        <div class="num"><span class="th">번호 : </span> 19</div>
-                                        <div class="score">
-                                            <span class="th">5점 점수 : </span>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score19" id="score19_01" />
-                                                <label for="score19_01">매우 그렇지 않다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score19" id="score19_02" />
-                                                <label for="score19_02">그렇지 않다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score19" id="score19_03" />
-                                                <label for="score19_03">보통이다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score19" id="score19_04" />
-                                                <label for="score19_04">그렇다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score19" id="score19_05" />
-                                                <label for="score19_05">매우 그렇다</label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="no">02</div>
-                                        <div class="name"><span class="th">이름 : </span> 김희재</div>
-                                        <div class="num"><span class="th">번호 : </span> 25</div>
-                                        <div class="score">
-                                            <span class="th">5점 점수 : </span>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score25" id="score25_01" />
-                                                <label for="score25_01">매우 그렇지 않다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score25" id="score25_02" />
-                                                <label for="score25_02">그렇지 않다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score25" id="score25_03" />
-                                                <label for="score25_03">보통이다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score25" id="score25_04" />
-                                                <label for="score25_04">그렇다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score25" id="score25_05" />
-                                                <label for="score25_05">매우 그렇다</label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="no">01</div>
-                                        <div class="name"><span class="th">이름 : </span> 김희재</div>
-                                        <div class="num"><span class="th">번호 : </span> 18</div>
-                                        <div class="score">
-                                            <span class="th">5점 점수 : </span>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score18" id="score18_01" />
-                                                <label for="score18_01">매우 그렇지 않다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score18" id="score18_02" />
-                                                <label for="score18_02">그렇지 않다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score18" id="score18_03" />
-                                                <label for="score18_03">보통이다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score18" id="score18_04" />
-                                                <label for="score18_04">그렇다</label>
-                                            </div>
-                                            <div class="radio txt">
-                                                <input type="radio" name="score18" id="score18_05" />
-                                                <label for="score18_05">매우 그렇다</label>
-                                            </div>
-                                        </div>
-                                    </li>-->
-                                </ul>
+                            <div class="sec_write our_class">
+                                <div class="tit_area clearfix">
+                                    <h4 class="subtit">우리반</h4>
+                                    <div class="fr">
+                                        <a href="javascript:;" onclick="fn_resetAnswer()"
+                                           class="btn btn_sm btn_line_blue btn_pill_10">초기화</a>
+                                        <a href="javascript:;" onclick="fn_saveAnswer()"
+                                           class="btn btn_sm btn_blue btn_pill_10">저장</a>
+                                    </div>
+                                </div>
+                                <div class="scrollbar">
+                                    <ul class="board_tbl_list">
+                                        <li class="thead" id="ourClass">
+                                            <strong class="no">No</strong>
+                                            <strong class="name">이름</strong>
+                                            <strong class="num">번호</strong>
+                                            <strong class="score">5점 점수</strong>
+                                        </li>
+                                        <li class="add_row nodata_q">
+                                            <div>질문을 선택해 주세요.</div>
+                                        </li>
+                                        <!--<li>
+                                            <div class="no">17</div>
+                                            <div class="name"><span class="th">이름 : </span> 최만석</div>
+                                            <div class="num"><span class="th">번호 : </span> 28</div>
+                                            <div class="score">
+                                                <span class="th">5점 점수 : </span>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score28" id="score28_01" />
+                                                    <label for="score28_01">매우 그렇지 않다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score28" id="score28_02" />
+                                                    <label for="score28_02">그렇지 않다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score28" id="score28_03" />
+                                                    <label for="score28_03">보통이다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score28" id="score28_04" />
+                                                    <label for="score28_04">그렇다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score28" id="score28_05" />
+                                                    <label for="score28_05">매우 그렇다</label>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="no">16</div>
+                                            <div class="name"><span class="th">이름 : </span> 양호준</div>
+                                            <div class="num"><span class="th">번호 : </span> 08</div>
+                                            <div class="score">
+                                                <span class="th">5점 점수 : </span>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score08" id="score08_01" />
+                                                    <label for="score08_01">매우 그렇지 않다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score08" id="score08_02" />
+                                                    <label for="score08_02">그렇지 않다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score08" id="score08_03" />
+                                                    <label for="score08_03">보통이다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score08" id="score08_04" />
+                                                    <label for="score08_04">그렇다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score08" id="score08_05" />
+                                                    <label for="score08_05">매우 그렇다</label>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="no">15</div>
+                                            <div class="name"><span class="th">이름 : </span> 김희재</div>
+                                            <div class="num"><span class="th">번호 : </span> 11</div>
+                                            <div class="score">
+                                                <span class="th">5점 점수 : </span>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score11" id="score11_01" />
+                                                    <label for="score11_01">매우 그렇지 않다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score11" id="score11_02" />
+                                                    <label for="score11_02">그렇지 않다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score11" id="score11_03" />
+                                                    <label for="score11_03">보통이다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score11" id="score11_04" />
+                                                    <label for="score11_04">그렇다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score11" id="score11_05" />
+                                                    <label for="score11_05">매우 그렇다</label>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="no">14</div>
+                                            <div class="name"><span class="th">이름 : </span> 구민준</div>
+                                            <div class="num"><span class="th">번호 : </span> 34</div>
+                                            <div class="score">
+                                                <span class="th">5점 점수 : </span>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score34" id="score34_01" />
+                                                    <label for="score34_01">매우 그렇지 않다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score34" id="score34_02" />
+                                                    <label for="score34_02">그렇지 않다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score34" id="score34_03" />
+                                                    <label for="score34_03">보통이다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score34" id="score34_04" />
+                                                    <label for="score34_04">그렇다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score34" id="score34_05" />
+                                                    <label for="score34_05">매우 그렇다</label>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="no">13</div>
+                                            <div class="name"><span class="th">이름 : </span> 이석희</div>
+                                            <div class="num"><span class="th">번호 : </span> 23</div>
+                                            <div class="score">
+                                                <span class="th">5점 점수 : </span>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score23" id="score23_01" />
+                                                    <label for="score23_01">매우 그렇지 않다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score23" id="score23_02" />
+                                                    <label for="score23_02">그렇지 않다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score23" id="score23_03" />
+                                                    <label for="score23_03">보통이다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score23" id="score23_04" />
+                                                    <label for="score23_04">그렇다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score23" id="score23_05" />
+                                                    <label for="score23_05">매우 그렇다</label>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="no">12</div>
+                                            <div class="name"><span class="th">이름 : </span> 김희재</div>
+                                            <div class="num"><span class="th">번호 : </span> 10</div>
+                                            <div class="score">
+                                                <span class="th">5점 점수 : </span>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score10" id="score10_01" />
+                                                    <label for="score10_01">매우 그렇지 않다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score10" id="score10_02" />
+                                                    <label for="score10_02">그렇지 않다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score10" id="score10_03" />
+                                                    <label for="score10_03">보통이다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score10" id="score10_04" />
+                                                    <label for="score10_04">그렇다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score10" id="score10_05" />
+                                                    <label for="score10_05">매우 그렇다</label>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="no">11</div>
+                                            <div class="name"><span class="th">이름 : </span> 김희재</div>
+                                            <div class="num"><span class="th">번호 : </span> 21</div>
+                                            <div class="score">
+                                                <span class="th">5점 점수 : </span>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score21" id="score21_01" />
+                                                    <label for="score21_01">매우 그렇지 않다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score21" id="score21_02" />
+                                                    <label for="score21_02">그렇지 않다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score21" id="score21_03" />
+                                                    <label for="score21_03">보통이다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score21" id="score21_04" />
+                                                    <label for="score21_04">그렇다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score21" id="score21_05" />
+                                                    <label for="score21_05">매우 그렇다</label>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="no">10</div>
+                                            <div class="name"><span class="th">이름 : </span> 김희재</div>
+                                            <div class="num"><span class="th">번호 : </span> 14</div>
+                                            <div class="score">
+                                                <span class="th">5점 점수 : </span>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score14" id="score14_01" />
+                                                    <label for="score14_01">매우 그렇지 않다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score14" id="score14_02" />
+                                                    <label for="score14_02">그렇지 않다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score14" id="score14_03" />
+                                                    <label for="score14_03">보통이다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score14" id="score14_04" />
+                                                    <label for="score14_04">그렇다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score14" id="score14_05" />
+                                                    <label for="score14_05">매우 그렇다</label>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="no">09</div>
+                                            <div class="name"><span class="th">이름 : </span> 김희재</div>
+                                            <div class="num"><span class="th">번호 : </span> 01</div>
+                                            <div class="score">
+                                                <span class="th">5점 점수 : </span>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score01" id="score01_01" />
+                                                    <label for="score01_01">매우 그렇지 않다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score01" id="score01_02" />
+                                                    <label for="score01_02">그렇지 않다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score01" id="score01_03" />
+                                                    <label for="score01_03">보통이다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score01" id="score01_04" />
+                                                    <label for="score01_04">그렇다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score01" id="score01_05" />
+                                                    <label for="score01_05">매우 그렇다</label>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="no">08</div>
+                                            <div class="name"><span class="th">이름 : </span> 김희재</div>
+                                            <div class="num"><span class="th">번호 : </span> 05</div>
+                                            <div class="score">
+                                                <span class="th">5점 점수 : </span>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score05" id="score05_01" />
+                                                    <label for="score05_01">매우 그렇지 않다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score05" id="score05_02" />
+                                                    <label for="score05_02">그렇지 않다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score05" id="score05_03" />
+                                                    <label for="score05_03">보통이다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score05" id="score05_04" />
+                                                    <label for="score05_04">그렇다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score05" id="score05_05" />
+                                                    <label for="score05_05">매우 그렇다</label>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="no">07</div>
+                                            <div class="name"><span class="th">이름 : </span> 김희재</div>
+                                            <div class="num"><span class="th">번호 : </span> 13</div>
+                                            <div class="score">
+                                                <span class="th">5점 점수 : </span>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score13" id="score13_01" />
+                                                    <label for="score13_01">매우 그렇지 않다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score13" id="score13_02" />
+                                                    <label for="score13_02">그렇지 않다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score13" id="score13_03" />
+                                                    <label for="score13_03">보통이다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score13" id="score13_04" />
+                                                    <label for="score13_04">그렇다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score13" id="score13_05" />
+                                                    <label for="score13_05">매우 그렇다</label>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="no">06</div>
+                                            <div class="name"><span class="th">이름 : </span> 김희재</div>
+                                            <div class="num"><span class="th">번호 : </span> 22</div>
+                                            <div class="score">
+                                                <span class="th">5점 점수 : </span>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score22" id="score22_01" />
+                                                    <label for="score22_01">매우 그렇지 않다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score22" id="score22_02" />
+                                                    <label for="score22_02">그렇지 않다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score22" id="score22_03" />
+                                                    <label for="score22_03">보통이다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score22" id="score22_04" />
+                                                    <label for="score22_04">그렇다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score22" id="score22_05" />
+                                                    <label for="score22_05">매우 그렇다</label>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="no">05</div>
+                                            <div class="name"><span class="th">이름 : </span> 김희재</div>
+                                            <div class="num"><span class="th">번호 : </span> 38</div>
+                                            <div class="score">
+                                                <span class="th">5점 점수 : </span>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score38" id="score38_01" />
+                                                    <label for="score38_01">매우 그렇지 않다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score38" id="score38_02" />
+                                                    <label for="score38_02">그렇지 않다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score38" id="score38_03" />
+                                                    <label for="score38_03">보통이다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score38" id="score38_04" />
+                                                    <label for="score38_04">그렇다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score38" id="score38_05" />
+                                                    <label for="score38_05">매우 그렇다</label>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="no">04</div>
+                                            <div class="name"><span class="th">이름 : </span> 김희재</div>
+                                            <div class="num"><span class="th">번호 : </span> 27</div>
+                                            <div class="score">
+                                                <span class="th">5점 점수 : </span>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score11" id="score27_01" />
+                                                    <label for="score27_01">매우 그렇지 않다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score11" id="score27_02" />
+                                                    <label for="score27_02">그렇지 않다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score11" id="score27_03" />
+                                                    <label for="score27_03">보통이다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score11" id="score27_04" />
+                                                    <label for="score27_04">그렇다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score11" id="score27_05" />
+                                                    <label for="score27_05">매우 그렇다</label>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="no">03</div>
+                                            <div class="name"><span class="th">이름 : </span> 김희재</div>
+                                            <div class="num"><span class="th">번호 : </span> 19</div>
+                                            <div class="score">
+                                                <span class="th">5점 점수 : </span>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score19" id="score19_01" />
+                                                    <label for="score19_01">매우 그렇지 않다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score19" id="score19_02" />
+                                                    <label for="score19_02">그렇지 않다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score19" id="score19_03" />
+                                                    <label for="score19_03">보통이다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score19" id="score19_04" />
+                                                    <label for="score19_04">그렇다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score19" id="score19_05" />
+                                                    <label for="score19_05">매우 그렇다</label>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="no">02</div>
+                                            <div class="name"><span class="th">이름 : </span> 김희재</div>
+                                            <div class="num"><span class="th">번호 : </span> 25</div>
+                                            <div class="score">
+                                                <span class="th">5점 점수 : </span>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score25" id="score25_01" />
+                                                    <label for="score25_01">매우 그렇지 않다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score25" id="score25_02" />
+                                                    <label for="score25_02">그렇지 않다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score25" id="score25_03" />
+                                                    <label for="score25_03">보통이다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score25" id="score25_04" />
+                                                    <label for="score25_04">그렇다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score25" id="score25_05" />
+                                                    <label for="score25_05">매우 그렇다</label>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="no">01</div>
+                                            <div class="name"><span class="th">이름 : </span> 김희재</div>
+                                            <div class="num"><span class="th">번호 : </span> 18</div>
+                                            <div class="score">
+                                                <span class="th">5점 점수 : </span>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score18" id="score18_01" />
+                                                    <label for="score18_01">매우 그렇지 않다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score18" id="score18_02" />
+                                                    <label for="score18_02">그렇지 않다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score18" id="score18_03" />
+                                                    <label for="score18_03">보통이다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score18" id="score18_04" />
+                                                    <label for="score18_04">그렇다</label>
+                                                </div>
+                                                <div class="radio txt">
+                                                    <input type="radio" name="score18" id="score18_05" />
+                                                    <label for="score18_05">매우 그렇다</label>
+                                                </div>
+                                            </div>
+                                        </li>-->
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
     <th:block th:replace="fragments/footer"></th:block>
 </div>

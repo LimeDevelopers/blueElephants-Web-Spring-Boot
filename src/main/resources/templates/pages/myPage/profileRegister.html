@@ -3,9 +3,9 @@
 <head>
     <th:block th:include="fragments/header"></th:block>
     <script>
-        $(function(){
+        $(function () {
             characSize();
-            $(window).resize(function(){
+            $(window).resize(function () {
                 characSize();
             });
 
@@ -56,11 +56,11 @@
             }
 
             var jsonData = {
-                'areaNm' : areaNm,
-                'schlNm' : schlNm,
-                'grade' : grade,
-                'ban' : ban,
-                'no' : no
+                'areaNm': areaNm,
+                'schlNm': schlNm,
+                'grade': grade,
+                'ban': ban,
+                'no': no
             }
             $.ajax({
                 type: 'post',
@@ -91,6 +91,7 @@
                 }
             });
         }
+
         //검색된 자녀 선택후 추가버튼 클릭
         function fn_selSchlChildNm() {
             var selectChk = $('input:checkbox[name=nameChildren]:checked');
@@ -99,13 +100,13 @@
                 return;
             }
             var mberPid = selectChk.val();
-            var id = $('#nameChildren'+mberPid).val();
-            var loginId = $('#childLonginId'+mberPid).val();
-            var nm = $('#childNm'+mberPid).val();
-            var schlNm = $('#childSchool'+mberPid).val();
-            var grade = $('#childGrade'+mberPid).val();
-            var ban = $('#childBan'+mberPid).val();
-            var no = $('#childNo'+mberPid).val();
+            var id = $('#nameChildren' + mberPid).val();
+            var loginId = $('#childLonginId' + mberPid).val();
+            var nm = $('#childNm' + mberPid).val();
+            var schlNm = $('#childSchool' + mberPid).val();
+            var grade = $('#childGrade' + mberPid).val();
+            var ban = $('#childBan' + mberPid).val();
+            var no = $('#childNo' + mberPid).val();
 
             var html = '<li id="child_' + id + '">' +
                 '<input type="hidden" name="childIdArr" value="' + loginId + '" />' +
@@ -122,9 +123,10 @@
             //areaNm = $('#areaNm');
             //schlNm = $('#schlNm');
             var sd_schul_code = chkSchlVal; //학교코드
-            var lctn_sc_nm = $('input:hidden[name='+'lctn_sc_nm'+ chkSchlVal + ']').val(); //지역
-            var schul_nm = $('input:hidden[name='+'schul_nm'+ chkSchlVal + ']').val(); //학교명
-            var atpt_ofcdc_sc_code = $('input:hidden[name='+'atpt_ofcdc_sc_code'+ chkSchlVal + ']').val(); ; //교육청코드
+            var lctn_sc_nm = $('input:hidden[name=' + 'lctn_sc_nm' + chkSchlVal + ']').val(); //지역
+            var schul_nm = $('input:hidden[name=' + 'schul_nm' + chkSchlVal + ']').val(); //학교명
+            var atpt_ofcdc_sc_code = $('input:hidden[name=' + 'atpt_ofcdc_sc_code' + chkSchlVal + ']').val();
+            ; //교육청코드
 
             $('#childSrchAreaNm').val(lctn_sc_nm);
             $('#childSrchSchlNm').val(schul_nm);
@@ -137,28 +139,28 @@
             /*if (!confirm("자식을 삭제하시겠습니까?")) {
                 return false;
             }*/
-            $('#child_'+id).remove();
+            $('#child_' + id).remove();
         }
 
-        function characSize(){
+        function characSize() {
             var winW = $(window).width();
 
-            if(winW > 1023){
+            if (winW > 1023) {
                 var characH = $('.sec_write.info > .tbl_write').outerHeight()
-                $('.my_character').css({'height':characH})
-            }else{
+                $('.my_character').css({'height': characH})
+            } else {
                 $('.my_character').removeAttr('style')
             }
         }
 
-        function fn_setBan(grd){
+        function fn_setBan(grd) {
             grade = $('#grade');
             ban = $('#ban');
             banChildren = $('#banChildren');
             ban.empty();
             banChildren.empty();
 
-            if(!grd){
+            if (!grd) {
                 alert('학년을 선택해주세요.');
                 grade.focus();
                 return;
@@ -168,11 +170,11 @@
             ban.append(html);
 
             var banArr = _.where(classInfoArr, {GRADE: grd});
-            banArr = _.uniq(banArr,'CLASS_NM');
-            banArr = _.sortBy(banArr,function(item){
+            banArr = _.uniq(banArr, 'CLASS_NM');
+            banArr = _.sortBy(banArr, function (item) {
                 return item;
             });
-            for(var i = 0; i< banArr.length; i++) {
+            for (var i = 0; i < banArr.length; i++) {
                 var grd = banArr[i].CLASS_NM; //반
                 html = "<option value=" + grd + ">" + grd + "반</option>";
                 ban.append(html);
@@ -191,10 +193,10 @@
             var ban = $('#ban').val();
 
             var jsonData = {
-                'areaNm' : areaNm,
-                'schlNm' : schlNm,
-                'grade' : grade,
-                'ban' : ban
+                'areaNm': areaNm,
+                'schlNm': schlNm,
+                'grade': grade,
+                'ban': ban
             };
             $.ajax({
                 type: 'post',
@@ -214,7 +216,7 @@
             });
         }
 
-        function fn_srchSchlNm(){
+        function fn_srchSchlNm() {
             srchSchlNm = $('#srchSchlNm');
             if (!$.trim(srchSchlNm.val())) {
                 alert('학교명을 입력하세요');
@@ -225,20 +227,20 @@
             $.ajax({
                 type: "GET",
                 url: "/api/openData/schoolInfoToJson",
-                dataType:"json",
+                dataType: "json",
                 data: {
                     "scName": srchSchlNm.val()
                 },
                 success: function (data) {
                     var code = data.schoolInfo[0].head[1].RESULT.CODE;
                     var message = data.schoolInfo[0].head[1].RESULT.MESSAGE;
-                    if(code != 'INFO-000') { //실패
+                    if (code != 'INFO-000') { //실패
                         alert(message);
-                    }else{ //성공
+                    } else { //성공
                         var html = "";
                         $('#srchSchlNmList').empty();
                         var scArr = data.schoolInfo[1].row;
-                        for(var i = 0; i< scArr.length; i++){
+                        for (var i = 0; i < scArr.length; i++) {
                             var lctn_sc_nm = scArr[i].LCTN_SC_NM; //지역
                             var schul_nm = scArr[i].SCHUL_NM; //학교명
                             var sd_schul_code = scArr[i].SD_SCHUL_CODE; //학교코드
@@ -265,10 +267,10 @@
         }
 
         //적용버튼 눌렀을때
-        function fn_selSchlNm(){
+        function fn_selSchlNm() {
             srchSchlNm = $('#srchSchlNm');
             var chkSchl = $('input:radio[name=school]:checked');
-            if(chkSchl.length < 1){
+            if (chkSchl.length < 1) {
                 alert('학교를 선택해주세요.');
                 return;
             }
@@ -276,9 +278,10 @@
             schlNm = $('#schlNm');
 
             var sd_schul_code = chkSchl.val(); //학교코드
-            var lctn_sc_nm = $('input:hidden[name='+'lctn_sc_nm'+ chkSchl.val() + ']').val(); //지역
-            var schul_nm = $('input:hidden[name='+'schul_nm'+ chkSchl.val() + ']').val(); //학교명
-            var atpt_ofcdc_sc_code = $('input:hidden[name='+'atpt_ofcdc_sc_code'+ chkSchl.val() + ']').val(); ; //교육청코드
+            var lctn_sc_nm = $('input:hidden[name=' + 'lctn_sc_nm' + chkSchl.val() + ']').val(); //지역
+            var schul_nm = $('input:hidden[name=' + 'schul_nm' + chkSchl.val() + ']').val(); //학교명
+            var atpt_ofcdc_sc_code = $('input:hidden[name=' + 'atpt_ofcdc_sc_code' + chkSchl.val() + ']').val();
+            ; //교육청코드
 
             areaNm.val(lctn_sc_nm);
             schlNm.val(schul_nm);
@@ -291,16 +294,16 @@
             layerHide('popSchool');
         }
 
-        function fn_setGrade(ofCode, scCode){
+        function fn_setGrade(ofCode, scCode) {
             grade = $('#grade');
             gradeChildren = $('#gradeChildren');
             grade.empty();
             gradeChildren.empty();
-            if(ofCode && scCode){
+            if (ofCode && scCode) {
                 $.ajax({
                     type: "GET",
                     url: "/api/openData/classInfoToJson",
-                    dataType:"json",
+                    dataType: "json",
                     data: {
                         "ofCode": ofCode,
                         "scCode": scCode
@@ -308,20 +311,20 @@
                     success: function (data) {
                         var code = data.classInfo[0].head[1].RESULT.CODE;
                         var message = data.classInfo[0].head[1].RESULT.MESSAGE;
-                        if(code != 'INFO-000') { //실패
+                        if (code != 'INFO-000') { //실패
                             alert(message);
-                        }else{ //성공
+                        } else { //성공
                             var html = "<option value=\"\">선택</option>";
 
                             grade.append(html);
                             gradeChildren.append(html);
                             classInfoArr = data.classInfo[1].row;
 
-                            var gradeArr = _.uniq(classInfoArr,'GRADE')
-                            gradeArr = _.sortBy(gradeArr,function(item){
+                            var gradeArr = _.uniq(classInfoArr, 'GRADE')
+                            gradeArr = _.sortBy(gradeArr, function (item) {
                                 return item;
                             });
-                            for(var i = 0; i< gradeArr.length; i++) {
+                            for (var i = 0; i < gradeArr.length; i++) {
                                 var grd = gradeArr[i].GRADE; //학년
                                 html = "<option value=" + grd + ">" + grd + "학년</option>";
                                 grade.append(html);
@@ -357,7 +360,7 @@
             frm.submit();
         }
 
-        function fn_chkPwdDup(){
+        function fn_chkPwdDup() {
             var pwd = $("#pwd");
             var pwdChk = $('#pwdChk');
 
@@ -367,8 +370,8 @@
                 pwd.after('<p class="err emph">비밀번호는 필수 값입니다.</p>');
                 pwd.focus();
                 return false;
-            }else{
-                if(!pwdCheck(pwd)){
+            } else {
+                if (!pwdCheck(pwd)) {
                     pwd.val("");
                     pwd.focus();
                     return false;
@@ -381,8 +384,8 @@
                 pwdChk.after('<p class="err emph">비밀번호 확인은 필수 값입니다.</p>');
                 pwdChk.focus();
                 return false;
-            }else{
-                if(!pwdCheck(pwdChk)){
+            } else {
+                if (!pwdCheck(pwdChk)) {
                     pwdChk.val("");
                     pwdChk.focus();
                     return false;
@@ -394,7 +397,7 @@
                 pwdChk.after('<p class="err emph">비밀번호가 일치하지 않습니다.</p>');
                 pwdChk.focus();
                 return false;
-            }else{
+            } else {
                 return true;
             }
         }
@@ -421,35 +424,35 @@
             if ($.trim(email01.val())) {
                 emailStr += $.trim(email01.val());
                 emailStr += "@"
-            }else{
+            } else {
                 alert('이메일을 입력하세요');
                 email01.focus();
                 return false;
             }
 
             if ($.trim(email02.val()) != "직접입력") {
-                if(!$.trim(email02.val())){
+                if (!$.trim(email02.val())) {
                     alert('이메일을 입력하세요');
                     email02.focus();
                     return false;
-                }else{
+                } else {
                     emailStr += $.trim(email02.val());
                 }
             }
 
             if ($.trim(email02.val()) == "직접입력") {
-                if(!$.trim(email03.val())){
+                if (!$.trim(email03.val())) {
                     alert('이메일을 입력하세요');
                     email03.focus();
                     return false;
-                }else{
+                } else {
                     emailStr += $.trim(email03.val());
                 }
             }
 
             email.val(emailStr);
-            if(email.val()){
-                if(!emailCheck(email)){
+            if (email.val()) {
+                if (!emailCheck(email)) {
                     email.val("");
                     email01.focus();
                     emailDupBool = false;
@@ -463,7 +466,7 @@
                     "email": email.val()
                 },
                 success: function (data) {
-                    if(email.val() != ''){
+                    if (email.val() != '') {
                         alert('이메일 변경 인증메일이 발송되었습니다.\n인증 가능 시간(1시간)이내에 인증완료 후 이메일주소가 변경됩니다.');
                         emailDupBool = true;
                         email01.props("disabled", true);
@@ -503,285 +506,338 @@
 <div id="wrap">
     <th:block th:include="fragments/header_gnb"></th:block>
     <div id="container">
-        <th:block th:include="fragments/snb"></th:block>
-        <form id="form1" name="form1" method="post" th:object="${form}">
+        <th:block th:include="fragments/mo_menu"></th:block>
+        <div class="sub_container">
+            <th:block th:include="fragments/dept_menu"></th:block>
+            <form id="form1" name="form1" method="post" th:object="${form}">
 
-            <div class="contents">
-                <div class="page_top">
-                    <h3 class="page_tit">계정정보</h3>
-                    <span>회원정보를 최신정보로 관리해주세요. <br class="mo" />새로운 푸코소식과 보안을 위해 회원정보를 최신으로 업데이트 해주세요.</span>
-                </div>
-                <div class="page_cont my_profile">
-                    <div class="sec_write_area clearfix">
-                        <div class="sec_write info">
-                            <h4 class="subtit">회원 기본정보</h4>
-                            <input type="hidden" th:field="*{id}">
-                            <input type="hidden" th:field="*{mberDvTy}">
+                <div class="contents">
+                    <div class="page_top">
+                        <h3 class="page_tit">계정정보</h3>
+                        <span>회원정보를 최신정보로 관리해주세요. <br class="mo"/>새로운 푸코소식과 보안을 위해 회원정보를 최신으로 업데이트 해주세요.</span>
+                    </div>
+                    <div class="page_cont my_profile">
+                        <div class="sec_write_area clearfix">
+                            <div class="sec_write info">
+                                <h4 class="subtit">회원 기본정보</h4>
+                                <input type="hidden" th:field="*{id}">
+                                <input type="hidden" th:field="*{mberDvTy}">
+                                <div class="tbl_write">
+                                    <ul>
+                                        <li>`
+                                            <div class="th">이름</div>
+                                            <div class="td td_txt" th:text="*{nm}">홍길동</div>
+                                            `
+                                            <!--<input type="hidden" th:field="*{nm}">-->
+                                        </li>
+                                        <li>
+                                            <div class="th">아이디</div>
+                                            <div class="td td_txt" th:text="*{loginId}">hong</div>
+                                        </li>
+                                        <li>
+                                            <div class="th"><label for="pwd">비밀번호</label></div>
+                                            <div class="td">
+                                                <button type="button" id="btnPwdChgY"
+                                                        class="btn btn_lg btn_line_blue btn_pill_10"
+                                                        onclick="return fn_pwdChange('Y')">비밀번호변경
+                                                </button>
+                                                <button type="button" id="btnPwdChgN" style="display: none"
+                                                        class="btn btn_lg btn_line_blue btn_pill_10"
+                                                        onclick="return fn_pwdChange('N')">비밀번호변경취소
+                                                </button>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="th">생년월일</div>
+                                            <div class="td td_txt" th:text="*{brthdy}">2007.01.15</div>
+                                        </li>
+                                        <li>
+                                            <div class="th">성별</div>
+                                            <div class="td td_txt">
+                                                <th:block
+                                                        th:each="tp : ${T(kr.or.btf.web.domain.web.enums.GenderType).values()}">
+                                                    <th:block th:if="${form.sexPrTy eq tp.name()}"
+                                                              th:text="${tp.getName()}"></th:block>
+                                                </th:block>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="th">이메일 주소</div>
+                                            <div class="td">
+                                                <div class="email_form clearfix">
+                                                    <!-- [D] active 클래스가 있어야 직접입력 인풋이 노출 됨(style.js 에 들어가 있음) -->
+                                                    <input type="text" name="email01" id="email01" title="이메일 아이디 입력"
+                                                           th:value="*{#strings.substringBefore(email, '@')}"/>
+                                                    <span class="at">@</span>
+                                                    <div class="select">
+                                                        <label for="email02"
+                                                               th:text="*{#strings.substringAfter(email, '@')}">선택</label>
+                                                        <select name="email02" id="email02"
+                                                                th:value="*{#strings.substringAfter(email, '@')}">
+                                                            <option value="">선택</option>
+                                                            <option value="naver.com">naver.com</option>
+                                                            <option value="gmail.com">gmail.com</option>
+                                                            <option value="hanmail.net">hanmail.net</option>
+                                                            <option value="nate.com">nate.com</option>
+                                                            <option value="daum.net">daum.net</option>
+                                                            <option value="직접입력">직접입력</option>
+                                                        </select>
+                                                    </div>
+                                                    <input type="text" name="email03" id="email03" class="email_inp"
+                                                           title="이메일주소 직접입력"/>
+                                                    <input type="hidden" name="email" id="email"/>
+                                                    <button type="button" class="btn btn_lg btn_line_blue btn_pill_10"
+                                                            onclick="return fn_chkEmailDupAndAuth()">인증요청
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="th">휴대전화</div>
+                                            <div class="td"><input type="text" id="moblphon" name="moblphon"
+                                                                   placeholder="'-' 구분없이 입력 ex)01012345678"
+                                                                   th:value="*{moblphon}"/></div>
+                                        </li>
+                                        <li>
+                                            <div class="th">닉네임</div>
+                                            <div class="td td_txt" th:text="*{ncnm}">푸꼬</div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="sec_write character">
+                                <h4 class="subtit">나의 캐릭터</h4>
+                                <div class="my_character">
+                                    <dl class="level lv01">
+                                        <!-- TODO : 레벨 1~ 레벨 35까지 프로필 캐릭터 변경됨. (각 추가 클래스명 lv01 ~ lv35) -->
+                                        <dt>캐릭터 레벨</dt>
+                                        <dd>
+                                            <b class="txt_lv">LV.01</b>
+                                            <a href="/pages/blueElephant/character#guide"
+                                               class="btn btn_lg btn_blue btn_pill_10">레벨업 가이드</a>
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sec_write info" id="pwdChg" style="display: none">
+                            <h4 class="subtit">비밀번호 변경</h4>
                             <div class="tbl_write">
                                 <ul>
-                                    <li>`
-                                        <div class="th">이름</div>
-                                        <div class="td td_txt" th:text="*{nm}">홍길동</div>`
-                                        <!--<input type="hidden" th:field="*{nm}">-->
-                                    </li>
                                     <li>
-                                        <div class="th">아이디</div>
-                                        <div class="td td_txt" th:text="*{loginId}">hong</div>
-                                    </li>
-                                    <li>
-                                        <div class="th"><label for="pwd">비밀번호</label></div>
+                                        <div class="th"><label for="pwd">신규 비밀번호</label></div>
                                         <div class="td">
-                                            <button type="button" id="btnPwdChgY" class="btn btn_lg btn_line_blue btn_pill_10" onclick="return fn_pwdChange('Y')">비밀번호변경</button>
-                                            <button type="button" id="btnPwdChgN" style="display: none" class="btn btn_lg btn_line_blue btn_pill_10" onclick="return fn_pwdChange('N')">비밀번호변경취소</button>
+                                            <input type="hidden" id="pwdChangeYn" value=""/>
+                                            <input type="password" id="pwd" name="pwd" placeholder="8~16자(특수 문자 포함)"/>
                                         </div>
                                     </li>
                                     <li>
-                                        <div class="th">생년월일</div>
-                                        <div class="td td_txt" th:text="*{brthdy}">2007.01.15</div>
-                                    </li>
-                                    <li>
-                                        <div class="th">성별</div>
-                                        <div class="td td_txt">
-                                            <th:block th:each="tp : ${T(kr.or.btf.web.domain.web.enums.GenderType).values()}">
-                                                <th:block th:if="${form.sexPrTy eq tp.name()}" th:text="${tp.getName()}"></th:block>
-                                            </th:block>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="th">이메일 주소</div>
+                                        <div class="th"><label for="pwdChk">비밀번호 확인</label></div>
                                         <div class="td">
-                                            <div class="email_form clearfix"> <!-- [D] active 클래스가 있어야 직접입력 인풋이 노출 됨(style.js 에 들어가 있음) -->
-                                                <input type="text" name="email01" id="email01" title="이메일 아이디 입력" th:value="*{#strings.substringBefore(email, '@')}" />
-                                                <span class="at">@</span>
-                                                <div class="select">
-                                                    <label for="email02" th:text="*{#strings.substringAfter(email, '@')}">선택</label>
-                                                    <select name="email02" id="email02" th:value="*{#strings.substringAfter(email, '@')}">
-                                                        <option value="">선택</option>
-                                                        <option value="naver.com">naver.com</option>
-                                                        <option value="gmail.com">gmail.com</option>
-                                                        <option value="hanmail.net">hanmail.net</option>
-                                                        <option value="nate.com">nate.com</option>
-                                                        <option value="daum.net">daum.net</option>
-                                                        <option value="직접입력">직접입력</option>
-                                                    </select>
-                                                </div>
-                                                <input type="text" name="email03" id="email03" class="email_inp" title="이메일주소 직접입력" />
-                                                <input type="hidden" name="email" id="email"/>
-                                                <button type="button" class="btn btn_lg btn_line_blue btn_pill_10" onclick="return fn_chkEmailDupAndAuth()">인증요청</button>
-                                            </div>
+                                            <input type="password" id="pwdChk" name="pwdChk" placeholder="비밀번호 확인"/>
                                         </div>
-                                    </li>
-                                    <li>
-                                        <div class="th">휴대전화</div>
-                                        <div class="td"><input type="text" id="moblphon" name="moblphon" placeholder="'-' 구분없이 입력 ex)01012345678" th:value="*{moblphon}" /></div>
-                                    </li>
-                                    <li>
-                                        <div class="th">닉네임</div>
-                                        <div class="td td_txt" th:text="*{ncnm}">푸꼬</div>
                                     </li>
                                 </ul>
                             </div>
                         </div>
-                        <div class="sec_write character">
-                            <h4 class="subtit">나의 캐릭터</h4>
-                            <div class="my_character">
-                                <dl class="level lv01"> <!-- TODO : 레벨 1~ 레벨 35까지 프로필 캐릭터 변경됨. (각 추가 클래스명 lv01 ~ lv35) -->
-                                    <dt>캐릭터 레벨</dt>
-                                    <dd>
-                                        <b class="txt_lv">LV.01</b>
-                                        <a href="/pages/blueElephant/character#guide" class="btn btn_lg btn_blue btn_pill_10">레벨업 가이드</a>
-                                    </dd>
-                                </dl>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="sec_write info" id="pwdChg" style="display: none">
-                        <h4 class="subtit">비밀번호 변경</h4>
-                        <div class="tbl_write">
-                            <ul>
-                                <li>
-                                    <div class="th"><label for="pwd">신규 비밀번호</label></div>
-                                    <div class="td">
-                                        <input type="hidden" id="pwdChangeYn" value="" />
-                                        <input type="password" id="pwd" name="pwd" placeholder="8~16자(특수 문자 포함)" />
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="th"><label for="pwdChk">비밀번호 확인</label></div>
-                                    <div class="td">
-                                        <input type="password" id="pwdChk" name="pwdChk" placeholder="비밀번호 확인" />
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="sec_write"th:if="${form.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).STUDENT or
+                        <div class="sec_write" th:if="${form.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).STUDENT or
                     form.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).TEACHER}">
-                        <h4 class="subtit">추가정보</h4>
-                        <div class="tbl_write">
-                            <ul>
-                                <li>
-                                    <div class="th"><label for="areaNm">지역명</label></div>
-                                    <div class="td"><input type="text" id="areaNm" name="areaNm" th:value="${school.areaNm}" readonly onclick="layerShow('popSchool')"/></div>
-                                </li>
-                                <li>
-                                    <div class="th"><label for="schlNm">학교명</label></div>
-                                    <div class="td">
-                                        <input type="text" id="schlNm" name="schlNm" readonly th:value="${school.schlNm}" onclick="layerShow('popSchool')"/>
-                                        <button type="button" class="btn btn_lg btn_line_blue btn_pill_10" onclick="layerShow('popSchool')">학교검색</button>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="th">학년</div>
-                                    <div class="td">
-                                        <div>
-                                            <div class="select w180">
-                                                <label for="grade" th:text="|${school.grade}학년|">3학년</label>
-                                                <select id="grade" name="grade" th:value="${school.grade}" onchange="return fn_setBan(this.value);">
-                                                    <option th:value="${school.grade}" th:text="|${school.grade}학년|">선택</option>
-                                                </select>
+                            <h4 class="subtit">추가정보</h4>
+                            <div class="tbl_write">
+                                <ul>
+                                    <li>
+                                        <div class="th"><label for="areaNm">지역명</label></div>
+                                        <div class="td"><input type="text" id="areaNm" name="areaNm"
+                                                               th:value="${school.areaNm}" readonly
+                                                               onclick="layerShow('popSchool')"/></div>
+                                    </li>
+                                    <li>
+                                        <div class="th"><label for="schlNm">학교명</label></div>
+                                        <div class="td">
+                                            <input type="text" id="schlNm" name="schlNm" readonly
+                                                   th:value="${school.schlNm}" onclick="layerShow('popSchool')"/>
+                                            <button type="button" class="btn btn_lg btn_line_blue btn_pill_10"
+                                                    onclick="layerShow('popSchool')">학교검색
+                                            </button>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="th">학년</div>
+                                        <div class="td">
+                                            <div>
+                                                <div class="select w180">
+                                                    <label for="grade" th:text="|${school.grade}학년|">3학년</label>
+                                                    <select id="grade" name="grade" th:value="${school.grade}"
+                                                            onchange="return fn_setBan(this.value);">
+                                                        <option th:value="${school.grade}"
+                                                                th:text="|${school.grade}학년|">선택
+                                                        </option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="th">반</div>
-                                    <div class="td">
-                                        <div>
-                                            <div class="select w180">
-                                                <label for="ban" th:text="|${school.ban}반|">10반</label>
-                                                <select id="ban" name="ban" th:value="${school.ban}" onchange="return fn_setTeacher(this.value);">
-                                                    <option th:value="${school.ban}" th:text="|${school.ban}반|">선택</option>
-                                                </select>
+                                    </li>
+                                    <li>
+                                        <div class="th">반</div>
+                                        <div class="td">
+                                            <div>
+                                                <div class="select w180">
+                                                    <label for="ban" th:text="|${school.ban}반|">10반</label>
+                                                    <select id="ban" name="ban" th:value="${school.ban}"
+                                                            onchange="return fn_setTeacher(this.value);">
+                                                        <option th:value="${school.ban}" th:text="|${school.ban}반|">선택
+                                                        </option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </li>
-                                <li th:if="${form.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).STUDENT}"> <!--학생일경우만 노출-->
-                                    <div class="th"><label for="no">번호</label></div>
-                                    <div class="td"><input type="number" id="no" name="no" th:value="${school.no}" onchange="stdntNoCheck(this, event)" /></div>
-                                </li>
-                                <li th:if="${form.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).STUDENT}"> <!--학생일경우만 노출-->
-                                    <div class="th"><label for="teacherNm">담임 선생님</label></div>
-                                    <div class="td"><input type="text" id="teacherNm" name="teacherNm" th:value="${school.teacherNm}" readonly /></div>
+                                    </li>
+                                    <li th:if="${form.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).STUDENT}">
+                                        <!--학생일경우만 노출-->
+                                        <div class="th"><label for="no">번호</label></div>
+                                        <div class="td"><input type="number" id="no" name="no" th:value="${school.no}"
+                                                               onchange="stdntNoCheck(this, event)"/></div>
+                                    </li>
+                                    <li th:if="${form.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).STUDENT}">
+                                        <!--학생일경우만 노출-->
+                                        <div class="th"><label for="teacherNm">담임 선생님</label></div>
+                                        <div class="td"><input type="text" id="teacherNm" name="teacherNm"
+                                                               th:value="${school.teacherNm}" readonly/></div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="sec_write"
+                             th:if="${form.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).PARENT}">
+                            <!--부모일 경우 노출-->
+                            <h4 class="subtit">추가정보(자녀 아이디)</h4>
+                            <input type="hidden" id="childSrchAreaNm"/>
+                            <input type="hidden" id="childSrchSchlNm"/>
+                            <ul class="list_type01">
+                                <th:block th:each="child,idx : ${childList}">
+                                    <li th:id="|child_${child.id}|">
+                                        <input type="hidden" name="childIdArr" th:value="|${child.loginId}|"/>
+                                        <p th:text="|${child.nm} ${child.schlNm} ${child.grade}학년 ${child.ban}반 ${child.no}번|">
+                                            이창근 ○○초등학교 5학년 3반 17번</p>
+                                        <a href="javascript:;" class="btn btn_lg btn_line_blue btn_pill_10"
+                                           th:onclick="|fn_deleteChild(${child.id})|">삭제</a>
+                                    </li>
+                                </th:block>
+                                <li class="add">
+                                    <a href="javascript:;" class="btn btn_lg btn_skyblue btn_pill_10"
+                                       onclick="layerShow('popSchool')">추가</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
-                    <div class="sec_write" th:if="${form.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).PARENT}"><!--부모일 경우 노출-->
-                        <h4 class="subtit">추가정보(자녀 아이디)</h4>
-                        <input type="hidden" id="childSrchAreaNm" />
-                        <input type="hidden" id="childSrchSchlNm" />
-                        <ul class="list_type01">
-                            <th:block th:each="child,idx : ${childList}">
-                                <li th:id="|child_${child.id}|">
-                                    <input type="hidden" name="childIdArr" th:value="|${child.loginId}|" />
-                                    <p th:text="|${child.nm} ${child.schlNm} ${child.grade}학년 ${child.ban}반 ${child.no}번|">이창근 ○○초등학교 5학년 3반 17번</p>
-                                    <a href="javascript:;" class="btn btn_lg btn_line_blue btn_pill_10" th:onclick="|fn_deleteChild(${child.id})|">삭제</a>
-                                </li>
-                            </th:block>
-                            <li class="add">
-                                <a href="javascript:;" class="btn btn_lg btn_skyblue btn_pill_10" onclick="layerShow('popSchool')">추가</a>
-                            </li>
-                        </ul>
+                    <div class="btn_area btn_num02">
+                        <a href="javascript:;" class="btn btn_lg btn_blue btn_pill_10" onclick="fn_modify()">저장</a>
+                        <a href="/pages/myPage/profile" class="btn btn_lg btn_line_blue btn_pill_10">이전</a>
+                        <a href="javascript:;" class="btn btn_lg btn_line_blue btn_pill_10" onclick="fn_memberRemove()">회원탈퇴</a>
                     </div>
                 </div>
-                <div class="btn_area btn_num02">
-                    <a href="javascript:;" class="btn btn_lg btn_blue btn_pill_10" onclick="fn_modify()">저장</a>
-                    <a href="/pages/myPage/profile" class="btn btn_lg btn_line_blue btn_pill_10" >이전</a>
-                    <a href="javascript:;" class="btn btn_lg btn_line_blue btn_pill_10" onclick="fn_memberRemove()">회원탈퇴</a>
-                </div>
-            </div>
-        </form>
+            </form>
+        </div>
+        <th:block th:replace="fragments/footer"></th:block>
     </div>
-    <th:block th:replace="fragments/footer"></th:block>
-</div>
-<div id="popSchool" class="layer_popup" th:classappend="${form.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).PARENT ? 'parents_school' : ''}"><!-- 부모일 경우 클래스 parents_school 추가-->
-    <div class="dim"></div>
-    <div class="popup_area">
-        <a href="javascript:layerHide('popSchool')" class="btn_close"><span class="blind">팝업닫기</span></a>
-        <div class="popup">
-            <th:block th:if="${form.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).PARENT}">
-                <div class="pop_tit">자녀 검색</div>
-            </th:block>
-            <th:block th:unless="${form.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).PARENT}">
-                <div class="pop_tit">학교 검색</div>
-            </th:block>
-            <div class="pop_cont">
-                <ul class="write_form mb20">
-                    <li>
-                        <div class="th">학교명</div>
-                        <div class="td">
-                            <div class="email_form clearfix">
-                                <input type="text" id="srchSchlNm" name="srchSchlNm" placeholder="학교명을 입력해주세요.">
-                                <button type="button" class="btn btn_lg btn_line_blue btn_pill_10" onclick="return fn_srchSchlNm();">검색</button>
-                            </div>
-                            <ul class="write_form">
-                                <li>
-                                    <div class="td">
-                                        <div class="scrollbar">
-                                            <span class="txt03" id="nodata">- 학교명을 검색해주세요. -</span>
-                                            <div id="srchSchlNmList"></div>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <!-- 부모일 경우 노출-->
-                    <th:block th:if="${form.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).PARENT}">
-                        <li>
-                            <div class="th">학년</div>
-                            <div class="td">
-                                <div>
-                                    <div class="select w180">
-                                        <label for="gradeChildren">선택</label>
-                                        <select id="gradeChildren" name="gradeChildren" onchange="return fn_setBan(this.value);"/>
-                                            <option value="">선택</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="th">반</div>
-                            <div class="td">
-                                <div>
-                                    <div class="select w180">
-                                        <label for="banChildren">선택</label>
-                                        <select id="banChildren" name="banChildren">
-                                            <option value="">선택</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="th"><label for="noChildren">번호</label></div>
-                            <div class="td">
-                                <div class="inp_area">
-                                    <input type="number" id="noChildren" name="noChildren" />
-                                    <!--ajax로 자녀찾아와서 밑에있는정보 뿌려주기-->
-                                    <button type="button" class="btn btn_lg btn_line_blue btn_pill_10" onclick="fn_searchChild()">자녀찾기</button>
-                                </div>
-                            </div>
-                        </li>
-                    </th:block>
-                    <!--부모일 경우 노출-->
-                </ul>
-                <!--자녀찾기 후 노출 -->
-                <div class="children_name">
-
-                </div>
-                <!--자녀찾기 후 노출 -->
-            </div>
-            <div class="btn_area">
+    <div id="popSchool" class="layer_popup"
+         th:classappend="${form.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).PARENT ? 'parents_school' : ''}">
+        <!-- 부모일 경우 클래스 parents_school 추가-->
+        <div class="dim"></div>
+        <div class="popup_area">
+            <a href="javascript:layerHide('popSchool')" class="btn_close"><span class="blind">팝업닫기</span></a>
+            <div class="popup">
                 <th:block th:if="${form.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).PARENT}">
-                    <button type="button" class="btn btn_lg btn_blue btn_pill_10" onclick="return fn_selSchlChildNm();">추가</button>
+                    <div class="pop_tit">자녀 검색</div>
                 </th:block>
                 <th:block th:unless="${form.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).PARENT}">
-                    <button type="button" class="btn btn_lg btn_blue btn_pill_10" onclick="return fn_selSchlNm();">적용</button>
+                    <div class="pop_tit">학교 검색</div>
                 </th:block>
+                <div class="pop_cont">
+                    <ul class="write_form mb20">
+                        <li>
+                            <div class="th">학교명</div>
+                            <div class="td">
+                                <div class="email_form clearfix">
+                                    <input type="text" id="srchSchlNm" name="srchSchlNm" placeholder="학교명을 입력해주세요.">
+                                    <button type="button" class="btn btn_lg btn_line_blue btn_pill_10"
+                                            onclick="return fn_srchSchlNm();">검색
+                                    </button>
+                                </div>
+                                <ul class="write_form">
+                                    <li>
+                                        <div class="td">
+                                            <div class="scrollbar">
+                                                <span class="txt03" id="nodata">- 학교명을 검색해주세요. -</span>
+                                                <div id="srchSchlNmList"></div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <!-- 부모일 경우 노출-->
+                        <th:block th:if="${form.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).PARENT}">
+                            <li>
+                                <div class="th">학년</div>
+                                <div class="td">
+                                    <div>
+                                        <div class="select w180">
+                                            <label for="gradeChildren">선택</label>
+                                            <select id="gradeChildren" name="gradeChildren"
+                                                    onchange="return fn_setBan(this.value);"/>
+                                            <option value="">선택</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="th">반</div>
+                                <div class="td">
+                                    <div>
+                                        <div class="select w180">
+                                            <label for="banChildren">선택</label>
+                                            <select id="banChildren" name="banChildren">
+                                                <option value="">선택</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="th"><label for="noChildren">번호</label></div>
+                                <div class="td">
+                                    <div class="inp_area">
+                                        <input type="number" id="noChildren" name="noChildren"/>
+                                        <!--ajax로 자녀찾아와서 밑에있는정보 뿌려주기-->
+                                        <button type="button" class="btn btn_lg btn_line_blue btn_pill_10"
+                                                onclick="fn_searchChild()">자녀찾기
+                                        </button>
+                                    </div>
+                                </div>
+                            </li>
+                        </th:block>
+                        <!--부모일 경우 노출-->
+                    </ul>
+                    <!--자녀찾기 후 노출 -->
+                    <div class="children_name">
+
+                    </div>
+                    <!--자녀찾기 후 노출 -->
+                </div>
+                <div class="btn_area">
+                    <th:block th:if="${form.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).PARENT}">
+                        <button type="button" class="btn btn_lg btn_blue btn_pill_10"
+                                onclick="return fn_selSchlChildNm();">추가
+                        </button>
+                    </th:block>
+                    <th:block th:unless="${form.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).PARENT}">
+                        <button type="button" class="btn btn_lg btn_blue btn_pill_10" onclick="return fn_selSchlNm();">
+                            적용
+                        </button>
+                    </th:block>
+                </div>
             </div>
         </div>
     </div>
