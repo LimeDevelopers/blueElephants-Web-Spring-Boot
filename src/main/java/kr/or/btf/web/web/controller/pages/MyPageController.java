@@ -968,6 +968,25 @@ public class MyPageController extends BaseCont {
         return "/pages/myPage/abilityCardDetail";
     }
 
+    @RequestMapping("/pages/myPage/management")
+    public String management(Model model,
+                             @CurrentUser Account account,
+                             @PageableDefault Pageable pageable,
+                             @ModelAttribute SearchForm searchForm,
+                             @Value("${common.code.policyProposalCdPid}") Long policyProposalCdPid) {
+
+        BoardDataForm boardDataForm = new BoardDataForm();
+        boardDataForm.setMstPid(policyProposalCdPid);
+        searchForm.setLoginId(account.getLoginId());
+        boardDataForm.setFixingAt("N");
+        Page<BoardData> boardDatas = boardDataService.listForFront(pageable, searchForm, boardDataForm);
+        model.addAttribute("boardDatas", boardDatas);
+
+        model.addAttribute("mc", "myPage");
+        model.addAttribute("pageTitle", "학생관리");
+        return "/pages/myPage/management";
+    }
+
     /* 09/16 고선호 추가 끝 */
 
     @RequestMapping("/pages/myPage/proposalDetail/{id}")
