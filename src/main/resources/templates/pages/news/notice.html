@@ -40,8 +40,8 @@
 <!--                        <p class="mo_page_txt">사이버폭력 예방과 근절을 위해 오늘도 뛰고 있는 푸코소식을 들어봐요.</p>-->
 <!--                    </div>-->
                     <h4 class="subtit pc" th:text="${boardMaster.bbsNm}">언론보도</h4>
-                    <div class="board_top">
-                        <div class="select w160">
+                    <div class="board_top notice_board">
+                        <div class="select w160 title">
                             <label th:for="sntncHead">
                                 <th:block th:if="*{sntncHead eq null or sntncHead eq ''}">전체</th:block>
                                 <th:block th:each="item: ${#strings.arraySplit(boardMaster.sntncHead,',')}">
@@ -54,7 +54,7 @@
                                         th:text="${item}" th:value="${item}" ></option>
                             </select>
                         </div>
-                        <div class="select w160">
+                        <div class="select w160 subject">
                             <label th:for="srchField">
                                 <!--<th:block th:if="*{srchField eq '' or srchField eq null}">전체</th:block>-->
                                 <th:block th:if="*{srchField eq 'title' or srchField eq '' or srchField eq null}">제목</th:block>
@@ -76,14 +76,14 @@
                         <button type="submit" class="btn btn_blue btn_pill_10">검색</button>
 
                     </div>
-                    <div role="option" class="option">
-                        <label th:for="sorting">
+                    <div role="option" class="option notice_select">
+                        <!--<label th:for="sorting">
                             <th:block th:if="*{sorting eq 'latest' or sorting eq null or sorting eq ''}">최신순</th:block>
                             <th:block th:if="*{sorting eq 'old'}">오래된순</th:block>
                             <th:block th:if="*{sorting eq 'readCnt'}">조회순</th:block>
                             <th:block th:if="*{sorting eq 'alphabetically'}">가나다순</th:block>
-                        </label>
-                        <select th:field="*{sorting}" onchange="fn_search()">
+                        </label>-->
+                        <select class="select notice_option_select" th:field="*{sorting}" onchange="fn_search()" size='2' >
                             <option value="latest" selected>최신순</option>
                             <option value="old">오래된순</option>
                             <option value="readCnt">조회순</option>

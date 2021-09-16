@@ -3163,7 +3163,7 @@
 	}
 	.btn_area {
 		display: flex;
-		margin: 0 atuo;
+		margin: 0 auto;
 		text-align: center;
 	}
 	.btn_area .btn {
@@ -3179,10 +3179,121 @@
 	}
 	/* 신청_ 지지크루 끝 */
 
+	/* 활동_교육후기 시작 09/15 고선호 수정 */
+	.page_cont > .intro_text_box > img {
+		width: 65%;
+		top: 40%;
+	}
+	.page_cont > .sub_text_box > .text {
+		padding: 30px 60px;
+	}
+	.page_cont > .intro_text_box {
+		height: 100px;
+	}
+	.page_cont > .review_text_box {
+		height: 150px;
+		margin-top: 20px;
+	}
+	.page_cont > .review_text_box img {
+		width: 42%;
+		top: 30%;
+	}
+	.page_cont > .review_text_box > .text {
+		padding: 30px;
+	}
+	.page_cont > .review_board {
+		padding-top: 35px;
+	}
+	.page_cont > .review_board > .title label {
+		/* height: 30px; */
+		height: 44px;
+		font-size: 12px;
+		padding-top: 0;
+	}
+	.select label {
+		line-height: 30px;
+	}
+	.page_cont > .review_board > .subject label {
+		/* height: 30px; */
+		height: 44px;
+		padding-top: 0;
+		font-size: 12px;
+	}
+	.page_cont > .review_board > .search.news {
+		display:inline-block;
+		width: 50%;
+	}
+	.page_cont > .review_board > .search input {
+		height: 30px;
+		font-size: 12px;
+	}
+	.page_cont > .review_board > .btn_blue {
+		height: 30px;
+		font-size: 12px;
+	}
+	.board_top>.btn {
+		line-height: 30px;
+	}
+	.page_cont > .review_text_box > .text > .sub b {
+		display: inline;
+	}
+	.page_cont > .btn_tab .btn_review:nth-child(1) {
+		margin-right: 4px;
+	}
+	.page_cont > .btn_tab .btn_review {
 
+	}
+	.page_cont > .btn_tab .btn_review {
+		padding: 10px 15px;
+		font-size: 13px;
+		line-height: 1;
+		border-radius: 5px;
+	}
+	/* 활동_교육후기 끝 09/15 고선호 수정 */
 
-
-
+	/* 회원가입 개인/단체 선택 : SU 09/16 고선호 수정 */
+	.img_join_pick li {
+		display: flex;
+		justify-content: center;
+		margin-top: 20px;
+	}
+	.img_join_pick li label {
+		width: 130px;
+		height: 130px;
+		border: 4px solid;
+		border-color: #D2E5FF;
+	}
+	.img_join_pick li label span {
+		font-size: 22px;
+	}
+	.img_join_pick li label:nth-of-type(1) {
+		margin-right: 20px;
+	}
+	.img_join_pick li label:nth-of-type(1):after {
+		height: 65px;
+		bottom: -20px;
+		left: -40px;
+	}
+	.img_join_pick li label:nth-of-type(2):after {
+		width: 100px;
+		right: -30px;
+		bottom: -70px;
+	}
+	.page_top_gradient .btn_area #rest {
+		margin-top: 30px;
+		width: 100%;
+		padding: 10px 0;
+	}
+	.page_top>.page_tit {
+		font-size: 22px;
+	}
+	.page_top>.page_tit+span {
+		font-size: 13px;
+	}
+	.page_top>.page_tit+span b {
+		display: block;
+	}
+	/* 회원가입 개인/단체 선택 끝 : SU 09/16 고선호 수정 */
 
 
 
@@ -4278,4 +4389,42 @@
 		width: 40%;
 	}
 	/* 신청_ 지지선언 끝 */
+
+	/* 활동_교육후기 시작 09/15 고선호 수정 */
+	.page_cont > .sub_text_box {
+		position: relative;
+	}
+	.page_cont > .sub_text_box img {
+		position: absolute;
+		top: 20px;
+		left: 30px;
+		width: 25%;
+		transform: none;
+	}
+	.page_cont > .sub_text_box > .text {
+		width: 70%;
+	}
+	/* 활동_교육후기 끝 09/15 고선호 수정 */
+
+	/* 회원가입 개인/단체 선택 : SU 09/16 고선호 수정 */
+	.page_top>.page_tit {
+		font-size: 35px;
+	}
+	.page_top>.page_tit+span {
+		font-size: 16px;
+	}
+	.img_join_pick li label {
+		width: 200px;
+		height: 200px;
+	}
+	.img_join_pick li label span {
+		font-size: 35px;
+	}
+	.page_top_gradient .btn_area #rest {
+		width: 60%;
+		padding: 15px 0;
+		font-size: 18px;
+	}
+	/* 회원_회원가입 끝 09/16 고선호 수정 */
+
 }

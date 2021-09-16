@@ -1571,7 +1571,7 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
 
 .page_top>.page_tit {
     position: relative;
-    color: #8bb3ff;
+    color: #6c93e9;
     font-size: 38px;
     font-weight: 700;
     text-align: center
@@ -1579,7 +1579,7 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
 
 .page_top>.page_tit+span {
     display: block;
-    font-size: 20px;
+    font-size: 18px;
     text-align: center;
     color: #8c90a5;
 }
@@ -6803,7 +6803,8 @@ h4.submsg.mo {
 .board_tbl_list>li.notice .tit a {
     padding-left: 22px;
     font-weight: 500;
-    background: url(../images/icon/ico_notice.png) no-repeat 0 50%
+    background: url(../images/icon/ico_notice.png) no-repeat 0 50%;
+    background-size: contain
 }
 
 /*일괄 관리 페이지 css*/
@@ -11275,6 +11276,7 @@ text.shadow {
     width: 132px !important;
     height: 53px;
 }
+
 .page_cont > .review_board > .subject {
     width: 180px !important;
 }
@@ -11363,6 +11365,82 @@ text.shadow {
 .board_top>.btn {
     border-radius: 10px;
 }
+
+/* 공지사항 select박스 시작*/
+
+.page_cont > .notice_board{
+    text-align: center;
+    padding-top: 43px;
+}
+.page_cont > .notice_board > *{
+    margin-right: 10px;
+}
+.page_cont > .notice_board > .title{
+    width: 132px !important;
+    height: 53px;
+}
+
+.page_cont > .notice_board > .subject {
+    width: 180px !important;
+}
+.page_cont > .notice_board > .title label{
+    max-width: 132px;
+    width: 100%;
+    height: 54px;
+    border-radius: 10px;
+    border: solid 1px #ccc;
+    background-color: #fff;
+    text-align: left;
+    padding-top: 4px;
+}
+.page_cont > .notice_board > .title label::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 42px;
+    border-left: 2px solid #fff;
+    background: #ffffff url(../images/button/select.png) no-repeat 50% 50%;
+}
+.page_cont > .notice_board > .subject label{
+    max-width: 180px;
+    width: 100%;
+    height: 54px;
+    border-radius: 10px;
+    border: solid 1px #ccc;
+    background-color: #fff;
+    text-align: left;
+    padding-top: 4px;
+}
+.page_cont > .notice_board > .subject label::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 42px;
+    border-left: 2px solid #fff;
+    background: #ffffff url(../images/button/select.png) no-repeat 50% 50%;
+}
+.page_cont > .notice_board > .search input{
+    max-width: 636px;
+    width: 100%;
+    height: 54px;
+    border-radius: 10px;
+    border: solid 1px #ccc;
+    background-color: #fff;
+    text-align: left;
+    font-size: 15px;
+}
+.page_cont > .notice_board > .search.news{
+    width: calc(80% - 560px);
+}
+.page_cont > .notice_board > .btn_blue{
+    height: 54px;
+    border-radius: 16px;
+}
+/* 공지사항 select박스 끝*/
 
 
 
@@ -11559,3 +11637,977 @@ text.shadow {
     border-radius: 20px;
 }
 /* 신청_ 지지크루 끝 */
+
+
+
+/* 회원가입 개인/단체 선택 : SU 09/16 고선호 수정 */
+.img_join_pick li {
+    text-align: center;
+    margin-top: 80px;
+}
+.img_join_pick li label {
+    border: 5px solid;
+    border-color: #D2E5FF;
+    width: 180px;
+    height: 180px;
+    position: relative;
+    display: inline-block;
+    border-radius: 20px;
+    box-shadow: 10px 10px 20px #92A6CC;
+    cursor: pointer;
+}
+.img_join_pick li label span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 45px;
+    font-weight: bold;
+}
+.img_join_pick li label:nth-of-type(1) {
+    background: url('../images/contents/join_pick_1.png')no-repeat center center;
+    background-size: 100% 100%;
+    margin-right: 50px;
+}
+.img_join_pick li label:nth-of-type(1):after {
+    content:'';
+    position: absolute;
+    background: url('../images/contents/obj_mascot_3.png')no-repeat center center;
+    background-size: contain;
+    bottom: -30px;
+    left: -50px;
+    width: 90px;
+    height: 90px;
+}
+.img_join_pick li label:nth-of-type(2) {
+    background: url('../images/contents/join_pick_2.png')no-repeat center center;
+    background-size: 100% 100%;
+}
+.img_join_pick li label:nth-of-type(2):after {
+    content:'';
+    position: absolute;
+    background: url('../images/contents/group_2.png')no-repeat center center;
+    background-size: contain;
+    bottom: -60px;
+    right: -50px;
+    width: 150px;
+    height: 150px;
+}
+.img_join_pick li label:nth-of-type(1) span {
+    color: #6d95e1;
+}
+.img_join_pick li label:nth-of-type(2) span {
+    color: #fff;
+}
+/* checked function */
+.img_join_pick li input[type="radio"]:checked + label {
+    border-color: #85B4F7;
+}
+.page_top_gradient .btn_area #rest {
+    color: #fff;
+    background-color: #6D95E1;
+    font-size: 18px;
+    padding: 10px 100px;
+    border-radius: 30px;
+    margin-top: 60px;
+}
+
+
+
+
+
+
+/* 20210915 마이페이지_계정정보 시작 09/16 고선호 수정 */
+.mypage_menu > li.pc_on > a {
+    padding: 10px 6px;
+}
+.my_profile {
+    margin-top: 50px;
+}
+.my_profile .sec_write_area .mypage .th {
+    width: 20% !important;
+}
+.mypage {
+    border-top: 2px solid #8eb3f2;
+}
+.mypage .th {
+    background-color: #fff;
+    text-align: left;
+    padding-left: 20px;
+}
+.my_profile .my_character {
+    display: table;
+    width: 100%;
+    /* padding: 20px 0; */
+    padding: 0;
+    text-align: center;
+    border-radius: 30px;
+    background-image: linear-gradient(to top, #e8b6f2, #a1e6d7);
+    height: 450px;
+    position: relative;
+}
+.my_profile .my_character:before {
+    content: '';
+    position: absolute;
+    width: 90%;
+    height: 93%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: url('../images/contents/w_line.png')no-repeat center center;
+    background-size: 100% 100%;
+    z-index: 1;
+}
+.mypage .td.td_txt {
+    font-weight: normal;
+    color: #9399af;
+}
+.my_profile .my_character .level:before {
+    background-size: 30% auto;
+}
+.my_profile .my_character .level>dt {
+    margin-bottom: 0 !important;
+    font-size: 17px !important;
+}
+.my_profile .my_character .level>dd .txt_lv {
+    color: #fff !important;
+    font-weight: normal;
+}
+.my_profile .my_character .level>dd .levelup {
+    color: #fff;
+    background-color: #bd8ad8;
+    font-size: 17px;
+    padding: 8px 20px;
+    border-radius: 30px;
+}
+
+/* 마이페이지 09/16 고선호 수정 */
+.my_profile .tbl_write .td {
+    font-size: 17px
+}
+
+.my_profile .sec_write_area {
+    margin-top: 33px
+}
+
+.my_profile .sec_write_area .sec_write {
+    margin-top: 0
+}
+
+.my_profile .sec_write_area .tbl_write .th {
+    width: 32.2%
+}
+
+.my_profile .sec_write_area .tbl_write .td {
+    width: auto
+}
+
+.my_profile .sec_write_area>.info {
+    width: 75.5%;
+    padding-right: 50px
+}
+
+.my_profile .sec_write_area>.character {
+    width: 24.5%
+}
+
+
+.my_profile .my_character .level {
+    display: table-cell;
+    vertical-align: middle
+}
+
+.my_profile .my_character .level:before {
+    content: '';
+    display: block;
+    /* width: 200px; */
+    width: 180px;
+    /* height: 246px; */
+    height: 200px;
+    /* margin: 0 auto 30px; */
+    margin: 0 auto;
+}
+
+.my_profile .my_character .level>dt {
+    margin-bottom: 16px;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1
+}
+
+.my_profile .my_character .level>dd .txt_lv {
+    display: block;
+    margin-bottom: 27px;
+    color: #8bb3ff;
+    font-size: 28px;
+    line-height: 1
+}
+
+.my_profile .email_form {
+    width: 100%;
+    margin-right: 0
+}
+
+.my_profile .email_form .email_inp {
+    margin-top: 5px;
+    margin-left: 0
+}
+
+.my_profile .email_form .email_inp+input+.btn {
+    margin-top: 5px;
+    margin-left: 0
+}
+
+.my_profile .email_form .email_inp.active+input+.btn {
+    margin-left: 12px
+}
+
+.my_profile .my_character .level:before {
+    background-repeat: no-repeat;
+    background-position: 50% 50%
+}
+
+.my_profile .my_character .level.lv01:before {
+    background-image: url(../images/contents/character/level01.png)
+}
+
+.my_profile .my_character .level.lv02:before {
+    background-image: url(../images/contents/character/level02.png)
+}
+
+.my_profile .my_character .level.lv03:before {
+    background-image: url(../images/contents/character/level03.png)
+}
+
+.my_profile .my_character .level.lv04:before {
+    background-image: url(../images/contents/character/level04.png)
+}
+
+.my_profile .my_character .level.lv05:before {
+    background-image: url(../images/contents/character/level05.png)
+}
+
+.my_profile .my_character .level.lv06:before {
+    background-image: url(../images/contents/character/level06.png)
+}
+
+.my_profile .my_character .level.lv07:before {
+    background-image: url(../images/contents/character/level07.png)
+}
+
+.my_profile .my_character .level.lv08:before {
+    background-image: url(../images/contents/character/level08.png)
+}
+
+.my_profile .my_character .level.lv09:before {
+    background-image: url(../images/contents/character/level09.png)
+}
+
+.my_profile .my_character .level.lv10:before {
+    background-image: url(../images/contents/character/level10.png)
+}
+
+.my_profile .my_character .level.lv11:before {
+    background-image: url(../images/contents/character/level11.png)
+}
+
+.my_profile .my_character .level.lv12:before {
+    background-image: url(../images/contents/character/level12.png)
+}
+
+.my_profile .my_character .level.lv13:before {
+    background-image: url(../images/contents/character/level13.png)
+}
+
+.my_profile .my_character .level.lv14:before {
+    background-image: url(../images/contents/character/level14.png)
+}
+
+.my_profile .my_character .level.lv15:before {
+    background-image: url(../images/contents/character/level15.png)
+}
+
+.my_profile .my_character .level.lv16:before {
+    background-image: url(../images/contents/character/level16.png)
+}
+
+.my_profile .my_character .level.lv17:before {
+    background-image: url(../images/contents/character/level17.png)
+}
+
+.my_profile .my_character .level.lv18:before {
+    background-image: url(../images/contents/character/level18.png)
+}
+
+.my_profile .my_character .level.lv19:before {
+    background-image: url(../images/contents/character/level19.png)
+}
+
+.my_profile .my_character .level.lv20:before {
+    background-image: url(../images/contents/character/level20.png)
+}
+
+.my_profile .my_character .level.lv21:before {
+    background-image: url(../images/contents/character/level21.png)
+}
+
+.my_profile .my_character .level.lv22:before {
+    background-image: url(../images/contents/character/level22.png)
+}
+
+.my_profile .my_character .level.lv23:before {
+    background-image: url(../images/contents/character/level23.png)
+}
+
+.my_profile .my_character .level.lv24:before {
+    background-image: url(../images/contents/character/level24.png)
+}
+
+.my_profile .my_character .level.lv25:before {
+    background-image: url(../images/contents/character/level25.png)
+}
+
+.my_profile .my_character .level.lv26:before {
+    background-image: url(../images/contents/character/level26.png)
+}
+
+.my_profile .my_character .level.lv27:before {
+    background-image: url(../images/contents/character/level27.png)
+}
+
+.my_profile .my_character .level.lv28:before {
+    background-image: url(../images/contents/character/level28.png)
+}
+
+.my_profile .my_character .level.lv29:before {
+    background-image: url(../images/contents/character/level29.png)
+}
+
+.my_profile .my_character .level.lv30:before {
+    background-image: url(../images/contents/character/level30.png)
+}
+
+.my_profile .my_character .level.lv31:before {
+    background-image: url(../images/contents/character/level31.png)
+}
+
+.my_profile .my_character .level.lv32:before {
+    background-image: url(../images/contents/character/level32.png)
+}
+
+.my_profile .my_character .level.lv33:before {
+    background-image: url(../images/contents/character/level33.png)
+}
+
+.my_profile .my_character .level.lv34:before {
+    background-image: url(../images/contents/character/level34.png)
+}
+
+.my_profile .my_character .level.lv35:before {
+    background-image: url(../images/contents/character/level35.png)
+}
+.btn_info a {
+    padding: 8px 40px;
+    border-radius: 30px;
+    font-size: 18px;
+}
+/* 마이페이지_계정정보 끝 09/16 고선호 수정 */
+
+
+/* 마이페이지_활동내역 시작 09/16 고선호 수정 */
+.my_activitiy {
+    display: flex;
+    margin-top: 60px;
+}
+.my_activitiy .activity_card {
+    flex: 1;
+    margin-right: 45px;
+}
+.my_activitiy .activity_card .card_item {
+    width: 100%;
+    height: 360px;
+    border-radius: 20px;
+    border: 1px solid #d2d4de;
+    width: 270px;
+    box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 50px;
+}
+.my_activitiy .activity_card .card_item .character_inner {}
+.my_activitiy .activity_card .card_item .character_inner .character {
+    border: 8px solid;
+    border-color: #ffde27;
+    border-radius: 50%;
+    width: 90px;
+    height: 90px;
+    position: relative;
+}
+.my_activitiy .activity_card .card_item .character_inner .character:after {
+    content: '';
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: url('../images/contents/character/level01.png')no-repeat center center;
+    background-size: contain;
+}
+.my_activitiy .activity_card .card_item .name {
+    color: #54586a;
+    font-size: 26px;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+    margin: 10px 0;
+}
+.my_activitiy .activity_card .card_item .others {
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+}
+.my_activitiy .activity_card .card_item .others span {
+    margin-bottom: 5px;
+}
+.my_activitiy .activity_card .card_item .others .lv {
+    color: #ffde27;
+}
+.my_activitiy .portfolio {
+    flex: 5;
+}
+.my_activitiy .portfolio .pofo_top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.my_activitiy .portfolio .pofo_top h2 {
+    font-size: 28px;
+    color: #555868;
+}
+.my_activitiy .portfolio .pofo_top .pofo_save a {
+    background-color: #6d95e1;
+    color: #fff;
+    font-size: 15px;
+    padding: 8px 15px;
+    border-radius: 30px;
+}
+.my_activitiy .portfolio .pofo_items {
+    display: flex;
+    margin-top: 30px;
+}
+.my_activitiy .portfolio .pofo_items > div {
+    flex: 1;
+    border-radius: 20px;
+    background-color: #eef4fe;
+    margin-right: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 0;
+}
+.my_activitiy .portfolio .pofo_items > div span {
+    font-size: 18px;
+    color: #54586a;
+}
+.my_activitiy .portfolio .pofo_items > div b {
+    font-size: 20px;
+    font-weight: bold;
+    color: #85b4f7;
+    margin-top: 7px;
+}
+.my_activitiy .portfolio .pofo_items > div:last-child {
+    margin-right: 0;
+}
+.my_activitiy .portfolio .pofo_bottom {
+    display: flex;
+    margin-top: 50px;
+}
+.my_activitiy .portfolio .pofo_bottom > div {
+    flex: 1;
+    margin-right: 75px;
+}
+.my_activitiy .portfolio .pofo_bottom > div:last-child {
+    margin-right: 0;
+}
+.my_activitiy .portfolio .pofo_bottom > div h3 {
+    color: #555868;
+    font-size: 22px;
+    font-weight: 500;
+}
+.my_activitiy .portfolio .pofo_bottom > div table {
+    border-top: 2px solid #8eb3f2;
+    margin-top: 18px;
+}
+.my_activitiy .portfolio .pofo_bottom > div table tr {
+    border-bottom: 1px solid #c7c7c7;
+}
+.my_activitiy .portfolio .pofo_bottom > div table tr td {
+    padding: 15px 0;
+    font-size: 18px;
+}
+.my_activitiy .portfolio .pofo_bottom > div table tr td b {
+    display:block;
+    margin-bottom: 3px;
+}
+.my_activitiy .portfolio .pofo_bottom > div table tr td span {
+    margin-right: 10px;
+    display: inline-block;
+    color: #9399af;
+    font-weight: normal;
+    font-size: 15px;
+}
+/* 마이페이지_활동내역 끝 09/16 고선호 수정 */
+
+
+/* 마이페이지_학생관리 시작 09/16 고선호 수정 */
+.student_care .care_btns {
+    width: 100%;
+    text-align: center;
+    margin-top: 35px;
+}
+.student_care .care_btns a {
+    background-color: #E2EAF9;
+    color: #6d95e1;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 8px 15px;
+    border-radius: 20px;
+    margin-right: 10px;
+}
+.student_care .care_btns a:last-child {
+    margin-right: 0;
+}
+.student_care table.care_items {
+    margin-top: 40px;
+}
+.student_care table.care_items tr th {
+    background-color: #E2EAF9;
+    font-size: 18px;
+    font-weight: 500;
+    color: #555868;
+    border-top: 2px solid #8eb3f2;
+    padding: 13px;
+}
+.student_care table.care_items tr td {
+    padding: 13px;
+    font-size: 16px;
+    color: #9399af;
+    text-align: center;
+    border-bottom: 1px solid #c7c7c7;
+}
+.student_care table.care_items tr td:nth-of-type(1),
+.student_care table.care_items tr td:nth-of-type(2) {
+    text-decoration: underline;
+}
+.student_care_btn {
+    text-align: center;
+    margin: 90px 0;
+    margin-bottom: 140px;
+}
+.student_care_btn .join_btn {
+    font-size: 18px;
+    padding: 10px 40px;
+    background-color: #6d95e1;
+    color: #fff;
+    border-radius: 30px;
+}
+/* 마이페이지_학생관리 끝 09/16 고선호 수정 */
+
+
+/* 마이페이지_My상담 시작 09/16 고선호 수정 */
+.my_item_1 .my_item_top, .my_item_3 .my_item_top {
+    background: url('../images/contents/box_1.png')no-repeat center center;
+    background-size: 100% 100%;
+    width: 100%;
+    height: 150px;
+    /* padding: 40px 100px; */
+    margin-top: 60px;
+}
+.my_item_1 .my_item_top, .my_item_3 .my_item_top {
+    padding: 40px 100px;
+}
+.my_item_1 .my_item_top p span,
+.my_item_3 .my_item_top p span {
+    color: #8c90a5;
+    font-size: 18px;
+    font-weight: normal;
+    background: url('../images/icon/dot.png')no-repeat center left;
+    margin-bottom: 10px;
+    display: block;
+    padding-left: 30px;
+}
+.my_item_list {
+    display: flex;
+    margin: auto;
+    width: 1200px;
+    margin-top: 70px;
+}
+.my_item_list > div {
+    flex: 1;
+    margin-right: 40px;
+}
+.my_item_list > div:last-child {
+    margin-right: 0;
+}
+.my_item_list > div h3 {
+    font-size: 22px;
+    color: #555868;
+    margin-bottom: 18px;
+}
+.my_item_list > div table {
+    border-top: 2px solid #8eb3f2;
+}
+.my_item_list > div table tr {}
+.my_item_list > div table tr td {
+    font-size: 18px;
+    color: #555868;
+    border-bottom: 1px solid #c7c7c7;
+    padding: 15px 0;
+}
+.my_item_list > div table tr td p {
+    display: flex;
+    justify-content: space-between;
+    color: #9399af;
+    font-size: 15px;
+}
+.my_item_list > div table tr td p b {
+    background-color: #6d95e1;
+    color: #fff;
+    border-radius: 20px;
+    padding: 5px 10px;
+    font-weight: normal;
+}
+/* 마이페이지_My상담 끝 09/16 고선호 수정 */
+
+/* 마이페이지_My강의실_교육자료실 시작 09/16 고선호 수정 */
+.my_item_2 {}
+.my_item_2 .my_item_top {
+    text-align: right;
+    margin-bottom: 17px;
+}
+.my_item_2 .my_item_top button {
+    font-size: 20px;
+    padding: 10px 20px;
+    border-radius: 30px;
+}
+.my_item_2 .my_item_top button:nth-of-type(1) {
+    border: 1px solid #6d95e2;
+    margin-right: 10px;
+    color: #6d95e1;
+}
+.my_item_2 .my_item_top button:nth-of-type(2) {
+    background-color: #6d95e1;
+    color: #fff;
+}
+.my_item_edu .item_inner > small {
+    color: #8d90a3;
+    font-size: 18px;
+    background: url('../images/icon/dot.png')no-repeat center left;
+    padding-left: 30px;
+}
+.my_item_edu .item_inner table {
+    border-top: 2px solid #8eb3f2;
+    margin-top: 10px;
+}
+.my_item_edu .item_inner table tr td .edu_item {
+    border-bottom: 2px solid #8eb3f2;
+    display: flex;
+}
+.my_item_edu .item_inner table tr td .edu_item > div {
+    padding: 25px 0;
+}
+.my_item_edu .item_inner table tr td .edu_item .edu_img {
+    flex: 1;
+    margin-right: 33px;
+}
+.my_item_edu .item_inner table tr td .edu_item .edu_img > div {
+    background-color: #f7f8fa;
+    width: 210px;
+    height: 130px;
+}
+.my_item_edu .item_inner table tr td .edu_item .edu_desc {
+    flex: 6;
+}
+.my_item_edu .item_inner table tr td .edu_item .edu_desc h5 {
+    font-size: 20px;
+    font-weight: normal;
+}
+.my_item_edu .item_inner table tr td .edu_item .edu_desc small {
+    font-size: 17px;
+    color: #9399af;
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 13px;
+}
+.my_item_edu .item_inner table tr td .edu_item .edu_desc span {
+    font-size: 17px;
+    color: #9399af;
+}
+.my_item_edu .item_inner table tr td .edu_item .remove_btn {
+    flex: 1;
+}
+.my_item_edu .item_inner table tr td .edu_item .tags {
+    margin-top: 25px;
+}
+.my_item_edu .item_inner table tr td .edu_item .tags b {
+    padding: 8px 15px;
+    border: 1px solid;
+    font-size: 17px;
+    border-radius: 20px;
+    font-weight: normal;
+    margin-right: 5px;
+}
+.my_item_edu .item_inner table tr td .edu_item .tags b.tag1 {
+    color: #6d95e1;
+    border-color: #6d95e1;
+}
+.my_item_edu .item_inner table tr td .edu_item .tags b.tag2 {
+    color: #765cc1;
+    border-color: #765cc1;
+}
+.my_item_edu .item_inner table tr td .edu_item .tags b.tag3 {
+    color: #f49b0e;
+    border-color: #f49b0e;
+}
+.my_item_edu .item_inner table tr td .edu_item .tags b.tag4 {
+    color: #1386d0;
+    border-color: #1386d0;
+}
+.my_item_edu .item_inner table tr td .edu_item .tags b.tag5 {
+    color: #31af40;
+    border-color: #31af40;
+}
+.my_item_edu .item_inner table tr td .edu_item .remove_btn {
+    display: flex;
+    flex-direction: column;
+}
+.my_item_edu .item_inner table tr td .edu_item .remove_btn a {
+    text-align: right;
+    text-decoration: underline;
+    color: #9399af;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+/* 마이페이지_My강의실_교육자료실 끝 09/16 고선호 수정 */
+
+
+/* 마이페이지_My강의실_이수증발급 시작 09/16 고선호 수정 */
+.my_item_3 .my_item_edu {
+    margin-top: 25px;
+}
+.my_item_3 .my_item_edu .item_inner table tr td .edu_item_2 {
+    border-bottom: 1px solid #c7c7c7;
+    display: flex;
+    padding: 25px 0;
+}
+.my_item_3 .my_item_edu .item_inner table tr td .edu_item_2 .edu_desc_2 {
+    flex: 9;
+}
+.my_item_3 .my_item_edu .item_inner table tr td .edu_item_2 .edu_desc_2 span {
+    font-size: 20px;
+    color: #555868;
+    display: block;
+    margin-bottom: 30px;
+}
+.my_item_3 .my_item_edu .item_inner table tr td .edu_item_2 .edu_desc_2 small {
+    color: #9399af;
+    font-size: 17px;
+}
+.my_item_3 .my_item_edu .item_inner table tr td .edu_item_2 .edu_down {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+.my_item_3 .my_item_edu .item_inner table tr td .edu_item_2 .edu_down small {
+    color: #9399af;
+    font-size: 20px;
+}
+.my_item_3 .my_item_edu .item_inner table tr td .edu_item_2 .edu_down input[type="file"] {
+    display: none;
+}
+.my_item_3 .my_item_edu .item_inner table tr td .edu_item_2 .edu_down label span {
+    color: #fff;
+    padding: 8px 15px;
+    padding-left: 30px;
+    font-size: 17px;
+    border-radius: 20px;
+    background: #6d95e1 url('../images/icon/download.png')no-repeat center left;
+}
+/* 마이페이지_My강의실_이수증발급 끝 09/16 고선호 수정 */
+
+/* 마이페이지_My제안 시작 */
+.my_item_3 .my_item_top {
+    height: 100px;
+}
+.my_item_3 .my_item_list table {
+    border-top: 2px solid #8eb3f2;
+    padding: 40px;
+}
+.my_item_3 .my_item_list table tr {
+    border-bottom: 1px solid #c7c7c7;
+}
+.my_item_3 .my_item_edu .item_inner table {
+    margin-top: 80px;
+}
+/* 마이페이지_My제안 끝 09/16 고선호 수정 */
+
+/* 마이페이지_My진단 시작 09/16 고선호 수정 */
+.my_item_4 .item {
+    margin-bottom: 70px;
+}
+.my_item_4 .item:last-child {
+    margin-bottom: 0;
+}
+.my_item_4 .item h3 {
+    color: #555868;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 17px;
+}
+.my_item_4 .item table {
+    border-top: 2px solid #8eb3f2;
+}
+.my_item_4 .item table tr {
+    padding: 25px 0;
+}
+.my_item_4 .item table tr td {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #c7c7c7;
+    padding: 18px 0;
+}
+.my_item_4 .item table tr td .num {
+    flex: 1;
+}
+.my_item_4 .item table tr td .num span {
+    font-weight: 500;
+    font-size: 40px;
+    color: #6d95e1;
+}
+.my_item_4 .item table tr td .txt {
+    flex: 7;
+    font-size: 20px;
+}
+.my_item_4 .item table tr td .result_btn {
+    flex: 2;
+    text-align: right;
+}
+.my_item_4 .item table tr td .result_btn a {
+    background-color: #6d95e1;
+    color: #fff;
+    padding: 8px 40px;
+    font-size: 17px;
+    border-radius: 20px;
+}
+/* 마이페이지_My진단 끝 09/16 고선호 수정 */
+
+
+/* 마이페이지_능력카드 저장내역 시작 09/16 고선호 수정 */
+.my_item_5 h3 {
+    color: #333333;
+    font-size: 28px;
+    font-weight: bold;
+}
+.my_item_5 .card_list {
+    padding-top: 52px;
+    border-top: 2px solid #8eb3f2;
+}
+.my_item_5 .card_list .card_inner_pc{
+}
+.my_item_5 .card_list .card_inner_pc > div {
+    display: flex;
+}
+.my_item_5 .card_list .card_inner_pc > div .card {
+    border: 1px solid #c7c7c7;
+    padding: 20px;
+    flex: 1;
+    margin-right: 40px;
+    margin-top: 0 !important;
+    margin-bottom: 50px !important;
+}
+.my_item_5 .card_list .card_inner_pc > div .card:last-child {
+    margin-right: 0;
+}
+.my_item_5 .card_list .card_inner_pc > div .card .card_phot {
+    height: 250px;
+    width: 100%;
+    background-color: #edeff7;
+}
+.my_item_5 .card_list .card_inner_pc > div .card span {
+    font-size: 20px;
+    text-align: right;
+    display: inline-block;
+    width: 100%;
+    margin-top: 20px;
+}
+.my_item_5 .card_list .card_inner_pc > div .card small {
+    text-align: right;
+    color: #9399af;
+    font-size: 17px;
+}
+/* 마이페이지_능력카드 저장내역 끝 09/16 고선호 수정 */
+
+/* 마이페이지_능력카드상세 시작 09/16 고선호 수정 */
+.my_item_5_detail .mypage_card_top {
+    text-align: center;
+}
+.my_item_5_detail .mypage_card_top span {
+    font-size: 24px;
+    font-weight: 500;
+    color: #333541;
+    display: block;
+}
+.my_item_5_detail .mypage_card_top small {
+    font-size: 21px;
+    font-weight: normal;
+    color: #9399af;
+    padding: 20px 0;
+}
+.my_item_5_detail .card_list {
+    margin: 40px 0;
+    border-top: 2px solid #8eb3f2;
+}
+.my_item_5_detail .card_list .mypage_card_btns {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin-top: 75px;
+}
+.my_item_5_detail .card_list .mypage_card_btns input[type="file"]{
+    display: none;
+}
+.my_item_5_detail .card_list .mypage_card_btns > * {
+    width: 250px;
+    padding: 15px 0;
+    font-size: 17px;
+    border-radius: 30px;
+    text-align: center;
+}
+.my_item_5_detail .card_list .mypage_card_btns label {
+    background-color: #6d95e1;
+    color: #fff;
+}
+.my_item_5_detail .card_list .mypage_card_btns .gotolist {
+    border: 1px solid #6d95e1;
+    color: #6d95e1;
+    margin-top: 20px;
+}
+/* 마이페이지_능력카드상세 끝 09/16 고선호 수정 */
+
+/* 마이페이지_My신청 시작 09/16 고선호 수정 */
+.my_item_6 span {
+    font-weight: bold;
+    font-size: 28px;
+    color: #333;
+}
+.my_item_6 table.care_items {
+    margin-top: 20px !important;
+}
+/* 마이페이지_My신청 끝 09/16 고선호 수정 */
