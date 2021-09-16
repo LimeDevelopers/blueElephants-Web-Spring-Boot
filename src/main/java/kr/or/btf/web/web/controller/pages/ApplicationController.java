@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.jws.WebParam;
 import java.util.Optional;
 
 @Slf4j
@@ -40,15 +41,18 @@ public class  ApplicationController {
         return "pages/application/partnersRegister";
     }
 
-    @PostMapping(value = "/pages/application/zzcrew/zzcrewregister")
-    public String ZzCrewRegister(@ModelAttribute ApplicationForm applicationForm ,
-                                 @RequestParam("attachedFile") MultipartFile attachedFile ,
+    @PostMapping(value = "/pages/application/zzcrew/zzcrewRegister")
+    public String zzCrewRegister(@ModelAttribute ApplicationForm applicationForm ,
+                                 @RequestPart("attachedFile") MultipartFile attachedFile ,
+                                 Model model ,
                                  @CurrentUser Account account ,
                                  Error error) throws Exception {
         if(account != null) {
             applicationForm.setMberPid(account.getId());
         }
         applicationService.zzcrewRegister(applicationForm , attachedFile);
+        model.addAttribute("mc", "application");
+        model.addAttribute("pageTitle", "지지크루");
 
         return "pages/application/zzcrew";
     }
@@ -57,10 +61,12 @@ public class  ApplicationController {
     public String zzdeclarationRegister(@ModelAttribute ApplicationForm applicationForm ,
                                  @RequestParam("attachedFile") MultipartFile attachedFile ,
                                  @CurrentUser Account account ,
+                                 Model model ,
                                  Error error) throws Exception {
-        String Schedule = applicationForm.getYear() + applicationForm.getMonth() + applicationForm.getDay();
-        applicationService.zzdeclareRegister(applicationForm , attachedFile);
+        model.addAttribute("mc", "application");
+        model.addAttribute("pageTitle", "지지선언");
 
+        applicationService.zzdeclareRegister(applicationForm , attachedFile);
 
         return "pages/application/zzdeclaration";
     }
