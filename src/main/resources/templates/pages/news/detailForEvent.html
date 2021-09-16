@@ -3,7 +3,7 @@
 <head>
     <th:block th:include="fragments/header"></th:block>
     <script type="text/javascript" th:inline="javascript">
-        function videoPlay(obj){
+        function videoPlay(obj) {
             player.play();
             $('.video_area .btn_play').stop().fadeOut();
         }
@@ -13,9 +13,9 @@
             var cntntsDvTy = [[${form.cntntsDvTy}]];
             var ty = "video/mp4";
             var options = {
-                width : 1280 ,
-                hieght : 720 ,
-                controls : true
+                width: 1280,
+                hieght: 720,
+                controls: true
             }
             if (cntntsDvTy == 'YOUTUBE') {
                 ty = 'video/youtube';
@@ -33,126 +33,135 @@
 <div id="wrap">
     <th:block th:include="fragments/header_gnb"></th:block>
     <div id="container">
-        <th:block th:include="fragments/snb"></th:block>
+        <th:block th:include="fragments/mo_menu"></th:block>
+        <div class="sub_container">
+            <th:block th:include="fragments/dept_menu"></th:block>
 
-        <form id="form1" name="form1" method="post" th:object="${form}">
+            <form id="form1" name="form1" method="post" th:object="${form}">
 
-            <div class="contents">
-                <div class="page_top pc">
-                    <h3 class="page_tit">푸코소식</h3>
-                    <span>사이버폭력 예방과 근절을 위해 오늘도 뛰고 있는 푸코소식을 들어봐요.</span>
-                </div>
-                <div class="page_cont">
-<!--                    <div class="tab_ico_area">-->
-<!--                        <a href="javascript:;" class="tit">행사</a>-->
-<!--                        <ul class="tab_type_ico">-->
-<!--                            <li class="notice"><a href="/pages/news/notice">공지사항</a></li>-->
-<!--                            <li class="news"><a th:href="|/pages/news/list/${#numbers.formatInteger(@environment.getProperty('common.code.newsCdPid'), 0)}|">소식·행사</a></li>-->
-<!--                            <li class="event active"><a href="/pages/news/event">캘린더</a></li>-->
-<!--                            <li class="media"><a th:href="|/pages/news/list/${#numbers.formatInteger(@environment.getProperty('common.code.mediaCdPid'), 0)}|">언론보도</a></li>-->
-<!--                            <li class="publication"><a th:href="|/pages/news/list/${#numbers.formatInteger(@environment.getProperty('common.code.publicationCdPid'), 0)}|">간행물</a></li>-->
-<!--                        </ul>-->
-<!--                        <p class="mo_page_txt">사이버폭력 예방과 근절을 위해 오늘도 뛰고 있는 푸코소식을 들어봐요.</p>-->
-<!--                    </div>-->
-                    <h4 class="subtit pc">행사</h4>
-                    <div class="detail_cont">
-                        <div class="top">
-                            <div class="info_area">
-                                <strong class="tit" th:text="*{ttl}">OO중학교 사이버 폭력 근절단</strong>
-                                <p class="count">
-                                    <span th:text="|등록자 : *{regPsNm}|">등록자 : 홍길동</span>
-                                    <span>조회수 : <th:block th:text="*{#numbers.formatInteger(readCnt, 0, 'COMMA')}"></th:block>회</span>
-                                    <span>행사일 : <th:block th:text="|*{stYmd} ~ *{edYmd}|"></th:block></span>
-                                    <span>행사장소 : <th:block th:text="*{spotDtl}"></th:block></span>
-                                    <span class="date" th:text="|등록일 : *{#temporals.format(regDtm,'yyyy.MM.dd')}|">등록일 : 2020.12.31</span>
-                                </p>
-                                <!--<div class="file">
-                                    <span>대표영상 :&nbsp;</span>
-                                    <th:block th:each="item : ${fileList}">
-                                        <th:block th:if="${T(kr.or.btf.web.domain.web.enums.FileDvType).MAINVOD.name() eq item.dvTy}">
-                                            <th:block th:if="${#authentication.principal != 'anonymousUser'}">
-                                                <a th:href="${filePath} + '/' + ${item.chgFlNm}" download th:text="${item.flNm}">사이버폭력예방 가이드2.pdf</a>
-                                            </th:block>
-                                            <th:block th:unless="${#authentication.principal != 'anonymousUser'}">
+                <div class="contents">
+                    <div class="page_top pc">
+                        <h3 class="page_tit">푸코소식</h3>
+                        <span>사이버폭력 예방과 근절을 위해 오늘도 뛰고 있는 푸코소식을 들어봐요.</span>
+                    </div>
+                    <div class="page_cont">
+                        <!--                    <div class="tab_ico_area">-->
+                        <!--                        <a href="javascript:;" class="tit">행사</a>-->
+                        <!--                        <ul class="tab_type_ico">-->
+                        <!--                            <li class="notice"><a href="/pages/news/notice">공지사항</a></li>-->
+                        <!--                            <li class="news"><a th:href="|/pages/news/list/${#numbers.formatInteger(@environment.getProperty('common.code.newsCdPid'), 0)}|">소식·행사</a></li>-->
+                        <!--                            <li class="event active"><a href="/pages/news/event">캘린더</a></li>-->
+                        <!--                            <li class="media"><a th:href="|/pages/news/list/${#numbers.formatInteger(@environment.getProperty('common.code.mediaCdPid'), 0)}|">언론보도</a></li>-->
+                        <!--                            <li class="publication"><a th:href="|/pages/news/list/${#numbers.formatInteger(@environment.getProperty('common.code.publicationCdPid'), 0)}|">간행물</a></li>-->
+                        <!--                        </ul>-->
+                        <!--                        <p class="mo_page_txt">사이버폭력 예방과 근절을 위해 오늘도 뛰고 있는 푸코소식을 들어봐요.</p>-->
+                        <!--                    </div>-->
+                        <h4 class="subtit pc">행사</h4>
+                        <div class="detail_cont">
+                            <div class="top">
+                                <div class="info_area">
+                                    <strong class="tit" th:text="*{ttl}">OO중학교 사이버 폭력 근절단</strong>
+                                    <p class="count">
+                                        <span th:text="|등록자 : *{regPsNm}|">등록자 : 홍길동</span>
+                                        <span>조회수 : <th:block
+                                                th:text="*{#numbers.formatInteger(readCnt, 0, 'COMMA')}"></th:block>회</span>
+                                        <span>행사일 : <th:block th:text="|*{stYmd} ~ *{edYmd}|"></th:block></span>
+                                        <span>행사장소 : <th:block th:text="*{spotDtl}"></th:block></span>
+                                        <span class="date" th:text="|등록일 : *{#temporals.format(regDtm,'yyyy.MM.dd')}|">등록일 : 2020.12.31</span>
+                                    </p>
+                                    <!--<div class="file">
+                                        <span>대표영상 :&nbsp;</span>
+                                        <th:block th:each="item : ${fileList}">
+                                            <th:block th:if="${T(kr.or.btf.web.domain.web.enums.FileDvType).MAINVOD.name() eq item.dvTy}">
+                                                <th:block th:if="${#authentication.principal != 'anonymousUser'}">
+                                                    <a th:href="${filePath} + '/' + ${item.chgFlNm}" download th:text="${item.flNm}">사이버폭력예방 가이드2.pdf</a>
+                                                </th:block>
+                                                <th:block th:unless="${#authentication.principal != 'anonymousUser'}">
 
-                                            </th:block>
-                                        </th:block>
-                                    </th:block>
-                                </div>-->
-                                <div class="file">
-                                    <span>첨부파일 :&nbsp;</span>
-                                    <th:block th:each="item : ${fileList}">
-                                        <th:block th:if="${T(kr.or.btf.web.domain.web.enums.FileDvType).ATTACH.name() eq item.dvTy}">
-                                            <th:block th:if="${#authentication.principal != 'anonymousUser'}">
-                                                <a th:href="${filePath} + '/' + ${item.chgFlNm}" download th:text="${item.flNm}">사이버폭력예방 가이드2.pdf</a>
-                                            </th:block>
-                                            <th:block th:unless="${#authentication.principal != 'anonymousUser'}">
-
+                                                </th:block>
                                             </th:block>
                                         </th:block>
-                                    </th:block>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bottom pdrl">
-                            <div class="video_area" th:if="*{cntntsUrl ne null and cntntsUrl ne ''}">
-                                <div class="video">
-                                    <th:block th:replace="/fragments/videoOptions :: videoSetting(videoId='video', classYn='N', classAppend='')"></th:block>
-                                    <!--<th:block th:if="*{cntntsDvTy eq T(kr.or.btf.web.domain.web.enums.ContentsDvType).YOUTUBE}">
-                                        <video id="video" class="video-js vjs-default-skin" controls
-                                               data-setup='{ "techOrder": ["youtube", "html5"]}'>
-                                            <source type="video/youtube" th:src="*{cntntsUrl}" />
-                                        </video>
-                                    </th:block>
-                                    <th:block th:if="*{cntntsDvTy eq T(kr.or.btf.web.domain.web.enums.ContentsDvType).CDN}">
-                                        <video id="video"
-                                               class="video-js vjs-default-skin"
-                                               controls
-                                               preload="auto"
-                                               controlsList="nodownload">
-                                            <source type="video/mp4" th:src="*{cntntsUrl}" th:alt="*{ttl}" th:onerror="this.src='/ClientUI/user/images/contents/nodata01.png'" />
-                                        </video>
-                                        <a href="javascript:;" class="btn_play" onclick="videoPlay(this)"><span class="blind">영상 재생하기</span></a>
-                                    </th:block>-->
-                                </div>
-                                <!--<a href="javascript:;" class="btn btn_keycolor btn_learn" onclick="videoPlay(this)"><span>학습하기</span></a>-->
-                            </div>
+                                    </div>-->
+                                    <div class="file">
+                                        <span>첨부파일 :&nbsp;</span>
+                                        <th:block th:each="item : ${fileList}">
+                                            <th:block
+                                                    th:if="${T(kr.or.btf.web.domain.web.enums.FileDvType).ATTACH.name() eq item.dvTy}">
+                                                <th:block th:if="${#authentication.principal != 'anonymousUser'}">
+                                                    <a th:href="${filePath} + '/' + ${item.chgFlNm}" download
+                                                       th:text="${item.flNm}">사이버폭력예방 가이드2.pdf</a>
+                                                </th:block>
+                                                <th:block th:unless="${#authentication.principal != 'anonymousUser'}">
 
-                            <div class="editor" th:utext="*{cn}">
-                                OO중학교 사이버 폭력 근절단
+                                                </th:block>
+                                            </th:block>
+                                        </th:block>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <ul class="board_prev_next">
-                            <li class="prev">
-                                <dl>
-                                    <dt>이전글</dt>
-                                    <th:block th:if="${prev ne null}">
-                                        <dd><a th:href="|/pages/news/event/detail/${prev.id}|" th:text="${prev.ttl}">아이들을 위한 사이버예방교육 이벤트 실시</a></dd>
-                                    </th:block>
-                                    <th:block th:unless="${prev ne null}">
-                                        <dd>등록된 게시물이 없습니다.</dd>
-                                    </th:block>
-                                </dl>
-                            </li>
-                            <li class="next">
-                                <dl>
-                                    <dt>다음글</dt>
-                                    <th:block th:if="${next ne null}">
-                                        <dd><a th:href="|/pages/news/event/detail/${next.id}|" th:text="${next.ttl}">아이들을 위한 사이버예방교육 이벤트 실시</a></dd>
-                                    </th:block>
-                                    <th:block th:unless="${next ne null}">
-                                        <dd>등록된 게시물이 없습니다.</dd>
-                                    </th:block>
-                                </dl>
-                            </li>
-                        </ul>
-                        <div class="btn_area">
-                            <a href="/pages/news/event" class="btn btn_lg btn_line_blue btn_pill_10">목록</a>
+                            <div class="bottom pdrl">
+                                <div class="video_area" th:if="*{cntntsUrl ne null and cntntsUrl ne ''}">
+                                    <div class="video">
+                                        <th:block
+                                                th:replace="/fragments/videoOptions :: videoSetting(videoId='video', classYn='N', classAppend='')"></th:block>
+                                        <!--<th:block th:if="*{cntntsDvTy eq T(kr.or.btf.web.domain.web.enums.ContentsDvType).YOUTUBE}">
+                                            <video id="video" class="video-js vjs-default-skin" controls
+                                                   data-setup='{ "techOrder": ["youtube", "html5"]}'>
+                                                <source type="video/youtube" th:src="*{cntntsUrl}" />
+                                            </video>
+                                        </th:block>
+                                        <th:block th:if="*{cntntsDvTy eq T(kr.or.btf.web.domain.web.enums.ContentsDvType).CDN}">
+                                            <video id="video"
+                                                   class="video-js vjs-default-skin"
+                                                   controls
+                                                   preload="auto"
+                                                   controlsList="nodownload">
+                                                <source type="video/mp4" th:src="*{cntntsUrl}" th:alt="*{ttl}" th:onerror="this.src='/ClientUI/user/images/contents/nodata01.png'" />
+                                            </video>
+                                            <a href="javascript:;" class="btn_play" onclick="videoPlay(this)"><span class="blind">영상 재생하기</span></a>
+                                        </th:block>-->
+                                    </div>
+                                    <!--<a href="javascript:;" class="btn btn_keycolor btn_learn" onclick="videoPlay(this)"><span>학습하기</span></a>-->
+                                </div>
+
+                                <div class="editor" th:utext="*{cn}">
+                                    OO중학교 사이버 폭력 근절단
+                                </div>
+                            </div>
+                            <ul class="board_prev_next">
+                                <li class="prev">
+                                    <dl>
+                                        <dt>이전글</dt>
+                                        <th:block th:if="${prev ne null}">
+                                            <dd><a th:href="|/pages/news/event/detail/${prev.id}|"
+                                                   th:text="${prev.ttl}">아이들을 위한 사이버예방교육 이벤트 실시</a></dd>
+                                        </th:block>
+                                        <th:block th:unless="${prev ne null}">
+                                            <dd>등록된 게시물이 없습니다.</dd>
+                                        </th:block>
+                                    </dl>
+                                </li>
+                                <li class="next">
+                                    <dl>
+                                        <dt>다음글</dt>
+                                        <th:block th:if="${next ne null}">
+                                            <dd><a th:href="|/pages/news/event/detail/${next.id}|"
+                                                   th:text="${next.ttl}">아이들을 위한 사이버예방교육 이벤트 실시</a></dd>
+                                        </th:block>
+                                        <th:block th:unless="${next ne null}">
+                                            <dd>등록된 게시물이 없습니다.</dd>
+                                        </th:block>
+                                    </dl>
+                                </li>
+                            </ul>
+                            <div class="btn_area">
+                                <a href="/pages/news/event" class="btn btn_lg btn_line_blue btn_pill_10">목록</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
     <th:block th:replace="fragments/footer"></th:block>
 </div>
