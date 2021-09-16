@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/mo_menu"></th:block>
+        <div class="sub_container">
+            <th:block th:include="fragments/dept_menu"></th:block>
+            <di class="inner">
+                <div class="page_cont">
+                    <div class="page_top">
+                        <h3 class="page_tit">My진단</h3>
+                    </div>
+                    <div class="page_cont my_item_4">
+                        <div class="item_01 item">
+                            <h3>자가진단내역</h3>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <div class="num"><span>01</span></div>
+                                        <div class="txt"><small>참여  |   2020-10-12</small></div>
+                                        <div class="result_btn"><a href="#none">결과보기</a></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="num"><span>02</span></div>
+                                        <div class="txt"><small>참여  |   2020-10-12</small></div>
+                                        <div class="result_btn"><a href="#none">결과보기</a></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="item_02 item">
+                            <h3>자가진단내역</h3>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <div class="num"><span>01</span></div>
+                                        <div class="txt"><small>참여  |   2020-10-12</small></div>
+                                        <div class="result_btn"><a href="#none">결과보기</a></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="num"><span>02</span></div>
+                                        <div class="txt"><small>참여  |   2020-10-12</small></div>
+                                        <div class="result_btn"><a href="#none">결과보기</a></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="item_03 item">
+                            <h3>OX퀴즈내역</h3>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <div class="num"><span>01</span></div>
+                                        <div class="txt"><small>참여  |   2020-10-12</small></div>
+                                        <div class="result_btn"><a href="#none">결과보기</a></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="num"><span>02</span></div>
+                                        <div class="txt"><small>참여  |   2020-10-12</small></div>
+                                        <div class="result_btn"><a href="#none">결과보기</a></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="item_03 item">
+                            <h3>실태조사</h3>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <div class="num"><span>04</span></div>
+                                        <div class="txt"><small>참여  |   2020-10-12</small></div>
+                                        <div class="result_btn"><a href="#none">결과보기</a></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="num"><span>02</span></div>
+                                        <div class="txt"><small>참여  |   2020-10-12</small></div>
+                                        <div class="result_btn"><a href="#none">결과보기</a></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </di>
+
+        </div>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

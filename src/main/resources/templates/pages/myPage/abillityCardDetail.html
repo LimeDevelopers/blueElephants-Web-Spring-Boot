@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <th:block th:include="fragments/header"></th:block>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+  <th:block th:include="fragments/header_gnb"></th:block>
+  <div id="container">
+    <th:block th:include="fragments/mo_menu"></th:block>
+    <div class="sub_container">
+      <th:block th:include="fragments/dept_menu"></th:block>
+      <div class="inner">
+        <div class="page_cont">
+          <div class="card_inner inner my_item_5_detail">
+            <p class="mypage_card_top">
+              <span>능력카드 제목내용</span>
+              <small>2021-10-11</small>
+            </p>
+            <div class="card_list">
+              <div class="item_inner_4">
+                <div class="card_qr">
+                  <div class="tit">능력카드 제목내용</div>
+                  <small>2021-10-11</small>
+                  <img src="" alt="">
+                </div>
+                <div class="card_download">
+                  <div class="item_inner_2">
+                    <div class="item_2"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="mypage_card_btns">
+                <input type="file" id="my_card_down">
+                <label for="my_card_down">
+                  <span>다운로드</span>
+                </label>
+                <a class="gotolist" href="#none">목록으로</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

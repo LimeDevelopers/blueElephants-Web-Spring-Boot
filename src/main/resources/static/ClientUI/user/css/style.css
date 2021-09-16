@@ -1472,7 +1472,7 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     background-color: #8bb3ff;
     color: #fff;
     font-weight: 500;
-    padding: 10px 50px;
+    padding: 10px 20px;
     border-radius: 20px;
 }
 /* .pc_menu_inner > li.pc_on > a:after {

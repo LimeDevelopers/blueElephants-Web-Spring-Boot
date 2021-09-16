@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/mo_menu"></th:block>
+        <div class="sub_container">
+            <th:block th:include="fragments/dept_menu"></th:block>
+            <div class="inner">
+                <div class="page_cont">
+                    <div class="page_top">
+                        <h3 class="page_tit">능력카드</h3>
+                    </div>
+                    <div class="page_cont my_item_5">
+                        <h3>능력카드저장내역</h3>
+                        <div class="card_list">
+                            <div class="card_inner_pc">
+                                <div>
+                                    <a class="card" href="/abillityCardDetail"> <!--임시생성. URL 다시 지정 해야함.-->
+                                        <div class="card_phot"></div>
+                                        <span>능력카드 제목내용</span>
+                                        <small>2021-10-11</small>
+                                    </a>
+                                    <a class="card" href="/abillityCardDetail"> <!--임시생성. URL 다시 지정 해야함.-->
+                                        <div class="card_phot"></div>
+                                        <span>능력카드 제목내용</span>
+                                        <small>2021-10-11</small>
+                                    </a>
+                                    <a class="card" href="/abillityCardDetail"> <!--임시생성. URL 다시 지정 해야함.-->
+                                        <div class="card_phot"></div>
+                                        <span>능력카드 제목내용</span>
+                                        <small>2021-10-11</small>
+                                    </a>
+                                    <a class="card" href="/abillityCardDetail"> <!--임시생성. URL 다시 지정 해야함.-->
+                                        <div class="card_phot"></div>
+                                        <span>능력카드 제목내용</span>
+                                        <small>2021-10-11</small>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="card_inner_pc">
+                                <div>
+                                    <a class="card" href="/abillityCardDetail"> <!--임시생성. URL 다시 지정 해야함.-->
+                                        <div class="card_phot"></div>
+                                        <span>능력카드 제목내용</span>
+                                        <small>2021-10-11</small>
+                                    </a>
+                                    <a class="card" href="/abillityCardDetail"> <!--임시생성. URL 다시 지정 해야함.-->
+                                        <div class="card_phot"></div>
+                                        <span>능력카드 제목내용</span>
+                                        <small>2021-10-11</small>
+                                    </a>
+                                    <a class="card" href="/abillityCardDetail"> <!--임시생성. URL 다시 지정 해야함.-->
+                                        <div class="card_phot"></div>
+                                        <span>능력카드 제목내용</span>
+                                        <small>2021-10-11</small>
+                                    </a>
+                                    <a class="card" href="/abillityCardDetail"> <!--임시생성. URL 다시 지정 해야함.-->
+                                        <div class="card_phot"></div>
+                                        <span>능력카드 제목내용</span>
+                                        <small>2021-10-11</small>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

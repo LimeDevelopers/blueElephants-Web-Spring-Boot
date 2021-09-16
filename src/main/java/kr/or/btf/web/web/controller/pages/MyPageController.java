@@ -866,6 +866,85 @@ public class MyPageController extends BaseCont {
         return "/pages/myPage/proposal";
     }
 
+    /*09/16 고선호 추가 시작 (My 진단, 능력카드, My 신청)*/
+    @RequestMapping("/pages/myPage/diagnosis")
+    public String diagnosis(Model model,
+                            @CurrentUser Account account,
+                            @PageableDefault Pageable pageable,
+                            @ModelAttribute SearchForm searchForm,
+                            @Value("${common.code.policyProposalCdPid}") Long policyProposalCdPid) {
+
+        BoardDataForm boardDataForm = new BoardDataForm();
+        boardDataForm.setMstPid(policyProposalCdPid);
+        searchForm.setLoginId(account.getLoginId());
+        boardDataForm.setFixingAt("N");
+        Page<BoardData> boardDatas = boardDataService.listForFront(pageable, searchForm, boardDataForm);
+        model.addAttribute("boardDatas", boardDatas);
+
+        model.addAttribute("mc", "myPage");
+        model.addAttribute("pageTitle", "My 진단");
+        return "/pages/myPage/diagnosis";
+    }
+
+    @RequestMapping("/pages/myPage/abilityCard")
+    public String abilityCard(Model model,
+                              @CurrentUser Account account,
+                              @PageableDefault Pageable pageable,
+                              @ModelAttribute SearchForm searchForm,
+                              @Value("${common.code.policyProposalCdPid}") Long policyProposalCdPid) {
+
+        BoardDataForm boardDataForm = new BoardDataForm();
+        boardDataForm.setMstPid(policyProposalCdPid);
+        searchForm.setLoginId(account.getLoginId());
+        boardDataForm.setFixingAt("N");
+        Page<BoardData> boardDatas = boardDataService.listForFront(pageable, searchForm, boardDataForm);
+        model.addAttribute("boardDatas", boardDatas);
+
+        model.addAttribute("mc", "myPage");
+        model.addAttribute("pageTitle", "능력카드");
+        return "/pages/myPage/abilityCard";
+    }
+
+    @RequestMapping("/pages/myPage/application")
+    public String application(Model model,
+                              @CurrentUser Account account,
+                              @PageableDefault Pageable pageable,
+                              @ModelAttribute SearchForm searchForm,
+                              @Value("${common.code.policyProposalCdPid}") Long policyProposalCdPid) {
+
+        BoardDataForm boardDataForm = new BoardDataForm();
+        boardDataForm.setMstPid(policyProposalCdPid);
+        searchForm.setLoginId(account.getLoginId());
+        boardDataForm.setFixingAt("N");
+        Page<BoardData> boardDatas = boardDataService.listForFront(pageable, searchForm, boardDataForm);
+        model.addAttribute("boardDatas", boardDatas);
+
+        model.addAttribute("mc", "myPage");
+        model.addAttribute("pageTitle", "My 신청");
+        return "/pages/myPage/application";
+    }
+
+    @RequestMapping("/pages/myPage/abillityCardDetail")
+    public String detail(Model model,
+                         @CurrentUser Account account,
+                         @PageableDefault Pageable pageable,
+                         @ModelAttribute SearchForm searchForm,
+                         @Value("${common.code.policyProposalCdPid}") Long policyProposalCdPid) {
+
+        BoardDataForm boardDataForm = new BoardDataForm();
+        boardDataForm.setMstPid(policyProposalCdPid);
+        searchForm.setLoginId(account.getLoginId());
+        boardDataForm.setFixingAt("N");
+        Page<BoardData> boardDatas = boardDataService.listForFront(pageable, searchForm, boardDataForm);
+        model.addAttribute("boardDatas", boardDatas);
+
+        model.addAttribute("mc", "myPage");
+        model.addAttribute("pageTitle", "능력카드");
+        return "/pages/myPage/abillityCardDetail";
+    }
+
+    /* 09/16 고선호 추가 끝 */
+
     @RequestMapping("/pages/myPage/proposalDetail/{id}")
     public String policyProposalDetail(Model model,
                                        @PageableDefault Pageable pageable,

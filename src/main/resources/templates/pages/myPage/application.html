@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/mo_menu"></th:block>
+        <div class="sub_container">
+            <th:block th:include="fragments/dept_menu"></th:block>
+            <div class="inner">
+                <div class="page_cont">
+                    <div class="page_top">
+                        <h3 class="page_tit">My신청</h3>
+                    </div>
+                    <div class="page_cont student_care my_item_6">
+                        <span>신청내역</span>
+                        <table class="care_items">
+                            <tr>
+                                <th>ID</th>
+                                <th>신청내역</th>
+                                <th>제출일</th>
+                                <th>신청서</th>
+                                <th>처리결과</th>
+                            </tr>
+                            <tr>
+                                <td>예방교육</td>
+                                <td>1기 지지크루 신청</td>
+                                <td>2021.10.10</td>
+                                <td>완료</td>
+                                <td>완료</td>
+                            </tr>
+                            <tr>
+                                <td>예방교육</td>
+                                <td>1기 지지크루 신청</td>
+                                <td>2021.10.10</td>
+                                <td>완료</td>
+                                <td>완료</td>
+                            </tr>
+                            <tr>
+                                <td>예방교육</td>
+                                <td>1기 지지크루 신청</td>
+                                <td>2021.10.10</td>
+                                <td>완료</td>
+                                <td>완료</td>
+                            </tr>
+                            <tr>
+                                <td>예방교육</td>
+                                <td>1기 지지크루 신청</td>
+                                <td>2021.10.10</td>
+                                <td>완료</td>
+                                <td>완료</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>
