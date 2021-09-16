@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:include="fragments/header"></th:block>
 </head>
@@ -18,7 +18,6 @@
         $('.agree_item_02 .agree_top u').click(function(){
             $('.agr_cont2').toggleClass('agree_on')
         })
-
     })
 </script>
 <body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
@@ -110,7 +109,7 @@
                                                         </th:block>
                                                     </div>
                                                     <input type="file" name="attachedFile" id="attachedFile" >
-                                                    <label for="attachedFile" id="box" >지지크루 관련 자료를 업로드하세요</label>
+                                                    <label for="attachedFile" id="box" >파트너스 관련 자료를 업로드하세요</label>
                                                     <label for="attachedFile">파일검색</label>
                                                 </div>
                                             </li>

@@ -3,9 +3,7 @@ package kr.or.btf.web.web.controller.pages;
 
 
 import kr.or.btf.web.common.annotation.CurrentUser;
-import kr.or.btf.web.domain.web.Account;
-import kr.or.btf.web.domain.web.Prevention;
-import kr.or.btf.web.domain.web.PreventionMaster;
+import kr.or.btf.web.domain.web.*;
 import kr.or.btf.web.domain.web.enums.AppRollType;
 import kr.or.btf.web.domain.web.enums.MberDvType;
 import kr.or.btf.web.domain.web.enums.UserRollType;
@@ -56,7 +54,7 @@ public class  ApplicationController {
     }
 
     @PostMapping("/pages/application/zzdeclareRegister")
-    public String zzcrewRegister(@ModelAttribute ApplicationForm applicationForm ,
+    public String zzdeclarationRegister(@ModelAttribute ApplicationForm applicationForm ,
                                  @RequestParam("attachedFile") MultipartFile attachedFile ,
                                  @CurrentUser Account account ,
                                  Error error) throws Exception {
@@ -291,4 +289,98 @@ public class  ApplicationController {
         model.addAttribute("pageTitle", "파트너스");
         return "pages/application/zzdeclarationRegister";
     }
+    @PostMapping("/pages/application/eventList/eventRegister")
+    public String eventRegister(Model model ,
+                                ApplicationForm applicationForm ,
+                                Pageable pageable ,
+                                SearchForm searchForm ,
+                                @RequestParam("attachedFile") MultipartFile attachedFile ,
+                                @CurrentUser Account account) throws Exception {
+
+        System.out.println("1" + applicationForm.getEventPid());
+        System.out.println("2" + applicationForm.getNm());
+        System.out.println("3" + applicationForm.getAffi());
+        System.out.println("4" + applicationForm.getMoblphon());
+
+        applicationService.eventRegister(applicationForm , attachedFile);
+        model.addAttribute("mc", "application");
+        model.addAttribute("pageTitle", "행사");
+
+        Page<Event> EventPage = applicationService.getEventList(pageable,searchForm);
+        model.addAttribute("eventList" , EventPage);
+
+
+        return "/pages/application/eventList";
+    }
+
+    //행사신청 이동컨트롤러
+    @GetMapping("/pages/application/eventList/{id}")
+    public String event(Model model,
+                        ApplicationForm applicationForm,
+                        @PathVariable("id") Long id,
+                        @CurrentUser Account account){
+        Event event = applicationService.getEventData(id);
+        if(event == null){
+            model.addAttribute("altmsg", "정상적인 경로를 이용하세요.");
+            model.addAttribute("locurl", "/pages/application/eventList");
+            return "/message";
+        }
+        model.addAttribute("epid",id);
+        model.addAttribute("mc", "application");
+        model.addAttribute("pageTitle", "행사");
+
+        return "pages/application/eventRegister";
+    }
+
+    //리스트 페이지 이동 컨트롤러
+    @RequestMapping("/pages/application/eventList")
+    public String EventList(Model model ,
+                            @CurrentUser Account account,
+                            Pageable pageable,
+                            SearchForm searchForm) {
+        Page<Event> EventPage = applicationService.getEventList(pageable,searchForm);
+        model.addAttribute("eventList" , EventPage);
+
+        model.addAttribute("mc", "application");
+        model.addAttribute("pageTitle", "행사");
+        return "pages/application/eventList";
+    }
+    @RequestMapping(value = "/pages/application/contestList")
+    public String ContestList(Model model ,
+                              @CurrentUser Account account ,
+                              Pageable pageable ,
+                              SearchForm searchForm) {
+        Page<Contest> ContestPage = applicationService.getContestList(pageable,searchForm);
+        model.addAttribute("contestList" , ContestPage);
+
+        model.addAttribute("mc", "application");
+        model.addAttribute("pageTitle", "공모전");
+        return "pages/application/contestList";
+    }
+
+    /*@GetMapping("/pages/application/eventList/{id}")
+    public String contest(Model model,
+                        ApplicationForm applicationForm,
+                        @PathVariable("id") Long id,
+                        @CurrentUser Account account){
+        Event event = applicationService.getEventData(id);
+        if(event == null){
+            model.addAttribute("altmsg", "정상적인 경로를 이용하세요.");
+            model.addAttribute("locurl", "/pages/application/contestList");
+            return "/message";
+        }
+        model.addAttribute("cpid",id);
+        model.addAttribute("mc", "application");
+        model.addAttribute("pageTitle", "공모전");
+
+        return "pages/application/eventRegister";
+    }*/
+
+    @GetMapping("/pages/application/zzcrewRegister")
+    public String zzcrewRegister(Model model) {
+        model.addAttribute("mc", "application");
+        model.addAttribute("pageTitle", "지지크루");
+        return "pages/application/zzcrewRegister";
+    }
+
 }

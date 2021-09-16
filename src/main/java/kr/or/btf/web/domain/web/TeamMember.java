@@ -16,7 +16,7 @@ import javax.persistence.*;
 public class TeamMember {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "teammber_pid")
+    @Column(name = "tmber_pid")
     private Long id;
 
     @Column(name = "contest_pid")
@@ -34,6 +34,7 @@ public class TeamMember {
     @Column(name = "affi")
     private String affi;
 
-    @Column(name = "brthyday")
-    private String brthyday;
+    @Column(name = "brthday")
+    private String brthday;
+
 }

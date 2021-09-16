@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+</head>
+<script>
+    function fn_search() {
+        let frm = $('#form1');
+        frm.submit();
+    }
+</script>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<th:block th:include="fragments/header_gnb"></th:block>
+<div id="container">
+    <th:block th:include="fragments/mo_menu"></th:block>
+    <div class="sub_container">
+        <th:block th:include="fragments/dept_menu"></th:block>
+        <form id="form1" name="form1" method="post" th:object="${searchForm}">
+            <div class="inner">
+                <div class="page_cont">
+                    <h4 class="subtit pc review_title">공모전</h4>
+                    <div class="board_top">
+                        <div class="select w401">
+                            <label>
+                                전체
+                            </label>
+                            <select>
+                                <option value="">전체</option>
+                            </select>
+                        </div>
+
+                        <div class="select news w401_txt">
+                            <input type="search" th:field="*{srchWord}" placeholder="검색어를 입력해 주세요"/>
+                        </div>
+                        <button type="submit" class="btn btn_blue btn_pill_10">검색</button>
+                    </div>
+                    <ul class="board_tbl_list type01">
+                        <li class="thead">
+                            <strong class="no">No</strong>
+                            <strong class="tit">제목</strong>
+                            <strong class="writer">주최자</strong>
+                            <strong class="date">작성일</strong>
+                            <strong class="hits">조회수</strong>
+                        </li>
+                        <th:block th:if="${(contestList == null or contestList.isEmpty())}">
+                            <li class="nodata">
+                                <div>등록된 게시글이 없습니다.</div>
+                            </li>
+                        </th:block>
+                        <li th:each="item,idx : ${contestList}">
+                            <div class="no"
+                                 th:text="${contestList.totalElements - contestList.pageable.pageSize * contestList.pageable.pageNumber - idx.index}"></div>
+                            <div class="tit" style="text-align: center;">
+                                <a th:href="|/pages/application/contestList/${item.id}|" th:text="|${item.ttl}|"></a>
+                            </div>
+                            <div class="writer">
+                                <th:block th:text="${item.organ_dtl}"></th:block>
+                            </div>
+                            <div class="date">
+                                <th:block th:text="${#temporals.format(item.regDtm,'yyyy.MM.dd')}">2020.10.15</th:block>
+                            </div>
+                            <div class="hits">
+                                <th:block th:text="${item.readCnt}">1</th:block>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <th:block
+                        th:replace="/fragments/paging :: pagingbody(list=${contestList}, link='/pages/application/contestList', formId='form1')"></th:block>
+            </div>
+        </form>
+    </div>
+</div>
+<th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

@@ -1,10 +1,323 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <th:block th:include="fragments/header"></th:block>
 </head>
-<body>
-$END$
+<script>
+    var year;
+    var month;
+    var day;
+    var schedule;
+
+    $(function () {
+        appendYear()
+    })
+
+    function appendYear() {
+        var date = new Date();
+        var crrntYear = date.getFullYear();
+        year = $("#year");
+        year.append("<option value=''>선택</option>");
+        for (var y = (crrntYear + 0); (crrntYear + 5) >= y; y++) {
+            year.append("<option value='" + y + "'>" + y + "년" + "</option>");
+        }
+    }
+
+    $(document).ready(function () {
+
+        <!--2021/09/21 kjw 개인정보활용동의서-->
+        $('.info_accordion .agree_inner ul').click(function () {
+            $(this).toggleClass('agree_on')
+        })
+
+        //20210913_소개_예방교육 개인정보활용동의서
+        $('.agree_item_01 .agree_top u').click(function () {
+            $('.agr_cont1').toggleClass('agree_on')
+        })
+        $('.agree_item_02 .agree_top u').click(function () {
+            $('.agr_cont2').toggleClass('agree_on')
+        })
+
+    })
+</script>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div class="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/mo_menu"></th:block>
+        <div class="sub_container">
+            <th:block th:include="fragments/dept_menu"></th:block>
+            <form action="/pages/application/zzdeclareRegister" id="form1" name="form1" method="post"
+                  enctype="multipart/form-data">
+                <div class="inner">
+                    <div class="page_cont">
+                        <h4 class="subtit pc review_title">공모전 신청</h4>
+                        <div class="partners">
+                            <div class="partners_inner ">
+                                <div class="sec_write">
+                                    <h4 class="subtit">참여자(대표)정보</h4>
+                                    <div class="tbl_write">
+                                        <ul>
+                                            <li>
+                                                <div class="th">
+                                                    <label for="nm">성명</label>
+                                                </div>
+                                                <div class="td">
+                                                    <input id="nm" name="nm" type="text">
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="th">
+                                                    <label for="brthday">생년월일</label>
+                                                </div>
+                                                <div class="td">
+                                                    <input id="brthday" name="brthday" type="text">
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="th">
+                                                    <label for="affi">소속학교/기관</label>
+                                                </div>
+                                                <div class="td">
+                                                    <input id="affi" name="affi" type="text">
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="th">
+                                                    <label for="adress">주소</label>
+                                                </div>
+                                                <div class="td">
+                                                    <input id="adress" name="adress" type="text"
+                                                           placeholder="기념품 발송을 위해 정확한 주소를 기입해주세요.">
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="th">
+                                                    <label for="email">주소</label>
+                                                </div>
+                                                <div class="td">
+                                                    <input id="email" name="email" type="text">
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="th">
+                                                    <label for="moblphon">연락처</label>
+                                                </div>
+                                                <div class="td">
+                                                    <input id="moblphon" name="moblphon" type="text">
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="sec_write">
+                                    <h4 class="subtit">참여자(대표)정보</h4>
+                                    <div class="tbl_write">
+                                        <ul>
+                                            <li>
+                                                <div class="th">
+                                                    <label for="Tnm">성명</label>
+                                                </div>
+                                                <div class="td">
+                                                    <input id="Tnm" name="Tnm" type="text">
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="th">
+                                                    <label for="Tbrthday">생년월일</label>
+                                                </div>
+                                                <div class="td">
+                                                    <input id="Tbrthday" name="Tbrthday" type="text">
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="th">
+                                                    <label for="Taffi">소속학교/기관</label>
+                                                </div>
+                                                <div class="td">
+                                                    <input id="Taffi" name="Taffi" type="text">
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="th">
+                                                    <label for="Tmoblphon">연락처</label>
+                                                </div>
+                                                <div class="td">
+                                                    <input id="Tmoblphon" name="Tmoblphon" type="text">
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <ul>
+                                        <ul>
+                                            <div class="btn_area">
+                                                <button id="btnPlus" class="btn btn_lg btn_blue btn_pill_10">참여자(팀원)
+                                                    추가하기
+                                                </button>
+                                            </div>
+                                        </ul>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="sec_write join join_m">
+                                <div class="tbl_write upload m_upload">
+                                    <ul>
+                                        <li>
+                                            <div class="th">
+                                                <label>증빙서류</label>
+                                            </div>
+
+                                            <div class="td">
+                                                <div th:if="${fileList != null and !fileList.isEmpty()}">
+                                                    <th:block th:each="item: ${fileList}">
+                                                        <p class="file"
+                                                           th:if="${T(kr.or.btf.web.domain.web.enums.FileDvType).THUMB.name() eq item.dvTy}">
+                                                            <span th:text="${item.flNm}">첨부파일.txt</span>
+                                                            <a href="javascript:;" class="btn_del"
+                                                               th:onclick="|fn_deleteFile(${item.id}, this)| ">
+                                                                <span class="blind">삭제</span>
+                                                            </a>
+                                                        </p>
+                                                    </th:block>
+                                                </div>
+                                                <input type="file" name="attachedFile" id="attachedFile">
+                                                <label for="attachedFile" id="box">증빙서류를 업로드하세요</label>
+                                                <label for="attachedFile">파일검색</label>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="sec_write join">
+                                <div class="tbl_write">
+                                    <ul>
+                                        <li>
+                                            <div class="th">
+                                                <label>작품주제</label>
+                                            </div>
+                                            <div class="td">
+                                                <div class="mb-1">
+                                                    <span>아래 3가지 중 최소 1가지 선택</span>
+                                                </div>
+                                                <div class="register_radio">
+                                                    <input type="radio" id="1" name="theme" value="1" checked>
+                                                    <label for="1">1.청소년 사이버폭력의 심각성</label>
+                                                </div>
+                                                <div class="register_radio">
+                                                    <input type="radio" id="2" name="theme" value="2">
+                                                    <label for="2">2청소년 사이버폭력의 해결을 위한 학교의 역할</label>
+                                                </div>
+                                                <div class="register_radio">
+                                                    <input type="radio" id="3" name="theme" value="3">
+                                                    <label for="3">3. 청소년 사이버폭력 관련 자유주제</label>
+                                                </div>
+                                                <span id="sexPrTy"></span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="th">
+                                                <label for="artform">작품형식</label>
+                                            </div>
+                                            <div class="td">
+                                                <input id="artform" name="artform" type="text">
+                                            </div>
+                                        </li>
+
+                                        <li>
+                                            <div class="th">업로드<span class="aster">*</span></div>
+                                            <div class="td file_form">
+                                                <div th:if="${fileList != null and !fileList.isEmpty()}">
+                                                    <th:block th:each="item: ${fileList}">
+                                                        <p class="file" th:if="${T(kr.or.btf.web.domain.web.enums.FileDvType).THUMB.name() eq item.dvTy}">
+                                                            <span th:text="${item.flNm}">첨부파일.txt</span>
+                                                            <a href="javascript:;" class="btn_del" th:onclick="|fn_deleteFile(${item.id}, this)| ">
+                                                                <span class="blind">삭제</span>
+                                                            </a>
+                                                        </p>
+                                                    </th:block>
+                                                </div>
+                                                <input type="file" name="attachedFile" maxlength="1"  id="attachedFile" class="multi" th:accept="${allAccept}" />
+                                                <label for="attachedFile">파일찾기</label>
+                                                <input type="hidden" name="b_license_attc" id="b_license_attc" value="N">
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="th">
+                                                <label for="arttitle">작품제목</label>
+                                            </div>
+                                            <div class="td">
+                                                <input id="arttitle" name="arttitle" type="text">
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="th">
+                                                <label for="artcnt">필수내용</label>
+                                            </div>
+                                            <div class="td">
+                                                <input id="artcnt" name="artcnt" type="text">
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="th">
+                                                <label for="explanation">작품설명</label>
+                                            </div>
+                                            <div class="td">
+                                                <textarea id="explanation" name="explanation" type="text"></textarea>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="info_accordion">
+                            <div class="agree_inner agree_contents">
+                                <ul>
+                                    <span>개인정보 활용 동의서(필수)</span>
+                                    <li>
+                                        <p>
+                                            푸른나무재단에서 2021 청소년 사이버폭력 예방교육 사업 푸른코끼리 학교로 찾아가는 교육 신청서 접수 및 결과 안내를 목적으로
+                                            아래와 같이 개인정보를 수집 및 이용합니다.
+                                        </p>
+                                        <p class="agree_desc">
+                                            ▪︎ 목적 : 신청서 접수 및 출강 여부 결과 회신 동의 서비스 제공 <b></b>
+                                            ▪︎ 수집 항목 : 정보주체의 성명, 소속, 주소, 업무 등<b></b>
+                                            ▪︎ 보유 및 이용시간 : 개인정보 수집 및 이용목적이 달성된 후에는 해당정보를 즉기 파기합니다. 단, 출강 확정 후 서비스 제공
+                                            및 민원 처리 동의 소속 작업물 위해 3년간 보유 및 이용됩니다. 또한, 신청서 삭제 요청 시 까지 위 이용 목적을 위하여
+                                            보유이용됩니다. 그러나 신청서 삭제 요청 시 신청자의 개인정보를 재생 불가능한 방법으로 즉시 파기합니다. <b></b>
+                                        </p>
+                                        <span>
+                                                    ※ 귀하는 이에 대한 동의를 거부할 수 있으며, 다만 동의가 없을 경우 교육신청 접속에 제한 할 수 있음을 알려드립니다.
+                                                </span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="checkbox">
+                                <input type="checkbox" id="agree002">
+                                <label for="agree002">
+                                    <span>동의함</span>
+                                </label>
+                            </div>
+                        </div>
+
+
+                        <div class="btn_area">
+                            <button id="btnSave" type="submit" class="btn btn_lg btn_blue btn_pill_10">제출</button>
+                        </div>
+                        <!--<div class="partners_btn">
+                            <a class="join_btn" href출"#none">제출</a>
+                        </div>-->
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- sub_inner -->
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
 </body>
 </html>

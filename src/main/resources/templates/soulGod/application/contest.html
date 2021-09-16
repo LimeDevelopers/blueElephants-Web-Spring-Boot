@@ -106,7 +106,7 @@
                         return false
                     }
                 } else {
-                    alert("확인할 파트너스를 선택하세요.")
+                    alert("확인할 신청을 선택하세요.")
                 }
 
             });
@@ -176,51 +176,8 @@
                     <ul class="breadcrumb">
                         <li><i class="material-icons">home</i></li>
                         <li>신청관리</li>
-                        <li>파트너스</li>
+                        <li>공모전</li>
                     </ul>
-
-                    <!--                    <th:block th:if="${dv == 'application'}">-->
-                    <!--                    <div class="search_area clearfix">-->
-                    <!--                        <dl class="col">-->
-                    <!--                            <dt>구분</dt>-->
-                    <!--                            <dd>-->
-                    <!--                            <th:block th:if="${dv == 'application'}">-->
-                    <!--                                <select th:field="*{srchGbn}">-->
-                    <!--                                    <option value="">전체</option>-->
-                    <!--                                    <option th:each="tp : ${T(kr.or.btf.web.domain.web.enums.UserRollType).values()}"-->
-                    <!--                                            th:value="${tp}"-->
-                    <!--                                            th:text="${tp.getName()}"></option>-->
-                    <!--                                </select>-->
-                    <!--                            </th:block>-->
-                    <!--                            </dd>-->
-                    <!--                        </dl>-->
-                    <!--                        <dl class="col">-->
-                    <!--                            <dt>가입일</dt>-->
-                    <!--                            <dd>-->
-                    <!--                                <div class="term_form">-->
-                    <!--                                    <input type="text" th:field="*{srchStDt}" class="form_date" readonly />-->
-                    <!--                                    <span class="swung">~</span>-->
-                    <!--                                    <input type="text" th:field="*{srchEdDt}" class="form_date" readonly />-->
-                    <!--                                </div>-->
-                    <!--                            </dd>-->
-                    <!--                        </dl>-->
-                    <!--                        <div class="col">-->
-                    <!--                            <select th:field="*{srchField}" class="w120">-->
-                    <!--                                <option value="1" selected>전체</option>-->
-                    <!--                                <option value="2" selected>이름</option>-->
-                    <!--                                <option value="3" selected>아이디</option>-->
-                    <!--                                <option value="4" selected>이메일</option>-->
-                    <!--                            </select>-->
-                    <!--                            <input type="text" th:field="*{srchWord}" placeholder="검색어를 입력하세요." style="width:313px"  />-->
-                    <!--                            <button type="button" class="btn btn_sm btn_gray" onclick="fn_search()">-->
-                    <!--                                <i class="material-icons">search</i>조회-->
-                    <!--                            </button>-->
-                    <!--                            <button type="button" class="btn btn_sm btn_gray" onclick="fn_reset()">-->
-                    <!--                                <i class="material-icons">refresh</i>초기화-->
-                    <!--                            </button>-->
-                    <!--                        </div>-->
-                    <!--                    </div>-->
-                    <!--                    </th:block>-->
                     <div class="board_list">
                         <h4 class="sec_tit">신청 리스트</h4>
                         <div class="board_top clearfix">
@@ -229,7 +186,7 @@
                                     <b>
                                         신청수:
                                         <th:block
-                                                th:text="${#numbers.formatInteger(partners.totalElements, 0, 'COMMA')}">
+                                                th:text="${#numbers.formatInteger(contest.totalElements, 0, 'COMMA')}">
                                             000
                                         </th:block>
                                         명
@@ -251,7 +208,7 @@
                                 <tr>
                                     <th><input type="checkbox" id="allChk"></th>
                                     <th>No</th>
-                                    <th>이름</th>
+                                    <th>팀장명</th>
                                     <th>소속명</th>
                                     <th>휴대폰</th>
                                     <th>신청일</th>
@@ -260,13 +217,13 @@
                                 </thead>
                                 <tbody>
                                 <!-- 등록된 데이터가 없을 때만 노출 : s -->
-                                <tr th:if="${partners == null or partners.isEmpty()}">
+                                <tr th:if="${contest == null or contest.isEmpty()}">
                                     <td colspan="9">등록된 정보 없습니다.</td>
                                 </tr>
                                 <!-- 등록된 이벤트가 없을 때만 노출 : e -->
-                                <tr th:each="item,idx:${partners}">
+                                <tr th:each="item,idx:${contest}">
                                     <td><input type="checkbox" id="agree" name="agree" th:value="${item.id}"></td>
-                                    <td th:text="${partners.totalElements - partners.pageable.pageSize * partners.pageable.pageNumber - idx.index}"></td>
+                                    <td th:text="${contest.totalElements - contest.pageable.pageSize * contest.pageable.pageNumber - idx.index}"></td>
                                     <td th:text="${item.nm}"></td>
                                     <td th:text="${item.affi eq null || item.affi eq ''? '소속 없음' : item.affi}"></td>
                                     <td th:text="${item.moblphon eq null || item.moblphon eq ''? '등록된 휴대폰 없음' : item.moblphon}"></td>
@@ -280,8 +237,8 @@
                                 </tbody>
                             </table>
                         </div>
-                        <th:block th:replace="/soulGod/fragments/paging :: pagingbody(list=${partners},
-                                            link='/soulGod/application/partners', formId='form1')"></th:block>
+                        <th:block th:replace="/soulGod/fragments/paging :: pagingbody(list=${contest},
+                                            link='/soulGod/application/contest', formId='form1')"></th:block>
                     </div>
 
                     <th:block th:if="${dv == 'group'}">

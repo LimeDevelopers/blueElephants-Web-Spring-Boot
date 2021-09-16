@@ -93,4 +93,41 @@ public class AppManagementController extends BaseCont  {
 
         return "soulGod/application/zzdeclaration";
     }
+
+    @GetMapping("/soulGod/application/event")
+    public String eventPage(Model model ,
+                            @PageableDefault Pageable pageable ,
+                            @ModelAttribute SearchForm searchForm ,
+                            @CurrentUser Account account) {
+        searchForm.setGroupDv("N");
+        model.addAttribute("form" , searchForm);
+
+        searchForm.setUserRollType(account.getMberDvTy());
+        Page<ActivityApplication> applications = appManagementService.event(pageable, searchForm);
+
+        model.addAttribute("event", applications);
+        model.addAttribute("totCnt", applications.isEmpty() ? 0 : applications.getContent().size());
+        model.addAttribute("mc", "application");
+        model.addAttribute("dv", "application");
+
+        return "soulGod/application/event";
+    }
+    @GetMapping("/soulGod/application/contest")
+    public String contestPage(Model model ,
+                              @PageableDefault Pageable pageable ,
+                              @ModelAttribute SearchForm searchForm ,
+                              @CurrentUser Account account) {
+        searchForm.setGroupDv("N");
+        model.addAttribute("form" , searchForm);
+
+        searchForm.setUserRollType(account.getMberDvTy());
+        Page<ActivityApplication> applications = appManagementService.contest(pageable, searchForm);
+
+        model.addAttribute("contest", applications);
+        model.addAttribute("totCnt", applications.isEmpty() ? 0 : applications.getContent().size());
+        model.addAttribute("mc", "application");
+        model.addAttribute("dv", "application");
+
+        return "soulGod/application/contest";
+    }
 }
