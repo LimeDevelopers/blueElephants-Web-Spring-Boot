@@ -10,7 +10,101 @@
         <th:block th:include="fragments/mo_menu"></th:block>
         <div class="sub_container">
             <th:block th:include="fragments/dept_menu"></th:block>
-        <div class="contents">
+            <div class="inner">
+                <div class="page_cont">
+                    <div class="page_top">
+                        <h3 class="page_tit">활동내역</h3>
+                    </div>
+                    <div class="page_cont my_activitiy">
+                        <div class="activity_card">
+                            <div class="card_item">
+                                <div class="character_inner">
+                                    <div class="character">
+                                        <img src="" alt="">
+                                    </div>
+                                </div>
+                                <div class="name">푸코님</div>
+                                <div class="others">
+                                    <span>학생</span>
+                                    <span class="lv">LV.1알</span>
+                                    <span>6250p</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portfolio">
+                            <div class="pofo_top">
+                                <h2>포트폴리오</h2>
+                                <div class="pofo_save">
+                                    <a href="#none">저장하기</a>
+                                </div>
+                            </div>
+                            <div class="pofo_items">
+                                <div class="activity_1">
+                                    <span>출석/댓글</span>
+                                    <b><th:block th:text="${#numbers.formatInteger(loginCnt, 0, 'COMMA')}"></th:block>/<th:block th:text="${#numbers.formatInteger(commontCnt, 0, 'COMMA')}"></th:block></b>
+                                </div>
+                                <div class="activity_2">
+                                    <span>교육</span>
+                                    <b>32</b>
+                                </div>
+                                <div class="activity_3">
+                                    <span>정책제안</span>
+                                    <b>32</b>
+                                </div>
+                                <div class="activity_4">
+                                    <span>문화만들기</span>
+                                    <b>32</b>
+                                </div>
+                                <div class="activity_5">
+                                    <span>신청</span>
+                                    <b>32</b>
+                                </div>
+                                <div class="activity_6">
+                                    <span>스토어</span>
+                                    <b>32</b>
+                                </div>
+                            </div>
+                            <div class="pofo_bottom">
+                                <div>
+                                    <h3>지지크루활동</h3>
+                                    <table>
+                                        <tr>
+                                            <td>활동내역 문의제목입니다.<b></b>
+                                                <span>푸른코끼리</span>
+                                                <span>2021-10-11</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>활동내역 문의제목입니다.<b></b>
+                                                <span>푸른코끼리</span>
+                                                <span>2021-10-11</span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div>
+                                    <h3>주요정책 제안</h3>
+                                    <table>
+                                        <tr>
+                                            <td>활동내역 문의제목입니다.<b></b>
+                                                <span>푸른코끼리</span>
+                                                <span>2021-10-11</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>활동내역 문의제목입니다.<b></b>
+                                                <span>푸른코끼리</span>
+                                                <span>2021-10-11</span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!--<div class="contents">
             <div class="page_top">
                 <h3 class="page_tit">활동내역</h3>
                 <span>회원정보를 최신정보로 관리해주세요. <br class="mo" />새로운 푸코소식과 보안을 위해 회원정보를 최신으로 업데이트 해주세요.</span>
@@ -22,11 +116,11 @@
                         <strong class="my_activity">활동</strong>
                         <strong class="number">횟수</strong>
                     </li>
-                    <!--아직 활동내역이 없을경우 : s-->
-                    <!--<li class="nodata">
+                    &lt;!&ndash;아직 활동내역이 없을경우 : s&ndash;&gt;
+                    &lt;!&ndash;<li class="nodata">
                         <div>표시할 게시물이 없습니다.</div>
-                    </li>-->
-                    <!--아직 활동내역이 없을경우 : e-->
+                    </li>&ndash;&gt;
+                    &lt;!&ndash;아직 활동내역이 없을경우 : e&ndash;&gt;
                     <li>
                         <div class="category">출석수</div>
                         <div class="my_activity">로그인</div>
@@ -89,7 +183,7 @@
                     </li>
                 </ul>
             </div>
-        </div>
+        </div>-->
     </div>
     </div>
     <th:block th:replace="fragments/footer"></th:block>

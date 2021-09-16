@@ -12,7 +12,52 @@
             <th:block th:include="fragments/dept_menu"></th:block>
 
             <form id="form1" name="form1" method="post">
-                <div class="contents">
+                <div class="inner">
+                    <div class="page_cont">
+                        <div class="page_top">
+                            <h3 class="page_tit">교육자료실</h3>
+                        </div>
+                        <div class="page_cont my_item_2">
+                            <div class="my_item_top">
+                                <button>최근자료</button>
+                                <button>즐겨찾기</button>
+                            </div>
+                            <div class="my_item_edu">
+                                <div class="item_inner">
+                                    <small>이미지와제목을 클릭하시면, 제안 메인페이지로 이동합니다.</small>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <div class="edu_item">
+                                                    <div class="edu_img">
+                                                        <div></div>
+                                                    </div>
+                                                    <div class="edu_desc">
+                                                        <h5>[학교폭력 연구]  Preventing and …</h5>
+                                                        <small>O X 퀴즈내역</small>
+                                                        <span>등록일 |  2021.10.11</span>
+                                                        <div class="tags">
+                                                            <b class="tag1">청소년</b>
+                                                            <b class="tag2">일반</b>
+                                                            <b class="tag3">교원</b>
+                                                            <b class="tag4">부모</b>
+                                                            <b class="tag5">푸코강사</b>
+                                                        </div>
+                                                    </div>
+                                                    <div class="remove_btn">
+                                                        <a href="#none">삭제</a>
+                                                        <button>별</button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="contents">
                     <div class="page_top pc">
                         <h3 class="page_tit">My 강의실</h3>
                         <span>회원정보를 최신정보로 관리해주세요. 새로운 푸코소식과 보안을 위해 회원정보를 최신으로 업데이트 해주세요.</span>
@@ -37,11 +82,11 @@
                                 <strong class="state">수강상태</strong>
                                 <strong class="date">수강신청일</strong>
                             </li>
-                            <!--수강 중인 강의가 없을경우 : s-->
+                            &lt;!&ndash;수강 중인 강의가 없을경우 : s&ndash;&gt;
                             <li class="nodata" th:if="${courseMasters == null or courseMasters.isEmpty()}">
                                 <div>수강 중인 강의가 없습니다.</div>
                             </li>
-                            <!--수강 중인 강의가 없을경우 : e-->
+                            &lt;!&ndash;수강 중인 강의가 없을경우 : e&ndash;&gt;
                             <li th:each="item,idx : ${courseMasters}">
                                 <div class="no"
                                      th:text="${courseMasters.totalElements - courseMasters.pageable.pageSize * courseMasters.pageable.pageNumber - idx.index}">
@@ -60,7 +105,7 @@
                         <th:block
                                 th:replace="/fragments/paging :: pagingbody(list=${courseMasters}, link='/pages/myPage/classroom', formId='form1')"></th:block>
                     </div>
-                </div>
+                </div>-->
             </form>
         </div>
     </div>

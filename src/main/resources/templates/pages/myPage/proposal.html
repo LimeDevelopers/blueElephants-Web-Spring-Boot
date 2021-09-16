@@ -11,7 +11,37 @@
         <div class="sub_container">
             <th:block th:include="fragments/dept_menu"></th:block>
             <form id="form1" name="form1" method="post">
-                <div class="contents">
+                <div class="inner">
+                    <div class="page_cont">
+                        <div class="page_top">
+                            <h3 class="page_tit">My제안</h3>
+                        </div>
+                        <div class="page_cont my_item_3">
+                            <div class="my_item_top">
+                                <p>
+                                    <span>제목을 클릭하시면, 제안 메인페이지로 이동합니다.</span>
+                                </p>
+                            </div>
+                            <div class="my_item_edu">
+                                <div class="item_inner">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <div class="edu_item_2">
+                                                    <div class="edu_desc_2">
+                                                        <span>등록된 게시글이 없습니다.</span>
+                                                        <small>다운로드 수 |  0</small>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="contents">
                     <div class="page_top">
                         <h3 class="page_tit">My 제안</h3>
                         <span>회원정보를 최신정보로 관리해주세요. <br class="mo"/>새로운 푸코소식과 보안을 위해 회원정보를 최신으로 업데이트 해주세요.</span>
@@ -27,13 +57,13 @@
                                 <strong class="sympathy">공감수</strong>
                                 <strong class="hits">조회수</strong>
                             </li>
-                            <!--등록된 글 없을경우 : s-->
+                            &lt;!&ndash;등록된 글 없을경우 : s&ndash;&gt;
                             <th:block th:if="${boardDatas == null or boardDatas.isEmpty()}">
                                 <li class="nodata">
                                     <div>등록된 게시글이 없습니다.</div>
                                 </li>
                             </th:block>
-                            <!--등록된 글 없을경우 : e-->
+                            &lt;!&ndash;등록된 글 없을경우 : e&ndash;&gt;
                             <li th:each="item,idx:${boardDatas}">
                                 <div class="no" th:text="${boardDatas.content.size() - idx.count + 1}"></div>
                                 <div class="tit"><a th:href="|/pages/myPage/proposalDetail/${item.id}|"
@@ -55,7 +85,7 @@
                         <th:block
                                 th:replace="/fragments/paging :: pagingbody(list=${boardDatas}, link='/pages/myPage/proposal', formId='form1')"></th:block>
                     </div>
-                </div>
+                </div>-->
             </form>
         </div>
     </div>

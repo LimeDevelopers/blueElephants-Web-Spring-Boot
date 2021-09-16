@@ -17,7 +17,69 @@
             <th:block th:include="fragments/dept_menu"></th:block>
 
             <form id="form1" name="form1" method="post">
-                <div class="contents">
+                <div class="inner">
+                    <div class="page_cont">
+                        <div class="page_top">
+                            <h3 class="page_tit">My상담</h3>
+                        </div>
+                        <div class="page_cont my_item_1">
+                            <div class="my_item_top">
+                                <p>
+                                    <span>비회원로그인 상담내역은 마이페이지에 나오지 않으며,  도움요청 메뉴에서 확인가능합니다.</span>
+                                    <span>법률상담, 채팅, 화해분쟁조정은 도움요청 메뉴에서 확인가능합니다.</span>
+                                </p>
+                            </div>
+                            <div class="my_item_list">
+                                <div>
+                                    <h3>게시판 상담내역</h3>
+                                    <table>
+                                        <tr>
+                                            <td>활동내역 문의제목입니다.<b></b>
+                                                <p>
+                                                <span>푸른코끼리
+                                                    <i>2021-10-11</i>
+                                                </span>
+                                                    <b>상담완료</b>
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div>
+                                    <h3>전화 상담내역</h3>
+                                    <table>
+                                        <tr>
+                                            <td>활동내역 문의제목입니다.<b></b>
+                                                <p>
+                                                <span>푸른코끼리
+                                                    <i>2021-10-11</i>
+                                                </span>
+                                                    <b>상담완료</b>
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div>
+                                    <h3>대면상담내역</h3>
+                                    <table>
+                                        <tr>
+                                            <td>활동내역 문의제목입니다.<b></b>
+                                                <p>
+                                                <span>푸른코끼리
+                                                    <i>2021-10-11</i>
+                                                </span>
+                                                    <b>상담완료</b>
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="contents">
                     <div class="page_top">
                         <h3 class="page_tit">My 상담</h3>
                         <span>회원정보를 최신정보로 관리해주세요. <br class="mo"/>새로운 푸코소식과 보안을 위해 회원정보를 최신으로 업데이트 해주세요.</span>
@@ -38,7 +100,7 @@
                                     <strong class="state">상태</strong>
                                 </li>
                                 <li class="nodata" th:if="${adviceRequests == null or adviceRequests.isEmpty()}">
-                                    <!--등록된 글 없을경우-->
+                                    &lt;!&ndash;등록된 글 없을경우&ndash;&gt;
                                     <div>등록된 상담이 없습니다.</div>
                                 </li>
                                 <li th:each="item,idx:${adviceRequests}">
@@ -46,7 +108,7 @@
                                          th:text="${adviceRequests.totalElements - adviceRequests.pageable.pageSize * adviceRequests.pageable.pageNumber - idx.index}">
                                         2
                                     </div>
-                                    <!--<div class="tit ico_lock">-->
+                                    &lt;!&ndash;<div class="tit ico_lock">&ndash;&gt;
                                     <div class="tit">
                                         <a th:href="|/pages/myPage/counselingDetail/board/${item.id}|">
                                             <b th:text="${item.ttl}"></b>
@@ -75,7 +137,7 @@
                                     <strong class="time">등록일</strong>
                                 </li>
                                 <li class="nodata" th:if="${adviceTelList == null or adviceTelList.isEmpty()}">
-                                    <!--등록된 글 없을경우-->
+                                    &lt;!&ndash;등록된 글 없을경우&ndash;&gt;
                                     <div>등록된 상담이 없습니다.</div>
                                 </li>
                                 <li th:each="item,idx:${adviceTelList}">
@@ -111,7 +173,7 @@
                                     <strong class="time">등록일</strong>
                                 </li>
                                 <li class="nodata" th:if="${adviceFaceList == null or adviceFaceList.isEmpty()}">
-                                    <!--등록된 글 없을경우-->
+                                    &lt;!&ndash;등록된 글 없을경우&ndash;&gt;
                                     <div>등록된 상담이 없습니다.</div>
                                 </li>
                                 <li th:each="item,idx:${adviceFaceList}">
@@ -137,7 +199,7 @@
                             </ul>
                         </div>
                     </div>
-                </div>
+                </div>-->
             </form>
         </div>
     </div>
