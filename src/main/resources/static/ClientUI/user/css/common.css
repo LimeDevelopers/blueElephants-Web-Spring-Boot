@@ -372,7 +372,7 @@ body{color:#54586a;font-size:14px;font-family:'Noto Sans KR', Malgun Gothic, '�
 .cke_contents{min-height:300px}
 .editor img{height:auto !important}
 .editor em{font-style:italic}
-.editor ol, .editor ul{padding:0 40px}
+.editor ol, .editor ul{}  /* 09/15 고선호 수정 */
 .editor ol li{list-style:decimal}
 .editor ul li{list-style:disc}
 .editor blockquote{padding:2px 8px 2px 20px;font-style:italic;border-left:5px solid #ccc}
@@ -435,4 +435,34 @@ body{color:#54586a;font-size:14px;font-family:'Noto Sans KR', Malgun Gothic, '�
 /***** ie hack *****/
 @media screen and (-ms-high-contrast:active), (-ms-high-contrast:none) {
 	.file_form input{top:-9999px;left:-9999px}
+}
+
+/* notice 셀렉트 작업*/
+.notice_select > .notice_option_select{
+	overflow: inherit;
+	height: 22px;
+	margin-top: 55px;
+	border: 0px solid #fff;
+}
+.notice_select > .notice_option_select > option{
+	 display: inline-block;
+}
+.notice_select > .notice_option_select > option::after{
+	content: '|';
+}
+.notice_select > .notice_option_select > option:last-child::after{
+	content: '';
+}
+
+.notice_option_select option:hover,
+.notice_option_select option:focus,
+.notice_option_select option:active,
+.notice_option_select option:checked
+{
+	background: linear-gradient(#FFFFFF,#FFFFFF);
+	background-color: #fff0da !important; /* for IE */
+}
+
+.notice_option_select option[selected] {
+	color: #000000;
 }

@@ -11,6 +11,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.querydsl.jpa.impl.JPAUpdateClause;
 import kr.or.btf.web.common.Constants;
 import kr.or.btf.web.domain.web.*;
+import kr.or.btf.web.domain.web.QPrevention;
 import kr.or.btf.web.domain.web.enums.AppRollType;
 import kr.or.btf.web.domain.web.enums.CompleteStatusType;
 import kr.or.btf.web.domain.web.enums.FileDvType;

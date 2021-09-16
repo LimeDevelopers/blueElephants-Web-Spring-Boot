@@ -669,3 +669,4 @@ $('.agree_item_01 .agree_top u').click(function(){
 $('.agree_item_02 .agree_top u').click(function(){
 	$('.agr_cont2').toggleClass('agree_on')
 })
+
