@@ -17,52 +17,22 @@
                     </div>
                     <div class="page_cont my_item_5">
                         <h3>능력카드저장내역</h3>
+
                         <div class="card_list">
                             <div class="card_inner_pc">
                                 <div>
-                                    <a class="card" href="/pages/myPage/abilityCardDetail"> <!--임시생성. URL 다시 지정 해야함.-->
-                                        <div class="card_phot"></div>
-                                        <span>능력카드 제목내용</span>
-                                        <small>2021-10-11</small>
+                                    <a class="card" th:if="${list == null or list.isEmpty()}">
+                                        <div class="card_phot">
+                                        </div>
+                                        <span>발급받은 능력카드가 없습니다.</span>
+                                        <small></small>
                                     </a>
-                                    <a class="card" href="/pages/myPage/abilityCardDetail"> <!--임시생성. URL 다시 지정 해야함.-->
-                                        <div class="card_phot"></div>
-                                        <span>능력카드 제목내용</span>
-                                        <small>2021-10-11</small>
-                                    </a>
-                                    <a class="card" href="/pages/myPage/abilityCardDetail"> <!--임시생성. URL 다시 지정 해야함.-->
-                                        <div class="card_phot"></div>
-                                        <span>능력카드 제목내용</span>
-                                        <small>2021-10-11</small>
-                                    </a>
-                                    <a class="card" href="/pages/myPage/abilityCardDetail"> <!--임시생성. URL 다시 지정 해야함.-->
-                                        <div class="card_phot"></div>
-                                        <span>능력카드 제목내용</span>
-                                        <small>2021-10-11</small>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="card_inner_pc">
-                                <div>
-                                    <a class="card" href="/pages/myPage/abilityCardDetail"> <!--임시생성. URL 다시 지정 해야함.-->
-                                        <div class="card_phot"></div>
-                                        <span>능력카드 제목내용</span>
-                                        <small>2021-10-11</small>
-                                    </a>
-                                    <a class="card" href="/pages/myPage/abilityCardDetail"> <!--임시생성. URL 다시 지정 해야함.-->
-                                        <div class="card_phot"></div>
-                                        <span>능력카드 제목내용</span>
-                                        <small>2021-10-11</small>
-                                    </a>
-                                    <a class="card" href="/pages/myPage/abilityCardDetail"> <!--임시생성. URL 다시 지정 해야함.-->
-                                        <div class="card_phot"></div>
-                                        <span>능력카드 제목내용</span>
-                                        <small>2021-10-11</small>
-                                    </a>
-                                    <a class="card" href="/pages/myPage/abilityCardDetail"> <!--임시생성. URL 다시 지정 해야함.-->
-                                        <div class="card_phot"></div>
-                                        <span>능력카드 제목내용</span>
-                                        <small>2021-10-11</small>
+                                    <a class="card" th:each="item,idx:${list}" >
+                                        <div class="card_phot">
+                                            <img th:src="${item.timg}">
+                                        </div>
+                                        <span th:text="${item.yn eq 'N' ? '발급대기' : '배송중'}">능력카드 제목내용</span>
+                                        <small th:text="${#temporals.format(item.regDtm,'yyyy-MM-dd')}">2021-10-11</small>
                                     </a>
                                 </div>
                             </div>

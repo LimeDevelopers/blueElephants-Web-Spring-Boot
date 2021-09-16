@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Service
@@ -28,7 +29,6 @@ public class MemberTeacherLogService extends _BaseService {
         List<Object[]> tmpList = memberTeacherLogRepository.schlLogList(mberPid);
 
         List<MemberTeacherLogDto> rtnList = new ArrayList<>();
-
         if (tmpList != null) {
             for (Object[] objects : tmpList) {
                 MemberTeacherLogDto memberTeacherLogDto = new MemberTeacherLogDto();
@@ -40,7 +40,9 @@ public class MemberTeacherLogService extends _BaseService {
                 memberTeacherLogDto.setBan((String)objects[5]);
                 memberTeacherLogDto.setStudentCnt(((BigInteger)objects[7]).intValue());
 
-                rtnList.add(memberTeacherLogDto);
+                if(memberTeacherLogDto.getStudentCnt() > 0){
+                    rtnList.add(memberTeacherLogDto);
+                }
             }
         }
 

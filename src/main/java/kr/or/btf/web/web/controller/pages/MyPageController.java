@@ -94,6 +94,7 @@ public class MyPageController extends BaseCont {
     private final SurveyQuestionItemService surveyQuestionItemService;
     private final SurveyAnswerItemService surveyAnswerItemService;
     private final ApplicationService applicationService;
+    private final NamaneService namaneService;
 
     @RequestMapping("/pages/myPage/myWorkPreEduDetail/{id}")
     public String myWorkPreEduDetail(Model model,
@@ -111,6 +112,22 @@ public class MyPageController extends BaseCont {
         model.addAttribute("mc", "myPage");
         model.addAttribute("pageTitle", "예방교육관리");
         return "/pages/myPage/myWorkPreEduDetail";
+    }
+
+    @GetMapping("/pages/myPage/abilityCard")
+    public String abilityCard(Model model,
+                                   @CurrentUser Account account,
+                                   HttpSession session) {
+        if(account == null) {
+            model.addAttribute("altmsg", "로그인 후 이용 가능합니다.");
+            model.addAttribute("locurl", "/login");
+            return "/message";
+        }
+        List<NamaneTemp> cardList = namaneService.get(account.getId());
+        model.addAttribute("list",cardList);
+        model.addAttribute("mc", "myPage");
+        model.addAttribute("pageTitle", "능력카드");
+        return "/pages/myPage/abilityCard";
     }
 
     @RequestMapping("/pages/myPage/myWorkPreEduList")
