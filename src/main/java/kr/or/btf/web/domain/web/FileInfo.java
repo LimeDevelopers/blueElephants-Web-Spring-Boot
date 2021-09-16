@@ -1,6 +1,7 @@
 package kr.or.btf.web.domain.web;
 
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Entity
 @Table(name = "tbl_file_info")
+@DynamicUpdate
 public class FileInfo {
 
     @Id

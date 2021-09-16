@@ -142,6 +142,8 @@ public class ApplicationService extends _BaseService {
                         qPrevention.id,
                         qPrevention.schlNm,
                         qPrevention.address,
+                        qPrevention.classesNum,
+                        qPrevention.personnel,
                         qPrevention.tel,
                         qPrevention.regDtm,
                         qPrevention.delAt,
