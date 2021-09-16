@@ -76,6 +76,7 @@
             <th:block th:include="fragments/dept_menu"></th:block>
             <!-- 이미지 미리보기 영역 -->
             <form id="form1" name="form1" method="post">
+                <input type="hidden" id="gnb" name="gnb" th:value="${gnb}"/>
                 <input type="hidden" id="base64" name="base64"/>
             </form>
             <div class="card_inner inner">

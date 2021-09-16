@@ -98,8 +98,9 @@ public class ActivityController extends BaseCont {
         return "/pages/activity/abilityCardIntro";
     }
 
-    @GetMapping({"/pages/activity/abilityCardSetp1"})
+    @GetMapping("/pages/activity/abilityCardSetp1/{gnb}")
     public String abilityCardSetp1(Model model,
+                                   @PathVariable(name = "gnb") String gnb,
                                    @CurrentUser Account account,
                                    HttpSession session) {
         if(account == null) {
@@ -107,6 +108,7 @@ public class ActivityController extends BaseCont {
             model.addAttribute("locurl", "/login");
             return "/message";
         }
+        model.addAttribute("gnb", gnb);
         model.addAttribute("mc", "activity");
         model.addAttribute("pageTitle", "예방교육");
         return "/pages/activity/abilityCardSetp1";
@@ -115,6 +117,7 @@ public class ActivityController extends BaseCont {
     @PostMapping({"/pages/activity/abilityCardSetp2"})
     public String abilityCardSetp2(Model model,
                                    @RequestParam("base64")  String url,
+                                   @RequestParam("gnb")  String gnb,
                                    @CurrentUser Account account,
                                    HttpSession session) {
         if(account == null) {
@@ -122,17 +125,19 @@ public class ActivityController extends BaseCont {
             model.addAttribute("locurl", "/login");
             return "/message";
         }
+        model.addAttribute("gnb",gnb);
         model.addAttribute("url",url);
         model.addAttribute("mc", "activity");
         model.addAttribute("pageTitle", "예방교육");
         return "/pages/activity/abilityCardSetp2";
     }
 
-    @GetMapping("/pages/activity/abilityCardSetp3/{id}/{bool}")
+    @GetMapping("/pages/activity/abilityCardSetp3/{id}/{bool}/{gnb}")
     public String abilityCardSetp3(Model model,
                                    @CurrentUser Account account,
                                    @PathVariable(name = "id") Long id,
                                    @PathVariable(name = "bool") boolean ty,
+                                   @PathVariable(name = "gnb") String gnb,
                                    HttpSession session) {
         if(account == null) {
             model.addAttribute("altmsg", "로그인 후 이용 가능합니다.");
@@ -146,7 +151,7 @@ public class ActivityController extends BaseCont {
             model.addAttribute("result", "n");
             model.addAttribute("pid", 0);
         }
-
+        model.addAttribute("gnb", gnb);
         model.addAttribute("mc", "activity");
         model.addAttribute("pageTitle", "능력카드 제작");
         return "/pages/activity/abilityCardSetp3";
@@ -216,7 +221,7 @@ public class ActivityController extends BaseCont {
         model.addAttribute("bool",sn4);
         model.addAttribute("mc", "activity");
         model.addAttribute("pageTitle", "예방교육");
-        return "redirect:/pages/activity/abilityCardSetp3/"+id+"/"+sn4;
+        return "redirect:/pages/activity/abilityCardSetp3/"+id+"/"+sn4+"/"+auroraForm.getGnb();
     }
 
     @GetMapping({"/api/namane/freeset/{id}"})

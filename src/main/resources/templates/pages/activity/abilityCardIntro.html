@@ -11,15 +11,11 @@
         user_type_02 = $('.user_type_02');
 
         user_type_01.on('click',function (){
-            location.href = '/pages/activity/abilityCardSetp1'
+            location.href = '/pages/activity/abilityCardSetp1/a'
         })
 
         user_type_02.on('click',function (){
-            alert('준비중입니다.')
-            return false;
-        })
-        $('#mycard').on('click', function (e) {
-            location.href ='/api/namane/get'
+            location.href = '/pages/activity/abilityCardSetp1/b'
         })
     })
 </script>
@@ -32,8 +28,8 @@
                 <th:block th:include="fragments/dept_menu"></th:block>
 
                 <div class="card_inner inner hi">
-                    <h1>능력카드제작소</h1>
-                    <b id="mycard">능력카드 저장 내역</b>
+                    <h1>능력카드 제작소</h1>
+                    <b id="mycard">능력카드를 제작합니다.</b>
                     <div class="user_type">
                         <button class="user_type_01">
                             처음이세요?

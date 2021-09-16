@@ -55,7 +55,6 @@
         <th:block th:include="fragments/mo_menu"></th:block>
         <div class="sub_container">
             <th:block th:include="fragments/dept_menu"></th:block>
-
                 <div class="card_inner inner">
                     <h1>능력카드제작소</h1>
                     <b>나만의카드</b>
@@ -63,6 +62,7 @@
                         <small>두손가락으로 이미지를 확대 또는 회전 가능<br>
                             (카드에 사진 전체적용 X)</small>
                         <form id="form1" name="form1" modelAttribute="auroraForm" method="post">
+                            <input type="hidden" id="gnb" name="gnb" th:value="${gnb}"/>
                             <input type="hidden" id="encodeStr" name="encodeStr"/>
                             <input type="hidden" id="rotationType" name="rotationType" value="HORIZONTAL"/>
                         <div class="item_inner_2">

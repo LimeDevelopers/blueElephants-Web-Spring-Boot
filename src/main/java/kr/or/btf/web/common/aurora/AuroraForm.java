@@ -42,4 +42,5 @@ public class AuroraForm extends SearchForm {
     private String base64;
     private String msg;
     private String type;
+    private String gnb;
 }

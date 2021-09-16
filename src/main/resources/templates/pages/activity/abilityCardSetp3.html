@@ -62,16 +62,18 @@
                     <div class="card_point">
                         <h2>결제방식</h2>
                         <div class="item_inner_3">
-                            <div class="type_01 type" id="free">
+                            <div th:if="${gnb == 'b'}"class="type_01 type" id="free">
                                 <b>무료 카드 만들기 (잔여 1회)</b>
                                 <span>*4차시 교육수강 완료자에 한해 무료 지급</span>
                             </div>
-                            <div class="type_02 type" id="point">
-                                <b>포인트 차감</b>
-                            </div>
-                            <div class="type_03 type" id="pay">
-                                <b>무통장입금</b>
-                            </div>
+                            <th:block th:if="${gnb == 'a'}">
+                                <div class="type_02 type" id="point">
+                                    <b>포인트 차감</b>
+                                </div>
+                                <div class="type_03 type" id="pay">
+                                    <b>무통장입금</b>
+                                </div>
+                            </th:block>
                         </div>
                     </div>
                 </div>
