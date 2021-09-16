@@ -32,13 +32,16 @@ public class  ApplicationController {
     public String PartnersRegister(@ModelAttribute ApplicationForm applicationForm ,
                                    @RequestParam("attachedFile") MultipartFile attachedFile ,
                                    @CurrentUser Account account,
+                                   Model model ,
                                    Error error ) throws Exception {
         if(account != null) {
             applicationForm.setMberPid(account.getId());
         }
         applicationService.partnersRegister(applicationForm , attachedFile);
+        model.addAttribute("mc", "application");
+        model.addAttribute("pageTitle", "지지크루");
 
-        return "pages/application/partnersRegister";
+        return "redirect:";
     }
 
     @PostMapping(value = "/pages/application/zzcrew/zzcrewRegister")

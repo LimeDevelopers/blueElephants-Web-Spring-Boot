@@ -4,6 +4,58 @@
     <th:block th:include="fragments/header"></th:block>
 </head>
 <script>
+    let nm;
+    let moblphon;
+    let affi;
+    let agree002
+    let attachedFile;
+
+    function fn_chkField() {
+        nm = $('#nm')
+        moblphon = $('#moblphon')
+        affi = $('#affi')
+        agree002 = $('#agree002')
+        attachedFile = $('#attachedFile')
+        if(!nm.val()){
+            alert('신청자 이름은 필수 입력사항 입니다.')
+            nm.focus()
+            return false
+        }
+        if(!moblphon.val()){
+            alert('신청자 휴대폰은 필수 입력사항 입니다.')
+            moblphon.focus()
+            return false
+        }
+        if(!affi.val()){
+            alert('신청자 소속은 필수 입력사항 입니다.')
+            affi.focus()
+            return false
+        }
+        if(!agree002.is(":checked")) {
+            alert("개인정보 활용에 동의 해주세요.")
+            agree002.focus();
+            return false;
+        }
+        if(!attachedFile.val()){
+            alert('증빙서류를 제출하지 않으면 검토 소요시간이 오래걸릴 수 있습니다.')
+            attachedFile.focus();
+        }
+        return true
+    }
+
+    function fn_register() {
+
+        $('#btnSave').prop('disabled', true);
+
+        if (!fn_chkField()) {
+            $('#btnSave').prop('disabled', false);
+            return false;
+        }
+        let frm = $('#form1');
+        frm.prop('action' , '/pages/application/partners/partnersregister')
+        frm.submit();
+    }
+
     $(document).ready(function (){
 
         <!--2021/09/21 kjw 개인정보활용동의서-->
@@ -28,7 +80,7 @@
         <div class="sub_container">
             <th:block th:include="fragments/dept_menu"></th:block>
             <div class="inner">
-                <form action="/pages/application/partners/partnersregister" id="form1" name="form1" method="post" enctype="multipart/form-data">
+                <form id="form1" name="form1" method="post" enctype="multipart/form-data">
                     <div class="page_cont">
                         <h4 class="subtit pc review_title">파트너스 신청</h4>
                         <div class="partners">
@@ -39,6 +91,7 @@
                                             <li>
                                                 <div class="th">
                                                     <label for="nm">신청자 이름</label>
+                                                    <span class="aster">*</span>
                                                 </div>
                                                 <div class="td">
                                                     <input id="nm" name="nm" type="text">
@@ -47,6 +100,7 @@
                                             <li>
                                                 <div class="th">
                                                     <label for="moblphon">신청자 핸드폰</label>
+                                                    <span class="aster">*</span>
                                                 </div>
                                                 <div class="td">
                                                     <input id="moblphon" name="moblphon" type="text">
@@ -55,6 +109,7 @@
                                             <li>
                                                 <div class="th">
                                                     <label for="affi">소속</label>
+                                                    <span class="aster">*</span>
                                                 </div>
                                                 <div class="td">
                                                     <input id="affi" name="affi" type="text">
@@ -116,16 +171,13 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <!--<div class="partners_btn">
-                                    <a class="join_btn" type="submit">제출</a>
-                                </div>-->
-                                <div class="btn_area"><button id="btnSave" type="submit" class="btn btn_lg btn_blue btn_pill_10">등록</button></div>
+                                <div class="btn_area">
+                                    <a onclick="return fn_register()" id="btnSave" class="btn list_btn">제출</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </form>
-                    <!--<th:block
-                            th:replace="/fragments/paging :: pagingbody(list=${postscripts}, link='/pages/activity/postscript', formId='form1')"></th:block>-->
             </div>
         </div>
     </div>
