@@ -21,10 +21,10 @@
                         <ul class="board_tbl_list">
                             <li class="thead">
                                 <strong class="no">No</strong>
-                                <strong class="tit">학교</strong>
-                                <strong class="state">상태</strong>
-                                <strong class="date">수강신청일</strong>
-                                <strong class="date">상태</strong>
+                                <strong class="state">학급수</strong>
+                                <strong class="state">인원</strong>
+                                <strong class="date">등록일시</strong>
+                                <strong class="date">지원자 수</strong>
                             </li>
                             <li class="nodata" th:if="${preList == null or preList.isEmpty()}">
                                 <div>신청한 예방교육이 없습니다.</div>
@@ -33,8 +33,8 @@
                                 <div class="no"
                                      th:text="${preList.totalElements - preList.pageable.pageSize * preList.pageable.pageNumber - idx.index}">
                                 </div>
-                                <div class="tit">
-                                    <a th:href="|/pages/application/preeducationDetail/${item.prePid}|" th:text="${item.schlNm}">00초등학교</a>
+                                <div class="state">
+                                    <a th:href="|/pages/application/preeducationDetail/${item.id}|" th:text="${item.classesNum}">00초등학교</a>
                                 </div>
                                 <div class="state" th:text="${item.approval == 'N' ? '승인대기' : '승인완료'}"></div>
                                 <div class="date">
@@ -42,7 +42,8 @@
                                     <th:block
                                             th:text="${#temporals.format(item.regDtm,'yyyy-MM-dd')}"></th:block>
                                 </div>
-                                <div class="date" th:text="${item.tempSave == 'Y' ? '임시저장' : '제출완료'}">
+                                <div class="date">
+                                    <th:block th:text="${item.mstCnt}"></th:block>
                                 </div>
                             </li>
                         </ul>

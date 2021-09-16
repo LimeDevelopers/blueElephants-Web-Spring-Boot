@@ -95,6 +95,36 @@ public class MyPageController extends BaseCont {
     private final SurveyAnswerItemService surveyAnswerItemService;
     private final ApplicationService applicationService;
 
+    @RequestMapping("/pages/myPage/myWorkPreEduList")
+    public String myWorkPreEduList(Model model,
+                                    @CurrentUser Account account,
+                                    Pageable pageable) {
+
+        Account load = memberService.load(account.getId());
+        Account form = new Account();
+        form.setMberDvTy(load.getMberDvTy());
+        form.setNm(load.getNm());
+        form.setLoginId(load.getLoginId());
+        form.setBrthdy(load.getBrthdy());
+        form.setSexPrTy(load.getSexPrTy());
+        form.setEmail(load.getEmail());
+        form.setMoblphon(load.getMoblphon());
+        form.setNcnm(load.getNcnm());
+        model.addAttribute("form", form);
+
+        if(!load.getMberDvTy().equals(UserRollType.TEACHER)) {
+            model.addAttribute("altmsg", "접근 권한이 없습니다.");
+            model.addAttribute("locurl", "/");
+            return "/message";
+        }
+        Page<Prevention> preventions = applicationService.getMyPreEduList(pageable,account.getId());
+        model.addAttribute("preList", preventions);
+
+        model.addAttribute("mc", "myPage");
+        model.addAttribute("pageTitle", "예방교육관리");
+        return "/pages/myPage/myWorkPreEduList";
+    }
+
     @RequestMapping("/pages/myPage/insWorkPreEduList")
     public String insWorkPreEduList(Model model,
                           @CurrentUser Account account,

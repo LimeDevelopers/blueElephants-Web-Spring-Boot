@@ -29,6 +29,29 @@ public class AppManagementService extends _BaseService {
     private final MemberRepository memberRepository;
     private final ApplicationRepository applicationRepository;
 
+    public Page<PreventionMaster> getPreMasterList(Pageable pageable, SearchForm searchForm) {
+        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
+        pageable = PageRequest.of(page, Constants.DEFAULT_PAGESIZE); // <- Sort 추가
+
+        QPreventionMaster qPreventionMaster = QPreventionMaster.preventionMaster;
+
+        OrderSpecifier<Long> orderSpecifier = qPreventionMaster.id.desc();
+
+        BooleanBuilder builder = new BooleanBuilder();
+        builder.and(qPreventionMaster.delAt.eq("N"));
+
+        QueryResults<PreventionMaster> mngList = queryFactory
+                .select(Projections.fields(PreventionMaster.class,
+                        qPreventionMaster.id, qPreventionMaster.mberPid
+                ))
+                .from(qPreventionMaster)
+                .where(builder)
+                .limit(pageable.getPageSize())
+                .offset(pageable.getOffset())
+                .orderBy(orderSpecifier)
+                .fetchResults();
+        return new PageImpl<>(mngList.getResults(), pageable, mngList.getTotal());
+    }
 
     public Page<ActivityApplication> list(Pageable pageable, SearchForm searchForm) {
 

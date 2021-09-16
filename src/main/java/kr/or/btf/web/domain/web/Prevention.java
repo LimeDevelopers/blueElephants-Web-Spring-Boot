@@ -58,4 +58,7 @@ public class Prevention {
 
     @Column(name = "approval")
     private String approval;
+
+    @Transient
+    private Long mstCnt;
 }

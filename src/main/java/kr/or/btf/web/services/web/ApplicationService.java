@@ -129,6 +129,37 @@ public class ApplicationService extends _BaseService {
             return false;
         }
     }
+
+    public Page<Prevention> getMyPreEduList(Pageable pageable,
+                                          Long id) {
+        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
+        pageable = PageRequest.of(page, Constants.DEFAULT_PAGESIZE); // <- Sort 추가
+        QPrevention qPrevention = QPrevention.prevention;
+        QPreventionMaster qPreventionMaster = QPreventionMaster.preventionMaster;
+        OrderSpecifier<Long> orderSpecifier = qPrevention.id.desc();
+        JPAQuery<Prevention> list = queryFactory
+                .select(Projections.fields(Prevention.class,
+                        qPrevention.id,
+                        qPrevention.schlNm,
+                        qPrevention.address,
+                        qPrevention.tel,
+                        qPrevention.regDtm,
+                        qPrevention.delAt,
+                        qPrevention.approval,
+                        ExpressionUtils.as(
+                                JPAExpressions.select(qPreventionMaster.id.count())
+                                        .from(qPreventionMaster)
+                                        .where(qPreventionMaster.prePid.eq(qPrevention.id)),
+                                "mstCnt")
+                ))
+                .from(qPrevention)
+                .where(qPrevention.mberPid.eq(id))
+                .limit(pageable.getPageSize())
+                .offset(pageable.getOffset());
+        list.orderBy(orderSpecifier);
+        QueryResults<Prevention> mngList = list.fetchResults();
+        return new PageImpl<>(mngList.getResults(), pageable, mngList.getTotal());
+    }
     /**
      * 예방교육 리스트
      * @author : jerry
