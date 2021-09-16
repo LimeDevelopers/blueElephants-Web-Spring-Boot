@@ -436,7 +436,12 @@
                 <li th:classappend="${pageTitle eq 'My 진단' ? 'pc_on' : ''}" sec:authorize="!hasAnyRole('ROLE_INSTRUCTOR')"><a href="/pages/myPage/diagnosis">My 진단</a></li>
                 <li th:classappend="${pageTitle eq '능력카드' ? 'pc_on' : ''}" sec:authorize="!hasAnyRole('ROLE_INSTRUCTOR')"><a href="/pages/myPage/abilityCard">능력카드</a></li>
                 <li th:classappend="${pageTitle eq 'My 신청' ? 'pc_on' : ''}" sec:authorize="!hasAnyRole('ROLE_INSTRUCTOR')"><a href="/pages/myPage/application">My 신청</a></li>
-                <li th:classappend="${pageTitle eq 'My 강의실' ? 'pc_on' : ''}" sec:authorize="!hasAnyRole('ROLE_INSTRUCTOR')"><a href="/pages/myPage/classroom">My 강의실</a></li>
+                <li th:classappend="${pageTitle eq 'My 강의실' ? 'pc_on' : ''}" sec:authorize="!hasAnyRole('ROLE_INSTRUCTOR')"><a href="/pages/myPage/classroom">My 강의실</a>
+                    <ul th:classappend="${pageTitle eq '강의실' ? 'slide_sub' : ''}" class="pc_menu_sub">
+                        <li><a href="/pages/myPage/eduDataRoom">내 교육자료실</a></li>
+                        <li><a href="/pages/myPage/certificate">교육이수증발급</a></li>
+                    </ul>
+                </li>
                 <li th:classappend="${pageTitle eq 'My 제안' ? 'pc_on' : ''}" sec:authorize="!hasAnyRole('ROLE_INSTRUCTOR') && !hasAnyRole('ROLE_TEACHER')"><a href="/pages/myPage/proposal">My 제안</a></li>
                 <li th:classappend="${pageTitle eq '자가진단결과' ? 'pc_on' : ''}" sec:authorize="!hasAnyRole('ROLE_INSTRUCTOR') && !hasAnyRole('ROLE_TEACHER')"><a href="/pages/myPage/selfTestResult">자가진단결과</a></li>
             </ul>
