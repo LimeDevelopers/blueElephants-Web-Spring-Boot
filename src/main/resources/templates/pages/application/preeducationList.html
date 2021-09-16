@@ -52,7 +52,7 @@
                             <div class="no"
                                  th:text="${preList.totalElements - preList.pageable.pageSize * preList.pageable.pageNumber - idx.index}"></div>
                             <div class="tit" style="text-align: center;">
-                                <a th:href="|/pages/application/preeducation/${item.id}|" th:text="|${item.schlNm}|"></a>
+                                <a th:href="|/pages/application/preeducationDetail/${item.id}|" th:text="|${item.schlNm}|"></a>
                             </div>
                             <div class="writer">
                                 <th:block th:text="${item.tel}"></th:block>

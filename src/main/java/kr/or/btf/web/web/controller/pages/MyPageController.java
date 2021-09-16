@@ -95,6 +95,38 @@ public class MyPageController extends BaseCont {
     private final SurveyAnswerItemService surveyAnswerItemService;
     private final ApplicationService applicationService;
 
+    @RequestMapping("/pages/myPage/insWorkPreEduList")
+    public String insWorkPreEduList(Model model,
+                          @CurrentUser Account account,
+                                    Pageable pageable) {
+
+        Account load = memberService.load(account.getId());
+        Account form = new Account();
+        form.setMberDvTy(load.getMberDvTy());
+        form.setNm(load.getNm());
+        form.setLoginId(load.getLoginId());
+        form.setBrthdy(load.getBrthdy());
+        form.setSexPrTy(load.getSexPrTy());
+        form.setEmail(load.getEmail());
+        form.setMoblphon(load.getMoblphon());
+        form.setNcnm(load.getNcnm());
+        model.addAttribute("form", form);
+
+        if(!load.getMberDvTy().equals(UserRollType.INSTRUCTOR)) {
+            model.addAttribute("altmsg", "접근 권한이 없습니다.");
+            model.addAttribute("locurl", "/");
+            return "/message";
+        }
+        Page<PreventionMaster> preventionMasters = applicationService.getPreEduMstList(pageable,account.getId());
+        for(PreventionMaster a : preventionMasters) {
+            log.info("test@@@@"+a.getTempSave());
+        }
+        model.addAttribute("preList", preventionMasters);
+
+        model.addAttribute("mc", "myPage");
+        model.addAttribute("pageTitle", "교육신청관리");
+        return "/pages/myPage/insWorkPreEduList";
+    }
 
     @RequestMapping("/pages/myPage/profile")
     public String profile(Model model,
@@ -130,9 +162,6 @@ public class MyPageController extends BaseCont {
                 }
             }
             model.addAttribute("childList", childList);
-        } else if (load.getMberDvTy().equals(UserRollType.INSTRUCTOR)) {
-            List<PreventionMaster> preventionMasters = applicationService.getPreEduMstList(load.getId());
-            model.addAttribute("preList", preventionMasters);
         }
 
         model.addAttribute("mc", "myPage");

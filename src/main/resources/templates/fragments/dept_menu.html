@@ -27,7 +27,7 @@
             </div>
             <div class="sm_tit">
                 <h3 th:classappend="${pageTitle eq '교육신청관리' ? 'sd_on pageon' : ''}" sec:authorize="hasAnyRole('ROLE_INSTRUCTOR')">
-                    <a href="/pages/myPage/selfTestResult">교육신청관리</a></h3>
+                    <a href="/pages/myPage/insWorkPreEduList">교육신청관리</a></h3>
             </div>
             <div class="sm_tit">
                 <h3 th:classappend="${pageTitle eq '프로필관리' ? 'sd_on pageon' : ''}" sec:authorize="hasAnyRole('ROLE_INSTRUCTOR')">
@@ -355,7 +355,7 @@
         <div class="pc_menu">
             <ul class="pc_menu_inner">
                 <li th:classappend="${pageTitle eq '계정정보' ? 'pc_on' : ''}"><a href="/pages/myPage/profile">계정정보</a></li>
-                <li th:classappend="${pageTitle eq '교육신청관리' ? 'pc_on' : ''}" sec:authorize="hasAnyRole('ROLE_INSTRUCTOR')"><a href="/pages/myPage/selfTestResult">교육신청관리</a></li>
+                <li th:classappend="${pageTitle eq '교육신청관리' ? 'pc_on' : ''}" sec:authorize="hasAnyRole('ROLE_INSTRUCTOR')"><a href="/pages/myPage/insWorkPreEduList">교육신청관리</a></li>
                 <li th:classappend="${pageTitle eq '프로필관리' ? 'pc_on' : ''}" sec:authorize="hasAnyRole('ROLE_INSTRUCTOR')"><a href="/pages/myPage/selfTestResult">프로필관리</a></li>
                 <li th:classappend="${pageTitle eq '활동내역' ? 'pc_on' : ''}" sec:authorize="!hasAnyRole('ROLE_INSTRUCTOR')"><a href="/pages/myPage/activity">활동내역</a></li>
                 <li th:classappend="${pageTitle eq '학습현황' ? 'pc_on' : ''}" sec:authorize="hasAnyRole('ROLE_TEACHER')"><a href="/pages/myPage/learningStatus">우리반 학습현황</a></li>

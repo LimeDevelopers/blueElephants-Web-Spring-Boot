@@ -1,14 +1,18 @@
 package kr.or.btf.web.services.web;
 
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.QueryResults;
+import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.querydsl.jpa.impl.JPAUpdateClause;
 import kr.or.btf.web.common.Constants;
 import kr.or.btf.web.domain.web.*;
 import kr.or.btf.web.domain.web.enums.AppRollType;
+import kr.or.btf.web.domain.web.enums.CompleteStatusType;
 import kr.or.btf.web.domain.web.enums.FileDvType;
 import kr.or.btf.web.domain.web.enums.TableNmType;
 import kr.or.btf.web.repository.web.ApplicationRepository;
@@ -47,8 +51,36 @@ public class ApplicationService extends _BaseService {
         return preventionMasterRepository.findByPrePidAndMberPid(prePid,mberPid);
     }
 
-    public List<PreventionMaster> getPreEduMstList(Long id) {
-        return preventionMasterRepository.findByMberPid(id);
+    public Page<PreventionMaster> getPreEduMstList(Pageable pageable, Long id) {
+        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
+        pageable = PageRequest.of(page, Constants.DEFAULT_PAGESIZE); // <- Sort 추가
+
+        QPreventionMaster qPreventionMaster = QPreventionMaster.preventionMaster;
+        OrderSpecifier<Long> orderSpecifier = qPreventionMaster.id.desc();
+
+        QueryResults<PreventionMaster> mngList = queryFactory
+                .select(Projections.fields(PreventionMaster.class,
+                        qPreventionMaster.id,
+                        qPreventionMaster.address,
+                        qPreventionMaster.approval,
+                        qPreventionMaster.mberPid,
+                        qPreventionMaster.classesNum,
+                        qPreventionMaster.schlNm,
+                        qPreventionMaster.tempSave,
+                        qPreventionMaster.personnel,
+                        qPreventionMaster.prePid,
+                        qPreventionMaster.regDtm,
+                        qPreventionMaster.updDtm
+
+                ))
+                .from(qPreventionMaster)
+                .where(qPreventionMaster.mberPid.eq(id))
+                .limit(pageable.getPageSize())
+                .offset(pageable.getOffset())
+                .orderBy(orderSpecifier)
+                .fetchResults();
+
+        return new PageImpl<>(mngList.getResults(), pageable, mngList.getTotal());
     }
 
     public boolean registerPreEdu(PreventionMasterForm preventionMasterForm) {

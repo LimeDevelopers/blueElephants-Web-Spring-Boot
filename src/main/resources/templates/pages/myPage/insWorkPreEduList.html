@@ -1,10 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <th:block th:include="fragments/header"></th:block>
 </head>
-<body>
-
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/mo_menu"></th:block>
+        <div class="sub_container">
+            <th:block th:include="fragments/dept_menu"></th:block>
+            <form id="form1" name="form1" method="post">
+                <div class="contents">
+                    <div class="page_top pc">
+                        <h3 class="page_tit">교육신청관리</h3>
+                        <span>예방교육 출장 강의를 신청하신 리스트가 노출됩니다.</span>
+                    </div>
+                    <div class="page_cont">
+                        <p class="tip_tbl mb">※ 학교명을 클릭하시면, 상세내역 페이지로 이동합니다.</p>
+                        <ul class="board_tbl_list">
+                            <li class="thead">
+                                <strong class="no">No</strong>
+                                <strong class="tit">학교</strong>
+                                <strong class="state">상태</strong>
+                                <strong class="date">수강신청일</strong>
+                                <strong class="date">상태</strong>
+                            </li>
+                            <!--수강 중인 강의가 없을경우 : s-->
+                            <li class="nodata" th:if="${preList == null or preList.isEmpty()}">
+                                <div>수강 중인 강의가 없습니다.</div>
+                            </li>
+                            <!--수강 중인 강의가 없을경우 : e-->
+                            <li th:each="item,idx : ${preList}">
+                                <div class="no"
+                                     th:text="${preList.totalElements - preList.pageable.pageSize * preList.pageable.pageNumber - idx.index}">
+                                </div>
+                                <div class="tit">
+                                    <a th:href="|/pages/myPage/insWorkPreEduDetail/${item.prePid}|" th:text="${item.schlNm}">00초등학교</a>
+                                </div>
+                                <div class="state" th:text="${item.approval == 'N' ? '승인대기' : '승인완료'}"></div>
+                                <div class="date">
+                                    <span class="th">신청일 : </span>
+                                    <th:block
+                                            th:text="${#temporals.format(item.regDtm,'yyyy-MM-dd')}"></th:block>
+                                </div>
+                                <div class="date" th:text="${item.tempSave == 'Y' ? '임시저장' : '제출완료'}">
+                                </div>
+                            </li>
+                        </ul>
+                        <th:block
+                                th:replace="/fragments/paging :: pagingbody(list=${preList}, link='/pages/myPage/insWorkPreEduList', formId='form1')"></th:block>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
 </body>
 </html>

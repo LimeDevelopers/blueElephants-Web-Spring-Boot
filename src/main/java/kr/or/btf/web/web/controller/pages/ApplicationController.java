@@ -144,10 +144,43 @@ public class  ApplicationController {
         }
 
         model.addAttribute("mc", "MyPage");
-        model.addAttribute("pageTitle", "마이페이지");
-        return "pages/myPage/preEduList";
+        model.addAttribute("pageTitle", "교육신청관리");
+        return "redirect:/pages/myPage/insWorkPreEduList";
     }
 
+    @GetMapping("/pages/application/preeducationDetail/{id}")
+    public String preeducationDetail(Model model,
+                               @PathVariable("id") Long id,
+                               @CurrentUser Account account) {
+        if(account == null) {
+            model.addAttribute("altmsg", "로그인 후 이용가능합니다.");
+            model.addAttribute("locurl", "/login");
+            return "/message";
+        } else {
+            if(!UserRollType.INSTRUCTOR.equals(account.getMberDvTy())){
+                model.addAttribute("altmsg", "예방 강사만 이용 가능합니다.");
+                model.addAttribute("locurl", "/");
+                return "/message";
+            } else {
+                PreventionMaster preventionMaster = applicationService.getPreEduMst(id,account.getId());
+                Prevention prevention = applicationService.getPreEdu(id);
+                model.addAttribute("prevention", prevention);
+                if(preventionMaster==null){
+                    if(prevention.getDelAt().equals("Y")){
+                        model.addAttribute("altmsg", "삭제된 게시글입니다.");
+                        model.addAttribute("locurl", "/pages/application/preeducationList");
+                        return "/message";
+                    }
+                } else {
+                    model.addAttribute("preventionMaster", preventionMaster);
+                }
+            }
+        }
+        model.addAttribute("pre_pid", id);
+        model.addAttribute("mc", "application");
+        model.addAttribute("pageTitle", "예방교육");
+        return "pages/application/preeducationDetail";
+    }
     //페이지 이동 컨트롤러
     @GetMapping("/pages/application/preeducation/{id}")
     public String PreEducation(Model model,

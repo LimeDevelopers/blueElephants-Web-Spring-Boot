@@ -299,7 +299,6 @@ public class ExperienceService extends _BaseService {
                         .leftJoin(qfIleInfo).on(qExperience.id.eq(qfIleInfo.dataPid).and(qfIleInfo.tableNm.eq(TableNmType.TBL_EXPERIENCE.name())).and(qfIleInfo.id.isNull())))
                     .and(qActionLog.mberPid.eq(mberPid)))
                 .fetchCount();
-
         return count;
     }
 }

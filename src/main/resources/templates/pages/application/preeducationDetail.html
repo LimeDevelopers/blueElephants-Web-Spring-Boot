@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+</head>
+<script type="text/javascript">
+    function fn_search() {
+        let frm = $('#form1');
+        //frm.prop("action", "?");
+        frm.submit();
+    }
+</script>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<th:block th:include="fragments/header_gnb"></th:block>
+<div id="container">
+    <th:block th:include="fragments/mo_menu"></th:block>
+    <div class="sub_container">
+        <th:block th:include="fragments/dept_menu"></th:block>
+        <div class="detail_cont">
+            <div class="top">
+                <div class="info_area">
+                    <th:block th:if="*{sntncHead ne ''}">
+                        <strong class="tit" th:text="|[*{sntncHead}]  *{ttl}|">OO중학교 사이버 폭력 근절단</strong>
+                    </th:block>
+                    <th:block th:unless="*{sntncHead ne ''}">
+                        <strong class="tit" th:text="*{ttl}">OO중학교 사이버 폭력 근절단</strong>
+                    </th:block>
+                    <p class="count">
+                        <span th:text="|등록자 : *{wrterNm}|">등록자 : 홍길동</span>
+                        <span>조회수 : <th:block th:text="*{#numbers.formatInteger(readCnt, 0, 'COMMA')}"></th:block>회</span>
+                        <span class="date" th:text="|등록일 : *{#temporals.format(ntceDt,'yyyy.MM.dd')}|">등록일 : 2020.12.31</span>
+                    </p>
+                    <div class="file">
+                        <span>첨부파일 :&nbsp;</span>
+                        <th:block th:each="item : ${fileList}">
+                            <th:block th:if="${T(kr.or.btf.web.domain.web.enums.FileDvType).ATTACH.name() eq item.dvTy}">
+                                <th:block th:if="${#authentication.principal != 'anonymousUser'}">
+                                    <a th:href="${filePath} + '/' + ${item.chgFlNm}" download th:text="${item.flNm}">사이버폭력예방 가이드2.pdf</a>
+                                </th:block>
+                                <th:block th:unless="${#authentication.principal != 'anonymousUser'}">
+                                    <th:block th:if="${@environment.getProperty('common.code.noticeCdPid') eq #numbers.formatInteger(form.mstPid,0)}">
+                                        <a th:href="${filePath} + '/' + ${item.chgFlNm}" download th:text="${item.flNm}">사이버폭력예방 가이드2.pdf</a>
+                                    </th:block>
+                                    <th:block th:unless="${@environment.getProperty('common.code.noticeCdPid') eq #numbers.formatInteger(form.mstPid,0)}">
+                                        <a href="javascript:void(0);" th:onclick="fn_fileDownload([[${item.flPth}]], [[${item.chgFlNm}]])" class="btn_down" th:text="${item.flNm}"></a>
+                                    </th:block>
+                                </th:block>
+                            </th:block>
+                        </th:block>
+                    </div>
+                </div>
+            </div>
+            <div class="bottom editor" th:utext="*{cn}">
+                OO중학교 사이버 폭력 근절단
+            </div>
+            <ul class="board_prev_next" th:if="*{fixingAt eq 'N'}">
+                <li class="prev">
+                    <dl>
+                        <dt>이전글</dt>
+                        <th:block th:if="${prev ne null}">
+                            <dd><a th:href="|/pages/news/detail/${prev.id}|" th:text="${prev.ttl}">아이들을 위한 사이버예방교육 이벤트 실시</a></dd>
+                        </th:block>
+                        <th:block th:unless="${prev ne null}">
+                            <dd>등록된 게시물이 없습니다.</dd>
+                        </th:block>
+                    </dl>
+                </li>
+                <li class="next">
+                    <dl>
+                        <dt>다음글</dt>
+                        <th:block th:if="${next ne null}">
+                            <dd><a th:href="|/pages/news/detail/${next.id}|" th:text="${next.ttl}">아이들을 위한 사이버예방교육 이벤트 실시</a></dd>
+                        </th:block>
+                        <th:block th:unless="${next ne null}">
+                            <dd>등록된 게시물이 없습니다.</dd>
+                        </th:block>
+                    </dl>
+                </li>
+            </ul>
+            <div class="btn_area">
+                <th:block th:if="*{mstPid != 1}">
+                    <a th:href="|/pages/news/list/*{mstPid}|" class="btn btn_lg btn_line_blue btn_pill_10">목록</a>
+                </th:block>
+                <th:block th:unless="*{mstPid != 1}">
+                    <a href="/pages/news/notice" class="btn btn_lg btn_line_blue btn_pill_10">목록</a>
+                </th:block>
+            </div>
+        </div>
+    </div>
+</div>
+<th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>
