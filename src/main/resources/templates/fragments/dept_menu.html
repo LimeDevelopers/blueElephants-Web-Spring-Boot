@@ -228,13 +228,13 @@
             <div>
                 <div class="sm_tit">
                     <h3 th:classappend="${pageTitle eq '공모전' ? 'sd_on pageon' : ''}">
-                        <a href="/pages/application/contest">공모전</a></h3>
+                        <a href="/pages/application/contestList">공모전</a></h3>
                 </div>
             </div>
             <div>
                 <div class="sm_tit">
                     <h3 th:classappend="${pageTitle eq '행사' ? 'sd_on pageon' : ''}">
-                        <a href="/pages/application/event">행사</a></h3>
+                        <a href="/pages/application/eventList">행사</a></h3>
                 </div>
             </div>
         </div>
@@ -342,10 +342,10 @@
                     <a href="/pages/application/partners">파트너스</a>
                 </li>
                 <li th:class="${pageTitle eq '공모전' ? 'pc_on' : ''}">
-                    <a href="/pages/application/contest">공모전</a>
+                    <a href="/pages/application/contestList">공모전</a>
                 </li>
                 <li th:class="${pageTitle eq '행사' ? 'pc_on' : ''}">
-                    <a href="/pages/application/event">행사</a>
+                    <a href="/pages/application/eventList">행사</a>
                 </li>
             </ul>
         </div>

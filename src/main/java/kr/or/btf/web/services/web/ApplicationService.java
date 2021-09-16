@@ -16,10 +16,7 @@ import kr.or.btf.web.domain.web.enums.AppRollType;
 import kr.or.btf.web.domain.web.enums.CompleteStatusType;
 import kr.or.btf.web.domain.web.enums.FileDvType;
 import kr.or.btf.web.domain.web.enums.TableNmType;
-import kr.or.btf.web.repository.web.ApplicationRepository;
-import kr.or.btf.web.repository.web.FileInfoRepository;
-import kr.or.btf.web.repository.web.PreventionMasterRepository;
-import kr.or.btf.web.repository.web.PreventionRepository;
+import kr.or.btf.web.repository.web.*;
 import kr.or.btf.web.utils.FileUtilHelper;
 import kr.or.btf.web.web.form.ApplicationForm;
 import kr.or.btf.web.web.form.PreventionMasterForm;
@@ -36,6 +33,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = false)
@@ -47,6 +45,8 @@ public class ApplicationService extends _BaseService {
     private final FileInfoRepository fileInfoRepository;
     private final ModelMapper modelMapper;
     private final JPAQueryFactory queryFactory;
+    private final EventRepository eventRepository;
+
 
     public PreventionMaster getPreEduMst(Long prePid, Long mberPid) {
         return preventionMasterRepository.findByPrePidAndMberPid(prePid,mberPid);
@@ -318,6 +318,100 @@ public class ApplicationService extends _BaseService {
         }
         return true;
     }
+
+    public boolean eventRegister(ApplicationForm applicationForm , MultipartFile attachedFile) throws Exception {
+
+        if(applicationForm.getMberPid() == null){
+            applicationForm.setMberPid(0L);
+        }
+
+        applicationForm.setApproval("N");
+        applicationForm.setDelAt("N");
+        applicationForm.setRegDtm(LocalDateTime.now());
+        applicationForm.setUpdDtm(LocalDateTime.now());
+        applicationForm.setAppDvTy(AppRollType.EVENT);
+
+        if (attachedFile != null && !attachedFile.isEmpty()) {
+            ActivityApplication application = modelMapper.map(applicationForm, ActivityApplication.class);
+            ActivityApplication save = applicationRepository.save(application);
+            application.setId(save.getId());
+            FileInfo fileInfo = new FileInfo();
+            try {
+                fileInfo = FileUtilHelper.writeUploadedFile(attachedFile, Constants.FOLDERNAME_LICENSE , FileUtilHelper.imageExt);
+            } catch (IOException e) {
+                e.setStackTrace(e.getStackTrace());
+            }
+            fileInfo.setDataPid(save.getId());
+            TableNmType tblApplication = TableNmType.TBL_APPLICATION;
+            fileInfo.setTableNm(tblApplication.name());
+            fileInfo.setDvTy(FileDvType.LICENSE.name());
+            FileInfo pid = fileInfoRepository.save(fileInfo);
+            applicationRepository.updateFlPid(pid.getId(), save.getId());
+            applicationRepository.save(application);
+            //첨부파일 없을 때
+        } else {
+
+            ActivityApplication application = modelMapper.map(applicationForm, ActivityApplication.class);
+            ActivityApplication save = applicationRepository.save(application);
+            application.setId(save.getId());
+
+            applicationRepository.save(application);
+        }
+
+        return true;
+    }
+    public Event getEventData(Long id) {
+        Optional<Event> result = eventRepository.findById(id);
+        return result.orElse(null);
+    }
+
+    public Page<Contest> getContestList(Pageable pageable ,
+                                        SearchForm searchForm) {
+        if (searchForm.getSrchWord() == null || searchForm.getSrchWord().equals("")) {
+            searchForm.setSrchWord("");
+        }
+        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() -1);
+        pageable = PageRequest.of(page, (searchForm.getPageSize() == null ? Constants.DEFAULT_PAGESIZE : searchForm.getPageSize()));
+
+        QContest qContest = QContest.contest;
+        OrderSpecifier<Long> orderSpecifier = qContest.id.desc();
+        JPAQuery<Contest> list = queryFactory
+                .select(Projections.fields(Contest.class,
+                        qContest.id ,qContest.ttl , qContest.cn , qContest.stYmd , qContest.edYmd ,
+                        qContest.updDtm , qContest.updPsId ,qContest.regDtm ,qContest.regPsId , qContest.delAt ,
+                        qContest.readCnt, qContest.field ,qContest.organ_dtl , qContest.imgFl))
+                .from(qContest)
+                .where(qContest.delAt.eq("N"))
+                .limit(pageable.getPageSize())
+                .offset(pageable.getOffset());
+        list.orderBy(orderSpecifier);
+        QueryResults<Contest> mngList = list.fetchResults();
+        return new PageImpl<>(mngList.getResults() , pageable , mngList.getTotal());
+    }
+
+    public Page<Event> getEventList(Pageable pageable ,
+                                    SearchForm searchForm) {
+        if(searchForm.getSrchWord() == null || searchForm.getSrchWord().equals("")){
+            searchForm.setSrchWord("");
+        }
+        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
+        pageable = PageRequest.of(page, (searchForm.getPageSize() == null ? Constants.DEFAULT_PAGESIZE : searchForm.getPageSize()));
+
+        QEvent qEvent = QEvent.event;
+        OrderSpecifier<Long> orderSpecifier = qEvent.id.desc();
+        JPAQuery<Event> list = queryFactory
+                .select(Projections.fields(Event.class ,
+                        qEvent.id, qEvent.imgFl ,qEvent.stYmd, qEvent.edYmd, qEvent.ttl ,qEvent.cn ,
+                        qEvent.readCnt , qEvent.spotDtl , qEvent.regDtm))
+                .from(qEvent)
+                .where(qEvent.delAt.eq("N"))
+                .limit(pageable.getPageSize())
+                .offset(pageable.getOffset());
+        list.orderBy(orderSpecifier);
+        QueryResults<Event> mngList = list.fetchResults();
+        return new PageImpl<>(mngList.getResults() , pageable, mngList.getTotal());
+    }
+
     public Boolean updateApproval(String pid) {
         Long chgStr = Long.parseLong(pid);
         int rs = applicationRepository.setApproval(chgStr,"Y");

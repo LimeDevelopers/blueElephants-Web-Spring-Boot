@@ -10,19 +10,6 @@
         let groupForm;
         let selectedVal;
 
-        // let group_id;
-        // let groupNm;
-        // let chrNm;
-        // let position;
-        // let bNum;
-        // let bLicenseAttc;
-        // let flPid;
-        //
-        // let crew_id;
-        // let crewNm;
-        // let rptNm;
-        // let crewAffi;
-        ////-------- page load
         $(document).ready(function() {
             groupForm = $('.detailGroupForm');
             crewForm = $('.detailCrewForm');
@@ -106,7 +93,7 @@
                         return false
                     }
                 } else {
-                    alert("확인할 파트너스를 선택하세요.")
+                    alert("확인할 행사를 선택하세요.")
                 }
 
             });
@@ -176,7 +163,7 @@
                     <ul class="breadcrumb">
                         <li><i class="material-icons">home</i></li>
                         <li>신청관리</li>
-                        <li>파트너스</li>
+                        <li>지지크루</li>
                     </ul>
 
                     <!--                    <th:block th:if="${dv == 'application'}">-->
@@ -229,7 +216,7 @@
                                     <b>
                                         신청수:
                                         <th:block
-                                                th:text="${#numbers.formatInteger(partners.totalElements, 0, 'COMMA')}">
+                                                th:text="${#numbers.formatInteger(event.totalElements, 0, 'COMMA')}">
                                             000
                                         </th:block>
                                         명
@@ -251,23 +238,23 @@
                                 <tr>
                                     <th><input type="checkbox" id="allChk"></th>
                                     <th>No</th>
-                                    <th>이름</th>
+                                    <th>신청자명</th>
                                     <th>소속명</th>
                                     <th>휴대폰</th>
-                                    <th>신청일</th>
+                                    <th>신청일</thㄹ
                                     <th>승인여부</th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody>ㄹ
                                 <!-- 등록된 데이터가 없을 때만 노출 : s -->
-                                <tr th:if="${partners == null or partners.isEmpty()}">
+                                <tr th:if="${event == null or event.isEmpty()}">
                                     <td colspan="9">등록된 정보 없습니다.</td>
                                 </tr>
                                 <!-- 등록된 이벤트가 없을 때만 노출 : e -->
-                                <tr th:each="item,idx:${partners}">
+                                <tr th:each="item,idx:${event}">
                                     <td><input type="checkbox" id="agree" name="agree" th:value="${item.id}"></td>
-                                    <td th:text="${partners.totalElements - partners.pageable.pageSize * partners.pageable.pageNumber - idx.index}"></td>
-                                    <td th:text="${item.nm}"></td>
+                                    <td th:text="${event.totalElements - event.pageable.pageSize * event.pageable.pageNumber - idx.index}"></td>
+                                    <td th:text="${item.Nm}"></td>
                                     <td th:text="${item.affi eq null || item.affi eq ''? '소속 없음' : item.affi}"></td>
                                     <td th:text="${item.moblphon eq null || item.moblphon eq ''? '등록된 휴대폰 없음' : item.moblphon}"></td>
                                     <td>
@@ -280,11 +267,11 @@
                                 </tbody>
                             </table>
                         </div>
-                        <th:block th:replace="/soulGod/fragments/paging :: pagingbody(list=${partners},
-                                            link='/soulGod/application/partners', formId='form1')"></th:block>
+                        <th:block th:replace="/soulGod/fragments/paging :: pagingbody(list=${event},
+                                            link='/soulGod/application/event', formId='form1')"></th:block>
                     </div>
 
-                    <th:block th:if="${dv == 'group'}">
+                    <th:block th:if="${dv == 'event'}">
                         <div class="board_list">
                             <h4 class="sec_tit">가입 승인 대기 리스트</h4>
                             <div class="board_top clearfix">

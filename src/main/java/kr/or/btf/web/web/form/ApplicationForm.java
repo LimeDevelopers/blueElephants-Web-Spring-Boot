@@ -25,6 +25,7 @@ public class ApplicationForm extends SearchForm{
     private LocalDateTime updDtm;
     private String delAt;
     private String approval;
+    private String brthday;
 
     private String reason;
     private String applireason;
@@ -32,7 +33,7 @@ public class ApplicationForm extends SearchForm{
     private String root;
     private String schlNm;
     private String representPhone;
-    private String schlAdress;
+    private String Adress;
     private Integer studentNum;
     private Integer accidentsNum;
     private String principalNm;

@@ -29,12 +29,6 @@ public class ContestForm extends SearchForm{
 
     private String Field;  //분야
 
-    private ContentsDvType CntntsDvTy;
-
-    private String CntntsUrl;
-
-    private EventType FxSeTy;
-
     private Integer ReadCnt;
 
     private String RegPsId;

@@ -67,7 +67,8 @@ public class ActivityApplication {
     @Column(name = "approval")
     private String approval;
 
-
+    @Column(name = "brthday")
+    private String brthday;
 
     //지지선언 컬럼
     @Column(name = "reason")
@@ -85,8 +86,8 @@ public class ActivityApplication {
     @Column(name = "represent_phone")
     private String representPhone;
 
-    @Column(name = "schl_adress")
-    private String schlAdress;
+    @Column(name = "adress")
+    private String Adress;
 
     @Column(name = "student_num")
     private Integer studentNum;
