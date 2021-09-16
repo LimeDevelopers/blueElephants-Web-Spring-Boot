@@ -12604,3 +12604,87 @@ text.shadow {
     margin-top: 20px !important;
 }
 /* 마이페이지_My신청 끝 09/16 고선호 수정 */
+
+/* 마이페이지_계정정보 시작 09/17 고선호 수정 */
+.my_profile_2 .profile_inner {
+    display: flex;
+    margin-top: 60px;
+}
+.my_profile_2 .profile_inner .my_info {
+    flex: 4;
+    margin-right: 150px;
+}
+.my_profile_2 .profile_inner > div h3 {
+    font-size: 28px;
+    color: #555868;
+    padding-bottom: 20px;
+}
+.my_profile_2 .profile_inner .my_info .my_info_item table {
+    border-top: 2px solid #8eb3f2;
+}
+.my_profile_2 .profile_inner .my_info .my_info_item table tr {
+    border-bottom: 1px solid #c7c7c7;
+}
+.my_profile_2 .profile_inner .my_info .my_info_item table tr td {
+    padding: 20px 10px;
+    font-size: 17px;
+}
+.my_profile_2 .profile_inner .my_info .my_info_item table tr td:nth-of-type(1) {
+    width: 200px;
+}
+.my_profile_2 .profile_inner .my_info .my_info_item table tr td:nth-of-type(2) {
+    color: #9399af;
+}
+.my_profile_2 .profile_inner .my_charact {
+    flex: 3;
+}
+.my_profile_2 .profile_inner .my_charact .my_card {
+    border-radius: 30px;
+    background: linear-gradient(to top, #e8b6f2, #a1e6d7);
+    height: 460px;
+    width: 380px;
+    position: relative;
+}
+.my_profile_2 .profile_inner .my_charact .my_card:after {
+    content:'';
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: url('../images/contents/w_line.png')no-repeat center center;
+}
+.my_profile_2 .profile_inner .my_charact .my_card .my_character_info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.my_profile_2 .profile_inner .my_charact .my_card .my_character_info span {
+    font-size: 17px;
+}
+.my_profile_2 .profile_inner .my_charact .my_card .my_character_info span small{
+    color: #fff;
+    font-size: 25px;
+    display: block;
+}
+.my_profile_2 .profile_inner .my_charact .my_card .my_character_info .levelup_btn {
+    background-color: #bd8ad8;
+    color: #fff;
+    font-size: 17px;
+    padding: 8px 20px;
+    border-radius: 30px;
+}
+.my_profile_2 .profile_inner .my_charact .my_card .my_character {
+    width: 100%;
+    text-align: center;
+    padding-top: 130px;
+    padding-bottom: 50px;
+}
+.btn_info a {
+    background-color: #6d95e1;
+    color: #fff;
+    font-size: 18px;
+    padding: 10px 60px;
+}
+/* 마이페이지_계정정보 끝 09/17 고선호 수정*/

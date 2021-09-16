@@ -46,7 +46,7 @@
                                                     </div>
                                                     <div class="remove_btn">
                                                         <a href="#none">삭제</a>
-                                                        <button>별</button>
+                                                        <button></button>
                                                     </div>
                                                 </div>
                                             </td>
@@ -57,7 +57,7 @@
                         </div>
                     </div>
                 </div>
-                <!--<div class="contents">
+                <div class="contents">
                     <div class="page_top pc">
                         <h3 class="page_tit">My 강의실</h3>
                         <span>회원정보를 최신정보로 관리해주세요. 새로운 푸코소식과 보안을 위해 회원정보를 최신으로 업데이트 해주세요.</span>
@@ -82,11 +82,11 @@
                                 <strong class="state">수강상태</strong>
                                 <strong class="date">수강신청일</strong>
                             </li>
-                            &lt;!&ndash;수강 중인 강의가 없을경우 : s&ndash;&gt;
+                            <!--수강 중인 강의가 없을경우 : s-->
                             <li class="nodata" th:if="${courseMasters == null or courseMasters.isEmpty()}">
                                 <div>수강 중인 강의가 없습니다.</div>
                             </li>
-                            &lt;!&ndash;수강 중인 강의가 없을경우 : e&ndash;&gt;
+                            <!--수강 중인 강의가 없을경우 : e-->
                             <li th:each="item,idx : ${courseMasters}">
                                 <div class="no"
                                      th:text="${courseMasters.totalElements - courseMasters.pageable.pageSize * courseMasters.pageable.pageNumber - idx.index}">
@@ -105,7 +105,7 @@
                         <th:block
                                 th:replace="/fragments/paging :: pagingbody(list=${courseMasters}, link='/pages/myPage/classroom', formId='form1')"></th:block>
                     </div>
-                </div>-->
+                </div>
             </form>
         </div>
     </div>

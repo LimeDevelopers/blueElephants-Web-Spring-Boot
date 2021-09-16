@@ -80,105 +80,63 @@
                 <div class="page_cont">
                     <div class="page_top">
                         <h3 class="page_tit">계정정보</h3>
-                        <span>회원정보를 최신정보로 관리해주세요. <br class="mo" />새로운 푸코소식과 보안을 위해 회원정보를 최신으로 업데이트 해주세요.</span>
+                        <span>회원정보를 최신정보로 관리해주세요. <br class="mo" />새로운 푸코소식과 보안을 위해 회원정보를<b></b> 최신으로 업데이트 해주세요.</span>
                     </div>
-                    <div class="page_cont my_profile">
-                        <div class="sec_write_area clearfix">
-                            <div class="sec_write info">
-                                <h4 class="subtit">회원 기본정보</h4>
-                                <div class="tbl_write mypage">
-                                    <ul>
-                                        <li>
-                                            <div class="th">이름</div>
-                                            <div class="td td_txt" th:text="*{nm}">홍길동</div>
-                                        </li>
-                                        <li>
-                                            <div class="th">아이디</div>
-                                            <div class="td td_txt" th:text="*{loginId}">hong</div>
-                                        </li>
-                                        <li>
-                                            <div class="th">생년월일</div>
-                                            <div class="td td_txt" th:text="*{brthdy}">2007.01.15</div>
-                                        </li>
-                                        <li>
-                                            <div class="th">성별</div>
-                                            <div class="td td_txt">
-                                                <th:block th:each="tp : ${T(kr.or.btf.web.domain.web.enums.GenderType).values()}">
-                                                    <th:block th:if="${form.sexPrTy eq tp.name()}" th:text="${tp.getName()}"></th:block>
-                                                </th:block>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="th">이메일 주소</div>
-                                            <div class="td td_txt" th:text="*{email}">hong@naver.com</div>
-                                        </li>
-                                        <li>
-                                            <div class="th">휴대전화</div>
-                                            <div class="td td_txt" th:text="*{moblphon}">010-1234-5678</div>
-                                        </li>
-                                        <li>
-                                            <div class="th">닉네임</div>
-                                            <div class="td td_txt" th:text="*{ncnm}">푸꼬</div>
-                                        </li>
-                                    </ul>
+                    <div class="page_cont my_profile_2">
+                        <div class="profile_inner">
+                            <div class="my_info">
+                                <h3>회원기본정보</h3>
+                                <div class="my_info_item">
+                                    <table>
+                                        <tr>
+                                            <td>이름</td>
+                                            <td>홍길동</td>
+                                        </tr>
+                                        <tr>
+                                            <td>아이디</td>
+                                            <td>Pky2032</td>
+                                        </tr>
+                                        <tr>
+                                            <td>생년월일</td>
+                                            <td>20100123</td>
+                                        </tr>
+                                        <tr>
+                                            <td>성별</td>
+                                            <td>여</td>
+                                        </tr>
+                                        <tr>
+                                            <td>이메일주소</td>
+                                            <td>pky2032@gmail.net</td>
+                                        </tr>
+                                        <tr>
+                                            <td>휴대전화</td>
+                                            <td>01022452032</td>
+                                        </tr>
+                                        <tr>
+                                            <td>닉네임</td>
+                                            <td>푸코님</td>
+                                        </tr>
+                                    </table>
                                 </div>
                             </div>
-                            <div class="sec_write character">
-                                <h4 class="subtit">나의 캐릭터</h4>
-                                <div class="my_character">
-                                    <dl class="level lv01"> <!-- TODO : 레벨 1~ 레벨 35까지 프로필 캐릭터 변경됨. (각 추가 클래스명 lv01 ~ lv35) -->
-                                        <dt>캐릭터 레벨</dt>
-                                        <dd>
-                                            <b class="txt_lv">LV.01</b>
-                                            <a href="/pages/blueElephant/character#guide" class="levelup">레벨업 가이드</a>
-                                        </dd>
-                                    </dl>
+                            <div class="my_charact">
+                                <h3>나의캐릭터</h3>
+                                <div class="my_card">
+                                    <div class="my_character">
+                                        <img src="/ClientUI/user/images/contents/character/level01.png" alt="">
+                                    </div>
+                                    <div class="my_character_info">
+                                            <span>
+                                                캐릭터 레벨 <small>LV.1알</small>
+                                            </span>
+                                        <a class="levelup_btn" href="#none">레벨업 가이드</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="sec_write" th:if="${form.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).STUDENT or
-                        form.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).TEACHER}">
-                            <h4 class="subtit">추가정보</h4>
-                            <div class="tbl_write">
-                                <ul>
-                                    <li>
-                                        <div class="th">지역명</div>
-                                        <div class="td td_txt" th:text="${school.areaNm}">서울</div>
-                                    </li>
-                                    <li>
-                                        <div class="th">학교명</div>
-                                        <div class="td td_txt" th:text="${school.schlNm}">서초중학교</div>
-                                    </li>
-                                    <li>
-                                        <div class="th">학년</div>
-                                        <div class="td td_txt" th:text="${school.grade}">3학년</div>
-                                    </li>
-                                    <li>
-                                        <div class="th">반</div>
-                                        <div class="td td_txt" th:text="${school.ban}">8반</div>
-                                    </li>
-                                    <li th:if="${form.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).STUDENT}"> <!--학생일경우만 노출-->
-                        <!-- <div class="th">번호</div>
-                        <div class="td td_txt" th:text="${school.no}">20번</div>
-                    </li>
-                    <li th:if="${form.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).STUDENT}"> <!--학생일경우만 노출-->
-                        <!-- <div class="th">담임선생님</div>
-                        <div class="td td_txt" th:text="${school.teacherNm}">홍말순</div>
-                    </li>
-                </ul>
-            </div>
-        </div> -->
-                        <!-- <div class="sec_write" th:if="${form.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).PARENT}">부모일 경우 노출
-                            <h4 class="subtit">추가정보(자녀 아이디)</h4>
-                            <ul class="list_type01">
-                                <li th:each="child : ${childList}">
-                                    <p th:text="|${child.nm} ${child.schlNm} ${child.grade}학년 ${child.ban}반 ${child.no}번|">이창근 ○○초등학교 5학년 3반 17번</p>
-                                </li>
-                            </ul>
-                        </div> -->
                     </div>
                     <div class="btn_area btn_info">
-                        <a href="javascript:;" onclick="fn_openLayer();" class="btn btn_lg btn_blue btn_pill_10">수정</a>
+                        <a href="javascript:;" onclick="fn_openLayer();" class="btn">수정</a>
                         <!-- <a href="/pages/myPage/batchManagement" class="btn btn_lg btn_blue btn_pill_10">일괄관리</a> -->
                     </div>
                 </div>
