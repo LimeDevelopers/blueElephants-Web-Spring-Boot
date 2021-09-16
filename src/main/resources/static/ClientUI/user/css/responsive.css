@@ -3295,7 +3295,532 @@
 	}
 	/* 회원가입 개인/단체 선택 끝 : SU 09/16 고선호 수정 */
 
+	/* 마이페이지_계정정보 시작 09/17 고선호 수정 */
+	.page_top>.page_tit {
+		text-align: left;
+	}
+	.sec_write .subtit {
+		padding-bottom: 10px;
+	}
+	.page_top>.page_tit+span {
+		text-align: left;
+	}
+	.page_top>.page_tit+span .mo {
+		display: block;
+	}
+	.my_profile .sec_write_area {
+		display: flex;
+		flex-direction: column;
+	}
+	.sec_write .subtit {
+		font-size: 18px;
+	}
+	.my_profile .sec_write_area>.info{
+		width: 100%;
+		padding-right: 0;
+	}
+	.my_profile .sec_write_area>.character {
+		width: 100%;
+	}
+	.my_profile .my_character {
+		height: 200px;
+	}
+	.my_profile .my_character .level.lv01 {
+	}
+	.my_profile .my_character .level.lv01 > * {
+	}
+	.my_profile .my_character .level.lv01 dt {
+		display: block;
+	}
+	.my_profile .my_character .level.lv01 dd {
+	}
+	.my_profile .my_character .level.lv01 dd b {
+	}
+	.my_profile .my_character .level.lv01:before {
+		background-position: cover;
+		margin: 0;
+	}
+	.info .tbl_write > ul > li {
+		border-bottom: 0.5px solid #c7c7c7;
+	}
+	.my_profile .sec_write_area .mypage .th {
+		width: 30% !important;
+		font-size: 14px;
+		padding: 10px 0;
+	}
+	.my_profile .sec_write_area .mypage ul li .td {
+		height: auto;
+	}
+	.info .mypage .td.td_txt {
+		font-size: 14px;
+	}
+	/* 마이페이지_계정정보 끝 */
+	.my_profile_2 .profile_inner > div h3 {
+		font-size: 16px;
+	}
+	.my_profile_2 .profile_inner {
+		flex-direction: column;
+	}
+	.my_profile_2 .profile_inner .my_info {
+		width: 100%;
+	}
+	.my_profile_2 .profile_inner .my_info .my_info_item table tr td {
+		font-size: 13px;
+		padding: 10px 5px;
+	}
+	.my_profile_2 .profile_inner .my_charact {
+		margin-top: 50px;
+	}
+	.my_profile_2 .profile_inner .my_charact .my_card  {
+		width: 100%;
+		height: 200px;
+		display: flex;
+	}
+	.my_profile_2 .profile_inner .my_charact .my_card:after {
+		background: url('../images/contents/w_line_m.png')no-repeat center center;
+		background-size: 92% 90%;
+	}
+	.my_profile_2 .profile_inner .my_charact .my_card .my_character {
+		flex: 1;
+		padding-top: 50px;
+		padding-left: 50px;
+		padding-bottom: 0;
+	}
+	.my_profile_2 .profile_inner .my_charact .my_card .my_character_info {
+		flex: 3;
+	}
+	.my_profile_2 .profile_inner .my_charact .my_card .my_character_info span {
+		text-align: left;
+		width: 70%;
+		padding-left: 20px;
+		font-size: 16px;
+	}
+	.my_profile_2 .profile_inner .my_charact .my_card .my_character_info span small {
+		font-size: 16px;
+	}
+	.my_profile_2 .profile_inner .my_charact .my_card .my_character_info a.levelup_btn {
+		font-size: 14px;
+		margin-top: 20px;
+	}
 
+	/* 마이페이지_활동내역 시작 */
+	.my_activitiy {
+		flex-direction: column;
+		margin-top: 30px;
+	}
+	.my_activitiy .activity_card {
+		padding-bottom: 20px;
+	}
+	.my_activitiy .activity_card .card_item {
+		border: 0;
+		box-shadow: none;
+		height: auto;
+		padding-top: 0;
+		flex-direction: row;
+		width: 100%;
+	}
+	.my_activitiy .activity_card .card_item > div {
+		float: left;
+	}
+	.my_activitiy .activity_card .card_item .character_inner .character {
+	}
+	.my_activitiy .activity_card .card_item .name {
+		text-align: left;
+		font-size: 20px;
+		margin: 3px 0;
+	}
+	.my_activitiy .activity_card .card_item .others {
+		flex-direction: row;
+		margin-top: 5px;
+	}
+	.my_activitiy .activity_card .card_item > div:nth-of-type(2) {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		margin-left: 20px;
+	}
+	.my_activitiy .activity_card .card_item .others span {
+		font-size: 14px;
+		margin-right: 5px;
+	}
+	.my_activitiy .portfolio {
+		border-top: 2px solid #c7c7c738;
+	}
+	.my_activitiy .portfolio .pofo_top {
+		margin-top:  30px;
+	}
+	.my_activitiy .portfolio .pofo_top h2 {
+		font-size: 17px;
+	}
+	.my_activitiy .portfolio .pofo_top .pofo_save a {
+		font-size: 13px;
+		padding: 5px 15px;
+	}
+	.my_activitiy .portfolio .pofo_items {
+		display: inline-block;
+		text-align: center;
+		width: 100%;
+		border-bottom: 2px solid #c7c7c738;
+		padding-bottom: 40px;
+	}
+	.my_activitiy .portfolio .pofo_items > div {
+		/* width: 33.3333%; */
+		width: 31.2%;
+		float: left;
+		margin-right: 10px;
+		margin-bottom: 10px;
+		padding: 20px 0;
+	}
+	.my_activitiy .portfolio .pofo_items > div span{
+		font-size: 15px;
+	}
+	.my_activitiy .portfolio .pofo_items > div b {
+		margin-top: 0;
+	}
+	.my_activitiy .portfolio .pofo_items > div:nth-of-type(3),
+	.my_activitiy .portfolio .pofo_items > div:nth-of-type(6) {
+		margin-right: 0;
+	}
+	.my_activitiy .portfolio .pofo_bottom > div {
+		margin-right: 0;
+	}
+	.my_activitiy .portfolio .pofo_bottom {
+		flex-direction: column;
+		width: 100%;
+	}
+	.my_activitiy .portfolio .pofo_bottom > div {
+		margin-bottom: 30px;
+	}
+
+	.my_activitiy .portfolio .pofo_items > div b {
+		font-size: 18px;
+	}
+	.my_activitiy .portfolio .pofo_bottom > div h3 {
+		font-size: 16px;
+	}
+	.my_activitiy .portfolio .pofo_bottom > div table {
+		margin-top: 10px;
+	}
+	.my_activitiy .portfolio .pofo_bottom > div table tr td {
+		padding: 10px 0;
+		font-size: 15px;
+	}
+	.my_activitiy .portfolio .pofo_bottom > div table tr td b {
+		margin-bottom: 3px;
+	}
+	/* 마이페이지_활동내역 끝 */
+
+	/* 마이페이지_학생관리 시작 */
+	.student_care table.care_items tr th {
+		font-size: 11px;
+		padding: 8px 0;
+	}
+	.student_care .care_btns {
+		text-align: left;
+	}
+	.student_care .care_btns a {
+		font-size: 14px;
+		margin-right: 5px;
+		padding: 5px 15px;
+		font-weight: normal;
+	}
+	.student_care table.care_items {
+		margin-top: 20px;
+	}
+	.student_care table.care_items tr th:nth-of-type(1) {
+		width: 80px;
+	}
+	.student_care table.care_items tr th:nth-of-type(2) {
+		width: 60px;
+	}
+	.student_care table.care_items tr th:nth-of-type(3) {
+		width: 30px;
+	}
+	.student_care table.care_items tr td {
+		font-size: 11px;
+	}
+	.student_care_btn {
+		margin: 40px 0;
+	}
+	.student_care_btn .join_btn {
+		font-size: 15px;
+		width: 100%;
+		display: block;
+		font-weight: normal;
+	}
+	/* 마이페이지_학생관리 끝 */
+
+
+	/* 마이페이지_My상담 시작 */
+	.my_item_1 .my_item_top {
+		background: url('../images/contents/box_3.png')no-repeat center center;
+		background-size: 100% 100%;
+		height: 140px;
+	}
+	.my_item_1 .my_item_top p span, .my_item_3 .my_item_top p span {
+		background: url('../images/icon/dot.png')no-repeat top left;
+		background-size: 13px auto;
+	}
+	.my_item_1 .my_item_top, .my_item_3 .my_item_top {
+		padding: 30px;
+		margin-top: 30px;
+	}
+	.my_item_1 .my_item_top p span, .my_item_3 .my_item_top p span {
+		font-size: 12px;
+		padding-left: 20px;
+	}
+	.my_item_list  {
+		width: 100%;
+		flex-direction: column;
+		margin-top: 30px;
+	}
+	.my_item_list > div {
+		margin-right: 0;
+		margin-bottom: 30px;
+	}
+	.my_item_list > div h3 {
+		font-size: 16px;
+		font-weight: 500;
+		margin-bottom: 10px;
+	}
+	.my_item_list > div table tr td {
+		font-size: 14px;
+	}
+	.my_item_list > div table tr td p {
+		align-items: center;
+	}
+	.my_item_list > div table tr td p b {
+		font-size: 14px;
+	}
+	/* 마이페이지_My상담 끝 */
+
+	/* 마이페이지_My강의실_교육자료실 시작 */
+	.my_item_2 .my_item_top button {
+		font-size: 14px;
+		padding: 5px 15px;
+	}
+	.my_item_2 .my_item_top button:nth-of-type(1) {
+		margin-right: 5px;
+	}
+	.my_item_edu .item_inner > small {
+		font-size: 12px;
+		background-size: 13px auto;
+		padding-left: 15px;
+	}
+	.my_item_edu .item_inner table tr td .edu_item {
+		position: relative;
+	}
+	.my_item_edu .item_inner table tr td .edu_item > div {
+		padding: 10px 0;
+	}
+	.my_item_edu .item_inner table tr td .edu_item .edu_img {
+		margin-right: 10px;
+	}
+	.my_item_edu .item_inner table tr td .edu_item .edu_img > div {
+		width: 100px;
+		height: 80px;
+	}
+	.my_item_edu .item_inner table tr td .edu_item .edu_desc small, .my_item_edu .item_inner table tr td .edu_item .edu_desc span {
+		font-size: 12px;
+		margin-bottom: 0;
+	}
+	.my_item_edu .item_inner table tr td .edu_item .edu_desc {
+		padding-bottom: 50px;
+	}
+	.my_item_edu .item_inner table tr td .edu_item .edu_desc .tags {
+		position: absolute;
+		bottom: 10px;
+		left: 0;
+	}
+	.my_item_edu .item_inner table tr td .edu_item .edu_desc .tags b {
+		font-size: 12px;
+		padding: 3px 10px;
+	}
+	.my_item_edu .item_inner table tr td .edu_item .edu_desc h5 {
+		font-size: 14px;
+	}
+	/* 마이페이지_My강의실_교육자료실 끝 */
+
+	/* 마이페이지_My강의실_이수증발급 시작 */
+	.my_item_3 .my_item_edu .item_inner table {
+		margin-top: 30px;
+	}
+	.my_item_3 .my_item_edu .item_inner table tr td .edu_item_2 {
+		padding: 15px 0;
+	}
+	.my_item_3 .my_item_edu .item_inner table tr td .edu_item_2 .edu_desc_2 {
+		flex: 5;
+	}
+	.my_item_3 .my_item_edu .item_inner table tr td .edu_item_2 .edu_desc_2 span {
+		font-size: 15px;
+	}
+	.my_item_3 .my_item_edu .item_inner table tr td .edu_item_2 .edu_desc_2 small {
+		font-size: 14px;
+	}
+	.my_item_3 .my_item_edu .item_inner table tr td .edu_item_2 .edu_down {
+		flex: 2;
+	}
+	.my_item_3 .my_item_edu .item_inner table tr td .edu_item_2 .edu_down small {
+		font-size: 12px;
+	}
+	.my_item_3 .my_item_edu .item_inner table tr td .edu_item_2 .edu_down label span {
+		font-size: 12px;
+		padding: 5px 20px;
+		font-weight: normal;
+	}
+	/* 마이페이지_My강의실_이수증발급 끝 */
+
+	/* 마이페이지_My제안 시작 */
+	.my_item_3 .my_item_top {
+		height: 60px;
+		background: url('../images/contents/box_1_m.png')no-repeat center center;
+		background-size: 100% 100%;
+		padding: 20px;
+	}
+	.my_item_3 .my_item_edu .item_inner table tr td .edu_item_2 .edu_desc_2 span {
+		margin-bottom: 15px;
+		font-size: 14px;
+	}
+	/* 마이페이지_My제안 끝 */
+
+	/* 마이페이지_My진단 시작 */
+	.my_item_4 {
+		margin-top: 40px;
+	}
+	.my_item_4 .item {
+		margin-bottom: 30px;
+	}
+	.my_item_4 .item h3 {
+		font-size: 16px;
+		margin-bottom: 10px;
+	}
+	.my_item_4 .item table tr td {
+		padding: 10px 0;
+	}
+	.my_item_4 .item table tr td .num span {
+		font-size: 20px;
+	}
+	.my_item_4 .item table tr td .txt {
+		font-size: 14px;
+		padding-left: 20px;
+	}
+	.my_item_4 .item table tr td .result_btn {
+		padding-left: 20px;
+		flex: 3;
+	}
+	.my_item_4 .item table tr td .result_btn a {
+		font-size: 13px;
+		padding: 3px 15px;
+		font-weight: normal;
+	}
+	/* 마이페이지_My진단 끝 */
+
+	/* 마이페이지_능력카드 저장내역 시작 */
+	.card_inner_pc {
+		display: none;
+	}
+	.card_inner_m {
+		display: block;
+	}
+	.card_inner_m > div {
+		display: flex;
+	}
+	.card_inner_m > div a.card {
+		position: inherit;
+		top: 0;
+		left: 0;
+		transform: none;
+		flex: 1;
+		border: 1px solid #c7c7c7;
+		padding: 10px;
+		display: inline-block;
+		margin-bottom: 20px;
+	}
+	.card_inner_m > div a.card:nth-of-type(1) {
+		margin-right: 20px;
+	}
+	.card_inner_m > div a.card .card_phot {
+		background-color: #edeff7;
+		height: 150px;
+		margin-bottom: 10px;
+	}
+	.card_inner_m > div a.card span {
+		text-align: right;
+		display: block;
+	}
+	.card_inner_m > div a.card small {
+		margin-top: 0;
+		text-align: right;
+	}
+	.my_item_5 {
+		margin-top: 40px;
+	}
+	.my_item_5 .card_list {
+		padding-top: 20px;
+	}
+	.my_item_5 h3 {
+		font-size: 16px;
+		margin-bottom: 10px;
+	}
+	/* 마이페이지_능력카드 저장내역 끝 */
+
+	/* 마이페이지_능력카드상세 시작 */
+	.my_item_5_detail .mypage_card_top span {
+		font-size: 18px;
+	}
+	.my_item_5_detail .mypage_card_top small {
+		font-size: 16px;
+	}
+	.my_item_5_detail .card_list {
+		margin: 20px 0;
+	}
+	.my_item_5_detail .card_list .mypage_card_btns > * {
+		width: 200px;
+		padding: 10px 0;
+	}
+	.my_item_5_detail .card_list .mypage_card_btns label,
+	.my_item_5_detail .card_list .mypage_card_btns .gotolist {
+		font-size: 15px;
+	}
+	.my_item_5_detail .card_list .mypage_card_btns .gotolist {
+		margin-top: 10px;
+	}
+	/* 마이페이지_능력카드상세 끝 */
+
+	/* 마이페이지_My신청 시작 */
+	.my_item_6 {
+		margin-top: 40px;
+	}
+	.my_item_6 span {
+		font-size: 16px;
+		margin-bottom: 10px;
+	}
+	.my_item_6 table.care_items tr th:nth-of-type(1) {
+		width: 50px;
+	}
+	.my_item_6 table.care_items tr th:nth-of-type(2) {
+		width: 80px;
+	}
+	.my_item_6 table.care_items tr th:nth-of-type(3) {
+		width: 100px;
+	}
+	/* 마이페이지_My신청 끝 */
+
+	/* 마이페이지_또래상담 시작 */
+	.my_item_7 table {
+		border-top: 2px solid #8eb3f2;
+	}
+	.my_item_7 table tr:nth-of-type(1) {
+		display: none;
+	}
+	.my_item_7 table tr td:nth-of-type(1) {
+		display: none;
+	}
+	.student_care table.care_items tr td:nth-of-type(2) {
+		text-decoration: none;
+		color: #555868;
+	}
+	/* 마이페이지_또래상담 끝 09/17 고선호 수정 */
 
 
 
@@ -4426,5 +4951,208 @@
 		font-size: 18px;
 	}
 	/* 회원_회원가입 끝 09/16 고선호 수정 */
+
+	/* 마이페이지_계정정보 시작 09/17 고선호 수정 */
+	.my_profile_2 .profile_inner > div h3 {
+		font-size: 22px;
+	}
+	.my_profile_2 .profile_inner .my_info .my_info_item table tr td {
+		font-size: 16px;
+		padding: 13px 10px;
+	}
+	.my_profile_2 .profile_inner .my_charact .my_card .my_character {
+		padding-left: 120px;
+		padding-top: 80px;
+	}
+	.my_profile_2 .profile_inner .my_charact .my_card {
+		height: 250px;
+	}
+	.my_profile_2 .profile_inner .my_charact .my_card .my_character_info span {
+		font-size: 18px;
+		width: 40%;
+	}
+	.my_profile_2 .profile_inner .my_charact .my_card .my_character_info span small {
+		font-size: 24px;
+	}
+	.my_profile_2 .profile_inner .my_charact .my_card .my_character_info a.levelup_btn {
+		font-size: 17px;
+		padding: 13px 40px;
+	}
+	.btn_info a {
+		padding: 15px 60px;
+		font-size: 18px;
+	}
+	/* 마이페이지_계정정보 끝 */
+
+	/* 마이페이지_활동내역 시작 */
+	.my_activitiy .portfolio .pofo_items > div span {
+		font-size: 17px;
+	}
+	.my_activitiy .portfolio .pofo_items > div {
+		padding: 25px 0;
+	}
+	.my_activitiy .portfolio .pofo_bottom > div h3,
+	.my_activitiy .portfolio .pofo_top h2 {
+		font-size: 22px;
+	}
+	.my_activitiy .portfolio .pofo_bottom > div table tr td {
+		font-size: 16px;
+	}
+	.my_activitiy .activity_card .card_item .name {
+		font-size: 26px;
+	}
+	.my_activitiy .activity_card .card_item .others span {
+		font-size: 18px;
+	}
+	.my_activitiy .portfolio .pofo_top .pofo_save a {
+		font-size: 16px;
+	}
+	/* 마이페이지_활동내역 끝 */
+
+
+	/* 마이페이지_학생관리 시작 */
+	.student_care .care_btns a {
+		font-size: 16px;
+	}
+	.student_care table.care_items tr th, .student_care table.care_items tr td {
+		font-size: 14px;
+	}
+	.student_care table.care_items tr th:nth-of-type(1) {
+		width: 100px;
+	}
+	.student_care table.care_items tr th:nth-of-type(2) {
+		width: 80px;
+	}
+	.student_care table.care_items tr th:nth-of-type(4) {
+		width: 80px;
+	}
+	.student_care_btn .join_btn {
+		font-size: 18px;
+		padding: 15px 0;
+	}
+	/* 마이페이지_학생관리 끝 */
+
+	/* 마이페이지_My상담 시작 */
+	.my_item_1 .my_item_top p span, .my_item_3 .my_item_top p span {
+		font-size: 16px;
+	}
+	.my_item_1 .my_item_top, .my_item_3 .my_item_top {
+		padding: 40px;
+	}
+	.my_item_list > div h3 {
+		font-size: 24px;
+	}
+	.my_item_list > div table tr td {
+		font-size: 18px;
+	}
+	/* 마이페이지_My상담 끝 */
+
+	/* 마이페이지_My강의실_교육자료실 시작 */
+	.my_item_edu .item_inner > small {
+		font-size: 16px;
+	}
+	.my_item_edu .item_inner table tr td .edu_item .edu_img > div {
+		width: 150px;
+		height: 100px
+	}
+	.my_item_edu .item_inner table tr td .edu_item .edu_desc h5 {
+		font-size: 18px;
+	}
+	.my_item_2 .my_item_top button {
+		font-size: 16px;
+		padding: 10px 20px;
+	}
+	.my_item_edu .item_inner table tr td .edu_item .edu_desc small, .my_item_edu .item_inner table tr td .edu_item .edu_desc span {
+		font-size: 15px;
+	}
+	.my_item_edu .item_inner table tr td .edu_item .edu_desc {
+		padding-bottom: 100px;
+	}
+	.my_item_edu .item_inner table tr td .edu_item .edu_desc .tags {
+		bottom: 20px;
+	}
+	.my_item_edu .item_inner table tr td .edu_item .edu_desc .tags b {
+		font-size: 16px;
+	}
+	/* 마이페이지_My강의실_교육자료실 끝 */
+
+	/* 마이페이지_My강의실_이수증발급 시작 */
+	.my_item_3 .my_item_edu .item_inner table tr td .edu_item_2 .edu_desc_2 span {
+		font-size: 16px;
+	}
+	.my_item_3 .my_item_edu .item_inner table tr td .edu_item_2 .edu_down small {
+		font-size: 17px;
+	}
+	.my_item_3 .my_item_edu .item_inner table tr td .edu_item_2 .edu_down label span {
+		font-size: 16px;
+	}
+	/* 마이페이지_My강의실_이수증발급 끝 */
+
+	/* 마이페이지_My제안 시작 */
+	.my_item_3 .my_item_top {
+		height: 90px;
+		padding: 30px;
+	}
+	/* 마이페이지_My제안 끝 */
+
+	/* 마이페이지_My진단 시작 */
+	.my_item_4 .item h3 {
+		font-size: 22px;
+	}
+	.my_item_4 .item table tr td .num span {
+		font-size: 26px;
+	}
+	.my_item_4 .item table tr td .txt {
+		font-size: 16px;
+	}
+	.my_item_4 .item table tr td {
+		padding: 15px 0;
+	}
+	.my_item_4 .item table tr td .result_btn a {
+		font-size: 16px;
+		padding: 8px 20px;
+	}
+	/* 마이페이지_My진단 끝 */
+
+	/* 마이페이지_능력카드 저장내역 시작 */
+	.card_inner_m > div a.card .card_phot {
+		height: 320px;
+	}
+	.my_item_5 h3 {
+		font-size: 22px;
+	}
+	.card_inner_m > div a.card {
+		margin-bottom: 40px;
+		padding: 20px;
+	}
+	.card_inner_m > div a.card:nth-of-type(1) {
+		margin-right: 40px;
+	}
+	.card_inner_m > div a.card span {
+		font-size: 20px;
+	}
+	/* 마이페이지_능력카드 저장내역 끝 */
+
+	/* 마이페이지_능력카드상세 시작 */
+	.my_item_5_detail .mypage_card_top span {
+		font-size: 22px;
+	}
+	.my_item_5_detail .card_list .mypage_card_btns label, .my_item_5_detail .card_list .mypage_card_btns .gotolist {
+		font-size: 18px;
+	}
+	/* 마이페이지_능력카드상세 끝 */
+
+	/* 마이페이지_My신청 시작 */
+	.my_item_6 table.care_items tr th:nth-of-type(2),
+	.my_item_6 table.care_items tr th:nth-of-type(3) {
+		width: 150px;
+	}
+	/* 마이페이지_My신청 끝 */
+
+	/* 마이페이지_또래상담 시작 */
+	.my_item_6 span {
+		font-size: 22px;
+	}
+	/* 마이페이지_또래상담 끝 09/17 고선호 수정*/
 
 }

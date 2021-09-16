@@ -54,7 +54,40 @@
             <th:block th:include="fragments/dept_menu"></th:block>
 
             <form id="form1" name="form1" method="post">
-                <div class="contents">
+                <div class="inner">
+                    <div class="page_cont">
+                        <div class="page_top">
+                            <h3 class="page_tit">이수증발급</h3>
+                        </div>
+                        <div class="page_cont my_item_3">
+                            <div class="my_item_edu">
+                                <div class="item_inner">
+                                    <small>해당교육 클라스 수강을 마치고,  만족도 검사까지 완료한 경우 교육이수증 발급이 가능합니다.</small>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <div class="edu_item_2">
+                                                    <div class="edu_desc_2">
+                                                        <span>[청소년]  푸른코끼리 사이버 예방교육</span>
+                                                        <small>다운로드 수 |  0</small>
+                                                    </div>
+                                                    <div class="edu_down">
+                                                        <small>불가</small>
+                                                        <input type="file" id="my_itme_down">
+                                                        <label for="my_itme_down">
+                                                            <span>다운로드</span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="contents">
                     <div class="page_top pc">
                         <h3 class="page_tit">My 강의실</h3>
                         <span>회원정보를 최신정보로 관리해주세요. 새로운 푸코소식과 보안을 위해 회원정보를 최신으로 업데이트 해주세요.</span>
@@ -80,11 +113,11 @@
                                 <strong class="download">이수증 다운로드</strong>
                                 <strong class="download_num">다운로드 수</strong>
                             </li>
-                            <!--수강 중인 강의가 없을경우 : s-->
+                            &lt;!&ndash;수강 중인 강의가 없을경우 : s&ndash;&gt;
                             <li class="nodata" th:if="${courseMasters == null or courseMasters.isEmpty()}">
                                 <div>수강 중인 강의가 없습니다.</div>
                             </li>
-                            <!--수강 중인 강의가 없을경우 : e-->
+                            &lt;!&ndash;수강 중인 강의가 없을경우 : e&ndash;&gt;
                             <li th:each="item,idx : ${courseMasters}">
                                 <div class="no"
                                      th:text="${courseMasters.totalElements - courseMasters.pageable.pageSize * courseMasters.pageable.pageNumber - idx.index}">
@@ -113,7 +146,7 @@
                                     <th:block th:text="${item.downloadCnt}"></th:block>
                                 </div>
                             </li>
-                            <!--<li>
+                            &lt;!&ndash;<li>
                                 <div class="no">3</div>
                                 <div class="tit"><a href="#">사이버폭력예방교육 part3</a></div>
                                 <div class="issue">불가</div>
@@ -133,9 +166,9 @@
                                 <div class="issue"><strong class="fc_blue">발급가능</strong></div>
                                 <div class="download"><a href="javascript:layerShow('popCertificate')" download class="btn btn_lg btn_blue btn_pill_10">다운로드</a></div>
                                 <div class="download_num"><span class="th">다운로드 수 : </span>3</div>
-                            </li>-->
+                            </li>&ndash;&gt;
                         </ul>
-                        <!--<div class="pagination_area">
+                        &lt;!&ndash;<div class="pagination_area">
                             <div class="pagination">
                                 <a href="javascript:;" class="arr mostprev"><span class="blind">처음</span></a>
                                 <a href="javascript:;" class="arr prev"><span class="blind">이전</span></a>
@@ -143,11 +176,11 @@
                                 <a href="javascript:;" class="arr next"><span class="blind">다음</span></a>
                                 <a href="javascript:;" class="arr mostnext"><span class="blind">마지막</span></a>
                             </div>
-                        </div>-->
+                        </div>&ndash;&gt;
                         <th:block
                                 th:replace="/fragments/paging :: pagingbody(list=${courseMasters}, link='/pages/myPage/certificate', formId='form1')"></th:block>
                     </div>
-                </div>
+                </div>-->
             </form>
         </div>
         <th:block th:replace="fragments/footer"></th:block>

@@ -229,7 +229,7 @@ body{color:#54586a;font-size:14px;font-family:'Noto Sans KR', Malgun Gothic, '�
 .tab{display:flex;justify-content:space-between;width:100%}
 /* .tab > li{display:table-cell;position:relative;width:12.5%} */
 .tab > li a{display:block;position:relative;color:#5a5a5a;font-size:18px;line-height:65px;text-align:center;margin: 10px}
-.tab > li.active a{color:#fff;font-weight:700;background-color:#8bb3ff;border-radius:10px 20px 10px; padding:0 20px;}
+.tab > li.active a{color:#fff;font-weight:700;background-color:#8bb3ff;border-radius:5px; width: 150px; padding:0 20px;}
 .tab > li.active a:after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;}
 .tab_type01{max-width:1280px;margin:0 auto}
 .tab_type01 > li:after{content:'';display:block;position:absolute;top:25px;right:0;width:1px;height:16px;background-color:#eaeaea}
@@ -237,8 +237,8 @@ body{color:#54586a;font-size:14px;font-family:'Noto Sans KR', Malgun Gothic, '�
 .tab_type02{display:block;font-size:0}
 .tab_type02 > li{display:inline-block;}
 /*.tab_type02 > li:first-child{margin-left:0}*/
-.tab_type02 > li a{font-size:16px;color:#8c90a5 !important;border:0; border-radius: 10px 20px 10px; line-height:35px; background-color:#fff; padding: 3px 20px;} /* 회원가입 멤버 선택 active 무*/
-.tab_type02 > li.active a{color:#fff !important;border:0; border-radius: 10px 20px 10px; background-color:#85b4f7; padding: 3px 20px;} /* 회원가입 멤버 선택 active 유*/
+.tab_type02 > li a{font-size:16px;color:#8c90a5 !important;border:0; line-height:35px; background-color:#fff; padding: 3px 20px;} /* 회원가입 멤버 선택 active 무*/
+.tab_type02 > li.active a{color:#fff !important;border:0; background-color:#85b4f7; padding: 3px 20px;} /* 회원가입 멤버 선택 active 유*/
 .tab_type02 > li.active a:after{display:none}
 /*** table ***/
 /* list */
@@ -286,7 +286,7 @@ body{color:#54586a;font-size:14px;font-family:'Noto Sans KR', Malgun Gothic, '�
 .tbl_write .txt_serious > dt{margin-right:6px}
 .tbl_write .txt_serious > dd .select{width:130px}
 /*.tbl_write .td.type01 .select{display:none}*/
-.tbl_select { text-align: center; margin: 0; border-top: 4px solid transparent; background-image: linear-gradient(#fff, #fff), linear-gradient(to right, #fff, #8bb3ff, #fff); background-origin: border-box; background-clip: content-box, border-box;}
+.tbl_select { text-align: center; margin: 0; border-top: 4px solid transparent; background-origin: border-box; background-clip: content-box, border-box;}
 .contour{border-top: 4px solid; border-color:#8bb3ff; margin: 12px 0 12px 0;}
 /* view */
 .board_view > dt{display:table;width:100%;border-top:2px solid #8bb3ff;border-bottom:1px solid #ccc;background-color:#dee6f1}

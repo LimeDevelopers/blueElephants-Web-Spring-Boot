@@ -33,7 +33,7 @@ public class ApplicationForm extends SearchForm{
     private String root;
     private String schlNm;
     private String representPhone;
-    private String Adress;
+    private String adress;
     private Integer studentNum;
     private Integer accidentsNum;
     private String principalNm;

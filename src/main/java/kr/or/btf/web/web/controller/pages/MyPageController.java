@@ -932,7 +932,7 @@ public class MyPageController extends BaseCont {
         return "/pages/myPage/application";
     }
 
-    @RequestMapping("/pages/myPage/abillityCardDetail")
+    @RequestMapping("/pages/myPage/abilityCardDetail")
     public String detail(Model model,
                          @CurrentUser Account account,
                          @PageableDefault Pageable pageable,
@@ -948,7 +948,7 @@ public class MyPageController extends BaseCont {
 
         model.addAttribute("mc", "myPage");
         model.addAttribute("pageTitle", "능력카드");
-        return "/pages/myPage/abillityCardDetail";
+        return "/pages/myPage/abilityCardDetail";
     }
 
     /* 09/16 고선호 추가 끝 */

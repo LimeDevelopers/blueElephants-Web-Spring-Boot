@@ -4,7 +4,77 @@
     <th:block th:include="fragments/header"></th:block>
 </head>
 <script>
+    let nm;
+    let affi;
+    let moblphon;
+    let attachedFile;
+    let agree002;
 
+
+    function fn_chkField() {
+        nm = $('#nm');
+        affi = $('#affi');
+        moblphon = $('#moblphon');
+        agree002 = $('#agree002');
+        attachedFile = $('#attachedFile');
+
+
+        if(!nm.val()){
+            alert("신청자 이름은 필수 입력사항 입니다.")
+            nm.focus();
+            return false;
+        }
+
+        if(!moblphon.val()){
+            alert("신청자 연락처는 필수 입력사항 입니다.")
+            moblphon.focus()
+            return false
+        }
+
+        if(!affi.val()){
+            alert("소속은 필수 입력사항 입니다.")
+            affi.focus();
+            return false;
+        }
+        if(!agree002.is(":checked")) {
+            alert("개인정보 활용에 동의 해주세요.")
+            agree002.focus();
+            return false;
+        }
+
+        if(!attachedFile.val()){
+            alert("증빙서류를 제출하지 않으면 검토기간이 오래 걸릴 수 있습니다.");
+            attachedFile.focus();
+        }
+        return true;
+    }
+    function fn_register() {
+
+        $('#btnSave').prop('disabled', true);
+
+        if (!fn_chkField()) {
+            $('#btnSave').prop('disabled', false);
+            return false;
+        }
+        let frm = $('#form1');
+        frm.prop('action' , '/pages/application/zzcrew/zzcrewRegister')
+        frm.submit();
+    }
+
+    $(document).ready(function (){
+        /*let a = '[[${epid}]]';*/
+        /*alert(a)*/
+        $('.info_accordion .agree_inner ul').click(function(){
+            $(this).toggleClass('agree_on')
+        })
+
+        $('.agree_item_01 .agree_top u').click(function(){
+            $('.agr_cont1').toggleClass('agree_on')
+        })
+        $('.agree_item_02 .agree_top u').click(function(){
+            $('.agr_cont2').toggleClass('agree_on')
+        })
+    })
 </script>
 <body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
 <div id="wrap">
@@ -13,52 +83,110 @@
         <th:block th:include="fragments/mo_menu"></th:block>
         <div class="sub_container">
             <th:block th:include="fragments/dept_menu"></th:block>
-
-            <form action="/pages/application/zzcrew/zzcrewregister" id="form1" name="form1" method="post" enctype="multipart/form-data">
-
-                <div class="contents">
-                    <div class="page_top pc">
-                        <h3 class="page_tit">지지크루 신청</h3>
-                    </div>
-                    <div class="sec_write">
-                        <h4 class="subtit">지지크루 신청</h4>
-                        <div class="tbl_write contour">
-                            <ul>
-                                <li>
-                                    <div class="th">크루명<span class="aster">*</span></div>
-                                    <div class="td"><input id="crewNm" name="crewNm" type="text"/></div>
-                                </li>
-
-                                <li>
-                                    <div class="th">소속학교/기관<span class="aster">*</span></div>
-                                    <div class="td"><input id="affi" name="affi" type="text"/></div>
-                                </li>
-                                <li>
-                                    <div class="th">연락처<span class="aster">*</span></div>
-                                    <div class="td"><input id="moblphon" name="moblphon" type="number"/></div>
-                                </li>
-
-                                <li>
-                                    <div class="th">첨부파일<span class="aster">*</span></div>
-                                    <div class="td file_form">
-                                        <div th:if="${fileList != null and !fileList.isEmpty()}">
-                                            <th:block th:each="item: ${fileList}">
-                                                <p class="file" th:if="${T(kr.or.btf.web.domain.web.enums.FileDvType).THUMB.name() eq item.dvTy}">
-                                                    <span th:text="${item.flNm}">첨부파일.txt</span>
-                                                    <a href="javascript:;" class="btn_del" th:onclick="|fn_deleteFile(${item.id}, this)| ">
-                                                        <span class="blind">삭제</span>
-                                                    </a>
-                                                </p>
-                                            </th:block>
-                                        </div>
-                                        <input type="file" name="attachedFile" maxlength="1"  id="attachedFile" class="multi" th:accept="${allAccept}" />
-                                        <label for="attachedFile">파일찾기</label>
-                                        <input type="hidden" name="b_license_attc" id="b_license_attc" value="N">
+            <form id="form1" name="form1" method="post" enctype="multipart/form-data">
+                <div class="inner">
+                    <div class="page_cont">
+                        <h4 class="subtit pc review_title">지지크루 신청</h4>
+                        <div class="detail_cont">
+                            <div class="top">
+                                <div class="info_area">
+                                    <strong class="tit"><small>공고명</small> 광성중학교 사이버 폭력 근절단</strong>
+                                    <div class="detail_item">
+                                        <p class="count_2 count">
+                                            <span ><small>접수기간</small>2020.12.31</span>
+                                        </p>
+                                        <p class="d_day">
+                                            <span>D-10</span>
+                                            <b>접수중</b>
+                                        </p>
                                     </div>
-                                </li>
 
-                            </ul>
-                            <div class="btn_area"><button id="btnSave" type="submit" class="btn btn_lg btn_blue btn_pill_10">등록</button></div>
+
+                                </div>
+                            </div>
+                            <div class="bottom editor">
+                                <div class="partners_inner ">
+                                    <div class="sec_write join">
+                                        <div class="tbl_write">
+                                            <ul>
+                                                <li>
+                                                    <div class="th">
+                                                        <label for="nm">신청자 이름</label>
+                                                        <span class="aster">*</span>
+                                                    </div>
+                                                    <div class="td">
+                                                        <input id="nm" name="nm" type="text">
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="th">
+                                                        <label for="moblphon">신청자 핸드폰</label>
+                                                        <span class="aster">*</span>
+                                                    </div>
+                                                    <div class="td">
+                                                        <input id="moblphon" name="moblphon" type="number">
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="th">
+                                                        <label for="affi">소속</label>
+                                                        <span class="aster">*</span>
+                                                    </div>
+                                                    <div class="td">
+                                                        <input id="affi" name="affi" type="text">
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="info_accordion">
+                                        <div class="agree_inner agree_contents">
+                                            <ul>
+                                                <span>개인정보 활용 동의서(필수)</span>
+                                                <li>
+                                                    <p>
+                                                        푸른나무재단에서 2021 청소년 사이버폭력 예방교육 사업 푸른코끼리 학교로 찾아가는 교육 신청서 접수 및 결과 안내를 목적으로 아래와 같이 개인정보를 수집 및 이용합니다.
+                                                    </p>
+                                                    <p class="agree_desc">
+                                                        ▪︎ 목적 : 신청서 접수 및 출강 여부 결과 회신 동의 서비스 제공 <b></b>
+                                                        ▪︎ 수집 항목 : 정보주체의 성명, 소속, 주소, 업무 등<b></b>
+                                                        ▪︎ 보유 및 이용시간 : 개인정보 수집 및 이용목적이 달성된 후에는 해당정보를 즉기 파기합니다. 단, 출강 확정 후 서비스 제공 및 민원 처리 동의 소속 작업물 위해 3년간 보유 및 이용됩니다. 또한, 신청서 삭제 요청 시 까지 위 이용 목적을 위하여 보유이용됩니다. 그러나 신청서 삭제 요청 시 신청자의 개인정보를 재생 불가능한 방법으로 즉시 파기합니다. <b></b>
+                                                    </p>
+                                                    <span>
+                                                    ※ 귀하는 이에 대한 동의를 거부할 수 있으며, 다만 동의가 없을 경우 교육신청 접속에 제한 할 수 있음을 알려드립니다.
+                                                </span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="agree002">
+                                            <label for="agree002">
+                                                <span>동의함</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="sec_write join">
+                                        <div class="tbl_write upload">
+                                            <ul>
+                                                <li class="m_mode">
+                                                    <div class="th">
+                                                        <label for="attachedFile">증빙서류</label>
+                                                    </div>
+                                                    <div class="td">
+                                                        <input type="file" name="attachedFile" id="attachedFile" >
+                                                        <label for="attachedFile" id="box" >지지크루 관련 자료를 업로드하세요</label>
+                                                        <label  for="attachedFile">파일검색</label>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="btn_area">
+                                <a onclick="return fn_register()" id="btnSave" class="btn list_btn">제출</a>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -4,24 +4,119 @@
     <th:block th:include="fragments/header"></th:block>
 </head>
 <script>
-    var year;
-    var month;
-    var day;
-    var schedule;
+    let nm
+    let moblphon
+    let affi
+    let agree002
+    let attachedFile
+    let schlNm
+    let representPhone
+    let adress
+    let studentNum
+    let accidentsNum
+    let principalNm
+    let principalPhone
+    let principalEmail
+    let size
 
-    $(function (){
-        appendYear()
-    })
-
-    function appendYear() {
-        var date = new Date();
-        var crrntYear = date.getFullYear();
-        year = $("#year");
-        year.append("<option value=''>선택</option>");
-        for (var y = (crrntYear + 0); (crrntYear + 5) >= y; y++) {
-            year.append("<option value='" + y + "'>" + y + "년" + "</option>");
+    function fn_chkField(){
+        nm = $('#nm')
+        moblphon = $('#moblphon')
+        affi = $('#affi')
+        agree002 = $('#agree002')
+        attachedFile = $('#attachedFile')
+        schlNm = $('#schlNm')
+        representPhone = $('#representPhone')
+        adress = $('#adress')
+        studentNum = $('#studentNum')
+        accidentsNum = $('#accidentsNum')
+        principalNm = $('#principalNm')
+        principalPhone = $('#principalPhone')
+        principalEmail = $('#principalEmail')
+        size = $('#size')
+        if(!nm.val()){
+            alert('신청자 이름은 필수 입력사항 입니다.')
+            nm.focus();
+            return false
         }
+        if(!moblphon.val()){
+            alert('신청자 연락처는 필수 입력사항 입니다.')
+            moblphon.focus();
+            return false
+        }
+        if(!affi.val()){
+            alert('신청자 소속은 필수 입력사항 입니다.')
+            affi.focus();
+            return false
+        }
+        if(!agree002.is(":checked")) {
+            alert("개인정보 활용에 동의 해주세요.")
+            agree002.focus();
+            return false;
+        }
+        if(!attachedFile.val()){
+            alert('증빙서류를 제출하지 않으면 검토 소요시간이 오래걸릴 수 있습니다.')
+            attachedFile.focus();
+        }
+        if(!schlNm.val()){
+            alert('학교명은 필수 입력사항 입니다.')
+            schlNm.focus();
+            return false
+        }
+        if(!representPhone.val()){
+            alert('대표번호는 필수 입력사항 입니다.')
+            representPhone.focus();
+            return false
+        }
+        if(!adress.val()){
+            alert('주소는 필수 입력사항 입니다.')
+            adress.focus();
+            return false
+        }
+        if(!studentNum.val()){
+            alert('전교생 수는 필수 입력사항 입니다.')
+            studentNum.focus();
+            return false
+        }
+        if(!accidentsNum.val()){
+            alert('교내 학교폭력 신고 접수 건수는 필수 입력사항 입니다.')
+            accidentsNum.focus();
+            return false
+        }
+        if(!principalNm.val()){
+            alert('학교장 성함은 필수 입력사항 입니다.')
+            principalNm.focus();
+            return false
+        }
+        if(!principalPhone.val()){
+            alert('학교장 휴대폰은 필수 입력사항 입니다.')
+            principalPhone.focus();
+            return false
+        }
+        if(!principalEmail.val()){
+            alert('학교장 이메일은 필수 입력사항 입니다.')
+            principalEmail.focus();
+            return false
+        }
+        if(!size.val()){
+            alert('티셔츠 사이즈는 필수 입력사항 입니다. ex) XS , S , M , L , XL')
+            return false
+        }
+        return true
     }
+    function fn_register() {
+
+        $('#btnSave').prop('disabled', true);
+
+        if (!fn_chkField()) {
+            $('#btnSave').prop('disabled', false);
+            return false;
+        }
+        let frm = $('#form1');
+        frm.prop('action' , '/pages/application/zzdeclareRegister')
+        frm.submit();
+    }
+
 
     $(document).ready(function (){
 
@@ -47,7 +142,7 @@
         <th:block th:include="fragments/mo_menu"></th:block>
         <div class="sub_container">
             <th:block th:include="fragments/dept_menu"></th:block>
-            <form action="/pages/application/zzdeclareRegister" id="form1" name="form1" method="post" enctype="multipart/form-data">
+            <form id="form1" name="form1" method="post" enctype="multipart/form-data">
                 <div class="inner">
                     <div class="page_cont">
                         <h4 class="subtit pc review_title">2021년 1학기 지지선언 신청</h4>
@@ -59,6 +154,7 @@
                                             <li>
                                                 <div class="th">
                                                     <label for="nm">신청자 이름</label>
+                                                    <span class="aster">*</span>
                                                 </div>
                                                 <div class="td">
                                                     <input id="nm" name="nm" type="text">
@@ -67,14 +163,16 @@
                                             <li>
                                                 <div class="th">
                                                     <label for="moblphon">신청자 핸드폰</label>
+                                                    <span class="aster">*</span>
                                                 </div>
                                                 <div class="td">
-                                                    <input id="moblphon" name="moblphon" type="text">
+                                                    <input id="moblphon" name="moblphon" type="number">
                                                 </div>
                                             </li>
                                             <li>
                                                 <div class="th">
                                                     <label for="affi">소속</label>
+                                                    <span class="aster">*</span>
                                                 </div>
                                                 <div class="td">
                                                     <input id="affi" name="affi" type="text">
@@ -245,16 +343,16 @@
                                                         <span class="aster">*</span>
                                                     </div>
                                                     <div class="td">
-                                                        <input id="representPhone" name="representPhone" type="text">
+                                                        <input id="representPhone" name="representPhone" type="number">
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="th">
-                                                        <label for="schlAdress">주소</label>
+                                                        <label for="adress">주소</label>
                                                         <span class="aster">*</span>
                                                     </div>
                                                     <div class="td">
-                                                        <input id="schlAdress" name="schlAdress" type="text">
+                                                        <input id="adress" name="adress" type="text">
                                                     </div>
                                                 </li>
                                                 <li class="small_bx">
@@ -290,7 +388,7 @@
                                                         <span class="aster">*</span>
                                                     </div>
                                                     <div class="td">
-                                                        <input id="principalPhone" name="principalPhone" type="text">
+                                                        <input id="principalPhone" name="principalPhone" type="number">
                                                     </div>
                                                 </li>
                                                 <li>
@@ -308,7 +406,7 @@
                                                         <span class="aster">*</span>
                                                     </div>
                                                     <div class="td">
-                                                        <input name="size" id="size" type="text">
+                                                        <input name="size" id="size" type="text" placeholder="XS , S , M , L , XL">
                                                     </div>
                                                 </li>
                                             </ul>
@@ -320,19 +418,15 @@
                                         <small>☎︎ 070-7165-1082 / cybersoscenter@btf.or.kr</small>
                                     </p>
                                 </div>
-                                <div class="btn_area"><button id="btnSave" type="submit" class="btn btn_lg btn_blue btn_pill_10">제출</button></div>
-                                <!--<div class="partners_btn">
-                                    <a class="join_btn" href출"#none">제출</a>
-                                </div>-->
+                                <div class="btn_area">
+                                    <a onclick="return fn_register()" id="btnSave" class="btn list_btn">제출</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <!--<th:block
-                            th:replace="/fragments/paging :: pagingbody(list=${postscripts}, link='/pages/activity/postscript', formId='form1')"></th:block>-->
                 </div>
             </form>
         </div>
-        <!-- sub_inner -->
     </div>
     <th:block th:replace="fragments/footer"></th:block>
 </div>
