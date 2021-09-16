@@ -10,10 +10,14 @@
     let msg;
     let error;
     let cnt;
+    let result;
+    let id;
 
     $(document).ready(function (e) {
         msg = '[[${msg}]]';
         error = '[[${error}]]';
+        result = '[[${result}]]';
+        id = '[[${pid}]]';
         if(error){
             alert(error);
             location.href='/pages/activity/abilityCardIntro';
@@ -23,8 +27,8 @@
            location.href='/pages/activity/abilityCardIntro'
         }
         $('#free').on('click', function (e){
-            if(cnt > 0){
-                location.href = '/api/namane/get'
+            if(result == 'y'){
+                location.href = '/api/namane/freeset/'+id
             } else {
                 alert('강의 진행도가 50% 미만입니다.')
                 return false;

@@ -327,6 +327,7 @@ public class MemberService extends _BaseService {
                         qAccount.approval,
                         qAccount.onlineEdu,
                         qAccount.cardReset,
+                        qAccount.freeCard,
                         qLoginCnntLogs.cnctDtm,
                         qMemberSchool.no.as("mberNo")
                         ))
@@ -574,6 +575,7 @@ public class MemberService extends _BaseService {
             Account account = modelMapper.map(memberForm, Account.class);
             account.setBrthdy(account.getBrthdy().replaceAll("-",""));
             account.setGroupYn("N");
+            account.setFreeCard("N");
             if(memberForm.getMberDvTy().equals(UserRollType.CREW)){
                 account.setCrewYn("Y");
             } else {
@@ -1587,6 +1589,9 @@ public class MemberService extends _BaseService {
         return text.contains(" ");
     }
 
+    public void updateFreeCard(Long id) {
+        memberRepository.updateFreeCard(id, "Y");
+    }
     @Transactional
     public void batchRegister(MemberSchoolForm memberSchoolForm) {
         MemberForm memberForm = new MemberForm();

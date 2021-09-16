@@ -338,6 +338,9 @@ public interface MemberRepository extends JpaRepository<Account, Long> {
     @Query("UPDATE Account ac SET ac.onlineEdu = :yn WHERE ac.id = :id")
     int setEduType(Long id, String yn);
 
+    @Modifying
+    @Query("UPDATE Account ac SET ac.freeCard = :yn WHERE ac.id = :id")
+    int updateFreeCard(Long id, String yn);
 /*
     @Query(
             value = " update TBL_MNG_INFO set lstCnntDtm=sysdate()\n" +

@@ -93,7 +93,7 @@ public class  ApplicationController {
             model.addAttribute("locurl", "/login");
             return "/message";
         } else {
-            if(!account.getMberDvTy().equals(UserRollType.INSTRUCTOR)){
+            if(!account.getMberDvTy().equals(UserRollType.INSTRUCTOR) || !UserRollType.TEACHER.equals(account.getMberDvTy())){
                 model.addAttribute("altmsg", "예방 강사만 이용 가능합니다.");
                 model.addAttribute("locurl", "/");
                 return "/message";
@@ -155,7 +155,7 @@ public class  ApplicationController {
             model.addAttribute("locurl", "/login");
             return "/message";
         } else {
-            if(!UserRollType.INSTRUCTOR.equals(account.getMberDvTy())){
+            if(!UserRollType.INSTRUCTOR.equals(account.getMberDvTy()) || !UserRollType.TEACHER.equals(account.getMberDvTy())){
                 model.addAttribute("altmsg", "예방 강사만 이용 가능합니다.");
                 model.addAttribute("locurl", "/");
                 return "/message";

@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CourseMasterRepository extends JpaRepository<CourseMaster, Long> {
 
-    @Query("SELECT COUNT(rc.id) FROM  CourseRequestComplete rc WHERE rc.id = :rid AND rc.sn = 4 AND rc.cmplSttTy = 'COMPLETE'")
+    @Query("SELECT COUNT(rc.id) FROM  CourseRequestComplete rc WHERE rc.atnlcReqPid = :rid AND rc.sn = 4 AND rc.cmplSttTy = 'COMPLETE'")
     int cntCompleteSn4(Long rid);
 }

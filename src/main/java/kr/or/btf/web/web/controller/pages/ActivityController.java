@@ -103,7 +103,9 @@ public class ActivityController extends BaseCont {
                                    @CurrentUser Account account,
                                    HttpSession session) {
         if(account == null) {
-            model.addAttribute("error", "로그인 후 이용 가능합니다.");
+            model.addAttribute("altmsg", "로그인 후 이용 가능합니다.");
+            model.addAttribute("locurl", "/login");
+            return "/message";
         }
         model.addAttribute("mc", "activity");
         model.addAttribute("pageTitle", "예방교육");
@@ -116,7 +118,9 @@ public class ActivityController extends BaseCont {
                                    @CurrentUser Account account,
                                    HttpSession session) {
         if(account == null) {
-            model.addAttribute("error", "로그인 후 이용 가능합니다.");
+            model.addAttribute("altmsg", "로그인 후 이용 가능합니다.");
+            model.addAttribute("locurl", "/login");
+            return "/message";
         }
         model.addAttribute("url",url);
         model.addAttribute("mc", "activity");
@@ -124,15 +128,27 @@ public class ActivityController extends BaseCont {
         return "/pages/activity/abilityCardSetp2";
     }
 
-    @GetMapping({"/pages/activity/abilityCardSetp3"})
+    @GetMapping("/pages/activity/abilityCardSetp3/{id}/{bool}")
     public String abilityCardSetp3(Model model,
                                    @CurrentUser Account account,
+                                   @PathVariable(name = "id") Long id,
+                                   @PathVariable(name = "bool") boolean ty,
                                    HttpSession session) {
         if(account == null) {
-            model.addAttribute("error", "로그인 후 이용 가능합니다.");
+            model.addAttribute("altmsg", "로그인 후 이용 가능합니다.");
+            model.addAttribute("locurl", "/login");
+            return "/message";
         }
+        if(ty){
+            model.addAttribute("result", "y");
+            model.addAttribute("pid", id);
+        } else {
+            model.addAttribute("result", "n");
+            model.addAttribute("pid", 0);
+        }
+
         model.addAttribute("mc", "activity");
-        model.addAttribute("pageTitle", "예방교육");
+        model.addAttribute("pageTitle", "능력카드 제작");
         return "/pages/activity/abilityCardSetp3";
     }
 
@@ -141,8 +157,17 @@ public class ActivityController extends BaseCont {
                                    @CurrentUser Account account,
                                    HttpSession session) {
         if(account == null) {
-            model.addAttribute("error", "로그인 후 이용 가능합니다.");
+            model.addAttribute("altmsg", "로그인 후 이용 가능합니다.");
+            model.addAttribute("locurl", "/login");
+            return "/message";
         }
+        List<NamaneTemp> cardList = namaneService.get(account.getId());
+        if(cardList == null || cardList.isEmpty()) {
+            model.addAttribute("altmsg", "정상적인 경로를 이용하세요.");
+            model.addAttribute("locurl", "/pages/activity/abilityCardIntro");
+            return "/message";
+        }
+        model.addAttribute("list",cardList);
         model.addAttribute("mc", "activity");
         model.addAttribute("pageTitle", "예방교육");
         return "/pages/activity/abilityCardSetp4";
@@ -155,38 +180,86 @@ public class ActivityController extends BaseCont {
                                 @ModelAttribute AuroraForm auroraForm,
                                 @PageableDefault Pageable pageable) throws IOException {
         int cnt = 0;
+        boolean sn4 = false;
+        Long id = null;
         if(account == null) {
-            model.addAttribute("error", "로그인 후 이용 가능합니다.");
+            model.addAttribute("altmsg", "로그인 후 이용 가능합니다.");
+            model.addAttribute("locurl", "/login");
+            return "/message";
         } else {
             if(account.getId() != null){
-                if(auroraForm.getPrintText().equals("") || auroraForm.getPrintText().isEmpty()) {
-                    model.addAttribute("msg", "등록된 이미지가 존재하지않습니다.");
+                if(auroraForm.getEncodeStr().equals("") || auroraForm.getEncodeStr().isEmpty()) {
+                    model.addAttribute("altmsg", "등록된 이미지가 존재하지않습니다.");
+                    model.addAttribute("locurl", "/pages/activity/abilityCardSetp1");
+                    return "/message";
                 } else {
-
                     Page<CourseMaster> courseMasters = courseMasterService.listForMyPage(pageable,account.getId());
                     for (CourseMaster master : courseMasters) {
                         cnt = courseMasterService.cntCompleteSn4(master.getAtnlcReqPid());
+                        if(cnt > 0) {
+                            sn4 = true;
+                        }
+                        log.info("stetsts@@@"+master.getAtnlcReqPid());
+                        log.info("stetsts@@@"+cnt);
                     }
                     AuroraForm result = auroraAPIService.getBase64String(auroraForm);
-                    if (!namaneService.set(result, account.getId())) {
-                        model.addAttribute("msg", "에러 발생. 다시 카드를 발행해주세요.");
+                    id = namaneService.set(result, account.getId());
+                    if (id == null) {
+                        model.addAttribute("altmsg", "에러 발생. 다시 카드를 발행해주세요.");
+                        model.addAttribute("locurl", "/pages/activity/abilityCardIntro");
+                        return "/message";
                     }
                     model.addAttribute("aurora",result);
                 }
             }
         }
-        model.addAttribute("cnt",cnt);
+        model.addAttribute("bool",sn4);
         model.addAttribute("mc", "activity");
         model.addAttribute("pageTitle", "예방교육");
-        return "redirect:/pages/activity/abilityCardSetp3";
+        return "redirect:/pages/activity/abilityCardSetp3/"+id+"/"+sn4;
+    }
+
+    @GetMapping({"/api/namane/freeset/{id}"})
+    public String freeset(Model model,
+                                @PathVariable(name = "id") Long id,
+                                @CurrentUser Account account){
+        if(account == null) {
+            model.addAttribute("altmsg", "로그인 후 이용 가능합니다.");
+            model.addAttribute("locurl", "/login");
+            return "/message";
+        }
+        Account account1 = memberService.load(account.getId());
+        if(account1.getFreeCard().equals("Y")) {
+            model.addAttribute("altmsg", "이미 무료 1회 발급 받으셨습니다.");
+            model.addAttribute("locurl", "/pages/activity/abilityCardIntro");
+            return "/message";
+        } else {
+            memberService.updateFreeCard(account.getId());
+            namaneService.updateStatus(account.getId(), id);
+            List<NamaneTemp> cardList = namaneService.get(account.getId());
+            if(cardList == null || cardList.isEmpty()) {
+                model.addAttribute("altmsg", "정상적인 경로를 이용하세요.");
+                model.addAttribute("locurl", "/pages/activity/abilityCardIntro");
+                return "/message";
+            }
+            model.addAttribute("list",cardList);
+        }
+
+
+        model.addAttribute("mc", "activity");
+        model.addAttribute("pageTitle", "능력카드 제작");
+        return "/pages/activity/abilityCardSetp4";
     }
 
     @GetMapping({"/api/namane/get"})
     public String getAblityCard(Model model,
                                 @CurrentUser Account account){
         if(account == null) {
-            model.addAttribute("error", "로그인 후 이용 가능합니다.");
+            model.addAttribute("altmsg", "로그인 후 이용 가능합니다.");
+            model.addAttribute("locurl", "/login");
+            return "/message";
         }
+
         List<NamaneTemp> cardList = namaneService.get(account.getId());
         model.addAttribute("list",cardList);
         model.addAttribute("mc", "activity");

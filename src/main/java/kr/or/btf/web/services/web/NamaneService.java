@@ -30,20 +30,20 @@ public class NamaneService extends _BaseService {
     private final ModelMapper modelMapper;
 
     public List<NamaneTemp> get(Long pid) {
-        List<NamaneTemp> tempList = namaneTempRepository.findAllByMberPid(pid);
+        List<NamaneTemp> tempList = namaneTempRepository.findAllByMberPidAndYn(pid,"Y");
         return tempList;
     }
 
-    public boolean set(AuroraForm auroraForm, Long id) {
+    public Long set(AuroraForm auroraForm, Long id) {
         NamaneTemp namaneTemp = modelMapper.map(auroraForm, NamaneTemp.class);
         namaneTemp.setMberPid(id);
         namaneTemp.setRegDtm(LocalDateTime.now());
         namaneTemp.setYn("N");
         NamaneTemp result = namaneTempRepository.save(namaneTemp);
-        if(result.getId()!=null) {
-            return true;
-        } else {
-            return false;
-        }
+        return result.getId();
+    }
+
+    public int updateStatus(Long mberPid, Long id) {
+        return namaneTempRepository.updateStatus(mberPid,id);
     }
 }

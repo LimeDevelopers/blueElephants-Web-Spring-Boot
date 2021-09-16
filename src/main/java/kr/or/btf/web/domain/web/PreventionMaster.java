@@ -94,4 +94,12 @@ public class PreventionMaster {
 
     @Column(name = "temp_save")
     private String tempSave;
+
+    @Transient
+    private String nm;
+    @Transient
+    private String moblphon;
+    @Transient
+    private String email;
+
 }

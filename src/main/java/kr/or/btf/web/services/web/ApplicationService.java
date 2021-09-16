@@ -52,6 +52,54 @@ public class ApplicationService extends _BaseService {
         return preventionMasterRepository.findByPrePidAndMberPid(prePid,mberPid);
     }
 
+    public Page<PreventionMaster> getMyPreEduMstList(Pageable pageable, Long id) {
+        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
+        pageable = PageRequest.of(page, Constants.DEFAULT_PAGESIZE); // <- Sort 추가
+
+        QPreventionMaster qPreventionMaster = QPreventionMaster.preventionMaster;
+        QAccount qAccount = QAccount.account;
+        OrderSpecifier<Long> orderSpecifier = qPreventionMaster.id.desc();
+
+        QueryResults<PreventionMaster> mngList = queryFactory
+                .select(Projections.fields(PreventionMaster.class,
+                        qPreventionMaster.id,
+                        qPreventionMaster.address,
+                        qPreventionMaster.approval,
+                        qPreventionMaster.mberPid,
+                        qPreventionMaster.classesNum,
+                        qPreventionMaster.schlNm,
+                        qPreventionMaster.tempSave,
+                        qPreventionMaster.personnel,
+                        qPreventionMaster.prePid,
+                        qPreventionMaster.regDtm,
+                        qPreventionMaster.updDtm,
+                        ExpressionUtils.as(
+                                JPAExpressions.select(qAccount.nm)
+                                        .from(qAccount)
+                                        .where(qAccount.id.eq(qPreventionMaster.mberPid)),
+                                "nm"),
+                        ExpressionUtils.as(
+                                JPAExpressions.select(qAccount.moblphon)
+                                        .from(qAccount)
+                                        .where(qAccount.id.eq(qPreventionMaster.mberPid)),
+                                "moblphon"),
+                        ExpressionUtils.as(
+                                JPAExpressions.select(qAccount.email)
+                                        .from(qAccount)
+                                        .where(qAccount.id.eq(qPreventionMaster.mberPid)),
+                                "email")
+
+                ))
+                .from(qPreventionMaster)
+                .where(qPreventionMaster.prePid.eq(id))
+                .limit(pageable.getPageSize())
+                .offset(pageable.getOffset())
+                .orderBy(orderSpecifier)
+                .fetchResults();
+
+        return new PageImpl<>(mngList.getResults(), pageable, mngList.getTotal());
+    }
+
     public Page<PreventionMaster> getPreEduMstList(Pageable pageable, Long id) {
         int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
         pageable = PageRequest.of(page, Constants.DEFAULT_PAGESIZE); // <- Sort 추가

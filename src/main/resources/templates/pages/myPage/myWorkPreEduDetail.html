@@ -13,48 +13,39 @@
             <form id="form1" name="form1" method="post">
                 <div class="contents">
                     <div class="page_top pc">
-                        <h3 class="page_tit">예방교육 관리</h3>
-                        <span>나의 예방교육 신청 목록이 노출됩니다..</span>
+                        <h3 class="page_tit">신청 강사 관리</h3>
+                        <span>교육을 희망하는 예방 강사가 노출됩니다.</span>
                     </div>
                     <div class="page_cont">
                         <p class="tip_tbl mb">※ 수정중입니다.</p>
                         <ul class="board_tbl_list">
                             <li class="thead">
                                 <strong class="no">No</strong>
-                                <strong class="state">학급수</strong>
-                                <strong class="state">인원</strong>
-                                <strong class="state">상태</strong>
-                                <strong class="date">등록일시</strong>
-                                <strong class="date">지원자 수</strong>
-                                <strong class="date">관리</strong>
+                                <strong class="state">이름</strong>
+                                <strong class="state">전화번호</strong>
+                                <strong class="state">이메일</strong>
+                                <strong class="date">지원일시</strong>
+                                <strong class="date">승인</strong>
                             </li>
                             <li class="nodata" th:if="${preList == null or preList.isEmpty()}">
-                                <div>신청한 예방교육이 없습니다.</div>
+                                <div>강의를 희망하는 지원자가 없습니다.</div>
                             </li>
                             <li th:each="item,idx : ${preList}">
                                 <div class="no"
                                      th:text="${preList.totalElements - preList.pageable.pageSize * preList.pageable.pageNumber - idx.index}">
                                 </div>
                                 <div class="state">
-                                    <a th:text="${item.classesNum}">00초등학교</a>
+                                    <a th:href="|/pages/application/preeducationDetail/${item.id}|" th:text="${item.nm}">00초등학교</a>
                                 </div>
-                                <div class="state" th:text="${item.personnel}"></div>
-                                <div class="state" th:text="${item.approval == 'N' ? '승인대기' : '승인완료'}"></div>
+                                <div class="state" th:text="${item.moblphon != '' ? item.moblphon : '전화 없음'}"></div>
+                                <div class="state" th:text="${item.email != '' ? item.email : '이메일 없음'}"></div>
                                 <div class="date">
                                     <span class="th">신청일 : </span>
                                     <th:block
                                             th:text="${#temporals.format(item.regDtm,'yyyy-MM-dd')}"></th:block>
                                 </div>
                                 <div class="date">
-                                    <th:block th:text="${item.mstCnt}"></th:block>
-                                </div>
-                                <div class="date">
-                                    <th:block th:if="${item.mstCnt == 0}">
-                                        <a class="btn btn_lg btn_gray btn_pill_10">신청없음</a>
-                                    </th:block>
-                                    <th:block th:if="${item.mstCnt > 0}">
-                                        <a th:href="|/pages/myPage/myWorkPreEduDetail/${item.id}|" class="btn btn_lg btn_blue btn_pill_10">승인관리</a>
-                                    </th:block>
+                                    <a href="javascript:;" onclick="fn_openLayer();" class="btn btn_lg btn_blue btn_pill_10">승인</a>
                                 </div>
                             </li>
                         </ul>

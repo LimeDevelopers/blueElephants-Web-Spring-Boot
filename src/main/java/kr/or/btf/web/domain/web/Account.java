@@ -90,7 +90,8 @@ public class Account implements Serializable {
     private String eduReset;
     @Column(name = "card_reset")
     private String cardReset;
-
+    @Column(name = "free_card")
+    private String freeCard;
 
     @Transient
     private String areaNm;
@@ -158,7 +159,7 @@ public class Account implements Serializable {
                    String ncnm, LocalDateTime regDtm,
                    LocalDateTime updDtm, UserRollType mberDvTy,
                    List<MemberRoll> authorites, String moblphon,
-                   String approval, String onlineEdu, String eduReset, String cardReset) {
+                   String approval, String onlineEdu, String eduReset, String cardReset, String freeCard) {
 
         this.id = id;
         this.loginId = loginId;
@@ -174,6 +175,7 @@ public class Account implements Serializable {
         this.onlineEdu = onlineEdu;
         this.eduReset = eduReset;
         this.cardReset = cardReset;
+        this.freeCard = freeCard;
     }
 
     public void encodingPwd(PasswordEncoder pwdEncoder) {
