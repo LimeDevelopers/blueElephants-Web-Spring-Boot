@@ -5,6 +5,7 @@ import kr.or.btf.web.domain.web.enums.UserRollType;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import java.time.LocalDateTime;
 
 @Getter @Setter
@@ -43,6 +44,12 @@ public class ApplicationForm extends SearchForm{
     private String year;
     private String month;
     private String day;
+
+    private String theme;
+    private String title;
+    private String detail;
+    private String field;
+    private String content;
 
 
 }

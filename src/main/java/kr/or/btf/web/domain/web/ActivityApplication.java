@@ -107,5 +107,19 @@ public class ActivityApplication {
     @Column(name = "size")
     private String size;
 
+    @Column(name = "theme")
+    private String theme;
+
+    @Column(name = "title")
+    private String title;
+
+    @Column(name = "detail")
+    private String detail;
+
+    @Column(name = "field")
+    private String field;
+
+    @Column(name = "content")
+    private String content;
 
 }
