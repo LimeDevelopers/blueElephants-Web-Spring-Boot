@@ -100,7 +100,7 @@ public class  ApplicationController {
             model.addAttribute("locurl", "/login");
             return "/message";
         } else {
-            if(!account.getMberDvTy().equals(UserRollType.INSTRUCTOR) || !UserRollType.TEACHER.equals(account.getMberDvTy())){
+            if(!account.getMberDvTy().equals(UserRollType.INSTRUCTOR)){
                 model.addAttribute("altmsg", "예방 강사만 이용 가능합니다.");
                 model.addAttribute("locurl", "/");
                 return "/message";
@@ -112,6 +112,75 @@ public class  ApplicationController {
         model.addAttribute("mc", "application");
         model.addAttribute("pageTitle", "예방교육");
         return "pages/application/preeducationList";
+    }
+
+    @RequestMapping("pages/application/InsRegister")
+    public String InsRegisterPage(Model model,
+                                   @CurrentUser Account account) {
+        if(account == null) {
+            model.addAttribute("altmsg", "로그인 후 이용가능합니다.");
+            model.addAttribute("locurl", "/login");
+            return "/message";
+        } else {
+            if(!account.getMberDvTy().equals(UserRollType.NORMAL)){
+                model.addAttribute("altmsg", "일반회원만 이용 가능합니다.");
+                model.addAttribute("locurl", "/");
+                return "/message";
+            } else {
+                PreventionInstructor preventionInstructor = applicationService.getPreIns(account.getId());
+                if(preventionInstructor != null) {
+                    if(preventionInstructor.getTempSave().equals("N")) {
+                        model.addAttribute("altmsg", "이미 신청완료되었습니다. \n 결과 승인은 평일 기준 3-5일 소요됩니다.");
+                        model.addAttribute("locurl", "/pages/myPage/profile");
+                        return "/message";
+                    } else {
+                        model.addAttribute("preList", preventionInstructor);
+                    }
+                }
+            }
+        }
+        model.addAttribute("mc", "application");
+        model.addAttribute("pageTitle", "강사교육");
+        return "pages/application/InsRegister";
+    }
+    @PostMapping("/api/application/registerPreIns")
+    public String registerPreIns(Model model,
+                                 @CurrentUser Account account,
+                                 PreventionInstructorForm preventionInstructorForm) {
+        boolean result;
+        if(account!=null && account.getMberDvTy().equals(UserRollType.NORMAL)) {
+            PreventionInstructor preventionInstructor = applicationService.getPreIns(account.getId());
+            if(preventionInstructor != null) {
+                if(preventionInstructor.getTempSave().equals("N")){
+                    model.addAttribute("altmsg", "이미 신청완료되었습니다. \n 결과 승인은 평일 기준 3-5일 소요됩니다.");
+                    model.addAttribute("locurl", "/pages/application/preeducationList");
+                    return "/message";
+                }
+                result = applicationService.updatePreIns(preventionInstructorForm);
+            } else {
+                preventionInstructorForm.setMberPid(account.getId());
+                result = applicationService.registerPreIns(preventionInstructorForm);
+            }
+        } else {
+            if(account!=null){
+                model.addAttribute("altmsg", "권한이 없습니다.");
+                model.addAttribute("locurl", "/");
+                return "/message";
+            } else {
+                model.addAttribute("altmsg", "로그인 후 이용가능합니다.");
+                model.addAttribute("locurl", "/login");
+            }
+            return "/message";
+        }
+        if(!result){
+            model.addAttribute("altmsg", "에러발생! 관리자에게 문의하세요.");
+            model.addAttribute("locurl", "/pages/application/preeducationList");
+            return "/message";
+        }
+
+        model.addAttribute("mc", "MyPage");
+        model.addAttribute("pageTitle", "교육신청관리");
+        return "redirect:pages/application/InsRegister";
     }
 
     @PostMapping("/api/application/registerPreEdu")
@@ -162,7 +231,7 @@ public class  ApplicationController {
             model.addAttribute("locurl", "/login");
             return "/message";
         } else {
-            if(!UserRollType.INSTRUCTOR.equals(account.getMberDvTy()) || !UserRollType.TEACHER.equals(account.getMberDvTy())){
+            if(!UserRollType.INSTRUCTOR.equals(account.getMberDvTy())){
                 model.addAttribute("altmsg", "예방 강사만 이용 가능합니다.");
                 model.addAttribute("locurl", "/");
                 return "/message";

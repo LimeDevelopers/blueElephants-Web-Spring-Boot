@@ -19,6 +19,7 @@ import kr.or.btf.web.domain.web.enums.TableNmType;
 import kr.or.btf.web.repository.web.*;
 import kr.or.btf.web.utils.FileUtilHelper;
 import kr.or.btf.web.web.form.ApplicationForm;
+import kr.or.btf.web.web.form.PreventionInstructorForm;
 import kr.or.btf.web.web.form.PreventionMasterForm;
 import kr.or.btf.web.web.form.SearchForm;
 import lombok.RequiredArgsConstructor;
@@ -39,6 +40,7 @@ import java.util.Optional;
 @Transactional(readOnly = false)
 @RequiredArgsConstructor
 public class ApplicationService extends _BaseService {
+    private final PreventionInstructorRepository preventionInstructorRepository;
     private final PreventionRepository preventionRepository;
     private final PreventionMasterRepository preventionMasterRepository;
     private final ApplicationRepository applicationRepository;
@@ -47,6 +49,47 @@ public class ApplicationService extends _BaseService {
     private final JPAQueryFactory queryFactory;
     private final EventRepository eventRepository;
 
+    public boolean registerPreIns(PreventionInstructorForm preventionInstructorForm) {
+        preventionInstructorForm.setApproval("N");
+        preventionInstructorForm.setDelAt("N");
+        preventionInstructorForm.setRegDtm(LocalDateTime.now());
+        PreventionInstructor preventionInstructor = modelMapper.map(preventionInstructorForm, PreventionInstructor.class);
+        PreventionInstructor save = preventionInstructorRepository.save(preventionInstructor);
+        if(save.getId()!=null){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean updatePreIns(PreventionInstructorForm preventionInstructorForm) {
+        if(preventionInstructorForm.getApproval() == null) {
+            preventionInstructorForm.setApproval("N");
+        }
+        if(preventionInstructorForm.getDelAt() == null) {
+            preventionInstructorForm.setApproval("N");
+        }
+        try {
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+
+    public PreventionInstructor getPreIns(Long mberPid) {
+
+        QPreventionInstructor qPreventionInstructor = QPreventionInstructor.preventionInstructor;
+        PreventionInstructor results = queryFactory
+                .select(Projections.fields(PreventionInstructor.class,
+                        qPreventionInstructor.id,
+                        qPreventionInstructor.mberPid
+                ))
+                .from(qPreventionInstructor)
+                .where(qPreventionInstructor.mberPid.eq(mberPid))
+                .fetchFirst();
+        return preventionInstructorRepository.findByIdAndMberPid(results.getId(),mberPid);
+    }
 
     public PreventionMaster getPreEduMst(Long prePid, Long mberPid) {
         return preventionMasterRepository.findByPrePidAndMberPid(prePid,mberPid);

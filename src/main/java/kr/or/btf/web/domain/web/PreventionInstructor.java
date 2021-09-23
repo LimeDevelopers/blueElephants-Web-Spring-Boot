@@ -56,6 +56,9 @@ public class PreventionInstructor {
     @Column(name="fl_pid")
     private Long flPid;
 
+    @Column(name="thumb_img")
+    private String thumbImg;
+
     @Column(name="enroll_period")
     private String enrollPeriod;
 
@@ -79,6 +82,54 @@ public class PreventionInstructor {
 
     @Column(name = "exp_content")
     private String expContent;
+
+    @Column(name="enroll_period2")
+    private String enrollPeriod2;
+
+    @Column(name="schl_nm2")
+    private String schlNm2;
+
+    @Column(name="major2")
+    private String major2;
+
+    @Column(name="grd_status2")
+    private String grdStatus2;
+
+    @Column(name="exp_period2")
+    private String expPeriod2;
+
+    @Column(name = "exp_nm2")
+    private String expNm2;
+
+    @Column(name = "exp_position2")
+    private String expPosition2;
+
+    @Column(name = "exp_content2")
+    private String expContent2;
+
+    @Column(name="enroll_period3")
+    private String enrollPeriod3;
+
+    @Column(name="schl_nm3")
+    private String schlNm3;
+
+    @Column(name="major3")
+    private String major3;
+
+    @Column(name="grd_status3")
+    private String grdStatus3;
+
+    @Column(name="exp_period3")
+    private String expPeriod3;
+
+    @Column(name = "exp_nm3")
+    private String expNm3;
+
+    @Column(name = "exp_position3")
+    private String expPosition3;
+
+    @Column(name = "exp_content3")
+    private String expContent3;
 
     @Column(name = "qualifications")
     private String qualifications;

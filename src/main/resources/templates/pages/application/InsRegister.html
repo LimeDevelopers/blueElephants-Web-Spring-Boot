@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+</head>
+<script>
+    /* 기본정보 */
+    let enrollPeriod;
+    let schlNm;
+    let major;
+    let grdStatus;
+    let expPeriod;
+    let expNm;
+    let expPosition;
+    let expContent;
+    let qualifications;
+    let eduMatters;
+    let awards;
+    let selfDrivingAt;
+    let chkSns;
+    let snsStatus;
+    let snsUrl;
+    let tpSaveUs;
+    let atPid;
+    let pid;
+    let etcContent;
+    let uploadImg;
+
+    function fn_chkFiled() {
+        enrollPeriod = $('#enrollPeriod');
+        schlNm = $('#schlNm');
+        major = $('#major');
+        grdStatus = $('#grdStatus');
+        expPeriod = $('#expPeriod');
+        expNm = $('#expNm');
+        expPosition = $('#expPosition');
+        expContent = $('#expContent');
+        qualifications = $('#qualifications');
+        eduMatters = $('#eduMatters');
+        awards = $('#awards');
+        selfDrivingAt = $('input[name=selfDrivingAt]');
+        chkSns = $('input[name=chkSns]');
+        snsUrl = $('#snsUrl');
+        etcContent = $('#etcContent');
+        uploadImg = $('#uploadImg');
+
+        if(!uploadImg.val()) {
+            alert('사진은 필수입니다.');
+            return false;
+        }
+
+        /* 학교정보 */
+        if(!enrollPeriod.val()) {
+            alert('학력 (기간)을 입력하세요.')
+            enrollPeriod.focus()
+            return false;
+        }
+        if(!schlNm.val()) {
+            alert('학교명을 입력하세요.')
+            schlNm.focus()
+            return false;
+        }
+        if(!major.val()) {
+            alert('전공학과를 입력하세요.')
+            major.focus()
+            return false;
+        }
+        if(!grdStatus.val()) {
+            alert('졸업상태를 입력하세요.')
+            grdStatus.focus()
+            return false;
+        }
+
+        /* 경력정보 */
+        if(!expPeriod.val()) {
+            alert('경력 (기간)을 입력하세요.')
+            expPeriod.focus()
+            return false;
+        }
+        if(!expNm.val()) {
+            alert('기관명을 입력하세요.')
+            expNm.focus()
+            return false;
+        }
+        if(!expPosition.val()) {
+            alert('직위를 입력하세요.')
+            expPosition.focus()
+            return false;
+        }
+        if(!expContent.val()) {
+            alert('담당업무를 입력하세요.')
+            expContent.focus()
+            return false;
+        }
+
+        if(!selfDrivingAt.is(":checked")) {
+            alert('운전여부를 체크하세요.')
+            selfDrivingAt.focus()
+            return false;
+        }
+
+        if(!chkSns.is(":checked")) {
+            alert('sns 활동 여부를 체크하세요.')
+            return false;
+        }
+        imgChk();
+        return true;
+    }
+
+    function fn_readChkVal(){
+        $('#snsStatus').val();
+        let i = 0;
+        let array = [];
+        $("input[name^=chkSns]:checked").each(function(){
+            if(this.checked){
+                array[i] = $(this).val();
+
+                i++
+            }
+        });
+        $('#snsStatus').val(array);
+    }
+    /* -- 기타사항
+    if($(this).val() == 'etc'){
+        if($('#etcContent').val() == '') {
+            alert('기타 사항을 입력하세요.')
+            $('#etcContent').focus()
+            return false;
+        }
+        array[i] = $('#etcContent').val();
+    }
+    **/
+
+    function imgChk() {
+        if (uploadImg.val() == "") {
+            alert("이미지를 등록하세요.");
+            return false;
+        }
+
+        if (uploadImg.val() != "") {
+            let ext = uploadImg.val().slice(uploadImg.val().lastIndexOf(".") + 1).toLowerCase();
+            if (!(ext == "jpg" || ext == "png" || ext == "jpeg")) {
+                alert("이미지파일 (.jpg, .png, .jpeg ) 만 업로드 가능합니다.");
+                return false;
+            }
+        }
+    }
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            let reader = new FileReader();
+            reader.onload = function (e) {
+                let base64 = e.target.result;
+                $('#base64').val(base64);
+                $('#thumb').css('background',"#d2d4de url("+base64+")no-repeat center center").css('background-size', 'cover');
+                $('#imgText').remove()
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function fn_register(gbn) {
+        $('#btnTemSave').prop('disabled', true);
+        $('#btnSave').prop('disabled', true);
+
+        if (!fn_chkFiled()) {
+            $('#btnTemSave').prop('disabled', false);
+            $('#btnSave').prop('disabled', false);
+            return false;
+        }
+
+        $('#tpSaveUs').val(gbn);
+        let frm = $('#form1');
+        frm.prop('action','/api/application/registerPreIns')
+        frm.submit();
+    }
+
+    $(document).ready(function () {
+        pid = $('#prInsPid');
+        if(pid.val()){
+            alert("임시 저장된 데이터가 로드됩니다.");
+        }
+
+        $('.info_accordion .agree_inner ul').click(function () {
+            $(this).toggleClass('agree_on')
+        })
+
+        //20210913_소개_예방교육 개인정보활용동의서
+        $('.agree_item_01 .agree_top u').click(function () {
+            $('.agr_cont1').toggleClass('agree_on')
+        })
+        $('.agree_item_02 .agree_top u').click(function () {
+            $('.agr_cont2').toggleClass('agree_on')
+        })
+
+    })
+</script>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/mo_menu"></th:block>
+        <div class="sub_container">
+            <th:block th:include="fragments/dept_menu"></th:block>
+            <form id="form1" name="form1" method="post" enctype="multipart/form-data" >
+                <th:block th:if="${preList != null}">
+                    <input type="hidden" id="prInsPid" name="prInsPid" th:value="${preList.id}">
+                    <input type="hidden" id="snsStatus" name="snsStatus" th:value="${preList.snsStatus}">
+                    <input type="hidden" id="base64" name="thumbImg" th:value="${preList.thumbImg}">
+                    <input type="hidden" id="tpSaveUs" name="tempSave" th:value="${preList.tempSave}">
+                </th:block>
+                <th:block th:if="${preList == null}">
+                    <input type="hidden" id="snsStatus" name="snsStatus">
+                    <input type="hidden" id="base64" name="thumbImg">
+                    <input type="hidden" id="tpSaveUs" name="tempSave" value="N">
+                </th:block>
+                <div class="inner">
+                    <div class="page_cont">
+                        <h4 class="subtit pc review_title">예방교육 강사 지원서</h4>
+                        <div class="partners">
+                            <div class="partners_inner ">
+                                <div class="teacher_info">
+                                    <div class="school_info tea_01">
+                                        <h2 >사진등록</h2>
+                                        <input type="file" id="uploadImg" name="uploadImg" onchange="readURL(this);">
+                                        <th:block th:if="${preList != null}">
+                                            <label for="uploadImg" id="thumb" th:style="|background:url(${preList.thumbImg})no-repeat center center; background-size : cover|">
+                                            </label>
+                                        </th:block>
+                                        <th:block th:if="${preList == null}">
+                                            <label for="uploadImg" id="thumb">
+                                                <p id="imgText">
+                                                    <span>사진첨부</span>
+                                                    <span>3.5cm ✕ 4.5cm</span>
+                                                </p>
+                                            </label>
+                                        </th:block>
+                                    </div>
+                                    <div class="school_info tea_02">
+                                        <h2>학력사항</h2>
+                                        <div class="sec_write join">
+                                            <div class="tbl_write">
+                                                <ul>
+                                                    <li>
+                                                        <div class="th">
+                                                            <label for="enrollPeriodLabel">기간</label>
+                                                            <span id="enrollPeriodLabel" class="aster">*</span>
+                                                        </div>
+                                                        <th:block th:if="${preList != null}">
+                                                            <div class="td">
+                                                                <input type="text" id="enrollPeriod" name="enrollPeriod" placeholder="입학년월 ~ 졸업년월" th:value="${preList.enrollPeriod}">
+                                                            </div>
+                                                        </th:block>
+                                                        <th:block th:if="${preList == null}">
+                                                            <div class="td">
+                                                                <input type="text" id="enrollPeriod" name="enrollPeriod" placeholder="입학년월 ~ 졸업년월">
+                                                            </div>
+                                                        </th:block>
+                                                    </li>
+                                                    <li>
+                                                        <div class="th">
+                                                            <label for="schlNmLabel">학교명</label>
+                                                            <span id="schlNmLabel"  class="aster">*</span>
+                                                        </div>
+                                                        <th:block th:if="${preList != null}">
+                                                            <div class="td">
+                                                                <input type="text" id="schlNm" name="schlNm"  th:value="${preList.schlNm}">
+                                                            </div>
+                                                        </th:block>
+                                                        <th:block th:if="${preList == null}">
+                                                            <div class="td">
+                                                                <input type="text" id="schlNm" name="schlNm" >
+                                                            </div>
+                                                        </th:block>
+                                                    </li>
+                                                    <li>
+                                                        <div class="th">
+                                                            <label for="majorLabel">전공학과</label>
+                                                            <span id="majorLabel" class="aster">*</span>
+                                                        </div>
+                                                        <th:block th:if="${preList != null}">
+                                                            <div class="td">
+                                                                <input type="text" id="major" name="major"  th:value="${preList.major}">
+                                                            </div>
+                                                        </th:block>
+                                                        <th:block th:if="${preList == null}">
+                                                            <div class="td">
+                                                                <input type="text" id="major" name="major" >
+                                                            </div>
+                                                        </th:block>
+                                                    </li>
+                                                    <li>
+                                                        <div class="th">
+                                                            <label for="grdStatusLabel">졸업상태</label>
+                                                            <span id="grdStatusLabel" class="aster">*</span>
+                                                        </div>
+                                                        <th:block th:if="${preList != null}">
+                                                            <div class="td">
+                                                                <input type="text" id="grdStatus" name="grdStatus"  th:value="${preList.grdStatus}" placeholder="졸업, 재학,수료, 중퇴 중 입력해주세요">
+                                                            </div>
+                                                        </th:block>
+                                                        <th:block th:if="${preList == null}">
+                                                            <div class="td">
+                                                                <input type="text" id="grdStatus" name="grdStatus" placeholder="졸업, 재학,수료, 중퇴 중 입력해주세요">
+                                                            </div>
+                                                        </th:block>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="school_info">
+                                    <h2>경력 및 주요 활동사항</h2>
+                                    <div class="sec_write join">
+                                        <div class="tbl_write">
+                                            <ul>
+                                                <li class="row">
+                                                    <div class="th">
+                                                        <label for="expPeriodLabel">기간</label>
+                                                        <span id="expPeriodLabel" class="aster">*</span>
+                                                    </div>
+                                                    <th:block th:if="${preList != null}">
+                                                        <div class="td">
+                                                            <input type="text" id="expPeriod" name="expPeriod"  th:value="${preList.expPeriod}">
+                                                        </div>
+                                                    </th:block>
+                                                    <th:block th:if="${preList == null}">
+                                                        <div class="td">
+                                                            <input type="text" id="expPeriod" name="expPeriod" >
+                                                        </div>
+                                                    </th:block>
+                                                </li>
+                                                <li class="row">
+                                                    <div class="th">
+                                                        <label for="expNmLabel">기관명</label>
+                                                        <span id="expNmLabel" class="aster">*</span>
+                                                    </div>
+                                                    <th:block th:if="${preList != null}">
+                                                        <div class="td">
+                                                            <input type="text" id="expNm" name="expNm"  th:value="${preList.expNm}">
+                                                        </div>
+                                                    </th:block>
+                                                    <th:block th:if="${preList == null}">
+                                                        <div class="td">
+                                                            <input type="text" id="expNm" name="expNm" >
+                                                        </div>
+                                                    </th:block>
+                                                </li>
+                                                <li>
+                                                    <div class="th">
+                                                        <label for="expPositionLabel">직위</label>
+                                                        <span id="expPositionLabel" class="aster">*</span>
+                                                    </div>
+                                                    <th:block th:if="${preList != null}">
+                                                        <div class="td">
+                                                            <input type="text" id="expPosition" name="expPosition"  th:value="${preList.expPosition}">
+                                                        </div>
+                                                    </th:block>
+                                                    <th:block th:if="${preList == null}">
+                                                        <div class="td">
+                                                            <input type="text" id="expPosition" name="expPosition" >
+                                                        </div>
+                                                    </th:block>
+                                                </li>
+                                                <li>
+                                                    <div class="th">
+                                                        <label for="expContentLabel">담당 업무 및 내용</label>
+                                                        <span id="expContentLabel"class="aster">*</span>
+                                                    </div>
+                                                    <th:block th:if="${preList != null}">
+                                                        <div class="td">
+                                                            <input type="text" id="expContent" name="expContent"  th:value="${preList.expContent}">
+                                                        </div>
+                                                    </th:block>
+                                                    <th:block th:if="${preList == null}">
+                                                        <div class="td">
+                                                            <input type="text" id="expContent" name="expContent" >
+                                                        </div>
+                                                    </th:block>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="school_info certificate">
+                                    <h2>자격 및 특기사항</h2>
+                                    <div class="sec_write join">
+                                        <div class="tbl_write">
+                                            <ul>
+                                                <li>
+                                                    <div class="th">
+                                                        <label for="qualificationsLabel">자격사항</label>
+                                                        <span id="qualificationsLabel" class="aster">*</span>
+                                                    </div>
+                                                    <div class="td">
+                                                        <small>내용 / 취득일자 / 발급기관</small>
+                                                        <th:block th:if="${preList != null}">
+                                                            <textarea name="qualifications" id="qualifications" cols="30" rows="5" th:text="${preList.qualifications}"></textarea>
+                                                        </th:block>
+                                                        <th:block th:if="${preList == null}">
+                                                            <textarea name="qualifications" id="qualifications" cols="30" rows="5"></textarea>
+                                                        </th:block>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="th">
+                                                        <label for="eduMattersLabel">교육사항</label>
+                                                        <span id="eduMattersLabel" class="aster">*</span>
+                                                    </div>
+                                                    <div class="td">
+                                                        <small>내용 / 취득일자 / 발급기관</small>
+                                                        <th:block th:if="${preList != null}">
+                                                            <textarea name="eduMatters" id="eduMatters" cols="30" rows="5" th:text="${preList.eduMatters}"></textarea>
+                                                        </th:block>
+                                                        <th:block th:if="${preList == null}">
+                                                            <textarea name="eduMatters" id="eduMatters" cols="30" rows="5"></textarea>
+                                                        </th:block>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="th">
+                                                        <label for="awardsLabel">수상사항</label>
+                                                        <span id="awardsLabel" class="aster">*</span>
+                                                    </div>
+                                                    <div class="td">
+                                                        <small>내용 / 취득일자 / 발급기관</small>
+                                                        <th:block th:if="${preList != null}">
+                                                            <textarea name="awards" id="awards" cols="30" rows="5" th:text="${preList.awards}"></textarea>
+                                                        </th:block>
+                                                        <th:block th:if="${preList == null}">
+                                                            <textarea name="awards" id="awards" cols="30" rows="5"></textarea>
+                                                        </th:block>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="school_info chk_more">
+                                    <div class="sec_write join">
+                                        <div class="chk_item">
+                                            <span>출강 시 자가운전 여부</span>
+                                            <div class="radio_inner">
+                                                <div>
+                                                    <input type="radio" name="selfDrivingAt" id="drivingY" value="Y" th:checked="${preList.selfDrivingAt == 'Y'}">
+                                                    <label for="drivingY">
+                                                        <span>가능함</span>
+                                                    </label>
+                                                </div>
+                                                <div>
+                                                    <input type="radio" name="selfDrivingAt" id="drivingN" value="N" th:checked="${preList.selfDrivingAt == 'N'}">
+                                                    <label for="drivingN">
+                                                        <span>가능하지않음</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="chk_item">
+                                            <span>SNS 활동정보</span>
+                                            <th:block th:if="${preList != null}">
+                                                <th:block th:each="val : ${#strings.arraySplit(preList.snsStatus, ',')}">
+                                                    <div class="sns_inner">
+                                                        <div class="sns_chk_inner checkbox">
+                                                            <input type="checkbox" name="chkSns" id="blog" value="blog" th:checked="${val == 'blog'}">
+                                                            <label class="sns" for="blog">
+                                                                <span>블로그</span>
+                                                            </label>
+                                                        </div>
+                                                        <div class="sns_chk_inner checkbox">
+                                                            <input type="checkbox" name="chkSns" id="facebook" value="facebook" th:checked="${val == 'facebook'}">
+                                                            <label class="sns" for="facebook">
+                                                                <span>페이스북</span>
+                                                            </label>
+                                                        </div>
+                                                        <div class="sns_chk_inner checkbox">
+                                                            <input type="checkbox" name="chkSns" id="instagram" value="instagram" th:checked="${val == 'instagram'}">
+                                                            <label class="sns" for="instagram">
+                                                                <span>인스타그램</span>
+                                                            </label>
+                                                        </div>
+                                                        <span></span>
+                                                        <div class="sns_chk_inner checkbox">
+                                                            <input type="checkbox" name="chkSns" id="twitter" value="twitter" th:checked="${val == 'twitter'}">
+                                                            <label class="sns" for="twitter">
+                                                                <span>트위터</span>
+                                                            </label>
+                                                        </div>
+                                                        <div class="sns_chk_inner checkbox">
+                                                            <input type="checkbox" name="chkSns" id="etc" value="etc" th:checked="${val == 'etc'}">
+                                                            <label class="sns" for="etc">
+                                                                <span>기타</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </th:block>
+                                            </th:block>
+                                            <th:block th:if="${preList == null}">
+                                                <div class="sns_inner">
+                                                    <div class="sns_chk_inner checkbox">
+                                                        <input type="checkbox" name="chkSns" id="blog" value="blog">
+                                                        <label class="sns" for="blog">
+                                                            <span>블로그</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="sns_chk_inner checkbox">
+                                                        <input type="checkbox" name="chkSns" id="facebook" value="facebook">
+                                                        <label class="sns" for="facebook">
+                                                            <span>페이스북</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="sns_chk_inner checkbox">
+                                                        <input type="checkbox" name="chkSns" id="instagram" value="instagram">
+                                                        <label class="sns" for="instagram">
+                                                            <span>인스타그램</span>
+                                                        </label>
+                                                    </div>
+                                                    <span></span>
+                                                    <div class="sns_chk_inner checkbox">
+                                                        <input type="checkbox" name="chkSns" id="twitter" value="twitter">
+                                                        <label class="sns" for="twitter">
+                                                            <span>트위터</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="sns_chk_inner checkbox">
+                                                        <input type="checkbox" name="chkSns" id="etc" value="etc">
+                                                        <label class="sns" for="etc">
+                                                            <span>기타</span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </th:block>
+                                        </div>
+                                        <div class="chk_item">
+                                            <span>SNS 주소</span>
+                                            <div class="sns_adress">
+                                                <th:block th:if="${preList != null}">
+                                                    <textarea name="snsUrl" id="snsUrl" cols="30" rows="3" th:text="${preList.snsUrl}"></textarea>
+                                                </th:block>
+                                                <th:block th:if="${preList == null}">
+                                                    <textarea name="snsUrl" id="snsUrl" cols="30" rows="3"></textarea>
+                                                </th:block>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="more_info_2">
+                                    <b>위 사항은 사길과 다름이 없음을 서약하며, <b></b>예방교육 강사 양성교육과정에 지원합니다.</b>
+                                    <span th:text="${#calendars.format(#calendars.createNow(), 'yyyy년 MM월 dd일')}">2014-08-25</span>
+                                </p>
+                                <div class="partners_edu_btn">
+                                    <a class="save_btn" id="btnTemSave" onclick="return fn_register('Y')">임시저장</a>
+                                    <a class="join_btn" id="btnSave" onclick="return fn_register('N')">제출하기</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

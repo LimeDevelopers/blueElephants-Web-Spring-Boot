@@ -12688,3 +12688,107 @@ text.shadow {
     padding: 10px 60px;
 }
 /* 마이페이지_계정정보 끝 09/17 고선호 수정*/
+
+
+/* 신청_ 강사교육 시작 */
+.more_info_2 > b > b {
+    display: inline;
+}
+.tbl_write ul li > .td input:focus::placeholder {
+    opacity: 0;
+}
+.more_info_2 {
+    text-align: center;
+    margin-top: 135px;
+    margin-bottom: 65px;
+}
+.more_info_2 b {
+    display: block;
+    margin-bottom: 25px;
+}
+.teacher_info {
+    display: flex;
+}
+.teacher_info .tea_01 {
+    flex: 1;
+}
+.teacher_info .tea_01 input[type="file"] {
+    display: none;
+}
+.teacher_info .tea_01 label {
+    display: inline-block;
+    /* width: 200px; */
+    width: 80%;
+    height: 250px;
+    background-color: #f3f5f8;
+    position: relative;
+    margin-top: 20px;
+    cursor: pointer;
+}
+.teacher_info .tea_01 label p {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+}
+.teacher_info .tea_01 label span {
+    display: block;
+    text-align: center;
+    color: #5a5a5a;
+    opacity: 0.5;
+    font-size: 18px;
+}
+.teacher_info .tea_02 {
+    flex: 4;
+}
+.certificate .join .tbl_write ul li {
+    height: 200px;
+}
+.certificate .join .tbl_write ul li > .td small {
+    font-size: 15px;
+    color: #a5a5a5;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+.certificate .join .tbl_write ul li > .td textarea {
+    border-radius: 8px;
+}
+.chk_more .join .chk_item {
+    border-right: 1px solid #c7c7c7;
+    height: 150px;
+}
+.chk_more .join .chk_item:nth-of-type(2) {
+    padding-left: 50px;
+}
+.chk_more .join .chk_item:last-child {
+    border-right: 0;
+}
+.chk_more .join .chk_item .radio_inner {
+    justify-content: flex-start;
+}
+.chk_more .join .chk_item .radio_inner > div:nth-of-type(1) {
+    margin-right: 60px;
+}
+.chk_more .join .chk_item > span {
+    font-size: 17px;
+    font-weight: 500;
+}
+.chk_more .join .chk_item .sns_inner {
+    padding: 20px 0;
+    font-size: 15px;
+}
+.chk_more .join .chk_item .sns_inner .sns_chk_inner {
+    margin-right: 20px;
+    margin-bottom: 15px;
+}
+.chk_more .join .chk_item .sns_inner .sns_chk_inner span {
+    padding-left: 15px;
+}
+.chk_more .join .chk_item .sns_inner > span {
+    display: block;
+}
+.chk_more .join .chk_item .sns_adress {
+    padding: 20px 0;
+}
+/* 신청_ 강사교육 끝 */
