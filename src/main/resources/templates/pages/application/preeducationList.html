@@ -41,7 +41,9 @@
                             <input type="search" th:field="*{srchWord}" placeholder="검색어를 입력해 주세요"/>
                         </div>
                         <button type="submit" class="btn btn_blue btn_pill_10">검색</button>
-                        <a href="/pages/activity/policyProposalRegister" class="btn btn_skyblue btn_pill_10">글쓰기</a>
+                        <th:block sec:authorize="hasAnyRole('ROLE_TEACHER')">
+                            <a th:href="|/pages/application/preeducation|" class="btn btn_skyblue btn_pill_10">글쓰기</a>
+                        </th:block>
                     </div>
                     <ul class="board_tbl_list type01">
                         <li class="thead">

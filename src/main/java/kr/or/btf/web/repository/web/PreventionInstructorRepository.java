@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface PreventionInstructorRepository extends JpaRepository<PreventionInstructor, Long> {
     PreventionInstructor findByIdAndMberPid(Long prePid, Long MberPid);
+    PreventionInstructor findByMberPid(Long mberPid);
 }

@@ -29,23 +29,8 @@ public class Prevention {
     @Column(name="mber_pid")
     private Long mberPid;
 
-    @Column(name="schl_pid")
-    private Long schlPid;
-
-    @Column(name="schl_nm")
-    private String schlNm;
-
-    @Column(name="address")
-    private String address;
-
-    @Column(name="tel")
-    private String tel;
-
-    @Column(name="classes_num")
-    private Integer classesNum;
-
-    @Column(name="personnel")
-    private Integer personnel;
+    @Column(name="pre_mst_pid")
+    private Long preMstPid;
 
     @Column(name = "reg_dtm")
     private LocalDateTime regDtm;

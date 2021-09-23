@@ -10,4 +10,5 @@ import java.util.List;
 public interface MemberRollRepository extends JpaRepository<MemberRoll, Long> {
 
     List<MemberRoll> findAllByMberPid(Long mberPid);
+    MemberRoll findByMberPid(Long mberPid);
 }

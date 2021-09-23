@@ -315,7 +315,7 @@ public class ActivityController extends BaseCont {
         }
 
         model.addAttribute("filePath", filePath+"/"+ Constants.FOLDERNAME_COURSEMASTERSEQ);
-
+        model.addAttribute("eduAt", account != null ? account.getOnlineEdu() : "X");
         model.addAttribute("userGbn", account != null ? account.getMberDvTy() : "");
 
         model.addAttribute("mc", "activity");
@@ -530,7 +530,7 @@ public class ActivityController extends BaseCont {
     }
 
     // 수정중 김재일
-    @GetMapping("/pages/activity/eduMasterClass/{id}")
+    @RequestMapping("/pages/activity/eduMasterClass/{id}")
     public String eduMasterClass(Model model,
                                  @Value("${Globals.fileStoreUriPath}") String filePath,
                                  @PathVariable(name = "id") Long id,
@@ -566,7 +566,6 @@ public class ActivityController extends BaseCont {
                 afterInspection = checkCourseSn(account.getId(), masterSeqLoad.getId(), 6);
                 satisfaction = checkCourseSn(account.getId(), masterSeqLoad.getId(), 7);
             }
-
         }
         model.addAttribute("afterInspection", afterInspection);
         model.addAttribute("satisfaction", satisfaction);

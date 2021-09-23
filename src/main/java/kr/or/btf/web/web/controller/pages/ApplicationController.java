@@ -100,13 +100,13 @@ public class  ApplicationController {
             model.addAttribute("locurl", "/login");
             return "/message";
         } else {
-            if(!account.getMberDvTy().equals(UserRollType.INSTRUCTOR)){
-                model.addAttribute("altmsg", "예방 강사만 이용 가능합니다.");
+            if(account.getMberDvTy().equals(UserRollType.INSTRUCTOR) || account.getMberDvTy().equals(UserRollType.TEACHER)){
+                Page<PreventionMaster> preventionPage = applicationService.getPreEduMstList(pageable);
+                model.addAttribute("preList", preventionPage);
+            } else {
+                model.addAttribute("altmsg", "접근 권한이 없습니다.");
                 model.addAttribute("locurl", "/");
                 return "/message";
-            } else {
-                Page<Prevention> preventionPage = applicationService.getPreEduList(pageable, searchForm);
-                model.addAttribute("preList", preventionPage);
             }
         }
         model.addAttribute("mc", "application");
@@ -147,19 +147,24 @@ public class  ApplicationController {
     public String registerPreIns(Model model,
                                  @CurrentUser Account account,
                                  PreventionInstructorForm preventionInstructorForm) {
-        boolean result;
-        if(account!=null && account.getMberDvTy().equals(UserRollType.NORMAL)) {
-            PreventionInstructor preventionInstructor = applicationService.getPreIns(account.getId());
-            if(preventionInstructor != null) {
-                if(preventionInstructor.getTempSave().equals("N")){
-                    model.addAttribute("altmsg", "이미 신청완료되었습니다. \n 결과 승인은 평일 기준 3-5일 소요됩니다.");
-                    model.addAttribute("locurl", "/pages/application/preeducationList");
-                    return "/message";
-                }
-                result = applicationService.updatePreIns(preventionInstructorForm);
-            } else {
-                preventionInstructorForm.setMberPid(account.getId());
-                result = applicationService.registerPreIns(preventionInstructorForm);
+        boolean result = false;
+        if(account!=null) {
+            if(account.getMberDvTy().equals(UserRollType.TEACHER)) {
+                PreventionInstructor preventionInstructor = applicationService.getPreIns(account.getId());
+                if(preventionInstructor != null) {
+                    if(preventionInstructor.getTempSave().equals("N")){
+                        model.addAttribute("altmsg", "이미 신청완료되었습니다. \n 결과 승인은 평일 기준 3-5일 소요됩니다.");
+                        model.addAttribute("locurl", "/pages/application/preeducationList");
+                        return "/message";
+                    }
+                    result = applicationService.updatePreIns(preventionInstructorForm);
+                } else {
+                    preventionInstructorForm.setMberPid(account.getId());
+                    result = applicationService.registerPreIns(preventionInstructorForm);
+                }    
+            }
+            if(account.getMberDvTy().equals(UserRollType.INSTRUCTOR)) {
+                
             }
         } else {
             if(account!=null){
@@ -180,7 +185,7 @@ public class  ApplicationController {
 
         model.addAttribute("mc", "MyPage");
         model.addAttribute("pageTitle", "교육신청관리");
-        return "redirect:pages/application/InsRegister";
+        return "redirect:/pages/myPage/profile";
     }
 
     @PostMapping("/api/application/registerPreEdu")
@@ -188,7 +193,7 @@ public class  ApplicationController {
                                  @CurrentUser Account account,
                                  PreventionMasterForm preventionMasterForm) {
         boolean result;
-        if(account!=null && account.getMberDvTy().equals(UserRollType.INSTRUCTOR)) {
+        if(account!=null && account.getMberDvTy().equals(UserRollType.TEACHER)) {
             PreventionMaster preventionMaster = applicationService.getPreEduMst(preventionMasterForm.getPrePid(), account.getId());
             if(preventionMaster != null) {
                 if(preventionMaster.getTempSave().equals("N")){
@@ -203,7 +208,7 @@ public class  ApplicationController {
             }
         } else {
             if(account!=null){
-                model.addAttribute("altmsg", "예방 강사만 이용 가능합니다.");
+                model.addAttribute("altmsg", "선생님만 이용 가능합니다.");
                 model.addAttribute("locurl", "/");
             } else {
                 model.addAttribute("altmsg", "로그인 후 이용가능합니다.");
@@ -222,6 +227,18 @@ public class  ApplicationController {
         return "redirect:/pages/myPage/insWorkPreEduList";
     }
 
+    @ResponseBody
+    @GetMapping("/api/application/preeducation/{id}")
+    public Boolean setPreeducation(Model model,
+                                  @PathVariable("id") Long id,
+                                  @CurrentUser Account account) {
+        if(account == null) {
+            return false;
+        }
+        applicationService.setPreeducation(id, account.getId());
+        return true;
+    }
+
     @GetMapping("/pages/application/preeducationDetail/{id}")
     public String preeducationDetail(Model model,
                                @PathVariable("id") Long id,
@@ -231,23 +248,25 @@ public class  ApplicationController {
             model.addAttribute("locurl", "/login");
             return "/message";
         } else {
-            if(!UserRollType.INSTRUCTOR.equals(account.getMberDvTy())){
-                model.addAttribute("altmsg", "예방 강사만 이용 가능합니다.");
-                model.addAttribute("locurl", "/");
-                return "/message";
-            } else {
-                PreventionMaster preventionMaster = applicationService.getPreEduMst(id,account.getId());
-                Prevention prevention = applicationService.getPreEdu(id);
-                model.addAttribute("prevention", prevention);
+            if(UserRollType.INSTRUCTOR.equals(account.getMberDvTy()) || UserRollType.TEACHER.equals(account.getMberDvTy())){
+                PreventionMaster preventionMaster = applicationService.getPreEduMstData(id);
                 if(preventionMaster==null){
-                    if(prevention.getDelAt().equals("Y")){
-                        model.addAttribute("altmsg", "삭제된 게시글입니다.");
-                        model.addAttribute("locurl", "/pages/application/preeducationList");
-                        return "/message";
-                    }
+                    model.addAttribute("altmsg", "존재하지않는 게시글입니다.");
+                    model.addAttribute("locurl", "/pages/application/preeducationList");
+                    return "/message";
                 } else {
+                    if(UserRollType.INSTRUCTOR.equals(account.getMberDvTy())){
+                        Prevention prevention = applicationService.getPreAt(id, account.getId());
+                        if(prevention != null) {
+                            model.addAttribute("prevention", prevention);
+                        }
+                    }
                     model.addAttribute("preventionMaster", preventionMaster);
                 }
+            } else {
+                model.addAttribute("altmsg", "접근 권한이 없습니다.");
+                model.addAttribute("locurl", "/");
+                return "/message";
             }
         }
         model.addAttribute("pre_pid", id);
@@ -255,41 +274,39 @@ public class  ApplicationController {
         model.addAttribute("pageTitle", "예방교육");
         return "pages/application/preeducationDetail";
     }
-    //페이지 이동 컨트롤러
-    @GetMapping("/pages/application/preeducation/{id}")
+    // 학교 신청 등록
+    @GetMapping(value = "/pages/application/preeducation")
     public String PreEducation(Model model,
-                               @PathVariable("id") Long id,
                                @CurrentUser Account account) {
         if(account == null) {
             model.addAttribute("altmsg", "로그인 후 이용가능합니다.");
             model.addAttribute("locurl", "/login");
             return "/message";
         } else {
-            if(!UserRollType.INSTRUCTOR.equals(account.getMberDvTy())){
+            if(UserRollType.TEACHER.equals(account.getMberDvTy())){
+                MemberTeacher mt = applicationService.getSchoolData(account.getId());
+                if(mt==null){
+                    model.addAttribute("altmsg", "학교 정보가 존재하지않습니다.");
+                    model.addAttribute("locurl", "/pages/application/preeducationList");
+                    return "/message";
+                } else {
+                    PreventionMaster preventionMaster = applicationService.getPreEduMstData(account.getId());
+                    if(preventionMaster != null) {
+                        if(preventionMaster.getTempSave().equals("N")){
+                            model.addAttribute("altmsg", "이미 신청완료된 학교입니다. \n 결과 승인은 평일 기준 3-5일 소요됩니다.");
+                            model.addAttribute("locurl", "/pages/application/preeducationList");
+                            return "/message";
+                        }
+                        model.addAttribute("preventionMst", preventionMaster);
+                    }
+                    model.addAttribute("schlData", mt);
+                }
+            } else {
                 model.addAttribute("altmsg", "예방 강사만 이용 가능합니다.");
                 model.addAttribute("locurl", "/");
                 return "/message";
-            } else {
-                PreventionMaster preventionMaster = applicationService.getPreEduMst(id,account.getId());
-                if(preventionMaster==null){
-                    Prevention prevention = applicationService.getPreEdu(id);
-                    model.addAttribute("prevention", prevention);
-                    if(prevention.getDelAt().equals("Y")){
-                        model.addAttribute("altmsg", "삭제된 게시글입니다.");
-                        model.addAttribute("locurl", "/pages/application/preeducationList");
-                        return "/message";
-                    }
-                } else {
-                    if(preventionMaster.getTempSave().equals("N")){
-                        model.addAttribute("altmsg", "이미 신청완료된 학교입니다. \n 결과 승인은 평일 기준 3-5일 소요됩니다.");
-                        model.addAttribute("locurl", "/pages/application/preeducationList");
-                        return "/message";
-                    }
-                    model.addAttribute("preventionMst", preventionMaster);
-                }
             }
         }
-        model.addAttribute("pre_pid", id);
         model.addAttribute("mc", "application");
         model.addAttribute("pageTitle", "예방교육");
         return "pages/application/preeducationRegister";

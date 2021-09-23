@@ -2,6 +2,7 @@ package kr.or.btf.web.domain.web.enums;
 
 public enum MberDvType {
     STUDENT("청소년"),
+    OFFLINE("현장청소년"),
     NORMAL("일반"),
     TEACHER("교원"),
     PARENT("부모"),

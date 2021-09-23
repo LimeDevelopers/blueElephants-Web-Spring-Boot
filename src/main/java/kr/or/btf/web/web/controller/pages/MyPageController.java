@@ -172,7 +172,7 @@ public class MyPageController extends BaseCont {
             model.addAttribute("locurl", "/");
             return "/message";
         }
-        Page<PreventionMaster> preventionMasters = applicationService.getPreEduMstList(pageable,account.getId());
+        Page<PreventionMaster> preventionMasters = applicationService.getPreEduMstList(pageable);
         for(PreventionMaster a : preventionMasters) {
             log.info("test@@@@"+a.getTempSave());
         }

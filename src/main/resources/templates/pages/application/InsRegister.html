@@ -44,7 +44,7 @@
         snsUrl = $('#snsUrl');
         etcContent = $('#etcContent');
         uploadImg = $('#uploadImg');
-        thumbImg = $('#thumbImg');
+        thumbImg = $('#base64');
 
         if(!thumbImg.val()) {
             alert('사진은 필수입니다.');
@@ -105,7 +105,6 @@
             alert('sns 활동 여부를 체크하세요.')
             return false;
         }
-        imgChk();
         return true;
     }
 
@@ -133,20 +132,6 @@
     }
     **/
 
-    function imgChk() {
-        if (uploadImg.val() == "") {
-            alert("이미지를 등록하세요.");
-            return false;
-        }
-
-        if (uploadImg.val() != "") {
-            let ext = uploadImg.val().slice(uploadImg.val().lastIndexOf(".") + 1).toLowerCase();
-            if (!(ext == "jpg" || ext == "png" || ext == "jpeg")) {
-                alert("이미지파일 (.jpg, .png, .jpeg ) 만 업로드 가능합니다.");
-                return false;
-            }
-        }
-    }
     function readURL(input) {
         if (input.files && input.files[0]) {
             let reader = new FileReader();
@@ -169,7 +154,7 @@
             $('#btnSave').prop('disabled', false);
             return false;
         }
-
+        fn_readChkVal();
         $('#tpSaveUs').val(gbn);
         let frm = $('#form1');
         frm.prop('action','/api/application/registerPreIns')
@@ -177,8 +162,8 @@
     }
 
     $(document).ready(function () {
-        pid = $('#prInsPid');
-        if(pid.val()){
+        pid = $('#preInsPid');
+        if(pid.val() > 0){
             alert("임시 저장된 데이터가 로드됩니다.");
         }
 
@@ -205,7 +190,7 @@
             <th:block th:include="fragments/dept_menu"></th:block>
             <form id="form1" name="form1" method="post" enctype="multipart/form-data" >
                 <th:block th:if="${preList != null}">
-                    <input type="hidden" id="prInsPid" name="prInsPid" th:value="${preList.id}">
+                    <input type="hidden" id="preInsPid" name="preInsPid" th:value="${preList.id}">
                     <input type="hidden" id="snsStatus" name="snsStatus" th:value="${preList.snsStatus}">
                     <input type="hidden" id="base64" name="thumbImg" th:value="${preList.thumbImg}">
                     <input type="hidden" id="tpSaveUs" name="tempSave" th:value="${preList.tempSave}">
@@ -223,7 +208,7 @@
                                 <div class="teacher_info">
                                     <div class="school_info tea_01">
                                         <h2 >사진등록</h2>
-                                        <input type="file" id="uploadImg" name="uploadImg" onchange="readURL(this);">
+                                        <input type="file" id="uploadImg" name="uploadImg" onchange="readURL(this);"  accept="image/jpg, image/jpeg, image/png">
                                         <th:block th:if="${preList != null}">
                                             <label for="uploadImg" id="thumb" th:style="|background:url(${preList.thumbImg})no-repeat center center; background-size : cover|">
                                             </label>
@@ -445,20 +430,39 @@
                                     <div class="sec_write join">
                                         <div class="chk_item">
                                             <span>출강 시 자가운전 여부</span>
-                                            <div class="radio_inner">
-                                                <div>
-                                                    <input type="radio" name="selfDrivingAt" id="drivingY" value="Y" th:checked="${preList.selfDrivingAt == 'Y'}">
-                                                    <label for="drivingY">
-                                                        <span>가능함</span>
-                                                    </label>
+                                            <th:block th:if="${preList != null}">
+                                                <div class="radio_inner">
+                                                    <div>
+                                                        <input type="radio" name="selfDrivingAt" id="drivingY" value="Y" th:checked="${preList.selfDrivingAt == 'Y'}">
+                                                        <label for="drivingY">
+                                                            <span>가능함</span>
+                                                        </label>
+                                                    </div>
+                                                    <div>
+                                                        <input type="radio" name="selfDrivingAt" id="drivingN" value="N" th:checked="${preList.selfDrivingAt == 'N'}">
+                                                        <label for="drivingN">
+                                                            <span>가능하지않음</span>
+                                                        </label>
+                                                    </div>
                                                 </div>
-                                                <div>
-                                                    <input type="radio" name="selfDrivingAt" id="drivingN" value="N" th:checked="${preList.selfDrivingAt == 'N'}">
-                                                    <label for="drivingN">
-                                                        <span>가능하지않음</span>
-                                                    </label>
+                                            </th:block>
+                                            <th:block th:if="${preList == null}">
+                                                <div class="radio_inner">
+                                                    <div>
+                                                        <input type="radio" name="selfDrivingAt" id="drivingY" value="Y" >
+                                                        <label for="drivingY">
+                                                            <span>가능함</span>
+                                                        </label>
+                                                    </div>
+                                                    <div>
+                                                        <input type="radio" name="selfDrivingAt" id="drivingN" value="N" >
+                                                        <label for="drivingN">
+                                                            <span>가능하지않음</span>
+                                                        </label>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            </th:block>
+
                                         </div>
                                         <div class="chk_item">
                                             <span>SNS 활동정보</span>

@@ -3,27 +3,27 @@
 <head>
     <th:block th:include="fragments/header"></th:block>
     <script type="text/javascript">
-        let eduTy = '[[${eduTy}]]'
+        let eduTy;
         function fn_courseRequest(id, atnlcReqPid) {
-
+            eduTy = '[[${eduTy}]]';
             var mberDvTy = '[[${form.mberDvTy}]]';
             var userGbn = '[[${userGbn}]]'
             var atnlcReqPid = '[[${atnlcReqPid}]]'
-            if(id == 4) {
-                if(eduTy == 'N') {
-                    alert('오프라인 현장교육 대상입니다.');
-                    return false;
-                }
-            }
 
             if (userGbn == '') {
                 alert('로그인 후 수강신청 할 수 있습니다.');
                 return false;
             }
 
-            if (mberDvTy != userGbn) {
-                alert('수강신청 대상이 아닙니다.');
-                return false;
+            if(userGbn == 'STUDENT' && eduTy == 'N'){
+                if (mberDvTy == 'OFFLINE') {
+
+                }
+            } else {
+                if (mberDvTy != userGbn) {
+                    alert('수강신청 대상이 아닙니다.');
+                    return false;
+                }
             }
 
             if (atnlcReqPid != 0) {

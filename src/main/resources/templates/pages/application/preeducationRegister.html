@@ -30,8 +30,7 @@
 
     let tpSaveUs;
 
-    let atPid;
-    let pid;
+    let preMstPid;
 
     function fn_chkFiled() {
         schlNm = $('#schlNm');
@@ -56,9 +55,33 @@
 
         agree1 = $('input[name=agree1]');
         agree2 = $('input[name=agree2]');
-        if(!schlNm.val() || !tel.val() || !address.val() || !classesNum.val() || !personnel.val()) {
+        if(!schlNm.val()) {
             alert('학교정보가 존재하지않습니다. \n정상적인 경로를 이용하세요.')
-            location.href ='/pages/application/preeducationList'
+            location.href="/pages/application/preeducationList"
+            return false;
+        }
+
+        if(!tel.val()) {
+            alert('전화번호를 입력하세요.')
+            tel.focus()
+            return false;
+        }
+
+        if(!address.val()) {
+            alert('주소를 입력하세요.')
+            address.focus()
+            return false;
+        }
+
+        if(!classesNum.val()) {
+            alert('학급수를 입력하세요.')
+            classesNum.focus()
+            return false;
+        }
+
+        if(!personnel.val()) {
+            alert('인원을 입력하세요.')
+            personnel.focus()
             return false;
         }
 
@@ -133,9 +156,8 @@
     }
 
     $(document).ready(function () {
-        atPid = $('#atPrePid');
-        pid = $('#prePid');
-        if(atPid.val()==pid.val()){
+        preMstPid = $('#preMstPid');
+        if(preMstPid > 0){
             alert("임시 저장된 데이터가 로드됩니다.");
         }
 
@@ -163,9 +185,7 @@
             <form id="form1" name="form1" method="post">
                 <th:block th:if="${preventionMst != null}">
                     <input type="hidden" id="preMstPid" name="preMstPid" th:value="${preventionMst.id}">
-                    <input type="hidden" id="atPrePid" th:value="${preventionMst.prePid}">
                 </th:block>
-                <input type="hidden" name="prePid" id="prePid" th:value="${pre_pid}">
                 <input type="hidden" id="tpSaveUs" name="tempSave" value="N">
                 <div class="inner">
                     <div class="page_cont">
@@ -183,9 +203,9 @@
                                                 </div>
                                                 <div class="td">
                                                     <th:block th:if="${preventionMst == null}">
-                                                        <input type="text" id="schlNm" name="schlNm" th:value="${prevention.schlNm}" readonly>
+                                                        <input type="text" id="schlNm" name="schlNm" th:value="${schlData.schlNm}" readonly>
                                                     </th:block>
-                                                    <th:block th:if="${prevention == null}">
+                                                    <th:block th:if="${schlData == null}">
                                                         <input type="text" id="schlNm" name="schlNm" th:value="${preventionMst.schlNm}" readonly>
                                                     </th:block>
                                                 </div>
@@ -197,10 +217,10 @@
                                                 </div>
                                                 <div class="td">
                                                     <th:block th:if="${preventionMst == null}">
-                                                        <input type="text" id="tel" name="tel" th:value="${prevention.tel}" readonly>
+                                                        <input type="text" id="tel" name="tel" >
                                                     </th:block>
-                                                    <th:block th:if="${prevention == null}">
-                                                        <input type="text" id="tel" name="tel" th:value="${preventionMst.tel}" readonly>
+                                                    <th:block th:if="${schlData == null}">
+                                                        <input type="text" id="tel" name="tel" th:value="${preventionMst.tel}" >
                                                     </th:block>
 
                                                 </div>
@@ -212,10 +232,10 @@
                                                 </div>
                                                 <div class="td">
                                                     <th:block th:if="${preventionMst == null}">
-                                                        <input type="text" id="address" name="address" th:value="${prevention.address}" readonly>
+                                                        <input type="text" id="address" name="address" >
                                                     </th:block>
-                                                    <th:block th:if="${prevention == null}">
-                                                        <input type="text" id="address" name="address" th:value="${preventionMst.address}" readonly>
+                                                    <th:block th:if="${schlData == null}">
+                                                        <input type="text" id="address" name="address" th:value="${preventionMst.address}" >
                                                     </th:block>
                                                 </div>
                                             </li>
@@ -235,10 +255,10 @@
                                                 </div>
                                                 <div class="td">
                                                     <th:block th:if="${preventionMst == null}">
-                                                        <input type="text" id="classesNum" name="classesNum" placeholder="총 학급수를 입력해주세요"  th:value="${prevention.classesNum}" readonly>
+                                                        <input type="text" id="classesNum" name="classesNum" placeholder="총 학급수를 입력해주세요" >
                                                     </th:block>
-                                                    <th:block th:if="${prevention == null}">
-                                                        <input type="text" id="classesNum" name="classesNum" placeholder="총 학급수를 입력해주세요"  th:value="${preventionMst.classesNum}" readonly>
+                                                    <th:block th:if="${schlData == null}">
+                                                        <input type="text" id="classesNum" name="classesNum" placeholder="총 학급수를 입력해주세요"  th:value="${preventionMst.classesNum}" >
                                                     </th:block>
                                                 </div>
                                             </li>
@@ -249,10 +269,10 @@
                                                 </div>
                                                 <div class="td">
                                                     <th:block th:if="${preventionMst == null}">
-                                                        <input type="text" id="personnel" name="personnel" th:value="${prevention.personnel}" readonly>
+                                                        <input type="text" id="personnel" name="personnel">
                                                     </th:block>
-                                                    <th:block th:if="${prevention == null}">
-                                                        <input type="text" id="personnel" name="personnel" th:value="${preventionMst.personnel}" readonly>
+                                                    <th:block th:if="${schlData == null}">
+                                                        <input type="text" id="personnel" name="personnel" th:value="${preventionMst.personnel}" >
                                                     </th:block>
                                                 </div>
                                             </li>
@@ -276,7 +296,7 @@
                                                         <th:block th:if="${preventionMst == null}">
                                                             <input type="text" id="hp_schd1_personnel" name="hpSchd1Personnel" placeholder="희망 인원을 입력하세요.">
                                                         </th:block>
-                                                        <th:block th:if="${prevention == null}">
+                                                        <th:block th:if="${schlData == null}">
                                                             <input type="text" id="hp_schd1_personnel" name="hpSchd1Personnel" placeholder="희망 인원을 입력하세요." th:value="${preventionMst.hpSchd1Personnel}">
                                                         </th:block>
                                                     </div>
@@ -285,7 +305,7 @@
                                                         <th:block th:if="${preventionMst == null}">
                                                             <input type="text" id="hp_schd1_et" name="hpSchd1Et" placeholder="ex) 09:00 ~ 12:00">
                                                         </th:block>
-                                                        <th:block th:if="${prevention == null}">
+                                                        <th:block th:if="${schlData == null}">
                                                             <input type="text" id="hp_schd1_et" name="hpSchd1Et" placeholder="희망 인원을 입력하세요." th:value="${preventionMst.hpSchd1Et}">
                                                         </th:block>
                                                     </div>
@@ -294,7 +314,7 @@
                                                         <th:block th:if="${preventionMst == null}">
                                                             <input type="text" id="hp_schd1_wt" name="hpSchd1Wt" placeholder="ex) 09:00 ~ 12:00">
                                                         </th:block>
-                                                        <th:block th:if="${prevention == null}">
+                                                        <th:block th:if="${schlData == null}">
                                                             <input type="text" id="hp_schd1_wt" name="hpSchd1Wt" placeholder="희망 인원을 입력하세요." th:value="${preventionMst.hpSchd1Wt}">
                                                         </th:block>
                                                     </div>
@@ -311,7 +331,7 @@
                                                         <th:block th:if="${preventionMst == null}">
                                                             <input type="text" id="hp_schd2_personnel" name="hpSchd2Personnel" placeholder="희망 인원을 입력하세요.">
                                                         </th:block>
-                                                        <th:block th:if="${prevention == null}">
+                                                        <th:block th:if="${schlData == null}">
                                                             <input type="text" id="hp_schd2_personnel" name="hpSchd2Personnel" placeholder="희망 인원을 입력하세요." th:value="${preventionMst.hpSchd2Personnel}">
                                                         </th:block>
                                                     </div>
@@ -320,7 +340,7 @@
                                                         <th:block th:if="${preventionMst == null}">
                                                             <input type="text" id="hp_schd2_et" name="hpSchd2Et" placeholder="ex) 09:00 ~ 12:00">
                                                         </th:block>
-                                                        <th:block th:if="${prevention == null}">
+                                                        <th:block th:if="${schlData == null}">
                                                             <input type="text" id="hp_schd2_et" name="hpSchd2Et" placeholder="희망 인원을 입력하세요." th:value="${preventionMst.hpSchd2Et}">
                                                         </th:block>
                                                     </div>
@@ -329,7 +349,7 @@
                                                         <th:block th:if="${preventionMst == null}">
                                                             <input type="text" id="hp_schd2_wt" name="hpSchd2Wt" placeholder="ex) 09:00 ~ 12:00">
                                                         </th:block>
-                                                        <th:block th:if="${prevention == null}">
+                                                        <th:block th:if="${schlData == null}">
                                                             <input type="text" id="hp_schd2_wt" name="hpSchd2Wt" placeholder="희망 인원을 입력하세요." th:value="${preventionMst.hpSchd2Wt}">
                                                         </th:block>
                                                     </div>
@@ -360,7 +380,7 @@
                                                 </div>
                                             </div>
                                         </th:block>
-                                        <th:block th:if="${prevention == null}">
+                                        <th:block th:if="${schlData == null}">
                                             <div class="radio_inner">
                                                 <div>
                                                     <input type="radio" name="resultQna1" id="chk_01" value="Y" th:checked="${preventionMst.resultQna1 == 'Y' ? true : false}">
@@ -395,7 +415,7 @@
                                                 </div>
                                             </div>
                                         </th:block>
-                                        <th:block th:if="${prevention == null}">
+                                        <th:block th:if="${schlData == null}">
                                             <div class="radio_inner">
                                                 <div>
                                                     <input type="radio" name="resultQna2" id="chk_03" value="Y" th:checked="${preventionMst.resultQna2 == 'Y' ? true : false}">
@@ -430,7 +450,7 @@
                                                 </div>
                                             </div>
                                         </th:block>
-                                        <th:block th:if="${prevention == null}">
+                                        <th:block th:if="${schlData == null}">
                                             <div class="radio_inner">
                                                 <div>
                                                     <input type="radio" name="resultQna3" id="chk_05" value="Y" th:checked="${preventionMst.resultQna3 == 'Y' ? true : false}">
@@ -465,7 +485,7 @@
                                                 </div>
                                             </div>
                                         </th:block>
-                                        <th:block th:if="${prevention == null}">
+                                        <th:block th:if="${schlData == null}">
                                             <div class="radio_inner">
                                                 <div>
                                                     <input type="radio" name="resultQna4" id="chk_07" value="Y" th:checked="${preventionMst.resultQna4 == 'Y' ? true : false}">
@@ -500,7 +520,7 @@
                                                 </div>
                                             </div>
                                         </th:block>
-                                        <th:block th:if="${prevention == null}">
+                                        <th:block th:if="${schlData == null}">
                                             <div class="radio_inner">
                                                 <div>
                                                     <input type="radio" name="resultQna5" id="chk_09" value="Y" th:checked="${preventionMst.resultQna5 == 'Y' ? true : false}">

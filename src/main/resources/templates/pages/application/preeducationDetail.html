@@ -2,6 +2,29 @@
 <html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:include="fragments/header"></th:block>
+    <script>
+        function fn_setStatus(id) {
+            let result = confirm("신청하시겠습니까?");
+            if(result){
+                $.ajax({
+                    cache : false,
+                    url: "/api/application/preeducation/"+id,
+                    type : 'GET',
+                    contentType: "application/json",
+                    success : function(data) {
+                        if(data == false) {
+                            alert('통신 에러')
+                        } else {
+                            alert('신청되었습니다.')
+                            location.reload()
+                        }
+                    }
+                });
+            } else {
+                return false;
+            }
+        }
+    </script>
 </head>
 <body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
 <th:block th:include="fragments/header_gnb"></th:block>
@@ -14,52 +37,47 @@
                 <div class="detail_cont">
                     <div class="top">
                         <div class="info_area">
-                            <strong class="tit" th:text="|${prevention.schlNm} 예방교육 신청 정보|">OO학교 정보</strong>
+                            <strong class="tit" th:text="|${preventionMaster.schlNm} 예방교육 신청 정보|">OO학교 정보</strong>
                             <p class="count">
                                 <span class="date"
-                                      th:text="|등록일 : ${#temporals.format(prevention.regDtm,'yyyy.MM.dd')}|">등록일 : 2020.12.31</span>
+                                      th:text="|등록일 : ${#temporals.format(preventionMaster.regDtm,'yyyy.MM.dd')}|">등록일 : 2020.12.31</span>
                             </p>
                         </div>
                     </div>
                     <div class="bottom editor">
                         <p>
                             <span>학교이름 : </span>
-                            <span th:text="${prevention.schlNm}"></span>
+                            <span th:text="${preventionMaster.schlNm}"></span>
                         </p>
                         <p>
                             <span>주소 : </span>
-                            <span th:text="${prevention.address}"></span>
+                            <span th:text="${preventionMaster.address}"></span>
                         </p>
                         <p>
                             <span>전화번호 : </span>
-                            <span th:text="${prevention.tel}"></span>
+                            <span th:text="${preventionMaster.tel}"></span>
                         </p>
                         <p>
                             <span>학급 수 : </span>
-                            <span th:text="${prevention.classesNum}"></span>
+                            <span th:text="${preventionMaster.classesNum}"></span>
                         </p>
                         <p>
                             <span>인원 : </span>
-                            <span th:text="${prevention.personnel}"></span>
+                            <span th:text="${preventionMaster.personnel}"></span>
                         </p>
                         <p>
                             <span>모집상태 : </span>
-                            <span th:text="${prevention.approval}"></span>
+                            <span th:text="${preventionMaster.approval}"></span>
                         </p>
                     </div>
                     <div class="btn_area">
-                        <th:block th:if="${preventionMaster ne null}">
-                            <th:block th:if="${preventionMaster.approval == 'N'}">
-                                <th:block th:if="${preventionMaster.tempSave == 'Y'}">
-                                    <a th:href="|/pages/application/preeducation/${prevention.id}|" class="btn btn_lg btn_line_blue btn_pill_10">불러오기</a>
-                                </th:block>
-                                <th:block th:if="${preventionMaster.tempSave == 'N'}">
-                                    <a class="btn btn_lg btn_line_blue btn_pill_10">신청완료</a>
-                                </th:block>
+                        <th:block sec:authorize="hasAnyRole('ROLE_INSTRUCTOR')">
+                            <th:block th:if="${prevention != null}">
+                                <a class="btn btn_lg btn_line_blue btn_pill_10" th:text="${prevention.approval == 'N' ? '승인대기' : '승인완료'}"></a>
                             </th:block>
-                        </th:block>
-                        <th:block th:if="${preventionMaster eq null}">
-                            <a th:href="|/pages/application/preeducation/${prevention.id}|" class="btn btn_lg btn_line_blue btn_pill_10">신청하기</a>
+                            <th:block th:if="${prevention == null}">
+                                <a href="#" th:onclick="|return fn_setStatus(${preventionMaster.id})|" class="btn btn_lg btn_line_blue btn_pill_10">신청하기</a>
+                            </th:block>
                         </th:block>
                     </div>
                 </div>

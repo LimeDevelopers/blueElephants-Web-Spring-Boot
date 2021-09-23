@@ -100,7 +100,7 @@ public class LoginController extends BaseCont {
         //log.debug("==로그인성공 후처리시작");
 
         String redirect = "/";
-        log.info("가나다라마"+account.getApproval().equals("N"));
+        log.info("가나다라마"+account.getMberDvTy());
         if(account.getApproval().equals("N")) {
             model.addAttribute("mc","memberJoin");
             model.addAttribute("rsMsg","미승인 계정입니다.");

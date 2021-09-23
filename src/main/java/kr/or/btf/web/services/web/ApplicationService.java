@@ -18,10 +18,7 @@ import kr.or.btf.web.domain.web.enums.FileDvType;
 import kr.or.btf.web.domain.web.enums.TableNmType;
 import kr.or.btf.web.repository.web.*;
 import kr.or.btf.web.utils.FileUtilHelper;
-import kr.or.btf.web.web.form.ApplicationForm;
-import kr.or.btf.web.web.form.PreventionInstructorForm;
-import kr.or.btf.web.web.form.PreventionMasterForm;
-import kr.or.btf.web.web.form.SearchForm;
+import kr.or.btf.web.web.form.*;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -32,6 +29,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
+import java.lang.reflect.Member;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -48,6 +46,26 @@ public class ApplicationService extends _BaseService {
     private final ModelMapper modelMapper;
     private final JPAQueryFactory queryFactory;
     private final EventRepository eventRepository;
+
+    public MemberTeacher getSchoolData(Long id) {
+        QMemberTeacher qMemberTeacher = QMemberTeacher.memberTeacher;
+        OrderSpecifier<LocalDateTime> orderSpecifier = qMemberTeacher.regDtm.desc();
+        BooleanBuilder builder = new BooleanBuilder();
+        builder.and(qMemberTeacher.mberPid.eq(id));
+        MemberTeacher teacher = queryFactory
+                .select(Projections.fields(MemberTeacher.class,
+                        qMemberTeacher.areaNm,
+                        qMemberTeacher.ban,
+                        qMemberTeacher.schlNm,
+                        qMemberTeacher.grade
+                ))
+                .from(qMemberTeacher)
+                .where(builder)
+                .orderBy(orderSpecifier)
+                .fetchFirst();
+        return teacher;
+    }
+
 
     public boolean registerPreIns(PreventionInstructorForm preventionInstructorForm) {
         preventionInstructorForm.setApproval("N");
@@ -70,6 +88,25 @@ public class ApplicationService extends _BaseService {
             preventionInstructorForm.setApproval("N");
         }
         try {
+            PreventionInstructor pre = preventionInstructorRepository.findById(preventionInstructorForm.getPreInsPid()).orElseGet(PreventionInstructor::new);
+            pre.setAwards(preventionInstructorForm.getAwards());
+            pre.setEduMatters(preventionInstructorForm.getEduMatters());
+            pre.setEnrollPeriod(preventionInstructorForm.getEnrollPeriod());
+            pre.setExpContent(preventionInstructorForm.getExpContent());
+            pre.setExpNm(preventionInstructorForm.getExpNm());
+            pre.setExpPeriod(preventionInstructorForm.getExpPeriod());
+            pre.setGrdStatus(preventionInstructorForm.getGrdStatus());
+            pre.setMajor(preventionInstructorForm.getMajor());
+            pre.setQualifications(preventionInstructorForm.getQualifications());
+            pre.setSchlNm(preventionInstructorForm.getSchlNm());
+            pre.setSelfDrivingAt(preventionInstructorForm.getSelfDrivingAt());
+            pre.setSnsStatus(preventionInstructorForm.getSnsStatus());
+            pre.setSnsUrl(preventionInstructorForm.getSnsUrl());
+            pre.setTempSave(preventionInstructorForm.getTempSave());
+            pre.setUpdDtm(LocalDateTime.now());
+            pre.setThumbImg(preventionInstructorForm.getThumbImg());
+            pre.setApproval(preventionInstructorForm.getApproval());
+            pre.setDelAt(preventionInstructorForm.getDelAt());
             return true;
         } catch (Exception e) {
             return false;
@@ -78,21 +115,60 @@ public class ApplicationService extends _BaseService {
 
 
     public PreventionInstructor getPreIns(Long mberPid) {
-
-        QPreventionInstructor qPreventionInstructor = QPreventionInstructor.preventionInstructor;
-        PreventionInstructor results = queryFactory
-                .select(Projections.fields(PreventionInstructor.class,
-                        qPreventionInstructor.id,
-                        qPreventionInstructor.mberPid
-                ))
-                .from(qPreventionInstructor)
-                .where(qPreventionInstructor.mberPid.eq(mberPid))
-                .fetchFirst();
-        return preventionInstructorRepository.findByIdAndMberPid(results.getId(),mberPid);
+//        QPreventionInstructor qPreventionInstructor = QPreventionInstructor.preventionInstructor;
+//        PreventionInstructor results = queryFactory
+//                .select(Projections.fields(PreventionInstructor.class,
+//                        qPreventionInstructor.id,
+//                        qPreventionInstructor.mberPid
+//                ))
+//                .from(qPreventionInstructor)
+//                .where(qPreventionInstructor.mberPid.eq(mberPid))
+//                .fetchFirst();
+        return preventionInstructorRepository.findByMberPid(mberPid);
     }
 
-    public PreventionMaster getPreEduMst(Long prePid, Long mberPid) {
-        return preventionMasterRepository.findByPrePidAndMberPid(prePid,mberPid);
+    public Prevention getPreAt(Long id, Long mberPid) {
+        return preventionRepository.findByPreMstPidAndMberPid(id,mberPid);
+    }
+
+    public PreventionMaster getPreEduMstData(Long id) {
+        QPreventionMaster qPreventionMaster = QPreventionMaster.preventionMaster;
+        OrderSpecifier<Long> orderSpecifier = qPreventionMaster.id.desc();
+        BooleanBuilder builder = new BooleanBuilder();
+        builder.and(qPreventionMaster.mberPid.eq(id));
+        PreventionMaster results = queryFactory
+                .select(Projections.fields(PreventionMaster.class,
+                        qPreventionMaster.id,
+                        qPreventionMaster.mberPid,
+                        qPreventionMaster.address,
+                        qPreventionMaster.approval,
+                        qPreventionMaster.classesNum,
+                        qPreventionMaster.personnel,
+                        qPreventionMaster.regDtm,
+                        qPreventionMaster.schlNm,
+                        qPreventionMaster.tempSave,
+                        qPreventionMaster.updDtm,
+                        qPreventionMaster.hpSchd1Et,
+                        qPreventionMaster.hpSchd1Personnel,
+                        qPreventionMaster.hpSchd1Wt,
+                        qPreventionMaster.hpSchd2Wt,
+                        qPreventionMaster.hpSchd2Personnel,
+                        qPreventionMaster.hpSchd2Et,
+                        qPreventionMaster.resultQna1,
+                        qPreventionMaster.resultQna2,
+                        qPreventionMaster.resultQna3,
+                        qPreventionMaster.resultQna4,
+                        qPreventionMaster.resultQna5
+                ))
+                .from(qPreventionMaster)
+                .where(qPreventionMaster.id.eq(id))
+                .orderBy(orderSpecifier)
+                .fetchFirst();
+        return results;
+    }
+
+    public PreventionMaster getPreEduMst(Long id, Long mberPid) {
+        return preventionMasterRepository.findByPrePidAndMberPid(id, mberPid);
     }
 
     public Page<PreventionMaster> getMyPreEduMstList(Pageable pageable, Long id) {
@@ -143,7 +219,7 @@ public class ApplicationService extends _BaseService {
         return new PageImpl<>(mngList.getResults(), pageable, mngList.getTotal());
     }
 
-    public Page<PreventionMaster> getPreEduMstList(Pageable pageable, Long id) {
+    public Page<PreventionMaster> getPreEduMstList(Pageable pageable) {
         int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
         pageable = PageRequest.of(page, Constants.DEFAULT_PAGESIZE); // <- Sort 추가
 
@@ -153,6 +229,7 @@ public class ApplicationService extends _BaseService {
         QueryResults<PreventionMaster> mngList = queryFactory
                 .select(Projections.fields(PreventionMaster.class,
                         qPreventionMaster.id,
+                        qPreventionMaster.tel,
                         qPreventionMaster.address,
                         qPreventionMaster.approval,
                         qPreventionMaster.mberPid,
@@ -166,13 +243,28 @@ public class ApplicationService extends _BaseService {
 
                 ))
                 .from(qPreventionMaster)
-                .where(qPreventionMaster.mberPid.eq(id))
                 .limit(pageable.getPageSize())
                 .offset(pageable.getOffset())
                 .orderBy(orderSpecifier)
                 .fetchResults();
 
         return new PageImpl<>(mngList.getResults(), pageable, mngList.getTotal());
+    }
+
+    public boolean setPreeducation(Long id, Long mberId) {
+        PreventionForm form = new PreventionForm();
+        form.setMberPid(mberId);
+        form.setPreMstPid(id);
+        form.setRegDtm(LocalDateTime.now());
+        form.setApproval("N");
+        form.setDelAt("N");
+        Prevention prevention = modelMapper.map(form, Prevention.class);
+        Prevention save = preventionRepository.save(prevention);
+        if(save.getId()!=null){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public boolean registerPreEdu(PreventionMasterForm preventionMasterForm) {

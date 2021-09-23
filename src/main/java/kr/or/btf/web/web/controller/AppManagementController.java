@@ -3,6 +3,7 @@ package kr.or.btf.web.web.controller;
 import kr.or.btf.web.common.annotation.CurrentUser;
 import kr.or.btf.web.domain.web.Account;
 import kr.or.btf.web.domain.web.ActivityApplication;
+import kr.or.btf.web.domain.web.PreventionInstructor;
 import kr.or.btf.web.domain.web.PreventionMaster;
 import kr.or.btf.web.domain.web.enums.UserRollType;
 import kr.or.btf.web.services.web.AppManagementService;
@@ -15,11 +16,50 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequiredArgsConstructor
 public class AppManagementController extends BaseCont  {
     private final AppManagementService appManagementService;
+
+    @ResponseBody
+    @GetMapping("/api/soulGod/application/updateInsApporaval/{id}/{gbn}/{uid}")
+    public boolean updateInsApporaval(@PathVariable("id") Long id,
+                                      @PathVariable("uid") Long uid,
+                                        @PathVariable("gbn") String gbn) {
+        return appManagementService.updateInsApporaval(id,gbn,uid);
+    }
+
+    @GetMapping("/soulGod/application/inseduDetail/{id}")
+    public String myDetail(Model model,
+                           @PathVariable(name = "id") Long id,
+                           @CurrentUser Account account) {
+
+        PreventionInstructor load = appManagementService.inseduDetail(id);
+        model.addAttribute("form", load);
+        return "/soulGod/application/inseducationDetail";
+    }
+
+
+    @GetMapping("/soulGod/application/inseducation")
+    public String inseducationPage(Model model,
+                                   @PageableDefault Pageable pageable,
+                                   @ModelAttribute SearchForm searchForm,
+                                   @CurrentUser Account account) {
+        searchForm.setGroupDv("N");
+        model.addAttribute("form", searchForm);
+
+        searchForm.setUserRollType(account.getMberDvTy());
+        Page<PreventionInstructor> preInsList = appManagementService.getPreInsList(pageable, searchForm);
+        model.addAttribute("preInsList", preInsList);
+        model.addAttribute("totCnt", preInsList.isEmpty() ? 0 : preInsList.getContent().size());
+
+        model.addAttribute("mc", "application");
+        model.addAttribute("dv", "application");
+        return "soulGod/application/inseducation";
+    }
 
     @GetMapping("/soulGod/application/preeducation")
     public String preeducationPage(Model model,
