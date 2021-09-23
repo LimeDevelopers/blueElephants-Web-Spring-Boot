@@ -25,6 +25,7 @@
     let pid;
     let etcContent;
     let uploadImg;
+    let thumbImg;
 
     function fn_chkFiled() {
         enrollPeriod = $('#enrollPeriod');
@@ -43,8 +44,9 @@
         snsUrl = $('#snsUrl');
         etcContent = $('#etcContent');
         uploadImg = $('#uploadImg');
+        thumbImg = $('#thumbImg');
 
-        if(!uploadImg.val()) {
+        if(!thumbImg.val()) {
             alert('사진은 필수입니다.');
             return false;
         }
