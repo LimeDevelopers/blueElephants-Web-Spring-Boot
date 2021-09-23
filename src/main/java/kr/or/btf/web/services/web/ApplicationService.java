@@ -48,6 +48,7 @@ public class ApplicationService extends _BaseService {
     private final ModelMapper modelMapper;
     private final JPAQueryFactory queryFactory;
     private final EventRepository eventRepository;
+    private final ContestRepository contestRepository;
 
     public boolean registerPreIns(PreventionInstructorForm preventionInstructorForm) {
         preventionInstructorForm.setApproval("N");
@@ -453,6 +454,11 @@ public class ApplicationService extends _BaseService {
     }
     public Event getEventData(Long id) {
         Optional<Event> result = eventRepository.findById(id);
+        return result.orElse(null);
+    }
+
+    public Contest getContestData(Long id) {
+        Optional<Contest> result = contestRepository.findById(id);
         return result.orElse(null);
     }
 

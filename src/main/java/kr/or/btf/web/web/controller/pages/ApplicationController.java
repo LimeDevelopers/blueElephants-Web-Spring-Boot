@@ -434,13 +434,13 @@ public class  ApplicationController {
         return "pages/application/contestList";
     }
 
-    /*@GetMapping("/pages/application/eventList/{id}")
+    @GetMapping("/pages/application/contestList/{id}")
     public String contest(Model model,
                         ApplicationForm applicationForm,
                         @PathVariable("id") Long id,
                         @CurrentUser Account account){
-        Event event = applicationService.getEventData(id);
-        if(event == null){
+        Contest contest = applicationService.getContestData(id);
+        if(contest == null){
             model.addAttribute("altmsg", "정상적인 경로를 이용하세요.");
             model.addAttribute("locurl", "/pages/application/contestList");
             return "/message";
@@ -449,8 +449,8 @@ public class  ApplicationController {
         model.addAttribute("mc", "application");
         model.addAttribute("pageTitle", "공모전");
 
-        return "pages/application/eventRegister";
-    }*/
+        return "pages/application/contestRegister";
+    }
 
     @GetMapping("/pages/application/zzcrewRegister")
     public String zzcrewRegister(Model model) {
