@@ -1,21 +1,19 @@
 package kr.or.btf.web.web.form;
 
 import kr.or.btf.web.domain.web.enums.AppRollType;
-import kr.or.btf.web.domain.web.enums.UserRollType;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
 import java.time.LocalDateTime;
 
-@Getter @Setter
+@Getter
+@Setter
 public class ApplicationForm extends SearchForm{
     private Long appPid;
     private Long mberPid;
     private Long flPid;
     private Long eventPid;
 
-    /*private String loginId;*/
     private String nm;
     private String affi;
     private String crewNm;
@@ -51,5 +49,28 @@ public class ApplicationForm extends SearchForm{
     private String field;
     private String content;
 
-
+    private String t_nm;
+    private String t_moblphon;
+    private String t_brthday;
+    private String t_affi;
+    private String t_nm1;
+    private String t_moblphon1;
+    private String t_brthday1;
+    private String t_affi1;
+    private String t_nm2;
+    private String t_moblphon2;
+    private String t_brthday2;
+    private String t_affi2;
+    private String t_nm3;
+    private String t_moblphon3;
+    private String t_brthday3;
+    private String t_affi3;
+    private String t_nm4;
+    private String t_moblphon4;
+    private String t_brthday4;
+    private String t_affi4;
+    private String t_nm5;
+    private String t_moblphon5;
+    private String t_brthday5;
+    private String t_affi5;
 }

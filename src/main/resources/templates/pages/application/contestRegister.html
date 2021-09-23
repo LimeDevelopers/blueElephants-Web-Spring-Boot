@@ -29,7 +29,6 @@
     let theme2;
     let theme3;
 
-
     function fn_teamArrPlus() {
         teamPlus = $('#teamPlus')
         teamArr ++
@@ -112,6 +111,7 @@
         content = $('#content')
         detail = $('#detail')
 
+
         if(!nm.val()){
             alert('대표참여자 이름은 필수 입력사항 입니다.')
             nm.focus()
@@ -156,6 +156,7 @@
         <!--체크박스 정규식-->
         fn_checkbox();
 
+
         if(!field.val()){
             alert('작품형식은 필수 입력사항 입니다.')
             field.focus()
@@ -180,13 +181,11 @@
             detail.focus()
             return false;
         }
-
-
         return true;
     }
     function fn_checkbox(){
-        var chked = document.getElementsByName('theme[]');
-        var chkYN = 0;
+        let chked = document.getElementsByName('theme');
+        let chkYN = 0;
 
         for (var i=0; i<chked.length; i++) {
             if(chked[i].checked){
@@ -202,17 +201,15 @@
     function fn_register() {
 
         $('#btnSave').prop('disabled', true);
-
         if (!fn_chkField()) {
             $('#btnSave').prop('disabled', false);
             return false;
         }
 
-
-
         let frm = $('#form1');
         frm.prop('action', '/pages/application/contestList/contestRegister')
         frm.submit();
+
     }
 
     $(document).ready(function () {
@@ -236,7 +233,7 @@
     <th:block th:include="fragments/mo_menu"></th:block>
     <div class="sub_container">
         <th:block th:include="fragments/dept_menu"></th:block>
-        <form id="form1" name="form1" method="post">
+        <form id="form1" name="form1" method="post" enctype="multipart/form-data">
             <div class="inner">
                 <div class="page_cont">
                     <h4 class="subtit pc review_title">공모전 신청</h4>
@@ -383,7 +380,7 @@
                                                         </th:block>
                                                     </div>
                                                     <input type="file" name="attachedFile" id="attachedFile" >
-                                                    <label for="attachedFile" id="box" >증빙서류를 업로드 해주세요.</label>
+                                                    <label for="attachedFile" id="" >증빙서류를 업로드 해주세요.</label>
                                                     <label for="attachedFile">파일검색</label>
                                                 </div>
                                             </li>
@@ -410,15 +407,15 @@
                                                     <div class="td" id="theme">
                                                         <u>아래 3가지 중 최소 1가지 선택</u>
                                                         <div class="checkbox">
-                                                            <input id="theme1" name="theme[]" type="checkbox"  value="1">
+                                                            <input id="theme1" name="theme" type="checkbox"  value="1">
                                                             <label for="theme1"><span> 1. 청소년 사이버폭력의 심각성</span></label>
                                                         </div>
                                                         <div class="checkbox">
-                                                            <input id="theme2" name="theme[]" type="checkbox"  value="2">
+                                                            <input id="theme2" name="theme" type="checkbox"  value="2">
                                                             <label for="theme2"><span>2. 청소년 사이버폭력의 해결을 위한 학교의 역할</span></label>
                                                         </div>
                                                         <div class="checkbox">
-                                                            <input id="theme3" name="theme[]" type="checkbox"  value="3">
+                                                            <input id="theme3" name="theme" type="checkbox"  value="3">
                                                             <label for="theme3"><span>3. 청소년 사이버폭력 관련 자유주제</span></label>
                                                         </div>
                                                     </div>
@@ -431,9 +428,9 @@
                                                         <input id="field" name="field" type="text" placeholder="드라마, 다큐멘터리, 인터뷰, (공익)광고, 패러디, 뮤직비디오, 애니메이션 등">
                                                     </div>
                                                 </li>
-                                                <li class="file_search m_mode">
+                                                <!--<li class="file_search m_mode">
                                                     <div class="th">
-                                                        <label for="attachedFile1">업로드</label>
+                                                        <label>업로드</label>
                                                     </div>
                                                     <div class="td">
                                                         <div th:if="${fileList != null and !fileList.isEmpty()}">
@@ -446,10 +443,11 @@
                                                                 </p>
                                                             </th:block>
                                                         </div>
-                                                        <input for="attachedFile" id="attachedFile1" name="attachedFile" placeholder="공모전에 관련된 파일을 업로드 해주세요" >
-                                                        <label for="attachedFile">파일검색</label>
+                                                        <input for="attachedFile1" id="attachedFile1" name="attachedFile1">
+                                                        <label for="attachedFile1" id="box1">공모전 관련 자료를 업로드 하세요.</label>
+                                                        <label for="attachedFile1">파일검색</label>
                                                     </div>
-                                                </li>
+                                                </li>-->
                                                 <li>
                                                     <div class="th">
                                                         <label for="title">작품제목</label>

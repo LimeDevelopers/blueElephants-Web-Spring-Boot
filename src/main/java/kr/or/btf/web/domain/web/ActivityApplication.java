@@ -33,6 +33,9 @@ public class ActivityApplication {
     @Column(name = "event_pid")
     private Long event_pid;
 
+    @Column(name = "contest_pid")
+    private Long contest_pid;
+
    /* @Column(name = "login_id")
     private String loginId;*/
 
