@@ -193,7 +193,7 @@ body{color:#54586a;font-size:14px;font-family:'Noto Sans KR', Malgun Gothic, '�
 /*** select ***/
 .select{display:inline-block;position:relative;width:160px;height:44px;vertical-align:top;cursor:pointer}
 .select label{display:block;overflow:hidden;position:absolute;top:0;left:0;width:100%;padding:0 58px 0 16px;color:#5a5a5a;font-size:15px;line-height:42px;text-overflow:ellipsis;white-space:nowrap;border:1px solid #cacaca;box-sizing:border-box;cursor:pointer}
-.select label:after{content:'';position:absolute;top:0;right:0;bottom:0;width:42px;border-left:1px solid #ccc; url(../images/button/select.png) no-repeat 50% 50%}
+.select label:after{content:'';position:absolute;top:0;right:0;bottom:0;width:42px;border-left:1px solid #ccc; background: url(../images/button/select.png) no-repeat 50% 50%}
 .select select{width:100%;height:100%;opacity:0;cursor:pointer}
 /*.select select[multiple]:focus{height:120px;opacity:1}*/
 /*** btn ***/
@@ -287,7 +287,7 @@ body{color:#54586a;font-size:14px;font-family:'Noto Sans KR', Malgun Gothic, '�
 .tbl_write .txt_serious > dd .select{width:130px}
 /*.tbl_write .td.type01 .select{display:none}*/
 .tbl_select { text-align: center; margin: 0; border-top: 4px solid transparent; background-origin: border-box; background-clip: content-box, border-box;}
-.contour{border-top: 4px solid; border-color:#8bb3ff; margin: 12px 0 12px 0;}
+.contour{border-top: 2px solid; border-color:#8bb3ff; margin: 12px 0 12px 0;}
 /* view */
 .board_view > dt{display:table;width:100%;border-top:2px solid #8bb3ff;border-bottom:1px solid #ccc;background-color:#dee6f1}
 .board_view > dt .tit_area{display:table-cell;width:auto;padding:36px 30px 37px;font-weight:normal;box-sizing:border-box}
@@ -309,7 +309,7 @@ body{color:#54586a;font-size:14px;font-family:'Noto Sans KR', Malgun Gothic, '�
 /*** form ***/
 /* 날짜 폼 */
 .term_form, .tbl_write .td .term_form{display:inline-block;font-size:0;vertical-align:top}
-.term_form input, .tbl_write .td .term_form input{width:180px;padding-right:53px;background:#fff url(../images/button/btn_calendar.png) no-repeat 100% 50%;cursor:pointer}
+.term_form input, .tbl_write .td .term_form input{width:180px;padding-right:53px;background:#fff background:url(../images/button/btn_calendar.png) no-repeat 100% 50%;cursor:pointer}
 .term_form .swung, .tbl_write .td .term_form .swung{display:inline-block;margin:0 12px;font-size:14px;line-height:44px;vertical-align:top}
 /* 생년월일 폼 */
 .birth_form .select{width:130px;margin-left:14px}
