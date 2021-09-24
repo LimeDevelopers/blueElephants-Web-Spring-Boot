@@ -476,4 +476,21 @@ public class  ApplicationController {
         return "pages/application/zzcrewRegister";
     }
 
+    @PostMapping(value = "/pages/application/contestList/contestRegister")
+    public String contestRegister(Model model ,
+                                  ApplicationForm applicationForm ,
+                                  Pageable pageable ,
+                                  SearchForm searchForm ,
+                                  @CurrentUser Account account ) throws Exception {
+
+        applicationService.contestRegister(applicationForm);
+
+        model.addAttribute("mc", "application");
+        model.addAttribute("pageTitle", "공모전");
+        Page<Contest> ContestPage = applicationService.getContestList(pageable, searchForm);
+        model.addAttribute("contestList", ContestPage);
+
+
+        return "/pages/application/contestList";
+    }
 }

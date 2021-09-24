@@ -29,9 +29,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
-import java.lang.reflect.Member;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -47,6 +45,8 @@ public class ApplicationService extends _BaseService {
     private final JPAQueryFactory queryFactory;
     private final EventRepository eventRepository;
     private final ContestRepository contestRepository;
+    private final TeamMemberRepository teamMemberRepository;
+
 
     public MemberTeacher getSchoolData(Long id) {
         QMemberTeacher qMemberTeacher = QMemberTeacher.memberTeacher;
@@ -568,7 +568,7 @@ public class ApplicationService extends _BaseService {
                 .select(Projections.fields(Contest.class,
                         qContest.id ,qContest.ttl , qContest.cn , qContest.stYmd , qContest.edYmd ,
                         qContest.updDtm , qContest.updPsId ,qContest.regDtm ,qContest.regPsId , qContest.delAt ,
-                        qContest.readCnt, qContest.field ,qContest.organ_dtl , qContest.imgFl))
+                        qContest.readCnt, qContest.fieldDv ,qContest.organ_dtl , qContest.imgFl))
                 .from(qContest)
                 .where(qContest.delAt.eq("N"))
                 .limit(pageable.getPageSize())
@@ -609,5 +609,60 @@ public class ApplicationService extends _BaseService {
         } else {
             return false;
         }
+    }
+
+    public boolean contestRegister(ApplicationForm applicationForm) throws Exception {
+
+        if(applicationForm.getMberPid() == null) {
+            applicationForm.setMberPid(0L);
+        }
+        TeamMember teamMember = new TeamMember();
+
+        applicationForm.setApproval("N");
+        applicationForm.setDelAt("N");
+        applicationForm.setRegDtm(LocalDateTime.now());
+        applicationForm.setAppDvTy(AppRollType.CONTEST);
+
+        ActivityApplication application = modelMapper.map(applicationForm, ActivityApplication.class);
+        ActivityApplication save = applicationRepository.save(application);
+        application.setId(save.getId());
+
+        //teamMember insert
+        teamMember.setContset_pid(applicationForm.getContestPid());
+        //app_id insert
+        teamMember.setApp_pid(save.getId());
+
+        teamMember.setTnm(applicationForm.getT_nm());
+        teamMember.setTaffi(applicationForm.getT_affi());
+        teamMember.setTbrthday(applicationForm.getT_brthday());
+        teamMember.setTmoblphon(applicationForm.getT_moblphon());
+
+        teamMember.setTnm1(applicationForm.getT_nm1());
+        teamMember.setTaffi1(applicationForm.getT_affi1());
+        teamMember.setTbrthday1(applicationForm.getT_brthday1());
+        teamMember.setTmoblphon1(applicationForm.getT_moblphon1());
+
+        teamMember.setTnm2(applicationForm.getT_nm2());
+        teamMember.setTaffi2(applicationForm.getT_affi2());
+        teamMember.setTbrthday2(applicationForm.getT_brthday2());
+        teamMember.setTmoblphon2(applicationForm.getT_moblphon2());
+
+        teamMember.setTnm3(applicationForm.getT_nm3());
+        teamMember.setTaffi3(applicationForm.getT_affi3());
+        teamMember.setTbrthday3(applicationForm.getT_brthday3());
+        teamMember.setTmoblphon3(applicationForm.getT_moblphon3());
+
+        teamMember.setTnm4(applicationForm.getT_nm4());
+        teamMember.setTaffi4(applicationForm.getT_affi4());
+        teamMember.setTbrthday4(applicationForm.getT_brthday4());
+        teamMember.setTmoblphon4(applicationForm.getT_moblphon4());
+
+        teamMember.setTnm5(applicationForm.getT_nm5());
+        teamMember.setTaffi5(applicationForm.getT_affi5());
+        teamMember.setTbrthday5(applicationForm.getT_brthday5());
+        teamMember.setTmoblphon5(applicationForm.getT_moblphon5());
+        teamMemberRepository.save(teamMember);
+
+        return true;
     }
 }
