@@ -3876,28 +3876,101 @@
 	}
 	/* 신청_ 강사교육 끝 */
 
+	/* 신청_ 공모전 시작 */
+	.type_chk {
+		text-align: left;
+		margin-top: 20px;
+	}
+	.type_chk label {
+		font-size: 14px;
+		padding: 8px 30px;
+		margin-right: 5px;
+	}
+	.item_info .join .tbl_write ul li.chktit .td u {
+		font-size: 15px;
+	}
+	.item_info .join .tbl_write ul li.chktit .td label span {
+		font-size: 14px;
+		padding-left: 10px;
+		margin-bottom: 10px;
+	}
+	.item_info .join .tbl_write .col li.chktit {
+		padding-bottom: 100px;
+	}
+	.item_info .join .tbl_write .col li {
+		display: flex;
+		flex-direction: column;
+	}
+	.item_info .join .tbl_write .col li:last-child {
+		padding-bottom: 150px;
+	}
+	.item_info .join .tbl_write .col li:last-child textarea::placeholder {
+		font-size: 13px;
+		padding-top: 20px;
+	}
+	.item_info .join .tbl_write .col li.m_mode .td {
+		display: flex;
+	}
+	.item_info .join .tbl_write .col li.m_mode .td #box {
+		flex: 3;
+	}
+	.item_info .join .tbl_write .col li.m_mode .td label {
+		flex :1;
+	}
+	.txt_fill .td div, .item_info .join .tbl_write .col li .th {
+		width: 100%;
+	}
+	.item_info .join .tbl_write .col li .th {
+		height: auto;
+		padding: 0;
+		padding-top: 15px;
+	}
+	.txt_fill .td div span {
+		margin-top: 8px;
+	}
+	.txt_fill .td div span input[type="text"] {
+		width: 100px;
+		height: 20px;
+	}
+	.txt_fill {
+		padding-bottom: 50px;
+	}
+	ul.agree_on li {
+		padding: 20px 0;
+	}
+	ul.agree_on li > p {
+		font-size: 13px;
+	}
+	.btn_area {
+		justify-content: center;
+	}
+	.btn_area a.list_btn {
+		width: 150px;
+	}
+	.item_info .join .tbl_write .col li .th label small {
+		font-weight: normal;
+		font-size: 12px;
+	}
+	/* 신청_ 공모전 끝 */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	/* 신청_ 공모전리스트 시작 */
+	.contest_box {
+		padding: 20px;
+		margin-top: 20px;
+	}
+	.contest_box .text {
+		font-size: 13px;
+	}
+	.contest_btn {
+		margin-top: 20px;
+		text-align: left;
+	}
+	.contest_btn a {
+		font-size: 14px;
+		padding: 8px 15px;
+		margin-right: 5px;
+	}
+	/* 신청_ 공모전리스트 끝 */
 
 }
 
@@ -5218,5 +5291,34 @@
 		font-size: 16px;
 	}
 	/* 신청_ 강사교육 끝 */
+
+	/* 신청_ 공모전리스트 시작 */
+	.contest_box .text {
+		font-size: 16px;
+	}
+	.contest_btn {
+		margin-top: 40px;
+	}
+	.contest_btn a {
+		font-size: 16px;
+	}
+	/* 신청_ 공모전리스트 끝 */
+
+	/* 신청_ 공모전신청 시작 */
+	.item_info .join .tbl_write ul li.chktit .td label span {
+		font-size: 16px;
+	}
+	.item_info .join .tbl_write ul li.chktit .td u {
+		font-size: 16px;
+	}
+	.item_info .join .tbl_write ul li.chktit .td {
+		display: flex;
+		flex-direction: column;
+	}
+	.item_info .join .tbl_write ul li.file_search .td label {
+		text-align: center;
+	}
+	/* 신청_ 공모전신청 끝 */
+
 
 }

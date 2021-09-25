@@ -13076,3 +13076,135 @@ li.more_info2 .td label:before {
     margin-bottom: 5px;
 }
 /* 회원가입_개인_학생 끝 */
+
+/* 신청_ 공모전 시작 */
+.bottom .item_info {
+    margin-top: 60px;
+}
+.item_info .join .tbl_write ul li.file_search .td input[type="file"] {
+    display: none;
+}
+.item_info .join .tbl_write ul li.file_search .td #box {
+    height: 44px;
+    border: 1px solid #ccc;
+    width: 500px;
+    color: #a5a5a5;
+    font-size: 15px;
+    margin-right: 12px;
+}
+.item_info .join .tbl_write ul li.file_search .td label {
+    border: 1px solid #85b4f7;
+    border-radius: 10px;
+    color: #85b4f7;
+    height: 44px;
+    display: inline-block;
+    padding: 0 15px;
+    cursor: pointer;
+    line-height: 44px;
+}
+.item_info .join .tbl_write ul li.chktit .td u {
+    text-decoration: none;
+    color: #6d95e1;
+    font-size: 16px;
+    font-weight: normal;
+    display: block;
+    margin-bottom: 10px;
+}
+.item_info .join .tbl_write ul li.chktit .td label span {
+    font-size: 16px;
+    color: #5a5a5a;
+    font-weight: normal;
+}
+.item_info .join .tbl_write ul li.chktit .td .checkbox {
+    margin-right: 10px;
+}
+}
+.item_info .join .tbl_write ul li.chktit .td .checkbox {
+    margin-right: 10px;
+}
+.txt_fill .td small {
+    font-size: 13px;
+    color: #ACACAC;
+    display: block;
+    margin-top: 3px;
+}
+.txt_fill .td div {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    display: inline-block;
+    height: 44px;
+    padding: 0 20px;
+}
+.txt_fill .td div span {
+    margin-top: 6px;
+    display: inline-block;
+}
+.txt_fill .td div span input[type="text"] {
+    border-bottom: 1px solid #000;
+    border-top: 0;
+    border-right: 0;
+    border-left: 0;
+    border-radius: 0;
+    height: 30px;
+    width: 200px;
+}
+.type_chk {
+    text-align: center;
+    margin-top: 40px;
+}
+.type_chk label {
+    font-size: 18px;
+    padding: 8px 20px;
+    border-radius: 20px;
+    background-color: #E2EAF9;
+    color: #6d95e1;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.type_chk input[type="radio"]:checked + label {
+    background-color: #6d95e1;
+    color: #fff;
+}
+.item_info .join .tbl_write .col li:last-child textarea:focus::placeholder {
+    opacity: 0;
+}
+/* 신청_ 공모전 끝 */
+
+/* 신청_ 공모전리스트 시작 */
+.contest_box {
+    background-color: #e8ebf1;
+    width: 100%;
+    max-width: 1200px;
+    border-radius: 20px;
+    margin-top: 53px;
+    padding: 24px 64px;
+}
+.contest_box .text {
+    color: #9499ad;
+    font-size: 18px;
+    font-weight: normal;
+}
+.contest_box .text .title {
+    color: #555868;
+}
+.contest_btn {
+    text-align: center;
+    margin: 50px 0;
+}
+.contest_btn a {
+    font-size: 18px;
+    font-weight: 500;
+    padding: 8px 15px;
+    background-color: #E2EAF9;
+    color: #6d95e1;
+    border-radius: 20px;
+    margin-right: 10px;
+}
+.contest_btn a:last-child {
+    margin-right: 0;
+}
+.contest_btn a.pick {
+    background-color: #6d95e1;
+    color: #fff;
+}
+/* 신청_ 공모전리스트 끝 */
