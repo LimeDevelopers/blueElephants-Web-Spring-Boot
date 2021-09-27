@@ -13,6 +13,7 @@ public class ApplicationForm extends SearchForm{
     private Long mberPid;
     private Long flPid;
     private Long eventPid;
+    private Long contestPid;
 
     private String nm;
     private String affi;
@@ -47,6 +48,7 @@ public class ApplicationForm extends SearchForm{
     private String title;
     private String detail;
     private String field;
+    private String fieldDv;
     private String content;
 
     private String t_nm;

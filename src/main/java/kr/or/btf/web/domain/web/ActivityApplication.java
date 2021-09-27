@@ -1,8 +1,6 @@
 package kr.or.btf.web.domain.web;
 
 import kr.or.btf.web.domain.web.enums.AppRollType;
-import kr.or.btf.web.domain.web.enums.UserRollType;
-import kr.or.btf.web.domain.web.enums.UserStatusType;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -122,7 +120,9 @@ public class ActivityApplication {
     @Column(name = "field")
     private String field;
 
+    @Column(name = "field_dv")
+    private String fieldDv;
+
     @Column(name = "content")
     private String content;
-
 }

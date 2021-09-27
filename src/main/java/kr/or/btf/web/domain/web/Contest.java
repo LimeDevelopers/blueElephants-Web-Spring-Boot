@@ -40,8 +40,8 @@ public class Contest {
     @Column(name = "organ_dtl")
     private String organ_dtl; //공모전 주최자
 
-    @Column(name = "field")
-    private String field;  //분야
+    @Column(name = "field_dv")
+    private String fieldDv;  //분야
 
     @Column(name = "read_cnt")
     private Integer readCnt;

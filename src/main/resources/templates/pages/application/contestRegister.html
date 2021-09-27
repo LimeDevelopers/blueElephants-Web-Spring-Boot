@@ -183,6 +183,7 @@
         }
         return true;
     }
+
     function fn_checkbox(){
         let chked = document.getElementsByName('theme');
         let chkYN = 0;
@@ -234,6 +235,9 @@
     <div class="sub_container">
         <th:block th:include="fragments/dept_menu"></th:block>
         <form id="form1" name="form1" method="post" enctype="multipart/form-data">
+            <th:block th:if="${cpid != null}">
+                <input type="hidden" id="ContestPid" name="ContestPid" th:value="${cpid}"/>
+            </th:block>
             <div class="inner">
                 <div class="page_cont">
                     <h4 class="subtit pc review_title">공모전 신청</h4>
@@ -318,34 +322,34 @@
                                             <ul>
                                                 <li>
                                                     <div class="th">
-                                                        <label for="team_nm">성명</label>
+                                                        <label for="t_nm">성명</label>
                                                     </div>
                                                     <div class="td">
-                                                        <input id="team_nm" name="team_nm" type="text">
+                                                        <input id="t_nm" name="t_nm" type="text">
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="th">
-                                                        <label for="team_brthday">생년월일</label>
+                                                        <label for="t_brthday">생년월일</label>
                                                     </div>
                                                     <div class="td">
-                                                        <input id="team_brthday" name="team_brthday" type="number" placeholder="EX) 19990901">
+                                                        <input id="t_brthday" name="t_brthday" type="number" placeholder="EX) 19990901">
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="th">
-                                                        <label for="team_affi">소속학교/기관</label>
+                                                        <label for="t_affi">소속학교/기관</label>
                                                     </div>
                                                     <div class="td">
-                                                        <input id="team_affi" name="team_affi" type="text">
+                                                        <input id="t_affi" name="t_affi" type="text">
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="th">
-                                                        <label for="team_moblphon">연락처</label>
+                                                        <label for="t_moblphon">연락처</label>
                                                     </div>
                                                     <div class="td">
-                                                        <input id="team_moblphon" name="team_moblphon" type="number">
+                                                        <input id="t_moblphon" name="t_moblphon" type="number">
                                                     </div>
                                                 </li>
                                             </ul>
@@ -389,11 +393,11 @@
                                 </div>
 
                                 <div class="type_chk">
-                                    <input type="radio" id="type_01" name="typepick" checked>
-                                    <label for="type_01"><span>영상</span></label>
+                                    <input type="radio" id="fieldDv" name="fieldDv" checked value="영상">
+                                    <label for="fieldDv"><span>영상</span></label>
 
-                                    <input type="radio" id="type_02" name="typepick">
-                                    <label for="type_02"><span>연시</span></label>
+                                    <input type="radio" id="fieldDv1" name="fieldDv" value="연시">
+                                    <label for="fieldDv"><span>연시</span></label>
                                 </div>
 
                                 <div class="school_info item_info">
