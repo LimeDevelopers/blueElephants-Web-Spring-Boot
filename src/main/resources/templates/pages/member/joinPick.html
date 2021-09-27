@@ -65,6 +65,7 @@
 <script type="text/javascript">
     var type = '';
     $(function(){
+        type = $("input:radio[name=registerType]").val();
         $("input:radio[name=registerType]").click(function()
         {
             type = this.value;
