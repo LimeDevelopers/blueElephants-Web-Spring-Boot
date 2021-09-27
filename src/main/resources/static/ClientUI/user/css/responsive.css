@@ -19,6 +19,41 @@
 		display: none;
 	}
 
+	.gnb_tit {
+		height: 200px;
+		background-size: auto 80% !important;
+		background-size: cover;
+	}
+	.gnb_tit > h2 {
+		text-align: center;
+		width: 100%;
+		font-size: 30px;
+		top: 65%;
+	}
+	.gnb_tit.gnb01 {
+		background: url('../images/contents/bg_sub_banner01.jpg')no-repeat center bottom;
+	}
+	.gnb_tit.gnb02 {
+		background: url('../images/contents/bg_sub_banner02.jpg')no-repeat center bottom;
+	}
+	.gnb_tit.gnb03 {
+		background: url('../images/contents/bg_sub_banner03.jpg')no-repeat center bottom;
+	}
+	.gnb_tit.gnb04 {
+		background: url('../images/contents/bg_sub_banner04.jpg')no-repeat center bottom;
+	}
+	.gnb_tit.gnb06 {
+		background: url('../images/contents/bg_sub_banner06.jpg')no-repeat center bottom;
+	}
+	.gnb_tit.gnb07 {
+		background: url('../images/contents/bg_sub_banner07.jpg')no-repeat center bottom;
+	}
+	.gnb_tit.gnb08 {
+		background: url('../images/contents/bg_sub_banner08.jpg')no-repeat center bottom;
+	}
+
+
+
 
 	/* 20210903_contents padding추가 */
 	.contents {
@@ -1704,7 +1739,7 @@
 		background-size: auto 150%;
 		position: relative;
 	}
-	#container .sub_container .sub_intro_banner h1 {
+	#container .sub_container .sub_intro_banner h2 {
 		color: #6193f0;
 		font-size: 30px;
 		font-weight: bold;
@@ -1743,6 +1778,10 @@
 		background-color: #8bb3ff;
 		color: #fff;
 		font-weight: 500;
+	}
+	/* 2dpeths color */
+	.depths_02_inner .slide_menu > div .sm_tit h3.sd_on a {
+		color: #fff;
 	}
 	.depths_02_inner .slide_menu > div ul.slide_sub {
 		display: flex;
