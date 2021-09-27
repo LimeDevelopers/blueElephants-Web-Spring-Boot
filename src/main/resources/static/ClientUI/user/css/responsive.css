@@ -2229,6 +2229,88 @@
 
 	/* 활동_사이버폭력 예방교육_소개 끝 */
 
+	/* 20210927 푸코소식 공지사항 시작 */
+	h4.subtit.pc {
+		text-align: left;
+	}
+	.page_cont > .notice_board > .title label, .page_cont > .notice_board > .subject label {
+		height: 40px;
+	}
+	.board_top>.search.news {
+		width: 100%;
+	}
+	.page_cont > .notice_board > .search input, .page_cont > .notice_board > .btn_blue {
+		height: 40px;
+	}
+	.page_cont > .notice_board > .search.news {
+		width: auto;
+		height: 40px;
+	}
+	.board_tbl_list>li .writer, .board_tbl_list>li .download, .board_tbl_list>li .point {
+		width: 100%;
+	}
+	/* 20210927 푸코소식 공지사항 끝 */
+
+	/*  20210927 푸코소식 캘린더 시작 */
+	#calendar .fc-toolbar h2 {
+		margin: 0 20px;
+		font-size: 20px;
+	}
+	#calendar .fc-toolbar.fc-header-toolbar {
+		padding-bottom: 40px;
+		border-bottom: 1px solid #8eb3f2;
+		margin-bottom: 0;
+	}
+	.calendar_area {
+		margin-top: 30px;
+	}
+	.calendar_area .calendar_tab {
+		display: none;
+	}
+	.list_type dl {
+		flex-direction: column;
+		padding: 20px 0;
+	}
+	#calendar .fc-toolbar button {
+		width: 25px;
+		height: 25px;
+		background: #f7f7f7 url(../images/icon/ico_calendar_arrow_lt.png) no-repeat 7px 50%;
+		background-size: 7px;
+	}
+	#calendar .fc-toolbar button.fc-next-button {
+		background: #f7f7f7 url(../images/icon/ico_calendar_arrow_rt.png) no-repeat 7px 50%;
+		background-size: 7px;
+	}
+	.list_type dd {
+		flex-direction: column;
+	}
+	.list_type dd .list_bull li {
+		padding: 0;
+		padding-left: 10px;
+		font-size: 14px;
+		padding: 0 0 0px 10px;
+	}
+	.list_type dd .btn_blue {
+		width: 100%;
+		font-size: 16px;
+		padding: 5px 0;
+	}
+	.list_type dt {
+		margin: 0;
+		font-size: 18px;
+	}
+	.list_type dt .sort {
+		float: none;
+		margin-top: 5px;
+		font-size: 11px;
+	}
+	.list_type dt .tit {
+		font-size: 18px;
+		width: auto;
+		margin-right: 10px;
+	}
+	/*  푸코소식 캘린더 끝 */
+
 
 
 	/* SubPage 끝*/
@@ -2789,7 +2871,7 @@
 	.board_tbl_list>li {
 		display: flex;
 		flex-direction: column;
-		padding: 10px 0;
+		padding: 20px 0;
 	}
 	.board_tbl_list>li.thead>strong {
 		font-size: 14px;
@@ -2811,14 +2893,16 @@
 		width: 100%;
 		padding-left: 0;
 		font-weight: 500;
-		font-size: 16px;
+		font-size: 15px;
+		padding-left:
 	}
 	.board_tbl_list>li .writer {
 		margin-top: 8px;
-		font-size: 14px;
+		font-size: 13px;
 	}
 	.board_tbl_list>li .date {
 		font-size: 12px;
+		float: right;
 	}
 
 
@@ -4016,11 +4100,15 @@
 /* Tablet Device */
 @media (min-width:768px) and (max-width:1024px) {
 
-	/* 20210903_서브페이지 헤더 */
+	/* 20210927_서브페이지 헤더 */
 	.gnb_tit {
-		height: 150px;
+		height: 250px;
 		background-size: auto 150%;
 		background-size: cover;
+	}
+
+	.gnb_tit>h1 {
+		font-size: 50px;
 	}
 
 
@@ -4598,6 +4686,11 @@
 	/* 소개_ 푸코친구들 끝 0913 고선호 수정 */
 
 
+
+}
+
+
+
 	/* 활동 */
 	/* 20210903_수강신청 시작 * /
 	/* 활동_ 예방교육 시작 */
@@ -4860,10 +4953,13 @@
 	.edu_intro_area .config_area .edu_model .top strong {
 		font-size: 22px;
 	}
-
-
-
 	/* 활동_사이버폭력 예방교육_소개 끝 */
+
+
+
+
+
+
 
 
 
