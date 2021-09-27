@@ -10781,6 +10781,196 @@ text.shadow {
 
 /***** e 또래지명 *****/
 
+
+/* 20210927 활동_도움요청_심리상담 시작 */
+.help_text_box {
+    height: 170px;
+    margin-top: 100px;
+}
+.page_cont > .help_text_box > img {
+    top: -50%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.page_cont > .sub_text_box > .text {
+    width: 100%;
+    padding: 40px 75px;
+}
+.page_cont > .sub_text_box > .text .sub {
+    color: #9499ad;
+    margin-top: 15px;
+    display: inline-block;
+}
+.therapy_info {
+    display: flex;
+    width: 100%;
+    margin: 60px 0;
+}
+.therapy_info > .item_01 {
+    margin-right: 40px;
+}
+.therapy_info > div {
+    border: 2px solid #85b4f7;
+    border-radius:30px;
+    flex: 1;
+    padding: 30px 40px;
+}
+.therapy_info > div > h2 {
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #8bb3ff;
+    font-size: 30px;
+    letter-spacing: -0.9px;
+}
+.therapy_info > div > p {
+    color: #555868;
+    font-size: 20px;
+    font-weight: normal;
+    margin-bottom: 20px;
+}
+.therapy_info > div > p b {
+    margin-bottom: 5px;
+    display: block;
+}
+.therapy_info > div .more_info {
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+}
+.therapy_info .item_01 .more_info > * {
+    color: #9499ad;
+    font-size: 16px;
+}
+.therapy_info .item_01 .more_info > div {
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+}
+.therapy_info .item_01 > .more_info > small {
+    font-weight: 500;
+    width: 80px;
+}
+.therapy_info .item_01 .more_info > div span {
+    color: #9499ad;
+}
+.therapy_info .item_01 .more_info > i {
+    color: #9499ad70;
+    font-size: 16px;
+    text-align: right;
+}
+.therapy_info > div .btn_inner {
+    text-align: center;
+}
+.therapy_info .item_01 .btn_inner {
+    margin-top: 50px;
+}
+.therapy_info > div .btn_inner button.call_btn {
+    color: #fff;
+    background-color: #6d95e1;
+    border-radius: 30px;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 12px 60px;
+}
+.therapy_info .item_02 .more_info ul li {
+    color: #9499ad;
+    margin-bottom: 5px;
+}
+.therapy_info .item_02 .more_info ul li span {
+    width: 100px;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 500;
+}
+.therapy_info .item_02 .more_info ul li i {
+    font-size: 16px;
+}
+.therapy_icon .icon_pc_inner {
+    padding: 50px 0;
+}
+.therapy_icon .icon_pc_inner .icon_inner {
+    display: inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 90px;
+}
+.therapy_icon .icon_pc_inner .icon_inner .item span {
+    color: #85b4f7;
+    text-align: center;
+    width: 100%;
+    display: inline-block;
+    font-size: 24px;
+    margin-top: 20px;
+}
+.therapy_icon .icon_pc_inner .icon_inner .item {
+    margin: 0 50px;
+}
+.page_cont > .heal_tit {
+    margin-top: 50px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+/* 활동_도움요청_심리상담 끝 */
+
+
+/* 활동_도움요청_심리상담전화 시작 */
+.heal_content {
+    padding: 40px 100px;
+    border-top: 2px solid #95b3ed;
+}
+.heal_content h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #9599ab;
+}
+.heal_content h1 b {
+    display: block;
+}
+.heal_content h1 i {
+    color: #6193f0;
+}
+.heal_content p {
+    margin: 20px 0;
+    font-size: 18px;
+    color: #555868;
+}
+.heal_content p span {
+    display: block;
+    margin-bottom: 10px;
+}
+.heal_content p b {
+    font-weight: bold;
+    color: #8bb3ff;
+    margin: 30px 0;
+    font-size: 24px;
+}
+.heal_content .time {
+    display: flex;
+    margin-top: 20px;
+}
+.heal_content .time div {
+    display: flex;
+    flex-direction: column;
+    margin-right: 30px;
+}
+.heal_content .time div span {
+    font-size: 17px;
+    color: #555868;
+}
+.heal_content .time small {
+    font-size: 17px;
+    color: #55586879;
+}
+/* 20210927 활동_도움요청_심리상담전화 끝 */
+
+
+
+
+
+
+
+
 /*
  2021/09/14
  kjw
