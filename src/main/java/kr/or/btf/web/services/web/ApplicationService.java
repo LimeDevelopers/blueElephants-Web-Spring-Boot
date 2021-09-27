@@ -324,11 +324,6 @@ public class ApplicationService extends _BaseService {
         JPAQuery<Prevention> list = queryFactory
                 .select(Projections.fields(Prevention.class,
                         qPrevention.id,
-                        qPrevention.schlNm,
-                        qPrevention.address,
-                        qPrevention.classesNum,
-                        qPrevention.personnel,
-                        qPrevention.tel,
                         qPrevention.regDtm,
                         qPrevention.delAt,
                         qPrevention.approval,
@@ -352,35 +347,35 @@ public class ApplicationService extends _BaseService {
      * @version : 1.0.0
      * 작성일 : 2021/09/15
     **/
-    public Page<Prevention> getPreEduList(Pageable pageable,
-                                          SearchForm searchForm) {
-        if(searchForm.getSrchWord() == null || searchForm.getSrchWord().equals("")){
-            searchForm.setSrchWord("");
-        }
-        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
-        pageable = PageRequest.of(page, (searchForm.getPageSize() == null ? Constants.DEFAULT_PAGESIZE : searchForm.getPageSize()));
-        QPrevention qPrevention = QPrevention.prevention;
-        OrderSpecifier<Long> orderSpecifier = qPrevention.id.desc();
-        JPAQuery<Prevention> list = queryFactory
-                .select(Projections.fields(Prevention.class,
-                        qPrevention.id,
-                        qPrevention.schlNm,
-                        qPrevention.address,
-                        qPrevention.tel,
-                        qPrevention.regDtm,
-                        qPrevention.delAt,
-                        qPrevention.approval))
-                .from(qPrevention)
-                .where(qPrevention.schlNm.contains(searchForm.getSrchWord())
-                        .or(qPrevention.address.contains(searchForm.getSrchWord()))
-                        .or(qPrevention.tel.contains(searchForm.getSrchWord())))
-                .where()
-                .limit(pageable.getPageSize())
-                .offset(pageable.getOffset());
-                list.orderBy(orderSpecifier);
-        QueryResults<Prevention> mngList = list.fetchResults();
-        return new PageImpl<>(mngList.getResults(), pageable, mngList.getTotal());
-    }
+//    public Page<Prevention> getPreEduList(Pageable pageable,
+//                                          SearchForm searchForm) {
+//        if(searchForm.getSrchWord() == null || searchForm.getSrchWord().equals("")){
+//            searchForm.setSrchWord("");
+//        }
+//        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
+//        pageable = PageRequest.of(page, (searchForm.getPageSize() == null ? Constants.DEFAULT_PAGESIZE : searchForm.getPageSize()));
+//        QPrevention qPrevention = QPrevention.prevention;
+//        OrderSpecifier<Long> orderSpecifier = qPrevention.id.desc();
+//        JPAQuery<Prevention> list = queryFactory
+//                .select(Projections.fields(Prevention.class,
+//                        qPrevention.id,
+//                        qPrevention.schlNm,
+//                        qPrevention.address,
+//                        qPrevention.tel,
+//                        qPrevention.regDtm,
+//                        qPrevention.delAt,
+//                        qPrevention.approval))
+//                .from(qPrevention)
+//                .where(qPrevention.schlNm.contains(searchForm.getSrchWord())
+//                        .or(qPrevention.address.contains(searchForm.getSrchWord()))
+//                        .or(qPrevention.tel.contains(searchForm.getSrchWord())))
+//                .where()
+//                .limit(pageable.getPageSize())
+//                .offset(pageable.getOffset());
+//                list.orderBy(orderSpecifier);
+//        QueryResults<Prevention> mngList = list.fetchResults();
+//        return new PageImpl<>(mngList.getResults(), pageable, mngList.getTotal());
+//    }
 
     public Prevention getPreEdu(Long id) {
         return preventionRepository.findByIdAndDelAt(id,"N");
