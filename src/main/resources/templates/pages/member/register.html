@@ -66,6 +66,17 @@
         * 생성자 : 김재일
         * input 필드 체크 함수
         * */
+
+        $(document).ready(function (e) {
+            $('#auth_01').on('click', function (e) {
+                $('#authMobileChk').val(1);
+                $('#authEmailChk').val(0);
+            })
+            $('#auth_02').on('click', function (e) {
+                $('#authMobileChk').val(0);
+                $('#authEmailChk').val(1);
+            })
+        })
         function fn_chkField() {
             $('.err.emph').remove();
 
@@ -179,7 +190,6 @@
                     return false;
                 }
             }
-
             if (!ncnm.val()) {
                 alert("ncnm");
                 ncnm.after('<p class="err emph">닉네임은 필수 값입니다.</p>');
@@ -1041,7 +1051,8 @@
                                     </div>
                                 </li>
                                 <li class="phoneAuth row email_f">
-                                    <input type="hidden" id="authMobileChk" name="authMobileChk" value="0"/>
+                                    <input type="hidden" id="authMobileChk" name="authMobileChk" value="1"/>
+                                    <input type="hidden" id="authEmailChk" name="authEmailChk" value="0"/>
                                     <div class="th"><label for="moblphon">본인인증</label><span class="aster" id="moblphonLabel">*</span></div>
                                     <div class="td">
                                         <ul class="tabs">
@@ -1087,7 +1098,7 @@
                                         </ul>
                                     </div>
                                 </li>
-                                <!--<li>
+                                <li>
                                     <div class="th">본인인증<span class="aster">*</span></div>
                                     <div class="td">
                                         <span id="resultText"></span>
@@ -1096,7 +1107,7 @@
                                             <label th:for="|authPrTy${at}|" th:text="${at.name}"></label>
                                         </div>
                                     </div>
-                                </li>-->
+                                </li>
                               <!--  <li class="emailAuth">
                                     <input type="hidden" id="authEmailChk" name="authEmailChk" value="0"/>
                                     <div class="th">이메일 주소<span class="aster">*</span></div>
@@ -1135,12 +1146,12 @@
                                         <button type="button" class="btn btn_lg btn_line_blue btn_pill_10" onclick="return fn_niceCallPopup();">휴대폰번호인증</button>
                                     </div>
                                 </li>-->
-                               <!-- <li>
+                                <li>
                                     <div class="th"><label for="ncnm">닉네임</label><span class="aster">*</span></div>
                                     <div class="td">
                                         <input type="text" id="ncnm" name="ncnm" placeholder="최대 8자 이내" maxlength="8">
                                     </div>
-                                </li>-->
+                                </li>
                             </ul>
                         </div>
                     </div>

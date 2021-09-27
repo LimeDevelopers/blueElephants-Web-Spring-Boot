@@ -105,15 +105,15 @@ public class MemberJoinController extends BaseCont {
 
     /**
      * 단체 가입 서비스로직
+     *
+     * @param groupForm
+     * @param attachedFile 이슈 : 로컬서버는 파일 업로드 안됨.
      * @date : 2021/08/20
      * @auther : jerry
-     * @param groupForm
-     * @param attachedFile
-     * 이슈 : 로컬서버는 파일 업로드 안됨.
-    **/
+     **/
     @PostMapping("/api/member/groupInsert")
     public String insert(Model model,
-                        @ModelAttribute GroupForm groupForm,
+                         @ModelAttribute GroupForm groupForm,
                          @RequestParam("attachedFile") MultipartFile attachedFile,
                          Errors errors) throws Exception {
         String msg = "";
@@ -125,7 +125,7 @@ public class MemberJoinController extends BaseCont {
             mobileAUthLogForm.setMbtlnum(groupForm.getMoblphon());
             MobileAuthLog load = mobileAuthLogService.load(mobileAUthLogForm);
             if (load == null) {
-                log.info("휴대폰 정보 로드 에러 : "+ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldErrors()));
+                log.info("휴대폰 정보 로드 에러 : " + ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldErrors()));
             }
         } else {
             groupForm.setMobileAttcAt("N");
@@ -135,16 +135,16 @@ public class MemberJoinController extends BaseCont {
             try {
                 result = memberService.groupInsert(groupForm, attachedFile);
             } catch (ValidCustomException ve) {
-                log.info("그룹 멤버 가입 실패 : "+ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ve));
+                log.info("그룹 멤버 가입 실패 : " + ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ve));
             }
         }
 
         if (result) {
             msg = "가입 심사 후 가입됩니다. (소요기간 2 ~ 3일)";
-            model.addAttribute("mc","memberJoin");
-            model.addAttribute("rsMsg",msg);
+            model.addAttribute("mc", "memberJoin");
+            model.addAttribute("rsMsg", msg);
         } else {
-            log.info("/api/member/groupInsert -> error : "+ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldErrors()));
+            log.info("/api/member/groupInsert -> error : " + ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldErrors()));
         }
         return "/login";
     }
@@ -153,6 +153,7 @@ public class MemberJoinController extends BaseCont {
     /**
      * 생성일 : 21.08.15
      * 생성자 : 김재일
+     *
      * @param model
      * @param memberForm
      * @param errors
@@ -184,29 +185,28 @@ public class MemberJoinController extends BaseCont {
 //        } else { //청소년 아닐경우
 //        }
 
-            if (memberForm.getAuthEmailChk() == 2) {
-                memberForm.setEmailAttcAt("Y");
-                memberForm.setMobileAttcAt("N");
-                if (memberForm.getEmail().split("@").length > 2 || StringUtils.countMatches(memberForm.getEmail(), " ") > 0 ||
-                        StringUtils.countMatches(memberForm.getLoginId(), " ") > 0 || StringUtils.countMatches(memberForm.getPwd(), " ") > 0
-                ) {
-                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldErrors());
-                }
-
-            if (memberForm.getAuthMobileChk() == 2) {//컨트롤러 validation
-                //휴대폰 인증 여부 확인
-                log.info("휴대폰 인증 여부 확인");
-                memberForm.setEmailAttcAt("N");
-                memberForm.setMobileAttcAt("Y");
-                MobileAuthLogForm mobileAUthLogForm = new MobileAuthLogForm();
-                mobileAUthLogForm.setDmnNo(memberForm.getSRequestNumber());
-                mobileAUthLogForm.setRspNo(memberForm.getSResponseNumber());
-                mobileAUthLogForm.setMbtlnum(memberForm.getMoblphon());
-                MobileAuthLog load = mobileAuthLogService.load(mobileAUthLogForm);
-                if (load == null) {
-                    log.info("load null");
-                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldErrors());
-                }
+        if (memberForm.getAuthEmailChk() == 2) {
+            memberForm.setEmailAttcAt("Y");
+            memberForm.setMobileAttcAt("N");
+            if (memberForm.getEmail().split("@").length > 2 || StringUtils.countMatches(memberForm.getEmail(), " ") > 0 ||
+                    StringUtils.countMatches(memberForm.getLoginId(), " ") > 0 || StringUtils.countMatches(memberForm.getPwd(), " ") > 0
+            ) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldErrors());
+            }
+        }
+        if (memberForm.getAuthMobileChk() == 2) {//컨트롤러 validation
+            //휴대폰 인증 여부 확인
+            log.info("휴대폰 인증 여부 확인");
+            memberForm.setEmailAttcAt("N");
+            memberForm.setMobileAttcAt("Y");
+            MobileAuthLogForm mobileAUthLogForm = new MobileAuthLogForm();
+            mobileAUthLogForm.setDmnNo(memberForm.getSRequestNumber());
+            mobileAUthLogForm.setRspNo(memberForm.getSResponseNumber());
+            mobileAUthLogForm.setMbtlnum(memberForm.getMoblphon());
+            MobileAuthLog load = mobileAuthLogService.load(mobileAUthLogForm);
+            if (load == null) {
+                log.info("load null");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldErrors());
             }
         }
         if (memberForm.getId() == null) {
@@ -327,7 +327,7 @@ public class MemberJoinController extends BaseCont {
     public int SendMail(Model model,
                         @ModelAttribute MemberForm memberForm) throws Exception {
         int tempKey;
-        log.info("이메일 : "+memberForm.getEmail());
+        log.info("이메일 : " + memberForm.getEmail());
         Account account = new Account();
         account.setEmail(memberForm.getEmail());
         if (memberService.existsByEmail(memberForm.getEmail())) {
@@ -340,13 +340,12 @@ public class MemberJoinController extends BaseCont {
     }
 
 
-
     @ResponseBody
     @PostMapping("/api/member/isExistsByEmail")
     public ResponseEntity isExistsByEmail(Model model,
                                           @ModelAttribute MemberForm memberForm,
                                           BindingResult bindingResult) {
-        log.info("이메일 : "+memberForm.getEmail());
+        log.info("이메일 : " + memberForm.getEmail());
         if (memberService.existsByEmail(memberForm.getEmail())) {
             bindingResult.rejectValue("email", "invalid EMAIL", new Object[]{memberForm.getEmail()}, "이미 사용중인 이메일입니다.");
         } else {
