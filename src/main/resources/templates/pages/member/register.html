@@ -58,6 +58,7 @@
         var crewAffi;
         var crewFNum;
         var mberPid;
+        var teacherNm;
         var c_nodata;
 
         /*
@@ -93,6 +94,7 @@
             nm = $("#nm");
             sexPrTy = $("input[name=sexPrTy]");
             mberDvTy = $("#mberDvTy");
+
             moblphon = $("#moblphon");
             email = $("#email");
             zip = $("#zip");
@@ -102,6 +104,13 @@
             secsnDtm = $("#secsnDtm");
             secsnRsn = $('#secsnRsn');
             sttTy = $('#sttTy');
+            teacherNm = $('#teacherNm');
+            schlNm = $('#schlNm');
+            grade = $('#grade');
+            ban = $('#ban');
+            crewPid = $('#crewPid');
+
+
 
             if (!loginId.val()) {
                 alert("loginId");
@@ -287,7 +296,41 @@
             //
             //     prtctorEmail.val(emailStr);
             // }
+            if(mberDvTy.val() == 'STUDENT' || mberDvTy.val() == 'TEACHER') {
+                if(!schlNm.val()){
+                    schlNm.after('<p class="err emph">먼저 학교를 검색해주세요.</p>');
+                    schlNm.focus();
+                    return false;
+                }
+                if(!grade.val()){
+                    grade.after('<p class="err emph">학년을 선택해주세요.</p>');
+                    grade.focus();
+                    return false;
+                }
+                if(!ban.val()){
+                    ban.after('<p class="err emph">반을 선택해주세요.</p>');
+                    ban.focus();
+                    return false;
+                }
 
+                if(mberDvTy.val() == 'STUDENT') {
+                    if (!teacherNm.val()) {
+                        alert("teacherNm");
+                        teacherNm.after('<p class="err emph">담임선생님 성함을 입력해주세요</p>');
+                        teacherNm.focus();
+                        return false;
+                    }
+                }
+            }
+            if(mberDvTy.val() == 'CREW') {
+
+                if(!crewPid.val()) {
+                    alert("crewPid");
+                    crewPid.after('<p class="err emph">크루명을 입력해주세요</p>');
+                    crewPid.focus();
+                    return false;
+                }
+            }
             return true;
         }
 

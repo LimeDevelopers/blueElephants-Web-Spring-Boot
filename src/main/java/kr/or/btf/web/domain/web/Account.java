@@ -84,7 +84,7 @@ public class Account implements Serializable {
     private String groupYn;
 
     @Column(name = "crew_pid")
-    private String crewPid;
+    private Long crewPid;
 
     @Column(name = "online_edu")
     private String onlineEdu;

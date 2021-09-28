@@ -578,6 +578,8 @@ public class MemberService extends _BaseService {
             account.setFreeCard("N");
             if(memberForm.getMberDvTy().equals(UserRollType.CREW)){
                 account.setCrewPid(memberForm.getCrewPid());
+            } else {
+                account.setCrewPid(0L);
             }
             Account save = memberRepository.save(account);
 
