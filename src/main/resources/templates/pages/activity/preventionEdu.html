@@ -3,10 +3,99 @@
 <head>
     <th:block th:include="fragments/header"></th:block>
     <script type="text/javascript">
+        let eduTy;
 
-        ////-------- page load
-        $(function () {
-        });
+        function fn_courseRequest(id, atnlcReqPid) {
+            eduTy = '[[${eduTy}]]';
+            var mberDvTy = $('#dvTy').val();
+            var userGbn = '[[${userGbn}]]'
+            var atnlcReqPid = '[[${atnlcReqPid}]]'
+
+            if (userGbn == '') {
+                alert('로그인 후 수강신청 할 수 있습니다.');
+                return false;
+            }
+
+            if (userGbn == 'STUDENT' && eduTy == 'N') {
+                if (mberDvTy == 'OFFLINE') {
+
+                }
+            } else {
+                if (mberDvTy != userGbn) {
+                    alert('수강신청 대상이 아닙니다.');
+                    return false;
+                }
+            }
+
+            if (atnlcReqPid != 0) {
+                alert('이미 수강신청한 과정입니다.');
+                return false;
+            }
+
+            if (!confirm('수강신청 하시겠습니까?')) {
+                return false;
+            }
+            var jsonData = {
+                'crsMstPid': id,
+                'onlineEdu': eduTy
+            }
+            $.ajax({
+                type: 'post',
+                url: '/api/pages/courseRequest/register',
+                contentType: "application/json",
+                data: JSON.stringify(jsonData),
+                datatype: 'text',
+                success: function (data) {
+                    if (data.status == '401') {
+                        alert(data.msg);
+                    } else if (data.status == '401') {
+                        alert(data.msg);
+                    } else if (data.status == '200') {
+                        alert(data.msg);
+                        location.reload();
+                    } else {
+                        alert('error::' + error.statusText);
+                    }
+                },
+                error: function (error) {
+                    //alert('save error!!!');
+                    alert('error::' + error.statusText);
+                }
+            });
+        }
+
+        function fn_message() {
+            alert('대상이 아닙니다.');
+            return false;
+        }
+
+        function fn_eduClass(sn, id, crsMstPid) {
+            if (sn == 1) {
+                location.href = '/pages/activity/eduTasteDetail/' + crsMstPid + '/' + id;
+                return false;
+            }
+
+            location.href = '/pages/activity/eduClass/' + crsMstPid + '/' + id + '/' + sn;
+        }
+
+        function preInspcetion(crsMstPid, sn) {
+            if (sn == 2) {
+                $('#inspctDvTy').val("BEFORE");
+            }
+
+            if (sn == 6) {
+                $('#inspctDvTy').val("AFTER");
+            }
+
+            var frm = $('#form1');
+
+            frm.prop('action', '/pages/activity/preInspection/' + crsMstPid + '/' + sn);
+            frm.submit();
+        }
+
+        function fn_goList(url) {
+            location.href = '/pages/activity/preventionEdu/' + url
+        }
     </script>
 </head>
 <body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
@@ -40,11 +129,13 @@
                             </th:block>
                         </ul>
                     </div>
+                    <!--<a th:href="${'/pages/activity/eduMasterClass/'+item.id}" class="lecture_sumnail">-->
                     <div class="edu_form" th:each="item,idx:${masterSeqs}">
+                        <input type="hidden" id="dvTy" th:value="${item.mberDvTy}">
                         <th:block th:if="${eduAt == 'N'}">
                             <th:block th:if="${item.mberDvTy == 'OFFLINE'}">
                                 <div class="edu_list_box">
-                                    <a th:href="${'/pages/activity/eduMasterClass/'+item.id}" class="lecture_sumnail">
+                                    <a class="lecture_sumnail">
                                         <img src="/ClientUI/user/images/contents/lecture/lecture.jpg" alt="lecture_sumnail"
                                              class="sumnail">
                                     </a>
@@ -55,9 +146,8 @@
                                     <div class="edu_btn_box">
 
                                         <th:block th:if="${item.atnlcReqPid eq null}">
-                                            <a th:href="${'/pages/activity/eduMasterClass/'+item.id}" class="edu_btn">
-                                                <button>수강가능</button>
-                                            </a>
+                                            <button th:onclick="|return fn_courseRequest(${item.id});|" class="edu_btn"
+                                                    th:text="|수강신청|"/>
                                         </th:block>
                                         <th:block th:unless="${item.atnlcReqPid eq null}">
                                             <th:block th:if="${item.completeCnt < 6}">
@@ -145,6 +235,10 @@
                             </div>
                         </th:block>
                     </div>
+                    <th:block th:if="${masterSeqs != null}"><!--등록된 글이 없을 경우-->
+                        <th:block  th:replace="/fragments/paging :: pagingbody(list=${masterSeqs}, link='/pages/activity/preventionEdu/' + ${userGbn}, formId='form1')"></th:block>
+                    </th:block>
+                </div>
 <!--                    <div class="page_cont">-->
 <!--                        <ul class="thumb_list clearfix">-->
 <!--                            <th:block th:if="${masterSeqs == null or masterSeqs.isEmpty()}">&lt;!&ndash;등록된 글이 없을 경우&ndash;&gt;-->
@@ -169,9 +263,6 @@
 <!--                            </li>-->
 <!--                        </ul>-->
 <!--                    </div>-->
-                    <th:block
-                            th:replace="/fragments/paging :: pagingbody(list=${masterSeqs}, link='/pages/activity/preventionEdu/' + ${userGbn}, formId='form1')"></th:block>
-
             </form>
 
 <!--            <form id="form1" name="form1" method="post">-->

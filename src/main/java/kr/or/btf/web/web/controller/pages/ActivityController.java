@@ -84,7 +84,7 @@ public class ActivityController extends BaseCont {
 
     @GetMapping({"/pages/activity/eduIntro"})
     public String eduIntro(Model model,
-                                   HttpSession session) {
+                           HttpSession session) {
         model.addAttribute("mc", "activity");
         model.addAttribute("pageTitle", "예방교육");
         return "/pages/activity/eduIntro";
@@ -92,7 +92,7 @@ public class ActivityController extends BaseCont {
 
     @GetMapping({"/pages/activity/abilityCardIntro"})
     public String abilityCardIntro(Model model,
-                           HttpSession session) {
+                                   HttpSession session) {
         model.addAttribute("mc", "activity");
         model.addAttribute("pageTitle", "예방교육");
         return "/pages/activity/abilityCardIntro";
@@ -103,7 +103,7 @@ public class ActivityController extends BaseCont {
                                    @PathVariable(name = "gnb") String gnb,
                                    @CurrentUser Account account,
                                    HttpSession session) {
-        if(account == null) {
+        if (account == null) {
             model.addAttribute("altmsg", "로그인 후 이용 가능합니다.");
             model.addAttribute("locurl", "/login");
             return "/message";
@@ -116,17 +116,17 @@ public class ActivityController extends BaseCont {
 
     @PostMapping({"/pages/activity/abilityCardSetp2"})
     public String abilityCardSetp2(Model model,
-                                   @RequestParam("base64")  String url,
-                                   @RequestParam("gnb")  String gnb,
+                                   @RequestParam("base64") String url,
+                                   @RequestParam("gnb") String gnb,
                                    @CurrentUser Account account,
                                    HttpSession session) {
-        if(account == null) {
+        if (account == null) {
             model.addAttribute("altmsg", "로그인 후 이용 가능합니다.");
             model.addAttribute("locurl", "/login");
             return "/message";
         }
-        model.addAttribute("gnb",gnb);
-        model.addAttribute("url",url);
+        model.addAttribute("gnb", gnb);
+        model.addAttribute("url", url);
         model.addAttribute("mc", "activity");
         model.addAttribute("pageTitle", "예방교육");
         return "/pages/activity/abilityCardSetp2";
@@ -139,12 +139,12 @@ public class ActivityController extends BaseCont {
                                    @PathVariable(name = "bool") boolean ty,
                                    @PathVariable(name = "gnb") String gnb,
                                    HttpSession session) {
-        if(account == null) {
+        if (account == null) {
             model.addAttribute("altmsg", "로그인 후 이용 가능합니다.");
             model.addAttribute("locurl", "/login");
             return "/message";
         }
-        if(ty){
+        if (ty) {
             model.addAttribute("result", "y");
             model.addAttribute("pid", id);
         } else {
@@ -161,18 +161,18 @@ public class ActivityController extends BaseCont {
     public String abilityCardSetp4(Model model,
                                    @CurrentUser Account account,
                                    HttpSession session) {
-        if(account == null) {
+        if (account == null) {
             model.addAttribute("altmsg", "로그인 후 이용 가능합니다.");
             model.addAttribute("locurl", "/login");
             return "/message";
         }
         List<NamaneTemp> cardList = namaneService.get(account.getId());
-        if(cardList == null || cardList.isEmpty()) {
+        if (cardList == null || cardList.isEmpty()) {
             model.addAttribute("altmsg", "정상적인 경로를 이용하세요.");
             model.addAttribute("locurl", "/pages/activity/abilityCardIntro");
             return "/message";
         }
-        model.addAttribute("list",cardList);
+        model.addAttribute("list", cardList);
         model.addAttribute("mc", "activity");
         model.addAttribute("pageTitle", "예방교육");
         return "/pages/activity/abilityCardSetp4";
@@ -187,25 +187,25 @@ public class ActivityController extends BaseCont {
         int cnt = 0;
         boolean sn4 = false;
         Long id = null;
-        if(account == null) {
+        if (account == null) {
             model.addAttribute("altmsg", "로그인 후 이용 가능합니다.");
             model.addAttribute("locurl", "/login");
             return "/message";
         } else {
-            if(account.getId() != null){
-                if(auroraForm.getEncodeStr().equals("") || auroraForm.getEncodeStr().isEmpty()) {
+            if (account.getId() != null) {
+                if (auroraForm.getEncodeStr().equals("") || auroraForm.getEncodeStr().isEmpty()) {
                     model.addAttribute("altmsg", "등록된 이미지가 존재하지않습니다.");
                     model.addAttribute("locurl", "/pages/activity/abilityCardSetp1");
                     return "/message";
                 } else {
-                    Page<CourseMaster> courseMasters = courseMasterService.listForMyPage(pageable,account.getId());
+                    Page<CourseMaster> courseMasters = courseMasterService.listForMyPage(pageable, account.getId());
                     for (CourseMaster master : courseMasters) {
                         cnt = courseMasterService.cntCompleteSn4(master.getAtnlcReqPid());
-                        if(cnt > 0) {
+                        if (cnt > 0) {
                             sn4 = true;
                         }
-                        log.info("stetsts@@@"+master.getAtnlcReqPid());
-                        log.info("stetsts@@@"+cnt);
+                        log.info("stetsts@@@" + master.getAtnlcReqPid());
+                        log.info("stetsts@@@" + cnt);
                     }
                     AuroraForm result = auroraAPIService.getBase64String(auroraForm);
                     id = namaneService.set(result, account.getId());
@@ -214,27 +214,27 @@ public class ActivityController extends BaseCont {
                         model.addAttribute("locurl", "/pages/activity/abilityCardIntro");
                         return "/message";
                     }
-                    model.addAttribute("aurora",result);
+                    model.addAttribute("aurora", result);
                 }
             }
         }
-        model.addAttribute("bool",sn4);
+        model.addAttribute("bool", sn4);
         model.addAttribute("mc", "activity");
         model.addAttribute("pageTitle", "예방교육");
-        return "redirect:/pages/activity/abilityCardSetp3/"+id+"/"+sn4+"/"+auroraForm.getGnb();
+        return "redirect:/pages/activity/abilityCardSetp3/" + id + "/" + sn4 + "/" + auroraForm.getGnb();
     }
 
     @GetMapping({"/api/namane/freeset/{id}"})
     public String freeset(Model model,
-                                @PathVariable(name = "id") Long id,
-                                @CurrentUser Account account){
-        if(account == null) {
+                          @PathVariable(name = "id") Long id,
+                          @CurrentUser Account account) {
+        if (account == null) {
             model.addAttribute("altmsg", "로그인 후 이용 가능합니다.");
             model.addAttribute("locurl", "/login");
             return "/message";
         }
         Account account1 = memberService.load(account.getId());
-        if(account1.getFreeCard().equals("Y")) {
+        if (account1.getFreeCard().equals("Y")) {
             model.addAttribute("altmsg", "이미 무료 1회 발급 받으셨습니다.");
             model.addAttribute("locurl", "/pages/activity/abilityCardIntro");
             return "/message";
@@ -242,12 +242,12 @@ public class ActivityController extends BaseCont {
             memberService.updateFreeCard(account.getId());
             namaneService.updateStatus(account.getId(), id);
             List<NamaneTemp> cardList = namaneService.get(account.getId());
-            if(cardList == null || cardList.isEmpty()) {
+            if (cardList == null || cardList.isEmpty()) {
                 model.addAttribute("altmsg", "정상적인 경로를 이용하세요.");
                 model.addAttribute("locurl", "/pages/activity/abilityCardIntro");
                 return "/message";
             }
-            model.addAttribute("list",cardList);
+            model.addAttribute("list", cardList);
         }
 
 
@@ -258,15 +258,15 @@ public class ActivityController extends BaseCont {
 
     @GetMapping({"/api/namane/get"})
     public String getAblityCard(Model model,
-                                @CurrentUser Account account){
-        if(account == null) {
+                                @CurrentUser Account account) {
+        if (account == null) {
             model.addAttribute("altmsg", "로그인 후 이용 가능합니다.");
             model.addAttribute("locurl", "/login");
             return "/message";
         }
 
         List<NamaneTemp> cardList = namaneService.get(account.getId());
-        model.addAttribute("list",cardList);
+        model.addAttribute("list", cardList);
         model.addAttribute("mc", "activity");
         model.addAttribute("pageTitle", "예방교육");
         return "/pages/activity/abilityCardSetp4";
@@ -274,7 +274,7 @@ public class ActivityController extends BaseCont {
 
     @GetMapping({"/pages/activity/importantEducation1"})
     public String importantEducation1(Model model,
-                           HttpSession session) {
+                                      HttpSession session) {
         model.addAttribute("mc", "activity");
         model.addAttribute("pageTitle", "예방교육");
         return "/pages/activity/importantEducation1";
@@ -282,7 +282,7 @@ public class ActivityController extends BaseCont {
 
     @GetMapping({"/pages/activity/importantEducation2"})
     public String importantEducation2(Model model,
-                           HttpSession session) {
+                                      HttpSession session) {
         model.addAttribute("mc", "activity");
         model.addAttribute("pageTitle", "예방교육");
         return "/pages/activity/importantEducation2";
@@ -296,25 +296,28 @@ public class ActivityController extends BaseCont {
                        @PageableDefault Pageable pageable,
                        @CurrentUser Account account,
                        @ModelAttribute SearchForm searchForm) {
+        if (account == null) {
 
-        if (userGbn != null) {
-            searchForm.setMberDvType(MberDvType.valueOf(userGbn));
-        }
-        // 수정중 김재일
-        searchForm.setPageSize(Constants.DEFAULT_PAGESIZE_3);
-        searchForm.setApplyAble(true);
-        if (account != null) {
-            searchForm.setUserPid(account.getId());
-            searchForm.setUseAt("Y");
-            Page<CourseMaster> masterSeqs = courseMasterService.listByRequest(pageable, searchForm);
-            model.addAttribute("masterSeqs", masterSeqs);
         } else {
-            searchForm.setUseAt("Y");
-            Page<CourseMaster> masterSeqs = courseMasterService.list(pageable,searchForm);
-            model.addAttribute("masterSeqs", masterSeqs);
+            if (userGbn != null) {
+                searchForm.setMberDvType(MberDvType.valueOf(userGbn));
+            }
+            // 수정중 김재일
+            searchForm.setPageSize(Constants.DEFAULT_PAGESIZE_3);
+            searchForm.setApplyAble(true);
+            if (account != null) {
+                searchForm.setUserPid(account.getId());
+                searchForm.setUseAt("Y");
+                Page<CourseMaster> masterSeqs = courseMasterService.listByRequest(pageable, searchForm);
+                model.addAttribute("masterSeqs", masterSeqs);
+            } else {
+                searchForm.setUseAt("Y");
+                Page<CourseMaster> masterSeqs = courseMasterService.list(pageable, searchForm);
+                model.addAttribute("masterSeqs", masterSeqs);
+            }
         }
 
-        model.addAttribute("filePath", filePath+"/"+ Constants.FOLDERNAME_COURSEMASTERSEQ);
+        model.addAttribute("filePath", filePath + "/" + Constants.FOLDERNAME_COURSEMASTERSEQ);
         model.addAttribute("eduAt", account != null ? account.getOnlineEdu() : "X");
         model.addAttribute("userGbn", account != null ? account.getMberDvTy() : "");
 
@@ -326,15 +329,15 @@ public class ActivityController extends BaseCont {
     @ResponseBody
     @RequestMapping("/api/pages/courseRequest/register")
     public HashMap<String, String> authSave(Model model,
-                           HttpServletResponse response,
-                           @RequestBody CourseRequestForm courseRequestForm,
-                           @CurrentUser Account account) {
+                                            HttpServletResponse response,
+                                            @RequestBody CourseRequestForm courseRequestForm,
+                                            @CurrentUser Account account) {
         HashMap<String, String> rest = new HashMap<>();
-         if (account.getMberDvTy().equals(UserRollType.STUDENT)) {
-             // 수정중 김재일
+        if (account.getMberDvTy().equals(UserRollType.STUDENT)) {
+            // 수정중 김재일
             MemberSchool memberSchool = memberSchoolService.loadByMber(account.getId());
-            if(memberSchool != null) {
-                log.info("테스트@@"+memberSchool.getAreaNm());
+            if (memberSchool != null) {
+                log.info("테스트@@" + memberSchool.getAreaNm());
                 courseRequestForm.setAreaNm(memberSchool.getAreaNm());
                 courseRequestForm.setSchlNm(memberSchool.getSchlNm());
                 courseRequestForm.setGrade(memberSchool.getGrade());
@@ -351,24 +354,24 @@ public class ActivityController extends BaseCont {
                 boolean result = false;
                 result = courseRequestService.insert(courseRequestForm, courseMasterRels);
                 if (result) {
-                    rest.put("status","200");
-                    rest.put("msg","신청되었습니다");
+                    rest.put("status", "200");
+                    rest.put("msg", "신청되었습니다");
                     response.setStatus(200);
                 } else {
-                    rest.put("status","402");
-                    rest.put("msg","에러, 관리자에게 문의하세요 ");
+                    rest.put("status", "402");
+                    rest.put("msg", "에러, 관리자에게 문의하세요 ");
                     response.setStatus(200);
                 }
             } else {
-                rest.put("status","401");
-                rest.put("msg","학교 정보가 등록되있지않습니다.");
+                rest.put("status", "401");
+                rest.put("msg", "학교 정보가 등록되있지않습니다.");
                 response.setStatus(200);
             }
         } else {
-             rest.put("status","401");
-             rest.put("msg","학생만 수강신청이 가능합니다.");
-             response.setStatus(200);
-         }
+            rest.put("status", "401");
+            rest.put("msg", "학생만 수강신청이 가능합니다.");
+            response.setStatus(200);
+        }
 
         response.setContentType("text/html");
         response.setCharacterEncoding("utf-8");
@@ -399,19 +402,19 @@ public class ActivityController extends BaseCont {
     }
 
 
-    @RequestMapping({ "/pages/activity/namane"})
-    public String namanePage(Model model){
-        model.addAttribute("mc","activity");
+    @RequestMapping({"/pages/activity/namane"})
+    public String namanePage(Model model) {
+        model.addAttribute("mc", "activity");
         model.addAttribute("pageTitle", "예방교육");
         return "/pages/activity/namane";
     }
 
     @GetMapping({"/pages/activity/eduDataRoomDetail/{id}"})
     public String eduDataRoomDetail(Model model,
-                              @Value("${Globals.fileStoreUriPath}") String rootPath,
-                              @CurrentUser Account account,
-                              @PathVariable(name = "id") Long id,
-                              HttpSession session) {
+                                    @Value("${Globals.fileStoreUriPath}") String rootPath,
+                                    @CurrentUser Account account,
+                                    @PathVariable(name = "id") Long id,
+                                    HttpSession session) {
 
         if (account == null) {
             model.addAttribute("altmsg", "로그인이 필요한 서비스입니다.");
@@ -446,16 +449,16 @@ public class ActivityController extends BaseCont {
         List<FileInfo> fileList = fileInfoService.list(fileInfoForm);
         model.addAttribute("fileList", fileList);
         Long downloadCnt = 0l;
-        for(FileInfo file : fileList) {
+        for (FileInfo file : fileList) {
             downloadCnt += file.getDownloadCnt();
-            if(file.getDvTy().equals(FileDvType.THUMB.name())){
+            if (file.getDvTy().equals(FileDvType.THUMB.name())) {
                 model.addAttribute("thumbFile", file);
             }
         }
         model.addAttribute("downloadCnt", downloadCnt);
 
         boardDataForm.setId(load.getId());
-        boardDataForm.setReadCnt(load.getReadCnt()+1);
+        boardDataForm.setReadCnt(load.getReadCnt() + 1);
         boardDataService.updateByReadCnt(boardDataForm);
 
         model.addAttribute("mc", "activity");
@@ -466,11 +469,11 @@ public class ActivityController extends BaseCont {
 
     @RequestMapping({"/pages/activity/postscript"})
     public String postscript(Model model,
-                              @Value("${Globals.fileStoreUriPath}") String rootPath,
-                              @PageableDefault Pageable pageable,
-                              HttpSession session,
-                              @ModelAttribute SearchForm searchForm,
-                              @Value("${common.code.srtCodePid}") Long srtCodePid) {
+                             @Value("${Globals.fileStoreUriPath}") String rootPath,
+                             @PageableDefault Pageable pageable,
+                             HttpSession session,
+                             @ModelAttribute SearchForm searchForm,
+                             @Value("${common.code.srtCodePid}") Long srtCodePid) {
 
         searchForm.setPageSize(9);
         Page<Postscript> postscripts = postscriptService.list(pageable, searchForm);
@@ -546,13 +549,24 @@ public class ActivityController extends BaseCont {
         masterForm.setCrsMstPid(masterSeqLoad.getId());
         List<CourseMasterRel> masters = courseMasterRelService.eduList(masterForm);
         // 하위과정을 중간과정으로 넣는 로직
-       for (CourseMasterRel master : masters) {
+        for (CourseMasterRel master : masters) {
             Map<String, Object> item = new HashMap<>();
-                // 수정중 김재일
             if (!master.getSn().equals(2) && !master.getSn().equals(6) && !master.getSn().equals(7)) {
                 rtnList.add(master);
             }
         }
+//        for (CourseMasterRel master : masters) {
+//            Map<String, Object> item = new HashMap<>();
+//            log.info("sn @@@ "+master.getSn());
+//            if(account.getOnlineEdu().equals("Y")) {
+//                rtnList.add(master);
+//            } else {
+//                if (!master.getSn().equals(3) && !master.getSn().equals(4) && !master.getSn().equals(5) && !master.getSn().equals(6)) {
+//                    rtnList.add(master);
+//                }
+//            }
+//
+//        }
 
         model.addAttribute("masters", rtnList);
 
@@ -569,7 +583,7 @@ public class ActivityController extends BaseCont {
         }
         model.addAttribute("afterInspection", afterInspection);
         model.addAttribute("satisfaction", satisfaction);
-        model.addAttribute("atnlcReqPid",atnlcReqPid);
+        model.addAttribute("atnlcReqPid", atnlcReqPid);
 
         model.addAttribute("filePath", filePath);
         model.addAttribute("courseTestsFolder", Constants.FOLDERNAME_COURSETASTE);
@@ -583,6 +597,7 @@ public class ActivityController extends BaseCont {
         return "/pages/activity/eduMasterClass";
     }
 
+    // 수정중 김재일
     @GetMapping("/pages/activity/eduClass/{crsMstPid}/{id}/{sn}")
     public String eduClass(Model model,
                            @Value("${Globals.fileStoreUriPath}") String filePath,
@@ -599,40 +614,40 @@ public class ActivityController extends BaseCont {
             boolean b = checkCourseSn(account.getId(), crsMstPid, sn);
             if (!b && atnlcReqPid != null) {
                 if (sn == 3) {
-                    model.addAttribute("altmsg","사전예방교육을 수강하기 전 \n사전검사를 먼저 수행해야 합니다.");
-                    model.addAttribute("locurl","/pages/activity/preInspection/"+crsMstPid + "/" + (sn-1));
+                    model.addAttribute("altmsg", "사전예방교육을 수강하기 전 \n사전검사를 먼저 수행해야 합니다.");
+                    model.addAttribute("locurl", "/pages/activity/preInspection/" + crsMstPid + "/" + (sn - 1));
                 } else if (sn == 4) {
-                    if(account.getOnlineEdu().equals("N")) {
-                        model.addAttribute("altmsg","오프라인 현장교육 대상자입니다.");
+                    if (account.getOnlineEdu().equals("N")) {
+                        model.addAttribute("altmsg", "오프라인 현장교육 대상자입니다.");
                     } else {
-                        model.addAttribute("altmsg","현장예방교육을 진행하기 전 \n사전예방교육을 먼저 수행해야 합니다.");
+                        model.addAttribute("altmsg", "현장예방교육을 진행하기 전 \n사전예방교육을 먼저 수행해야 합니다.");
                     }
-                    model.addAttribute("locurl","/pages/activity/eduMasterClass/"+crsMstPid);
+                    model.addAttribute("locurl", "/pages/activity/eduMasterClass/" + crsMstPid);
                 } else if (sn == 5) {
-                    model.addAttribute("altmsg","사후예방교육을 수강하기 전 \n현장예방교육을 먼저 수행해야 합니다.");
-                    model.addAttribute("locurl","/pages/activity/eduMasterClass/"+crsMstPid);
+                    model.addAttribute("altmsg", "사후예방교육을 수강하기 전 \n현장예방교육을 먼저 수행해야 합니다.");
+                    model.addAttribute("locurl", "/pages/activity/eduMasterClass/" + crsMstPid);
                 } else {
-                    model.addAttribute("altmsg","이미 진행하셨습니다.");
-                    model.addAttribute("locurl","/pages/activity/eduMasterClass/"+crsMstPid);
+                    model.addAttribute("altmsg", "이미 진행하셨습니다.");
+                    model.addAttribute("locurl", "/pages/activity/eduMasterClass/" + crsMstPid);
                 }
                 return "/message";
             } else {
-                if(sn == 4 && account.getOnlineEdu().equals("N")){
-                    model.addAttribute("altmsg","오프라인 현장교육 대상자입니다.");
-                    model.addAttribute("locurl","/pages/activity/eduMasterClass/"+crsMstPid);
+                if (sn == 4 && account.getOnlineEdu().equals("N")) {
+                    model.addAttribute("altmsg", "오프라인 현장교육 대상자입니다.");
+                    model.addAttribute("locurl", "/pages/activity/eduMasterClass/" + crsMstPid);
                     return "/message";
                 }
             }
         } else {
             if (sn != 1) {
                 model.addAttribute("altmsg", "로그인이 필요한 서비스입니다.");
-                model.addAttribute("locurl", "/pages/activity/eduMasterClass/"+crsMstPid);
+                model.addAttribute("locurl", "/pages/activity/eduMasterClass/" + crsMstPid);
                 return "/message";
             }
         }
         if (atnlcReqPid == null) {
             model.addAttribute("altmsg", "수강신청을 해야만 콘텐츠를 볼 수 있습니다.");
-            model.addAttribute("locurl", "/pages/activity/eduMasterClass/"+crsMstPid);
+            model.addAttribute("locurl", "/pages/activity/eduMasterClass/" + crsMstPid);
             return "/message";
         }
         model.addAttribute("atnlcReqPid", atnlcReqPid);
@@ -650,14 +665,14 @@ public class ActivityController extends BaseCont {
         courseItemForm.setSorting("my");
         if (account != null && atnlcReqPid != null) { //로그인을했으며 수강신청도 했는지를 확인
             List<CourseItemDto> courseItems = courseItemService.listForProcNm(courseItemForm.getCrsPid(), account.getId());
-             model.addAttribute("courseItems", courseItems);
+            model.addAttribute("courseItems", courseItems);
         } else {
             List<CourseItem> courseItems = courseItemService.list(courseItemForm);
             model.addAttribute("courseItems", courseItems);
         }
 
         model.addAttribute("prior", StepType.PRIOR.name());
-        model.addAttribute("filePath", filePath+"/"+ Constants.FOLDERNAME_COURSEITEM);
+        model.addAttribute("filePath", filePath + "/" + Constants.FOLDERNAME_COURSEITEM);
 
         model.addAttribute("mc", "activity");
         model.addAttribute("pageTitle", "예방교육");
@@ -682,27 +697,27 @@ public class ActivityController extends BaseCont {
             completeBool = checkCourseSn(account.getId(), crsMstPid, sn);
             if (!completeBool && atnlcReqPid != null && atnlcReqPid != 0L) {
                 if (sn == 3) {
-                    model.addAttribute("altmsg","사전예방교육을 수강하기 전 \n사전검사를 먼저 수행해야 합니다.");
-                    model.addAttribute("locurl","/pages/activity/preInspection/"+crsMstPid + "/" + (sn-1));
+                    model.addAttribute("altmsg", "사전예방교육을 수강하기 전 \n사전검사를 먼저 수행해야 합니다.");
+                    model.addAttribute("locurl", "/pages/activity/preInspection/" + crsMstPid + "/" + (sn - 1));
                 } else if (sn == 4) {
-                    if(account.getOnlineEdu().equals("N")) {
-                        model.addAttribute("altmsg","오프라인 현장교육 대상자입니다.");
+                    if (account.getOnlineEdu().equals("N")) {
+                        model.addAttribute("altmsg", "오프라인 현장교육 대상자입니다.");
                     } else {
-                        model.addAttribute("altmsg","현장예방교육을 진행하기 전 \n사전예방교육을 먼저 수행해야 합니다.");
+                        model.addAttribute("altmsg", "현장예방교육을 진행하기 전 \n사전예방교육을 먼저 수행해야 합니다.");
                     }
-                    model.addAttribute("locurl","/pages/activity/eduMasterClass/"+crsMstPid);
+                    model.addAttribute("locurl", "/pages/activity/eduMasterClass/" + crsMstPid);
                 } else if (sn == 5) {
-                    model.addAttribute("altmsg","사후예방교육을 수강하기 전 \n현장예방교육을 먼저 수행해야 합니다.");
-                    model.addAttribute("locurl","/pages/activity/eduMasterClass/"+crsMstPid);
+                    model.addAttribute("altmsg", "사후예방교육을 수강하기 전 \n현장예방교육을 먼저 수행해야 합니다.");
+                    model.addAttribute("locurl", "/pages/activity/eduMasterClass/" + crsMstPid);
                 } else {
-                    model.addAttribute("altmsg","이미 진행하셨습니다.");
-                    model.addAttribute("locurl","/pages/activity/eduMasterClass/"+crsMstPid);
+                    model.addAttribute("altmsg", "이미 진행하셨습니다.");
+                    model.addAttribute("locurl", "/pages/activity/eduMasterClass/" + crsMstPid);
                 }
                 return "/message";
             } else {
-                if(sn == 4 && account.getOnlineEdu().equals("N")){
-                    model.addAttribute("altmsg","오프라인 현장교육 대상자입니다.");
-                    model.addAttribute("locurl","/pages/activity/eduMasterClass/"+crsMstPid);
+                if (sn == 4 && account.getOnlineEdu().equals("N")) {
+                    model.addAttribute("altmsg", "오프라인 현장교육 대상자입니다.");
+                    model.addAttribute("locurl", "/pages/activity/eduMasterClass/" + crsMstPid);
                     return "/message";
                 }
             }
@@ -717,12 +732,12 @@ public class ActivityController extends BaseCont {
         CourseItem courseItem = courseItemService.load(id);
         if (account != null && atnlcReqPid != null) { //로그인, 수강신청 했는지 확인
             CourseHis courseHis = courseHisService.findTop1MberPidAndCrssqPidOrderByAtnlcHourDescAtnlcDtmDesc(account.getId(), id);
-            if(courseHis != null){
+            if (courseHis != null) {
                 if (courseHis.getCntntsLen() != null && courseHis.getCntntsLen() > 0) {
                     cntntsLen = courseHis.getCntntsLen();
                 }
 
-                Double procPer = courseHis.getAtnlcHour() != 0 && courseHis.getCntntsLen() != null && courseHis.getCntntsLen() > 0L ? (double)courseHis.getAtnlcHour() / courseHis.getCntntsLen() * 100 : 0;
+                Double procPer = courseHis.getAtnlcHour() != 0 && courseHis.getCntntsLen() != null && courseHis.getCntntsLen() > 0L ? (double) courseHis.getAtnlcHour() / courseHis.getCntntsLen() * 100 : 0;
                 if (completeBool && procPer >= 100) {
                     isRestudy = true;
                 }
@@ -752,9 +767,9 @@ public class ActivityController extends BaseCont {
         fileInfoForm.setDataPid(courseItem.getId());
         fileInfoForm.setTableNm(TableNmType.TBL_COUSE_ITEM.name());
         List<FileInfo> fileList = fileInfoService.list(fileInfoForm);
-        model.addAttribute("fileList",fileList);
+        model.addAttribute("fileList", fileList);
 
-        model.addAttribute("filePath", filePath+"/"+ Constants.FOLDERNAME_COURSEITEM);
+        model.addAttribute("filePath", filePath + "/" + Constants.FOLDERNAME_COURSEITEM);
 
         model.addAttribute("mc", "activity");
         model.addAttribute("pageTitle", "예방교육");
@@ -775,7 +790,7 @@ public class ActivityController extends BaseCont {
         CourseTaste courseTaste = courseTasteService.load(id);
         model.addAttribute("form", courseTaste);
 
-        model.addAttribute("filePath", filePath+"/"+ Constants.FOLDERNAME_COURSEITEM);
+        model.addAttribute("filePath", filePath + "/" + Constants.FOLDERNAME_COURSEITEM);
 
         model.addAttribute("mc", "activity");
         model.addAttribute("pageTitle", "예방교육");
@@ -784,7 +799,7 @@ public class ActivityController extends BaseCont {
 
     @GetMapping({"/pages/activity/popup/videoLecture"})
     public String videoLecture(Model model,
-                                 HttpSession session) {
+                               HttpSession session) {
         model.addAttribute("mc", "activity");
         model.addAttribute("pageTitle", "예방교육");
         return "/pages/activity/popup/videoLecture";
@@ -806,8 +821,8 @@ public class ActivityController extends BaseCont {
         //url치고 들어오는것을 방지하기위해 유효성검사 완료상태인지 체크 (이전단계가 완료되었는지를 확인하는 함수여서 sn에 1을 더해줌)
         boolean b = checkCourseSn(account.getId(), crsMstPid, sn + 1);
         if (b) {
-            model.addAttribute("altmsg","이미 검사를 진행하셨습니다.\n다음단계를 진행해주세요.");
-            model.addAttribute("locurl","/pages/activity/eduMasterClass/"+crsMstPid);
+            model.addAttribute("altmsg", "이미 검사를 진행하셨습니다.\n다음단계를 진행해주세요.");
+            model.addAttribute("locurl", "/pages/activity/eduMasterClass/" + crsMstPid);
             return "/message";
         }
         if (sn == 2) {
@@ -827,14 +842,14 @@ public class ActivityController extends BaseCont {
         Long dvCodePid = Constants.inspectionQuestionDvCodeList[selectionIndex];
         InspectionDvType inspctDvTy = InspectionDvType.valueOf(inspectionForm.getInspctDvTy());
 
-        model.addAttribute("inspctDvTy",inspctDvTy);
+        model.addAttribute("inspctDvTy", inspctDvTy);
 
         CourseMasterRelForm courseMasterRelForm = new CourseMasterRelForm();
         courseMasterRelForm.setCrsMstPid(crsMstPid);
         courseMasterRelForm.setSn(sn);
         CourseMasterRel mstLoad = courseMasterRelService.loadByform(courseMasterRelForm);
 
-        model.addAttribute("mstLoad",mstLoad);
+        model.addAttribute("mstLoad", mstLoad);
 
         CourseRequestForm courseRequestForm = new CourseRequestForm();
         courseRequestForm.setMberPid(account.getId());
@@ -884,7 +899,7 @@ public class ActivityController extends BaseCont {
                     if (!upperQesitmPid.contains(qItem.getUpperQesitmPid())) {
                         upperQesitmPid.add(qItem.getUpperQesitmPid());
 
-                        List<Map<String,Object>> subQuestionList = new ArrayList<>();
+                        List<Map<String, Object>> subQuestionList = new ArrayList<>();
                         InspectionQuestionItem load = inspectionQuestionItemService.load(qItem.getUpperQesitmPid());
                         questionItem.put("question", load);
                         for (InspectionQuestionItem subItem : list) {
@@ -921,12 +936,12 @@ public class ActivityController extends BaseCont {
     @ResponseBody
     @PostMapping("/api/preInspection/register")
     private String preInspectionProc(Model model,
-                                  @ModelAttribute InspectionForm inspectionForm,
-                                  @ModelAttribute InspectionQuestionItemForm inspectionQuestionItemForm,
-                                  @ModelAttribute CourseMasterRelForm courseMasterRelForm,
-                                  @CurrentUser Account account,
-                                  HttpServletRequest request,
-                                  HttpServletResponse response) throws ServletRequestBindingException {
+                                     @ModelAttribute InspectionForm inspectionForm,
+                                     @ModelAttribute InspectionQuestionItemForm inspectionQuestionItemForm,
+                                     @ModelAttribute CourseMasterRelForm courseMasterRelForm,
+                                     @CurrentUser Account account,
+                                     HttpServletRequest request,
+                                     HttpServletResponse response) throws ServletRequestBindingException {
 
         String msg = "fail";
 
@@ -945,7 +960,7 @@ public class ActivityController extends BaseCont {
         //유효성검사 완료상태인지 체크
         if (courseRequestCompleteService.inspectionChk(courseRequestCompleteForm)) {
             model.addAttribute("altmsg", "이미 검사를 진행하셨습니다.\n다음단계를 진행해주세요.");
-            model.addAttribute("locurl", "/pages/activity/eduMasterClass/"+mstLoad.getCrsMstPid());
+            model.addAttribute("locurl", "/pages/activity/eduMasterClass/" + mstLoad.getCrsMstPid());
             return "/message";
         }
 
@@ -1027,7 +1042,7 @@ public class ActivityController extends BaseCont {
         } else if (result) {
             msg = "ok";
             response.setStatus(200);
-        } else{
+        } else {
             msg = "fail";
             response.setStatus(401);
         }
@@ -1041,6 +1056,7 @@ public class ActivityController extends BaseCont {
         inspectionAnswerItemForm.setInspctDvTy(inspctDvTy);
         return inspectionAnswerItemService.list(inspectionAnswerItemForm, account, atnlcReqPid);
     }
+
     private InspectionResponse getAnswer(InspectionQuestionItem item, Account account, String inspctDvTy, Long atnlcReqPid) {
         InspectionResponseForm inspectionResponseForm = new InspectionResponseForm();
         inspectionResponseForm.setQesitmPid(item.getId());
@@ -1092,14 +1108,14 @@ public class ActivityController extends BaseCont {
         boolean a = checkCourseSn(account.getId(), crsMstPid, 7);
         if (!a) {
             model.addAttribute("altmsg", "만족도검사를 진행하기 전 \n사후검사를 먼저 수행해야 합니다.");
-            model.addAttribute("locurl", "/pages/activity/eduMasterClass/"+crsMstPid);
+            model.addAttribute("locurl", "/pages/activity/eduMasterClass/" + crsMstPid);
             return "/message";
         }
 
         boolean b = checkCourseSn(account.getId(), crsMstPid, 8); //이전과정을 확인하는 함수여서 sn에 8을넣어줌
         if (b) {
             model.addAttribute("altmsg", "이미 만족도검사를 진행하셨습니다.");
-            model.addAttribute("locurl", "/pages/activity/eduMasterClass/"+crsMstPid);
+            model.addAttribute("locurl", "/pages/activity/eduMasterClass/" + crsMstPid);
             return "/message";
         }
 
@@ -1113,7 +1129,7 @@ public class ActivityController extends BaseCont {
         SurveyForm survey = new SurveyForm();
         survey.setId(mst.getCrsPid());
         Survey load = surveyService.loadByform(survey);
-        model.addAttribute("form",load);
+        model.addAttribute("form", load);
 
         SurveyQuestionItemForm surveyQuestionItem = new SurveyQuestionItemForm();
         surveyQuestionItem.setQustnrPid(load.getId());
@@ -1159,7 +1175,7 @@ public class ActivityController extends BaseCont {
         surveyResponsePersonForm.setQustnrPid(load.getId());
         SurveyResponsePerson person = surveyResponsePersonService.loadByform(surveyResponsePersonForm);
 
-        model.addAttribute("form",load);
+        model.addAttribute("form", load);
 
         SurveyQuestionItemForm surveyQuestionItem = new SurveyQuestionItemForm();
         surveyQuestionItem.setQustnrPid(load.getId());
@@ -1247,7 +1263,7 @@ public class ActivityController extends BaseCont {
     }
 
 
-    @RequestMapping({"/pages/activity/experienceList","/pages/activity/experienceList/{dvCodePid}"})
+    @RequestMapping({"/pages/activity/experienceList", "/pages/activity/experienceList/{dvCodePid}"})
     public String experienceList(Model model,
                                  @PageableDefault Pageable pageable,
                                  @Value("${Globals.fileStoreUriPath}") String filePath,
@@ -1266,8 +1282,8 @@ public class ActivityController extends BaseCont {
         Page<Experience> experiences = experienceService.list(pageable, searchForm, experienceForm);
         model.addAttribute("experiences", experiences);
 
-        model.addAttribute("dvCodePid",dvCodePid);
-        model.addAttribute("filePath",filePath+"/"+Constants.FOLDERNAME_EXPERIENCE);
+        model.addAttribute("dvCodePid", dvCodePid);
+        model.addAttribute("filePath", filePath + "/" + Constants.FOLDERNAME_EXPERIENCE);
 
         model.addAttribute("videoPid", experienceVideoPid);
         model.addAttribute("voicePid", experienceVoicePid);
@@ -1293,7 +1309,7 @@ public class ActivityController extends BaseCont {
         Experience experience = experienceService.loadByform(form);
         model.addAttribute("form", experience);
 
-        model.addAttribute("filePath",filePath+"/"+Constants.FOLDERNAME_EXPERIENCE);
+        model.addAttribute("filePath", filePath + "/" + Constants.FOLDERNAME_EXPERIENCE);
 
         model.addAttribute("videoPid", experienceVideoPid);
         model.addAttribute("voicePid", experienceVoicePid);
@@ -1309,7 +1325,7 @@ public class ActivityController extends BaseCont {
 
         ExperienceForm experienceForm = new ExperienceForm();
         experienceForm.setId(experience.getId());
-        experienceForm.setReadCnt(readCnt+1);
+        experienceForm.setReadCnt(readCnt + 1);
         experienceService.updateByReadCnt(experienceForm);
 
         model.addAttribute("mc", "activity");
@@ -1342,13 +1358,13 @@ public class ActivityController extends BaseCont {
 
         model.addAttribute("campaigns", campaigns);
         model.addAttribute("dvCodePid", dvCodePid);
-        model.addAttribute("filePath", filepath+"/"+ Constants.FOLDERNAME_CAMPAIGN);
+        model.addAttribute("filePath", filepath + "/" + Constants.FOLDERNAME_CAMPAIGN);
         model.addAttribute("mc", "activity");
         model.addAttribute("pageTitle", "문화만들기");
         return "/pages/activity/cultureIntro";
     }
 
-    @RequestMapping({"/pages/activity/cultureList","/pages/activity/cultureList/{dvCodePid}"})
+    @RequestMapping({"/pages/activity/cultureList", "/pages/activity/cultureList/{dvCodePid}"})
     public String cultureList(Model model,
                               @Value("${Globals.fileStoreUriPath}") String filepath,
                               @PageableDefault Pageable pageable,
@@ -1381,7 +1397,7 @@ public class ActivityController extends BaseCont {
 
         model.addAttribute("campaigns", campaigns);
         model.addAttribute("dvCodePid", dvCodePid);
-        model.addAttribute("filePath", filepath+"/"+ Constants.FOLDERNAME_CAMPAIGN);
+        model.addAttribute("filePath", filepath + "/" + Constants.FOLDERNAME_CAMPAIGN);
         model.addAttribute("mc", "activity");
         model.addAttribute("pageTitle", "문화만들기");
         return "/pages/activity/cultureList";
@@ -1421,7 +1437,7 @@ public class ActivityController extends BaseCont {
         //조회수업데이트
         CampaignForm campaignForm = new CampaignForm();
         campaignForm.setId(load.getId());
-        campaignForm.setReadCnt(readCnt+1);
+        campaignForm.setReadCnt(readCnt + 1);
         campaignService.updateByReadCnt(campaignForm);
 
         model.addAttribute("mc", "activity");
@@ -1491,7 +1507,7 @@ public class ActivityController extends BaseCont {
             }
             if (!passwordEncoder.matches(adviceRequestForm.getPwd(), loadRequest.getPwd())) {
                 model.addAttribute("altmsg", "비밀번호가 일치하지 않습니다.");
-                model.addAttribute("locurl", "/pages/activity/helpRequest?page="+adviceRequestForm.getPage());
+                model.addAttribute("locurl", "/pages/activity/helpRequest?page=" + adviceRequestForm.getPage());
                 return "/message";
             }
         }
@@ -1504,7 +1520,7 @@ public class ActivityController extends BaseCont {
         List<FileInfo> fileList = fileInfoService.list(fileInfoForm);
 
         model.addAttribute("fileList", fileList);
-        model.addAttribute("filePath", filePath+"/"+ Constants.FOLDERNAME_ADVICE);
+        model.addAttribute("filePath", filePath + "/" + Constants.FOLDERNAME_ADVICE);
 
         AdviceAnswer loadAnswer = adviceAnswerService.loadByAdvcReqPid(loadRequest.getId());
         model.addAttribute("loadAnswer", loadAnswer);
@@ -1514,7 +1530,7 @@ public class ActivityController extends BaseCont {
         return "/pages/activity/helpRequestDetail";
     }
 
-    @RequestMapping({"/pages/activity/helpRequestRegister","/pages/activity/helpRequestRegister/{id}"})
+    @RequestMapping({"/pages/activity/helpRequestRegister", "/pages/activity/helpRequestRegister/{id}"})
     public String helpRequestRegister(Model model,
                                       @CurrentUser Account account,
                                       @PathVariable(name = "id", required = false) Long id,
@@ -1550,8 +1566,8 @@ public class ActivityController extends BaseCont {
 
             for (CommonCode code : worryCodes) {
                 map = new HashMap<>();
-                map.put("id",code.getId());
-                map.put("codeNm",code.getCodeNm());
+                map.put("id", code.getId());
+                map.put("codeNm", code.getCodeNm());
                 boolean result = false;
 
                 for (AdviceRequestType requestType : requestTypeList) {
@@ -1561,9 +1577,9 @@ public class ActivityController extends BaseCont {
                     }
                 }
                 if (result == true) {
-                    map.put("codeChk",result);
+                    map.put("codeChk", result);
                 } else {
-                    map.put("codeChk",result);
+                    map.put("codeChk", result);
                 }
 
                 maps.add(map);
@@ -1633,16 +1649,16 @@ public class ActivityController extends BaseCont {
         List<FileInfo> fileList = fileInfoService.list(fileInfoForm);
         model.addAttribute("fileList", fileList);
         Long downloadCnt = 0l;
-        for(FileInfo file : fileList) {
+        for (FileInfo file : fileList) {
             downloadCnt += file.getDownloadCnt();
-            if(file.getDvTy().equals(FileDvType.THUMB.name())){
+            if (file.getDvTy().equals(FileDvType.THUMB.name())) {
                 model.addAttribute("thumbFile", file);
             }
         }
         model.addAttribute("downloadCnt", downloadCnt);
 
         boardDataForm.setId(load.getId());
-        boardDataForm.setReadCnt(load.getReadCnt()+1);
+        boardDataForm.setReadCnt(load.getReadCnt() + 1);
         boardDataService.updateByReadCnt(boardDataForm);
 
         model.addAttribute("mc", "activity");
@@ -1684,7 +1700,7 @@ public class ActivityController extends BaseCont {
         SurveyForm survey = new SurveyForm();
         survey.setDvTy(SurveyDvType.FACTUAL.name());
         Survey load = surveyService.loadByform(survey);
-        model.addAttribute("form",load);
+        model.addAttribute("form", load);
 
         SurveyQuestionItemForm surveyQuestionItem = new SurveyQuestionItemForm();
         surveyQuestionItem.setQustnrPid(load.getId());
@@ -1761,19 +1777,19 @@ public class ActivityController extends BaseCont {
 
         Integer readCnt = load.getReadCnt() == null ? 0 : load.getReadCnt();
 
-        boardDataForm.setReadCnt(readCnt+1);
+        boardDataForm.setReadCnt(readCnt + 1);
         boardDataService.updateByReadCnt(boardDataForm);
 
-        model.addAttribute("filePath", filepath+"/"+ Constants.FOLDERNAME_BOARDDATA);
+        model.addAttribute("filePath", filepath + "/" + Constants.FOLDERNAME_BOARDDATA);
 
         model.addAttribute("mc", "activity");
         model.addAttribute("pageTitle", "제안하기");
         return "/pages/activity/policyProposalDetail";
     }
 
-    @RequestMapping({"/pages/activity/policyProposalRegister","/pages/activity/policyProposalRegister/{id}"})
+    @RequestMapping({"/pages/activity/policyProposalRegister", "/pages/activity/policyProposalRegister/{id}"})
     public String policyProposalRegister(Model model,
-                                         @PathVariable(name = "id",required = false) Long id,
+                                         @PathVariable(name = "id", required = false) Long id,
                                          @Value("${common.code.policyProposalCdPid}") Long policyProposalCdPid) {
 
         BoardMaster boardMaster = boardMasterService.load(policyProposalCdPid);
@@ -1844,9 +1860,9 @@ public class ActivityController extends BaseCont {
     @ResponseBody
     @PostMapping("/api/comment/save/one")
     public String commentSaveOne(Model model,
-                              @RequestBody CommonCommentForm commonCommentForm,
-                              @PageableDefault Pageable pageable,
-                              @CurrentUser Account account) {
+                                 @RequestBody CommonCommentForm commonCommentForm,
+                                 @PageableDefault Pageable pageable,
+                                 @CurrentUser Account account) {
 
         commonCommentForm.setRegPsId(account.getLoginId());
         commonCommentForm.setRegDtm(LocalDateTime.now());
@@ -1880,8 +1896,8 @@ public class ActivityController extends BaseCont {
     @ResponseBody
     @PostMapping("/api/comment/delete")
     public String commentDelete(Model model,
-                              @RequestBody CommonCommentForm commonCommentForm,
-                              @CurrentUser Account account){
+                                @RequestBody CommonCommentForm commonCommentForm,
+                                @CurrentUser Account account) {
 
         commonCommentForm.setUpdPsId(account.getLoginId());
         commonCommentForm.setDelAt("Y");
@@ -1899,8 +1915,8 @@ public class ActivityController extends BaseCont {
     @ResponseBody
     @PostMapping("/api/comment/check")
     public String commentCheck(Model model,
-                                @RequestBody CommonCommentForm commonCommentForm,
-                                @CurrentUser Account account){
+                               @RequestBody CommonCommentForm commonCommentForm,
+                               @CurrentUser Account account) {
 
         boolean result = commonCommentService.check(commonCommentForm.getId(), commonCommentForm.getDataPid(), account.getLoginId(), "N");
 
@@ -1916,8 +1932,8 @@ public class ActivityController extends BaseCont {
     @ResponseBody
     @PostMapping("/api/activity/satisfactionTest")
     public SurveyResponsePerson satisfactionTestCheck(Model model,
-                                @RequestBody CourseMasterRelForm courseMasterRelForm,
-                                @CurrentUser Account account){
+                                                      @RequestBody CourseMasterRelForm courseMasterRelForm,
+                                                      @CurrentUser Account account) {
 
         courseMasterRelForm.setSn(Constants.afterCrsSn);
         CourseMasterRel load = courseMasterRelService.loadByform(courseMasterRelForm);
@@ -1933,8 +1949,8 @@ public class ActivityController extends BaseCont {
     @ResponseBody
     @PostMapping("/api/activity/factualTestCheck")
     public SurveyResponsePerson factualTestCheck(Model model,
-                                              @RequestBody SurveyResponsePersonForm surveyResponsePersonForm,
-                                              @CurrentUser Account account){
+                                                 @RequestBody SurveyResponsePersonForm surveyResponsePersonForm,
+                                                 @CurrentUser Account account) {
 
         SurveyForm survey = new SurveyForm();
         survey.setDvTy(SurveyDvType.FACTUAL.name());
@@ -1951,7 +1967,7 @@ public class ActivityController extends BaseCont {
     @PostMapping("/api/activity/selfTestCheck")
     public SurveyResponsePerson selfTestCheck(Model model,
                                               @RequestBody SurveyResponsePersonForm surveyResponsePersonForm,
-                                              @CurrentUser Account account){
+                                              @CurrentUser Account account) {
 
         SurveyForm survey = new SurveyForm();
         survey.setDvTy(SurveyDvType.SELF.name());
@@ -2056,10 +2072,10 @@ public class ActivityController extends BaseCont {
 
     @PostMapping("/api/openData/helpRequest/adviceRequest/register")
     private String adviceRequestRegister(Model model,
-                                       @ModelAttribute AdviceRequestForm adviceRequestForm,
-                                       @CurrentUser Account account,
-                                       @RequestParam(name = "attachedFile", required = false) MultipartFile attachedFile,
-                                       @RequestParam(name = "worry")Long[] worryArr ) {
+                                         @ModelAttribute AdviceRequestForm adviceRequestForm,
+                                         @CurrentUser Account account,
+                                         @RequestParam(name = "attachedFile", required = false) MultipartFile attachedFile,
+                                         @RequestParam(name = "worry") Long[] worryArr) {
         if (account != null) {
             adviceRequestForm.setRegPsId(account.getLoginId());
             adviceRequestForm.setUpdPsId(account.getLoginId());
@@ -2088,11 +2104,11 @@ public class ActivityController extends BaseCont {
 
     @PostMapping("/api/openData/helpRequest/adviceReservation/register")
     private String adviceReservationRegister(Model model,
-                                       @ModelAttribute AdviceReservationForm adviceReservationForm,
-                                       @CurrentUser Account account,
-                                       @RequestParam(name = "attachedFile", required = false) MultipartFile attachedFile,
-                                       @RequestParam(name = "worry") Long[] worryArr,
-                                       @RequestParam(name = "hopeTimeCodeId") Long[] hopeTimeCodeIdArr) {
+                                             @ModelAttribute AdviceReservationForm adviceReservationForm,
+                                             @CurrentUser Account account,
+                                             @RequestParam(name = "attachedFile", required = false) MultipartFile attachedFile,
+                                             @RequestParam(name = "worry") Long[] worryArr,
+                                             @RequestParam(name = "hopeTimeCodeId") Long[] hopeTimeCodeIdArr) {
         if (account != null) {
             adviceReservationForm.setRegPsId(account.getLoginId());
             adviceReservationForm.setUpdPsId(account.getLoginId());
@@ -2191,7 +2207,7 @@ public class ActivityController extends BaseCont {
     @ResponseBody
     @PostMapping("/api/openData/adviceRequest/checkPwd")
     private String resultRegister(Model model,
-                                  @RequestBody AdviceRequestForm adviceRequestForm){
+                                  @RequestBody AdviceRequestForm adviceRequestForm) {
 
         AdviceRequest load = adviceRequestService.load(adviceRequestForm.getId());
         /*AdviceRequest load = adviceRequestService.checkPwd(adviceRequestForm);*/
@@ -2231,7 +2247,7 @@ public class ActivityController extends BaseCont {
         courseRequestCompleteForm.setCrsPid(mstLoad.getCrsPid());
         courseRequestCompleteForm.setSn(courseMasterRelForm.getSn());
 
-        result = courseRequestCompleteService.updateSttTy(courseRequestCompleteForm,CompleteStatusType.APPLY);
+        result = courseRequestCompleteService.updateSttTy(courseRequestCompleteForm, CompleteStatusType.APPLY);
 
         String msg = "fail";
         if (result) {
