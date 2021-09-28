@@ -44,6 +44,25 @@ public class Prevention {
     @Column(name = "approval")
     private String approval;
 
+
+    //임시 추가사항
+    @Column(name = "schl_nm")
+    private String schlNm;
+
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "tel")
+    private String tel;
+
+    @Column(name = "classesNum")
+    private String classesNum;
+
+    @Column(name = "personnel")
+    private String personnel;
+    //임시추가 사항
+
+
     @Transient
     private Long mstCnt;
 }
