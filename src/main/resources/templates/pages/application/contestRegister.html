@@ -316,7 +316,7 @@
 
 
                                 <div class="school_info">
-                                    <h2>참여자(팀원)정보</h2>
+                                    <h2>참여자(팀원) 정보</h2>
                                     <div class="sec_write join">
                                         <div class="tbl_write">
                                             <ul>
@@ -367,37 +367,27 @@
                                 <div class="sec_write join">
                                     <div class="tbl_write upload">
                                         <ul>
-                                            <li>
+                                            <li class="m_mode">
                                                 <div class="th">
-                                                    <label>증빙서류</label>
+                                                    <label for="attachedFile">증빙서류</label>
                                                 </div>
-
                                                 <div class="td">
-                                                    <div th:if="${fileList != null and !fileList.isEmpty()}">
-                                                        <th:block th:each="item: ${fileList}">
-                                                            <p class="file" th:if="${T(kr.or.btf.web.domain.web.enums.FileDvType).THUMB.name() eq item.dvTy}">
-                                                                <span th:text="${item.flNm}">첨부파일.txt</span>
-                                                                <a href="javascript:;" class="btn_del" th:onclick="|fn_deleteFile(${item.id}, this)| ">
-                                                                    <span class="blind">삭제</span>
-                                                                </a>
-                                                            </p>
-                                                        </th:block>
-                                                    </div>
                                                     <input type="file" name="attachedFile" id="attachedFile" >
-                                                    <label for="attachedFile" id="" >증빙서류를 업로드 해주세요.</label>
-                                                    <label for="attachedFile">파일검색</label>
+                                                    <label for="attachedFile" id="box" >증빙서류를 업로드하세요</label>
+                                                    <label  for="attachedFile">파일검색</label>
                                                 </div>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
 
+
                                 <div class="type_chk">
                                     <input type="radio" id="fieldDv" name="fieldDv" checked value="영상">
                                     <label for="fieldDv"><span>영상</span></label>
 
                                     <input type="radio" id="fieldDv1" name="fieldDv" value="연시">
-                                    <label for="fieldDv"><span>연시</span></label>
+                                    <label for="fieldDv1"><span>연시</span></label>
                                 </div>
 
                                 <div class="school_info item_info">
@@ -432,26 +422,15 @@
                                                         <input id="field" name="field" type="text" placeholder="드라마, 다큐멘터리, 인터뷰, (공익)광고, 패러디, 뮤직비디오, 애니메이션 등">
                                                     </div>
                                                 </li>
-                                                <!--<li class="file_search m_mode">
+                                                <li class="file_search m_mode">
                                                     <div class="th">
-                                                        <label>업로드</label>
+                                                        <label for="attachedFile1">업로드</label>
                                                     </div>
                                                     <div class="td">
-                                                        <div th:if="${fileList != null and !fileList.isEmpty()}">
-                                                            <th:block th:each="item: ${fileList}">
-                                                                <p class="file" th:if="${T(kr.or.btf.web.domain.web.enums.FileDvType).THUMB.name() eq item.dvTy}">
-                                                                    <span th:text="${item.flNm}">첨부파일.txt</span>
-                                                                    <a href="javascript:;" class="btn_del" th:onclick="|fn_deleteFile(${item.id}, this)| ">
-                                                                        <span class="blind">삭제</span>
-                                                                    </a>
-                                                                </p>
-                                                            </th:block>
-                                                        </div>
-                                                        <input for="attachedFile1" id="attachedFile1" name="attachedFile1">
-                                                        <label for="attachedFile1" id="box1">공모전 관련 자료를 업로드 하세요.</label>
-                                                        <label for="attachedFile1">파일검색</label>
+                                                        <input type="file" name="attachedFile1" id="attachedFile1" placeholder="공모전 관련 자료를 업로드하세요">
+                                                        <label  for="attachedFile1">파일검색</label>
                                                     </div>
-                                                </li>-->
+                                                </li>
                                                 <li>
                                                     <div class="th">
                                                         <label for="title">작품제목</label>

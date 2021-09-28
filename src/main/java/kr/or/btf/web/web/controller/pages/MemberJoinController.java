@@ -3,6 +3,7 @@ package kr.or.btf.web.web.controller.pages;
 import kr.or.btf.web.common.Constants;
 import kr.or.btf.web.common.exceptions.ValidCustomException;
 import kr.or.btf.web.domain.web.Account;
+import kr.or.btf.web.domain.web.MemberCrew;
 import kr.or.btf.web.domain.web.MobileAuthLog;
 import kr.or.btf.web.domain.web.enums.UserRollType;
 import kr.or.btf.web.services.web.MailService;
@@ -526,5 +527,17 @@ public class MemberJoinController extends BaseCont {
         model.addAttribute("locurl", "/login");
         return "/message";
 
+    }
+    @ResponseBody
+    @GetMapping(value = "/api/member/srchCrew")
+    public List<MemberCrew> srchCrew(Model model, @RequestParam(name = "srchCrewNm") String CrewNm) {
+
+        List<MemberCrew> memberCrewList = memberService.srchCrewList(CrewNm);
+
+        if(memberCrewList.size() == 0) {
+            System.out.println("조회값 없음");
+        }
+
+        return memberCrewList;
     }
 }

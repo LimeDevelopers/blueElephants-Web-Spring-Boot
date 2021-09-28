@@ -577,9 +577,7 @@ public class MemberService extends _BaseService {
             account.setGroupYn("N");
             account.setFreeCard("N");
             if(memberForm.getMberDvTy().equals(UserRollType.CREW)){
-                account.setCrewYn("Y");
-            } else {
-                account.setCrewYn("N");
+                account.setCrewPid(memberForm.getCrewPid());
             }
             Account save = memberRepository.save(account);
 
@@ -1636,5 +1634,25 @@ public class MemberService extends _BaseService {
             memberSchoolRepository.pr_findTID(memberSchoolForm.getAreaNm(), memberSchoolForm.getSchlNm(),
                     memberSchoolForm.getGrade(), memberSchoolForm.getBan(), save.getId(), LocalDateTime.now());
         }
+    }
+    //크루 검색
+    public List<MemberCrew> srchCrewList(String CrewNm) {
+        QMemberCrew qMemberCrew = QMemberCrew.memberCrew;
+
+        List<MemberCrew> memberCrewList = queryFactory
+                .select(Projections.fields(MemberCrew.class,
+                        qMemberCrew.id,
+                        qMemberCrew.crewNm,
+                        qMemberCrew.crewAffi,
+                        qMemberCrew.crewFNum,
+                        qMemberCrew.rptNm,
+                        qMemberCrew.attcDtm,
+                        qMemberCrew.regDtm,
+                        qMemberCrew.mberPid))
+                .from(qMemberCrew)
+                .distinct()
+                .where(qMemberCrew.crewNm.contains(CrewNm).and(qMemberCrew.attcYn.eq("Y")))
+                .fetch();
+        return memberCrewList;
     }
 }

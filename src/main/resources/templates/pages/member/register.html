@@ -52,6 +52,14 @@
 
         var eAuthBool = false;
         var mAuthBool = false;
+
+        var crewNm
+        var crewPid;
+        var crewAffi;
+        var crewFNum;
+        var mberPid;
+        var c_nodata;
+
         /*
         zip = $("#zip");
         adres = $("#adres");
@@ -527,7 +535,7 @@
             }
 
         }
-        /* 21.08.31 김진욱 작업 중
+        /* 21.08.31 김진욱 작업 중 */
         function fn_srchCrewNm(){
             srchCrewNm = $('#srchCrewNm');
             if(!$.trim(srchCrewNm.val())) {
@@ -537,14 +545,79 @@
             }
             $.ajax({
                 type: "GET" ,
-                url : "/test/crewfinder",
+                url : "/api/member/srchCrew",
                 dataType : "json" ,
                 data : {
-                    "crewNm" : srchCrewNm.val()
+                    "srchCrewNm" : srchCrewNm.val()
                 },
+                success : function(data) {
+                    console.log(data);
 
+                    let html = "";
+
+                    let id;
+                    let crewNm;
+                    let crewAffi;
+                    let crewFNum;
+                    let mberPid;
+                    let crewArr = '[[${memberCrewList}]]';
+
+                    $('#srchCrewNmList').empty();
+
+                    if(data.length == 0 || data.length == null) {
+                        alert('조회된 크루가 없습니다.')
+                        let html = "";
+                        html += "<span class=\"txt03\" id=\"c_nodata\">- 조회된 결과가 없습니다. 다시 검색해 주세요 -</span>";
+                        $('#srchCrewNmList').append(html);
+                        srchCrewNm.focus();
+                    }
+
+                    for(var i=0; i<data.length; i++) {
+                        let _id = data[i].id;
+                        let _crewNm = data[i].crewNm;
+                        let _crewAffi = data[i].crewAffi;
+
+                        html += "<div class=\"radio txt\">";
+                        html += "   <input type=\"radio\" name=\"srchcrewPid\" id=\"crew" + _id + "\" value=\"" + _id + "\">";
+                        html += "   <label for=\"crew" + _id + "\">" + _crewNm +  "(" + _crewAffi + ")" + "</label>";
+                        html += "   <input type=\"hidden\" name=\"srchcrewNm\" id=\"" + _crewNm + "\" value=\"" + _crewNm + "\">";
+                        html += "</div>";
+                    }
+                    $('#c_nodata').hide();
+                    $('#srchCrewNmList').append(html);
+                },
+                error: function (error){
+                    alert(error.responseText);
+                    $('#srchCrewNmList').append('');
+                    $('#c_nodata').show();
+                }
             })
-        }*/
+        }
+
+        function fn_selCrewNm(){
+            srchCrewNm = $('#srchCrewNm');
+            var chkCrew = $('input:radio[name=srchcrewPid]:checked').val();
+            var _crewNm =$('input:hidden[name=srchcrewNm]').val();
+
+            if(chkCrew.length < 1) {
+                alert('크루를 선택해주세요.')
+                return;
+            }
+
+            crewNm = $('#crewNm')
+            crewPid = $('#crewPid')
+
+            console.log(chkCrew)
+            console.log(_crewNm)
+
+            crewPid.val(chkCrew)
+            crewNm.val(_crewNm)
+
+            srchCrewNm.val('')
+            $('#c_nodata').show()
+            $('#srchCrewNmList').empty()
+            layerHide('popCrew')
+        }
         /*
         * fn_srchSchlNm()
         * 생성일 : 21.08.15
@@ -1179,6 +1252,7 @@
                                     <div class="th"><label for="crewNm">크루명</label><span class="aster">*</span></div>
                                     <div class="td">
                                         <input type="text" id="crewNm" name="crewNm" readonly onclick="layerShow('popCrew')"/>
+                                        <input type="hidden" id="crewPid" name="crewPid" readonly>
                                         <button type="button" class="btn btn_lg btn_line_blue btn_pill_10" onclick="layerShow('popCrew')">크루검색</button>
                                     </div>
                                 </li>
@@ -1394,7 +1468,7 @@
                             <div class="td">
                                 <div class="email_form clearfix">
                                     <input type="text" id="srchCrewNm" name="srchCrewNm" placeholder="크루명을 입력해주세요.">
-                                    <button type="button" class="btn btn_lg btn_line_blue btn_pill_10" onclick="return fn_srchSchlNm();">검색</button>
+                                    <button type="button" class="btn btn_lg btn_line_blue btn_pill_10" onclick="return fn_srchCrewNm();">검색</button>
                                 </div>
                                 <ul class="write_form">
                                     <li>
@@ -1411,7 +1485,7 @@
                     </ul>
                 </div>
                 <div class="btn_area">
-                    <button type="button" class="btn btn_lg btn_blue btn_pill_10" onclick="return fn_selSchlNm();">적용</button>
+                    <button type="button" class="btn btn_lg btn_blue btn_pill_10" onclick="return fn_selCrewNm();">적용</button>
                 </div>
             </div>
         </div>

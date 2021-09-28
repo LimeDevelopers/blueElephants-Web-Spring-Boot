@@ -83,6 +83,7 @@ public class MemberForm extends SearchForm {
 
     private String prtctorAttcAt;
     private LocalDateTime prtctorAttcDtm;
+    private String crewPid;
 
     private int BatchArr;
 

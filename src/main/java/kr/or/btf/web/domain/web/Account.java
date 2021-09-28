@@ -82,8 +82,10 @@ public class Account implements Serializable {
     private String approval;
     @Column(name = "group_yn")
     private String groupYn;
-    @Column(name = "crew_yn")
-    private String crewYn;
+
+    @Column(name = "crew_pid")
+    private String crewPid;
+
     @Column(name = "online_edu")
     private String onlineEdu;
     @Column(name = "edu_reset")
