@@ -2271,4 +2271,45 @@ public class ActivityController extends BaseCont {
 
         return commonComments;
     }
+
+
+
+// publishing work place
+    @RequestMapping("/pages/activity/legalCounseling")
+    public String legalCounseling(Model model) {
+        model.addAttribute("mc", "activity");
+        model.addAttribute("pageTitle", "도움요청");
+        return "pages/activity/legalCounseling";
+    }
+    @RequestMapping("/pages/activity/chatCounseling")
+    public String chatCounseling(Model model) {
+        model.addAttribute("mc", "activity");
+        model.addAttribute("pageTitle", "도움요청");
+        return "pages/activity/chatCounseling";
+    }
+    @RequestMapping("/pages/activity/callCounseling")
+    public String callCounseling(Model model) {
+        model.addAttribute("mc", "activity");
+        model.addAttribute("pageTitle", "도움요청");
+        return "pages/activity/callCounseling";
+    }
+    @RequestMapping("/pages/activity/meetingCounseling")
+    public String MeetingCounseling(Model model) {
+        model.addAttribute("mc", "activity");
+        model.addAttribute("pageTitle", "도움요청");
+        return "pages/activity/meetingCounseling";
+    }
+
+    @RequestMapping("/pages/activity/settlement")
+    public String settlement(Model model) {
+        model.addAttribute("mc", "activity");
+        model.addAttribute("pageTitle", "도움요청");
+        return "pages/activity/settlement";
+    }
+    @RequestMapping("/pages/activity/boardCounseling")
+    public String helpCounseling(Model model) {
+        model.addAttribute("mc", "activity");
+        model.addAttribute("pageTitle", "도움요청");
+        return "pages/activity/boardCounseling";
+    }
 }
