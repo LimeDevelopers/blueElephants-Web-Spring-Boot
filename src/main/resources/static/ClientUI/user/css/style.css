@@ -5313,7 +5313,7 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
 /* 활동_ 예방교육 시작 */
 .sub_container > .lecture_inner{
     position: relative;
-    height: 1450px;
+    height: 1050px;
 }
 .lecture > .sub_tit_inner {
     display: flex;
@@ -5385,6 +5385,14 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     border-radius: 20px;
     border: solid 5px #8bb3ff;
     background-color: #eef4fe;
+    position: relative;
+}
+.lecture > .lecture_content > .lecture_item > .lecture_sumnail_disabled{
+    min-width: 223.3px;
+    height: 223.3px;
+    border-radius: 20px;
+    border: solid 5px #bdbdbd;
+    background-color: #bdbdbd;
     position: relative;
 }
 .lecture > .lecture_content > .lecture_item > .lecture_sumnail > .sumnail_icon{

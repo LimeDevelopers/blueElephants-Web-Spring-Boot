@@ -69,15 +69,6 @@
             return false;
         }
 
-        function fn_eduClass(sn, id, crsMstPid) {
-            if (sn == 1) {
-                location.href = '/pages/activity/eduTasteDetail/' + crsMstPid + '/' + id;
-                return false;
-            }
-
-            location.href = '/pages/activity/eduClass/' + crsMstPid + '/' + id + '/' + sn;
-        }
-
         function preInspcetion(crsMstPid, sn) {
             if (sn == 2) {
                 $('#inspctDvTy').val("BEFORE");

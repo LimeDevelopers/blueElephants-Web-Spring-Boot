@@ -67,7 +67,7 @@
                                 <th:block th:if="${sn == 5}">
                                     <a href="#s" th:onclick="|return fn_eduDetail(${item.id},${crsMstPid},${sn});|" class="lecture_title" th:text="|푸코와 함께하는 ${idx.index+7}차시|">푸코와 함께하는 -차시</a>
                                 </th:block>
-                                <p class="lecture_sub" th:text="${item.ttl}">
+                                <p class="lecture_sub" th:text="|${#strings.substring(item.ttl,0, 13)+'...'}|">
                                     사이버폭력에 대한
                                     예방 및 대처방법을 알아보아요!
                                 </p>

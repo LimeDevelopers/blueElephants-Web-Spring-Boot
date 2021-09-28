@@ -121,6 +121,9 @@
         function fn_goList(url) {
             location.href = '/pages/activity/preventionEdu/' + url
         }
+        function fn_msg(){
+            alert('오프라인 현장교육을 수강해야 사후교육 수강이 가능합니다.')
+        }
     </script>
 </head>
 <body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
@@ -154,17 +157,19 @@
                         </div>
                         <div class="lecture_content" th:each="item,idx:${masters}" th:if="${item.sn ne 1}">
                             <div class="lecture_item" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|">
-                                <div class="lecture_sumnail">
-                                    <a class="sumnail_icon2"
-                                       th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|">
+                                <div th:class="lecture_sumnail" th:style="${item.sn eq 4 && eduTy eq 'N' ? 'border : solid 5px #9a9a9a; background-color: #bdbdbd;' : ''}">
+                                    <a class="sumnail_icon2">
                                         <img th:src="|/ClientUI/user/images/contents/lecture/sumnail-0${idx.index}.svg|"
                                              th:alt="${item.pidNm}">
                                     </a>
                                     <th:block th:if="${item.sn eq 3}">
                                         <span class="lecture_st">사전교육</span>
                                     </th:block>
-                                    <th:block th:if="${item.sn eq 4}">
+                                    <th:block th:if="${item.sn eq 4 && eduTy eq 'Y'}">
                                         <span class="lecture_st">현장교육</span>
+                                    </th:block>
+                                    <th:block th:if="${item.sn eq 4 && eduTy eq 'N'}">
+                                        <span class="lecture_st" style="color: #FFFFFF">수강불가</span>
                                     </th:block>
                                     <th:block th:if="${item.sn eq 5}">
                                         <span class="lecture_st">사후교육</span>
@@ -174,29 +179,45 @@
                                     <th:block th:if="${item.sn eq 3}">
                                         <a href="#" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|" class="lecture_title">푸코와 함께하는 사전교육</a>
                                     </th:block>
-                                    <th:block th:if="${item.sn eq 4}">
+                                    <th:block th:if="${item.sn eq 4  && eduTy eq 'Y'}">
                                         <a href="#" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|" class="lecture_title">푸코와 함께하는 현장교육</a>
+                                    </th:block>
+                                    <th:block th:if="${item.sn eq 4  && eduTy eq 'N'}">
+                                        <a href="#" class="lecture_title">수강불가</a>
                                     </th:block>
                                     <th:block th:if="${item.sn eq 5}">
                                         <a href="#" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|" class="lecture_title">푸코와 함께하는 사후교육</a>
                                     </th:block>
-
                                     <ul class="list">
                                         <th:block th:if="${item.sn eq 3}">
                                             <li><a href="#" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|">1차시</a></li>
-                                            <li><a href="#" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|">2차시</a></li>
+                                            <li><a href="#" th:onclick="|return fn_eduClass(${item. sn},${item.crsPid}, ${form.id});|">2차시</a></li>
                                         </th:block>
-                                        <th:block th:if="${item.sn eq 4}">
-                                            <li><a href="#" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|">1차시</a></li>
-                                            <li><a href="#" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|">2차시</a></li>
+                                        <th:block th:if="${item.sn eq 4 && eduTy eq 'Y'}">
                                             <li><a href="#" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|">3차시</a></li>
                                             <li><a href="#" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|">4차시</a></li>
+                                            <li><a href="#" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|">5차시</a></li>
+                                            <li><a href="#" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|">6차시</a></li>
+                                        </th:block>
+                                        <th:block th:if="${item.sn eq 4 && eduTy eq 'N'}">
+                                            <li>오프라인 교육 대상자입니다.</li>
                                         </th:block>
                                         <th:block th:if="${item.sn eq 5}">
-                                            <li><a href="#" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|">1차시</a></li>
+                                            <li><a href="#" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|">7차시</a></li>
                                         </th:block>
                                     </ul>
-                                    <p class="lecture_sub" th:text="${item.pidNm}"></p>
+                                    <th:block th:if="${item.sn eq 3}">
+                                        <p class="lecture_sub" th:text="${item.pidNm}"></p>
+                                    </th:block>
+                                    <th:block th:if="${item.sn eq 4  && eduTy eq 'Y'}">
+                                        <p class="lecture_sub" th:text="${item.pidNm}"></p>
+                                    </th:block>
+                                    <th:block th:if="${item.sn eq 4  && eduTy eq 'N'}">
+                                        <p class="lecture_sub" >&nbsp;</p>
+                                    </th:block>
+                                    <th:block th:if="${item.sn eq 5}">
+                                        <p class="lecture_sub" th:text="${item.pidNm}"></p>
+                                    </th:block>
                                 </div>
                             </div>
                         </div>
