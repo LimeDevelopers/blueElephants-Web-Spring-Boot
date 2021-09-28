@@ -32,9 +32,9 @@
     height: 198px;
 }
 
-/* .dp_none {
+ .dp_none {
     display: none !important;
-} */
+}
 
 .dp_fixed {
     display: block;
@@ -1391,7 +1391,6 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
 .gnb_tit {
     width: 100%;
     height: 453px;
-    border: 1px solid #000;
     position: relative;
 }
 
@@ -6347,7 +6346,8 @@ h4.subtit {
 }
 
 h4.subtit.pc {
-    line-height: 1
+    line-height: 1;
+    margin-top: 67px;
 }
 
 h4.submsg.mo {
@@ -6793,7 +6793,7 @@ h4.submsg.mo {
 }
 
 .board_tbl_list>li.notice {
-    background-color: #f7f7f7
+    /*background-color: #f7f7f7*/
 }
 
 .board_tbl_list>li.notice .no {
@@ -6804,8 +6804,9 @@ h4.submsg.mo {
 .board_tbl_list>li.notice .tit a {
     padding-left: 22px;
     font-weight: 500;
-    background: url(../images/icon/ico_notice.png) no-repeat 0 50%;
-    background-size: contain
+    background: url(../images/icon/ico_notice.png) no-repeat 5px 50%;
+    background-size: contain;
+    padding-left: 40px;
 }
 
 /*일괄 관리 페이지 css*/
@@ -6875,12 +6876,14 @@ h4.subtit+.tip_tbl {
 }
 
 .board_top+.thumb_list {
-    margin-top: -20px
+    margin-top: -20px;
+    margin-bottom: 80px;
+    margin-top: 20px;
 }
 
 .thumb_list {
     overflow: hidden;
-    margin: -40px 0 0 -30px
+    margin: -40px 0 0 -30px;
 }
 
 .thumb_list>li {
@@ -6891,11 +6894,36 @@ h4.subtit+.tip_tbl {
 
 .thumb_list>li .thumb {
     display: block;
-    overflow: hidden
+    overflow: hidden;
 }
 
 .thumb_list>li .thumb img {
-    width: 100%
+    width: 100%;
+}
+.select_2 {
+    border-bottom: 2px solid #8eb3f2;
+    text-align: left;
+    padding: 10px 0;
+    margin-top: 30px !important;
+}
+.select_2 button {
+    font-size: 15px;
+    color: #5a5a5a;
+    position: relative;
+    padding: 0 16px;
+}
+.select_2 button:last-child:after {
+    display: none;
+}
+.select_2 button:after {
+    content:'';
+    position: absolute;
+    width: 1px;
+    height: 80%;
+    background-color: #cccccc;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0;
 }
 
 .thumb_list>li .tit {
@@ -6905,7 +6933,9 @@ h4.subtit+.tip_tbl {
     font-size: 20px;
     font-weight: 500;
     text-overflow: ellipsis;
-    white-space: nowrap
+    white-space: nowrap;
+    text-align: left;
+
 }
 
 .thumb_list>li .lbl {
@@ -6947,7 +6977,7 @@ h4.subtit+.tip_tbl {
     margin-top: 2px;
     color: #767676;
     font-size: 17px;
-    text-align: center
+    text-align: left;
 }
 
 .thumb_list>li.nodata {
@@ -9407,7 +9437,8 @@ h4.subtit+.tip_tbl {
 
 /* 행사 - 캘린더 */
 .calendar_area {
-    position: relative
+    position: relative;
+    margin-top: 67px;
 }
 
 .calendar_area .tab_conts>.calendar_type .fc-view-container {
@@ -9454,13 +9485,17 @@ h4.subtit+.tip_tbl {
 
 .calendar_tab .btn_calendar {
     margin-right: 12px;
+    /*color: #8bb3ff;
+    background-color: #d5dfee*/
+}
+.calendar_tab .btn.active {
+    background-color: #d5dfee;
     color: #8bb3ff;
-    background-color: #d5dfee
 }
 
 .calendar_tab .btn_list {
-    color: #767676;
-    background-color: #eaeaea
+    /*color: #767676;
+    background-color: #eaeaea*/
 }
 
 #calendar .fc-toolbar.fc-header-toolbar {
@@ -9469,9 +9504,9 @@ h4.subtit+.tip_tbl {
 
 #calendar .fc-toolbar h2 {
     display: inline-block;
-    margin: -2px 37px 0;
-    color: #4a4a4a;
-    font-size: 38px;
+    margin: -2px 70px 0;
+    color: #555868;
+    font-size: 28px;
     line-height: 1;
     vertical-align: middle
 }
@@ -9520,7 +9555,7 @@ h4.subtit+.tip_tbl {
 }
 
 #calendar .fc-head-container {
-    border-top: 3px solid #dbdbdb;
+    border-top: 3px solid #8eb3f2;
     border-right: 0;
     border-left: 0
 }
@@ -9739,8 +9774,9 @@ h4.subtit+.tip_tbl {
     position: relative;
     margin-bottom: 20px;
     padding: 32px 157px 32px 40px;
-    background-color: #f7f7f7;
-    border-radius: 30px
+    background-color: #fff;
+    border-bottom: 1px solid #dddddd;
+    display: flex;
 }
 
 .list_type dl:last-child {
@@ -9748,10 +9784,12 @@ h4.subtit+.tip_tbl {
 }
 
 .list_type dt {
-    margin-right: 20px;
+    margin-right: 130px;
     margin-bottom: 10px;
     font-size: 23px;
-    font-weight: 500
+    font-weight: bold;
+    color: #333;
+    width: 300px;
 }
 
 .list_type dt .tit {
@@ -9788,26 +9826,32 @@ h4.subtit+.tip_tbl {
 }
 
 .list_type dt .sort.prevent {
-    background-color: #013d96
+    background-color: #013d96;
+    border-radius: 10px;
+    padding:0 15px;
 }
-
+.list_type dd {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
 .list_type dd .list_bull li {
     padding: 0 0 8px 10px;
-    color: #666;
-    font-size: 17px
+    color: #767676;
+    font-size: 15px;
 }
 
 .list_type dd .list_bull li:before {
     top: 10px;
     width: 4px;
     height: 4px;
-    background-color: #8bb3ff;
+    background-color: #333333;
     border-radius: 50%
 }
 
 .list_type dd .list_bull li .tit {
-    color: #8bb3ff;
-    font-weight: 500
+    color: #333333;
+    font-weight: 500;
 }
 
 .list_type dd .list_bull li.desc:after {
@@ -9823,15 +9867,12 @@ h4.subtit+.tip_tbl {
 
 .list_type dd .btn_blue {
     display: block;
-    position: absolute;
-    top: 44px;
-    right: 40px;
-    width: 117px;
-    height: 117px;
-    font-size: 17px;
-    line-height: 117px;
     text-align: center;
-    border-radius: 20px
+    float: right;
+    padding: 10px 40px;
+    border-radius: 30px;
+    font-size: 15px;
+    align-self: flex-end;
 }
 
 /***** 준비중 페이지 *****/
@@ -10781,6 +10822,196 @@ text.shadow {
 }
 
 /***** e 또래지명 *****/
+
+
+/* 20210927 활동_도움요청_심리상담 시작 */
+.help_text_box {
+    height: 170px;
+    margin-top: 100px;
+}
+.page_cont > .help_text_box > img {
+    top: -50%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.page_cont > .sub_text_box > .text {
+    width: 100%;
+    padding: 40px 75px;
+}
+.page_cont > .sub_text_box > .text .sub {
+    color: #9499ad;
+    margin-top: 15px;
+    display: inline-block;
+}
+.therapy_info {
+    display: flex;
+    width: 100%;
+    margin: 60px 0;
+}
+.therapy_info > .item_01 {
+    margin-right: 40px;
+}
+.therapy_info > div {
+    border: 2px solid #85b4f7;
+    border-radius:30px;
+    flex: 1;
+    padding: 30px 40px;
+}
+.therapy_info > div > h2 {
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #8bb3ff;
+    font-size: 30px;
+    letter-spacing: -0.9px;
+}
+.therapy_info > div > p {
+    color: #555868;
+    font-size: 20px;
+    font-weight: normal;
+    margin-bottom: 20px;
+}
+.therapy_info > div > p b {
+    margin-bottom: 5px;
+    display: block;
+}
+.therapy_info > div .more_info {
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+}
+.therapy_info .item_01 .more_info > * {
+    color: #9499ad;
+    font-size: 16px;
+}
+.therapy_info .item_01 .more_info > div {
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+}
+.therapy_info .item_01 > .more_info > small {
+    font-weight: 500;
+    width: 80px;
+}
+.therapy_info .item_01 .more_info > div span {
+    color: #9499ad;
+}
+.therapy_info .item_01 .more_info > i {
+    color: #9499ad70;
+    font-size: 16px;
+    text-align: right;
+}
+.therapy_info > div .btn_inner {
+    text-align: center;
+}
+.therapy_info .item_01 .btn_inner {
+    margin-top: 50px;
+}
+.therapy_info > div .btn_inner button.call_btn {
+    color: #fff;
+    background-color: #6d95e1;
+    border-radius: 30px;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 12px 60px;
+}
+.therapy_info .item_02 .more_info ul li {
+    color: #9499ad;
+    margin-bottom: 5px;
+}
+.therapy_info .item_02 .more_info ul li span {
+    width: 100px;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 500;
+}
+.therapy_info .item_02 .more_info ul li i {
+    font-size: 16px;
+}
+.therapy_icon .icon_pc_inner {
+    padding: 50px 0;
+}
+.therapy_icon .icon_pc_inner .icon_inner {
+    display: inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 90px;
+}
+.therapy_icon .icon_pc_inner .icon_inner .item span {
+    color: #85b4f7;
+    text-align: center;
+    width: 100%;
+    display: inline-block;
+    font-size: 24px;
+    margin-top: 20px;
+}
+.therapy_icon .icon_pc_inner .icon_inner .item {
+    margin: 0 50px;
+}
+.page_cont > .heal_tit {
+    margin-top: 50px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+/* 활동_도움요청_심리상담 끝 */
+
+
+/* 활동_도움요청_심리상담전화 시작 */
+.heal_content {
+    padding: 40px 100px;
+    border-top: 2px solid #95b3ed;
+}
+.heal_content h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #9599ab;
+}
+.heal_content h1 b {
+    display: block;
+}
+.heal_content h1 i {
+    color: #6193f0;
+}
+.heal_content p {
+    margin: 20px 0;
+    font-size: 18px;
+    color: #555868;
+}
+.heal_content p span {
+    display: block;
+    margin-bottom: 10px;
+}
+.heal_content p b {
+    font-weight: bold;
+    color: #8bb3ff;
+    margin: 30px 0;
+    font-size: 24px;
+}
+.heal_content .time {
+    display: flex;
+    margin-top: 20px;
+}
+.heal_content .time div {
+    display: flex;
+    flex-direction: column;
+    margin-right: 30px;
+}
+.heal_content .time div span {
+    font-size: 17px;
+    color: #555868;
+}
+.heal_content .time small {
+    font-size: 17px;
+    color: #55586879;
+}
+/* 20210927 활동_도움요청_심리상담전화 끝 */
+
+
+
+
+
+
+
 
 /*
  2021/09/14

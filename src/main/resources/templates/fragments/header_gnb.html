@@ -29,7 +29,7 @@
 </div>
 <!-- skip navi : e -->
 <!-- Header -->
-<div id="header" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" class="fixed">
+<div id="header" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" class="fixed" >
     <div id="gnb" class="contents">
 <!--        <a href="javascript:;" class="mo_ham">메뉴</a>-->
             <h1><a href="/">사이버 정글 가디언 푸른코끼리</a></h1>
@@ -253,6 +253,22 @@
 
     </div>
     <div class="depth"></div>
+    <div class="mo_top_nav_wrap">
+        <div class="mo_info">
+
+            <h2 class="helloMsg">푸코님!<br>행복한 하루 보내세요!</h2>
+
+
+            <!--            <h2 class="helloMsg">${userName}님! <br/>행복한 하루보내세요.</h2>-->
+        </div>
+        <div class="mo_my_page">
+            <a href="/pages/myPage/profile" class="mo_my_icon"></a>
+            <a href="/pages/myPage/profile" class="mo_my_icon_txt">마이페이지</a>
+
+            <!--            <a href="javascript:;" class="mo_my_icon">마이페이지</a>-->
+            <!--            <a href="javascript:;" class="mo_my_icon_txt">마이페이지</a>-->
+        </div>
+    </div>
 <!--    <div class="mo_top_nav_wrap">-->
 <!--        <div class="mo_info">-->
 <!--            <th:block th:if="${#authorization.getAuthentication() != null and #authorization.expression('isAuthenticated()')}">-->
