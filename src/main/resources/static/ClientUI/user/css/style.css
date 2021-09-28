@@ -11327,7 +11327,7 @@ text.shadow {
 .checkbox label:after {
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
+    /*transform: translateY(-50%);*/
 }
 .info_accordion .agree_contents ul li p {}
 .info_accordion .agree_contents ul li p.agree_desc {
