@@ -2884,7 +2884,8 @@
 		display: none;
 	}
 	.board_tbl_list>li .no, div .no {
-		display: none;
+		/*display: none;*/
+		margin-bottom: 10px;
 	}
 	.board_tbl_list>li .hits {
 		display: none;
@@ -2893,8 +2894,7 @@
 		width: 100%;
 		padding-left: 0;
 		font-weight: 500;
-		font-size: 15px;
-		padding-left:
+		font-size: 16px;
 	}
 	.board_tbl_list>li .writer {
 		margin-top: 8px;
@@ -4687,7 +4687,7 @@
 
 
 
-}
+
 
 
 
@@ -5064,16 +5064,24 @@
 	.board_top>.btn {
 		margin-top: 0;
 	}
-	.board_tbl_list>li>div.tit a {
+	.board_tbl_list>li>div.tit a.board_tbl_list>li .writer, .board_tbl_list>li .download, .board_tbl_list>li .point
+	{
 		font-size: 18px;
 	}
 	.board_tbl_list>li .writer {
 		text-align: left;
 		font-size: 16px;
+		width: 50%;
+		float: left;
 	}
 	.board_tbl_list>li .date {
 		text-align: left;
 		font-size: 15px;
+		float: right;
+	}
+	.board_tbl_list>li.notice .tit a {
+		padding-left: 40px;
+	}
 
 
 
