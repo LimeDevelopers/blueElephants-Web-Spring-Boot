@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,6 +48,7 @@ public class MainController extends BaseCont {
     private final BannerService bannerService;
     private final InspectionService inspectionService;
     private final PostscriptService postscriptService;
+    private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/naver1c813a906449890c14557110ef4af25e.html")
     public String naverSiteVerification() {

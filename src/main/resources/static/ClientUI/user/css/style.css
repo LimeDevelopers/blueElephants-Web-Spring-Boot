@@ -5313,7 +5313,7 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
 /* 활동_ 예방교육 시작 */
 .sub_container > .lecture_inner{
     position: relative;
-    height: 1250px;
+    height: 1450px;
 }
 .lecture > .sub_tit_inner {
     display: flex;
