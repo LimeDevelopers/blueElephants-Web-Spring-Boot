@@ -192,8 +192,8 @@
                     </h3>
                 </div>
                 <ul th:classappend="${pageTitle eq '제안하기' ? 'slide_sub' : ''}" class="slide_sub">
-                    <li><a href="#none">공모전</a></li>
-                    <li><a href="#none">정책제안</a></li>
+                    <li><a href="/pages/activity/contestProposal">공모전</a></li>
+                    <li><a href="/pages/activity/policyProposal">정책제안</a></li>
                 </ul>
             </div>
             <div>
@@ -216,7 +216,7 @@
             <div>
                 <div class="sm_tit">
                     <h3 th:classappend="${pageTitle eq '강사교육' ? 'sd_on pageon' : ''}">
-                        <a href="/pages/application/InsRegister">강사교육</a></h3>
+                        <a href="/pages/application/insInfo">강사교육</a></h3>
                 </div>
             </div>
             <div>
@@ -324,8 +324,8 @@
                 <li th:class="${pageTitle eq '제안하기' ? 'pc_on' : ''}">
                     <a href="/pages/activity/policyProposal">제안하기</a>
                     <ul class="pc_menu_sub">
-                        <li><a href="#none">공모전</a></li>
-                        <li><a href="#none">정책제안</a></li>
+                        <li><a href="/pages/activity/contestProposal">공모전</a></li>
+                        <li><a href="/pages/activity/policyProposal">정책제안</a></li>
                     </ul>
                 </li>
                 <li th:class="${pageTitle eq '푸코포럼' ? 'pc_on' : ''}">
@@ -342,7 +342,7 @@
                     <a href="/pages/application/preeducationList">예방교육</a>
                 </li>
                 <li th:class="${pageTitle eq '강사교육' ? 'pc_on' : ''}">
-                    <a href="/pages/application/InsRegister">강사교육</a>
+                    <a href="/pages/application/insInfo">강사교육</a>
                 </li>
                 <li th:class="${pageTitle eq '지지크루' ? 'pc_on' : ''}">
                     <a href="/pages/application/zzcrew">지지크루</a>

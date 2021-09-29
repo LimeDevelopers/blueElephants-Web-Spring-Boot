@@ -25,28 +25,34 @@
             <form id="form1" name="form1" method="post" th:object="${form}">
                 <div class="contents">
                     <div class="page_top pc">
-                        <h3 class="page_tit">제안</h3>
-                        <span>연구결과를 바탕으로 국내법 개정과 정책 입안을 이끌어 갑니다.</span>
+                        <h3 class="page_tit" th:text="${pageTitle}">제안</h3>
+                        <span th:if="${pageTitle eq '공모전'}" th:text="|공모전을 통해 푸른코끼리를 만들어갑니다.|">연구결과를 바탕으로 국내법 개정과 정책 입안을 이끌어 갑니다.</span>
+                        <span th:if="${pageTitle eq '제안하기'}" th:text="|연구결과를 바탕으로 국내법 개정과 정책 입안을 이끌어 갑니다.|">연구결과를 바탕으로 국내법 개정과 정책 입안을 이끌어 갑니다.</span>
                     </div>
                     <div class="page_cont">
                         <div class="tab_ico_area">
-                            <a href="javascript:;" class="tit">정책제안</a>
-                            <p class="mo_page_txt">연구결과를 바탕으로 국내법 개정과 정책 입안을 이끌어 갑니다.</p>
+                            <p class="mo_page_txt" th:if="${pageTitle eq '공모전'}" th:text="|공모전을 통해 푸른코끼리를 만들어갑니다.|">1</p>
+                            <p class="mo_page_txt" th:if="${pageTitle eq '제안하기'}" th:text="|연구결과를 바탕으로 국내법 개정과 정책 입안을 이끌어 갑니다.|">2</p>
                             <div class="tab_cont mo_thumb">
                                 <div class="cont proposal active">
                                     <div class="thumb">
-                                        <p>정책제안</p>
+                                        <p th:text="${pageTitle}">정책제안</p>
                                     </div>
                                     <dl class="desc">
-                                        <dt>목표: 사이버폭력 예방 및 대응 제안 정책 도입</dt>
-                                        <dd>기타: 사이버폭력 예방 및 대책에 관한 법률 기반 - 사이버폭력 법적 정의, 사이버폭력 예방 교육 명시, <br class="pc"/>사이버폭력
-                                            대응 예산 수립, 국내외 우수사례 적용
-                                        </dd>
+                                        <dt th:if="${pageTitle eq '공모전'}" th:text="|목표: 사이버 폭력 예방법 공모|">1</dt>
+                                        <dt th:if="${pageTitle eq '제안하기'}" th:text="|목표: 사이버폭력 예방 및 대응 제안 정책 도입|">2</dt>
+                                        <dd th:if="${pageTitle eq '공모전'}" th:text="|기타: 사이버 폭력 예방법 공모|">1</dd>
+                                        <dd th:if="${pageTitle eq '제안하기'}" th:text="|기타: 사이버폭력 예방 및 대책에 관한 법률 기반 - 사이버폭력 법적 정의, 사이버폭력 예방 교육 명시, 사이버폭력 대응 예산 수립, 국내외 우수사례 적용|">2</dd>
+<!--                                        <dt>목표: 사이버폭력 예방 및 대응 제안 정책 도입</dt>-->
+<!--                                        <dd>기타: 사이버폭력 예방 및 대책에 관한 법률 기반 - 사이버폭력 법적 정의, 사이버폭력 예방 교육 명시,-->
+<!--                                            <br class="pc"/>사이버폭력-->
+<!--                                            대응 예산 수립, 국내외 우수사례 적용-->
+<!--                                        </dd>-->
                                     </dl>
                                 </div>
                             </div>
                         </div>
-                        <h4 class="subtit pc">정책제안</h4>
+<!--                        <h4 class="subtit pc" th:text="${pageTitle}">정책제안</h4>-->
                         <div class="btn_tab">
                             <th:block th:if="${#authentication.principal eq 'anonymousUser'}"> <!--로그인 X-->
                                 <a href="javascript:alert('로그인 후 이용 가능합니다.');"

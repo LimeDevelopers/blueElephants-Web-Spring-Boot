@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <div class="sub_container">
+            <th:block th:include="fragments/dept_menu"></th:block>
+            <div class="inner">
+                <div class="page_cont">
+                    <h4 class="subtit pc review_title">예방강사 신청</h4>
+                    <div class="sub_text_box partners_text_box">
+                        <div class="text">
+                            <p class="title"/>
+                            예방교육 강사가 되어 <b></b>우리 주변부터 사이버폭력 예방문화를 교육해요.
+                            </span>
+                        </div>
+                    </div>
+                    <div class="sec_tit friends_02 partners">
+                        <div class="friends_inner">
+                            <div class="banner_inner">
+                                <img src="" alt="">
+                            </div>
+                            <div class="partners_btn">
+                                <a class="join_btn" href="/pages/application/InsRegister">신청하기</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--<th:block th:replace="/fragments/paging :: pagingbody(list=${postscripts}, link='/pages/activity/postscript', formId='form1')"></th:block>-->
+            </div>
+        </div>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

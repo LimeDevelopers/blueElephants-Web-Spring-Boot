@@ -82,6 +82,28 @@ public class ActivityController extends BaseCont {
     private final NamaneService namaneService;
     private final AuroraAPIService auroraAPIService;
 
+    @RequestMapping("/pages/activity/contestProposal")
+    public String contestProposal(Model model,
+                                 @PageableDefault Pageable pageable,
+                                 @ModelAttribute SearchForm searchForm,
+                                 @Value("${common.code.contestProposalCdPid}") Long policyProposalCdPid) {
+
+        model.addAttribute("form", searchForm);
+
+        BoardDataForm boardDataForm = new BoardDataForm();
+        boardDataForm.setMstPid(policyProposalCdPid);
+        boardDataForm.setFixingAt("N");
+        Page<BoardData> boardDatas = boardDataService.listForFront(pageable, searchForm, boardDataForm);
+        model.addAttribute("boardDatas", boardDatas);
+
+        BoardMaster boardMaster = boardMasterService.load(policyProposalCdPid);
+        model.addAttribute("boardMaster", boardMaster);
+
+        model.addAttribute("mc", "activity");
+        model.addAttribute("pageTitle", "공모전");
+        return "/pages/activity/policyProposal";
+    }
+
     @GetMapping({"/pages/activity/eduIntro"})
     public String eduIntro(Model model,
                            HttpSession session) {

@@ -95,20 +95,26 @@ public class  ApplicationController {
                                    @CurrentUser Account account,
                                    Pageable pageable,
                                    SearchForm searchForm) {
-        if(account == null) {
-            model.addAttribute("altmsg", "로그인 후 이용가능합니다.");
-            model.addAttribute("locurl", "/login");
-            return "/message";
-        } else {
-            if(account.getMberDvTy().equals(UserRollType.INSTRUCTOR) || account.getMberDvTy().equals(UserRollType.TEACHER)){
-                Page<PreventionMaster> preventionPage = applicationService.getPreEduMstList(pageable);
-                model.addAttribute("preList", preventionPage);
-            } else {
-                model.addAttribute("altmsg", "접근 권한이 없습니다.");
-                model.addAttribute("locurl", "/");
-                return "/message";
-            }
-        }
+        // 수연님 작업 후 제거
+//        if(account == null) {
+//            model.addAttribute("altmsg", "로그인 후 이용가능합니다.");
+//            model.addAttribute("locurl", "/login");
+//            return "/message";
+//        } else {
+//            if(account.getMberDvTy().equals(UserRollType.INSTRUCTOR) || account.getMberDvTy().equals(UserRollType.TEACHER)){
+//                Page<PreventionMaster> preventionPage = applicationService.getPreEduMstList(pageable);
+//                model.addAttribute("preList", preventionPage);
+//            } else {
+//                model.addAttribute("altmsg", "접근 권한이 없습니다.");
+//                model.addAttribute("locurl", "/");
+//                return "/message";
+//            }
+//        }
+
+        // 작업 후 제거
+        Page<PreventionMaster> preventionPage = applicationService.getPreEduMstList(pageable);
+        model.addAttribute("preList", preventionPage);
+
         model.addAttribute("mc", "application");
         model.addAttribute("pageTitle", "예방교육");
         return "pages/application/preeducationList";
@@ -244,32 +250,37 @@ public class  ApplicationController {
     public String preeducationDetail(Model model,
                                @PathVariable("id") Long id,
                                @CurrentUser Account account) {
-        if(account == null) {
-            model.addAttribute("altmsg", "로그인 후 이용가능합니다.");
-            model.addAttribute("locurl", "/login");
-            return "/message";
-        } else {
-            if(UserRollType.INSTRUCTOR.equals(account.getMberDvTy()) || UserRollType.TEACHER.equals(account.getMberDvTy())){
-                PreventionMaster preventionMaster = applicationService.getPreEduMstData(id);
-                if(preventionMaster==null){
-                    model.addAttribute("altmsg", "존재하지않는 게시글입니다.");
-                    model.addAttribute("locurl", "/pages/application/preeducationList");
-                    return "/message";
-                } else {
-                    if(UserRollType.INSTRUCTOR.equals(account.getMberDvTy())){
-                        Prevention prevention = applicationService.getPreAt(id, account.getId());
-                        if(prevention != null) {
-                            model.addAttribute("prevention", prevention);
-                        }
-                    }
-                    model.addAttribute("preventionMaster", preventionMaster);
-                }
-            } else {
-                model.addAttribute("altmsg", "접근 권한이 없습니다.");
-                model.addAttribute("locurl", "/");
-                return "/message";
-            }
-        }
+        // 수연님 작업 후 제거
+//        if(account == null) {
+//            model.addAttribute("altmsg", "로그인 후 이용가능합니다.");
+//            model.addAttribute("locurl", "/login");
+//            return "/message";
+//        } else {
+//            if(UserRollType.INSTRUCTOR.equals(account.getMberDvTy()) || UserRollType.TEACHER.equals(account.getMberDvTy())){
+//                PreventionMaster preventionMaster = applicationService.getPreEduMstData(id);
+//                if(preventionMaster==null){
+//                    model.addAttribute("altmsg", "존재하지않는 게시글입니다.");
+//                    model.addAttribute("locurl", "/pages/application/preeducationList");
+//                    return "/message";
+//                } else {
+//                    if(UserRollType.INSTRUCTOR.equals(account.getMberDvTy())){
+//                        Prevention prevention = applicationService.getPreAt(id, account.getId());
+//                        if(prevention != null) {
+//                            model.addAttribute("prevention", prevention);
+//                        }
+//                    }
+//                    model.addAttribute("preventionMaster", preventionMaster);
+//                }
+//            } else {
+//                model.addAttribute("altmsg", "접근 권한이 없습니다.");
+//                model.addAttribute("locurl", "/");
+//                return "/message";
+//            }
+//        }
+        // 작업 후 제거
+        PreventionMaster preventionMaster = applicationService.getPreEduMstData(id);
+        model.addAttribute("preventionMaster", preventionMaster);
+
         model.addAttribute("pre_pid", id);
         model.addAttribute("mc", "application");
         model.addAttribute("pageTitle", "예방교육");
@@ -313,11 +324,11 @@ public class  ApplicationController {
         return "pages/application/preeducationRegister";
     }
 
-    @GetMapping("/pages/application/inseducation")
+    @GetMapping("/pages/application/insInfo")
     public String InsEducation(Model model) {
         model.addAttribute("mc", "application");
         model.addAttribute("pageTitle", "강사교육");
-        return "pages/application/inseducation";
+        return "pages/application/insInfo";
     }
 
     @GetMapping("/pages/application/zzdeclaration")
