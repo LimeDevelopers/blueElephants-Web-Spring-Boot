@@ -1,5 +1,8 @@
 package kr.or.btf.web.test.web.service;
 
+import com.querydsl.core.QueryFactory;
+import com.querydsl.core.types.Projections;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.or.btf.web.common.Base;
 import kr.or.btf.web.common.Constants;
 import kr.or.btf.web.common.exceptions.ValidCustomException;
@@ -51,6 +54,7 @@ public class TestService extends _BaseService {
     private final ModelMapper modelMapper;
     private final MemberSchoolRepository memberSchoolRepository;
     private final MemberRollRepository memberRollRepository;
+    private final JPAQueryFactory queryFactory;
 
     public  Page<BoardData> getNewsListData(@PageableDefault(page = 0, size = 3) Pageable pageable){
         BoardDataForm boardDataForm = new BoardDataForm();
@@ -60,6 +64,7 @@ public class TestService extends _BaseService {
         Page<BoardData> noticeList = boardDataService.list(pageable, searchForm, boardDataForm);
         return noticeList;
     }
+
     /*@Transactional
     public void batchRegister(MemberForm memberForm) {
         String tempId = memberForm.getLoginId();
@@ -94,7 +99,7 @@ public class TestService extends _BaseService {
         }
     }*/
     //폼에서 데이터를 전달 받음
-    @Transactional
+    /*@Transactional
     public void batchRegister(MemberForm memberForm) {
         String temp = memberForm.getLoginId();
 
@@ -105,6 +110,11 @@ public class TestService extends _BaseService {
             memberForm.setPwd(passwordEncoder.encode(memberForm.getPwd())); //패스워드 셋
             memberForm.setRegDtm(LocalDateTime.now()); //등록일
             memberForm.setOnlineEdu("N"); // 현장교육 N = 오프라인
+            memberForm.setEduReset("N");
+            memberForm.setCardReset("N");
+            memberForm.setFreeCard("N");
+            memberForm.setGroupYn("N");
+            memberForm.setCrewPid(0L);
             memberForm.setApproval("Y"); // 승인여부
             memberForm.setPrtctorAttcAt("Y");
             memberForm.setNm("TEST");
@@ -127,20 +137,25 @@ public class TestService extends _BaseService {
             memberRoll.setRegDtm(LocalDateTime.now());
             memberRoll.setRegPsId(save.getRegPsId());
             memberRollRepository.save(memberRoll);
+            System.out.println("지역명" + memberForm.getAreaNm());
+            System.out.println("학교" + memberForm.getSchlNm());
+            System.out.println("반" + memberForm.getBan());
+            System.out.println("학년" + memberForm.getGrade());
+
             //memberSchool에 인서트 해주는 프로시저 호출
             memberSchoolRepository.pr_findTID(memberForm.getAreaNm(), memberForm.getSchlNm(),
                     memberForm.getGrade(), memberForm.getBan(), save.getId(), LocalDateTime.now());
 
         }
-    }
+    }*/
 
-    public Boolean existsByBatchLoginId(String loginId){
+    /*public Boolean existsByBatchLoginId(String loginId){
         Account account = memberRepository.findByLoginId(loginId).orElseGet(Account::new);
         return (account != null && account.getId() != null);
-    }
+    }*/
 
-    public boolean existsSpace(String text) {
+    /*public boolean existsSpace(String text) {
         if (text == null) return true;
         return text.contains(" ");
-    }
+    }*/
 }

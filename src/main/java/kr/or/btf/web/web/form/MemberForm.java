@@ -84,7 +84,8 @@ public class MemberForm extends SearchForm {
     private String prtctorAttcAt;
     private LocalDateTime prtctorAttcDtm;
     private Long crewPid;
-
+    private String groupYn;
+    private String freeCard;
     private int BatchArr;
 
     @Enumerated(EnumType.STRING)

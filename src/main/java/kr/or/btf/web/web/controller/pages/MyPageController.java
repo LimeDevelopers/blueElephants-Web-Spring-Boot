@@ -1733,5 +1733,38 @@ public class MyPageController extends BaseCont {
         return "/pages/myPage/selfTestResult";
     }
 
+    @RequestMapping("/pages/myPage/management/batchManagement")
+    public String batchManagement(Model model,
+                                  @CurrentUser Account account) {
+        Account load = memberService.load(account.getId());
+        MemberTeacher memberTeacher = memberTeacherService.loadByMber(load.getId());
+        model.addAttribute("teacher", memberTeacher);
+        model.addAttribute("mc", "myPage");
 
+
+        return "pages/myPage/batchManagement";
+    }
+
+    @PostMapping(value = "/pages/myPage/batchManagement/batchRegister")
+    public String batchRegister(MemberSchoolForm memberSchoolForm ,
+                                Model model,
+                                @CurrentUser Account account,
+                                @PageableDefault Pageable pageable,
+                                @ModelAttribute SearchForm searchForm,
+                                @Value("${common.code.policyProposalCdPid}") Long policyProposalCdPid) {
+
+        memberService.batchRegister(memberSchoolForm);
+
+        BoardDataForm boardDataForm = new BoardDataForm();
+        boardDataForm.setMstPid(policyProposalCdPid);
+        searchForm.setLoginId(account.getLoginId());
+        boardDataForm.setFixingAt("N");
+        Page<BoardData> boardDatas = boardDataService.listForFront(pageable, searchForm, boardDataForm);
+        model.addAttribute("boardDatas", boardDatas);
+
+        model.addAttribute("mc", "myPage");
+        model.addAttribute("pageTitle", "학생관리");
+
+        return "redirect:/pages/myPage/management";
+    }
 }
