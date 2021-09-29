@@ -40,7 +40,6 @@
         <th:block th:include="fragments/mo_menu"></th:block>
         <div class="sub_container">
             <th:block th:include="fragments/dept_menu"></th:block>
-
             <form id="form1" name="form1" method="post">
                 <div class="inner">
                     <div class="page_cont">
@@ -54,100 +53,182 @@
                             </div>
                             <div class="my_item_edu">
                                 <div class="item_inner">
-                                    <small>이미지와제목을 클릭하시면, 제안 메인페이지로 이동합니다.</small>
+                                    <small>이미지와 제목을 클릭하시면, 제안 메인페이지로 이동합니다.</small>
                                     <table>
-                                        <tr>
+                                        <th:block th:if="${myBoardDatas == null or myBoardDatas.isEmpty()}">
+                                            <tr>
+                                                <td>
+                                                    <div class="edu_item">
+                                                        <div class="edu_desc">
+                                                            <h5>등록된 자료가 없습니다.</h5>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </th:block>
+                                        <th:block th:if="${myBoardDatas != null }">
+                                        <tr th:each="item : ${myBoardDatas}">
                                             <td>
                                                 <div class="edu_item">
                                                     <div class="edu_img">
-                                                        <div></div>
+                                                        <div>
+                                                            <a th:href="|/pages/activity/eduDataRoomDetail/${item.id}|"
+                                                               class="thumb">
+                                                                <img th:src="${filePath + '/' + item.thumbFileNm}"
+                                                                     th:alt="${item.thumbFileNm}"
+                                                                     onerror="this.src='/ClientUI/user/images/contents/nodata01.png'"/>
+                                                            </a>
+                                                        </div>
                                                     </div>
                                                     <div class="edu_desc">
-                                                        <h5>[학교폭력 연구]  Preventing and …</h5>
-                                                        <small>O X 퀴즈내역</small>
-                                                        <span>등록일 |  2021.10.11</span>
+                                                        <h5 th:text="${item.ttl}">교육자료5</h5>
+                                                        <small th:text="${item.ttl}">O X 퀴즈내역</small>
+                                                        <span th:text="|등록일 : ${#temporals.format(item.ntceDt,'yyyy.MM.dd')}|">등록일 : 2020.12.31</span>
                                                         <div class="tags">
-                                                            <b class="tag1">청소년</b>
-                                                            <b class="tag2">일반</b>
-                                                            <b class="tag3">교원</b>
-                                                            <b class="tag4">부모</b>
-                                                            <b class="tag5">푸코강사</b>
+                                                            <th:block th:if="${item.targetList ne null}"
+                                                                      th:each="target : ${#strings.arraySplit(item.targetList,',')}">
+                                                                <span class="tag1"
+                                                                      th:if="${target eq T(kr.or.btf.web.domain.web.enums.MberDvType).STUDENT.name()}"
+                                                                      class="sort teenager">청소년</span>
+                                                                <span class="tag2"
+                                                                      th:if="${target eq T(kr.or.btf.web.domain.web.enums.MberDvType).NORMAL.name()}"
+                                                                      class="sort normal">일반</span>
+                                                                <span class="tag3"
+                                                                      th:if="${target eq T(kr.or.btf.web.domain.web.enums.MberDvType).TEACHER.name()}"
+                                                                      class="sort teacher">교원</span>
+                                                                <span class="tag4"
+                                                                      th:if="${target eq T(kr.or.btf.web.domain.web.enums.MberDvType).PARENT.name()}"
+                                                                      class="sort parent">부모</span>
+                                                                <span class="tag5"
+                                                                      th:if="${target eq T(kr.or.btf.web.domain.web.enums.MberDvType).INSTRUCTOR.name()}"
+                                                                      class="sort lecturer">예방강사</span>
+                                                            </th:block>
                                                         </div>
                                                     </div>
                                                     <div class="remove_btn">
-                                                        <a href="#none">삭제</a>
-                                                        <button></button>
+                                                        <a href="javascript:;"
+                                                           th:onclick="|fn_deleteMyEduData(${item.id})|">삭제</a>
                                                     </div>
                                                 </div>
                                             </td>
                                         </tr>
+                                        </th:block>
                                     </table>
                                 </div>
                             </div>
+                            <th:block
+                                    th:replace="/fragments/paging :: pagingbody(list=${myBoardDatas}, link='/pages/myPage/eduDataRoom', formId='form1')"></th:block>
                         </div>
                     </div>
                 </div>
-                <!--<div class="contents">
-                    <div class="page_top pc">
-                    </div>
-                    <div class="page_cont">
-                        &lt;!&ndash;<div class="tab_ico_area">
-                            <a href="javascript:;" class="tit">내 교육자료실</a>
-                            <ul class="tab_type_ico">
-                                <li class=""><a href="/pages/myPage/classroom">수강내역</a></li>
-                                <li class="mydataroom active"><a href="/pages/myPage/eduDataRoom">내 교육자료실</a></li>
-                                <li class="certificate"><a href="/pages/myPage/certificate">교육이수증발급</a></li>
-                            </ul>
-                            <p class="mo_page_txt">회원정보를 최신정보로 관리해주세요. <br class="mo"/>새로운 푸코소식과 보안을 위해 회원정보를 최신으로 업데이트
-                                해주세요.</p>
-                        </div>&ndash;&gt;
-                        <h4 class="subtit pc">내 교육자료실</h4>
-                        <p class="tip_tbl mb">※ 이미지와 제목을 클릭하시면, 해당 페이지로 이동합니다.</p>
-                        <ul class="board_list">
-                            <th:block th:if="${myBoardDatas == null or myBoardDatas.isEmpty()}">
-                                <li class="nodata">&lt;!&ndash;등록된 글 없을경우&ndash;&gt;
-                                    <div>등록된 게시글이 없습니다.</div>
-                                </li>
-                            </th:block>
-                            <li th:each="item : ${myBoardDatas}">
-                                <a th:href="|/pages/activity/eduDataRoomDetail/${item.id}|" class="thumb"><img
-                                        th:src="${filePath + '/' + item.thumbFileNm}" th:alt="${item.thumbFileNm}"
-                                        onerror="this.src='/ClientUI/user/images/contents/nodata01.png'"/></a>
-                                <div class="info_area">
-                                    <a th:href="|/pages/activity/eduDataRoomDetail/${item.id}|" class="title"
-                                       th:text="${item.ttl}">교육자료5</a>
-                                    <div class="count_area">
-                                        &lt;!&ndash;<p><span th:text="|조회수 : ${item.readCnt} 회|">조회수 : 86 회</span><span th:text="|다운로드 : ${item.downloadCnt} 회|">다운로드 : 2 회</span></p>&ndash;&gt;
-                                        <span class="date"
-                                              th:text="|등록일 : ${#temporals.format(item.ntceDt,'yyyy.MM.dd')}|">등록일 : 2020.12.31</span>
-                                    </div>
-                                    <div class="sort_area">
-                                        <th:block th:if="${item.targetList ne null}"
-                                                  th:each="target : ${#strings.arraySplit(item.targetList,',')}">
-                                            <span th:if="${target eq T(kr.or.btf.web.domain.web.enums.MberDvType).STUDENT.name()}"
-                                                  class="sort teenager">청소년</span>
-                                            <span th:if="${target eq T(kr.or.btf.web.domain.web.enums.MberDvType).NORMAL.name()}"
-                                                  class="sort normal">일반</span>
-                                            <span th:if="${target eq T(kr.or.btf.web.domain.web.enums.MberDvType).TEACHER.name()}"
-                                                  class="sort teacher">교원</span>
-                                            <span th:if="${target eq T(kr.or.btf.web.domain.web.enums.MberDvType).PARENT.name()}"
-                                                  class="sort parent">부모</span>
-                                            <span th:if="${target eq T(kr.or.btf.web.domain.web.enums.MberDvType).LECTURER.name()}"
-                                                  class="sort lecturer">푸코강사</span>
-                                        </th:block>
-                                    </div>
-                                    <div class="delete_area">
-                                        <a class="btn" href="javascript:;"
-                                           th:onclick="|fn_deleteMyEduData(${item.id})|">삭제</a>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                        <th:block
-                                th:replace="/fragments/paging :: pagingbody(list=${myBoardDatas}, link='/pages/myPage/eduDataRoom', formId='form1')"></th:block>
-                    </div>
-                </div>-->
             </form>
+            <!--            <form id="form1" name="form1" method="post">-->
+            <!--                <div class="inner">-->
+            <!--                    <div class="page_cont">-->
+            <!--                        <div class="page_top">-->
+            <!--                            <h3 class="page_tit">교육자료실</h3>-->
+            <!--                        </div>-->
+            <!--                        <div class="page_cont my_item_2">-->
+            <!--                            <div class="my_item_top">-->
+            <!--                                <button>최근자료</button>-->
+            <!--                                <button>즐겨찾기</button>-->
+            <!--                            </div>-->
+            <!--                            <div class="my_item_edu">-->
+            <!--                                <div class="item_inner">-->
+            <!--                                    <small>이미지와제목을 클릭하시면, 제안 메인페이지로 이동합니다.</small>-->
+            <!--                                    <table>-->
+            <!--                                        <tr>-->
+            <!--                                            <td>-->
+            <!--                                                <div class="edu_item">-->
+            <!--                                                    <div class="edu_img">-->
+            <!--                                                        <div></div>-->
+            <!--                                                    </div>-->
+            <!--                                                    <div class="edu_desc">-->
+            <!--                                                        <h5>[학교폭력 연구]  Preventing and …</h5>-->
+            <!--                                                        <small>O X 퀴즈내역</small>-->
+            <!--                                                        <span>등록일 |  2021.10.11</span>-->
+            <!--                                                        <div class="tags">-->
+            <!--                                                            <b class="tag1">청소년</b>-->
+            <!--                                                            <b class="tag2">일반</b>-->
+            <!--                                                            <b class="tag3">교원</b>-->
+            <!--                                                            <b class="tag4">부모</b>-->
+            <!--                                                            <b class="tag5">푸코강사</b>-->
+            <!--                                                        </div>-->
+            <!--                                                    </div>-->
+            <!--                                                    <div class="remove_btn">-->
+            <!--                                                        <a href="#none">삭제</a>-->
+            <!--                                                        <button></button>-->
+            <!--                                                    </div>-->
+            <!--                                                </div>-->
+            <!--                                            </td>-->
+            <!--                                        </tr>-->
+            <!--                                    </table>-->
+            <!--                                </div>-->
+            <!--                            </div>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--                <div class="contents">-->
+            <!--                    <div class="page_top pc">-->
+            <!--                    </div>-->
+            <!--                    <div class="page_cont">-->
+            <!--                        &lt;!&ndash;<div class="tab_ico_area">-->
+            <!--                            <a href="javascript:;" class="tit">내 교육자료실</a>-->
+            <!--                            <ul class="tab_type_ico">-->
+            <!--                                <li class=""><a href="/pages/myPage/classroom">수강내역</a></li>-->
+            <!--                                <li class="mydataroom active"><a href="/pages/myPage/eduDataRoom">내 교육자료실</a></li>-->
+            <!--                                <li class="certificate"><a href="/pages/myPage/certificate">교육이수증발급</a></li>-->
+            <!--                            </ul>-->
+            <!--                            <p class="mo_page_txt">회원정보를 최신정보로 관리해주세요. <br class="mo"/>새로운 푸코소식과 보안을 위해 회원정보를 최신으로 업데이트-->
+            <!--                                해주세요.</p>-->
+            <!--                        </div>&ndash;&gt;-->
+            <!--                        <h4 class="subtit pc">내 교육자료실</h4>-->
+            <!--                        <p class="tip_tbl mb">※ 이미지와 제목을 클릭하시면, 해당 페이지로 이동합니다.</p>-->
+            <!--                        <ul class="board_list">-->
+            <!--                            <th:block th:if="${myBoardDatas == null or myBoardDatas.isEmpty()}">-->
+            <!--                                <li class="nodata">&lt;!&ndash;등록된 글 없을경우&ndash;&gt;-->
+            <!--                                    <div>등록된 게시글이 없습니다.</div>-->
+            <!--                                </li>-->
+            <!--                            </th:block>-->
+            <!--                            <li th:each="item : ${myBoardDatas}">-->
+            <!--                                <a th:href="|/pages/activity/eduDataRoomDetail/${item.id}|" class="thumb"><img-->
+            <!--                                        th:src="${filePath + '/' + item.thumbFileNm}" th:alt="${item.thumbFileNm}"-->
+            <!--                                        onerror="this.src='/ClientUI/user/images/contents/nodata01.png'"/></a>-->
+            <!--                                <div class="info_area">-->
+            <!--                                    <a th:href="|/pages/activity/eduDataRoomDetail/${item.id}|" class="title"-->
+            <!--                                       th:text="${item.ttl}">교육자료5</a>-->
+            <!--                                    <div class="count_area">-->
+            <!--                                        &lt;!&ndash;<p><span th:text="|조회수 : ${item.readCnt} 회|">조회수 : 86 회</span><span th:text="|다운로드 : ${item.downloadCnt} 회|">다운로드 : 2 회</span></p>&ndash;&gt;-->
+            <!--                                        <span class="date"-->
+            <!--                                              th:text="|등록일 : ${#temporals.format(item.ntceDt,'yyyy.MM.dd')}|">등록일 : 2020.12.31</span>-->
+            <!--                                    </div>-->
+            <!--                                    <div class="sort_area">-->
+            <!--                                        <th:block th:if="${item.targetList ne null}"-->
+            <!--                                                  th:each="target : ${#strings.arraySplit(item.targetList,',')}">-->
+            <!--                                            <span th:if="${target eq T(kr.or.btf.web.domain.web.enums.MberDvType).STUDENT.name()}"-->
+            <!--                                                  class="sort teenager">청소년</span>-->
+            <!--                                            <span th:if="${target eq T(kr.or.btf.web.domain.web.enums.MberDvType).NORMAL.name()}"-->
+            <!--                                                  class="sort normal">일반</span>-->
+            <!--                                            <span th:if="${target eq T(kr.or.btf.web.domain.web.enums.MberDvType).TEACHER.name()}"-->
+            <!--                                                  class="sort teacher">교원</span>-->
+            <!--                                            <span th:if="${target eq T(kr.or.btf.web.domain.web.enums.MberDvType).PARENT.name()}"-->
+            <!--                                                  class="sort parent">부모</span>-->
+            <!--                                            <span th:if="${target eq T(kr.or.btf.web.domain.web.enums.MberDvType).LECTURER.name()}"-->
+            <!--                                                  class="sort lecturer">푸코강사</span>-->
+            <!--                                        </th:block>-->
+            <!--                                    </div>-->
+            <!--                                    <div class="delete_area">-->
+            <!--                                        <a class="btn" href="javascript:;"-->
+            <!--                                           th:onclick="|fn_deleteMyEduData(${item.id})|">삭제</a>-->
+            <!--                                    </div>-->
+            <!--                                </div>-->
+            <!--                            </li>-->
+            <!--                        </ul>-->
+            <!--                        <th:block-->
+            <!--                                th:replace="/fragments/paging :: pagingbody(list=${myBoardDatas}, link='/pages/myPage/eduDataRoom', formId='form1')"></th:block>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </form>-->
         </div>
     </div>
     <th:block th:replace="fragments/footer"></th:block>

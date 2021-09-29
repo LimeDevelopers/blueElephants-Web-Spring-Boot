@@ -253,20 +253,31 @@
 
     </div>
     <div class="depth"></div>
+
     <div class="mo_top_nav_wrap">
         <div class="mo_info">
-
-            <h2 class="helloMsg">푸코님!<br>행복한 하루 보내세요!</h2>
-
-
-            <!--            <h2 class="helloMsg">${userName}님! <br/>행복한 하루보내세요.</h2>-->
+            <th:block th:unless="${#authorization.getAuthentication() != null and #authorization.expression('isAuthenticated()')}">
+                <h2 class="helloMsg"><a href="/login" class="btn_login">로그인</a></h2>
+            </th:block>
+            <th:block th:if="${#authorization.getAuthentication() != null and #authorization.expression('isAuthenticated()')}">
+                <h2 class="helloMsg"><th:block sec:authentication="principal.account.ncnm"></th:block>님!<br>행복한 하루 보내세요!</h2>
+            </th:block>
         </div>
         <div class="mo_my_page">
-            <a href="/pages/myPage/profile" class="mo_my_icon"></a>
-            <a href="/pages/myPage/profile" class="mo_my_icon_txt">마이페이지</a>
-
-            <!--            <a href="javascript:;" class="mo_my_icon">마이페이지</a>-->
-            <!--            <a href="javascript:;" class="mo_my_icon_txt">마이페이지</a>-->
+            <th:block th:if="${#authorization.getAuthentication() != null and #authorization.expression('isAuthenticated()')}">
+                <th:block sec:authorize="hasAnyRole('ROLE_MASTER', 'ROLE_ADMIN', 'ROLE_LECTURER', 'ROLE_COUNSELOR')">
+                    <a href="/soulGod/dashboard" class="mo_my_icon"></a>
+                    <a href="/soulGod/dashboard" class="mo_my_icon_txt">관리자모드</a>
+                </th:block>
+            </th:block>
+            <th:block th:if="${#authorization.getAuthentication() != null and #authorization.expression('isAuthenticated()')}">
+                <a href="/pages/myPage/profile" class="mo_my_icon"></a>
+                <a href="/pages/myPage/profile" class="mo_my_icon_txt">마이페이지</a>
+            </th:block>
+            <th:block th:unless="${#authorization.getAuthentication() != null and #authorization.expression('isAuthenticated()')}">
+                <a href="/login" class="mo_my_icon"></a>
+                <a href="/login" class="mo_my_icon_txt">로그인</a>
+            </th:block>
         </div>
     </div>
 <!--    <div class="mo_top_nav_wrap">-->

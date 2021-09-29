@@ -29,52 +29,97 @@
                                     <span>법률상담, 채팅, 화해분쟁조정은 도움요청 메뉴에서 확인가능합니다.</span>
                                 </p>
                             </div>
+
                             <div class="my_item_list">
                                 <div>
                                     <h3>게시판 상담내역</h3>
                                     <table>
-                                        <tr>
-                                            <td>활동내역 문의제목입니다.<b></b>
+                                        <tbody>
+                                        <th:block th:if="${adviceRequests == null or adviceRequests.isEmpty()}">
+                                            <!--등록된 글 없을경우-->
+                                            <tr><td>등록된 상담이 없습니다.</td></tr>
+                                        </th:block>
+                                        <tr th:each="item,idx:${adviceRequests}">
+                                            <td>
+                                                <a th:href="|/pages/myPage/counselingDetail/face/${item.id}|">
+                                                    <b th:text="${item.ttl}"></b>
+                                                </a>
                                                 <p>
-                                                <span>푸른코끼리
-                                                    <i>2021-10-11</i>
-                                                </span>
-                                                    <b>상담완료</b>
+                                                    <span>
+                                                        <i th:text="${#temporals.format(item.regDtm,'yyyy-MM-dd')}"></i>
+                                                    </span>
+                                                    <b th:text="${item.processTy.getName()}">상담대기</b>
                                                 </p>
                                             </td>
                                         </tr>
+                                        </tbody>
                                     </table>
                                 </div>
                                 <div>
                                     <h3>전화 상담내역</h3>
                                     <table>
-                                        <tr>
-                                            <td>활동내역 문의제목입니다.<b></b>
+                                        <tbody>
+                                        <th:block th:if="${adviceTelList == null or adviceTelList.isEmpty()}">
+                                            <!--등록된 글 없을경우-->
+                                            <tr><td>등록된 상담이 없습니다.</td></tr>
+                                        </th:block>
+                                        <tr th:each="item,idx:${adviceTelList}">
+                                            <td>
+                                                <a th:href="|/pages/myPage/counselingDetail/face/${item.id}|">
+                                                    <b th:text="${item.ttl}"></b>
+                                                </a>
                                                 <p>
-                                                <span>푸른코끼리
-                                                    <i>2021-10-11</i>
+                                                <span>
+                                                    <i th:text="${#temporals.format(item.regDtm,'yyyy-MM-dd')}"></i>
                                                 </span>
-                                                    <b>상담완료</b>
+                                                    <b th:text="${item.processTy.getName()}">상담대기</b>
                                                 </p>
                                             </td>
                                         </tr>
+                                        </tbody>
                                     </table>
                                 </div>
+
                                 <div>
-                                    <h3>대면상담내역</h3>
+                                    <h3>대면 상담내역</h3>
                                     <table>
-                                        <tr>
-                                            <td>활동내역 문의제목입니다.<b></b>
+                                        <tbody>
+                                        <th:block th:if="${adviceFaceList == null or adviceFaceList.isEmpty()}">
+                                            <!--등록된 글 없을경우-->
+                                            <tr><td>등록된 상담이 없습니다.</td></tr>
+                                        </th:block>
+                                        <tr th:each="item,idx:${adviceFaceList}">
+                                            <td>
+                                                <a th:href="|/pages/myPage/counselingDetail/face/${item.id}|">
+                                                    <b th:text="${item.ttl}"></b>
+                                                </a>
                                                 <p>
-                                                <span>푸른코끼리
-                                                    <i>2021-10-11</i>
+                                                <span>
+                                                    <i th:text="${#temporals.format(item.regDtm,'yyyy-MM-dd')}"></i>
                                                 </span>
-                                                    <b>상담완료</b>
+                                                    <b th:text="${item.processTy.getName()}">상담대기</b>
                                                 </p>
                                             </td>
                                         </tr>
+                                        </tbody>
                                     </table>
                                 </div>
+
+                                <!--                                <div>-->
+                                <!--                                    <h3>대면상담내역</h3>-->
+                                <!--                                    <table>-->
+                                <!--                                        <tr>-->
+                                <!--                                            <td>활동내역 문의제목입니다.<b></b>-->
+                                <!--                                                <p>-->
+                                <!--                                                <span>푸른코끼리-->
+                                <!--                                                    <i>2021-10-11</i>-->
+                                <!--                                                </span>-->
+                                <!--                                                    <b>상담완료</b>-->
+                                <!--                                                </p>-->
+                                <!--                                            </td>-->
+                                <!--                                        </tr>-->
+                                <!--                                    </table>-->
+                                <!--                                </div>-->
                             </div>
                         </div>
                     </div>

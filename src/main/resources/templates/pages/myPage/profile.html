@@ -102,7 +102,9 @@
                                         </tr>
                                         <tr>
                                             <td>성별</td>
-                                            <td th:text="${T(kr.or.btf.web.domain.web.enums.GenderType).valueOf(form.sexPrTy).getName()}">여</td>
+                                            <th:block th:each="tp : ${T(kr.or.btf.web.domain.web.enums.GenderType).values()}">
+                                                <td th:if="${form.sexPrTy eq tp.name()}" th:text="${tp.getName()}"></td>
+                                            </th:block>
                                         </tr>
                                         <tr>
                                             <td>이메일주소</td>
@@ -134,6 +136,46 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="sec_write" th:if="${form.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).STUDENT or
+                    form.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).TEACHER}">
+                        <h4 class="subtit">추가정보</h4>
+                        <div class="tbl_write">
+                            <ul>
+                                <li>
+                                    <div class="th">지역명</div>
+                                    <div class="td td_txt" th:text="${school.areaNm}">서울</div>
+                                </li>
+                                <li>
+                                    <div class="th">학교명</div>
+                                    <div class="td td_txt" th:text="${school.schlNm}">서초중학교</div>
+                                </li>
+                                <li>
+                                    <div class="th">학년</div>
+                                    <div class="td td_txt" th:text="${school.grade}">3학년</div>
+                                </li>
+                                <li>
+                                    <div class="th">반</div>
+                                    <div class="td td_txt" th:text="${school.ban}">8반</div>
+                                </li>
+                                <li th:if="${form.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).STUDENT}"> <!--학생일경우만 노출-->
+                                    <div class="th">번호</div>
+                                    <div class="td td_txt" th:text="${school.no}">20번</div>
+                                </li>
+                                <li th:if="${form.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).STUDENT}"> <!--학생일경우만 노출-->
+                                    <div class="th">담임선생님</div>
+                                    <div class="td td_txt" th:text="${school.teacherNm}">홍말순</div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="sec_write" th:if="${form.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).PARENT}"><!--부모일 경우 노출-->
+                        <h4 class="subtit">추가정보(자녀 아이디)</h4>
+                        <ul class="list_type01">
+                            <li th:each="child : ${childList}">
+                                <p th:text="|${child.nm} ${child.schlNm} ${child.grade}학년 ${child.ban}반 ${child.no}번|">이창근 ○○초등학교 5학년 3반 17번</p>
+                            </li>
+                        </ul>
                     </div>
                     <div class="btn_area btn_info">
                         <a href="javascript:;" onclick="fn_openLayer();" class="btn">수정</a>

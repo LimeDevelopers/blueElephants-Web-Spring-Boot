@@ -1,12 +1,10 @@
 package kr.or.btf.web.web.controller.pages;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import kr.or.btf.web.common.Constants;
 import kr.or.btf.web.common.exceptions.ValidCustomException;
 import kr.or.btf.web.domain.web.Account;
 import kr.or.btf.web.domain.web.MemberCrew;
 import kr.or.btf.web.domain.web.MobileAuthLog;
-import kr.or.btf.web.domain.web.enums.UserRollType;
 import kr.or.btf.web.services.web.MailService;
 import kr.or.btf.web.services.web.MemberService;
 import kr.or.btf.web.services.web.MobileAuthLogService;
@@ -14,13 +12,11 @@ import kr.or.btf.web.utils.AESEncryptor;
 import kr.or.btf.web.web.controller.BaseCont;
 import kr.or.btf.web.web.form.GroupForm;
 import kr.or.btf.web.web.form.MemberForm;
-import kr.or.btf.web.web.form.MemberSchoolForm;
 import kr.or.btf.web.web.form.MobileAuthLogForm;
 import kr.or.btf.web.web.validator.MemberFormValidator;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;

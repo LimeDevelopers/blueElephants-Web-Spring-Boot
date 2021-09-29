@@ -125,8 +125,8 @@
                                         <span th:if="${target eq T(kr.or.btf.web.domain.web.enums.MberDvType).PARENT.name()}" class="sort parent">부모</span>
                                         <span th:if="${target eq T(kr.or.btf.web.domain.web.enums.MberDvType).LECTURER.name()}" class="sort lecturer">푸코강사</span>
                                     </th:block>
-                                    <input type="hidden" th:id="|fav_dv${idx.index}|" value="0"/>
-                                    <a href="javascript:void(0)" class="sort sortstar" th:onclick="fn_favData([[${idx.index}]])" id="fav_data"><i th:id="|favIcon${idx.index}|" class="far fa-star"></i></a>
+<!--                                    <input type="hidden" th:id="|fav_dv${idx.index}|" value="0"/>-->
+<!--                                    <a href="javascript:void(0)" class="sort sortstar" th:onclick="fn_favData([[${idx.index}]])" id="fav_data"><i th:id="|favIcon${idx.index}|" class="far fa-star"></i></a>-->
                                 </div>
 
                             </div>

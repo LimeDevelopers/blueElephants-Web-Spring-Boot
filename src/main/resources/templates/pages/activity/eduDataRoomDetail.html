@@ -27,27 +27,27 @@
         <form id="form1" name="form1" method="post" th:object="${form}">
             <div class="contents">
                 <div class="page_top pc">
-                    <h3 class="page_tit">교육</h3>
-                    <span>다양한 강의가 빠르게 업데이트 됩니다.</span>
+                    <h3 class="page_tit">자료실</h3>
+                    <span>다양한 자료가 빠르게 업데이트 됩니다.</span>
                 </div>
                 <div class="page_cont">
                     <div class="tab_ico_area">
                         <a href="javascript:;" class="tit">자료실</a>
-                        <ul class="tab_type_ico">
-                            <li class="normal"><a href="/pages/activity/preventionEdu/NORMAL">일반</a></li>
-                            <li class="teenager"><a href="/pages/activity/preventionEdu/STUDENT">청소년</a></li>
-                            <li class="parent"><a href="/pages/activity/preventionEdu/PARENT">부모</a></li>
-                            <li class="teacher"><a href="/pages/activity/preventionEdu/TEACHER">교원</a></li>
-                            <!--<li class="lecturer"><a href="/pages/activity/preventionEdu/LECTURER">푸코강사</a></li>-->
-                            <li class="dataroom active"><a href="/pages/activity/eduDataRoom">자료실</a></li>
-                            <li class="review"><a href="/pages/activity/postscript">교육후기</a></li>
-                        </ul>
-                        <p class="mo_page_txt">다양한 강의가 빠르게 업데이트 됩니다.</p>
+<!--                        <ul class="tab_type_ico">-->
+<!--                            <li class="normal"><a href="/pages/activity/preventionEdu/NORMAL">일반</a></li>-->
+<!--                            <li class="teenager"><a href="/pages/activity/preventionEdu/STUDENT">청소년</a></li>-->
+<!--                            <li class="parent"><a href="/pages/activity/preventionEdu/PARENT">부모</a></li>-->
+<!--                            <li class="teacher"><a href="/pages/activity/preventionEdu/TEACHER">교원</a></li>-->
+<!--                            &lt;!&ndash;<li class="lecturer"><a href="/pages/activity/preventionEdu/LECTURER">푸코강사</a></li>&ndash;&gt;-->
+<!--                            <li class="dataroom active"><a href="/pages/activity/eduDataRoom">자료실</a></li>-->
+<!--                            <li class="review"><a href="/pages/activity/postscript">교육후기</a></li>-->
+<!--                        </ul>-->
+                        <p class="mo_page_txt">다양한 자료가 빠르게 업데이트 됩니다.</p>
                     </div>
                     <h4 class="subtit pc">자료실</h4>
                     <div class="detail_cont">
                         <div class="top">
-                            <div class="thumb"><img th:src="${rootPath+'/boardData/'+thumbFile.flNm}" th:alt="${thumbFile.flNm}" onerror="this.src='/ClientUI/user/images/contents/nodata01.png'" /></div>
+<!--                            <div class="thumb"><img th:src="${rootPath+'/boardData/'+thumbFile.flNm}" th:alt="${thumbFile.flNm}" onerror="this.src='/ClientUI/user/images/contents/nodata01.png'" /></div>-->
                             <div class="info_area">
                                 <strong class="tit mypage">
                                     <th:block th:if="*{sntncHead ne ''}">
