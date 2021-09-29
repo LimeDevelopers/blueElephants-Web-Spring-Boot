@@ -18,42 +18,19 @@
         $(function (){
             $("#btnSave").on('click' , function() {
                 $("#btnSave").prop('disabled' , true);
+
+
                 if(!fn_chkField()){
                     $('#btnSave').prop('disabled' , false);
                     return false;
 
                 } else {
-
-                    areaNm   = $("#areaNm").val();
-                    schlNm   = $("#schlNm").val();
-                    grade    = $("#grade").val();
-                    ban      = $("#ban").val();
                     batchArr = $("#batchArr").val();
-                    loginId  = $("#loginId").val();
-                    pwd      = $("#pwd").val();
 
-                    $.ajax({
-                        method : "POST" ,
-                        url : "/test/pages/myPage/batchManagement/batchRegister" ,
-                        data : {
-
-                            'areaNm'   : areaNm,
-                            'schlNm'   : schlNm,
-                            'grade'    : grade,
-                            'ban'      : ban,
-                            'batchArr' : batchArr,
-                            'loginId'  : loginId,
-                            'pwd'      : pwd,
-
-                        },
-                        success(result) {
-                            if(result == 1) {
-                                alert("전송성공");
-                            }else {
-                                alert("전송실패");
-                            }
-                        }
-                    });
+                    var frm = $('#form1')
+                    frm.prop('action' , '/pages/myPage/batchManagement/batchRegister');
+                    frm.submit();
+                    alert(batchArr+"개의 계정이 신청되었습니다.");
                 }
             })
         })
@@ -220,19 +197,13 @@
                 <span>선생님께서 등록하신 기본 데이터로 학생 계정을 생성합니다.</span>
             </div>
             <div class="page_cont join_form_area">
-            <form action="/fssd" method="post" th:object="${teacher}">
+            <form id="form1" name="form1" method="post" th:object="${teacher}">
                 <div class="sec_write">
                     <input type="hidden" id="authBothChk" value="0"/>
                     <div class="tbl_write">
                         <div class="sec_write">
                             <div class="tbl_write contour">
                                 <ul>
-                                    <li>
-                                        <div class="th">지역명</div>
-                                        <div class="td">
-                                            <input type="text" id="nm" name="nm" th:value="*{areaNm}" readonly>
-                                        </div>
-                                    </li>
                                     <li>
                                         <div class="th">지역명</div>
                                         <div class="td">
@@ -301,7 +272,7 @@
                 <button id="btnSave" class="btn btn_lg btn_blue btn_pill_10">가입</button>
             </div>
         </div>
-        <div class="batch_contents">
+        <!--<div class="batch_contents">
             <div class="page_cont">
                 <div class="sec_write_area clearfix">
                     <div class="sec_write info">
@@ -345,7 +316,7 @@
                 </div>
             </div>
                 <div class="btn_area"><a class="btn btn_lg btn_blue btn_pill_10" id="batchRegister" onclick="layerShow('popBatch')">일괄가입</a></div>
-        </div>
+        </div>-->
         </div>
     </div>
 </div>

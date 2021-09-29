@@ -60,38 +60,6 @@ public class TestController extends BaseCont {
         return "/pages/blueElephant/namane";
     }
 
-    @GetMapping(value = "/soulGod/member/batchregister")
-    public String register() {
-
-        return "/soulGod/member/batchregister";
-    }
-
-    @PostMapping(value = "/soulGod/member/batchregister/join")
-    public String batchJoin(MemberForm memberForm) {
-        String[] val = memberForm.getValues().split(",");
-
-        memberForm.setAreaNm(val[0]);
-        memberForm.setSchlNm(val[1]);
-        memberForm.setTeacherNm(val[2]);
-        memberForm.setGrade(Integer.parseInt(val[3]));
-        memberForm.setBan(val[4]);
-
-        testService.batchRegister(memberForm);
-        return "redirect:/soulGod/member/list";
-    }
-
-    @ResponseBody
-    @PostMapping(value = "/soulGod/member/batchregister/srchTchrNm")
-    public List<MemberSchool> srchTchrNm(Model model, @RequestParam(name = "TeacherNm") String TeacherNm) {
-
-        //System.out.println("아약스결과 조회 : " + TeacherNm);
-
-        //선생이름 , 학교 , 학년 , 반 , mber_pid 순으로 뽑아옴.
-        List<MemberSchool> memberSchoolList = memberService.srchTchr(TeacherNm);
-
-        return memberSchoolList;
-    }
-
     @PostMapping(value = "/getQrImg")
     public String getQrImg(Model model, @ModelAttribute AuroraForm auroraForm) throws IOException {
         AuroraForm result = auroraAPIService.getBase64String(auroraForm);
@@ -108,7 +76,7 @@ public class TestController extends BaseCont {
 //        return "/pages/blueElephant/testPage";
 //    }
     public void excelDownload(HttpServletResponse response) throws IOException {
-//        Workbook wb = new HSSFWorkbook();
+        //Workbook wb = new HSSFWorkbook();
         Workbook wb = new XSSFWorkbook();
         Sheet sheet = wb.createSheet("첫번째 시트");
         Row row = null;
@@ -145,24 +113,6 @@ public class TestController extends BaseCont {
         wb.close();
     }
     // 엑셀 다운로드 끝
-
-    @RequestMapping("/pages/myPage/batchManagement")
-    public String batchManagement(Model model,
-                                  @CurrentUser Account account) {
-        Account load = memberService.load(account.getId());
-        MemberTeacher memberTeacher = memberTeacherService.loadByMber(load.getId());
-        model.addAttribute("teacher", memberTeacher);
-        model.addAttribute("mc", "myPage");
-
-
-        return "/pages/myPage/batchManagement";
-    }
-
-    @RequestMapping(value = "/pages/myPage/batchManagement/batchRegister")
-    public void batchRegister(MemberSchoolForm memberSchoolForm) {
-        memberService.batchRegister(memberSchoolForm);
-    }
-
     @GetMapping(value = "/crewfinder")
     public ModelAndView crewfinder(MemberCrew memberCrew) {
         ModelAndView mav = new ModelAndView();
@@ -182,7 +132,7 @@ public class TestController extends BaseCont {
         return mav;
     }
 
-    @ResponseBody
+    /*@ResponseBody
     @PostMapping(value = "/api/member/isExistByBatchLoginId")
     public ResponseEntity isExistsByBatchloginId(@ModelAttribute MemberForm memberForm,
                                                  BindingResult bindingResult) {
@@ -213,5 +163,39 @@ public class TestController extends BaseCont {
             } else {
                 return ResponseEntity.ok(memberForm);
             }
-    }
+    }*/
+
+    /*@GetMapping(value = "/soulGod/member/batchregister")
+    public String register() {
+
+        return "/soulGod/member/batchregister";
+    }*/
+
+    /*@PostMapping(value = "/soulGod/member/batchregister/join")
+    public String batchJoin(MemberForm memberForm) {
+        String[] val = memberForm.getValues().split(",");
+
+
+        memberForm.setAreaNm(val[0]);
+        memberForm.setSchlNm(val[1]);
+        memberForm.setTeacherNm(val[2]);
+        memberForm.setGrade(Integer.parseInt(val[3]));
+        memberForm.setBan(val[4]);
+
+
+        testService.batchRegister(memberForm);
+        return "redirect:/soulGod/member/list";
+    }*/
+
+    /*@ResponseBody
+    @PostMapping(value = "/soulGod/member/batchregister/srchTchrNm")
+    public List<MemberSchool> srchTchrNm(Model model, @RequestParam(name = "TeacherNm") String TeacherNm) {
+
+        //System.out.println("아약스결과 조회 : " + TeacherNm);
+
+        //선생이름 , 학교 , 학년 , 반 , mber_pid 순으로 뽑아옴.
+        List<MemberSchool> memberSchoolList = memberService.srchTchr(TeacherNm);
+
+        return memberSchoolList;
+    }*/
 }

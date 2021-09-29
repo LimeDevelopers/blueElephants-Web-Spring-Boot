@@ -126,7 +126,7 @@
 
         $.ajax({
             type: "post",
-            url: "/test/soulGod/member/batchregister/srchTchrNm",
+            url: "/soulGod/member/batchregister/srchTchrNm",
             dataType: "json",
             data: {
                 "TeacherNm": TeacherNm.val()
@@ -147,8 +147,8 @@
                     var _ban = data[i].ban;
 
 
-                    html += "   <input type=\"radio\" name=\"values\" id=\" values \" value=\" " + _areaNm + "," + _schlNm + "," + _teacherNm + "," + _grade + "," + _ban + " \">";
-                    html += "   <label for=\"areaNm\" \"> (" + _areaNm + ")" + _schlNm + " " + _grade + "학년" + _ban + "반" + "</label>";
+                    html += "   <input type=\"radio\" name=\"values\" id=\" values \" value=\""+_areaNm +","+_schlNm+","+ _teacherNm+","+_grade+","+_ban +"\">";
+                    html += "   <label for=\"areaNm\" \"> (" + _areaNm + ")" + _schlNm + " " + _grade + "학년" + " " + _ban + "반" + "</label>";
 
                 }
                 $('#values').hide();
@@ -179,7 +179,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "/test/api/member/isExistByBatchLoginId",
+                url: "/api/member/isExistByBatchLoginId",
                 data: {
                     "loginId": $.trim(loginId.val()),
                     "batchArr" : $.trim(batchArr.val())
@@ -219,7 +219,7 @@
                 return false;
             }
 
-            frm.prop('action', '/test/soulGod/member/batchregister/join');
+            frm.prop('action', '/soulGod/member/batchregister/join');
             frm.submit();
         });
     })

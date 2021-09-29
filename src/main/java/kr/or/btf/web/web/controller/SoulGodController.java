@@ -3,6 +3,7 @@ package kr.or.btf.web.web.controller;
 import kr.or.btf.web.common.annotation.CurrentUser;
 import kr.or.btf.web.domain.web.Account;
 import kr.or.btf.web.domain.web.CommonCode;
+import kr.or.btf.web.domain.web.MemberSchool;
 import kr.or.btf.web.domain.web.enums.SurveyDvType;
 import kr.or.btf.web.domain.web.enums.UserRollType;
 import kr.or.btf.web.services.web.CommonCodeService;
@@ -10,16 +11,17 @@ import kr.or.btf.web.services.web.CourseRequestService;
 import kr.or.btf.web.services.web.MemberService;
 import kr.or.btf.web.utils.DatetimeHelper;
 import kr.or.btf.web.web.form.CourseRequestForm;
+import kr.or.btf.web.web.form.MemberForm;
 import kr.or.btf.web.web.form.SearchForm;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
@@ -313,5 +315,72 @@ public class SoulGodController extends BaseCont {
         calendar.set(Calendar.DATE, 1);
         localDate = LocalDateTime.ofInstant(calendar.toInstant(), zid).toLocalDate();
         model.addAttribute("defaultSrchStDt", DatetimeHelper.format(localDate, "yyyy-MM-dd"));
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/api/member/isExistByBatchLoginId")
+    public ResponseEntity isExistsByBatchloginId(@ModelAttribute MemberForm memberForm,
+                                                 BindingResult bindingResult) {
+
+        for (int i = 1; i <= memberForm.getBatchArr(); i++) {
+            String loginId = memberForm.getLoginId();
+
+            if (i < 10) {
+                loginId += "0" + i;
+            } else {
+                loginId += i;
+            }
+
+            if (memberService.existsByBatchLoginId(loginId)) {
+                bindingResult.rejectValue("loginId", "invalid ID", new Object[]{memberForm.getLoginId()}, "이미 사용 중인 계정 양식 입니다");
+            }
+            if (bindingResult.hasFieldErrors("loginId")) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult.getFieldError("loginId").getDefaultMessage());
+            } else {
+                return ResponseEntity.ok(memberForm);
+            }
+        }
+        if (memberService.existsSpace(memberForm.getLoginId())) {
+            bindingResult.rejectValue("loginId", "invalid ID", new Object[]{memberForm.getLoginId()}, "아이디에는 공백을 사용 할 수 없습니다.");
+        }
+        if (bindingResult.hasFieldErrors("loginId")) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult.getFieldError("loginId").getDefaultMessage());
+        } else {
+            return ResponseEntity.ok(memberForm);
+        }
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/soulGod/member/batchregister/srchTchrNm")
+    public List<MemberSchool> srchTchrNm(Model model, @RequestParam(name = "TeacherNm") String TeacherNm) {
+
+        //System.out.println("아약스결과 조회 : " + TeacherNm);
+
+        //선생이름 , 학교 , 학년 , 반 , mber_pid 순으로 뽑아옴.
+        List<MemberSchool> memberSchoolList = memberService.srchTchr(TeacherNm);
+
+        return memberSchoolList;
+    }
+
+    @PostMapping(value = "/soulGod/member/batchregister/join")
+    public String batchJoin(MemberForm memberForm) {
+        String[] val = memberForm.getValues().split(",");
+
+
+        memberForm.setAreaNm(val[0]);
+        memberForm.setSchlNm(val[1]);
+        memberForm.setTeacherNm(val[2]);
+        memberForm.setGrade(Integer.parseInt(val[3]));
+        memberForm.setBan(val[4]);
+
+
+        memberService.batchRegister(memberForm);
+        return "redirect:/soulGod/member/list";
+    }
+
+    @GetMapping(value = "/soulGod/member/batchregister")
+    public String register() {
+
+        return "/soulGod/member/batchregister";
     }
 }

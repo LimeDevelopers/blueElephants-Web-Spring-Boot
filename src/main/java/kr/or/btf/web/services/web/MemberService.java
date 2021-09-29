@@ -1587,6 +1587,8 @@ public class MemberService extends _BaseService {
     public void updateFreeCard(Long id) {
         memberRepository.updateFreeCard(id, "Y");
     }
+
+    //교원 마이페이지 일괄가입 서비스
     @Transactional
     public void batchRegister(MemberSchoolForm memberSchoolForm) {
         MemberForm memberForm = new MemberForm();
@@ -1599,6 +1601,11 @@ public class MemberService extends _BaseService {
             memberForm.setRegDtm(LocalDateTime.now()); //등록일
             memberForm.setPrtctorAttcAt("Y");
             memberForm.setOnlineEdu("N"); // 현장교육 N = 오프라인
+            memberForm.setEduReset("N");
+            memberForm.setCardReset("N");
+            memberForm.setFreeCard("N");
+            memberForm.setGroupYn("N");
+            memberForm.setCrewPid(0L);
             memberForm.setApproval("Y"); // 승인여부
             memberForm.setNm("TEST");
             memberForm.setSexPrTy("MALE");
@@ -1632,6 +1639,55 @@ public class MemberService extends _BaseService {
                     memberSchoolForm.getGrade(), memberSchoolForm.getBan(), save.getId(), LocalDateTime.now());
         }
     }
+    //관리자페이지 일괄가입 서비스
+    @Transactional
+    public void batchRegister(MemberForm memberForm) {
+        String temp = memberForm.getLoginId();
+
+        for (int i = 1; i <= memberForm.getBatchArr(); i++) {
+            log.info(temp+i);
+
+            memberForm.setDelAt("N");
+            memberForm.setPwd(passwordEncoder.encode(memberForm.getPwd())); //패스워드 셋
+            memberForm.setRegDtm(LocalDateTime.now()); //등록일
+            memberForm.setOnlineEdu("N"); // 현장교육 N = 오프라인
+            memberForm.setEduReset("N");
+            memberForm.setCardReset("N");
+            memberForm.setFreeCard("N");
+            memberForm.setGroupYn("N");
+            memberForm.setCrewPid(0L);
+            memberForm.setApproval("Y"); // 승인여부
+            memberForm.setPrtctorAttcAt("Y");
+            memberForm.setNm("TEST");
+            memberForm.setSexPrTy("MALE");
+
+            if (i < 10) {
+                memberForm.setLoginId(temp+"0"+i);//변형된 계정 셋
+            } else {
+                memberForm.setLoginId(temp+i);//변형된 계정 셋
+            }
+
+            memberForm.setMberDvTy(UserRollType.BATCH);
+            Account account = modelMapper.map(memberForm, Account.class);
+            Account save = memberRepository.save(account);
+
+
+            MemberRoll memberRoll = new MemberRoll();
+            memberRoll.setMberPid(save.getId());
+            memberRoll.setMberDvTy(UserRollType.BATCH);
+            memberRoll.setRegDtm(LocalDateTime.now());
+            memberRoll.setRegPsId(save.getRegPsId());
+            memberRollRepository.save(memberRoll);
+            System.out.println("지역명" + memberForm.getAreaNm());
+            System.out.println("학교" + memberForm.getSchlNm());
+            System.out.println("반" + memberForm.getBan());
+            System.out.println("학년" + memberForm.getGrade());
+
+            //memberSchool에 인서트 해주는 프로시저 호출
+            memberSchoolRepository.pr_findTID(memberForm.getAreaNm(), memberForm.getSchlNm(),
+                    memberForm.getGrade(), memberForm.getBan(), save.getId(), LocalDateTime.now());
+        }
+    }
     //크루 검색
     public List<MemberCrew> srchCrewList(String CrewNm) {
         QMemberCrew qMemberCrew = QMemberCrew.memberCrew;
@@ -1651,5 +1707,10 @@ public class MemberService extends _BaseService {
                 .where(qMemberCrew.crewNm.contains(CrewNm).and(qMemberCrew.attcYn.eq("Y")))
                 .fetch();
         return memberCrewList;
+    }
+
+    public Boolean existsByBatchLoginId(String loginId){
+        Account account = memberRepository.findByLoginId(loginId).orElseGet(Account::new);
+        return (account != null && account.getId() != null);
     }
 }
