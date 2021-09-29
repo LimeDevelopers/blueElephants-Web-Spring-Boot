@@ -29,6 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -624,6 +625,24 @@ public class ApplicationService extends _BaseService {
         list.orderBy(orderSpecifier);
         QueryResults<Event> mngList = list.fetchResults();
         return new PageImpl<>(mngList.getResults() , pageable, mngList.getTotal());
+    }
+
+    public List<Contest> getContestDetail(Long id){
+
+        QContest qContest = QContest.contest;
+        BooleanBuilder builder = new BooleanBuilder();
+        builder.and(qContest.id.eq(id));
+
+        List<Contest> contestList = queryFactory
+                .select(Projections.fields(Contest.class ,
+                        qContest.ttl , qContest.cn, qContest.stYmd , qContest.edYmd , qContest.imgFl ,
+                        qContest.organ_dtl , qContest.fieldDv , qContest.readCnt ,qContest.regPsId ,
+                        qContest.regDtm , qContest.updPsId , qContest.updDtm))
+                .from(qContest)
+                .where(builder)
+                .fetch();
+
+        return contestList;
     }
 
     public Boolean updateApproval(String pid) {

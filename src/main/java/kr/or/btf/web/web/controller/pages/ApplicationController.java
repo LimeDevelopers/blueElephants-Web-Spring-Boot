@@ -18,6 +18,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 
 @Slf4j
 @Controller
@@ -469,12 +471,16 @@ public class  ApplicationController {
                         @PathVariable("id") Long id,
                         @CurrentUser Account account){
         Contest contest = applicationService.getContestData(id);
+        List<Contest> contestDetail = applicationService.getContestDetail(id);
+
         if(contest == null){
             model.addAttribute("altmsg", "정상적인 경로를 이용하세요.");
             model.addAttribute("locurl", "/pages/application/contestList");
             return "/message";
         }
+
         model.addAttribute("cpid",id);
+        model.addAttribute("contestList" , contestDetail);
         model.addAttribute("mc", "application");
         model.addAttribute("pageTitle", "공모전");
 

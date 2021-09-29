@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.w3.org/1999/html">
 <head>
     <th:block th:include="fragments/header"></th:block>
 </head>
@@ -241,18 +241,24 @@
             <div class="inner">
                 <div class="page_cont">
                     <h4 class="subtit pc review_title">공모전 신청</h4>
+
                     <div class="detail_cont">
                         <div class="top">
                             <div class="info_area">
-                                <strong class="tit"> 5월 사이버폭력 글쓰기 공모전</strong>
-                                <div class="detail_item">
-                                    <p class="count_2 count">
-                                        <span class="date"><small>푸른코끼리</small>2020.12.31</span>
-                                    </p>
-                                    <p class="d_day">
-                                        <b>접수중</b>
-                                    </p>
-                                </div>
+                                <th:block th:each="conList : ${contestList}">
+                                    <strong class="tit" th:text="${conList.ttl}">5월 사이버폭력 글쓰기 공모전</strong>
+                                    <div class="detail_item">
+                                        <p class="count_2 count">
+                                            <span class="date">
+                                                <small th:text="${conList.organ_dtl}">푸른코끼리</small>
+                                                <small th:text="${conList.stYmd}">2020.12.13</small>
+                                            </span>
+                                        </p>
+                                        <p class="d_day">
+                                            <b>접수중</b>
+                                        </p>
+                                    </div>
+                                </th:block>
                             </div>
                         </div>
                         <div class="bottom editor">
