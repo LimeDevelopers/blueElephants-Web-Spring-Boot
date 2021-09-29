@@ -573,9 +573,11 @@ public class MemberService extends _BaseService {
 
             //memberForm.setPwdLstDtm(LocalDateTime.now());
             Account account = modelMapper.map(memberForm, Account.class);
+            account.setFreeCard("N");
+            account.setCardReset("N");
+            account.setOnlineEdu("Y");
             account.setBrthdy(account.getBrthdy().replaceAll("-",""));
             account.setGroupYn("N");
-            account.setFreeCard("N");
             if(memberForm.getMberDvTy().equals(UserRollType.CREW)){
                 account.setCrewPid(memberForm.getCrewPid());
             } else {
@@ -620,13 +622,6 @@ public class MemberService extends _BaseService {
                     memberParentRepository.save(memberParent);
                 }
             }
-
-//            if ("N".equals(memberForm.getEmailAttcAt())) {
-//                mailService.mailSend(makeMailAuthLinkMessage(account));
-//                if ("N".equals(memberForm.getPrtctorAttcAt())) {
-//                    mailService.mailSend(makeParentMailAuthLinkMessage(account));
-//                }
-//            }
 
             return true;
         } catch (ValidCustomException ve) {

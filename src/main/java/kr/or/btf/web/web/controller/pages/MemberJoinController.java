@@ -166,7 +166,6 @@ public class MemberJoinController extends BaseCont {
                                  Errors errors,
                                  BindingResult bindingResult) {
         boolean result = false;
-
         String msg = "";
         /*if (memberService.existsSpace(memberForm.getLoginId())) {
             bindingResult.rejectValue("loginId", "invalid ID", new Object[]{memberForm.getLoginId()}, "아이디에는 공백을 사용 할 수 없습니다.");
