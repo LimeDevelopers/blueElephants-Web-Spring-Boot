@@ -85,36 +85,36 @@
                     <div class="page_cont my_profile_2">
                         <div class="profile_inner">
                             <div class="my_info">
-                                <h3>회원기본정보</h3>
+                                <h3>회원 기본정보</h3>
                                 <div class="my_info_item">
                                     <table>
                                         <tr>
                                             <td>이름</td>
-                                            <td>홍길동</td>
+                                            <td th:text="*{nm}">홍길동</td>
                                         </tr>
                                         <tr>
                                             <td>아이디</td>
-                                            <td>Pky2032</td>
+                                            <td th:text="*{loginId}">Pky2032</td>
                                         </tr>
                                         <tr>
                                             <td>생년월일</td>
-                                            <td>20100123</td>
+                                            <td th:text="*{brthdy}">20100123</td>
                                         </tr>
                                         <tr>
                                             <td>성별</td>
-                                            <td>여</td>
+                                            <td th:text="${T(kr.or.btf.web.domain.web.enums.GenderType).valueOf(form.sexPrTy).getName()}">여</td>
                                         </tr>
                                         <tr>
                                             <td>이메일주소</td>
-                                            <td>pky2032@gmail.net</td>
+                                            <td th:text="*{email}">pky2032@gmail.net</td>
                                         </tr>
                                         <tr>
                                             <td>휴대전화</td>
-                                            <td>01022452032</td>
+                                            <td th:text="*{moblphon}">01022452032</td>
                                         </tr>
                                         <tr>
                                             <td>닉네임</td>
-                                            <td>푸코님</td>
+                                            <td th:text="*{ncnm}">푸코님</td>
                                         </tr>
                                     </table>
                                 </div>

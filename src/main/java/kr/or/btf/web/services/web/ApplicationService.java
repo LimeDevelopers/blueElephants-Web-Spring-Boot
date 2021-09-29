@@ -221,10 +221,40 @@ public class ApplicationService extends _BaseService {
         return new PageImpl<>(mngList.getResults(), pageable, mngList.getTotal());
     }
 
+    public Page<Prevention> getMyApplyPreEduList(Pageable pageable, Long id) {
+        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
+        pageable = PageRequest.of(page, Constants.DEFAULT_PAGESIZE); // <- Sort 추가
+        QPrevention qPrevention = QPrevention.prevention;
+        QPreventionMaster qPreventionMaster = QPreventionMaster.preventionMaster;
+        OrderSpecifier<Long> orderSpecifier = qPrevention.id.desc();
+
+        QueryResults<Prevention> mngList = queryFactory
+                .select(Projections.fields(Prevention.class,
+                        qPrevention.id,
+                        qPrevention.approval,
+                        qPrevention.preMstPid,
+                        qPrevention.regDtm,
+                        qPreventionMaster.tel.as("tel"),
+                        qPreventionMaster.address.as("address"),
+                        qPreventionMaster.classesNum.as("classesNum"),
+                        qPreventionMaster.schlNm.as("schlNm")
+                ))
+                .from(qPrevention)
+                .where(qPrevention.mberPid.eq(id))
+                .leftJoin(qPreventionMaster).on(qPrevention.preMstPid.eq(qPreventionMaster.id))
+                .limit(pageable.getPageSize())
+                .offset(pageable.getOffset())
+                .orderBy(orderSpecifier)
+                .fetchResults();
+
+        return new PageImpl<>(mngList.getResults(), pageable, mngList.getTotal());
+    }
+
     public Page<PreventionMaster> getPreEduMstList(Pageable pageable) {
         int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
         pageable = PageRequest.of(page, Constants.DEFAULT_PAGESIZE); // <- Sort 추가
 
+        QPrevention qPrevention = QPrevention.prevention;
         QPreventionMaster qPreventionMaster = QPreventionMaster.preventionMaster;
         OrderSpecifier<Long> orderSpecifier = qPreventionMaster.id.desc();
 
@@ -242,7 +272,6 @@ public class ApplicationService extends _BaseService {
                         qPreventionMaster.prePid,
                         qPreventionMaster.regDtm,
                         qPreventionMaster.updDtm
-
                 ))
                 .from(qPreventionMaster)
                 .limit(pageable.getPageSize())

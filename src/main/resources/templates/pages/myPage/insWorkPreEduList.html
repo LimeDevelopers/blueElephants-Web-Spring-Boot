@@ -22,9 +22,9 @@
                             <li class="thead">
                                 <strong class="no">No</strong>
                                 <strong class="tit">학교</strong>
+                                <strong class="classNum">인원</strong>
                                 <strong class="state">상태</strong>
                                 <strong class="date">수강신청일</strong>
-                                <strong class="date">상태</strong>
                             </li>
                             <li class="nodata" th:if="${preList == null or preList.isEmpty()}">
                                 <div>신청한 예방교육이 없습니다.</div>
@@ -34,16 +34,20 @@
                                      th:text="${preList.totalElements - preList.pageable.pageSize * preList.pageable.pageNumber - idx.index}">
                                 </div>
                                 <div class="tit">
-                                    <a th:href="|/pages/application/preeducationDetail/${item.prePid}|" th:text="${item.schlNm}">00초등학교</a>
+                                    <a th:href="|/pages/application/preeducationDetail/${item.preMstPid}|" th:text="${item.schlNm}">00초등학교</a>
                                 </div>
-                                <div class="state" th:text="${item.approval == 'N' ? '승인대기' : '승인완료'}"></div>
+                                <div class="classNum" th:text="${item.classesNum}">
+                                </div>
+                                <div class="state" th:if="${item.approval == 'N'}" th:text="|반려|"></div>
+                                <div class="state" th:if="${item.approval == 'W'}" th:text="|심사중|"></div>
+                                <div class="state" th:if="${item.approval == 'Y'}" th:text="|승인|"></div>
                                 <div class="date">
                                     <span class="th">신청일 : </span>
                                     <th:block
                                             th:text="${#temporals.format(item.regDtm,'yyyy-MM-dd')}"></th:block>
                                 </div>
-                                <div class="date" th:text="${item.tempSave == 'Y' ? '임시저장' : '제출완료'}">
-                                </div>
+<!--                                <div class="date" th:text="${item.tempSave == 'Y' ? '임시저장' : '제출완료'}">-->
+<!--                                </div>-->
                             </li>
                         </ul>
                         <th:block

@@ -44,7 +44,12 @@ public class Prevention {
     @Column(name = "approval")
     private String approval;
 
-
     @Transient
-    private Long mstCnt;
+    private String tel;
+    @Transient
+    private String address;
+    @Transient
+    private Integer classesNum;
+    @Transient
+    private String schlNm;
 }

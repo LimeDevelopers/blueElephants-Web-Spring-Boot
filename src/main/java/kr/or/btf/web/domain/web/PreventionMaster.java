@@ -101,5 +101,7 @@ public class PreventionMaster {
     private String moblphon;
     @Transient
     private String email;
+    @Transient
+    private Long preCnt;
 
 }

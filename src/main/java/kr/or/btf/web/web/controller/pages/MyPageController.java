@@ -156,27 +156,16 @@ public class MyPageController extends BaseCont {
                                     Pageable pageable) {
 
         Account load = memberService.load(account.getId());
-        Account form = new Account();
-        form.setMberDvTy(load.getMberDvTy());
-        form.setNm(load.getNm());
-        form.setLoginId(load.getLoginId());
-        form.setBrthdy(load.getBrthdy());
-        form.setSexPrTy(load.getSexPrTy());
-        form.setEmail(load.getEmail());
-        form.setMoblphon(load.getMoblphon());
-        form.setNcnm(load.getNcnm());
-        model.addAttribute("form", form);
+        model.addAttribute("form", load);
 
         if(!load.getMberDvTy().equals(UserRollType.INSTRUCTOR)) {
             model.addAttribute("altmsg", "접근 권한이 없습니다.");
             model.addAttribute("locurl", "/");
             return "/message";
         }
-        Page<PreventionMaster> preventionMasters = applicationService.getPreEduMstList(pageable);
-        for(PreventionMaster a : preventionMasters) {
-            log.info("test@@@@"+a.getTempSave());
-        }
-        model.addAttribute("preList", preventionMasters);
+        Page<Prevention> masters = applicationService.getMyApplyPreEduList(pageable, account.getId());
+
+        model.addAttribute("preList", masters);
 
         model.addAttribute("mc", "myPage");
         model.addAttribute("pageTitle", "교육신청관리");
