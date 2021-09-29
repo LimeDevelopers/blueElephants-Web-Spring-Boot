@@ -13,6 +13,7 @@ import kr.or.btf.web.domain.web.*;
 import kr.or.btf.web.domain.web.QPrevention;
 import kr.or.btf.web.domain.web.enums.AppRollType;
 import kr.or.btf.web.domain.web.enums.FileDvType;
+import kr.or.btf.web.domain.web.enums.InstructorDvTy;
 import kr.or.btf.web.domain.web.enums.TableNmType;
 import kr.or.btf.web.repository.web.*;
 import kr.or.btf.web.utils.FileUtilHelper;
@@ -67,10 +68,11 @@ public class ApplicationService extends _BaseService {
 
 
     public boolean registerPreIns(PreventionInstructorForm preventionInstructorForm) {
-        preventionInstructorForm.setApproval("N");
+        preventionInstructorForm.setApproval("W");
         preventionInstructorForm.setDelAt("N");
         preventionInstructorForm.setRegDtm(LocalDateTime.now());
         PreventionInstructor preventionInstructor = modelMapper.map(preventionInstructorForm, PreventionInstructor.class);
+        preventionInstructor.setInsType(InstructorDvTy.NO);
         PreventionInstructor save = preventionInstructorRepository.save(preventionInstructor);
         if(save.getId()!=null){
             return true;
@@ -88,6 +90,7 @@ public class ApplicationService extends _BaseService {
         }
         try {
             PreventionInstructor pre = preventionInstructorRepository.findById(preventionInstructorForm.getPreInsPid()).orElseGet(PreventionInstructor::new);
+            pre.setInsType(InstructorDvTy.NO);
             pre.setAwards(preventionInstructorForm.getAwards());
             pre.setEduMatters(preventionInstructorForm.getEduMatters());
             pre.setEnrollPeriod(preventionInstructorForm.getEnrollPeriod());
@@ -267,7 +270,7 @@ public class ApplicationService extends _BaseService {
     }
 
     public boolean registerPreEdu(PreventionMasterForm preventionMasterForm) {
-        preventionMasterForm.setApproval("N");
+        preventionMasterForm.setApproval("W");
         preventionMasterForm.setDelAt("N");
         preventionMasterForm.setRegDtm(LocalDateTime.now());
         PreventionMaster preventionMaster = modelMapper.map(preventionMasterForm, PreventionMaster.class);

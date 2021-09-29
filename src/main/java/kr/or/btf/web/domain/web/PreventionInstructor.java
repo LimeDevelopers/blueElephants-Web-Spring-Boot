@@ -1,6 +1,7 @@
 package kr.or.btf.web.domain.web;
 
 
+import kr.or.btf.web.domain.web.enums.InstructorDvTy;
 import kr.or.btf.web.domain.web.enums.UserRollType;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
@@ -141,6 +142,10 @@ public class PreventionInstructor {
 
     @Column(name = "approval")
     private String approval;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "ins_type")
+    private InstructorDvTy InsType;
 
     @Transient
     private String loginId;

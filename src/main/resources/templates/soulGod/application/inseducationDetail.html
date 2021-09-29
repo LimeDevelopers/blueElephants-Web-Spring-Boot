@@ -25,6 +25,27 @@
                     return false;
                 }
             }
+            if(gbn == 'W') {
+                let result = confirm("대기 처리하시겠습니까?");
+                if(result){
+                    $.ajax({
+                        cache : false,
+                        url: "/api/soulGod/application/updateInsApporaval/"+id+"/"+gbn+"/"+uid,
+                        type : 'GET',
+                        contentType: "application/json",
+                        success : function(data) {
+                            if(data == false) {
+                                alert('통신 에러')
+                            } else {
+                                alert('변경되었습니다.')
+                                location.reload()
+                            }
+                        }
+                    });
+                } else {
+                    return false;
+                }
+            }
             if(gbn == 'Y') {
                 let result = confirm("승인 처리하시겠습니까?");
                 if(result){
@@ -46,6 +67,23 @@
                     return false;
                 }
             }
+        }
+        function fn_chgEduType(t){
+            selectedVal = $('.'+t).children('.list').children('.option.selected').data('value');
+            let jsonData = {
+                'id' : t,
+                'InsDvTy' : selectedVal
+            }
+            $.ajax({
+                cache : false,
+                url: "/api/soulGod/application/updateInsType/"+t+"/"+selectedVal,
+                type : 'POST',
+                contentType: "application/json",
+                datatype: 'json',
+                success : function(data) {
+                    alert('변경되었습니다.')
+                }
+            });
         }
     </script>
 </head>
@@ -83,7 +121,23 @@
                                 <tbody>
                                 <tr>
                                     <th scope="row"><label>회원구분</label></th>
-                                    <td th:text="${T(kr.or.btf.web.domain.web.enums.UserRollType).valueOf(form.mberDvTy).getName()}"></td>
+                                    <td th:text="${T(kr.or.btf.web.domain.web.enums.UserRollType).valueOf(form.mberDvTy).getName()}">
+                                    </td>
+                                </tr>
+                                <tr th:if="${form.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).INSTRUCTOR}">
+                                    <th scope="row"><label>강사유형</label></th>
+                                    <td>
+                                        <select th:onchange="|return fn_chgEduType([[${id}]])|" name="InsType" th:class="|w120 ${id}|">
+                                            <th:block th:if="${form.InsType eq T(kr.or.btf.web.domain.web.enums.InstructorDvTy).EDU}">
+                                                <option th:value="|EDU|">교육강사</option>
+                                                <option th:value="|MOR|">모니터링강사</option>
+                                            </th:block>
+                                            <th:block th:if="${form.InsType eq T(kr.or.btf.web.domain.web.enums.InstructorDvTy).MOR}">
+                                                <option th:value="|MOR|">모니터링강사</option>
+                                                <option th:value="|EDU|">교육강사</option>
+                                            </th:block>
+                                        </select>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th scope="row"><label>로그인ID</label></th>
@@ -200,6 +254,9 @@
                             <div class="btn_area">
                                 <a class="btn btn_sm btn_red" href="#" th:onclick="|fn_setStatus(*{id},'N',*{mberPid});|">
                                     <i class="material-icons fz17">done</i>반려
+                                </a>
+                                <a class="btn btn_sm" href="#" th:onclick="|fn_setStatus(*{id},'W',*{mberPid});|">
+                                    <i class="material-icons fz17">done</i>대기
                                 </a>
                                 <a class="btn btn_sm btn_blue" href="#" th:onclick="|fn_setStatus(*{id},'Y',*{mberPid});|">
                                     <i class="material-icons fz17">done</i>승인

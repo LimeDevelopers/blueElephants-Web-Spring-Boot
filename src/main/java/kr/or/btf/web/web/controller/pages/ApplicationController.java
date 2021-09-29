@@ -129,7 +129,7 @@ public class  ApplicationController {
             } else {
                 PreventionInstructor preventionInstructor = applicationService.getPreIns(account.getId());
                 if(preventionInstructor != null) {
-                    if(preventionInstructor.getTempSave().equals("N")) {
+                    if(preventionInstructor.getTempSave().equals("W")) {
                         model.addAttribute("altmsg", "이미 신청완료되었습니다. \n 결과 승인은 평일 기준 3-5일 소요됩니다.");
                         model.addAttribute("locurl", "/pages/myPage/profile");
                         return "/message";
@@ -152,7 +152,7 @@ public class  ApplicationController {
             if(account.getMberDvTy().equals(UserRollType.TEACHER)) {
                 PreventionInstructor preventionInstructor = applicationService.getPreIns(account.getId());
                 if(preventionInstructor != null) {
-                    if(preventionInstructor.getTempSave().equals("N")){
+                    if(preventionInstructor.getTempSave().equals("W")){
                         model.addAttribute("altmsg", "이미 신청완료되었습니다. \n 결과 승인은 평일 기준 3-5일 소요됩니다.");
                         model.addAttribute("locurl", "/pages/application/preeducationList");
                         return "/message";
@@ -239,6 +239,7 @@ public class  ApplicationController {
         return true;
     }
 
+    // 예방강의 희망 학교 정보 상세보기 load..
     @GetMapping("/pages/application/preeducationDetail/{id}")
     public String preeducationDetail(Model model,
                                @PathVariable("id") Long id,

@@ -82,7 +82,9 @@
                                     <td>
                                         <th:block th:text="${#temporals.format(item.regDtm, 'yyyy-MM-dd')}"></th:block>
                                     </td>
-                                    <td th:text="${item.approval == 'Y' ? '승인' : '미승인'}" th:style="${item.approval == 'Y' ? 'font-weight: bold; color:#8bb3ff' : 'font-weight: bold; color:red'}"></td>
+                                    <td th:if="${item.approval == 'N'}" th:text="|반려|" style="font-weight: bold; color:red;"></td>
+                                    <td th:if="${item.approval == 'W'}" th:text="|승인대기|" style="font-weight: bold; color:#9a9a9a;"></td>
+                                    <td th:if="${item.approval == 'Y'}" th:text="|승인|" style="font-weight: bold; color:#8bb3ff;"></td>
                                 </tr>
                                 </tbody>
                             </table>

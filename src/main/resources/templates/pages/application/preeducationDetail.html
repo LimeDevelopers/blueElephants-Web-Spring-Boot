@@ -73,7 +73,9 @@
                     <div class="btn_area">
                         <th:block sec:authorize="hasAnyRole('ROLE_INSTRUCTOR')">
                             <th:block th:if="${prevention != null}">
-                                <a class="btn btn_lg btn_line_blue btn_pill_10" th:text="${prevention.approval == 'N' ? '승인대기' : '승인완료'}"></a>
+                                <a class="btn btn_lg btn_line_red btn_pill_10" th:if="${prevention.approval == 'N'}" th:text="|승인 거절|"></a>
+                                <a class="btn btn_lg btn_line_blue btn_pill_10" th:if="${prevention.approval == 'W'}" th:text="|승인 대기|"></a>
+                                <a class="btn btn_lg btn_line_blue btn_pill_10" th:if="${prevention.approval == 'Y'}" th:text="|승인 완료|"></a>
                             </th:block>
                             <th:block th:if="${prevention == null}">
                                 <a href="#" th:onclick="|return fn_setStatus(${preventionMaster.id})|" class="btn btn_lg btn_line_blue btn_pill_10">신청하기</a>

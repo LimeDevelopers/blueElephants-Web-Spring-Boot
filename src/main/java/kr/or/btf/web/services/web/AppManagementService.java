@@ -10,6 +10,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.or.btf.web.common.Constants;
 import kr.or.btf.web.domain.web.*;
 import kr.or.btf.web.domain.web.enums.AppRollType;
+import kr.or.btf.web.domain.web.enums.InstructorDvTy;
 import kr.or.btf.web.domain.web.enums.UserRollType;
 import kr.or.btf.web.repository.web.ApplicationRepository;
 import kr.or.btf.web.repository.web.MemberRepository;
@@ -37,17 +38,36 @@ public class AppManagementService extends _BaseService {
     private final PreventionInstructorRepository preventionInstructorRepository;
     private final MemberRollRepository memberRollRepository;
 
+    // 강사 유형 update..
+    public boolean updateInsDyTy(Long id, String gbn) {
+        try {
+            PreventionInstructor pre = preventionInstructorRepository.findById(id).orElseGet(PreventionInstructor::new);
+            pre.setInsType(InstructorDvTy.valueOf(gbn));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    // 강사 승인 status update..
     public boolean updateInsApporaval(Long id, String gbn, Long uid) {
         updateMemberDvType(gbn,uid);
         try {
             PreventionInstructor pre = preventionInstructorRepository.findById(id).orElseGet(PreventionInstructor::new);
+            if(gbn.equals("Y")) {
+                // 기본 타입 EDU
+                pre.setInsType(InstructorDvTy.EDU);
+            } else {
+                pre.setInsType(InstructorDvTy.NO);
+            }
             pre.setApproval(gbn);
             return true;
         } catch (Exception e) {
             return false;
         }
     }
-    // -- 권한 업데이트
+
+    // 권한 update..
     public void updateMemberDvType(String gbn, Long id) {
         try {
             Account account = memberRepository.findById(id).orElseGet(Account::new);
@@ -64,6 +84,7 @@ public class AppManagementService extends _BaseService {
         }
     }
 
+    // 신청강사 상세정보 load..
     public PreventionInstructor inseduDetail(Long id) {
         QPreventionInstructor qPreventionInstructor = QPreventionInstructor.preventionInstructor;
         QAccount qAccount = QAccount.account;
@@ -98,7 +119,8 @@ public class AppManagementService extends _BaseService {
                         qPreventionInstructor.snsStatus,
                         qPreventionInstructor.snsUrl,
                         qPreventionInstructor.thumbImg,
-                        qPreventionInstructor.updDtm
+                        qPreventionInstructor.updDtm,
+                        qPreventionInstructor.InsType
                 ))
                 .from(qPreventionInstructor)
                 .leftJoin(qAccount).on(qPreventionInstructor.mberPid.eq(qAccount.id))

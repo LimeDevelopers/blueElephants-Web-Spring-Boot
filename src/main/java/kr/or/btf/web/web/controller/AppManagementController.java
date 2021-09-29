@@ -5,6 +5,7 @@ import kr.or.btf.web.domain.web.Account;
 import kr.or.btf.web.domain.web.ActivityApplication;
 import kr.or.btf.web.domain.web.PreventionInstructor;
 import kr.or.btf.web.domain.web.PreventionMaster;
+import kr.or.btf.web.domain.web.enums.InstructorDvTy;
 import kr.or.btf.web.domain.web.enums.UserRollType;
 import kr.or.btf.web.services.web.AppManagementService;
 import kr.or.btf.web.web.form.SearchForm;
@@ -14,15 +15,19 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
 public class AppManagementController extends BaseCont  {
     private final AppManagementService appManagementService;
+
+    @ResponseBody
+    @PostMapping("/api/soulGod/application/updateInsType/{id}/{gbn}")
+    public boolean updateInsType(@PathVariable("id") Long id,
+                                      @PathVariable("gbn") String gbn) {
+        return appManagementService.updateInsDyTy(id,gbn);
+    }
 
     @ResponseBody
     @GetMapping("/api/soulGod/application/updateInsApporaval/{id}/{gbn}/{uid}")
@@ -38,6 +43,7 @@ public class AppManagementController extends BaseCont  {
                            @CurrentUser Account account) {
 
         PreventionInstructor load = appManagementService.inseduDetail(id);
+        log.info("test@@@@"+load.getInsType());
         model.addAttribute("form", load);
         return "/soulGod/application/inseducationDetail";
     }
