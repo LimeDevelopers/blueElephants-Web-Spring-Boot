@@ -6465,8 +6465,8 @@ h4.submsg.mo {
 
 .board_list>li .thumb {
     display: inline-block;
-    width: 160px;
-    height: 100px;
+    width: 210px;
+    height: 130px;
     margin-right: 17px;
     font-size: 0;
     vertical-align: top
@@ -6480,10 +6480,10 @@ h4.submsg.mo {
 .board_list>li .info_area {
     display: inline-block;
     position: relative;
-    width: calc(100% - 181px);
+    width: calc(100% - 250px);
     margin-top: 6px;
     font-size: 0;
-    vertical-align: top
+    vertical-align: top;
 }
 
 .board_list>li .info_area .title {
@@ -6493,7 +6493,7 @@ h4.submsg.mo {
     white-space: nowrap;
     width: calc(100% - 430px);
     font-size: 20px;
-    font-weight: 500
+    font-weight: 300;
 }
 
 .board_list>li .info_area p {
@@ -6514,27 +6514,30 @@ h4.submsg.mo {
 
 .board_list>li .info_area .date {
     color: #767676;
-    font-size: 16px
+    font-size: 16px;
+    margin-bottom: 20px;
+    display: inline-block;
 }
 
 .board_list>li .info_area .sort_area {
     position: absolute;
-    top: 21px;
-    right: 0
+    top: 100%;
+    left: 0;
 }
 
 .board_list>li .info_area .sort {
     display: inline-block;
     min-width: 75px;
-    height: 44px;
+    height: 42px;
     margin-right: 10px;
     padding: 0 14px;
     font-size: 16px;
     font-weight: 500;
-    line-height: 42px;
+    line-height: 38px;
     text-align: center;
     vertical-align: top;
-    border: 1px solid
+    border: 0.5px solid;
+    border-radius: 30px;
 }
 
 .board_list>li .info_area .sort:last-child {

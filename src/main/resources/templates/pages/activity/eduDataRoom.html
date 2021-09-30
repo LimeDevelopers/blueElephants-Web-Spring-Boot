@@ -28,38 +28,42 @@
 
         <form id="form1" name="form1" method="post" th:object="${searchForm}">
 
-            <div class="contents">
-                <div class="page_top pc">
-                    <h3 class="page_tit">자료실</h3>
-                    <span>다양한 자료가 업데이트 됩니다.</span>
-                </div>
+            <div class="inner">
                 <div class="page_cont">
-<!--                    <div class="tab_ico_area">-->
-<!--                        <a href="javascript:;" class="tit">자료실</a>-->
-<!--                        <ul class="tab_type_ico">-->
-<!--                            <li class="teenager"><a href="/pages/activity/preventionEdu/STUDENT">청소년</a></li>-->
-<!--                            <li class="parent"><a href="/pages/activity/preventionEdu/PARENT">부모</a></li>-->
-<!--                            <li class="teacher"><a href="/pages/activity/preventionEdu/TEACHER">교원</a></li>-->
-<!--                            <li class="normal"><a href="/pages/activity/preventionEdu/NORMAL">일반</a></li>-->
-<!--                            &lt;!&ndash;<li class="lecturer"><a href="/pages/activity/preventionEdu/LECTURER">푸코강사</a></li>&ndash;&gt;-->
-<!--                            <li class="dataroom active"><a href="/pages/activity/eduDataRoom">자료실</a></li>-->
-<!--                            <li class="review"><a href="/pages/activity/postscript">교육후기</a></li>-->
-<!--                        </ul>-->
-<!--                        <p class="mo_page_txt">다양한 강의가 빠르게 업데이트 됩니다.</p>-->
-<!--                        <div class="tab_cont">-->
-<!--                            <div class="cont dataroom active">-->
-<!--                                <div class="thumb">-->
-<!--                                    <p>자료실</p>-->
-<!--                                </div>-->
-<!--                                <dl class="desc">-->
-<!--                                    <dt>교육 자료실</dt>-->
-<!--                                    <dd>학교폭력 관련 자료뿐 만 아니라 또 다른 유형인 사이버폭력에 대해 알차고 유용한 정보를 알려드립니다. 사이버폭력을 예방하고, 대처하고, 회복하기 위한 자료를 확인해보세요.-->
-<!--                                        <br>※ 본 자료는 사전동의 없이 가공 또는 수정하여 사용하거나 상업적으로 이용할 수 없습니다.-->
-<!--                                    </dd>-->
-<!--                                </dl>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
+                    <div class="sub_text_box help_text_box">
+                        <div class="text">
+                        <span class="sub">
+                                    학교로 찾아가는 예방교육 전문강사를 양성하고 모든 사람들이 사이버폭력 예방-대처방법을 알 수 있도록 교육을 진행합니다.<br/>
+                    ※ 본 교육 프로그램은 푸른나무재단이 기획하고 개발한 프로그램으로 이를 무단으로 배포하거나 영리목적으로 사용할 수 없습니다.
+                                </span>
+                        </div>
+                    </div>
+                    <!--                    <div class="tab_ico_area">-->
+                    <!--                        <a href="javascript:;" class="tit">자료실</a>-->
+                    <!--                        <ul class="tab_type_ico">-->
+                    <!--                            <li class="teenager"><a href="/pages/activity/preventionEdu/STUDENT">청소년</a></li>-->
+                    <!--                            <li class="parent"><a href="/pages/activity/preventionEdu/PARENT">부모</a></li>-->
+                    <!--                            <li class="teacher"><a href="/pages/activity/preventionEdu/TEACHER">교원</a></li>-->
+                    <!--                            <li class="normal"><a href="/pages/activity/preventionEdu/NORMAL">일반</a></li>-->
+                    <!--                            &lt;!&ndash;<li class="lecturer"><a href="/pages/activity/preventionEdu/LECTURER">푸코강사</a></li>&ndash;&gt;-->
+                    <!--                            <li class="dataroom active"><a href="/pages/activity/eduDataRoom">자료실</a></li>-->
+                    <!--                            <li class="review"><a href="/pages/activity/postscript">교육후기</a></li>-->
+                    <!--                        </ul>-->
+                    <!--                        <p class="mo_page_txt">다양한 강의가 빠르게 업데이트 됩니다.</p>-->
+                    <!--                        <div class="tab_cont">-->
+                    <!--                            <div class="cont dataroom active">-->
+                    <!--                                <div class="thumb">-->
+                    <!--                                    <p>자료실</p>-->
+                    <!--                                </div>-->
+                    <!--                                <dl class="desc">-->
+                    <!--                                    <dt>교육 자료실</dt>-->
+                    <!--                                    <dd>학교폭력 관련 자료뿐 만 아니라 또 다른 유형인 사이버폭력에 대해 알차고 유용한 정보를 알려드립니다. 사이버폭력을 예방하고, 대처하고, 회복하기 위한 자료를 확인해보세요.-->
+                    <!--                                        <br>※ 본 자료는 사전동의 없이 가공 또는 수정하여 사용하거나 상업적으로 이용할 수 없습니다.-->
+                    <!--                                    </dd>-->
+                    <!--                                </dl>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
                     <div class="board_top">
                         <div class="select w160">
                             <label th:for="sntncHead">
@@ -74,16 +78,15 @@
                                         th:text="${item}" th:value="${item}" ></option>
                             </select>
                         </div>
-                        <div class="select w300">
-                            <label th:for="eduTarget" th:text="*{eduTarget eq '' or eduTarget == null ? '교육대상 전체' : T(kr.or.btf.web.domain.web.enums.MberDvType).valueOf(eduTarget).getName()}">교육대상 전체</label>
-                            <select th:field="*{eduTarget}">
-                                <option value="">교육대상 전체</option>
-                                <option th:each="tp : ${T(kr.or.btf.web.domain.web.enums.MberDvType).values()}"
-                                        th:value="${tp.name()}"
-                                        th:text="${tp.getName()}"></option>
+                        <div class="select w160 subject">
+                            <label id="srchGbnChildLabel" th:for="srchGbnChild">
+                                <th:block th:if="*{srchGbnChild eq '' or srchGbnChild eq null}">전체</th:block>
+                            </label>
+                            <select th:field="*{srchGbnChild}">
+                                <option value="" selected>전체</option>
                             </select>
                         </div>
-                        <div class="select w190">
+                        <!--<div class="select w190">
                             <label th:for="dataType" th:text="*{dataType eq '' or dataType == null ? '자료형식 전체' : T(kr.or.btf.web.domain.web.enums.DataDvType).valueOf(dataType).getName()}">자료형식 전체</label>
                             <select th:field="*{dataType}">
                                 <option value="">자료형식 전체</option>
@@ -91,7 +94,7 @@
                                         th:value="${tp.name()}"
                                         th:text="${tp.getName()}"></option>
                             </select>
-                        </div>
+                        </div>-->
                         <div class="search data">
                             <input type="search" th:field="*{srchWord}" placeholder="검색어를 입력해 주세요" />
                         </div>
@@ -125,16 +128,21 @@
                                         <span th:if="${target eq T(kr.or.btf.web.domain.web.enums.MberDvType).PARENT.name()}" class="sort parent">부모</span>
                                         <span th:if="${target eq T(kr.or.btf.web.domain.web.enums.MberDvType).LECTURER.name()}" class="sort lecturer">푸코강사</span>
                                     </th:block>
-<!--                                    <input type="hidden" th:id="|fav_dv${idx.index}|" value="0"/>-->
-<!--                                    <a href="javascript:void(0)" class="sort sortstar" th:onclick="fn_favData([[${idx.index}]])" id="fav_data"><i th:id="|favIcon${idx.index}|" class="far fa-star"></i></a>-->
+                                    <!--                                    <input type="hidden" th:id="|fav_dv${idx.index}|" value="0"/>-->
+                                    <!--                                    <a href="javascript:void(0)" class="sort sortstar" th:onclick="fn_favData([[${idx.index}]])" id="fav_data"><i th:id="|favIcon${idx.index}|" class="far fa-star"></i></a>-->
                                 </div>
 
                             </div>
                         </li>
                     </ul>
+
+
+
                 </div>
                 <th:block th:replace="/fragments/paging :: pagingbody(list=${boardDatas}, link='/pages/activity/eduDataRoom', formId='form1')"></th:block>
             </div>
+
+
         </form>
         </div>
     </div>
