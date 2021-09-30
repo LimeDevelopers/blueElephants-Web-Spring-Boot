@@ -2229,6 +2229,615 @@
 
 	/* 활동_사이버폭력 예방교육_소개 끝 */
 
+	/* 활동_도움요청_심리상담 시작 */
+	.help_text_box {
+		height: 180px;
+	}
+	.page_cont > .sub_text_box.help_text_box > img {
+		top: 25%;
+		width: 60%;
+	}
+	.page_cont > .sub_text_box.help_text_box {
+		margin-top: 20px;
+	}
+	.page_cont > .sub_text_box.help_text_box > .text {
+		padding-top: 40px;
+	}
+	.page_cont > .sub_text_box.help_text_box > .text p {
+		font-size: 13px;
+	}
+	.page_cont > .sub_text_box.help_text_box > .text .sub {
+		font-size: 13px;
+		margin-top: 0;
+	}
+	.therapy_info {
+		flex-direction: column;
+		margin: 20px 0;
+	}
+	.therapy_info > div {
+		padding: 20px;
+		width: 100%;
+		border: 1px solid #85b4f7;
+	}
+	.therapy_info > div > h2 {
+		font-size: 20px;
+	}
+	.therapy_info > div > p {
+		font-size: 13px;
+	}
+	.therapy_info > div > p b:nth-of-type(1) {
+		display: block;
+	}
+	.therapy_info > div > p b {
+		margin-bottom: 0;
+		display: inline;
+	}
+	.therapy_info .item_01 {
+		margin-bottom: 20px;
+	}
+	.therapy_info .item_01 > .more_info > small {
+		width: 60px;
+	}
+	.therapy_info .item_01 .more_info > *, .therapy_info .item_01 .more_info > i, .therapy_info .item_02 .more_info ul li span, .therapy_info .item_02 .more_info ul li i {
+		font-size: 11px;
+		text-align: left;
+	}
+	.therapy_info .item_02 .more_info ul li {
+		margin-bottom: 0;
+	}
+	.therapy_info .item_02 .more_info ul li span {
+		width: 70px;
+	}
+	.therapy_info .item_01 .btn_inner {
+		margin-top: 30px;
+	}
+	.therapy_info > div .btn_inner button.call_btn {
+		font-size: 14px;
+		padding: 8px 30px;
+	}
+	.icon_pc_inner {
+		display: none;
+	}
+	.icon_m_inner {
+		display: block;
+		padding: 20px 0;
+	}
+	.icon_m_inner .icon_inner {
+		display: flex;
+		margin-bottom: 40px;
+	}
+	.icon_m_inner .icon_inner .item > div {
+		width: 50%;
+		margin: 0 auto;
+	}
+	.icon_m_inner .icon_inner .item span {
+		width: 100%;
+		text-align: center;
+		color: #85b4f7;
+		display: inline-block;
+		font-size: 14px;
+	}
+	/* 활동_도움요청_심리상담 끝 */
+
+	/* 활동_도움요청_게시판 시작 */
+	.notice_board {
+		flex-direction: column;
+		margin-top: 22px;
+	}
+	.notice_board .search_inner {
+		margin-top: 0;
+	}
+	.notice_board .search_inner input[type=search] {
+		width: auto;
+		flex: 4;
+		font-size: 14px;
+	}
+	.board_top .search_inner button.btn {
+		flex: 1;
+		font-size: 14px;
+	}
+	.notice_board .txt_btn {
+		margin-top: 10px;
+		text-align: center;
+	}
+	.board_tbl_list {
+		margin-top: 40px;
+	}
+	/* 활동_도움요청_게시판 끝 */
+
+
+	/* 활동_도움요청_게시판상담 시작 */
+	h4.subtit {
+		font-size: 18px !important;
+		text-align: left;
+	}
+	.board_tit {
+		margin: 10px 0;
+		margin-top: 30px;
+		margin-left: auto;
+		width: 100%;
+	}
+	li.score_inner .td .chk_item > div {
+		width: 100%;
+		margin-left: 0;
+	}
+	li.score_inner .td .chk_item > div label {
+		width: 100% !important;
+	}
+	.upload ul li.col, .join ul li.col {
+		display: flex;
+		flex-direction: column;
+	}
+	.board_info .board .tbl_write ul li.chkbox2_inner .td.pc {
+		display: none;
+	}
+	.join ul li.wrap .td.mobile {
+		display: block !important;
+		display: flex;
+		flex-direction: column;
+	}
+	.join ul li.wrap .td.mobile .td_inner {
+		display: flex;
+		width: 100%;
+	}
+	.join ul li.wrap .td > div {
+		width: 100px;
+	}
+	.join ul li.col .th {
+		width: 100%;
+	}
+	.join .upload ul li .td label {
+		width: 50px;
+	}
+	li.score_inner .td {
+		height: 80px;
+	}
+	li.score_inner .td .chk_item {
+		flex: 1;
+		text-align: left;
+		margin-right: 5px;
+	}
+	li.score_inner .td .chk_item:last-child {
+		margin-right: 0;
+	}
+	li.score_inner .td .chk_item span {
+		text-align: left;
+		display: inline-block;
+		width: 100%;
+	}
+	li.score_inner .td .chk_item {
+		flex-direction: column;
+	}
+	.board_info .board .tbl_write ul li.chkbox2_inner .td .checkbox2 label, .board_info .board .tbl_write ul li.baordchk_inner .td label {
+		margin-right: 0;
+	}
+	.board_info .board .tbl_write ul li.chkbox2_inner .td .chk_inner label{
+		width: 40%;
+	}
+	.board_info .more_txt {
+		font-size: 12px;
+		text-align: left;
+		margin: 10px 0;
+	}
+	/* 활동_도움요청_게시판상담 끝 */
+
+	/* 활동_도움요청_채팅상담 시작 */
+	.help_item_inner h2 {
+		text-align: left;
+		font-size: 18px;
+	}
+	.help_item_02 .top_desc {
+		padding: 0;
+	}
+	.help_item_02 .top_desc p b {
+		font-size: 16px;
+		text-align: center;
+	}
+	.help_item_02 .top_desc p span {
+		font-size: 14px;
+		display: block;
+		text-align: center;
+	}
+	.help_item_02 .top_desc p b i {
+		display: block;
+	}
+	.help_item_02 .top_desc .help_btn {
+		margin-top: 0;
+	}
+	.help_item_02 .top_desc .help_btn a {
+		margin-top: 20px;
+		font-size: 14px;
+		width: 150px;
+		padding: 8px 15px;
+	}
+	.help_item_02 .top_desc .info {
+		display: flex;
+		flex-direction: column;
+		text-align: center;
+	}
+	.help_item_02 .top_desc {
+		margin-top: 30px;
+	}
+	.help_item_02 .top_desc:nth-of-type(2) .info > div > span {
+		font-size: 14px;
+	}
+	.help_item_02 .top_desc:nth-of-type(2) .info > span {
+		font-size: 14px;
+		margin-top: 10px;
+	}
+	.help_item_02 .top_desc .info > div {
+		width: 100%;
+	}
+	/* 활동_도움요청_채팅상담 끝 */
+
+	/* 활동_도움요청_심리상담 시작 */
+	.help_text_box {
+		height: 180px;
+	}
+	.page_cont > .sub_text_box.help_text_box > img {
+		top: 25%;
+		width: 60%;
+	}
+	.page_cont > .sub_text_box.help_text_box {
+		margin-top: 20px;
+	}
+	.page_cont > .sub_text_box.help_text_box > .text {
+		padding-top: 40px;
+	}
+	.page_cont > .sub_text_box.help_text_box > .text .sub {
+		font-size: 13px;
+		margin-top: 0;
+	}
+	.therapy_info {
+		flex-direction: column;
+		margin: 20px 0;
+	}
+	.therapy_info > div {
+		padding: 20px;
+		width: 100%;
+		border: 1px solid #85b4f7;
+	}
+	.therapy_info > div > h2 {
+		font-size: 20px;
+	}
+	.therapy_info > div > p {
+		font-size: 13px;
+	}
+	.therapy_info > div > p b:nth-of-type(1) {
+		display: block;
+	}
+	.therapy_info > div > p b {
+		margin-bottom: 0;
+		display: inline;
+	}
+	.therapy_info .item_01 {
+		margin-bottom: 20px;
+	}
+	.therapy_info .item_01 > .more_info > small {
+		width: 60px;
+	}
+	.therapy_info .item_01 .more_info > *, .therapy_info .item_01 .more_info > i, .therapy_info .item_02 .more_info ul li span, .therapy_info .item_02 .more_info ul li i {
+		font-size: 11px;
+		text-align: left;
+	}
+	.therapy_info .item_02 .more_info ul li {
+		margin-bottom: 0;
+	}
+	.therapy_info .item_02 .more_info ul li span {
+		width: 70px;
+	}
+	.therapy_info .item_01 .btn_inner {
+		margin-top: 30px;
+	}
+	.therapy_info > div .btn_inner button.call_btn {
+		font-size: 14px;
+		padding: 8px 30px;
+	}
+	.icon_pc_inner {
+		display: none;
+	}
+	.icon_m_inner {
+		display: block;
+		padding: 20px 0;
+	}
+	.icon_m_inner .icon_inner {
+		display: flex;
+		margin-bottom: 40px;
+	}
+	.icon_m_inner .icon_inner .item > div {
+		width: 50%;
+		margin: 0 auto;
+	}
+	.icon_m_inner .icon_inner .item span {
+		width: 100%;
+		text-align: center;
+		color: #85b4f7;
+		display: inline-block;
+		font-size: 14px;
+	}
+	/* 활동_도움요청_심리상담 끝 */
+
+	/* 활동_도움요청_심리상담전화 시작 */
+	.heal_content {
+		padding: 20px 0;
+	}
+	.heal_content h1 u {
+		display: block;
+	}
+	.heal_content h1 {
+		font-size: 16px;
+		text-align: center;
+	}
+	.heal_content p b {
+		margin: 0;
+		font-size: 18px;
+	}
+	.heal_content p {
+		font-size: 14px;
+		text-align: center;
+	}
+	.heal_content .time {
+		flex-direction: column;
+		text-align: center;
+	}
+	.heal_content .time div span, .heal_content .time small {
+		font-size: 14px;
+	}
+	li.txtbox .td {
+		height: 200px !important;
+	}
+	li.txtbox .td textarea {
+		height: 180px !important;
+	}
+	.school_info .join {
+		border-top: none;
+	}
+	li.time_inner .td {
+		margin-bottom: 30px;
+	}
+	li.time_inner .td .time_chk_inner label span {
+		font-size: 12px;
+		margin-bottom: 5px;
+		display: inline-block;
+	}
+	/* 활동_도움요청_심리상담전화 끝 */
+
+	/* 활동_도움요청_대면상담 시작 */
+	.help_item_04 .help_desc4 .top_tit {
+		text-align: left;
+		font-size: 20px;
+	}
+	.help_item_04 .help_desc4 .top_tit span {
+		font-size: 20px;
+	}
+	.help_info6 .family_the .contour ul li {
+		display: flex;
+		flex-direction: column;
+	}
+	.help_info6 .family_the .contour ul li .td {
+		height: auto;
+		margin-bottom: 20px;
+	}
+	.help_item_inner .help_desc6 .item_inner.pc {
+		display: none;
+	}
+	.help_item_inner .help_desc6 .item_inner.mobile {
+		display: block;
+	}
+	.help_item_inner .help_desc6 .item_inner.mobile .item {
+	}
+	.help_info6 .family_the .contour ul li .th {
+		padding: 0;
+		height: 30px;
+	}
+	.help_item_04 .help_desc4 > span {
+		text-align: left;
+		margin-top: 0;
+		font-size: 20px;
+		margin-bottom: 0;
+	}
+	.help_item_inner .help_desc6 .item_inner {
+		display: none;
+	}
+	.item_inner .inner {
+		display: flex;
+		width: 100%;
+		padding: 0;
+	}
+	.item_inner .inner .item {
+		flex: 1;
+		margin: 20px 0;
+	}
+	.item_inner .inner .item > div:before {
+		content: '';
+		position: absolute;
+		width: 10px;
+		height: 10px;
+		background: url('../images/icon/circle.png')no-repeat center center;
+		background-size: cover;
+		top: -5px;
+		left: 50%;
+		transform: translateX(-50%);
+	}
+	.item_inner .inner .item > div:after {
+		content:'';
+		position: absolute;
+		width: 15px;
+		height: 15px;
+		background: url('../images/icon/arrow_r.png')no-repeat center center;
+		right: 0;
+		top: -8px;
+	}
+	.item_inner .inner .item > div {
+		position: relative;
+		border-top: 2px solid #6d95e1;
+		padding-top: 10px;
+	}
+	.item_inner .inner .item span {
+		color: #6d95e1;
+		font-weight: bold;
+	}
+	/* 활동_도움요청_대면상담 끝 */
+
+	/* 활동_도움요청_법률상담 시작 */
+	.help_item_05 .top_desc {
+		padding: 20px 0;
+	}
+	.help_item_05 .top_desc b {
+		font-size: 18px;
+	}
+	.help_item_05 .top_desc b i {
+		display: block;
+	}
+	.help_info6 .family_the > span {
+		font-size: 20px;
+	}
+	/* 활동_도움요청_법률상담 끝 */
+
+	/* 활동_도움요청_화해분쟁조정 시작 */
+	.help_item_inner .top_desc > span, .help_item_inner .help_desc6 > span {
+		font-size: 20px;
+	}
+	.help_item_inner .top_desc p {
+		font-size: 14px;
+	}
+	.help_btn {
+		display: flex;
+	}
+	/* 활동_도움요청_화해분쟁조정 끝 */
+
+	/* 활동_도움요청_가족테라피 시작 */
+	.program_inner {
+		padding: 40px 20px;
+	}
+	.program_inner ul li {
+		flex-direction: column;
+		margin-bottom: 10px;
+	}
+	.program_inner ul li .tr {
+		text-align: center;
+		width: 100%;
+		padding: 0;
+	}
+	.program_inner ul li .tr img {
+		width: 20%;
+	}
+	.program_inner ul li .td {
+		padding: 20px 0;
+		padding-top: 10px;
+		border-bottom: none;
+	}
+	.program_inner ul li .td p {
+		margin-top: 0;
+		text-align: center;
+	}
+	.program_inner ul li .td p span {
+		font-size: 14px;
+	}
+	.program_inner ul li .td p small {
+		font-size: 12px;
+	}
+	.family_the .contour ul li {
+		display: flex;
+		flex-direction: column;
+	}
+	.family_the .contour ul li .th {
+		width: 100%;
+	}
+	.family_info .family_the .contour ul li .td {
+		padding-left: 0;
+		height: auto;
+	}
+	.inquiry_box .box.mobile {
+		height: 200px;
+		display: flex;
+		flex-direction: column;
+		background: url('../images/contents/box_2_m.png')no-repeat center center;
+		background-size: contain;
+		padding: 60px;
+	}
+	.inquiry_box .box > div:first-child {
+		border-right: 0;
+		margin-bottom: 10px;
+	}
+	.inquiry_box .box > div span {
+		font-size: 18px;
+		font-weight: 500;
+	}
+	.inquiry_box .box.pc {
+		display: none !important;
+	}
+	.inquiry_box .box.mobile {
+		display: block;
+	}
+	/* 활동_도움요청_가족테라피 끝 */
+
+	/* 활동_진단하기_ox퀴즈_질문하기 시작 */
+	.inner.top {
+		padding-top: 20px;
+	}
+	.test_inner {
+		width: 100%;
+		margin-top: 40px;
+	}
+	.test_item.test_04_inner .question .tit span {
+		font-size: 13px;
+	}
+	.test_item .chk_inner {
+		width: 100%;
+	}
+	.test_item.test_04_inner .question .tit b {
+		margin-bottom: 10px;
+	}
+	.test_item .chk_inner .chk_btn.chk_btn1 {
+		margin-left: 0;
+	}
+	.test_item .chk_inner .chk_btn.chk_btn2 {
+		margin-right: 0;
+	}
+	.test_item.test_04_inner .chk_inner .chk_btn label {
+		width: 120px;
+		height: 120px;
+	}
+	.test_item.test_04_inner .chk_inner .chk_btn.chk_btn1 label:before, .test_item.test_04_inner .chk_inner .chk_btn.chk_btn2 label:before {
+		width: 120px;
+		height: 120px;
+		background-size: cover;
+	}
+	.test_item.test_04_inner .chk_inner .chk_btn.chk_btn1 input[type="radio"]:checked + label:before, .test_item.test_04_inner .chk_inner .chk_btn.chk_btn2 input[type="radio"]:checked + label:before  {
+		width: 120px;
+		height: 120px;
+	}
+	/* 활동_진단하기_ox퀴즈_질문하기 끝 */
+
+	/* 활동_진단하기_자가진단 시작 */
+	.test_item .question .tit b {
+		font-size: 24px;
+	}
+	.test_item .question .tit span {
+		font-size: 16px;
+	}
+	.test_item .chk_inner .chk_btn label small, .test_item .chk_inner .chk_btn label span {
+		font-size: 16px;
+	}
+	.test_item.test_04_inner .question .chk_inner .chk_btn label {
+		width: auto;
+	}
+	.test_item .chk_inner:before {
+		height: 1px;
+		top: 24%;
+	}
+	/* 활동_진단하기_자가진단 끝 */
+
+
+
+
+
+
+
+
+
+
 	/* 20210927 푸코소식 공지사항 시작 */
 	h4.subtit.pc {
 		text-align: left;
@@ -3323,7 +3932,7 @@
 		top: 40%;
 	}
 	.page_cont > .sub_text_box > .text {
-		padding: 30px 60px;
+		/*padding: 30px 60px;*/
 	}
 	.page_cont > .intro_text_box {
 		height: 100px;

@@ -1359,7 +1359,7 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
 .inner {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 65px 0;
+    padding: 40px 0;
 }
 .sub_container {
     height: auto;
@@ -5333,7 +5333,7 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
 /* 활동_ 예방교육 시작 */
 .sub_container > .lecture_inner{
     position: relative;
-    height: 1050px;
+    height: 1550px;
 }
 .lecture > .sub_tit_inner {
     display: flex;
@@ -5361,22 +5361,12 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     padding: 10px 0;
     margin-bottom: 10px;
 }
-.lecture > .sub_tit_inner .class_btn_inner a {
-    border: 1px solid #6c93e9;
-    background-color: #6c93e9;
-    color: #FFFFFF;
-    border-radius: 30px;
-    width: 130px;
-    padding: 10px 0;
-    margin-bottom: 10px;
-    text-align: center;
-}
 .lecture > .sub_tit_inner .class_btn_inner .class_btn_01 {
     margin-right: 10px;
 }
 .lecture{
     flex-direction: row;
-    /*justify-content: end;*/
+    justify-content: end;
     align-items: center;
     flex-wrap: wrap;
     max-width: 1200px;
@@ -5407,14 +5397,6 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     background-color: #eef4fe;
     position: relative;
 }
-.lecture > .lecture_content > .lecture_item > .lecture_sumnail_disabled{
-    min-width: 223.3px;
-    height: 223.3px;
-    border-radius: 20px;
-    border: solid 5px #bdbdbd;
-    background-color: #bdbdbd;
-    position: relative;
-}
 .lecture > .lecture_content > .lecture_item > .lecture_sumnail > .sumnail_icon{
     position: absolute;
     bottom: -19px;
@@ -5435,7 +5417,7 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
 }
 .lecture > .lecture_content > .lecture_item > .lecture_text > .lecture_title{
     /* font-family: NotoSansCJKkr; */
-    font-size: 21px;
+    font-size: 23px;
     font-weight: 500;
     line-height: 1.17;
     color: #54586a;
@@ -6375,7 +6357,7 @@ h4.subtit {
 
 h4.subtit.pc {
     line-height: 1;
-    margin-top: 67px;
+    /*margin-top: 67px;*/
 }
 
 h4.submsg.mo {
@@ -10946,7 +10928,6 @@ text.shadow {
 /***** e 또래지명 *****/
 
 
-/* 20210927 활동_도움요청_심리상담 시작 */
 .help_text_box {
     height: 170px;
     margin-top: 100px;
@@ -10956,9 +10937,11 @@ text.shadow {
     left: 50%;
     transform: translateX(-50%);
 }
+.page_cont > .help_text_box .text {
+    padding: 40px 75px;
+}
 .page_cont > .sub_text_box > .text {
     width: 100%;
-    padding: 40px 75px;
 }
 .page_cont > .sub_text_box > .text .sub {
     color: #9499ad;
@@ -11075,6 +11058,12 @@ text.shadow {
     font-weight: bold;
     margin-bottom: 20px;
 }
+.icon_pc_inner {
+    display: block;
+}
+.icon_m_inner {
+    display: none;
+}
 /* 활동_도움요청_심리상담 끝 */
 
 
@@ -11128,7 +11117,339 @@ text.shadow {
 }
 /* 20210927 활동_도움요청_심리상담전화 끝 */
 
+/* 활동_도움요청_가족테라피 시작 */
+.sub_text_box.family_text_box {
+    background-color: #e8ebf1;
+    border-radius: 20px;
+    height: 160px;
+}
+.sub_text_box.family_text_box .text {
+    padding: 40px 75px;
+}
+.family_info {
+    margin-top: 45px;
+}
+.family_info .family_the .contour ul li .td {
+    padding: 15px 0;
+    padding-left: 80px;
+}
+.family_info .family_the .contour ul li .td p span {
+    display: block;
+}
+.program h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #555868;
+    margin-top: 60px;
+    margin-bottom: 20px;
+}
+.program_inner {
+    background-color: #e7f0fe;
+    border-radius: 20px;
+    padding: 20px 40px;
+}
+.program_inner ul li {
+    display: flex;
+}
+.program_inner ul li .tr {
+    width: 23%;
+    text-align: center;
+    padding: 30px 0;
+}
+.program_inner ul li .td {
+    width: 100%;
+    padding: 40px 0;
+    border-bottom: 1px solid #c7c7c7;
+}
+.program_inner ul li .td p {
+    margin-top: 20px;
+}
+.program_inner ul li .td p span {
+    font-size: 18px;
+    color: #555868;
+    display: block;
+    font-weight: 500;
+}
+.program_inner ul li .td p small {
+    color: #555868;
+    font-size: 16px;
+    font-weight: normal;
+}
+.inquiry_box h3 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #555868;
+    margin-top: 40px;
+}
+.inquiry_box .box.pc {
+    height: 150px;
+    background: url('../images/contents/box_1.png')no-repeat center center;
+    text-align: center;
+    display: flex !important;
+    align-items: center;
+}
+.inquiry_box .box.pc > div {
+    flex :1;
+    text-align: center;
+    color: #555868;
+}
+.inquiry_box .box.pc > div:first-child {
+    border-right: 1px solid #c7c7c7;
+}
+.inquiry_box .box.pc > div span {
+    font-size: 24px;
+    font-weight: bold;
+    height: 54px;
+}
+.inquiry_box .box.pc {
+    display: block;
+}
+.inquiry_box .box.mobile {
+    display: none;
+}
+/* 활동_도움요청_가족테라피 끝 */
 
+
+/* 활동_도움요청_화해분쟁조정 시작 */
+.help_item_inner h2 {
+    text-align: center;
+    font-size: 26px;
+    margin: 25px 0;
+}
+.help_item_inner .top_desc {
+    border-top: 2px solid #95b3ed;
+    padding: 40px 0;
+}
+.help_item_inner .top_desc > span {
+    font-size: 24px;
+    color: #555868;
+    margin-bottom: 20px;
+    font-weight: bold;
+    display: inline-block;
+}
+.help_item_inner .top_desc p {
+    font-size: 18px;
+}
+.help_item_inner .help_desc6 > span {
+    font-size: 24px;
+    color: #555868;
+    margin-bottom: 20px;
+    font-weight: bold;
+    margin-top: 70px;
+    display: inline-block;
+}
+.help_item_inner .help_desc6 .item_inner {
+    display: block;
+    display: flex;
+    text-align: center;
+    padding: 30px 0;
+}
+.help_item_inner .help_desc6 .item_inner.mobile {
+    display: none;
+}
+.help_item_inner .help_desc6 .item_inner > .item {
+    flex: 1;
+}
+.help_item_inner .help_desc6 .item_inner > .item > div {
+    padding: 30px 0;
+    border-bottom: 2px solid #6d95e1;
+    position: relative;
+}
+.help_item_inner .help_desc6 .item_inner > .item > span {
+    margin-top: 15px;
+    display: inline-block;
+    color: #6d95e1;
+    font-size: 16px;
+}
+.help_item_inner .help_desc6 .item_inner > .item div:after {
+    content:'';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: url('../images/icon/arrow_r.png')no-repeat center center;
+    bottom: -10px;
+    right: 0;
+}
+.help_item_inner .help_desc6 .item_inner > .item:last-child div:after {
+    display: none;
+}
+.help_item_inner .help_desc6 .item_inner > .item div:before {
+    content:'';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: url('../images/icon/circle.png')no-repeat center center;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.help_btn {
+    text-align: center;
+    margin-top: 110px;
+    margin-bottom: 50px;
+}
+.help_btn a {
+    display: inline-block;
+    width: 200px;
+    padding: 10px;
+    border-radius: 20px;
+    text-align: center;
+}
+.help_btn a.shortcut_btn {
+    margin-right: 10px;
+    background-color: #6d95e1;
+    color: #fff;
+}
+.help_btn a.list_btn {
+    border: 1px solid #6d95e1;
+    color: #6d95e1;
+}
+/* 활동_도움요청_화해분쟁조정 끝 */
+
+
+/* 활동_도움요청_법률상담 시작 */
+.help_item_05 .top_desc b {
+    text-align: center;
+    color: #9599ab;
+    font-weight: bold;
+    font-size: 24px;
+    display: block;
+    margin-top: 20px;
+}
+.help_info6 .family_the > span {
+    font-size: 24px;
+    color: #555868;
+    margin: 20px 0;
+    margin-top: 40px;
+    display: inline-block;
+    font-weight: bold;
+}
+/* 활동_도움요청_법률상담 끝 */
+
+/* 활동_도움요청_대면상담 시작 */
+.help_item_04 .help_desc4 > span {
+    font-size: 24px;
+    color: #555868;
+    text-align: center;
+    display: block;
+    width: 100%;
+    font-weight: bold;
+}
+.help_item_04 .help_desc4 .item_inner .item span p {
+    margin-top:5px;
+}
+.help_item_04 .help_desc4 .item_inner .item span p small {
+    font-size: 13px;
+    color: #555868;
+    font-weight: normal;
+    display: block;
+}
+.help_item_04 .help_desc4 .top_tit {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 65px;
+}
+.help_item_04 .help_desc4 .top_tit span {
+    color: #555868;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+.help_item_04 .help_desc4 .top_tit span.aster {
+    color: #6d95e1;
+}
+/* 활동_도움요청_대면상담 끝 */
+
+/* 활동_도움요청_채팅상담 시작 */
+.help_item_02 .top_desc {
+    border: none;
+    padding: 0 100px;
+    margin-top: 60px;
+}
+.help_item_02 .top_desc p b {
+    color: #6d95e1;
+    font-size: 24px;
+    margin-bottom: 5px;
+    display: inline-block;
+}
+.help_item_02 .top_desc p b i {
+    display: inline;
+}
+.help_item_02 .top_desc p span {
+    font-size: 20px;
+    color: #555868;
+    font-weight: normal;
+}
+.help_item_02 .top_desc a {
+    width: 200px;
+    font-size: 21px;
+    margin: auto;
+}
+.help_item_02 .top_desc:nth-of-type(2) .info {
+    display: flex;
+}
+.help_item_02 .top_desc:nth-of-type(2) .info > div {
+    display: flex;
+    flex-direction: column;
+}
+.help_item_02 .top_desc:nth-of-type(2) .info > div > span {
+    font-size: 20px;
+    font-weight: normal;
+    width: 300px;
+}
+.help_item_02 .top_desc:nth-of-type(2) .info > span {
+    font-size: 20px;
+    font-weight: 300;
+    color: #55586869;
+}
+.help_item_02 .top_desc .help_btn {
+    margin-top: 20px;
+}
+.help_item_02 .top_desc .help_btn a {
+    border-radius: 30px;
+    font-size: 18px;
+    margin-top: 50px;
+}
+.help_item_02 .top_desc .help_btn a.kakao_btn {
+    background-color: #6d95e1;
+    color: #fff;
+}
+/* 활동_도움요청_채팅상담 끝 */
+
+
+
+/* 활동_진단하기_자가진단 시작 */
+.test_01 {
+    text-align: center;
+    margin: 60px 0;
+}
+.test_01 h1 {
+    font-weight: normal;
+    font-size: 24px;
+    margin-bottom: 50px;
+}
+.test_01 h1 i {
+    color: #6193f0;
+}
+.test_01 p {
+    color: #555868;
+    font-size: 16px;
+    margin: 20px 0;
+    margin-bottom: 30px;
+}
+.test_01 p b {
+    display: block;
+}
+.test_01 > a, .test_01 .test_btns > div a {
+    border-radius: 20px;
+    margin-top: 40px;
+    display: inline-block;
+    color: #6d95e1;
+    padding: 10px 80px;
+    border: 2px solid #6d95e1;
+}
+/* 활동_진단하기_자가진단 끝 */
 
 
 
@@ -11441,7 +11762,7 @@ text.shadow {
 .checkbox label:after {
     position: absolute;
     top: 50%;
-    /*transform: translateY(-50%);*/
+    transform: translateY(-50%);
 }
 .info_accordion .agree_contents ul li p {}
 .info_accordion .agree_contents ul li p.agree_desc {
@@ -11570,6 +11891,10 @@ text.shadow {
 .page_cont > .review_text_box {
     height: 134px;
 }
+.page_cont > .intro_text_box .text p {
+    padding-left: 300px;
+}
+
 .page_cont > .review_text_box > .review_text_img{
     /* position: absolute;
     bottom: 10px;

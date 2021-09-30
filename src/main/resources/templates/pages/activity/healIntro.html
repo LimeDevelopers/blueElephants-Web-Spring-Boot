@@ -13,16 +13,11 @@
 
         <form id="form1" name="form1" method="post" th:object="${form}">
 
-            <div class="contents">
-                <div class="page_top pc">
-                    <h3 class="page_tit">치유</h3>
-                    <span>사이버폭력으로 인한 상담과 도움을 요청하세요.</span>
-                </div>
-
+            <div class="inner">
                 <div class="page_cont">
-                    <h4 class="subtit pc review_title">심리상담</h4>
+                    <!--<h4 class="subtit pc review_title">심리상담</h4>-->
                     <div class="sub_text_box help_text_box">
-                        <img src="/ClientUI/user/images/contents/lecture/intro_text_box.png" alt="review.png" class="review_text_img">
+                        <img src="/ClientUI/user/images/contents/lecture/intro_text_box.png">
                         <div class="text">
                             <p class="title">누구나 고민이 있다면 푸코에게 상담을  요청할 수 있어요.</p>
                             <span class="sub">
@@ -30,283 +25,147 @@
                                 </span>
                         </div>
                     </div>
-
-
-                    <h4 class="subtit heal_tit">전국학교폭력 상담전화</h4>
-                    <div class="school_info">
-                        <h2>학교 및 학교장 정보</h2>
-                        <div class="sec_write join">
-                            <div class="tbl_write">
+                    <div class="therapy_info">
+                        <div class="item_01">
+                            <h2>1588-9128(구원의 팔)</h2>
+                            <p>
+                                전국 사이버폭력 상담전화 <b></b>사이버폭력으로 고통받는 청소년, 부모님, 학교 선생님들께<b></b>푸른나무재단에서”구원의 팔”을 내밀어 드립니다.
+                            </p>
+                            <div class="more_info">
+                                <small>운영시간</small>
+                                <div>
+                                    <span>월요일 ~ 금요일 09:00~20:00</span>
+                                    <span>토요일 09:00~13:00</span>
+                                </div>
+                                <i>(점심시간 12:00~13:00 제외)</i>
+                            </div>
+                            <div class="btn_inner">
+                                <button class="call_btn">전화하기</button>
+                            </div>
+                        </div>
+                        <div class="item_02">
+                            <h2>117 사이버폭력 신고센터</h2>
+                            <p>
+                                학교/여성폭력 및 성매매 피해 긴급지원센터 피해자의 <b></b>인권보호 및 신속구조 대응합니다.
+                            </p>
+                            <div class="more_info">
                                 <ul>
-                                    <li class="row">
-                                        <div class="th">
-                                            <label for="">신청자 이름</label>
-                                            <span class="aster">*</span>
-                                        </div>
-                                        <div class="td">
-                                            <input type="text" id="">
-                                        </div>
+                                    <li>
+                                        <span>전화</span>
+                                        <i>전국에서 국번없이117 (요금무료)</i>
                                     </li>
                                     <li>
-                                        <div class="th">
-                                            <label for="">신청자 핸드폰</label>
-                                            <span class="aster">*</span>
-                                        </div>
-                                        <div class="td">
-                                            <input type="text">
-                                        </div>
+                                        <span>문자신고</span>
+                                        <i>#0117 (요금무료)</i>
                                     </li>
                                     <li>
-                                        <div class="th">
-                                            <label for="">소속</label>
-                                            <span class="aster">*</span>
-                                        </div>
-                                        <div class="td">
-                                            <input type="text">
-                                        </div>
+                                        <span>인터넷</span>
+                                        <i>안전 Dream(검색어 117)</i>
+                                    </li>
+                                    <li>
+                                        <span>방문</span>
+                                        <i>117센터 방문하여 신고/상담</i>
                                     </li>
                                 </ul>
                             </div>
-                        </div>
-                    </div>
-
-
-
-                    <div class="info_accordion">
-                        <div class="agree_inner agree_contents">
-                            <ul>
-                                <span>개인정보 활용 동의서(필수)</span>
-                                <li>
-                                    <p>
-                                        푸른나무재단에서 2021 청소년 사이버폭력 예방교육 사업 푸른코끼리 학교로 찾아가는 교육 신청서 접수 및 결과 안내를 목적으로 아래와 같이 개인정보를 수집 및 이용합니다.
-                                    </p>
-                                    <p class="agree_desc">
-                                        ▪︎ 목적 : 신청서 접수 및 출강 여부 결과 회신 동의 서비스 제공 <b></b>
-                                        ▪︎ 수집 항목 : 정보주체의 성명, 소속, 주소, 업무 등<b></b>
-                                        ▪︎ 보유 및 이용시간 : 개인정보 수집 및 이용목적이 달성된 후에는 해당정보를 즉기 파기합니다. 단, 출강 확정 후 서비스 제공 및 민원 처리 동의 소속 작업물 위해 3년간 보유 및 이용됩니다. 또한, 신청서 삭제 요청 시 까지 위 이용 목적을 위하여 보유이용됩니다. 그러나 신청서 삭제 요청 시 신청자의 개인정보를 재생 불가능한 방법으로 즉시 파기합니다. <b></b>
-                                    </p>
-                                    <span>
-                                            ※ 귀하는 이에 대한 동의를 거부할 수 있으며, 다만 동의가 없을 경우 교육신청 접속에 제한 할 수 있음을 알려드립니다.
-                                        </span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="checkbox">
-                            <input type="checkbox" id="agree002">
-                            <label for="agree002">
-                                <span>동의함</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="sec_write join">
-                        <div class="tbl_write upload">
-                            <ul>
-                                <li class="m_mode">
-                                    <div class="th">
-                                        <label for="">증빙서류</label>
-                                    </div>
-                                    <div class="td">
-                                        <input type="file" name="" id="uploadfile" >
-                                        <label for="uploadfile" id="box" >지지크루 관련 자료를 업로드하세요</label>
-                                        <label  for="uploadfile">파일검색</label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="th">
-                                        <label for="">신청사유</label>
-                                    </div>
-                                    <div class="td">
-                                        <input type="text">
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="th">
-                                        <label for="">희망일정</label>
-                                    </div>
-                                    <div class="td">
-                                        <input type="text">
-                                    </div>
-                                </li>
-                                <li class="sns">
-                                    <div class="th">
-                                        <label for="">학교장 선언운동을 알게된 경로</label>
-                                    </div>
-                                    <div class="td">
-                                        <div class="sns_chk_inner checkbox">
-                                            <input type="checkbox" id="sns_chk1">
-                                            <label class="sns" for="sns_chk1">
-                                                <span>인스타그램</span>
-                                            </label>
-                                        </div>
-                                        <div class="sns_chk_inner checkbox">
-                                            <input type="checkbox" id="sns_chk2">
-                                            <label class="sns" for="sns_chk2">
-                                                <span>유튜브</span>
-                                            </label>
-                                        </div>
-                                        <div class="sns_chk_inner checkbox">
-                                            <input type="checkbox" id="sns_chk3">
-                                            <label class="sns" for="sns_chk3">
-                                                <span>페이스북</span>
-                                            </label>
-                                        </div>
-                                        <div class="sns_chk_inner checkbox">
-                                            <input type="checkbox" id="sns_chk4">
-                                            <label class="sns" for="sns_chk4">
-                                                <span>네이버블로그</span>
-                                            </label>
-                                        </div>
-                                        <div class="sns_chk_inner checkbox">
-                                            <input type="checkbox" id="sns_chk5">
-                                            <label class="sns" for="sns_chk5">
-                                                <span>카카오톡채널</span>
-                                            </label>
-                                        </div>
-                                        <b></b>
-                                        <div class="sns_chk_inner checkbox">
-                                            <input type="checkbox" id="sns_chk6">
-                                            <label class="sns" for="sns_chk6">
-                                                <span>지인추천</span>
-                                            </label>
-                                        </div>
-                                        <div class="sns_chk_inner checkbox">
-                                            <input type="checkbox" id="sns_chk7">
-                                            <label class="sns" for="sns_chk7">
-                                                <span>푸른나무재단 홈페이지</span>
-                                            </label>
-                                        </div>
-                                        <div class="sns_chk_inner checkbox">
-                                            <input type="checkbox" id="sns_chk8">
-                                            <label class="sns" for="sns_chk8">
-                                                <span>푸른코끼리 홈페이지</span>
-                                            </label>
-                                        </div>
-                                        <div class="sns_chk_inner checkbox">
-                                            <input type="checkbox" id="sns_chk9">
-                                            <label class="sns" for="sns_chk9">
-                                                <span>푸른코끼리 앱</span>
-                                            </label>
-                                        </div>
-                                        <div class="sns_chk_inner checkbox">
-                                            <input type="checkbox" id="sns_chk10">
-                                            <label class="sns" for="sns_chk10">
-                                                <span>기타</span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="school_info">
-                        <h2>학교 및 학교장 정보</h2>
-                        <div class="sec_write join">
-                            <div class="tbl_write">
-                                <ul>
-                                    <li class="row">
-                                        <div class="th">
-                                            <label for="">학교명</label>
-                                            <span class="aster">*</span>
-                                        </div>
-                                        <div class="td">
-                                            <input type="text" id="">
-                                            <button tpye="button" class="btn_line_blue">중복확인</button>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="th">
-                                            <label for="">대표번호</label>
-                                            <span class="aster">*</span>
-                                        </div>
-                                        <div class="td">
-                                            <input type="text">
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="th">
-                                            <label for="">주소</label>
-                                            <span class="aster">*</span>
-                                        </div>
-                                        <div class="td">
-                                            <input type="text">
-                                        </div>
-                                    </li>
-                                    <li class="small_bx">
-                                        <div class="th">
-                                            <label for="">전교생 수</label>
-                                            <span class="aster">*</span>
-                                        </div>
-                                        <div class="td">
-                                            <input type="text">
-                                        </div>
-                                    </li>
-                                    <li class="small_bx">
-                                        <div class="th">
-                                            <label for="">2020년도 교내 <b></b>학교폭력 신고 접수 건수</label>
-                                            <span class="aster">*</span>
-                                        </div>
-                                        <div class="td">
-                                            <input type="text">
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="th">
-                                            <label for="">학교장 성함</label>
-                                            <span class="aster">*</span>
-                                        </div>
-                                        <div class="td">
-                                            <input type="text">
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="th">
-                                            <label for="">학교장 휴대폰 </label>
-                                            <span class="aster">*</span>
-                                        </div>
-                                        <div class="td">
-                                            <input type="text">
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="th">
-                                            <label for="">학교장 이메일 </label>
-                                            <span class="aster">*</span>
-                                        </div>
-                                        <div class="td">
-                                            <input type="text">
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="th">
-                                            <label for="">티셔츠 사이즈 </label>
-                                            <span class="aster">*</span>
-                                        </div>
-                                        <div class="td">
-                                            <input type="text">
-                                        </div>
-                                    </li>
-                                </ul>
+                            <div class="btn_inner">
+                                <button class="call_btn">전화하기</button>
                             </div>
                         </div>
-                        <p class="more_text">
-                            <span>(* 필수기재 사항 )</span>
-                            <small>※ 학교 외 개인 및 단체의 경우 별도 신청바랍니다.</small>
-                            <small>☎︎ 070-7165-1082 / cybersoscenter@btf.or.kr</small>
-                        </p>
                     </div>
-
-                    <div class="partners_edu_btn">
-                        <a class="save_btn" href="#none">저장</a>
-                        <a class="join_btn" href="#none">목록</a>
+                    <div class="therapy_icon">
+                        <div class="icon_pc_inner">
+                            <div class="icon_inner">
+                                <div class="item">
+                                    <div>
+                                        <img src="/ClientUI/user/images/contents/therapy_01.png" alt="">
+                                    </div>
+                                    <span>게시판 상담</span>
+                                </div>
+                                <div class="item">
+                                    <div>
+                                        <img src="/ClientUI/user/images/contents/therapy_02.png" alt="">
+                                    </div>
+                                    <span>채팅 1:1 상담</span>
+                                </div>
+                                <div class="item">
+                                    <div>
+                                        <img src="/ClientUI/user/images/contents/therapy_03.png" alt="">
+                                    </div>
+                                    <span>전화 상담</span>
+                                </div>
+                            </div>
+                            <div class="icon_inner">
+                                <div class="item">
+                                    <div>
+                                        <img src="/ClientUI/user/images/contents/therapy_04.png" alt="">
+                                    </div>
+                                    <span>대면 상담</span>
+                                </div>
+                                <div class="item">
+                                    <div>
+                                        <img src="/ClientUI/user/images/contents/therapy_05.png" alt="">
+                                    </div>
+                                    <span>법률 상담</span>
+                                </div>
+                                <div class="item">
+                                    <div>
+                                        <img src="/ClientUI/user/images/contents/therapy_06.png" alt="">
+                                    </div>
+                                    <span>화해 분쟁 조정</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="icon_m_inner">
+                            <div class="icon_inner">
+                                <div class="item">
+                                    <div>
+                                        <img src="/ClientUI/user/images/contents/therapy_01.svg" alt="">
+                                    </div>
+                                    <span>게시판 상담</span>
+                                </div>
+                                <div class="item">
+                                    <div>
+                                        <img src="/ClientUI/user/images/contents/therapy_02.svg" alt="">
+                                    </div>
+                                    <span>채팅 1:1 상담</span>
+                                </div>
+                            </div>
+                            <div class="icon_inner">
+                                <div class="item">
+                                    <div>
+                                        <img src="/ClientUI/user/images/contents/therapy_03.svg" alt="">
+                                    </div>
+                                    <span>전화 상담</span>
+                                </div>
+                                <div class="item">
+                                    <div>
+                                        <img src="/ClientUI/user/images/contents/therapy_04.svg" alt="">
+                                    </div>
+                                    <span>대면 상담</span>
+                                </div>
+                            </div>
+                            <div class="icon_inner">
+                                <div class="item">
+                                    <div>
+                                        <img src="/ClientUI/user/images/contents/therapy_05.svg" alt="">
+                                    </div>
+                                    <span>법률 상담</span>
+                                </div>
+                                <div class="item">
+                                    <div>
+                                        <img src="/ClientUI/user/images/contents/therapy_06.svg" alt="">
+                                    </div>
+                                    <span>화해 분쟁 조정</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
-
-
                 </div>
-
+                <!--<th:block
+                        th:replace="/fragments/paging :: pagingbody(list=${postscripts}, link='/pages/activity/postscript', formId='form1')"></th:block>-->
             </div>
+
         </form>
         </div>
     </div>

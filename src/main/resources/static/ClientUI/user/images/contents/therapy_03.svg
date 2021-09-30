@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="308" height="308">
+    <defs>
+        <style>
+            .cls-3{stroke:#85b4f7;stroke-linecap:round;stroke-linejoin:round;stroke-width:6px;fill:none}
+        </style>
+    </defs>
+    <g id="그룹_4450" data-name="그룹 4450" transform="translate(-211 -4040)">
+        <circle id="타원_1311" data-name="타원 1311" cx="154" cy="154" r="154" transform="translate(211 4040)" style="fill:#eef4ff"/>
+        <g id="그룹_4419" data-name="그룹 4419" transform="translate(-48.113 3893.248)">
+            <g id="그룹_4417" data-name="그룹 4417" transform="translate(348.828 240.179)">
+                <path id="패스_8711" data-name="패스 8711" d="m372.4 239.544 22.069 29.432-14.5 14.481s11.135 44.788 41.193 51.121l15.594-13.3 21.426 25.694s-27.751 42.633-68.781-.138c-16.378-17.07-26.358-34-33.647-47.939-22.379-42.771 16.646-59.351 16.646-59.351z" transform="translate(-348.828 -239.544)" style="stroke:#85b4f7;stroke-linecap:round;stroke-linejoin:round;stroke-width:6px;fill:#fff"/>
+                <path id="선_535" data-name="선 535" class="cls-3" transform="translate(81.012 87.968)" d="m0 0 21.792 26.727"/>
+                <path id="선_536" data-name="선 536" class="cls-3" transform="translate(15.072 6.506)" d="m0 0 22 29"/>
+            </g>
+            <g id="그룹_4418" data-name="그룹 4418" transform="translate(426.481 239.185)">
+                <path id="패스_8712" data-name="패스 8712" class="cls-3" d="M378.621 244.794a41.856 41.856 0 0 1 29.839 40.315" transform="translate(-373.769 -229.261)"/>
+                <path id="패스_8713" data-name="패스 8713" class="cls-3" d="M395.329 275.715a27.823 27.823 0 0 0-18.46-25.306" transform="translate(-376.869 -219.326)"/>
+                <path id="패스_8714" data-name="패스 8714" class="cls-3" d="M380.369 239.185a56.056 56.056 0 0 1 41.215 55.308" transform="translate(-370.676 -239.185)"/>
+                <path id="패스_8715" data-name="패스 8715" class="cls-3" d="M408.46 285.109a41.856 41.856 0 0 0-29.839-40.315" transform="translate(-373.769 -229.261)"/>
+            </g>
+        </g>
+    </g>
+</svg>

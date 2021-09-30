@@ -11,25 +11,165 @@
     <th:block th:include="fragments/mo_menu"></th:block>
     <div class="sub_container">
       <th:block th:include="fragments/dept_menu"></th:block>
-      <div class="contents">
-        <div class="page_top">
-          <h3 class="page_tit bg">전화상담</h3>
-        </div>
-        <div class="page_cont preparing">
-          <!--준비중 img-->
-          <div class="img">
-            <img src="/ClientUI/user/images/common/under_construction.png" alt="공사중"/>
-          </div>
-          <div class="word">
-            푸하!(푸코하이란뜻)<br/><br/>
-            여러분이 더 쉽게 교육/푸코활동을 신청할 수 있도록 <br/>폼을 만들고 있어요.<br/>
-            당분간은 메일/전화로 연락주세요.<br/><br/>
 
-            메일 : cybersoscenter@btf.or.kr<br/>
-            전화 : 070-7165-1091<br/>
+      <div class="inner">
+        <div class="page_cont">
+          <!--<h4 class="subtit pc review_title">심리상담</h4>-->
+          <div class="sub_text_box help_text_box">
+            <img src="/ClientUI/user/images/contents/lecture/intro_text_box.png">
+            <div class="text">
+              <p class="title">누구나 고민이 있다면 푸코에게 상담을  요청할 수 있어요.</p>
+              <span class="sub">
+                                    상담 내용은 절대 비밀!  푸코가 다양한 전문상담과 상황에 따라 적절한 도움도 줄거게요. 기다리고 있을 테니  언제든지 편하게 이야기해주세요.<b></b>푸코는 여러분에게 꼭 필요한 도움을 주고싶어요. <b></b>구체적인 내용을 자세히 적고 증거자료를  첨부해준다면 정확한 상황을 파악하여  도움을 줄 수 있어요.
+                                </span>
+            </div>
           </div>
+
+
+          <h4 class="subtit heal_tit">전국학교폭력 상담전화</h4>
+
+          <div class="heal_content">
+            <h1>학교폭력으로 고통 받는 청소년, 부모님,<u></u> 학교 선생님들께 푸른나무재단에서 <b></b>
+              <i>“구원의 팔”</i>을 내밀어 드립니다.</h1>
+            <p>
+              <span>푸른나무재단에서는 1995년부터 전국 학교폭력 상담전화  1588-9128(구원의팔)을 운영하고 있습니다. </span>
+              <span>학교폭력 피·가해 위기상담 및 심리·정서적 지원, 학교폭력 발생 시 대처 및 해결을 위한 조언, <b></b>
+                                전문 정보제공, 학교폭력 사안처리에 대한 고충 상담을 제공합니다.</span>
+              <b>상담전화 : 1588-9128</b>
+            </p>
+            <div class="time">
+              <div>
+                <span>월요일 ~ 금요일 09:00 ~ 18:00 </span>
+                <span>토요일 09:00~13:00</span>
+              </div>
+              <small>(점심시간 12:00 ~ 13:00 제외)</small>
+            </div>
+          </div>
+
+          <div class="school_info">
+            <div class="sec_write join">
+              <div class="tbl_write">
+                <ul>
+                  <li class="col">
+                    <div class="th">
+                      <label for="">이름</label>
+                      <span class="aster">*</span>
+                    </div>
+                    <div class="td">
+                      <input type="text" id="" placeholder="이름을 입력하세요">
+                    </div>
+                  </li>
+                  <li class="col">
+                    <div class="th">
+                      <label for="">지역</label>
+                      <span class="aster">*</span>
+                    </div>
+                    <div class="td">
+                      <input type="text">
+                    </div>
+                  </li>
+                  <li class="col">
+                    <div class="th">
+                      <label for="">제목</label>
+                      <span class="aster">*</span>
+                    </div>
+                    <div class="td">
+                      <input type="text" placeholder="제목를 업로드하세요">
+                    </div>
+                  </li>
+                  <li class="col txtbox">
+                    <div class="th">
+                      <label for="">내용</label>
+                      <span class="aster">*</span>
+                    </div>
+                    <div class="td">
+                      <textarea name="" id="" cols="30" rows="10" placeholder="최대 1,000자 이내"></textarea>
+                    </div>
+                  </li>
+                  <li class="col">
+                    <div class="th">
+                      <label for="">연락처</label>
+                      <span class="aster">*</span>
+                    </div>
+                    <div class="td">
+                      <input type="text">
+                    </div>
+                  </li>
+                  <li class="col">
+                    <div class="th">
+                      <label for="">희망일자</label>
+                      <span class="aster">*</span>
+                    </div>
+                    <div class="td">
+                      <input type="text">
+                    </div>
+                  </li>
+                  <li class="col time_inner">
+                    <div class="th">
+                      <label for="">희망시간</label>
+                      <span class="aster">*</span>
+                    </div>
+                    <div class="td">
+                      <div class="time_chk_inner checkbox">
+                        <input type="radio" id="time_chk1" name="time_chk">
+                        <label class="sns" for="time_chk1">
+                          <span>09:00 ~ 10:00</span>
+                        </label>
+                      </div>
+                      <div class="time_chk_inner checkbox">
+                        <input type="radio" id="time_chk2" name="time_chk" >
+                        <label class="sns" for="time_chk2">
+                          <span>10:00 ~ 11:00</span>
+                        </label>
+                      </div>
+                      <div class="time_chk_inner checkbox">
+                        <input type="radio" id="time_chk3" name="time_chk">
+                        <label class="sns" for="time_chk3">
+                          <span>11:00 ~ 12:00</span>
+                        </label>
+                      </div>
+                      <div class="time_chk_inner checkbox">
+                        <input type="radio" id="time_chk4" name="time_chk">
+                        <label class="sns" for="time_chk4">
+                          <span>15:00 ~ 16:00</span>
+                        </label>
+                      </div>
+                      <div class="time_chk_inner checkbox">
+                        <input type="radio" id="time_chk5" name="time_chk">
+                        <label class="sns" for="time_chk5">
+                          <span>16:00 ~ 17:00</span>
+                        </label>
+                      </div>
+                      <div class="time_chk_inner checkbox">
+                        <input type="radio" id="time_chk6" name="time_chk">
+                        <label class="sns" for="time_chk6">
+                          <span>17:00 ~ 18:00</span>
+                        </label>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="partners_edu_btn">
+            <a class="save_btn" href="#none">저장</a>
+            <a class="join_btn" href="#none">목록</a>
+          </div>
+
+
+
+
+
+
+
         </div>
+
+
+
       </div>
+
     </div>
     <th:block th:replace="fragments/footer"></th:block>
   </div>

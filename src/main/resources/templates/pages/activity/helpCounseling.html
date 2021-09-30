@@ -13,89 +13,157 @@
 
         <form id="form1" name="form1" method="post" th:object="${form}">
 
-            <div class="contents">
-                <div class="page_top pc">
-                    <h3 class="page_tit">치유</h3>
-                    <span>사이버폭력으로 인한 상담과 도움을 요청하세요.</span>
-                </div>
+            <div class="inner">
                 <div class="page_cont">
-                    <div class="tab_ico_area">
-                        <a href="javascript:;" class="tit">도움상담</a>
-                        <p class="mo_page_txt">사이버폭력으로 인한 상담과 도움을 요청하세요.</p>
-                        <div class="tab_cont mo_thumb">
-                            <div class="cont help active">
-                                <div class="thumb">
-                                    <p>도움상담</p>
+                    <!--<h4 class="subtit pc review_title">심리상담</h4>-->
+                    <div class="sub_text_box help_text_box">
+                        <img src="/ClientUI/user/images/contents/lecture/intro_text_box.png">
+                        <div class="text">
+                            <p class="title">누구나 고민이 있다면 푸코에게 상담을  요청할 수 있어요.</p>
+                            <span class="sub">
+                                    상담 내용은 절대 비밀!  푸코가 다양한 전문상담과 상황에 따라 적절한 도움도 줄거게요. 기다리고 있을 테니  언제든지 편하게 이야기해주세요.<b></b>푸코는 여러분에게 꼭 필요한 도움을 주고싶어요. <b></b>구체적인 내용을 자세히 적고 증거자료를  첨부해준다면 정확한 상황을 파악하여  도움을 줄 수 있어요.
+                                </span>
+                        </div>
+                    </div>
+                    <div class="therapy_info">
+                        <div class="item_01">
+                            <h2>1588-9128(구원의 팔)</h2>
+                            <p>
+                                전국 사이버폭력 상담전화 <b></b>사이버폭력으로 고통받는 청소년, 부모님, 학교 선생님들께<b></b>푸른나무재단에서”구원의 팔”을 내밀어 드립니다.
+                            </p>
+                            <div class="more_info">
+                                <small>운영시간</small>
+                                <div>
+                                    <span>월요일 ~ 금요일 09:00~20:00</span>
+                                    <span>토요일 09:00~13:00</span>
                                 </div>
-                                <dl class="desc">
-                                    <dt><em>사이버폭력</em></dt>
-                                    <dd>푸른코끼리 앱을 통해 학교폭력에 관한 상담 및 회복을 지원해드립니다.  푸른나무재단 홈페이지 온라인 상담 게시판, 전국사이버폭력 상담전화, <br>카카오톡 플러스 친구, 사이버폭력 화해 분쟁조정 등을 통해 언제 어디서든 편리하고 폭넓은 학교폭력 상담 서비스를 제공합니다.
-                                    <br>사이버폭력을 인터넷이나 모바일을 활용하여 제공받을 수 있습니다.</dd>
-                                </dl>
+                                <i>(점심시간 12:00~13:00 제외)</i>
+                            </div>
+                            <div class="btn_inner">
+                                <button class="call_btn">전화하기</button>
+                            </div>
+                        </div>
+                        <div class="item_02">
+                            <h2>117 사이버폭력 신고센터</h2>
+                            <p>
+                                학교/여성폭력 및 성매매 피해 긴급지원센터 피해자의 <b></b>인권보호 및 신속구조 대응합니다.
+                            </p>
+                            <div class="more_info">
+                                <ul>
+                                    <li>
+                                        <span>전화</span>
+                                        <i>전국에서 국번없이117 (요금무료)</i>
+                                    </li>
+                                    <li>
+                                        <span>문자신고</span>
+                                        <i>#0117 (요금무료)</i>
+                                    </li>
+                                    <li>
+                                        <span>인터넷</span>
+                                        <i>안전 Dream(검색어 117)</i>
+                                    </li>
+                                    <li>
+                                        <span>방문</span>
+                                        <i>117센터 방문하여 신고/상담</i>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="btn_inner">
+                                <button class="call_btn">전화하기</button>
                             </div>
                         </div>
                     </div>
-                    <div class="help_request_pinkbox">
-                        <strong>폭력으로 힘들고 괴롭다면, 도움을 요청하세요.</strong>
-                        <p>사이버폭력을 <br>푸른코끼리와 함께 나누어 보아요.</p>
-                        <a href="/pages/activity/helpRequestRegister" class="btn btn_pill_10">도움요청하기</a>
-                    </div>
-                    <div class="sec_write">
-                        <h4 class="subtit">구원의 팔로 전화주세요!</h4>
-                        <ul class="two_box clearfix">
-                            <li class="tel">
-                                <div>
-                                    <strong class="tit">1588-9128 (구원의 팔)</strong>
-                                    <p>전국 사이버폭력 상담전화 <br>사이버폭력으로 고통받는 청소년, 부모님, 학교 선생님들께 <br>푸른나무재단에서 "구원의 팔"을 내밀어 드립니다.</p>
-                                    <p class="time"><span>월요일~금요일 09:00~20:00</span><span>(점심시간 12:00~13:00 제외)</span> </span>토요일 09:00~13:00</span></p>
+                    <div class="therapy_icon">
+                        <div class="icon_pc_inner">
+                            <div class="icon_inner">
+                                <a class="item" href="">
+                                    <div>
+                                        <img src="/ClientUI/user/images/contents/therapy_01.png" alt="">
+                                    </div>
+                                    <span>게시판 상담</span>
+                                </a>
+                                <a class="item" href="">
+                                    <div>
+                                        <img src="/ClientUI/user/images/contents/therapy_02.png" alt="">
+                                    </div>
+                                    <span>채팅 1:1 상담</span>
+                                </a>
+                                <a class="item" href="">
+                                    <div>
+                                        <img src="/ClientUI/user/images/contents/therapy_03.png" alt="">
+                                    </div>
+                                    <span>전화 상담</span>
+                                </a>
+                            </div>
+                            <div class="icon_inner">
+                                <a class="item" href="">
+                                    <div>
+                                        <img src="/ClientUI/user/images/contents/therapy_04.png" alt="">
+                                    </div>
+                                    <span>대면 상담</span>
+                                </a>
+                                <a class="item" href="">
+                                    <div>
+                                        <img src="/ClientUI/user/images/contents/therapy_05.png" alt="">
+                                    </div>
+                                    <span>법률 상담</span>
+                                </a>
+                                <a class="item" href="">
+                                    <div>
+                                        <img src="/ClientUI/user/images/contents/therapy_06.png" alt="">
+                                    </div>
+                                    <span>화해 분쟁 조정</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="icon_m_inner">
+                            <div class="icon_inner">
+                                <div class="item">
+                                    <div>
+                                        <img src="/ClientUI/user/images/contents/therapy_01.svg" alt="">
+                                    </div>
+                                    <span>게시판 상담</span>
                                 </div>
-                            </li>
-                            <li class="center">
-                                <div>
-                                    <strong class="tit">117 사이버폭력 신고센터</strong>
-                                    <p>학교/여성폭력 및 성매매 피해 <br>긴급지원센터 피해자의 인권보호 및 신속구조 대응 합니다.</p>
-                                    <p class="way">
-                                        <span>전화 : 전국에서 국번없이 117(요금무료)</span>
-                                        <span>문자 신고 : #0117 (요금무료)</span>
-                                    </p>
-                                    <p class="way">
-                                        <span>인터넷 : 안전 Dream (검색어 117)</span>
-                                        <span>방문 : 117센터 방문하여 신고/상담</span>
-                                    </p>
+                                <div class="item">
+                                    <div>
+                                        <img src="/ClientUI/user/images/contents/therapy_02.svg" alt="">
+                                    </div>
+                                    <span>채팅 1:1 상담</span>
                                 </div>
-                            </li>
-                        </ul>
+                            </div>
+                            <div class="icon_inner">
+                                <div class="item">
+                                    <div>
+                                        <img src="/ClientUI/user/images/contents/therapy_03.svg" alt="">
+                                    </div>
+                                    <span>전화 상담</span>
+                                </div>
+                                <div class="item">
+                                    <div>
+                                        <img src="/ClientUI/user/images/contents/therapy_04.svg" alt="">
+                                    </div>
+                                    <span>대면 상담</span>
+                                </div>
+                            </div>
+                            <div class="icon_inner">
+                                <div class="item">
+                                    <div>
+                                        <img src="/ClientUI/user/images/contents/therapy_05.svg" alt="">
+                                    </div>
+                                    <span>법률 상담</span>
+                                </div>
+                                <div class="item">
+                                    <div>
+                                        <img src="/ClientUI/user/images/contents/therapy_06.svg" alt="">
+                                    </div>
+                                    <span>화해 분쟁 조정</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="sec_write">
-                        <h4 class="subtit">카드뉴스</h4>
-                        <ul class="two_box clearfix">
-                            <th:block th:if="${cardNewsList == null or cardNewsList.content.size() == 0}">
-                                <li class="nodata">
-                                    <div>등록된 게시글이 없습니다.</div>
-                                </li>
-                            </th:block>
-
-                            <th:block th:each="item : ${cardNewsList}">
-                                <li>
-                                    <th:block th:if="${item.banLink eq '' or item.banLink eq null}">
-                                        <a href="javascript:;"><img th:src="${bannerFilePath + '/' + item.pcFlNm}" th:alt="${item.pcFlNm}"></a>
-                                    </th:block>
-                                    <th:block th:unless="${item.banLink eq '' or item.banLink eq null}">
-                                        <a href="javascript:;" th:onclick="return fn_linkUrl([[${item.banLink}]],[[${item.linkTrgtTy eq T(kr.or.btf.web.domain.web.enums.LinkTargetType).SELF ? false : true}]])"><img th:src="${bannerFilePath + '/' + item.pcFlNm}" th:alt="${item.pcFlNm}"></a>
-                                    </th:block>
-                                </li>
-                            </th:block>
-                            <!--<li><a href="javascript:;"><img src="/ClientUI/user/images/contents/bg_cardnews_help01.jpg" alt="영상공모전 & 연사모집"></a></li> &lt;!&ndash; TODO : 관리자에서 등록한 카드뉴스 이미지가 노출됨 &ndash;&gt;
-                            <li><a href="javascript:;"><img src="/ClientUI/user/images/contents/bg_cardnews_help02.jpg" alt="함께해요 천사친구 - 대국민 비폭력 캠페인"></a></li>-->
-                        </ul>
-                    </div>
-                    <div class="sec_write">
-                        <h4 class="subtit">도움요청 자료실</h4>
-                        <p class="submsg">더 많은 자료는 도움 요청 자료실을 활용해 주세요.</p>
-                        <a href="/pages/activity/helpDataRoom" class="btn btn_lg btn_blue btn_pill_10 btn_dataroom">도움요청 자료실 가기</a>
-                    </div>
-
                 </div>
+                <!--<th:block
+                        th:replace="/fragments/paging :: pagingbody(list=${postscripts}, link='/pages/activity/postscript', formId='form1')"></th:block>-->
             </div>
         </form>
         </div>
