@@ -557,7 +557,6 @@ public class MemberService extends _BaseService {
                 }
             }
 
-
             memberForm.setEmailAttcDtm(LocalDateTime.now());
             memberForm.setApproval("Y");
             memberForm.setDelAt("N");
@@ -577,11 +576,8 @@ public class MemberService extends _BaseService {
             account.setCardReset("N");
             account.setOnlineEdu("Y");
             account.setBrthdy(account.getBrthdy().replaceAll("-",""));
-            account.setGroupYn("N");
             if(memberForm.getMberDvTy().equals(UserRollType.CREW)){
                 account.setCrewPid(memberForm.getCrewPid());
-            } else {
-                account.setCrewPid(0L);
             }
             Account save = memberRepository.save(account);
 
@@ -642,26 +638,9 @@ public class MemberService extends _BaseService {
         try {
             verifyDuplicateLoginId(groupForm.getLoginId());
             if(groupForm.getAuthEmailChk() == 2){
-                if(UserRollType.CREW.equals(groupForm.getMberDvTy())){
-                    groupForm.setEmail(groupForm.getG_email());
-                    groupForm.setEmailAttcAt("Y");
-                    verifyDuplicateEmail(groupForm.getG_email());
-                } else {
-                    verifyDuplicateEmail(groupForm.getEmail());
-                }
+                groupForm.setEmailAttcAt("Y");
+                verifyDuplicateEmail(groupForm.getEmail());
                 groupForm.setEmailAttcDtm(LocalDateTime.now());
-            }
-
-            // 일반 단체 휴대폰 인증여부
-            if(UserRollType.GROUP.equals(groupForm.getMberDvTy())) {
-                groupForm.setGroupYn("Y");
-                groupForm.setCrewYn("N");
-                if(groupForm.getMobileAttcAt().equals("Y")) {
-                    groupForm.setMobileAttcDtm(LocalDateTime.now());
-                }
-            } else {
-                groupForm.setGroupYn("N");
-                groupForm.setCrewYn("Y");
             }
 
             // approval : N -> 로그인 불가
@@ -680,6 +659,10 @@ public class MemberService extends _BaseService {
             groupForm.setSexPrTy("NONE");
             groupForm.setBrthdy("00000000");
             Account account = modelMapper.map(groupForm, Account.class);
+            account.setOnlineEdu("Y");
+            account.setFreeCard("N");
+            account.setCardReset("N");
+            account.setEduReset("N");
             Account save = memberRepository.save(account);
 
             MemberRoll memberRoll = new MemberRoll();
@@ -697,12 +680,11 @@ public class MemberService extends _BaseService {
                     memberGroup.setChrNm(groupForm.getChargerNm());
                     memberGroup.setPosition(groupForm.getPosition());
                     memberGroup.setAttcYn("N");
-                    memberGroup.setMberEmail(groupForm.getEmail());
-                    memberGroup.setMberMoblphon(groupForm.getMoblphon());
                     memberGroup.setBNum(groupForm.getBNum());
                     memberGroup.setRegDtm(LocalDateTime.now());
                     memberGroup.setBLicenseAttc(groupForm.getB_license_attc());
                     MemberGroup save1 = memberGroupRepository.save(memberGroup);
+                    updateGroupDv(save.getId(),save1.getId(),"GROUP");
                     if (groupForm.getB_license_attc().equals("Y")) {
                         if (attachedFile != null) {
                             FileInfo fileInfo = FileUtilHelper.writeUploadedFile(attachedFile, Constants.FOLDERNAME_LICENSE, FileUtilHelper.imageExt);
@@ -710,7 +692,6 @@ public class MemberService extends _BaseService {
                             TableNmType tblBoardData = TableNmType.TBL_MEMBER_GROUP;
                             fileInfo.setTableNm(tblBoardData.name());
                             fileInfo.setDvTy(FileDvType.LICENSE.name());
-
                             FileInfo pid = fileInfoRepository.save(fileInfo);
                             memberGroupRepository.updateFlPid(pid.getId(),save1.getId());
                         }
@@ -725,19 +706,31 @@ public class MemberService extends _BaseService {
                     memberCrew.setCrewFNum(Integer.parseInt(groupForm.getCrewFNum()));
                     memberCrew.setRptNm(groupForm.getRptNm());
                     memberCrew.setRegDtm(LocalDateTime.now());
-                    memberCrewRepository.save(memberCrew);
-
+                    MemberCrew save2 = memberCrewRepository.save(memberCrew);
+                    updateGroupDv(save.getId(),save2.getId(),"CREW");
                 }
             }
-
-
-
             return true;
         } catch (ValidCustomException ve) {
             throw ve;
         } catch (Exception e) {
             return false;
         }
+    }
+
+    private boolean updateGroupDv(Long id, Long pid, String gbn){
+        try {
+            Account account = memberRepository.findById(id).orElseGet(Account::new);
+            if(gbn.equals("GROUP")){
+                account.setCrewPid(pid);
+            }
+            if(gbn.equals("CREW")){
+                account.setGroupPid(pid);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return true;
     }
 
     /**

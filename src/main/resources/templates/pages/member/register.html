@@ -113,26 +113,22 @@
 
 
             if (!loginId.val()) {
-                alert("loginId");
                 return false;
             }
 
             if(!idDupBool){
-                //alert('아이디 중복체크를 해주세요.');
-                alert("idDupBool");
+                alert('아이디 중복체크를 해주세요.');
                 loginId.after('<p class="err emph">아이디 중복체크를 해주세요.</p>');
                 loginId.focus();
                 return false;
             }
 
             if (!fn_chkPwdDup()) {
-                alert("fn_chkPwdDup");
                 return false;
             }
 
             if (!nm.val()) {
-                //alert('이름을 입력하세요');
-                alert("nm");
+                alert('이름을 입력하세요');
                 nm.after('<p class="err emph">이름은 필수 값입니다.</p>');
                 nm.focus();
                 return false;
@@ -147,7 +143,7 @@
             if ($.trim(year.val())) {
                 brthdyStr += $.trim(year.val());
             }else{
-                //alert('출생년도를 입력하세요');
+                alert('출생년도를 입력하세요');
                 brthdy.after('<p class="err emph">생년월일은 필수 값입니다.</p>');
                 year.focus();
                 return false;
@@ -156,7 +152,7 @@
             if ($.trim(month.val())) {
                 brthdyStr += $.trim(month.val());
             }else{
-                //alert('생년월일을 선택하세요');
+                alert('생년월일을 선택하세요');
                 brthdy.after('<p class="err emph">생년월일은 필수 값입니다.</p>');
                 month.focus();
                 return false;
@@ -165,7 +161,7 @@
             if ($.trim(day.val())) {
                 brthdyStr += $.trim(day.val());
             }else{
-                //alert('생년월일을 선택하세요');
+                alert('생년월일을 선택하세요');
                 brthdy.after('<p class="err emph">생년월일은 필수 값입니다.</p>');
                 day.focus();
                 return false;
@@ -174,7 +170,7 @@
             brthdy.val(brthdyStr);
 
             if($('input[name=sexPrTy]:checked').length < 1){
-                //alert('성별을 선택하세요');
+                alert('성별을 선택하세요');
                 $('#sexPrTy').after('<p class="err emph">성별은 필수 값입니다.</p>');
                 sexPrTy.focus();
                 return false;
@@ -202,13 +198,16 @@
 
 
             if($('#authMobileChk').val() == 1){
+                alert('휴대폰 인증을 해주세요.');
+                return false;
+            }
+            if($('#authEmailChk').val() == 1){
                 if (!emailDupBool) {
-                    alert('이메일 중복확인을 해주세요.');
+                    alert('이메일 인증을 해주세요.');
                     return false;
                 }
             }
             if (!ncnm.val()) {
-                alert("ncnm");
                 ncnm.after('<p class="err emph">닉네임은 필수 값입니다.</p>');
                 ncnm.focus();
                 return false;
@@ -315,7 +314,6 @@
 
                 if(mberDvTy.val() == 'STUDENT') {
                     if (!teacherNm.val()) {
-                        alert("teacherNm");
                         teacherNm.after('<p class="err emph">담임선생님 성함을 입력해주세요</p>');
                         teacherNm.focus();
                         return false;
@@ -325,7 +323,6 @@
             if(mberDvTy.val() == 'CREW') {
 
                 if(!crewPid.val()) {
-                    alert("crewPid");
                     crewPid.after('<p class="err emph">크루명을 입력해주세요</p>');
                     crewPid.focus();
                     return false;
@@ -341,7 +338,6 @@
 
             pwd.siblings('.err.emph').remove();
             if (!$.trim(pwd.val())) {
-                //alert('비밀번호를 입력하세요');
                 pwd.after('<p class="err emph">비밀번호는 필수 값입니다.</p>');
                 pwd.focus();
                 return false;
@@ -368,7 +364,6 @@
             }
 
             if (pwd.val() != pwdChk.val()) {
-                //alert('비밀번호가 일치하지 않습니다.');
                 pwdChk.after('<p class="err emph">비밀번호가 일치하지 않습니다.</p>');
                 pwdChk.focus();
                 return false;
@@ -998,27 +993,6 @@
     </script>
 </head>
 
-
-
-<!--
-   수정일 : 2021.08.10
-   수정자 : 조동국
-   수정내용 :
-   1. 회원 정보 버튼 수정 (button 에서 기존 프로젝트에서 사용하던 li로 변경, css로 조정 및 이벤트 수정)
-   2. 맨위 구분선과 아래 구분선 수정 중
-   3. (kr.or.btf.web.domain.web.enums.GenderType) 해당 파일 내 남,여로 기재된 내용 남자, 여자로 변경
-   ( common.css -> tab, tab_type02, tbl_write, contour 등 수정)
--->
-
-<!--
-   수정일 : 2021.08.11
-   수정자 : 조동국
-   수정내용 :
-   1. 회원가입 radio 버튼들과 기능 수정
-   ( common.css -> radio border, background-color) fn_authSelect로 해당 인증 내용만 보이게 작성
-   2. 회원가입 정보 폼 수정 ( 지역명 제거 )
-   3. 마이페이지 등 메뉴 수정 ( display: table -> display: flex / justify-content: space-evenly )
--->
 <body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
 <div id="load">
     <img class="loadImg" src="/ClientUI/user/images/common/loader.gif" alt="loading..">
@@ -1280,12 +1254,12 @@
 
                         <div class="tbl_write contour">
                             <ul>
-                                <!--                                        <li class="student teacher">
-                                                                            <div class="th mo_bdt_0"><label for="areaNm">지역명</label></div>
-                                                                            <div class="td">
-                                                                                <input type="text" id="areaNm" name="areaNm" readonly onclick="layerShow('popSchool')"/>
-                                                                            </div> 지역명이 빠져있는 관계로 일단 제거
-                                                                        </li>-->
+                                <li class="student teacher">
+                                    <div class="th mo_bdt_0"><label for="areaNm">지역명</label><span class="aster">*</span></div>
+                                    <div class="td">
+                                        <input type="text" id="areaNm" name="areaNm" readonly onclick="layerShow('popSchool')"/>
+                                    </div>
+                                </li>
                                 <li class="student teacher">
                                     <div class="th"><label for="schlNm">학교명</label><span class="aster">*</span></div>
                                     <div class="td">
@@ -1328,10 +1302,10 @@
                                         </div>
                                     </div>
                                 </li>-->
-                                <!--<li class="student">
-                                    <div class="th">번호</div>
+                                <li class="student">
+                                    <div class="th">번호<span class="aster">*</span></div>
                                     <div class="td"><input type="number" id="no" name="no" onchange="stdntNoCheck(this, event)" onkeydown="fn_checkSpacebar()" /></div>
-                                </li>-->
+                                </li>
 
                                 <li class="student">
                                     <div class="th"><label for="teacherNm">담임 선생님</label><span class="aster">*</span></div>

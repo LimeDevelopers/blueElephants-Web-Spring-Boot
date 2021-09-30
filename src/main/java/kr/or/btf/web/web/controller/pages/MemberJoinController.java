@@ -117,6 +117,8 @@ public class MemberJoinController extends BaseCont {
         String msg = "";
         boolean result = false;
         if (groupForm.getAuthMobileChk() == 2) {
+            groupForm.setMobileAttcAt("Y");
+            groupForm.setMobileAttcDtm(LocalDateTime.now());
             MobileAuthLogForm mobileAUthLogForm = new MobileAuthLogForm();
             mobileAUthLogForm.setDmnNo(groupForm.getSRequestNumber());
             mobileAUthLogForm.setRspNo(groupForm.getSResponseNumber());
@@ -125,8 +127,6 @@ public class MemberJoinController extends BaseCont {
             if (load == null) {
                 log.info("휴대폰 정보 로드 에러 : " + ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldErrors()));
             }
-        } else {
-            groupForm.setMobileAttcAt("N");
         }
 
         if (groupForm.getId() == null) {

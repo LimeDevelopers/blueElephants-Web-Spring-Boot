@@ -83,6 +83,8 @@ public class Account implements Serializable {
     @Column(name = "group_yn")
     private String groupYn;
 
+    @Column(name = "group_pid")
+    private Long groupPid;
     @Column(name = "crew_pid")
     private Long crewPid;
 
