@@ -115,6 +115,7 @@ public class MemberJoinController extends BaseCont {
                          @RequestParam("attachedFile") MultipartFile attachedFile,
                          Errors errors) throws Exception {
         String msg = "";
+        log.info("test@@@@"+attachedFile.getOriginalFilename());
         boolean result = false;
         if (groupForm.getAuthMobileChk() == 2) {
             groupForm.setMobileAttcAt("Y");

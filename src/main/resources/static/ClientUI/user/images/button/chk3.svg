@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="104" height="52" viewBox="0 0 104 52">
+  <g id="그룹_3" data-name="그룹 3" transform="translate(-316 -294)">
+    <g id="타원_1" data-name="타원 1" transform="translate(325 303)" fill="#f4f4f7" stroke="#c6c9d6" stroke-width="2">
+      <circle cx="17.5" cy="17.5" r="17.5" stroke="none"/>
+      <circle cx="17.5" cy="17.5" r="16.5" fill="none"/>
+    </g>
+    <g id="그룹_1" data-name="그룹 1">
+      <g id="타원_2" data-name="타원 2" transform="translate(377 303)" fill="#8eb3f2" stroke="#8eb3f2" stroke-width="2">
+        <circle cx="17.5" cy="17.5" r="17.5" stroke="none"/>
+        <circle cx="17.5" cy="17.5" r="16.5" fill="none"/>
+      </g>
+      <path id="합치기_1" data-name="합치기 1" d="M9.24,19.143a1.99,1.99,0,0,1-1.194-.53L1.462,12.475A2,2,0,0,1,4.19,9.55l5.084,4.741L18.84,1.6A2,2,0,1,1,22.035,4L11.2,18.38a2,2,0,0,1-1.962.763Z" transform="translate(382.868 311.393)" fill="#fff"/>
+    </g>
+    <rect id="사각형_3" data-name="사각형 3" width="52" height="52" transform="translate(316 294)" fill="none"/>
+    <rect id="사각형_4" data-name="사각형 4" width="52" height="52" transform="translate(368 294)" fill="none"/>
+  </g>
+</svg>

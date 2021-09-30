@@ -45,7 +45,7 @@ public class MemberGroup {
     private String attcYn;
 
     @Column(name="attc_dtm")
-    private Long attcDtm;
+    private LocalDateTime attcDtm;
 
     @Column(name="reg_dtm")
     private LocalDateTime regDtm;
