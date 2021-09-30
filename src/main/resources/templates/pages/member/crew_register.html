@@ -754,7 +754,7 @@
                                                     <label for="auth_01">휴대폰인증</label>
                                                     <div class="auth_contents_01 auth_contents">
                                                         <b>휴대폰</b>
-                                                        <input type="text" id="moblphon" name="moblphon" placeholder="휴대폰 인증을 진행하세요" readonly>
+                                                        <input type="text" id="moblphon" name="moblphon" onclick="return fn_niceCallPopup();" placeholder="휴대폰 인증을 진행하세요" readonly>
                                                         <input type="hidden" id="sRequestNumber" name="sRequestNumber"/>
                                                         <input type="hidden" id="sResponseNumber" name="sResponseNumber"/>
                                                         <button type="button" class="btn btn_lg" onclick="return fn_niceCallPopup();">휴대폰인증</button>
@@ -806,7 +806,7 @@
                                         </div>
                                         <small>※ 사업자등록증 또는 공문 등 단체를 증명할 수 있는 자료를 업로드하세요.</small>
                                         <div class="td">
-                                            <input type="file" id= "attachedFile" name="attachedFile" maxlength="1"  />
+                                            <input type="file" id= "attachedFile" name="attachedFile" maxlength="1"  th:accept="${allAccept}"/>
                                             <label for="attachedFile" id="box">증빙서류업로드</label>
                                             <label for="attachedFile"><span>파일검색</span></label>
                                             <small>※ 사업자등록증 또는 공문 등 단체를 증명할 수 있는 자료를 업로드하세요.</small>

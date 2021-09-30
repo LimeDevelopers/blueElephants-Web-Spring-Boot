@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="20" viewBox="0 0 40 20">
+  <defs>
+    <pattern id="pattern" preserveAspectRatio="none" width="100%" height="100%" viewBox="0 0 70 70">
+      <image width="70" height="70" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEYAAABGCAMAAABG8BK2AAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAA/UExURUdwTIW5/4S0+IS0+IW0+IW0+YW4/4S094W094Sz94S194W09/////b6/pzC+bTS+466+Obw/cXb+9Xm/KjK+qi7qmYAAAALdFJOUwAKQmaUJBTU7LR4pbkFfgAAAcxJREFUWMOtmNuWgyAMRamiQOMFxf//1rFVp4IQjOE8ula3JJzYJEL4ampplAZEWhlZNwJRJVGAB5NVAtIYIMnEjtRKIEu2F4qBBzKvICAFj6S8wCoND6VPmX4peCz1i8sAQ+ag1MBSvYekeRi9hSWBKfm9a2CrLXGY7TiKj1FFYgJoxJv+o7nrF//J+4H1XLdqDCxo6Gf5qA8wVO8tXQSjqBjbb5jZN7IgHmbaKFPwWDxJTNdbFmZPTLcABzNEE0PF2D0xDlgYl0gMDTPulAE4mGFP7wgczOE7ByzM4TvLwszp9BIwSd+RMDbpuzhmGC2hIFOY1WD9Qk5MiJnjxhgziQkxfdRgQ4/4LoZxMaMiBZnAHO/1OC6bmEuKIxysINMXHnLQgkzbL+DgBYm42OfgBYkVw5kz30lvoqZ+nCXvO6Q0/zm5gsxU+D8nU5C5D8WZk0/MB6NznOFOT5tq/aJ1gTR/Bv+jdbe+jki39eVM9iYm3UIOU+fuUdYWslBDW6i9LtXsN0ViKjUIibbEHMQ/jjyGTdZl/UbfljNAnxYMzfNxvim/XFin6CKrjs9QTw5M16LABue6vTkWJ+b+UspU+HpLqQxLK3VZbP0Bty7FlLUCKbQAAAAASUVORK5CYII="/>
+    </pattern>
+  </defs>
+  <g id="그룹_2" data-name="그룹 2" transform="translate(-554 -266)">
+    <g id="그룹_1" data-name="그룹 1">
+      <path id="합치기_1" data-name="합치기 1" d="M35,20V0H55V20ZM15,20V0H35V20Z" transform="translate(539 266)" fill="none"/>
+      <rect id="btn_checked" width="12" height="12" rx="3" transform="translate(558 270)" fill="url(#pattern)"/>
+      <rect id="btn_uncheck" width="12" height="12" rx="4" transform="translate(578 270)" fill="#f4f4f7" stroke="#c6c9d6" stroke-width="0.5"/>
+    </g>
+  </g>
+</svg>

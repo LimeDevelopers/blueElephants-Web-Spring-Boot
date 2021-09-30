@@ -18,6 +18,10 @@
     개인/단체 선택창 이미지 버튼 마우스오버,클릭 수정
     로그인 화면 아이콘 디자인 수정
 */
+.page_cont > .intro_text_box .text p {
+    padding-left: 300px;
+}
+
 #resultText {
     font-weight: 500;
     font-size: 15px;
@@ -5565,34 +5569,7 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     background-color: #6d95e1;
     padding: 12px 79px;
 }
-
-.general_education > .edu_form > .edu_list_box > .edu_btn_box > .edu_btn_ing{
-    border-radius: 78px;
-    padding: 12px 79px;
-    background-color: #ffa235 !important;
-}
-
-.general_education > .edu_form > .edu_list_box > .edu_btn_box > .edu_btn_complete{
-    border-radius: 78px;
-    padding: 12px 79px;
-    background-color: #16a8f8 !important;
-}
-
-.general_education > .edu_form > .edu_list_box > .edu_btn_box > .edu_btn button{
-    font-size: 16px;
-    font-weight: 500;
-    color: #fff;
-    vertical-align: initial;
-}
-
-.general_education > .edu_form > .edu_list_box > .edu_btn_box > .edu_btn_ing button{
-    font-size: 16px;
-    font-weight: 500;
-    color: #fff;
-    vertical-align: initial;
-}
-
-.general_education > .edu_form > .edu_list_box > .edu_btn_box > .edu_btn_complete button{
+.general_education > .edu_form > .edu_list_box > .edu_btn_box > .edu_btn button {
     font-size: 16px;
     font-weight: 500;
     color: #fff;
@@ -6056,7 +6033,7 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     cursor: pointer;
 }
 
-/* 소개 */
+/* 활동_소개 */
 .tab_ico_area .tab_cont .cont.intro .desc {
     width: 100%
 }
@@ -6226,7 +6203,7 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
 }
 
 .edu_intro_area .virtue_area li span {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 500
 }
 
@@ -6343,6 +6320,7 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     font-weight: 500;
     word-break: keep-all
 }
+/* 활동_소개 끝 */
 
 /* 교육 */
 .subtit_area {
