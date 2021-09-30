@@ -43,6 +43,18 @@
 
         let mberDvTy;
 
+        // 인증 초기값 셋팅
+        $(document).ready(function (e) {
+            $('#auth_01').on('click', function (e) {
+                $('#authMobileChk').val(1);
+                $('#authEmailChk').val(0);
+            })
+            $('#auth_02').on('click', function (e) {
+                $('#authMobileChk').val(0);
+                $('#authEmailChk').val(1);
+            })
+        })
+
         $(function(){
             mberDvTy = $("#mberDvTy");
             fn_chgCrewDvTy(mberDvTy.val());
@@ -64,13 +76,13 @@
             } else {
                 if(gbn == "GROUP"){
                     $('#authEmailChk').val(0)
-                    $('#authMobileChk').val(0)
+                    $('#authMobileChk').val(1)
                     $('.ggCrew').hide();
                     $('.nmCrew').show();
                     mberDvTy.val('GROUP');
                 }else if(gbn == "CREW"){
                     $('#authEmailChk').val(0)
-                    $('#authMobileChk').val(0)
+                    $('#authMobileChk').val(1)
                     $('.ggCrew').show();
                     $('.nmCrew').hide();
                     mberDvTy.val('CREW');
@@ -85,6 +97,7 @@
         function fn_alert(msg) {
             alert(msg)
         }
+
         function fn_chkField(gbn) {
             if(!idDupBool) {
                 fn_alert('아이디 중복확인을 진행해주세요.')
@@ -129,7 +142,7 @@
                     focusAndEmpty(bNum)
                     return false;
                 }
-                if(authEmailChk.val()!=2){
+               /* if(authEmailChk.val()!=2){
                     fn_alert('이메일 인증은 필수입니다.')
                     return false;
                 } else {
@@ -140,6 +153,10 @@
                     return false;
                 } else {
                     mobileAttcAt.val('Y')
+                }*/
+                if($('#authMobileChk') == 1 || $('#authEmailChk') == 1) {
+                    alert('이메일, 휴대폰 중 하나의 인증수단은 필수입니다.')
+                    return false;
                 }
                 if(!attachedFile.val()){
                     bLicenseAttc.val('N')
@@ -182,11 +199,10 @@
                     focusAndEmpty(rptName)
                     return false;
                 }
-                if(authEmailChk.val()!=2) {
-                    fn_alert('이메일 인증은 필수입니다.')
+                인증테스트중
+                if($('#authMobileChk') == 1 || $('#authEmailChk') == 1) {
+                    alert('이메일, 휴대폰 중 하나의 인증수단은 필수입니다.')
                     return false;
-                } else {
-                    emailAttcAt.val('Y')
                 }
                 return true
             }
@@ -241,7 +257,15 @@
         * 생성일 : 21.08.17
         * 생성자 : 김재일
         * */
-        function fn_checkSpacebar(event) {
+        function fn_emailValidate(obj) {
+            if ($(obj).val().includes('@')) {
+                alert('잘못된 이메일 형식입니다.');
+                $(obj).val('');
+                return false;
+            }
+        }
+
+        function fn_checkSpacebar() {
             let keyCode = event.keyCode;
             if(keyCode == 32) event.returnValue = false;
         }
@@ -450,7 +474,7 @@
                         $('#btnSave').prop('disabled', false);
                         return false;
                     }
-                    if(bLicenseAttc.val()=="N"){
+                    if(mberDvTy=='GROUP' && bLicenseAttc.val()=="N"){
                         let conf = confirm("첨부파일이 등록되지않았습니다. 진행하시겠습니까?");
                         if(conf){
                             frm.prop('action', '/api/member/groupInsert');
@@ -459,6 +483,8 @@
                             return false
                         }
                     }
+                    frm.prop('action', '/api/member/groupInsert');
+                    frm.submit();
                 }
 
                 if(mberDvTy=='CREW') {
@@ -491,6 +517,23 @@
                 // });
             });
         })
+
+        $(document).ready(function (e) {
+            $('#attachedFile').on('change',function (e){
+                let filename = $(this)[0].files[0].name;
+                if (filename) {
+                    let ext = filename.slice(filename.lastIndexOf(".") + 1).toLowerCase();
+                    if (!(ext == "jpg" || ext == "png" || ext == "jpeg")) {
+                        alert("이미지파일 (.jpg, .png, .jpeg ) 만 업로드 가능합니다.");
+                        return false;
+                    } else {
+                        $('#box').text(filename);
+                    }
+                }
+            })
+        })
+
+
     </script>
 </head>
 
@@ -513,48 +556,76 @@
                     <input type="hidden" name="mberDvTy" id="mberDvTy" value="GROUP"/>
                     <input type="hidden" name="emailAttcAt" id="emailAttcAt" value="N"/>
                     <input type="hidden" name="mobileAttcAt" id="mobileAttcAt" value="N"/>
-                    <input type="hidden" id="authEmailChk" name="authEmailChk" value="0"/>
                     <div class="tbl_select">
                         <ul class="tab tab_type02">
                             <li class="btn_line_default btn_pill_registerSelect active"><a href="javascript:fn_chgCrewDvTy('GROUP');">일반</a></li>
                             <li class="btn_line_default btn_pill_registerSelect"><a href="javascript:fn_chgCrewDvTy('CREW');">지지크루</a></li>
                         </ul>
                     </div>
+
+                    <div class="agree_contents ggCrew">
+                        <h1>지지크루 회원 이용시 주의사항에 대한 동의(필수)</h1>
+                        <div class="agree_top mobile">
+                            <div class="checkbox txt">
+                                <input type="checkbox" id="agree003" />
+                                <label for="agree003">
+                                    <span class="pc">지지크루 회원 이용시 주의사항에 대한 동의(필수)</span>
+                                    <span class="mo">지지크루 회원 이용시 주의사항에 대한 동의(필수)</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="group_agree">
+                            <p>
+                                지지크루 단체회원은 푸른코끼리 지지크루로 합격된 단체만 가입이 가능합니다. <b></b>지지크루ID는 승인 후 지지크루 게시판 글 작성이 가능한 권한이 부여됩니다.<b></b> 또한 지지크루 게시판 확인 및 댓글 작성 권한이 있는 지지크루 개인회원(팀원)을 등록할 수 있는 권한이 있습니다. <b></b>작성된 글에 대한 책임은 작성자에게 있으며, 게시판 성격과 맞지 않은 글은 관리자에 의해 삭제될 수 있습니다.<b></b> 지지크루의 성격과 맞지 않는 활동 시 관리자에 의해 글 작성 권한이 취소될 수 있는 점 유의 바랍니다.
+
+                            </p>
+                        </div>
+                        <div class="btn_area pc">
+                            <div class="checkbox txt">
+                                <input type="checkbox" id="agree005" />
+                                <label for="agree005">
+                                    <span class="pc">(필수) 지지크루 이용시 주의사항에 대해 동의합니다.</span>
+                                    <span class="mo">지지크루 이용시 주의사항(필수)</span>
+                                </label>
+                            </div>
+                            <a href="javascript:;" class="btn_view">보기</a>
+                        </div>
+                    </div>
+
                     <div class="sec_write">
-                        <h4 class="subtit">기본 정보 입력<span class="aster">*</span></h4>
                         <div class="tbl_write">
-                            <div class="tbl_write contour">
+                            <div class="tbl_write contour b_no">
                                 <ul>
-                                    <li>
+                                    <li class="id_btn">
                                         <div class="th">
                                             <label for="loginId">아이디</label>
                                             <span class="aster">*</span>
                                         </div>
                                         <div class="td">
-                                            <input type="text" id="loginId" name="loginId" placeholder="6~12자 영문 소문자, 숫자 사용" onkeydown="fn_checkSpacebar()" />
-                                            <button type="button" class="btn btn_lg btn_line_blue btn_pill_10" onclick="return fn_chkIdDup();">중복확인</button>
+                                            <input type="text" id="loginId" name="loginId" placeholder="6~12자 영문 소문자, 숫자 사용" onkeydown="fn_checkSpacebar(this)" />
+                                            <button type="button" class="btn btn_lg" onclick="return fn_chkIdDup();">중복확인</button>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="th"><label for="pwd">비밀번호</label><span class="aster">*</span></div>
                                         <div class="td">
-                                            <input type="password" id="pwd" name="pwd" placeholder="8~16자(특수 문자 포함)" onkeyup="fn_comparePwd()" onkeydown="fn_checkSpacebar()" />
+                                            <input type="password" id="pwd" name="pwd" placeholder="8~16자(특수 문자 포함)" onkeyup="fn_comparePwd()" onkeydown="fn_checkSpacebar(this)" />
                                         </div>
                                     </li>
                                     <li>
                                         <div class="th"><label for="pwdChk">비밀번호 확인</label><span class="aster">*</span></div>
-                                        <div class="td"><input type="password" name="pwdChk" id="pwdChk" placeholder="비밀번호 확인" onkeyup="fn_comparePwd()" onkeydown="fn_checkSpacebar()" /></div>
+                                        <div class="td"><input type="password" name="pwdChk" id="pwdChk" placeholder="비밀번호 확인" onkeyup="fn_comparePwd()" onkeydown="fn_checkSpacebar(this)" /></div>
                                     </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <div class="sec_write nmCrew">
-                        <h4 class="subtit">단체회원 정보 입력<span class="aster">*</span></h4>
+                    <div class="sec_write">
+                        <h4 class="subtit jointit">기본정보 입력<span class="aster">*</span></h4>
                         <input type="hidden" id="authBothChk" value="0"/>
                         <div class="tbl_write contour">
                                 <ul>
-                                    <li>
+                                    <li class="nmCrew">
                                         <div class="th">
                                             <label for="groupNm">단체명</label>
                                             <span class="aster">*</span>
@@ -563,7 +634,7 @@
                                             <input type="text" id="groupNm" name="groupNm" placeholder="단체명을 입력하세요">
                                         </div>
                                     </li>
-                                    <li>
+                                    <li class="nmCrew">
                                         <div class="th">
                                             <label for="chargerNm">담당자명</label>
                                             <span class="aster">*</span>
@@ -572,26 +643,182 @@
                                             <input type="text" id="chargerNm" name="chargerNm" placeholder="담당자명을 입력하세요">
                                         </div>
                                     </li>
-                                    <li>
+                                    <li class="nmCrew">
                                         <div class="th">
-                                            <label for="position">직책</label>
+                                            <label for="position">직위/직책</label>
                                             <span class="aster">*</span>
                                         </div>
                                         <div class="td">
-                                            <input type="text" id="position" name="position" placeholder="직책을 입력하세요">
+                                            <input type="text" id="position" name="position" placeholder="직위/직책을 입력하세요">
                                         </div>
                                     </li>
-                                    <li>
+
+
+
+                                    <li class="ggCrew">
                                         <div class="th">
-                                            <label for="bNum">사업자등록번호</label>
+                                            <label for="loginId">지지크루이름</label>
                                             <span class="aster">*</span>
                                         </div>
                                         <div class="td">
-                                            <input type="text" id="bNum" name="bNum" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"placeholder="사업자등록번호를 입력하세요">
+                                            <input type="text" id="crewNm" name="crewNm" placeholder="지지크루명을 입력하세요." />
                                         </div>
                                     </li>
-                                    <li>
-                                        <div class="th">첨부파일<span class="aster">*</span></div>
+                                    <li class="ggCrew">
+                                        <div class="th">
+                                            <label for="loginId">소속</label>
+                                            <span class="aster">*</span>
+                                        </div>
+                                        <div class="td">
+                                            <input type="text" id="crewAffi" name="crewAffi" placeholder="소속명을 입력하세요." />
+                                        </div>
+                                    </li>
+                                    <li class="ggCrew">
+                                        <div class="th">
+                                            <label for="loginId">기수</label>
+                                            <span class="aster">*</span>
+                                        </div>
+                                        <div class="td">
+                                            <input type="text" id="crewFNum" name="crewFNum" placeholder="기수를 입력하세요." oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
+                                        </div>
+                                    </li>
+                                    <li class="ggCrew">
+                                        <div class="th">
+                                            <label for="loginId">대표이름</label>
+                                            <span class="aster">*</span>
+                                        </div>
+                                        <div class="td">
+                                            <input type="text" id="rptNm" name="rptNm" placeholder="대표명을 입력하세요." />
+                                        </div>
+                                    </li>
+                                    <li class="emailAuth ggCrew">
+                                        <div class="th">대표이메일<span class="aster">*</span></div>
+                                        <div class="td">
+                                            <div class="email_form clearfix">
+                                                <input type="text" name="g_email01" id="g_email01" title="이메일 아이디 입력" oninput="fn_emailValidate(this)" onkeydown="fn_checkSpacebar(this)" />
+                                                <span class="at">@</span>
+                                                <div class="select">
+                                                    <label for="g_email02" id="g_email02_label">선택</label>
+                                                    <select name="g_email02" id="g_email02">
+                                                        <option value="">선택</option>
+                                                        <option value="naver.com">naver.com</option>
+                                                        <option value="gmail.com">gmail.com</option>
+                                                        <option value="hanmail.net">hanmail.net</option>
+                                                        <option value="nate.com">nate.com</option>
+                                                        <option value="daum.net">daum.net</option>
+                                                        <option value="직접입력">직접입력</option>
+                                                    </select>
+                                                </div>
+                                                <input type="text" name="gg_email03" id="g_email03" class="email_inp" title="이메일주소 직접입력" onkeydown="fn_checkSpacebar(this)" />
+                                            </div>
+                                            <button type="button" class="btn btn_lg btn_line_blue btn_pill_10" id="g_sendEmailBtn" onclick="return fn_chkEmailDup('g');">이메일인증</button>
+                                            <input type="hidden" name="g_email" id="g_email"/>
+                                            <input class="eKey emph" type="text" name="g_emailKey" id="g_emailKey" placeholder="인증번호 입력" maxlength="8" disabled>
+                                            <button type="button" class="btn btn_lg btn_line_blue btn_pill_10" id="g_chkTempKeyBtn" onclick="return fn_chkEmailTempKey('g');">인증번호확인</button>
+                                            <p class="tip emph">※ 아이디/패스워드 찾기, 회원가입 인증에 사용됩니다. 정확하게 입력해주세요.</p>
+                                        </div>
+                                    </li>
+
+
+
+
+
+
+                                    <!--<li class="phoneAuth row">
+                                        <input type="hidden" id="authMobileChk" name="authMobileChk" value="0"/>
+                                        <div class="th"><label for="moblphon">본인인증</label><span class="aster" id="moblphonLabel">*</span></div>
+                                        <div class="td">
+                                            <ul class="tabs">
+                                                <li class="tab">
+                                                    <input type="radio" id="auth_01" name="tabauth" checked>
+                                                    <label for="auth_01">휴대폰인증</label>
+                                                    <div class="auth_contents_01 auth_contents">
+                                                        <b>휴대폰</b>
+                                                        <input type="text" id="moblphon" name="moblphon" placeholder="휴대폰 인증을 진행하세요" readonly>
+                                                        <input type="hidden" id="sRequestNumber" name="sRequestNumber"/>
+                                                        <input type="hidden" id="sResponseNumber" name="sResponseNumber"/>
+                                                        <button type="button" class="btn btn_lg" onclick="return fn_niceCallPopup();">휴대폰인증</button>
+                                                    </div>
+                                                <li/>
+
+                                            </ul>
+                                        </div>
+                                    </li>-->
+                                    <li class="phoneAuth row email_f">
+                                        <input type="hidden" id="authMobileChk" name="authMobileChk" value="1"/>
+                                        <input type="hidden" id="authEmailChk" name="authEmailChk" value="0"/>
+                                        <div class="th"><label for="moblphon">본인인증</label><span class="aster" id="moblphonLabel">*</span></div>
+                                        <div class="td">
+                                            <ul class="tabs">
+                                                <li class="tab">
+                                                    <input type="radio" id="auth_01" name="tabauth" checked>
+                                                    <label for="auth_01">휴대폰인증</label>
+                                                    <div class="auth_contents_01 auth_contents">
+                                                        <b>휴대폰</b>
+                                                        <input type="text" id="moblphon" name="moblphon" placeholder="휴대폰 인증을 진행하세요" readonly>
+                                                        <input type="hidden" id="sRequestNumber" name="sRequestNumber"/>
+                                                        <input type="hidden" id="sResponseNumber" name="sResponseNumber"/>
+                                                        <button type="button" class="btn btn_lg" onclick="return fn_niceCallPopup();">휴대폰인증</button>
+                                                    </div>
+                                                </li>
+                                                <li class="tab">
+                                                    <input type="radio" id="auth_02" name="tabauth">
+                                                    <label for="auth_02">이메일인증</label>
+                                                    <div class="auth_contents_02 auth_contents">
+                                                        <div class="email_form clearfix">
+                                                            <input type="text" name="email01" id="email01" title="이메일 아이디 입력" oninput="fn_emailValidate(this)" onkeydown="fn_checkSpacebar(this)" />
+                                                            <span class="at">@</span>
+                                                            <div class="select">
+                                                                <label for="email02" id="email02_label">선택</label>
+                                                                <select name="email02" id="email02">
+                                                                    <option value="">선택</option>
+                                                                    <option value="naver.com">naver.com</option>
+                                                                    <option value="gmail.com">gmail.com</option>
+                                                                    <option value="hanmail.net">hanmail.net</option>
+                                                                    <option value="nate.com">nate.com</option>
+                                                                    <option value="daum.net">daum.net</option>
+                                                                    <option value="직접입력">직접입력</option>
+                                                                </select>
+                                                            </div>
+                                                            <input type="text" name="email03" id="email03" class="email_inp" title="이메일주소 직접입력" onkeydown="fn_checkSpacebar(this)" />
+                                                        </div>
+                                                        <button type="button" class="btn btn_lg btn_line_blue" id="sendEmailBtn" onclick="return fn_chkEmailDup('n');">이메일인증</button>
+                                                        <input type="hidden" name="email" id="email"/>
+                                                        <input class="eKey emph" type="text" name="emailKey" id="emailKey" placeholder="인증번호 입력" maxlength="8" disabled>
+                                                        <button type="button" class="btn btn_lg btn_line_blue" id="chkTempKeyBtn" onclick="return fn_chkEmailTempKey('c');">인증번호확인</button>
+                                                        <p class="tip">※ 아이디/패스워드 찾기, 회원가입 인증에 사용됩니다. 정확하게 입력해주세요.<span>※ 인증메일을 받지못했을 경우, 이메일 주소가 잘못입력되었는지 확인하시고 잘 입력되었을 경우 스팸메일함을 확인해주세요!</span></p>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="col nmCrew">
+                                        <div class="th">
+                                            <label for="loginId">사업자(고유)등록증 번호</label>
+                                        </div>
+                                        <div class="td">
+                                            <input type="text" id="bNum" name="bNum" placeholder="○○단체" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
+                                        </div>
+                                    </li>
+
+                                    <li class="notice col nmCrew">
+                                        <div class="th">
+                                            <label for="loginId">사업자(고유)등록증 첨부파일</label>
+                                        </div>
+                                        <small>※ 사업자등록증 또는 공문 등 단체를 증명할 수 있는 자료를 업로드하세요.</small>
+                                        <div class="td">
+                                            <input type="file" id= "attachedFile" name="attachedFile" maxlength="1"  />
+                                            <label for="attachedFile" id="box">증빙서류업로드</label>
+                                            <label for="attachedFile"><span>파일검색</span></label>
+                                            <small>※ 사업자등록증 또는 공문 등 단체를 증명할 수 있는 자료를 업로드하세요.</small>
+                                            <input type="hidden" name="b_license_attc" id="b_license_attc" value="N">
+                                        </div>
+                                    </li>
+                                    <!--<li class="notice col ggCrew">
+                                        <div class="th">
+                                            <label for="loginId">사업자(고유)등록증 첨부파일</label>
+                                        </div>
+                                        <small>※ 사업자등록증 또는 공문 등 단체를 증명할 수 있는 자료를 업로드하세요.</small>
                                         <div class="td">
                                             <div class="file_form">
                                                 <div th:if="${fileList != null and !fileList.isEmpty()}">
@@ -610,7 +837,19 @@
                                             </div>
                                         </div>
                                     </li>
-                                    <li class="emailAuth">
+-->
+
+                                    <!--<li>
+                                        <div class="th">
+                                            <label for="bNum">사업자등록번호</label>
+                                            <span class="aster">*</span>
+                                        </div>
+                                        <div class="td">
+                                            <input type="text" id="bNum" name="bNum" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"placeholder="사업자등록번호를 입력하세요">
+                                        </div>
+                                    </li>-->
+
+                                    <!--<li class="emailAuth">
                                         <div class="th">이메일 주소<span class="aster">*</span></div>
                                         <div class="td">
                                             <div class="email_form clearfix">
@@ -646,19 +885,18 @@
                                             <input type="hidden" id="sResponseNumber" name="sResponseNumber"/>
                                             <button type="button" class="btn btn_lg btn_line_blue btn_pill_10" onclick="return fn_niceCallPopup();">휴대폰번호인증</button>
                                         </div>
-                                    </li>
+                                    </li>-->
                                 </ul>
                         </div>
                     </div>
-
-                    <div class="sec_write ggCrew">
-                        <h4 class="subtit">지지크루 정보 입력<span class="aster">*</span></h4>
+                    <!--<div class="sec_write ggCrew">
+                        <h4 class="subtit jointit">지지크루 정보 입력<span class="aster">*</span></h4>
                         <div class="tbl_write">
                             <div class="tbl_write contour">
                                 <ul>
                                     <li>
                                         <div class="th">
-                                            <label for="loginId">지지크루명</label>
+                                            <label for="loginId">지지크루이름</label>
                                             <span class="aster">*</span>
                                         </div>
                                         <div class="td">
@@ -685,7 +923,7 @@
                                     </li>
                                     <li>
                                         <div class="th">
-                                            <label for="loginId">대표명</label>
+                                            <label for="loginId">대표이름</label>
                                             <span class="aster">*</span>
                                         </div>
                                         <div class="td">
@@ -693,8 +931,7 @@
                                         </div>
                                     </li>
                                     <li class="emailAuth">
-
-                                        <div class="th">이메일 주소<span class="aster">*</span></div>
+                                        <div class="th">대표이메일<span class="aster">*</span></div>
                                         <div class="td">
                                             <div class="email_form clearfix">
                                                 <input type="text" name="g_email01" id="g_email01" title="이메일 아이디 입력" oninput="fn_emailValidate(this)" onkeydown="fn_checkSpacebar()" />
@@ -723,9 +960,71 @@
                                 </ul>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
+                   <!-- <div class="sec_write nmCrew">
+                        <h4 class="subtit jointit">추가정보 입력</h4>
+                        <div class="tbl_write">
+                            <div class="tbl_write contour">
+                                <ul>
+                                    <li class="gnum_btn">
+                                        <div class="th">
+                                            <label for="groupNm">단체대표자명</label>
+                                        </div>
+                                        <div class="td">
+                                            <input type="text" id="groupNm" name="groupNm" placeholder="○○단체">
+                                            &lt;!&ndash;<button type="button" class="btn btn_lg" onclick="">단체검색</button>&ndash;&gt;
+                                        </div>
+                                    </li>
+                                    &lt;!&ndash;<li class="grouptype">
+                                        <div class="th">
+                                            <label for="loginId">단체종류</label>
+                                        </div>
+                                        <div class="td">
+                                            <div class="select">
+                                                <label for="g_type">단체종류를 선택하세요</label>
+                                                <select name="g_type" id="">
+                                                    <option value="">단체종류를 선택하세요</option>
+                                                    <option value="">단체종류를 선택하세요</option>
+                                                    <option value="">단체종류를 선택하세요</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </li>&ndash;&gt;
 
-                    <div class="btn_area"><button id="btnSave" class="btn btn_lg btn_blue btn_pill_10">단체 등록</button></div>
+
+                                   &lt;!&ndash; <li class="notice col">
+                                        <div class="th">
+                                            <label for="loginId">사업자(고유)등록증 첨부파일</label>
+                                        </div>
+                                        <small>※ 사업자등록증 또는 공문 등 단체를 증명할 수 있는 자료를 업로드하세요.</small>
+                                        <div class="td">
+                                            <input type="file" id="rptNm" name="rptNm" placeholder="증빙서류업로드" />
+                                            <label for="rptNm" id="box">증빙서류업로드</label>
+                                                <div class="file_form">
+                                                    <div th:if="${fileList != null and !fileList.isEmpty()}">
+                                                        <th:block th:each="item: ${fileList}">
+                                                            <p class="file" th:if="${T(kr.or.btf.web.domain.web.enums.FileDvType).THUMB.name() eq item.dvTy}">
+                                                                <span th:text="${item.flNm}">첨부파일.txt</span>
+                                                                <a href="javascript:;" class="btn_del" th:onclick="|fn_deleteFile(${item.id}, this)| ">
+                                                                    <span class="blind">삭제</span>
+                                                                </a>
+                                                            </p>
+                                                        </th:block>
+                                                    </div>
+                                                    <input type="file" name="rptNm" maxlength="1"  class="multi" th:accept="${allAccept}" />
+                                                    <label for="rptNm">파일검색</label>
+                                                    <input type="hidden" name="b_license_attc" id="b_license_attc" value="N">
+                                                </div>
+                                            <small>※ 사업자등록증 또는 공문 등 단체를 증명할 수 있는 자료를 업로드하세요.</small>
+                                        </div>
+                                    </li>&ndash;&gt;
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>-->
+
+                    <div class="btn_area"><button id="btnSave" class="btn btn_lg btn_blue btn_pill_10">회원 가입</button></div>
                 </form>
             </div>
         </div>
