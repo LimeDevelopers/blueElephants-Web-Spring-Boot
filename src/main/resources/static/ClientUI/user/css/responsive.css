@@ -61,7 +61,6 @@
 	.contents {
 		width: 100%;
 		padding-bottom: 0;
-		padding: 0 20px;
 	}
 
 
@@ -2238,7 +2237,7 @@
 
 	/* 20210927 푸코소식 공지사항 시작 */
 	h4.subtit.pc {
-		text-align: left;
+		text-align: center;
 	}
 	.page_cont > .notice_board > .title label, .page_cont > .notice_board > .subject label {
 		height: 40px;
@@ -3434,13 +3433,13 @@
 
 	/* 마이페이지_계정정보 시작 09/17 고선호 수정 */
 	.page_top>.page_tit {
-		text-align: left;
+		text-align: center;
 	}
 	.sec_write .subtit {
 		padding-bottom: 10px;
 	}
 	.page_top>.page_tit+span {
-		text-align: left;
+		text-align: center;
 	}
 	.page_top>.page_tit+span .mo {
 		display: block;
