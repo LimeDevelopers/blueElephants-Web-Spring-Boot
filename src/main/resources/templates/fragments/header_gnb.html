@@ -257,7 +257,7 @@
     <div class="mo_top_nav_wrap">
         <div class="mo_info">
             <th:block th:unless="${#authorization.getAuthentication() != null and #authorization.expression('isAuthenticated()')}">
-                <h2 class="helloMsg"><a href="/login" class="btn_login">로그인</a></h2>
+                <h2 class="helloMsg">사이버정글 가디언<br>푸른코끼리</h2>
             </th:block>
             <th:block th:if="${#authorization.getAuthentication() != null and #authorization.expression('isAuthenticated()')}">
                 <h2 class="helloMsg"><th:block sec:authentication="principal.account.ncnm"></th:block>님!<br>행복한 하루 보내세요!</h2>

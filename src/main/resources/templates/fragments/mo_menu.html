@@ -1,4 +1,4 @@
-<div class="menu_modal">
+<div class="menu_modal" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" >
   <div class="modal_inner">
     <div class="modal_top">
       <div class="btn_inner">
@@ -6,25 +6,50 @@
         <a class="close_btn"></a>
       </div>
     </div>
-    <div class="menu_mypage">
-      <div class="lv_icon">
-        <img src="/ClientUI/user/images/icon/lv_01.svg" alt="">
-      </div>
-      <div class="info">
-        <div class="name">
-          <h5>푸코님</h5>
+    <th:block th:unless="${#authorization.getAuthentication() != null and #authorization.expression('isAuthenticated()')}">
+      <div class="menu_mypage">
+        <div class="info">
+          <div class="name">
+            <h5>로그인 해주세요.</h5>
+          </div>
         </div>
-        <div class="desc">
-          <span class="">학생</span>
-          <b class="level">LV.1d알</b>
-          <span class="point">6250p</span>
+        <div class="btns">
+          <a href="/login" class="logout_btn">로그인</a>
         </div>
       </div>
-      <div class="btns">
-        <a href="#none" class="logout_btn">로그아웃</a>
-        <a href="#none" class="mypage_btn">마이페이지</a>
+    </th:block>
+    <th:block th:if="${#authorization.getAuthentication() != null and #authorization.expression('isAuthenticated()')}">
+      <div class="menu_mypage">
+        <div class="lv_icon">
+          <img src="/ClientUI/user/images/icon/lv_01.svg" alt="">
+        </div>
+        <div class="info">
+          <div class="name">
+            <h5><th:block sec:authentication="principal.account.ncnm"></th:block>님</h5>
+          </div>
+          <div class="desc">
+            <th:block th:each="tp : ${T(kr.or.btf.web.domain.web.enums.UserRollType).values()}">
+              <span th:if="${#authentication.principal.account.mberDvTy eq tp}" th:text="${tp.getName()}"></span>
+            </th:block>
+<!--            <span class="">-->
+<!--              <th:block sec:authentication="principal.account.mberDvTy"></th:block>학생-->
+<!--            </span>-->
+<!--            <b class="level">LV.1</b>-->
+<!--            <span class="point">0p</span>-->
+          </div>
+        </div>
+        <div class="btns">
+          <a href="/logout" class="logout_btn">로그아웃</a>
+          <th:block sec:authorize="hasAnyRole('ROLE_NORMAL', 'ROLE_STUDENT', 'ROLE_PARENT', 'ROLE_TEACHER','ROLE_INSTRUCTOR')">
+            <a href="/pages/myPage/profile" class="mypage_btn">마이페이지</a>
+          </th:block>
+          <th:block sec:authorize="hasAnyRole('ROLE_MASTER', 'ROLE_ADMIN', 'ROLE_LECTURER', 'ROLE_COUNSELOR')">
+            <a href="/soulGod/dashboard" class="mypage_btn">관리자모드</a>
+          </th:block>
+        </div>
       </div>
-    </div>
+    </th:block>
+
     <div class="menu_inner">
       <div class="tab_inner">
         <input type="radio" name="tabmenu" id="tab1" checked>

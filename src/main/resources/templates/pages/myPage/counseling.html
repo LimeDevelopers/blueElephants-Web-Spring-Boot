@@ -41,7 +41,7 @@
                                         </th:block>
                                         <tr th:each="item,idx:${adviceRequests}">
                                             <td>
-                                                <a th:href="|/pages/myPage/counselingDetail/face/${item.id}|">
+                                                <a th:href="|/pages/myPage/counselingDetail/board/${item.id}|">
                                                     <b th:text="${item.ttl}"></b>
                                                 </a>
                                                 <p>
@@ -65,7 +65,7 @@
                                         </th:block>
                                         <tr th:each="item,idx:${adviceTelList}">
                                             <td>
-                                                <a th:href="|/pages/myPage/counselingDetail/face/${item.id}|">
+                                                <a th:href="|/pages/myPage/counselingDetail/tel/${item.id}|">
                                                     <b th:text="${item.ttl}"></b>
                                                 </a>
                                                 <p>
