@@ -1217,7 +1217,7 @@ public class ActivityController extends BaseCont {
         model.addAttribute("list", rtnList);
 
         model.addAttribute("mc", "activity");
-        model.addAttribute("pageTitle", "체험");
+        model.addAttribute("pageTitle", "진단하기");
         return "/pages/activity/selfTest";
     }
 
@@ -1280,7 +1280,7 @@ public class ActivityController extends BaseCont {
         model.addAttribute("grade", grade.intValue());
 
         model.addAttribute("mc", "activity");
-        model.addAttribute("pageTitle", "체험");
+        model.addAttribute("pageTitle", "진단하기");
         return "/pages/activity/selfTestResult";
     }
 
