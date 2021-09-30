@@ -399,7 +399,7 @@ public class  ApplicationController {
 
         }
         model.addAttribute("mc", "application");
-        model.addAttribute("pageTitle", "파트너스");
+        model.addAttribute("pageTitle", "지지선언");
         return "pages/application/zzdeclarationRegister";
     }
     @PostMapping("/pages/application/eventList/eventRegister")
