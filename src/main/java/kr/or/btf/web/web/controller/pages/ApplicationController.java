@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.w3c.dom.html.HTMLModElement;
 
 import java.util.List;
 
@@ -360,7 +361,12 @@ public class  ApplicationController {
         model.addAttribute("pageTitle", "파트너스");
         return "pages/application/partners";
     }
-
+    @GetMapping("/pages/application/zzcrewRegister")
+    public String zzcrewRegister(Model model) {
+        model.addAttribute("mc", "application");
+        model.addAttribute("pageTitle", "지지크루");
+        return "pages/application/zzcrewRegister";
+    }
 
     //등록페이지 이동 컨트롤러
     @GetMapping("/pages/application/zzcrew")
@@ -421,23 +427,7 @@ public class  ApplicationController {
     }
 
     //행사신청 이동컨트롤러
-    @GetMapping("/pages/application/eventList/{id}")
-    public String event(Model model,
-                        ApplicationForm applicationForm,
-                        @PathVariable("id") Long id,
-                        @CurrentUser Account account){
-        Event event = applicationService.getEventData(id);
-        if(event == null){
-            model.addAttribute("altmsg", "정상적인 경로를 이용하세요.");
-            model.addAttribute("locurl", "/pages/application/eventList");
-            return "/message";
-        }
-        model.addAttribute("epid",id);
-        model.addAttribute("mc", "application");
-        model.addAttribute("pageTitle", "행사");
 
-        return "pages/application/eventRegister";
-    }
 
     //리스트 페이지 이동 컨트롤러
     @RequestMapping("/pages/application/eventList")
@@ -452,6 +442,26 @@ public class  ApplicationController {
         model.addAttribute("pageTitle", "행사");
         return "pages/application/eventList";
     }
+
+    @GetMapping("/pages/application/eventList/{id}")
+    public String eventDetail(Model model,
+                        ApplicationForm applicationForm,
+                        @PathVariable("id") Long id,
+                        @CurrentUser Account account){
+        Event event = applicationService.getEventData(id);
+        if(event == null){
+            model.addAttribute("altmsg", "정상적인 경로를 이용하세요.");
+            model.addAttribute("locurl", "/pages/application/eventList");
+            return "/message";
+        }
+        model.addAttribute("epid",id);
+        model.addAttribute("mc", "application");
+        model.addAttribute("pageTitle", "행사");
+
+        return "pages/application/eventDetail";
+    }
+
+
     @RequestMapping(value = "/pages/application/contestList")
     public String ContestList(Model model ,
                               @CurrentUser Account account ,
@@ -466,7 +476,7 @@ public class  ApplicationController {
     }
 
     @GetMapping("/pages/application/contestList/{id}")
-    public String contest(Model model,
+    public String contestDetail(Model model,
                         ApplicationForm applicationForm,
                         @PathVariable("id") Long id,
                         @CurrentUser Account account){
@@ -484,18 +494,33 @@ public class  ApplicationController {
         model.addAttribute("mc", "application");
         model.addAttribute("pageTitle", "공모전");
 
+        return "pages/application/contestDetail";
+    }
+    @GetMapping("/pages/application/contestList/contestDetail/contestRegister/{id}")
+    public String contestReigster(Model model ,
+                                ApplicationForm applicationForm ,
+                                @PathVariable("id") Long id ,
+                                @CurrentUser Account account) {
+        Contest contest = applicationService.getContestData(id);
+        List<Contest> contestDetail = applicationService.getContestDetail(id);
+
+        if(contest == null){
+            model.addAttribute("altmsg", "정상적인 경로를 이용하세요.");
+            model.addAttribute("locurl", "/pages/application/contestList");
+            return "/message";
+        }
+
+        model.addAttribute("cpid",id);
+        model.addAttribute("contestList" , contestDetail);
+        model.addAttribute("mc", "application");
+        model.addAttribute("pageTitle", "공모전");
+
         return "pages/application/contestRegister";
     }
 
-    @GetMapping("/pages/application/zzcrewRegister")
-    public String zzcrewRegister(Model model) {
-        model.addAttribute("mc", "application");
-        model.addAttribute("pageTitle", "지지크루");
-        return "pages/application/zzcrewRegister";
-    }
 
     @PostMapping(value = "/pages/application/contestList/contestRegister")
-    public String contestRegister(Model model ,
+    public String contestSubmit(Model model ,
                                   ApplicationForm applicationForm ,
                                   Pageable pageable ,
                                   SearchForm searchForm ,
