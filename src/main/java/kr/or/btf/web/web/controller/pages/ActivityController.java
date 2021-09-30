@@ -1176,6 +1176,59 @@ public class ActivityController extends BaseCont {
         return "/pages/activity/satisfactionTest";
     }
 
+    @RequestMapping("/pages/activity/survey")
+    public String survey(Model model,
+                           @CurrentUser Account account) {
+
+        if (account == null) {
+            model.addAttribute("altmsg", "로그인이 필요한 서비스입니다.");
+            model.addAttribute("locurl", "/login");
+            return "/message";
+        }
+
+
+
+        List<Map<String, Object>> rtnList = new ArrayList<>();
+
+        SurveyForm survey = new SurveyForm();
+        survey.setDvTy(SurveyDvType.SELF.name());
+        Survey load = surveyService.loadByform(survey);
+
+        SurveyResponsePersonForm surveyResponsePersonForm = new SurveyResponsePersonForm();
+        surveyResponsePersonForm.setLoginId(account.getLoginId());
+        surveyResponsePersonForm.setQustnrPid(load.getId());
+        SurveyResponsePerson person = surveyResponsePersonService.loadByform(surveyResponsePersonForm);
+
+        model.addAttribute("form", load);
+
+        SurveyQuestionItemForm surveyQuestionItem = new SurveyQuestionItemForm();
+        surveyQuestionItem.setQustnrPid(load.getId());
+        List<SurveyQuestionItem> questionItemList = surveyQuestionItemService.list(surveyQuestionItem);
+
+        for (SurveyQuestionItem questionItem : questionItemList) {
+            Map<String, Object> item = new HashMap<>();
+            item.put("question", questionItem);
+
+            SurveyAnswerItemForm surveyAnswerItem = new SurveyAnswerItemForm();
+            surveyAnswerItem.setQesitmPid(questionItem.getId());
+            List<SurveyAnswerItem> answerItemList = surveyAnswerItemService.list(surveyAnswerItem, person.getId());
+            item.put("caseList", answerItemList);
+
+            rtnList.add(item);
+        }
+        model.addAttribute("list", rtnList);
+
+        model.addAttribute("mc", "activity");
+        model.addAttribute("pageTitle", "진단하기");
+        return "/pages/activity/selfTest";
+    }
+
+    @RequestMapping("/pages/activity/preciseDiagnosis")
+    public String preciseDiagnosis() {
+        return "/pages/preparing";
+        }
+
+
     @RequestMapping("/pages/activity/selfTest")
     public String selfTest(Model model,
                            @CurrentUser Account account) {

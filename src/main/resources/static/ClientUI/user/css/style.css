@@ -13840,3 +13840,207 @@ li.more_info2 .td label:before {
     margin-bottom: 5px;
 }
 /* 회원가입_개인_학생 끝 09/29 고선호 수정 */
+
+/* 활동_진단하기_자가진단 질문하기 시작 */
+.test_inner {
+    width: 730px;
+    margin: 0 auto;
+    margin-top: 70px;
+}
+.test_item .question .tit b {
+    display: inline-block;
+    text-align: center;
+    color: #8bb3ff;
+    font-size: 28px;
+    position: relative;
+    text-align: center;
+    width: 100%;
+}
+.test_item .question .tit b:before {
+    position: absolute;
+    content: '';
+    width: 42%;
+    height: 2px;
+    background-color: #8eb3f2;
+    top: 50%;
+    left: 0;
+}
+.test_item .question .tit b:after {
+    position: absolute;
+    content: '';
+    width: 42%;
+    height: 2px;
+    background-color: #8eb3f2;
+    top: 50%;
+    right: 0;
+}
+.test_item .question .tit span {
+    font-size: 20px;
+    padding-bottom: 10px;
+    display: block;
+    width: 100%;
+    font-weight: 500;
+    text-align: center;
+    border-bottom: 2px solid #8eb3f2;
+}
+.test_item .chk_inner {
+    display: flex;
+    position: relative;
+}
+.test_item .chk_inner:before {
+    content:'';
+    position: absolute;
+    width: 75%;
+    height: 2px;
+    background-color: #c6c9d6;
+    top: 22%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.test_item .chk_inner .chk_btn {
+    text-align: center;
+    padding: 20px 0;
+    padding: 80px 0;
+    flex: 1;
+}
+.test_item .chk_inner .chk_btn label {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+.test_item .chk_inner .chk_btn label small, .test_item .chk_inner .chk_btn label span {
+    color: #9499ad;
+    font-size: 20px;
+    cursor: pointer;
+}
+.test_item .chk_inner .chk_btn label {
+    position: relative;
+}
+.test_item .chk_inner .chk_btn label:before {
+    content:'';
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: url('../images/button/chk3.svg')no-repeat center left;
+    background-size: cover;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.test_item .chk_inner .chk_btn input[type="radio"]:checked + label:before {
+    content:'';
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: url('../images/button/chk3.svg')no-repeat center right;
+    background-size: cover;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+/* 활동_진단하기_자가진단 질문하기 끝 */
+
+/* 활동_진단하기_정밀진단 시작 */
+.test_01 a.text1_btn:nth-of-type(1) {
+    margin-right: 10px;
+}
+/* 활동_진단하기_정밀진단 끝 */
+
+
+/* 활동_진단하기_ox퀴즈_질문하기 시작 */
+.test_item.test_04_inner .question .tit {
+    text-align: center;
+}
+.test_item.test_04_inner .question .tit b {
+    background-color: #8bb3ff;
+    color: #fff;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 18px;
+    line-height: 48px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.test_item.test_04_inner .question .tit b:before, .test_item.test_04_inner .question .tit b:after {
+    display: none;
+}
+.test_item.test_04_inner .question .tit span {
+    border-bottom: none;
+}
+.test_item.test_04_inner .chk_inner:before {
+    display: none;
+}
+.test_item.test_04_inner .chk_inner .chk_btn {
+    padding: 0;
+    padding: 20px 0;
+    padding-bottom: 60px;
+}
+.test_item.test_04_inner .chk_inner .chk_btn label {
+    width: 150px;
+    height: 150px;
+    display: inline-block;
+}
+.test_item .chk_inner .chk_btn.chk_btn1 {
+    margin-left: 70px;
+}
+.test_item .chk_inner .chk_btn.chk_btn2 {
+    margin-right: 70px;
+}
+.test_item.test_04_inner .chk_inner .chk_btn.chk_btn1 label:before {
+    top: 0;
+    position: absolute;
+    content:'';
+    width: 150px;
+    height: 150px;
+    background-size: cover;
+    background: url('../images/button/o_icon.svg')no-repeat center left;
+}
+.test_item.test_04_inner .chk_inner .chk_btn.chk_btn1 input[type="radio"]:checked + label:before {
+    content:'';
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    top: 0;
+    transform: translateX(-50%);
+    background: url('../images/button/o_icon.svg')no-repeat center right;
+    background-size: cover;
+}
+.test_item.test_04_inner .chk_inner .chk_btn.chk_btn2 label:before {
+    top: 0;
+    position: absolute;
+    content:'';
+    width: 150px;
+    height: 150px;
+    background: url('../images/button/x_icon.svg')no-repeat center left;
+    background-size: cover;
+}
+.test_item.test_04_inner .chk_inner .chk_btn.chk_btn2 input[type="radio"]:checked + label:before {
+    content:'';
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    top: 0;
+    transform: translateX(-50%);
+    background: url('../images/button/x_icon.svg')no-repeat center right;
+    background-size: cover;
+}
+
+/* 활동_진단하기_ox퀴즈_질문하기 끝 */
+
+
+/* 활동_진단하기_실태조사 시작 */
+.test_01 .test_btns {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+.test_01 .test_btns > div a {
+    width: 200px;
+    padding: 10px 0;
+    margin-top: 10px;
+}
+.test_01 .test_btns > div a:nth-of-type(1) {
+    margin-right: 10px;
+}
+/* 활동_진단하기_실태조사 끝 */

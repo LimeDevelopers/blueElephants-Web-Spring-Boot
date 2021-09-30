@@ -33,6 +33,41 @@ public class SurveyQuestionItemService extends _BaseService {
     private final SurveyAnswerItemRepository surveyAnswerItemRepository;
     private final ModelMapper modelMapper;
 
+    public List<SurveyQuestionItem> selfFactionList(SurveyQuestionItemForm surveyQuestionItemForm) {
+
+        QSurveyQuestionItem qSurveyQuestionItem = QSurveyQuestionItem.surveyQuestionItem;
+        QAccount qAccount = QAccount.account;
+
+        OrderSpecifier<Long> orderSpecifier = qSurveyQuestionItem.id.asc();
+
+        BooleanBuilder builder = new BooleanBuilder();
+        builder.and(qSurveyQuestionItem.delAt.eq("N"));
+        builder.and(qSurveyQuestionItem.qustnrPid.eq(surveyQuestionItemForm.getQustnrPid()));
+
+        List<SurveyQuestionItem> questionItemList = queryFactory
+                .select(Projections.fields(SurveyQuestionItem.class,
+                        qSurveyQuestionItem.id,
+                        qSurveyQuestionItem.qestnQesitm ,
+                        qSurveyQuestionItem.aswDvTy,
+                        qSurveyQuestionItem.answerCnt,
+                        qSurveyQuestionItem.rspnsCnt,
+                        qSurveyQuestionItem.qustnrPid,
+                        qSurveyQuestionItem.regPsId,
+                        qSurveyQuestionItem.regDtm,
+                        ExpressionUtils.as(
+                                JPAExpressions.select(qAccount.nm)
+                                        .from(qAccount)
+                                        .where(qAccount.loginId.eq(qSurveyQuestionItem.regPsId)),
+                                "regPsNm")
+                ))
+                .from(qSurveyQuestionItem)
+                .where(builder)
+                .orderBy(orderSpecifier)
+                .fetch();
+
+        return questionItemList;
+    }
+
     public List<SurveyQuestionItem> list(SurveyQuestionItemForm surveyQuestionItemForm) {
 
         QSurveyQuestionItem qSurveyQuestionItem = QSurveyQuestionItem.surveyQuestionItem;
