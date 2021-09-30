@@ -157,7 +157,7 @@ public class MemberService extends _BaseService {
                     .select(Projections.fields(Account.class,
                             qAccount.id, qAccount.email,
                             qAccount.loginId, qAccount.nm, qAccount.mberDvTy,
-                            qAccount.approval, qAccount.crewPid, qAccount.groupYn,
+                            qAccount.approval, qAccount.crewPid, qAccount.groupPid,
                             qAccount.regPsId, qAccount.regDtm, qAccount.updPsId, qAccount.updDtm
                             ))
                     .from(qAccount)
@@ -575,6 +575,7 @@ public class MemberService extends _BaseService {
             account.setFreeCard("N");
             account.setCardReset("N");
             account.setOnlineEdu("Y");
+            account.setEduReset("N");
             account.setBrthdy(account.getBrthdy().replaceAll("-",""));
             if(memberForm.getMberDvTy().equals(UserRollType.CREW)){
                 account.setCrewPid(memberForm.getCrewPid());
@@ -675,7 +676,7 @@ public class MemberService extends _BaseService {
             if (groupForm.getMberDvTy() != null) {
                 if (UserRollType.GROUP.equals(groupForm.getMberDvTy())) {
                     MemberGroup memberGroup = new MemberGroup();
-                    memberGroup.setMberPid(account.getId());
+                    memberGroup.setMberPid(save.getId());
                     memberGroup.setGroupNm(groupForm.getGroupNm());
                     memberGroup.setChrNm(groupForm.getChargerNm());
                     memberGroup.setPosition(groupForm.getPosition());
@@ -688,7 +689,7 @@ public class MemberService extends _BaseService {
                     if (groupForm.getB_license_attc().equals("Y")) {
                         if (attachedFile != null) {
                             FileInfo fileInfo = FileUtilHelper.writeUploadedFile(attachedFile, Constants.FOLDERNAME_LICENSE, FileUtilHelper.imageExt);
-                            fileInfo.setDataPid(save.getId());
+                            fileInfo.setDataPid(save1.getId());
                             TableNmType tblBoardData = TableNmType.TBL_MEMBER_GROUP;
                             fileInfo.setTableNm(tblBoardData.name());
                             fileInfo.setDvTy(FileDvType.LICENSE.name());
@@ -699,7 +700,7 @@ public class MemberService extends _BaseService {
 
                 } else if (UserRollType.CREW.equals(groupForm.getMberDvTy())) {
                     MemberCrew memberCrew = new MemberCrew();
-                    memberCrew.setMberPid(account.getId());
+                    memberCrew.setMberPid(save.getId());
                     memberCrew.setCrewNm(groupForm.getCrewNm());
                     memberCrew.setCrewAffi(groupForm.getCrewAffi());
                     memberCrew.setAttcYn("N");
@@ -722,10 +723,10 @@ public class MemberService extends _BaseService {
         try {
             Account account = memberRepository.findById(id).orElseGet(Account::new);
             if(gbn.equals("GROUP")){
-                account.setCrewPid(pid);
+                account.setGroupPid(pid);
             }
             if(gbn.equals("CREW")){
-                account.setGroupPid(pid);
+                account.setCrewPid(pid);
             }
         } catch (Exception e) {
             e.printStackTrace();

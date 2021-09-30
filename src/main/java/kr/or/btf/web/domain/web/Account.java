@@ -80,8 +80,8 @@ public class Account implements Serializable {
     private String mobileAttcAt;
     @Column(name = "approval")
     private String approval;
-    @Column(name = "group_yn")
-    private String groupYn;
+    /*@Column(name = "group_yn")
+    private String groupYn;*/
 
     @Column(name = "group_pid")
     private Long groupPid;
