@@ -4067,6 +4067,7 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
 }
 .page_top {}
 .page_top .intro_banner {
+    width: 100%;
     padding: 50px;
     position: relative;
     text-align: center;
@@ -4243,6 +4244,7 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     width: 100%;
     height: 500px;
     margin-top: 10px;
+    background-size: 100%;
 }
 .box_item_2 {
     background-color: #eef4ff;
@@ -4825,6 +4827,7 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     margin-top: -10px;
     padding-top: 60px;
 }
+
 .intro_item_01 .year_inner .years_desc .detail_desc > li {
     color: #555868;
     position: relative;
@@ -4862,6 +4865,7 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     display: flex;
 }
 .intro_item_01 .year_inner .years_desc .detail_desc > li > ul {
+    width: calc(100% - 100px);
     font-weight: normal;
     font-size: 17px;
     letter-spacing: -0.51px;
