@@ -4737,6 +4737,23 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     display: flex;
     margin-top: 55px;
 }
+
+.intro_item_01 .year_inner .years_img_wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.intro_item_01 .year_inner .years_mobile {
+    display: none;
+}
+
+.intro_item_01 .year_inner .years_pc {
+    display: block;
+    height: 220px;
+    margin-right: 55px;
+}
+
 .intro_item_01 .year_inner .years_sum01 {
     background-image: url('../images/contents/img_schedule01.png');
     width: 220px;
@@ -4763,7 +4780,10 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     height: 300px;
     margin-right: 55px;
 }
-.intro_item_01 .year_inner .years_desc {}
+.intro_item_01 .year_inner .years_desc {
+    width: calc(100% - 220px);
+}
+
 .intro_item_01 .year_inner .years_desc label:before {
     content:'';
     position: absolute;
