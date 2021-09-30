@@ -449,16 +449,41 @@ public class  ApplicationController {
                         @PathVariable("id") Long id,
                         @CurrentUser Account account){
         Event event = applicationService.getEventData(id);
+        List<Event> eventDetail = applicationService.getEventDetail(id);
+
         if(event == null){
             model.addAttribute("altmsg", "정상적인 경로를 이용하세요.");
             model.addAttribute("locurl", "/pages/application/eventList");
             return "/message";
         }
         model.addAttribute("epid",id);
+        model.addAttribute("eventList" , eventDetail);
         model.addAttribute("mc", "application");
         model.addAttribute("pageTitle", "행사");
 
         return "pages/application/eventDetail";
+    }
+
+    @GetMapping("/pages/application/eventList/eventDetail/eventRegister/{id}")
+    public String eventRegister(Model model ,
+                                  ApplicationForm applicationForm ,
+                                  @PathVariable("id") Long id ,
+                                  @CurrentUser Account account) {
+        Event event = applicationService.getEventData(id);
+        List<Event> eventDetail= applicationService.getEventDetail(id);
+
+        if(event == null){
+            model.addAttribute("altmsg", "정상적인 경로를 이용하세요.");
+            model.addAttribute("locurl", "/pages/application/eventList");
+            return "/message";
+        }
+
+        model.addAttribute("epid",id);
+        model.addAttribute("eventList" , eventDetail);
+        model.addAttribute("mc", "application");
+        model.addAttribute("pageTitle", "공모전");
+
+        return "pages/application/eventRegister";
     }
 
 
