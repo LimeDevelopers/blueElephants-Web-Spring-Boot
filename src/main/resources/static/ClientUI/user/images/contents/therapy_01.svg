@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="308" height="308">
+    <defs>
+        <style>
+            .cls-2{fill:#fff}.cls-2,.cls-3,.cls-4{stroke:#85b4f7;stroke-linecap:round;stroke-width:6px}.cls-2,.cls-3{stroke-linejoin:round}.cls-3,.cls-4{fill:none}
+        </style>
+    </defs>
+    <g id="그룹_4448" data-name="그룹 4448" transform="translate(-211 -3476)">
+        <circle id="타원_1309" data-name="타원 1309" cx="154" cy="154" r="154" transform="translate(211 3476)" style="fill:#eef4ff"/>
+        <g id="그룹_4416" data-name="그룹 4416" transform="translate(-231.779 2248.394)">
+            <g id="그룹_4412" data-name="그룹 4412" transform="translate(585.566 1364.714)">
+                <path id="패스_8705" data-name="패스 8705" class="cls-2" d="M644.085 1428.049h7.428a11.865 11.865 0 0 0 11.871-11.875v-56.414a11.868 11.868 0 0 0-11.871-11.885h-83.472a11.88 11.88 0 0 0-11.868 11.885v56.414a11.877 11.877 0 0 0 11.868 11.875h52.295" transform="translate(-556.173 -1347.875)"/>
+                <path id="패스_8706" data-name="패스 8706" class="cls-2" d="M621.842 1400.255v18.178l-23.749-18.178" transform="translate(-533.93 -1320.082)"/>
+            </g>
+            <g id="그룹_4414" data-name="그룹 4414" transform="translate(500.779 1316.139)">
+                <path id="선_534" data-name="선 534" class="cls-3" transform="translate(43.049 80.173)" d="M40.99 0H0"/>
+                <path id="패스_8708" data-name="패스 8708" class="cls-3" d="M520.078 1396.313h-7.428a11.865 11.865 0 0 1-11.871-11.875v-56.414a11.868 11.868 0 0 1 11.871-11.885h83.472a11.885 11.885 0 0 1 11.868 11.885v36.06" transform="translate(-500.779 -1316.139)"/>
+                <path id="패스_8709" data-name="패스 8709" class="cls-3" d="M513.388 1368.519v18.181l23.75-18.178" transform="translate(-494.088 -1288.346)"/>
+            </g>
+        </g>
+        <path id="선_546" data-name="선 546" class="cls-4" transform="translate(289.5 3591.5)" d="M0 0h22"/>
+        <path id="선_548" data-name="선 548" class="cls-4" transform="translate(418.5 3633.99)" d="M0 0h22"/>
+        <path id="선_547" data-name="선 547" class="cls-4" transform="translate(289.5 3611.5)" d="M0 0h22"/>
+        <path id="선_549" data-name="선 549" class="cls-4" transform="translate(418.5 3653.99)" d="M0 0h22"/>
+    </g>
+</svg>

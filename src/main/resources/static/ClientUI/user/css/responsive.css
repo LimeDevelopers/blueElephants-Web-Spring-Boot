@@ -3,7 +3,9 @@
 
 /* Mobile Device */
 @media (max-width:768px) {
-
+	.page_cont > .intro_text_box .text p {
+		padding-left: 300px;
+	}
 	/* Common CSS */
 	/* Header */
 	#header {
@@ -1143,7 +1145,7 @@
 	}
 	.inner {
 		padding: 0 20px;
-		padding-top: 20px;
+		padding-top: 50px;
 		box-sizing: border-box;
 		width: 100%;
 	}
@@ -2093,7 +2095,12 @@
 
 	/* 20210903_소개_모바일수정*/
 	/* 활동_사이버폭력 예방교육_소개 시작 */
-	.edu_intro_area {
+	.page_cont > .intro_text_box .text {
+		padding: 0;
+	}
+	.page_cont > .intro_text_box .text p {
+		padding-left: 0;
+		padding-top: 10px;
 	}
 	.edu_intro_area .video_area {
 		margin-bottom: 30px;
@@ -5486,21 +5493,118 @@
 	}
 	/* 신청_ 지지선언 끝 */
 
-	/* 활동_교육후기 시작 09/15 고선호 수정 */
-	.page_cont > .sub_text_box {
-		position: relative;
-	}
-	.page_cont > .sub_text_box img {
-		position: absolute;
-		top: 20px;
-		left: 30px;
-		width: 25%;
-		transform: none;
+	/* 활동_교육후기 시작 */
+	.page_cont > .intro_text_box > img {
+		width: 65%;
+		top: 40%;
 	}
 	.page_cont > .sub_text_box > .text {
-		width: 70%;
+		padding: 30px 60px;
 	}
-	/* 활동_교육후기 끝 09/15 고선호 수정 */
+	.page_cont > .intro_text_box {
+		height: 100px;
+	}
+	.page_cont > .review_text_box {
+		height: 150px;
+		margin-top: 20px;
+	}
+	.page_cont > .review_text_box img {
+		width: 42%;
+		top: 30%;
+	}
+	.page_cont > .review_text_box > .text {
+		padding: 30px;
+	}
+	.page_cont > .review_board {
+		/*padding-top: 35px;*/
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+	}
+	.page_cont > .review_board .select_bx .title select {
+		vertical-align: top;
+	}
+	.page_cont > .review_board > .select_bx .title label {
+		height: 42px;
+		line-height: 42px;
+	}
+	.page_cont > .review_board > .select_bx2 .search input {
+		height: 42px;
+		line-height: 42px;
+	}
+	.page_cont > .btn_tab {
+		margin-top: 20px;
+		padding-bottom: 20px;
+	}
+	.page_cont > .review_board > .select_bx .subject, .page_cont > .review_board > .select_bx .title {
+		height: 42px;
+	}
+	.page_cont > .review_board > .select_bx .subject label {
+		height: 42px;
+		line-height: 42px;
+	}
+	.page_cont > .review_board > div {
+		margin-top: 0;
+	}
+	.page_cont > .review_board > .select_bx2 {
+		display: flex;
+		width: auto;
+	}
+	.page_cont > .review_board > .select_bx {
+		width: 100%;
+		display: flex;
+	}
+	.page_cont > .review_board > .title label {
+		/* height: 30px; */
+		height: 44px;
+		font-size: 12px;
+		padding-top: 0;
+	}
+	.select label {
+		line-height: 30px;
+	}
+	.page_cont > .review_board > .subject label {
+		/* height: 30px; */
+		height: 44px;
+		padding-top: 0;
+		font-size: 12px;
+	}
+	.page_cont > .review_board > .search.news {
+		display:inline-block;
+		width: 50%;
+	}
+	.page_cont > .review_board > .search input {
+		height: 30px;
+		font-size: 12px;
+	}
+	.page_cont > .review_board > .btn_blue {
+		height: 30px;
+		font-size: 12px;
+	}
+	.board_top>.btn {
+		line-height: 30px;
+	}
+	.page_cont > .review_text_box > .text > .sub b {
+		display: inline;
+	}
+	.page_cont > .btn_tab .btn_review:nth-child(1) {
+		margin-right: 4px;
+	}
+	.page_cont > .btn_tab .btn_review {
+
+	}
+	.page_cont > .btn_tab .btn_review {
+		padding: 10px 15px;
+		font-size: 13px;
+		line-height: 1;
+		border-radius: 5px;
+	}
+	.thumb_list {
+		margin: 0;
+		border-top: 1px solid #8eb3f2;
+		padding-top: 10px;
+	}
+	/* 활동_교육후기 끝 */
 
 	/* 회원가입 개인/단체 선택 : SU 09/16 고선호 수정 */
 	.page_top>.page_tit {

@@ -217,9 +217,29 @@ public class MemberService extends _BaseService {
         return mngList;
     }
 
+    private boolean updateAttm(Long id){
+        try {
+            Account account = memberRepository.findById(id).orElseGet(Account::new);
+            if (account.getCrewPid() != null) {
+                MemberCrew crew = memberCrewRepository.findById(account.getCrewPid()).orElseGet(MemberCrew::new);
+                crew.setAttcYn("Y");
+                crew.setAttcDtm(LocalDateTime.now());
+            }
+            if (account.getGroupPid() != null){
+                MemberGroup group = memberGroupRepository.findById(account.getGroupPid()).orElseGet(MemberGroup::new);
+                group.setAttcYn("Y");
+                group.setAttcDtm(LocalDateTime.now());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
     public Boolean updateApproval(String pid) {
         Long chgStr = Long.parseLong(pid);
         int rs = memberRepository.setApproval(chgStr,"Y");
+        updateAttm(chgStr);
         if(rs > 0) {
             return true;
         } else {
