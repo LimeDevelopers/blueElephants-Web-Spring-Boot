@@ -646,6 +646,23 @@ public class ApplicationService extends _BaseService {
         return contestList;
     }
 
+    public List<Event> getEventDetail(Long id) {
+        QEvent qEvent = QEvent.event;
+        BooleanBuilder builder = new BooleanBuilder();
+        builder.and(qEvent.id.eq(id));
+
+        List<Event> eventList = queryFactory
+                .select(Projections.fields(Event.class ,
+                        qEvent.id, qEvent.ttl, qEvent.cn, qEvent.stYmd, qEvent.edYmd, qEvent.spotDtl,
+                        qEvent.statusType, qEvent.imgFl, qEvent.cntntsUrl, qEvent.fxSeTy, qEvent.regPsId,
+                        qEvent.readCnt, qEvent.regDtm, qEvent.updPsId, qEvent.updDtm, qEvent.delAt))
+                .from(qEvent)
+                .where(builder)
+                .fetch();
+
+        return eventList;
+    }
+
     public Boolean updateApproval(String pid) {
         Long chgStr = Long.parseLong(pid);
         int rs = applicationRepository.setApproval(chgStr,"Y");

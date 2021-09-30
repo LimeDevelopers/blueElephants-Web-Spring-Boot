@@ -4067,6 +4067,7 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
 }
 .page_top {}
 .page_top .intro_banner {
+    width: 100%;
     padding: 50px;
     position: relative;
     text-align: center;
@@ -4243,6 +4244,7 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     width: 100%;
     height: 500px;
     margin-top: 10px;
+    background-size: 100%;
 }
 .box_item_2 {
     background-color: #eef4ff;
@@ -4737,6 +4739,23 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     display: flex;
     margin-top: 55px;
 }
+
+.intro_item_01 .year_inner .years_img_wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.intro_item_01 .year_inner .years_mobile {
+    display: none;
+}
+
+.intro_item_01 .year_inner .years_pc {
+    display: block;
+    height: 220px;
+    margin-right: 55px;
+}
+
 .intro_item_01 .year_inner .years_sum01 {
     background-image: url('../images/contents/img_schedule01.png');
     width: 220px;
@@ -4763,7 +4782,10 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     height: 300px;
     margin-right: 55px;
 }
-.intro_item_01 .year_inner .years_desc {}
+.intro_item_01 .year_inner .years_desc {
+    width: calc(100% - 220px);
+}
+
 .intro_item_01 .year_inner .years_desc label:before {
     content:'';
     position: absolute;
@@ -4805,6 +4827,7 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     margin-top: -10px;
     padding-top: 60px;
 }
+
 .intro_item_01 .year_inner .years_desc .detail_desc > li {
     color: #555868;
     position: relative;
@@ -4842,6 +4865,7 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     display: flex;
 }
 .intro_item_01 .year_inner .years_desc .detail_desc > li > ul {
+    width: calc(100% - 100px);
     font-weight: normal;
     font-size: 17px;
     letter-spacing: -0.51px;

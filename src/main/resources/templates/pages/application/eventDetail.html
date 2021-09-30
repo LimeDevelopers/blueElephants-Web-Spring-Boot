@@ -1,10 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <th:block th:include="fragments/header"></th:block>
 </head>
 <body>
-
+<th:block th:include="fragments/header_gnb"></th:block>
+<div id="container">
+    <th:block th:include="fragments/mo_menu"></th:block>
+    <div class="sub_container">
+        <th:block th:include="fragments/dept_menu"></th:block>
+        <div class="inner">
+            <div class="page_cont">
+                <h4 class="subtit pc review_title">행사</h4>
+                <div class="detail_cont">
+                    <div class="top">
+                        <div class="info_area">
+                            <th:block th:if="${epid != null}">
+                                <input type="hidden" id="ContestPid" name="ContestPid" th:value="${epid}"/>
+                            </th:block>
+                            <th:block th:each="eventList : ${eventList}">
+                                <strong class="tit" th:text="${eventList.ttl}">5월 사이버폭력 글쓰기 공모전</strong>
+                                <div class="detail_item">
+                                    <p class="count_2 count">
+                                            <span class="date">
+                                                <small th:text="${eventList.spotDtl}" style="width: 150px">푸른코끼리</small>
+                                                <small th:text="${eventList.stYmd}">2020.12.13</small>
+                                            </span>
+                                    </p>
+                                    <p class="d_day">
+                                        <b>접수중</b>
+                                    </p>
+                                </div>
+                            </th:block>
+                        </div>
+                    </div>
+                    <div class="sec_tit friends_02 partners">
+                        <div class="friends_inner">
+                            <div class="banner_inner">
+                                <img src="" alt="">
+                            </div>
+                            <div class="btn_area">
+                                <a href="#" onclick="location.href='/pages/application/eventList'" class="btn list_btn">목록</a>
+                                <a th:href="|/pages/application/eventList/eventDetail/eventRegister/${epid}|" class="btn crew_btn">신청하기</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<th:block th:replace="fragments/footer"></th:block>
+</div>
 </body>
 </html>
