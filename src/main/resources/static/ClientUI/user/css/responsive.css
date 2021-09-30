@@ -2430,11 +2430,26 @@
 	.intro_item_01 .year_inner {
 		flex-direction: column;
 	}
-	.intro_item_01 .year_inner .years_sum {
+	.intro_item_01 .year_inner .years_sum01 {
+		background-image: url('../images/contents/m_img_schedule01.png');
 		width: 100%;
-		height: 150px;
+		height: 100%;
+		margin-bottom: 200px;
+	}
+	.intro_item_01 .year_inner .years_sum02 {
+		background-image: url('../images/contents/m_img_schedule02.png');
+		margin-top: 200px;
+		width: 100%;
+		height: 100%;
 		margin-bottom: 30px;
 	}
+	.intro_item_01 .year_inner .years_sum03 {
+		display: none;
+	}
+	.intro_item_01 .year_inner .years_sum04 {
+		display: none;
+	}
+
 	.intro_item_01 .year_inner {
 		margin-top: 30px;
 	}
@@ -4095,6 +4110,278 @@
 	}
 	/* 신청_ 공모전리스트 끝 */
 
+	/* 회원가입_개인_학생 시작 09/29 고선호 추가 */
+	.tbl_select {
+		border-top: 0;
+	}
+	.contour ul li.row .td {
+		display: flex;
+	}
+	.contour ul li.row .td button {
+		width: 100px;
+	}
+	.tbl_write .td input + .btn {
+		font-size: 15px;
+		margin-left: 0;
+	}
+	.tbl_write .td input {
+		font-size: 14px;
+	}
+	.contour .th {
+		width: 30%;
+		font-size: 15px;
+	}
+	li.years_inner .td {
+		justify-content: space-between;
+	}
+	li.years_inner .years label, li.years_inner .month label, li.years_inner .day label, li.years_inner .years, li.years_inner .month, li.years_inner .day {
+		width: 100px !important;
+	}
+	li.years_inner .years label, li.years_inner .month label, li.years_inner .day label {
+		width: 100px;
+	}
+	li.years_inner .years select, li.years_inner .month select, li.years_inner .day select {
+		width: 100px;
+	}
+	li.search_school .td input[type="text"] {
+		margin-right: 10px;
+	}
+	li.search_school .td {
+		display: flex;
+	}
+	li.wm {
+		display: flex !important;
+		flex-direction: column;
+	}
+	li.wm .th {
+		width: 100%;
+	}
+	li.wm .td label span {
+		font-size: 14px;
+	}
+	.contour ul li.row .td {
+		/* height: 400px !important; */
+	}
+	.agree_top.mobile {
+		margin-bottom: 20px;
+		display: block;
+	}
+	.agree_top.mobile .checkbox label {
+		font-size: 13px;
+		display: inline-block;
+	}
+	.agree_contents .btn_area.pc {
+		display: none;
+	}
+	.agree_contents h1 {
+		display: none;
+	}
+	.agree_contents .group_agree {
+		font-size: 13px;
+		height: 200px;
+		border: none;
+		margin-bottom: 30px;
+	}
+	.agree_contents .group_agree p b {
+		display: inline;
+	}
+	.contour ul li.phoneAuth .td .tabs .tab .auth_contents {
+		width: 100%;
+		padding: 20px 10px !important;
+	}
+	.contour ul li.phoneAuth .td .tabs .tab {
+		width: 50%;
+	}
+	.contour ul li.phoneAuth .td .tabs .tab > label {
+		width: 100%;
+	}
+	.contour ul li.phoneAuth .td span.at {
+		width: 50px;
+		flex: 1;
+	}
+	.email_form {
+		display: flex;
+	}
+	.email_form input {
+		/* width: 100px !important; */
+		flex: 2;
+	}
+	.contour ul li.phoneAuth .td .tabs .tab .auth_contents_02 > p, .contour ul li.phoneAuth .td span {
+		font-size: 13px;
+	}
+	li.more_info2 .td {}
+	li.more_info2 .td label {
+		display: block;
+	}
+	li.more_info2 .td.checkbox {
+		height: 90px;
+	}
+	li.more_info2 .td label span {
+		margin-right: 0;
+		font-size: 13px;
+		padding-left: 8px;
+	}
+	.more_info3 .td {
+		height: 100px !important;
+	}
+	.contour ul li.phoneAuth .td span {
+		width: 100% !important;
+	}
+	.more_info3 .td .checkbox {
+		width: 30%;
+	}
+	.more_info3 .td .checkbox label span {
+		font-size: 13px;
+	}
+	.tbl_write .td input + .btn {
+		width: 85px;
+		font-size: 12px;
+		height: 44px;
+	}
+	li.desc .td {
+		display: flex;
+	}
+	li.desc .td > .select:nth-of-type(1) {
+		margin-right: 10px;
+	}
+	/* 회원가입_개인_학생 끝 */
+
+
+	/* 회원가입_단체_일반 시작 */
+	.tbl_write .th {
+		width: 30%;
+	}
+	.tbl_write .td {
+		padding: 4px 0;
+	}
+	.b_no {
+		border: 0;
+	}
+	.sec_write .subtit {
+		padding-top: 30px;
+		padding-bottom: 10px;
+	}
+	.contour {
+		padding-top: 10px;
+		margin-top: 0;
+	}
+	.contour ul li.id_btn .td,
+	.contour ul li.gnum_btn .td,
+	.contour ul li.notice .td {
+		display: flex;
+	}
+	.contour ul li.col {
+		display: flex;
+		flex-direction: column;
+	}
+	.contour ul li.id_btn .td button, .contour ul li.gnum_btn .td button {
+		font-size: 13px;
+		padding: 0;
+		width: 85px;
+		height: 44px;
+	}
+	.tbl_write .td input#loginId,
+	.contour ul li.gnum_btn .td input#groupNm {
+		margin-right: 12px;
+	}
+	.tab_type02 {
+		display: flex;
+	}
+	.tab_type02 > li a {
+		font-size: 15px;
+	}
+	.tab_type02 > li.active a {
+		padding: 0 10px;
+		font-size: 15px;
+		width: 100px;
+	}
+	.sec_write {
+		margin-top: 0;
+	}
+	.tbl_write .th, .tbl_write .td {
+		height: 50px;
+		font-size: 14px;
+	}
+	.tbl_write .td input::placeholder {
+		font-size: 13px;
+	}
+	.contour ul li.phoneAuth .td > div {
+		padding-right: 0;
+		padding: 0;
+	}
+	.contour ul li.row {
+		display: flex;
+		flex-direction: column;
+	}
+	.contour ul li.row .td {
+		/* height: 160px; */
+		height: 220px;
+		display: flex;
+		flex-direction: column;
+	}
+	.contour ul li.phoneAuth .td {
+		padding-top: 0;
+		padding-bottom: 0;
+	}
+	.contour ul li.phoneAuth .td span {
+		width: 150px;
+		margin-top: 0;
+		border-radius: 8px 8px 0 0;
+	}
+	.contour ul li.phoneAuth .td > div {
+		width: 100%;
+		margin-top: 0;
+		padding: 15px;
+	}
+	.contour ul li.phoneAuth .td button {
+		width: 100%;
+		margin-top: 10px;
+	}
+	.phoneAuth .td > div #moblphon {
+		height: 35px;
+	}
+	.contour ul li.phoneAuth .td button {
+		height: 35px;
+		line-height: 35px;
+		font-size: 15px;
+	}
+	.contour ul li.grouptype .td label,
+	.contour ul li.grouptype .td select {
+		width: 100%;
+		font-size: 13px;
+	}
+	.select {
+		width: 100%;
+	}
+	.contour ul li.notice .td #box {
+		width: 100% !important;
+		font-size: 14px;
+		text-align: left;
+	}
+	.contour ul li.col .th {
+		width: 100%;
+	}
+	.contour ul li.notice .td > small {
+		display: none
+	}
+	.contour ul li.notice .td label {
+		font-size: 13px;
+		padding: 0;
+		text-align: center;
+		width: 85px;
+	}
+	.emailAuth {
+		display: flex !important;
+		flex-direction: column;
+	}
+	.emailAuth .th {
+		width: 100%;
+	}
+	.emailAuth .td {
+		width: 100%;
+	}
+	/* 회원가입_단체_일반 끝 09/29 고선호 추가 */
+
 }
 
 /* Tablet Device */
@@ -4970,8 +5257,24 @@
 	.intro_item_01 .year_inner {
 		margin-top: 50px;
 	}
-	.intro_item_01 .year_inner .years_sum {
-		height: 250px;
+	.intro_item_01 .year_inner .years_sum01 {
+		background-image: url('../images/contents/m_img_schedule01.png');
+		width: 100%;
+		height: 100%;
+		margin-bottom: 200px;
+	}
+	.intro_item_01 .year_inner .years_sum02 {
+		background-image: url('../images/contents/m_img_schedule02.png');
+		margin-top: 200px;
+		width: 100%;
+		height: 100%;
+		margin-bottom: 30px;
+	}
+	.intro_item_01 .year_inner .years_sum03 {
+		display: none;
+	}
+	.intro_item_01 .year_inner .years_sum04 {
+		display: none;
 	}
 	.intro_item_01 .year_inner .years_desc label {
 		font-size: 30px;

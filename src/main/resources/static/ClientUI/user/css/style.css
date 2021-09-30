@@ -4733,8 +4733,28 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     display: flex;
     margin-top: 55px;
 }
-.intro_item_01 .year_inner .years_sum {
-    background-color: #e8e8e8;
+.intro_item_01 .year_inner .years_sum01 {
+    background-image: url('../images/contents/img_schedule01.png');
+    width: 220px;
+    height: 300px;
+    margin-right: 55px;
+}
+.intro_item_01 .year_inner .years_sum02 {
+    background-image: url('../images/contents/img_schedule02.png');
+    margin-top: 650px;
+    width: 220px;
+    height: 300px;
+    margin-right: 55px;
+}
+.intro_item_01 .year_inner .years_sum03 {
+    background-image: url('../images/contents/img_schedule03.png');
+    width: 220px;
+    height: 300px;
+    margin-right: 55px;
+}
+
+.intro_item_01 .year_inner .years_sum04 {
+    background-image: url('../images/contents/img_schedule04.png');
     width: 220px;
     height: 300px;
     margin-right: 55px;
@@ -13541,3 +13561,304 @@ li.more_info2 .td label:before {
     color: #fff;
 }
 /* 신청_ 공모전리스트 끝 */
+
+
+/* 회원가입_단체_일반 시작 09/29 고선호 수정 */
+.sec_write .jointit {
+    color: #6193f0;
+}
+.contour .th {
+    /* width: 300px !important; */
+}
+.tbl_write .td input::placeholder {
+    font-size: 15px;
+    color: a5a5a5;
+}
+.tbl_write .td input + .btn {
+    border-radius: 8px;
+    border: 1px solid #85b4f7;
+    color: #85b4f7;
+}
+/* 휴대폰인증 */
+.contour ul li.phoneAuth .td {
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+.contour ul li.phoneAuth .td .tabs {
+    height: 180px;
+    position: relative;
+}
+.contour ul li.email_f .td .tabs {
+    height: 280px;
+}
+.contour ul li.phoneAuth .td .tabs .tab {
+    display: inline-block;
+    float: left;
+    width: 120px;
+}
+.contour ul li.phoneAuth .td .tabs .tab > label {
+    background-color: rgba(234, 234, 234, 0.5);
+    color: #5a5a5a;
+    text-align: center;
+    padding: 8px;
+    display: inline-block;
+    width: 120px;
+    border-radius: 10px 10px 0 0;
+    border: 1px solid rgba(199, 199, 199, 0.5);
+    cursor: pointer;
+    border-bottom: 0;
+    margin-right: -4px;
+}
+.contour ul li.phoneAuth input[type="radio"] {
+    display: none;
+}
+.contour ul li.phoneAuth .td .tabs .tab .auth_contents_02 > p {
+    color: #6d95e1;
+    font-size: 15px;
+}
+.contour ul li.phoneAuth .td .tabs .tab .auth_contents_01 > b {
+    display: block;
+    margin-bottom: 20px;
+    font-size: 17px;
+}
+.contour ul li.phoneAuth .td .tabs .tab .auth_contents_02 > p span {
+    display: block;
+}
+.contour ul li.phoneAuth .td .tabs .tab .auth_contents_02 > button {
+    border-radius: 8px;
+    border: 1px solid #85b4f7;
+}
+.tab_none {
+    display: none;
+}
+/* checked function */
+.contour ul li.phoneAuth .td .tabs .tab input[type="radio"]:checked + label{
+    border-bottom: 0;
+    background-color: #85b4f7;
+    color: #fff;
+    border: 1px solid #85b4f7;
+}
+.contour ul li.phoneAuth .td .tabs .tab input[type="radio"]:checked ~ .auth_contents {
+    display: block;
+}
+.contour ul li.phoneAuth .td .tabs .tab .auth_contents {
+    display: none;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    border: 1px solid #cccccc;
+    border-radius: 0 8px 8px 8px;
+    padding: 20px;
+    padding-right: 300px;
+}
+.contour ul li.notice .td small {
+    display: block;
+    color: #6d95e1;
+    margin-top: 10px;
+    font-size: 15px;
+}
+.contour ul li.notice .td input {
+    display: none;
+}
+.contour ul li.notice .td label {
+    color: #85b4f7;
+    border-radius: 8px;
+    border: 1px solid #85b4f7;
+    padding: 8px 23px;
+    line-height: 42px;
+    font-size: 17px;
+    margin: 0 0 0 12px;
+}
+.contour ul li.notice .td #box {
+    display: inline-block;
+    width: 500px;
+    border-radius: 8px;
+    border-color: #cccccc;
+    margin: 0;
+    color: #a5a5a5;
+    font-size: 15px;
+    padding: 0;
+    padding-left: 15px;
+}
+.contour ul li.grouptype .td {
+    position: relative;
+}
+.contour ul li.grouptype .td select {
+    opacity: 0;
+    width: 345px;
+}
+.contour ul li.grouptype .td label {
+    position: absolute;
+    width: 345px;
+    top: 0;
+    left: 0;
+    color: #a5a5a5;
+    border: 1px solid #cccccc;
+    line-height: 42px;
+    font-size: 15px;
+}
+.contour ul li.grouptype .td label:after {
+    background: url('../images/button/select.png') no-repeat 50% 50%;
+    width: 30px;
+    height: 30px;
+    top: 5px;
+    right: 5px;
+    content:'';
+    position: absolute;
+    border-radius: 8px;
+}
+.btn_area #btnSave {
+    border-radius: 30px;
+    width: 320px;
+    padding: 8px 0;
+    font-size: 17px;
+    color: fff;
+    background-color: #6d95e1;
+}
+/* 회원가입_단체_일반 끝 */
+
+/* 회원가입_단체_지지크루 시작 */
+/* 단체회원 동의 */
+.agree_contents h1 {
+    font-size: 26px;
+    margin-bottom: 10px;
+}
+.agree_top.mobile {
+    display: none;
+}
+.agree_contents .group_agree {
+    overflow: scroll;
+    height: 160px;
+    padding: 20px;
+    background-color: #f7f8fa;
+    border: 1px solid #cccccc;
+    overflow: hidden;
+    font-size: 17px;
+}
+.agree_contents .group_agree p b {
+    display: block;
+}
+.agree_contents .btn_area {
+    padding-top: 20px;
+    padding-bottom: 30px;
+}
+.agree_contents .group_agree .simplebar-wrapper {
+    overflow: scroll;
+}
+.btn_area .checkbox {
+    float: right;
+}
+
+.emailAuth .td > button {
+    color: #85b4f7;
+    border: 1px solid #85b4f7;
+    border-radius: 8px;
+    display: none;
+}
+.emailAuth .td > button#g_chkTempKeyBtn {
+    margin-top: 10px;
+}
+.emailAuth .td input.eKey {
+    display: none;
+}
+.emailAuth .td .tip.emph {
+    display: none;
+}
+/* 회원가입_단체_지지크루 끝 */
+
+/* 회원가입_개인_학생 시작 */
+/* 생년월일 */
+li.years_inner .years,
+li.years_inner .month,
+li.years_inner .day {
+    display: inline-block;
+    position: relative;
+}
+li.years_inner .years label,
+li.years_inner .month label,
+li.years_inner .day label,
+li.score_inner .td .chk_item > div label {
+    display: inline-block;
+    top: 0;
+    left: 0;
+    width: 180px;
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+    position: absolute;
+    padding-left: 10px;
+    line-height: 42px;
+}
+li.years_inner .years label:after,
+li.years_inner .month label:after,
+li.years_inner .day label:after,
+li.score_inner .td .chk_item > div label:after {
+    background: url('../images/button/select.png') no-repeat 50% 50%;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    content:'';
+}
+li.years_inner .years select,
+li.years_inner .month select,
+li.years_inner .day select {
+    opacity: 0;
+    width: 180px;
+}
+/* 성별 */
+li.wm .td label.man {
+    margin-right: 20px;
+}
+li.wm .td label span {
+    color: #5a5a5a;
+    font-size: 17px;
+    padding-left: 27px;
+}
+li.wm .td label {
+    position: relative;
+    cursor: pointer;
+}
+li.wm .td label:before {
+    content:'';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border: 5px solid #cfcfcf;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    background-color: #fff;
+}
+li.wm .td input[type="radio"]:checked + label:before {
+    border: 5px solid #85b4f7;
+}
+/* 가입경로 */
+li.more_info2 .td label span {
+    color: #5a5a5a;
+    display: inline-block;
+    padding-left: 15px;
+    margin-right: 30px;
+}
+li.more_info2 .td label {
+    padding-left: 20px;
+    position: relative;
+    display: inline-block;
+}
+li.more_info2 .td label:before {
+    content:'';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 25px;
+    height: 25px;
+}
+/* 가입목적 */
+.more_info3 .td .checkbox {
+    width: 120px;
+}
+.more_info3 .td > b {
+    display: block;
+    margin-bottom: 5px;
+}
+/* 회원가입_개인_학생 끝 09/29 고선호 수정 */
