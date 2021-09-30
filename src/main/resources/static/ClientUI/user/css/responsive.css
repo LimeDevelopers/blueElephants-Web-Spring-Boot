@@ -3,6 +3,62 @@
 
 /* Mobile Device */
 @media (max-width:768px) {
+	/* 활동_진단하기_ox퀴즈_질문하기 시작 */
+	.inner.top {
+		padding-top: 20px;
+	}
+	.test_inner {
+		width: 100%;
+		margin-top: 40px;
+	}
+	.test_item.test_04_inner .question .tit span {
+		font-size: 13px;
+	}
+	.test_item .chk_inner {
+		width: 100%;
+	}
+	.test_item.test_04_inner .question .tit b {
+		margin-bottom: 10px;
+	}
+	.test_item .chk_inner .chk_btn.chk_btn1 {
+		margin-left: 0;
+	}
+	.test_item .chk_inner .chk_btn.chk_btn2 {
+		margin-right: 0;
+	}
+	.test_item.test_04_inner .chk_inner .chk_btn label {
+		width: 120px;
+		height: 120px;
+	}
+	.test_item.test_04_inner .chk_inner .chk_btn.chk_btn1 label:before, .test_item.test_04_inner .chk_inner .chk_btn.chk_btn2 label:before {
+		width: 120px;
+		height: 120px;
+		background-size: cover;
+	}
+	.test_item.test_04_inner .chk_inner .chk_btn.chk_btn1 input[type="radio"]:checked + label:before, .test_item.test_04_inner .chk_inner .chk_btn.chk_btn2 input[type="radio"]:checked + label:before  {
+		width: 120px;
+		height: 120px;
+	}
+	/* 활동_진단하기_ox퀴즈_질문하기 끝 */
+
+	/* 활동_진단하기_자가진단 시작 */
+	.test_item .question .tit b {
+		font-size: 24px;
+	}
+	.test_item .question .tit span {
+		font-size: 16px;
+	}
+	.test_item .chk_inner .chk_btn label small, .test_item .chk_inner .chk_btn label span {
+		font-size: 16px;
+	}
+	.test_item.test_04_inner .question .chk_inner .chk_btn label {
+		width: auto;
+	}
+	.test_item .chk_inner:before {
+		height: 1px;
+		top: 24%;
+	}
+	/* 활동_진단하기_자가진단 끝 */
 	.page_cont > .intro_text_box .text p {
 		padding-left: 300px;
 	}

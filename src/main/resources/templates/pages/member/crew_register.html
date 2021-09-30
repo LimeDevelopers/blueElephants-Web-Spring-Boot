@@ -158,14 +158,6 @@
                     alert('이메일, 휴대폰 중 하나의 인증수단은 필수입니다.')
                     return false;
                 }
-                if(!attachedFile.val()){
-                    bLicenseAttc.val('N')
-                } else {
-                    if(!imgChk()){
-                        return false;
-                    }
-                    bLicenseAttc.val('Y')
-                }
                 return true;
             }
             else if(gbn=='CREW')
@@ -213,8 +205,7 @@
         }
 
         function imgChk(){
-            let fileNm = attachedFile.val();
-
+            let fileNm = $('#attachedFile')[0].files[0].name;
             if (fileNm != "") {
                 let ext = fileNm.slice(fileNm.lastIndexOf(".") + 1).toLowerCase();
                 if (!(ext == "gif" || ext == "jpg" || ext == "png")) {
@@ -476,13 +467,11 @@
                     if(mberDvTy=='GROUP' && bLicenseAttc.val()=="N"){
                         let conf = confirm("첨부파일이 등록되지않았습니다. 진행하시겠습니까?");
                         if(conf){
-                            frm.prop('action', '/api/member/groupInsert');
                             frm.submit();
                         } else {
                             return false
                         }
                     }
-                    frm.prop('action', '/api/member/groupInsert');
                     frm.submit();
                 }
 
@@ -492,7 +481,6 @@
                         return false;
                     }
                 }
-                frm.prop('action', '/api/member/groupInsert');
                 frm.submit();
 
                 // let formData = $("#form1").serialize();
@@ -524,9 +512,11 @@
                     let ext = filename.slice(filename.lastIndexOf(".") + 1).toLowerCase();
                     if (!(ext == "jpg" || ext == "png" || ext == "jpeg")) {
                         alert("이미지파일 (.jpg, .png, .jpeg ) 만 업로드 가능합니다.");
+                        $('#b_license_attc').val("N")
                         return false;
                     } else {
                         $('#box').text(filename);
+                        $('#b_license_attc').val("Y")
                     }
                 }
             })
@@ -551,7 +541,7 @@
                 <span>입력하신 정보를 안전하고 정확하게 관리하기 위해 최선을 다하겠습니다.</span>
             </div>
             <div class="page_cont join_form_area">
-                <form id="form1" name="form1" method="post" modelAttribute="groupForm" enctype="multipart/form-data">
+                <form id="form1" name="form1" method="post" action="/api/member/groupInsert" enctype="multipart/form-data">
                     <input type="hidden" name="mberDvTy" id="mberDvTy" value="GROUP"/>
                     <input type="hidden" name="emailAttcAt" id="emailAttcAt" value="N"/>
                     <input type="hidden" name="mobileAttcAt" id="mobileAttcAt" value="N"/>
@@ -806,7 +796,7 @@
                                         </div>
                                         <small>※ 사업자등록증 또는 공문 등 단체를 증명할 수 있는 자료를 업로드하세요.</small>
                                         <div class="td">
-                                            <input type="file" id= "attachedFile" name="attachedFile" maxlength="1"  th:accept="${allAccept}"/>
+                                            <input type="file" id= "attachedFile" name="attachedFile" maxlength="1"/>
                                             <label for="attachedFile" id="box">증빙서류업로드</label>
                                             <label for="attachedFile"><span>파일검색</span></label>
                                             <small>※ 사업자등록증 또는 공문 등 단체를 증명할 수 있는 자료를 업로드하세요.</small>

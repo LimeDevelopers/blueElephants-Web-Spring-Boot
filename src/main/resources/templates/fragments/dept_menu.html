@@ -73,10 +73,10 @@
                 <h3 th:classappend="${pageTitle eq '능력카드' ? 'sd_on pageon' : ''}" sec:authorize="!hasAnyRole('ROLE_STUDENT')">
                     <a href="/pages/myPage/abilityCard">능력카드</a></h3>
             </div>
-            <div class="sm_tit">
-                <h3 th:classappend="${pageTitle eq 'My 신청' ? 'sd_on pageon' : ''}" sec:authorize="!hasAnyRole('ROLE_STUDENT')">
-                    <a href="/pages/myPage/application">My 신청</a></h3>
-            </div>
+<!--            <div class="sm_tit">-->
+<!--                <h3 th:classappend="${pageTitle eq 'My 신청' ? 'sd_on pageon' : ''}" sec:authorize="!hasAnyRole('ROLE_STUDENT')">-->
+<!--                    <a href="/pages/myPage/application">My 신청</a></h3>-->
+<!--            </div> 수정해야댐-->
             <div class="sm_tit">
                 <h3 th:classappend="${pageTitle eq '자가진단결과' ? 'sd_on pageon' : ''}" sec:authorize="!hasAnyRole('ROLE_INSTRUCTOR')">
                     <a href="/pages/myPage/selfTestResult">자가진단결과</a></h3>
@@ -160,7 +160,7 @@
                 </div>
                 <ul th:classappend="${pageTitle eq '진단하기' ? 'slide_sub' : ''}" class="slide_sub">
                     <li><a href="/pages/activity/selfTest">자가진단</a></li>
-                    <li><a href="/pages/activity/selfTest">정밀진단</a></li>
+                    <li><a href="/pages/activity/preciseDiagnosis">정밀진단</a></li>
                     <li><a href="/pages/activity/factualSurvey">실태조사</a></li>
                     <!--<li><a href="/pages/activity/research">연구조사</a></li>-->
                     <li><a href="#none">OX퀴즈</a></li>
@@ -300,7 +300,7 @@
                     <a href="/pages/activity/factualSurvey">진단하기</a>
                     <ul class="pc_menu_sub">
                         <li><a href="/pages/activity/selfTest">자가진단</a></li>
-                        <li><a href="/pages/activity/selfTest">정밀진단</a></li>
+                        <li><a href="/pages/activity/preciseDiagnosis">정밀진단</a></li>
                         <li><a href="/pages/activity/factualSurvey">실태조사</a></li>
                         <!--<li><a href="/pages/activity/research">연구조사</a></li>-->
                         <li><a href="#none">OX퀴즈</a></li>
@@ -436,7 +436,7 @@
                 <li th:classappend="${pageTitle eq 'My 상담' ? 'pc_on' : ''}" sec:authorize="!hasAnyRole('ROLE_INSTRUCTOR')"><a href="/pages/myPage/counseling">My 상담</a></li>
 <!--                <li th:classappend="${pageTitle eq 'My 진단' ? 'pc_on' : ''}" sec:authorize="!hasAnyRole('ROLE_INSTRUCTOR')"><a href="/pages/myPage/diagnosis">My 진단</a></li> 임시주석 09.29-->
                 <li th:classappend="${pageTitle eq '능력카드' ? 'pc_on' : ''}" sec:authorize="!hasAnyRole('ROLE_INSTRUCTOR')"><a href="/pages/myPage/abilityCard">능력카드</a></li>
-                <li th:classappend="${pageTitle eq 'My 신청' ? 'pc_on' : ''}" sec:authorize="!hasAnyRole('ROLE_INSTRUCTOR')"><a href="/pages/myPage/application">My 신청</a></li>
+<!--                <li th:classappend="${pageTitle eq 'My 신청' ? 'pc_on' : ''}" sec:authorize="!hasAnyRole('ROLE_INSTRUCTOR')"><a href="/pages/myPage/application">My 신청</a></li> 수정해야댐-->
                 <li th:classappend="${pageTitle eq 'My 강의실' ? 'pc_on' : ''}" sec:authorize="!hasAnyRole('ROLE_INSTRUCTOR')"><a href="/pages/myPage/classroom">My 강의실</a>
                     <ul th:classappend="${pageTitle eq '강의실' ? 'slide_sub' : ''}" class="pc_menu_sub">
                         <li><a href="/pages/myPage/classroom">My 강의실</a></li>

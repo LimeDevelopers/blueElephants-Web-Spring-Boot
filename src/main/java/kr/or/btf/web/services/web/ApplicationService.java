@@ -275,6 +275,7 @@ public class ApplicationService extends _BaseService {
                         qPreventionMaster.updDtm
                 ))
                 .from(qPreventionMaster)
+                .where(qPreventionMaster.approval.eq("Y"))
                 .limit(pageable.getPageSize())
                 .offset(pageable.getOffset())
                 .orderBy(orderSpecifier)
