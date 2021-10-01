@@ -128,7 +128,7 @@
             <div>
                 <div class="sm_tit">
                     <h3 th:classappend="${pageTitle eq '예방교육' ? 'sd_on pageon' : ''}">
-                        <a href="/pages/activity/eduIntro">예방교육</a>
+                        <a href="#none">예방교육</a>
                     </h3>
                 </div>
                 <ul th:classappend="${pageTitle eq '예방교육' ? 'slide_sub' : ''}" class="slide_sub">
@@ -142,10 +142,11 @@
             <div>
                 <div class="sm_tit">
                     <h3 th:classappend="${pageTitle eq '도움요청' ? 'sd_on pageon' : ''}">
-                        <a href="/pages/activity/healIntro">도움요청</a>
+                        <a href="#none">도움요청</a>
                     </h3>
                 </div>
                 <ul th:classappend="${pageTitle eq '도움요청' ? 'slide_sub' : ''}" class="slide_sub">
+                    <li><a href="/pages/activity/healIntro">소개</a></li>
                     <li><a href="/pages/activity/helpCounseling">심리상담</a></li>
                     <li><a href="/pages/activity/helpCounseling">또래상담</a></li>
                     <li><a href="/pages/activity/familyTherapy">가족테라피</a></li>
@@ -155,7 +156,7 @@
             <div>
                 <div class="sm_tit">
                     <h3 th:classappend="${pageTitle eq '진단하기' ? 'sd_on pageon' : ''}">
-                        <a href="/pages/activity/factualSurvey">진단하기</a>
+                        <a href="#none">진단하기</a>
                     </h3>
                 </div>
                 <ul th:classappend="${pageTitle eq '진단하기' ? 'slide_sub' : ''}" class="slide_sub">
@@ -169,10 +170,11 @@
             <div>
                 <div class="sm_tit">
                     <h3 th:classappend="${pageTitle eq '문화만들기' ? 'sd_on pageon' : ''}">
-                        <a href="/pages/activity/cultureIntro">문화만들기</a>
+                        <a href="#none">문화만들기</a>
                     </h3>
                 </div>
                 <ul th:classappend="${pageTitle eq '문화만들기' ? 'slide_sub' : ''}" class="slide_sub">
+                    <li><a href="/pages/activity/cultureIntro">소개</a></li>
                     <li><a href="/pages/activity/cultureList/8">대국민캠페인</a></li>
                     <li>
                         <a href="http://btf.or.kr/board/board_online_survey/board_form.asp?scrID=0000000169&pageNum=5&subNum=1&ssubNum=1#area_05_sub01">지지서명</a>
@@ -188,7 +190,7 @@
             <div>
                 <div class="sm_tit">
                     <h3 th:classappend="${pageTitle eq '제안하기' ? 'sd_on pageon' : ''}">
-                        <a href="/pages/activity/policyProposal">제안하기</a>
+                        <a href="#none">제안하기</a>
                     </h3>
                 </div>
                 <ul th:classappend="${pageTitle eq '제안하기' ? 'slide_sub' : ''}" class="slide_sub">
@@ -363,7 +365,7 @@
         </div>
     </th:block>
     <!--소식 시작-->
-    <th:block th:if="${mc eq 'news'}">
+    <th:block th:if="${mc eq '식'}">
         <div class="slider slide_menu">
             <div>
                 <div class="sm_tit">

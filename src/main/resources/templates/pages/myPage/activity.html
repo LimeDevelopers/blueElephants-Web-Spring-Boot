@@ -10,100 +10,180 @@
         <th:block th:include="fragments/mo_menu"></th:block>
         <div class="sub_container">
             <th:block th:include="fragments/dept_menu"></th:block>
-            <div class="inner">
+            <div class="contents">
+                <div class="page_top">
+                    <h3 class="page_tit">활동내역</h3>
+                    <span>회원정보를 최신정보로 관리해주세요. <br class="mo" />새로운 푸코소식과 보안을 위해 회원정보를 최신으로 업데이트 해주세요.</span>
+                </div>
                 <div class="page_cont">
-                    <div class="page_top">
-                        <h3 class="page_tit">활동내역</h3>
-                    </div>
-                    <div class="page_cont my_activitiy">
-                        <div class="activity_card">
-                            <div class="card_item">
-                                <div class="character_inner">
-                                    <div class="character">
-                                        <img src="" alt="">
-                                    </div>
-                                </div>
-                                <div class="name">푸코님</div>
-                                <div class="others">
-                                    <span>학생</span>
-                                    <span class="lv">LV.1알</span>
-                                    <span>6250p</span>
-                                </div>
+                    <ul class="board_tbl_list">
+                        <li class="thead">
+                            <strong class="category">카테고리</strong>
+                            <strong class="my_activity">활동</strong>
+                            <strong class="number">횟수</strong>
+                        </li>
+                        <!--아직 활동내역이 없을경우 : s-->
+                        <!--<li class="nodata">
+                            <div>표시할 게시물이 없습니다.</div>
+                        </li>-->
+                        <!--아직 활동내역이 없을경우 : e-->
+                        <li>
+                            <div class="category">출석수</div>
+                            <div class="my_activity">로그인</div>
+                            <div class="number"><span class="th">횟수 : </span><th:block th:text="${#numbers.formatInteger(loginCnt, 0, 'COMMA')}"></th:block></div>
+                        </li>
+                        <li>
+                            <div class="category">활동</div>
+                            <div class="my_activity">댓글, 대댓글, 공감</div>
+                            <div class="number"><span class="th">횟수 : </span><th:block th:text="${#numbers.formatInteger(commontCnt, 0, 'COMMA')}"></th:block></div>
+                        </li>
+                        <li>
+                            <div class="category">교육</div>
+                            <div class="my_activity pc">
+                                <div>자료실 게시물 확인</div>
+                                <div>사이버폭력 체험, 피해자목소리, 위로메시지 듣기, 자가진단</div>
+                                <div>강의수강</div>
                             </div>
-                        </div>
-                        <div class="portfolio">
-                            <div class="pofo_top">
-                                <h2>포트폴리오</h2>
-                                <div class="pofo_save">
-                                    <a href="#none">저장하기</a>
-                                </div>
+                            <div class="number">
+                                <div><span class="mo_tit_span">자료실 게시물 확인</span><span class="th">횟수 : </span><th:block th:text="${#numbers.formatInteger(dataLoadCnt, 0, 'COMMA')}"></th:block></div>
+                                <div><span class="mo_tit_span">사이버폭력 체험, 피해자목소리, 위로메시지 듣기, 자가진단</span><span class="th">횟수 : </span><th:block th:text="${#numbers.formatInteger(courseRequestCnt, 0, 'COMMA')}"></th:block></div>
+                                <div><span class="mo_tit_span">강의수강</span><span class="th">횟수 : </span><th:block th:text="${#numbers.formatInteger(surveyCnt, 0, 'COMMA')}"></th:block></div>
                             </div>
-                            <div class="pofo_items">
-                                <div class="activity_1">
-                                    <span>출석/댓글</span>
-                                    <b><th:block th:text="${#numbers.formatInteger(loginCnt, 0, 'COMMA')}"></th:block>/<th:block th:text="${#numbers.formatInteger(commontCnt, 0, 'COMMA')}"></th:block></b>
-                                </div>
-                                <div class="activity_2">
-                                    <span>교육</span>
-                                    <b>32</b>
-                                </div>
-                                <div class="activity_3">
-                                    <span>정책제안</span>
-                                    <b>32</b>
-                                </div>
-                                <div class="activity_4">
-                                    <span>문화만들기</span>
-                                    <b>32</b>
-                                </div>
-                                <div class="activity_5">
-                                    <span>신청</span>
-                                    <b>32</b>
-                                </div>
-                                <div class="activity_6">
-                                    <span>스토어</span>
-                                    <b>32</b>
-                                </div>
+                        </li>
+                        <li>
+                            <div class="category">체험</div>
+                            <div class="my_activity pc">
+                                <div>설문실시, 만족도조사</div>
+                                <div>실태조사 참여</div>
                             </div>
-                            <div class="pofo_bottom">
-                                <div>
-                                    <h3>지지크루활동</h3>
-                                    <table>
-                                        <tr>
-                                            <td>활동내역 문의제목입니다.<b></b>
-                                                <span>푸른코끼리</span>
-                                                <span>2021-10-11</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>활동내역 문의제목입니다.<b></b>
-                                                <span>푸른코끼리</span>
-                                                <span>2021-10-11</span>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <div>
-                                    <h3>주요정책 제안</h3>
-                                    <table>
-                                        <tr>
-                                            <td>활동내역 문의제목입니다.<b></b>
-                                                <span>푸른코끼리</span>
-                                                <span>2021-10-11</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>활동내역 문의제목입니다.<b></b>
-                                                <span>푸른코끼리</span>
-                                                <span>2021-10-11</span>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
+                            <div class="number">
+                                <div><span class="mo_tit_span">설문실시, 만족도조사</span><span class="th">횟수 : </span><th:block th:text="${#numbers.formatInteger(expCnt, 0, 'COMMA')}"></th:block></div>
+                                <div><span class="mo_tit_span">실태조사 참여</span><span class="th">횟수 : </span><th:block th:text="${#numbers.formatInteger(surveyFactualCnt, 0, 'COMMA')}"></th:block></div>
                             </div>
-                        </div>
-                    </div>
+                        </li>
+                        <li>
+                            <div class="category">도움/상담</div>
+                            <div class="my_activity pc">
+                                <div>도움요청 확인, 자료실, 상담문의</div>
+                                <div>게시판 상담</div>
+                            </div>
+                            <div class="number">
+                                <div><span class="mo_tit_span">도움요청 확인, 자료실, 상담문의</span><span class="th">횟수 : </span><th:block th:text="${#numbers.formatInteger(adCnt1, 0, 'COMMA')}"></th:block></div>
+                                <div><span class="mo_tit_span">게시판 상담</span><span class="th">횟수 : </span><th:block th:text="${#numbers.formatInteger(adCnt2, 0, 'COMMA')}"></th:block></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="category">나눔</div>
+                            <div class="my_activity">나눔링크이동</div>
+                            <div class="number"><span class="th">횟수 : </span><th:block th:text="${#numbers.formatInteger(nanumCnt, 0, 'COMMA')}"></th:block></div>
+                        </li>
+                        <li>
+                            <div class="category">챌린지</div>
+                            <div class="my_activity">영상시청(대국민캠페인, 지지선언), 지지서명링크</div>
+                            <div class="number"><span class="th">횟수 : </span><th:block th:text="${#numbers.formatInteger(chgCnt, 0, 'COMMA')}"></th:block></div>
+                        </li>
+                        <li>
+                            <div class="category">정책제안</div>
+                            <div class="my_activity">제안하기, 목록확인</div>
+                            <div class="number"><span class="th">횟수 : </span><th:block th:text="${#numbers.formatInteger(policyCnt, 0, 'COMMA')}"></th:block></div>
+                        </li>
+                    </ul>
                 </div>
             </div>
+<!--            <div class="inner">-->
+<!--                <div class="page_cont">-->
+<!--                    <div class="page_top">-->
+<!--                        <h3 class="page_tit">활동내역</h3>-->
+<!--                    </div>-->
+<!--                    <div class="page_cont my_activitiy">-->
+<!--                        <div class="activity_card">-->
+<!--                            <div class="card_item">-->
+<!--                                <div class="character_inner">-->
+<!--                                    <div class="character">-->
+<!--                                        <img src="" alt="">-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="name">푸코님</div>-->
+<!--                                <div class="others">-->
+<!--                                    <span>학생</span>-->
+<!--                                    <span class="lv">LV.1알</span>-->
+<!--                                    <span>6250p</span>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="portfolio">-->
+<!--                            <div class="pofo_top">-->
+<!--                                <h2>포트폴리오</h2>-->
+<!--                                <div class="pofo_save">-->
+<!--                                    <a href="#none">저장하기</a>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="pofo_items">-->
+<!--                                <div class="activity_1">-->
+<!--                                    <span>출석/댓글</span>-->
+<!--                                    <b><th:block th:text="${#numbers.formatInteger(loginCnt, 0, 'COMMA')}"></th:block>/<th:block th:text="${#numbers.formatInteger(commontCnt, 0, 'COMMA')}"></th:block></b>-->
+<!--                                </div>-->
+<!--                                <div class="activity_2">-->
+<!--                                    <span>교육</span>-->
+<!--                                    <b>32</b>-->
+<!--                                </div>-->
+<!--                                <div class="activity_3">-->
+<!--                                    <span>정책제안</span>-->
+<!--                                    <b>32</b>-->
+<!--                                </div>-->
+<!--                                <div class="activity_4">-->
+<!--                                    <span>문화만들기</span>-->
+<!--                                    <b>32</b>-->
+<!--                                </div>-->
+<!--                                <div class="activity_5">-->
+<!--                                    <span>신청</span>-->
+<!--                                    <b>32</b>-->
+<!--                                </div>-->
+<!--                                <div class="activity_6">-->
+<!--                                    <span>스토어</span>-->
+<!--                                    <b>32</b>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="pofo_bottom">-->
+<!--                                <div>-->
+<!--                                    <h3>지지크루활동</h3>-->
+<!--                                    <table>-->
+<!--                                        <tr>-->
+<!--                                            <td>활동내역 문의제목입니다.<b></b>-->
+<!--                                                <span>푸른코끼리</span>-->
+<!--                                                <span>2021-10-11</span>-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
+<!--                                        <tr>-->
+<!--                                            <td>활동내역 문의제목입니다.<b></b>-->
+<!--                                                <span>푸른코끼리</span>-->
+<!--                                                <span>2021-10-11</span>-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
+<!--                                    </table>-->
+<!--                                </div>-->
+<!--                                <div>-->
+<!--                                    <h3>주요정책 제안</h3>-->
+<!--                                    <table>-->
+<!--                                        <tr>-->
+<!--                                            <td>활동내역 문의제목입니다.<b></b>-->
+<!--                                                <span>푸른코끼리</span>-->
+<!--                                                <span>2021-10-11</span>-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
+<!--                                        <tr>-->
+<!--                                            <td>활동내역 문의제목입니다.<b></b>-->
+<!--                                                <span>푸른코끼리</span>-->
+<!--                                                <span>2021-10-11</span>-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
+<!--                                    </table>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
         <!--<div class="contents">
             <div class="page_top">
                 <h3 class="page_tit">활동내역</h3>

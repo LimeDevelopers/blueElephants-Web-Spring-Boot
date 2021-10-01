@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/mo_menu"></th:block>
+        <div class="sub_container">
+            <th:block th:include="fragments/dept_menu"></th:block>
+            <div class="inner top">
+                <div class="page_cont">
+                    <h4 class="subtit pc review_title">OX퀴즈</h4>
+                    <div class="test_inner">
+                        <div class="test_item test_04_inner">
+                            <div class="question">
+                                <div class="tit">
+                                    <b>Q1</b>
+                                    <span>사이버폭력은 친해지면서 발생하는 어쩔 수 없는 현상이다.</span>
+                                </div>
+                                <div class="chk_inner">
+                                    <div class="chk_btn chk_btn1">
+                                        <input type="radio" name="ox01" id="test01">
+                                        <label for="test01">
+                                        </label>
+                                    </div>
+                                    <div class="chk_btn chk_btn2">
+                                        <input type="radio" name="ox01" id="test02">
+                                        <label for="test02">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="question">
+                                <div class="tit">
+                                    <b>Q2</b>
+                                    <span>사이버폭력은 친해지면서 발생하는 어쩔 수 없는 현상이다.</span>
+                                </div>
+                                <div class="chk_inner">
+                                    <div class="chk_btn chk_btn1">
+                                        <input type="radio" name="ox02" id="test03">
+                                        <label for="test03">
+                                        </label>
+                                    </div>
+                                    <div class="chk_btn chk_btn2">
+                                        <input type="radio" name="ox02" id="test04">
+                                        <label for="test04">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="question">
+                                <div class="tit">
+                                    <b>Q3</b>
+                                    <span>사이버폭력은 친해지면서 발생하는 어쩔 수 없는 현상이다.</span>
+                                </div>
+                                <div class="chk_inner">
+                                    <div class="chk_btn chk_btn1">
+                                        <input type="radio" name="ox03" id="test05">
+                                        <label for="test05">
+                                        </label>
+                                    </div>
+                                    <div class="chk_btn chk_btn2">
+                                        <input type="radio" name="ox03" id="test06">
+                                        <label for="test06">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="question">
+                                <div class="tit">
+                                    <b>Q4</b>
+                                    <span>사이버폭력은 친해지면서 발생하는 어쩔 수 없는 현상이다.</span>
+                                </div>
+                                <div class="chk_inner">
+                                    <div class="chk_btn chk_btn1">
+                                        <input type="radio" name="ox04" id="test07">
+                                        <label for="test07">
+                                        </label>
+                                    </div>
+                                    <div class="chk_btn chk_btn2">
+                                        <input type="radio" name="ox04" id="test08">
+                                        <label for="test08">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="question">
+                                <div class="tit">
+                                    <b>Q5</b>
+                                    <span>사이버폭력은 친해지면서 발생하는 어쩔 수 없는 현상이다.</span>
+                                </div>
+                                <div class="chk_inner">
+                                    <div class="chk_btn chk_btn1">
+                                        <input type="radio" name="ox05" id="test09">
+                                        <label for="test09">
+                                        </label>
+                                    </div>
+                                    <div class="chk_btn chk_btn2">
+                                        <input type="radio" name="ox05" id="test10">
+                                        <label for="test10">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <th:block
+                        th:replace="/fragments/paging :: pagingbody(list=${postscripts}, link='/pages/activity/postscript', formId='form1')"></th:block>
+            </div>
+        <th:block th:replace="fragments/footer"></th:block>
+    </div>
+</div>
+</body>
+</html>
