@@ -932,6 +932,9 @@
 	.slick-dots {
 		display: none;
 	}
+	.section01 .slick-dots li {
+		display: none;
+	}
 
 	/* Section02 */
 	.section02 {
@@ -5652,6 +5655,22 @@
 	}
 	/* 활동_ 예방교육 끝 */
 	/* 20210903_수강신청 끝 * /
+
+	/* 활동_교육후기 시작 */
+	.page_cont > .sub_text_box {
+		position: relative;
+	}
+	.page_cont > .sub_text_box img {
+		position: absolute;
+		top: 20px;
+		left: 30px;
+		width: 25%;
+		transform: none;
+	}
+	.page_cont > .sub_text_box > .text {
+		width: 70%;
+	}
+	/* 활동_교육후기 끝 */
 
 
 	/* 활동_강의실 시작 */
