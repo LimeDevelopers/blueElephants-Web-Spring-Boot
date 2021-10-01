@@ -99,20 +99,20 @@ public class  ApplicationController {
                                    Pageable pageable,
                                    SearchForm searchForm) {
         // 수연님 작업 후 제거
-//        if(account == null) {
-//            model.addAttribute("altmsg", "로그인 후 이용가능합니다.");
-//            model.addAttribute("locurl", "/login");
-//            return "/message";
-//        } else {
-//            if(account.getMberDvTy().equals(UserRollType.INSTRUCTOR) || account.getMberDvTy().equals(UserRollType.TEACHER)){
-//                Page<PreventionMaster> preventionPage = applicationService.getPreEduMstList(pageable);
-//                model.addAttribute("preList", preventionPage);
-//            } else {
-//                model.addAttribute("altmsg", "접근 권한이 없습니다.");
-//                model.addAttribute("locurl", "/");
-//                return "/message";
-//            }
-//        }
+        if(account == null) {
+            model.addAttribute("altmsg", "로그인 후 이용가능합니다.");
+            model.addAttribute("locurl", "/login");
+            return "/message";
+        } else {
+            if(account.getMberDvTy().equals(UserRollType.INSTRUCTOR) || account.getMberDvTy().equals(UserRollType.TEACHER)){
+                Page<PreventionMaster> preventionPage = applicationService.getPreEduMstList(pageable);
+                model.addAttribute("preList", preventionPage);
+            } else {
+                model.addAttribute("altmsg", "접근 권한이 없습니다.");
+                model.addAttribute("locurl", "/");
+                return "/message";
+            }
+        }
 
         // 작업 후 제거
         Page<PreventionMaster> preventionPage = applicationService.getPreEduMstList(pageable);
@@ -254,32 +254,32 @@ public class  ApplicationController {
                                @PathVariable("id") Long id,
                                @CurrentUser Account account) {
         // 수연님 작업 후 제거
-//        if(account == null) {
-//            model.addAttribute("altmsg", "로그인 후 이용가능합니다.");
-//            model.addAttribute("locurl", "/login");
-//            return "/message";
-//        } else {
-//            if(UserRollType.INSTRUCTOR.equals(account.getMberDvTy()) || UserRollType.TEACHER.equals(account.getMberDvTy())){
-//                PreventionMaster preventionMaster = applicationService.getPreEduMstData(id);
-//                if(preventionMaster==null){
-//                    model.addAttribute("altmsg", "존재하지않는 게시글입니다.");
-//                    model.addAttribute("locurl", "/pages/application/preeducationList");
-//                    return "/message";
-//                } else {
-//                    if(UserRollType.INSTRUCTOR.equals(account.getMberDvTy())){
-//                        Prevention prevention = applicationService.getPreAt(id, account.getId());
-//                        if(prevention != null) {
-//                            model.addAttribute("prevention", prevention);
-//                        }
-//                    }
-//                    model.addAttribute("preventionMaster", preventionMaster);
-//                }
-//            } else {
-//                model.addAttribute("altmsg", "접근 권한이 없습니다.");
-//                model.addAttribute("locurl", "/");
-//                return "/message";
-//            }
-//        }
+        if(account == null) {
+            model.addAttribute("altmsg", "로그인 후 이용가능합니다.");
+            model.addAttribute("locurl", "/login");
+            return "/message";
+        } else {
+            if(UserRollType.INSTRUCTOR.equals(account.getMberDvTy()) || UserRollType.TEACHER.equals(account.getMberDvTy())){
+                PreventionMaster preventionMaster = applicationService.getPreEduMstData(id);
+                if(preventionMaster==null){
+                    model.addAttribute("altmsg", "존재하지않는 게시글입니다.");
+                    model.addAttribute("locurl", "/pages/application/preeducationList");
+                    return "/message";
+                } else {
+                    if(UserRollType.INSTRUCTOR.equals(account.getMberDvTy())){
+                        Prevention prevention = applicationService.getPreAt(id, account.getId());
+                        if(prevention != null) {
+                            model.addAttribute("prevention", prevention);
+                        }
+                    }
+                    model.addAttribute("preventionMaster", preventionMaster);
+                }
+            } else {
+                model.addAttribute("altmsg", "접근 권한이 없습니다.");
+                model.addAttribute("locurl", "/");
+                return "/message";
+            }
+        }
         // 작업 후 제거
         PreventionMaster preventionMaster = applicationService.getPreEduMstData(id);
         model.addAttribute("preventionMaster", preventionMaster);
@@ -399,7 +399,7 @@ public class  ApplicationController {
 
         }
         model.addAttribute("mc", "application");
-        model.addAttribute("pageTitle", "파트너스");
+        model.addAttribute("pageTitle", "지지선언");
         return "pages/application/zzdeclarationRegister";
     }
     @PostMapping("/pages/application/eventList/eventRegister")
@@ -449,16 +449,41 @@ public class  ApplicationController {
                         @PathVariable("id") Long id,
                         @CurrentUser Account account){
         Event event = applicationService.getEventData(id);
+        List<Event> eventDetail = applicationService.getEventDetail(id);
+
         if(event == null){
             model.addAttribute("altmsg", "정상적인 경로를 이용하세요.");
             model.addAttribute("locurl", "/pages/application/eventList");
             return "/message";
         }
         model.addAttribute("epid",id);
+        model.addAttribute("eventList" , eventDetail);
         model.addAttribute("mc", "application");
         model.addAttribute("pageTitle", "행사");
 
         return "pages/application/eventDetail";
+    }
+
+    @GetMapping("/pages/application/eventList/eventDetail/eventRegister/{id}")
+    public String eventRegister(Model model ,
+                                  ApplicationForm applicationForm ,
+                                  @PathVariable("id") Long id ,
+                                  @CurrentUser Account account) {
+        Event event = applicationService.getEventData(id);
+        List<Event> eventDetail= applicationService.getEventDetail(id);
+
+        if(event == null){
+            model.addAttribute("altmsg", "정상적인 경로를 이용하세요.");
+            model.addAttribute("locurl", "/pages/application/eventList");
+            return "/message";
+        }
+
+        model.addAttribute("epid",id);
+        model.addAttribute("eventList" , eventDetail);
+        model.addAttribute("mc", "application");
+        model.addAttribute("pageTitle", "공모전");
+
+        return "pages/application/eventRegister";
     }
 
 

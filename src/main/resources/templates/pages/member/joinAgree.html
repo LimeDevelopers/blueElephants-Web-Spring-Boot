@@ -9,6 +9,10 @@
 <head>
     <th:block th:include="fragments/header"></th:block>
     <script>
+        let agree001
+        let agree002
+        let agree003
+
         $(function(){
             //mo 약관 보기
             $('.btn_view').each(function(){
@@ -45,6 +49,11 @@
         function fn_join(){
             var checkCnt = $( "input[id^=agree]" ).length;
             var checkedCnt = $( "input[id^=agree]:checked" ).length;
+
+            if(checkedCnt < checkCnt){
+                alert("필수 약관에 동의해주세요");
+                return false
+            }
 
             if(checkedCnt >= checkCnt){
                 location.href = '/pages/member/register';
