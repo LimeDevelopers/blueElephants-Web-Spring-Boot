@@ -59,6 +59,27 @@
 		top: 24%;
 	}
 	/* 활동_진단하기_자가진단 끝 */
+
+	/* 활동_피해자체험 시작 */
+	.review_text_box.mt {
+		margin-top: 80px !important;
+	}
+	.page_cont > .sub_text_box.mt > .text {
+		width: 100%;
+	}
+	.page_cont > .sub_text_box.mt > .text .sub {
+		margin-top: 3px;
+	}
+	.page_cont > .review_text_box.mt img {
+		top: 25% !important;
+	}
+	.board_top.review_board+.thumb_list {
+		margin-top: 50px;
+	}
+	/* 활동_피해자체험 끝 */
+
+
+
 	.page_cont > .intro_text_box .text p {
 		padding-left: 300px;
 	}
