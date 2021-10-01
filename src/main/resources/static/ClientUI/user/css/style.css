@@ -5601,6 +5601,14 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
 }
 /* 활동_강의실 끝 */
 
+/* 활동_자료실 시작 */
+.board_list.border_non {
+    border-top: none;
+}
+
+/* 활동_자료실 끝 */
+
+
 
 
 
@@ -6359,7 +6367,7 @@ h4.subtit {
 
 h4.subtit.pc {
     line-height: 1;
-    /*margin-top: 67px;*/
+    margin-top: 67px;
 }
 
 h4.submsg.mo {
@@ -6456,13 +6464,17 @@ h4.submsg.mo {
 }
 
 .board_list {
+    width: 100%;
     margin-top: 20px;
     border-top: 2px solid #8bb3ff
 }
 
 .board_list>li {
     padding: 20px 0;
-    border-bottom: 1px solid #ccc
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    padding-bottom: 40px;
+    position: relative;
 }
 
 .board_list>li .thumb {
@@ -6521,13 +6533,13 @@ h4.submsg.mo {
     display: inline-block;
 }
 
-.board_list>li .info_area .sort_area {
+.board_list>li .sort_area {
     position: absolute;
-    top: 100%;
-    left: 0;
+    bottom: 50px;
+    left: 230px;
 }
 
-.board_list>li .info_area .sort {
+.board_list>li .sort {
     display: inline-block;
     min-width: 75px;
     height: 42px;
@@ -6551,31 +6563,31 @@ h4.submsg.mo {
     border-color: #7232d8
 }
 
-.board_list>li .info_area .sort.teenager {
+.board_list>li .sort.teenager {
     color: #176de4;
     border-color: #176de4
 }
 
-.board_list>li .info_area .sort.parent {
+.board_list>li .sort.parent {
     color: #004a80;
     border-color: #004a80
 }
 
-.board_list>li .info_area .sort.teacher {
+.board_list>li .sort.teacher {
     color: #e56300;
     border-color: #e56300
 }
 
-.board_list>li .info_area .sort.lecturer {
+.board_list>li .sort.lecturer {
     color: #005e20;
     border-color: #005e20
 }
 
-.board_list>li .info_area .delete_area {
+.board_list>li .delete_area {
     margin-top: 10px
 }
 
-.board_list>li .info_area .delete_area .btn {
+.board_list>li .delete_area .btn {
     color: #8bb3ff;
     font-size: 16px;
     line-height: 21px;
@@ -6583,7 +6595,7 @@ h4.submsg.mo {
     border-bottom: 1px solid #8bb3ff
 }
 
-.board_list>li .info_area .delete_area .btn:before {
+.board_list>li .delete_area .btn:before {
     content: '';
     display: inline-block;
     width: 11px;
@@ -6899,6 +6911,7 @@ h4.subtit+.tip_tbl {
 .thumb_list {
     overflow: hidden;
     margin: -40px 0 0 -30px;
+    padding-top: 20px;
 }
 
 .thumb_list>li {

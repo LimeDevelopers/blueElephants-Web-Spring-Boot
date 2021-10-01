@@ -20,7 +20,7 @@
 
             <form id="form1" name="form1" method="post" th:object="${searchForm}">
 
-                <div class="contents">
+                <div class="inner">
                     <!--<div class="page_top pc">
                         <h3 class="page_tit">푸코소식</h3>
                         <span>사이버폭력 예방과 근절을 위해 오늘도 뛰고 있는 푸코소식을 들어봐요.</span>
@@ -45,8 +45,9 @@
                         <!--                        </ul>-->
                         <!--                        <p class="mo_page_txt">사이버폭력 예방과 근절을 위해 오늘도 뛰고 있는 푸코소식을 들어봐요.</p>-->
                         <!--                    </div>-->
-                        <h4 class="subtit pc" th:text="${boardMaster.bbsNm}">언론보도</h4>
-                        <div class="board_top">
+                        <h4 class="subtit" th:text="${boardMaster.bbsNm}">언론보도</h4>
+
+                        <!--<div class="board_top">
                             <div class="select w160">
                                 <label th:for="sntncHead">
                                     <th:block th:if="*{sntncHead eq null or sntncHead eq ''}">전체</th:block>
@@ -63,7 +64,7 @@
                             <div class="select w160">
                                 <label th:for="srchField">
                                     <!--<th:block th:if="*{srchField eq '' or srchField eq null}">전체</th:block>-->
-                                    <th:block th:if="*{srchField eq 'title' or srchField eq '' or srchField eq null}">
+                                    <!--<th:block th:if="*{srchField eq 'title' or srchField eq '' or srchField eq null}">
                                         제목
                                     </th:block>
                                     <th:block th:if="*{srchField eq 'cn'}">내용</th:block>
@@ -72,7 +73,7 @@
                                 </label>
                                 <select th:field="*{srchField}">
                                     <!--<option value="" selected>전체</option>-->
-                                    <option value="title">제목</option>
+                                    <!--<option value="title">제목</option>
                                     <option value="cn">내용</option>
                                     <option value="titleCn">제목+내용</option>
                                     <option value="wrterNm">작성자</option>
@@ -97,15 +98,73 @@
                                     <option value="alphabetically">가나다순</option>
                                 </select>
                             </div>-->
-                            <div class="select_2">
+                            <!--<div class="select_2">
                                 <button>최신순</button>
                                 <button>오래된순</button>
                                 <button>조회순</button>
                                 <button>가나다순</button>
                             </div>
+                        </div>-->
+
+                        <div class="board_top review_board">
+                            <div class="select_bx">
+                                <div class="select w160 title">
+                                    <label th:for="srchGbnParent">
+                                        <th:block th:if="*{srchGbnParent eq '' or srchGbnParent eq null}">전체</th:block>
+                                        <th:block th:each="item : ${commonCodes}">
+                                            <th:block th:if="${searchForm.srchGbnParent eq item.id}" th:text="${item.codeNm}">제목</th:block>
+                                        </th:block>
+                                    </label>
+                                    <select th:field="*{srchGbnParent}" onchange="fn_codeList(this)">
+                                        <option value="" selected>전체</option>
+                                        <th:block th:each="item : ${commonCodes}">
+                                            <option th:value="${item.id}" th:text="${item.codeNm}"></option>
+                                        </th:block>
+                                    </select>
+                                </div>
+                                <div class="select w160 subject">
+                                    <label id="srchGbnChildLabel" th:for="srchGbnChild">
+                                        <th:block th:if="*{srchGbnChild eq '' or srchGbnChild eq null}">전체</th:block>
+                                    </label>
+                                    <select th:field="*{srchGbnChild}">
+                                        <option value="" selected>전체</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="select_bx2">
+                                <div class="search news">
+                                    <input type="search" th:field="*{srchWord}" placeholder="검색어를 입력해 주세요" />
+                                </div>
+                                <button type="submit" class="btn btn_blue btn_pill_10">검색</button>
+                            </div>
                         </div>
-                        <ul class="thumb_list clearfix">
-                            <th:block th:if="${boardDatas == null or boardDatas.isEmpty()}"><!--등록된 글이 없을 경우-->
+
+
+                        <!--<div class="select w160">
+                            <label th:for="sorting">
+                                <th:block th:if="*{sorting eq 'latest' or sorting eq null or sorting eq ''}">최신순
+                                </th:block>
+                                <th:block th:if="*{sorting eq 'old'}">오래된순</th:block>
+                                <th:block th:if="*{sorting eq 'readCnt'}">조회순</th:block>
+                                <th:block th:if="*{sorting eq 'alphabetically'}">가나다순</th:block>
+                            </label>
+                            <select th:field="*{sorting}" onchange="fn_search()">
+                                <option value="latest" selected>최신순</option>
+                                <option value="old">오래된순</option>
+                                <option value="readCnt">조회순</option>
+                                <option value="alphabetically">가나다순</option>
+                            </select>
+                        </div>-->
+                        <div class="select_2">
+                            <button>최신순</button>
+                            <button>오래된순</button>
+                            <button>조회순</button>
+                            <button>가나다순</button>
+                        </div>
+
+
+                    <ul class="thumb_list clearfix gallery">
+                        <th:block th:if="${boardDatas == null or boardDatas.isEmpty()}"><!--등록된 글이 없을 경우-->
                                 <li class="nodata">
                                     <div>등록된 게시글이 없습니다.</div>
                                 </li>

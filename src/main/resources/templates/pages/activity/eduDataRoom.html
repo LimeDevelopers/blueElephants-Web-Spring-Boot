@@ -66,7 +66,7 @@
                     <!--                            </div>-->
                     <!--                        </div>-->
                     <!--                    </div>-->
-                    <div class="board_top">
+                    <!--<div class="board_top">
                         <div class="select w160">
                             <label th:for="sntncHead">
                                 <th:block th:if="*{sntncHead eq null or sntncHead eq ''}">전체</th:block>
@@ -88,7 +88,7 @@
                                 <option value="" selected>전체</option>
                             </select>
                         </div>
-                        <!--<div class="select w190">
+                        &lt;!&ndash;<div class="select w190">
                             <label th:for="dataType" th:text="*{dataType eq '' or dataType == null ? '자료형식 전체' : T(kr.or.btf.web.domain.web.enums.DataDvType).valueOf(dataType).getName()}">자료형식 전체</label>
                             <select th:field="*{dataType}">
                                 <option value="">자료형식 전체</option>
@@ -96,14 +96,69 @@
                                         th:value="${tp.name()}"
                                         th:text="${tp.getName()}"></option>
                             </select>
-                        </div>-->
+                        </div>&ndash;&gt;
                         <div class="search data">
                             <input type="search" th:field="*{srchWord}" placeholder="검색어를 입력해 주세요" />
                         </div>
                         <button type="submit" class="btn btn_blue btn_pill_10">검색</button>
+                    </div>-->
+
+
+                    <div class="board_top review_board">
+                        <div class="select_bx">
+                            <div class="select w160 title">
+                                <label th:for="srchGbnParent">
+                                    <th:block th:if="*{srchGbnParent eq '' or srchGbnParent eq null}">전체</th:block>
+                                    <th:block th:each="item : ${commonCodes}">
+                                        <th:block th:if="${searchForm.srchGbnParent eq item.id}" th:text="${item.codeNm}">제목</th:block>
+                                    </th:block>
+                                </label>
+                                <select th:field="*{srchGbnParent}" onchange="fn_codeList(this)">
+                                    <option value="" selected>전체</option>
+                                    <th:block th:each="item : ${commonCodes}">
+                                        <option th:value="${item.id}" th:text="${item.codeNm}"></option>
+                                    </th:block>
+                                </select>
+                            </div>
+                            <div class="select w160 subject">
+                                <label id="srchGbnChildLabel" th:for="srchGbnChild">
+                                    <th:block th:if="*{srchGbnChild eq '' or srchGbnChild eq null}">전체</th:block>
+                                </label>
+                                <select th:field="*{srchGbnChild}">
+                                    <option value="" selected>전체</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="select_bx2">
+                            <div class="search news">
+                                <input type="search" th:field="*{srchWord}" placeholder="검색어를 입력해 주세요" />
+                            </div>
+                            <button type="submit" class="btn btn_blue btn_pill_10">검색</button>
+                        </div>
                     </div>
-                    <ul class="board_list">
-                        <th:block th:if="${boardDatas == null or boardDatas.isEmpty()}"><!--등록된 글 없을경우-->
+                    <!--<div class="select w160">
+                                <label th:for="sorting">
+                                    <th:block th:if="*{sorting eq 'latest' or sorting eq null or sorting eq ''}">최신순
+                                    </th:block>
+                                    <th:block th:if="*{sorting eq 'old'}">오래된순</th:block>
+                                    <th:block th:if="*{sorting eq 'readCnt'}">조회순</th:block>
+                                    <th:block th:if="*{sorting eq 'alphabetically'}">가나다순</th:block>
+                                </label>
+                                <select th:field="*{sorting}" onchange="fn_search()">
+                                    <option value="latest" selected>최신순</option>
+                                    <option value="old">오래된순</option>
+                                    <option value="readCnt">조회순</option>
+                                    <option value="alphabetically">가나다순</option>
+                                </select>
+                            </div>-->
+                    <div class="select_2">
+                        <button>전체</button>
+                        <button>동영상</button>
+                        <button>문서</button>
+                        <button>이미지</button>
+                    </div>
+            <ul class="board_list border_non">
+                <th:block th:if="${boardDatas == null or boardDatas.isEmpty()}"><!--등록된 글 없을경우-->
                             <li class="nodata">
                                 <div>등록된 게시글이 없습니다.</div>
                             </li>
@@ -121,19 +176,18 @@
                                     <!--<p><span th:text="|조회수 : ${#numbers.formatInteger(item.readCnt, 0, 'COMMA')} 회|">조회수 : 100회</span><span th:text="|다운로드 : ${#numbers.formatInteger(item.downloadCnt, 0, 'COMMA')} 회|">다운로드 : 10,000회</span></p>-->
                                     <span class="date" th:text="|등록일 : ${#temporals.format(item.ntceDt,'yyyy.MM.dd')}|">등록일 : 2020.12.31</span>
                                 </div>
-                                <div class="sort_area">
 
-                                    <th:block th:if="${item.targetList ne null}" th:each="target : ${#strings.arraySplit(item.targetList,',')}">
-                                        <span th:if="${target eq T(kr.or.btf.web.domain.web.enums.MberDvType).STUDENT.name()}" class="sort teenager">청소년</span>
-                                        <span th:if="${target eq T(kr.or.btf.web.domain.web.enums.MberDvType).NORMAL.name()}" class="sort normal">일반</span>
-                                        <span th:if="${target eq T(kr.or.btf.web.domain.web.enums.MberDvType).TEACHER.name()}" class="sort teacher">교원</span>
-                                        <span th:if="${target eq T(kr.or.btf.web.domain.web.enums.MberDvType).PARENT.name()}" class="sort parent">부모</span>
-                                        <span th:if="${target eq T(kr.or.btf.web.domain.web.enums.MberDvType).LECTURER.name()}" class="sort lecturer">푸코강사</span>
-                                    </th:block>
-                                    <!--                                    <input type="hidden" th:id="|fav_dv${idx.index}|" value="0"/>-->
-                                    <!--                                    <a href="javascript:void(0)" class="sort sortstar" th:onclick="fn_favData([[${idx.index}]])" id="fav_data"><i th:id="|favIcon${idx.index}|" class="far fa-star"></i></a>-->
-                                </div>
-
+                            </div>
+                            <div class="sort_area">
+                                <th:block th:if="${item.targetList ne null}" th:each="target : ${#strings.arraySplit(item.targetList,',')}">
+                                    <span th:if="${target eq T(kr.or.btf.web.domain.web.enums.MberDvType).STUDENT.name()}" class="sort teenager">청소년</span>
+                                    <span th:if="${target eq T(kr.or.btf.web.domain.web.enums.MberDvType).NORMAL.name()}" class="sort normal">일반</span>
+                                    <span th:if="${target eq T(kr.or.btf.web.domain.web.enums.MberDvType).TEACHER.name()}" class="sort teacher">교원</span>
+                                    <span th:if="${target eq T(kr.or.btf.web.domain.web.enums.MberDvType).PARENT.name()}" class="sort parent">부모</span>
+                                    <span th:if="${target eq T(kr.or.btf.web.domain.web.enums.MberDvType).LECTURER.name()}" class="sort lecturer">푸코강사</span>
+                                </th:block>
+                                <!--                                    <input type="hidden" th:id="|fav_dv${idx.index}|" value="0"/>-->
+                                <!--                                    <a href="javascript:void(0)" class="sort sortstar" th:onclick="fn_favData([[${idx.index}]])" id="fav_data"><i th:id="|favIcon${idx.index}|" class="far fa-star"></i></a>-->
                             </div>
                         </li>
                     </ul>

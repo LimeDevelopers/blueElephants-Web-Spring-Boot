@@ -1765,6 +1765,144 @@
 	}
 	/* 일반교육 CSS 끝 */
 
+	/* 예방교육/교육후기 TOP_BANNER 공통 CSS */
+	/* .sub_text_box {
+		margin-top: 80px;
+	} */
+	.sub_text_box {
+		margin-top: 20px;
+	}
+	.page_cont > .review_title {
+		text-align: left;
+		font-size: 20px;
+		margin-top: 10px;
+	}
+	.page_cont > .sub_text_box > img {
+		width: 50%;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -120%);
+	}
+	.page_cont > .sub_text_box > .text {
+		font-size: 14px;
+		clear: both;
+		width: 100%;
+		padding: 30px 50px;
+	}
+
+	/* 활동_교육후기 시작 */
+	.page_cont > .intro_text_box > img {
+		width: 65%;
+		top: 40%;
+	}
+	.page_cont > .sub_text_box > .text {
+		padding: 30px 60px;
+	}
+	.page_cont > .intro_text_box {
+		height: 100px;
+	}
+	.page_cont > .review_text_box {
+		height: 150px;
+		margin-top: 20px;
+	}
+	.page_cont > .review_text_box img {
+		width: 42%;
+		top: 30%;
+	}
+	.page_cont > .review_text_box > .text {
+		padding: 30px;
+	}
+	.page_cont > .review_board {
+		/*padding-top: 35px;*/
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+	}
+	.page_cont > .review_board .select_bx .title select {
+		vertical-align: top;
+	}
+	.page_cont > .review_board > .select_bx .title label {
+		height: 42px;
+		line-height: 42px;
+	}
+	.page_cont > .review_board > .select_bx2 .search input {
+		height: 42px;
+		line-height: 42px;
+	}
+	.page_cont > .btn_tab {
+		margin-top: 20px;
+		padding-bottom: 20px;
+	}
+	.page_cont > .review_board > .select_bx .subject, .page_cont > .review_board > .select_bx .title {
+		height: 42px;
+	}
+	.page_cont > .review_board > .select_bx .subject label {
+		height: 42px;
+		line-height: 42px;
+	}
+	.page_cont > .review_board > div {
+		margin-top: 0;
+	}
+	.page_cont > .review_board > .select_bx2 {
+		display: flex;
+		width: auto;
+	}
+	.page_cont > .review_board > .select_bx {
+		width: 100%;
+		display: flex;
+	}
+	.page_cont > .review_board > .title label {
+		/* height: 30px; */
+		height: 44px;
+		font-size: 12px;
+		padding-top: 0;
+	}
+	.select label {
+		line-height: 30px;
+	}
+	.page_cont > .review_board > .subject label {
+		/* height: 30px; */
+		height: 44px;
+		padding-top: 0;
+		font-size: 12px;
+	}
+	.page_cont > .review_board > .search.news {
+		display:inline-block;
+		width: 50%;
+	}
+	.page_cont > .review_board > .search input {
+		height: 30px;
+		font-size: 12px;
+	}
+	.page_cont > .review_board > .btn_blue {
+		height: 30px;
+		font-size: 12px;
+	}
+	.board_top>.btn {
+		line-height: 30px;
+	}
+	.page_cont > .review_text_box > .text > .sub b {
+		display: inline;
+	}
+	.page_cont > .btn_tab .btn_review:nth-child(1) {
+		margin-right: 4px;
+	}
+	.page_cont > .btn_tab .btn_review {
+
+	}
+	.page_cont > .btn_tab .btn_review {
+		padding: 10px 15px;
+		font-size: 13px;
+		line-height: 1;
+		border-radius: 5px;
+	}
+	.thumb_list {
+		margin: 0;
+		border-top: 1px solid #8eb3f2;
+		padding-top: 10px;
+	}
+	/* 활동_교육후기 끝 */
+
 
 
 
@@ -2167,10 +2305,11 @@
 
 
 
+
 	/* 20210903_소개_모바일수정*/
 	/* 활동_사이버폭력 예방교육_소개 시작 */
 	.page_cont > .intro_text_box .text {
-		padding: 20px;
+		padding: 30px;
 	}
 	.page_cont > .intro_text_box .text p {
 		padding-left: 0;
@@ -2313,6 +2452,69 @@
 
 	/* 활동_사이버폭력 예방교육_소개 끝 */
 
+
+	/* 활동_강의실 시작 */
+	.review_text_box2 {
+		font-size: 14px;
+		padding: 20px;
+	}
+	/* 활동_강의실 끝 */
+
+
+	/* 활동_자료실 시작 */
+	.board_list {
+		margin-top: 10px;
+	}
+	.board_list>li {
+		padding: 10px 0;
+		padding-bottom: 50px;
+	}
+	.board_list>li .thumb {
+		width: 150px;
+		height: 80px;
+		flex: 1;
+	}
+	.board_list>li .info_area {
+		/*	width: 100%;*/
+		flex: 2;
+		margin-top: 0;
+	}
+	.board_list>li .info_area .title {
+		width: 90%;
+		font-size: 14px;
+		-webkit-align-clamp: 1;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+	.board_list>li .sort_area {
+		display: flex;
+	}
+	.board_list>li .sort_area {
+		position: absolute;
+		bottom: 10px;
+		left: 0;
+	}
+	.board_list>li .sort{
+		width: auto;
+		min-width: auto;
+		font-size: 12px;
+		padding: 3px 10px;
+		height: auto;
+		line-height: 20px;
+		margin-right: 5px;
+	}
+	.board_list>li .info_area .date {
+		font-size: 12px;
+		margin-top: 10px;
+	}
+	/* 활동_자료실 끝 */
+
+
+
+
+
+
 	/* 활동_도움요청_심리상담 시작 */
 	.help_text_box {
 		height: 180px;
@@ -2422,7 +2624,7 @@
 		font-size: 14px;
 		clear: both;
 		width: 100%;
-		padding: 30px 50px;
+		/*padding: 30px 50px;*/
 	}
 	.notice_board {
 		flex-direction: column;
@@ -2933,18 +3135,49 @@
 	}
 	/* 활동_진단하기_자가진단 끝 */
 
+	/* 활동_문화만들기_캠페인 시작 */
+	.page_cont > .review_text_box.culture {
+		margin-top: 55px;
+		height: 200px;
+	}
+	/* 활동_문화만들기_캠페인 끝 */
 
 
 
 
 
-
-
-
+	/* 푸코소식_소식 시작 */
+	.thumb_list>li {
+		width: 100%;
+		margin: 0;
+	}
+	.thumb_list.gallery li {
+		border-bottom: 1px solid #c7c7c7;
+		padding: 20px 0;
+		padding-bottom: 30px;
+	}
+	.select_2 button {
+		font-size: 12px;
+		padding: 0 10px;
+	}
+	.select_2 button:first-child {
+		padding-left: 0;
+	}
+	.thumb_list>li .tit {
+		font-size: 16px;
+	}
+	.thumb_list>li .date {
+		font-size: 14px;
+	}
+	/* 푸코소식_소식 끝 */
 
 	/* 20210927 푸코소식 공지사항 시작 */
+
+
+
 	h4.subtit.pc {
 		text-align: center;
+		margin-top: 20px;
 	}
 	.page_cont > .notice_board > .title label, .page_cont > .notice_board > .subject label {
 		height: 40px;
@@ -4067,7 +4300,7 @@
 		padding: 30px;
 	}
 	.page_cont > .review_board {
-		padding-top: 35px;
+		/*padding-top: 35px;*/
 	}
 	.page_cont > .review_board > .title label {
 		/* height: 30px; */
@@ -5804,6 +6037,9 @@
 		margin-bottom: 60px;
 	}
 	/* 활동_강의실 끝 */
+
+
+
 
 
 
