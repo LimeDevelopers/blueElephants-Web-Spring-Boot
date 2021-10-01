@@ -1223,7 +1223,7 @@
 	/* **************** 소개 **************** */
 	.sec {
 		/*margin-top: 40px;*/
-		margin-top: 0;
+		margin-top: 20px;
 	}
 	.page_top {
 		/*padding: 30px 0 0;*/
@@ -1264,11 +1264,15 @@
 	.intro_item_01 .sec_tit h1, .intro_item_02 .sec_tit h1 {
 		font-size: 22px;
 	}
+	.intro_item_01 .sec_tit h1 {
+		margin-top: 20px;
+	}
 	.intro_item_01 .sec_tit h1:before, .intro_item_02 .sec_tit h1:before {
 		top: 110%;
 	}
 	.intro_item_01 .sec_tit .desc {
 		font-size: 12px;
+		padding-top: 20px;
 	}
 	.intro_item_01 .sec_tit .desc span {
 		display: block;

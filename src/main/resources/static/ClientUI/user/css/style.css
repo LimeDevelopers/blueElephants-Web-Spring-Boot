@@ -4325,15 +4325,15 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     width: 100px;
     height: 100px;
 }
-.sec_intro_02 .problem_item:nth-child(1):before {
+.sec_intro_02 .problem_inner:nth-of-type(1) .problem_item:before {
     background: url('../images/icon/number_1.png')no-repeat center center;
     background-size: contain;
 }
-.sec_intro_02 .problem_item:nth-child(2):before {
+.sec_intro_02 .problem_inner:nth-of-type(2) .problem_item:before {
     background: url('../images/icon/number_2.png')no-repeat center center;
     background-size: contain;
 }
-.sec_intro_02 .problem_item:nth-child(3):before {
+.sec_intro_02 .problem_inner:nth-of-type(3) .problem_item:before {
     background: url('../images/icon/number_3.png')no-repeat center center;
     background-size: contain;
 }
