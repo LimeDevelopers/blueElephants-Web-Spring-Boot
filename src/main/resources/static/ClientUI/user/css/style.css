@@ -4783,7 +4783,7 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     margin-right: 55px;
 }
 .intro_item_01 .year_inner .years_desc {
-    width: calc(100% - 220px);
+    /*width: calc(100% - 220px);*/
 }
 
 .intro_item_01 .year_inner .years_desc label:before {
