@@ -3144,6 +3144,16 @@
 
 
 
+	/* 활동_문화만들기_정책제안 시작 */
+	.page_cont > .review_text_box.proposal_txt {
+		margin-top: 60px;
+	}
+	.btn_tab.pc_btn {
+		display: none;
+	}
+	/* 활동_문화만들기_정책제안 끝 */
+
+
 
 
 	/* 푸코소식_소식 시작 */

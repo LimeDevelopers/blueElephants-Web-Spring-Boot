@@ -11525,6 +11525,15 @@ text.shadow {
 }
 /* 활동_문화만들기 끝 */
 
+/* 활동_문화만들기_정책제안 시작 */
+.page_cont > .review_text_box.proposal_txt {
+    margin-top: 0;
+}
+.btn_tab.pc_btn {
+    display: block;
+}
+/* 활동_문화만들기_정책제안 끝 */
+
 
 
 
