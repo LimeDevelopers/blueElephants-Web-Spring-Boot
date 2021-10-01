@@ -134,9 +134,9 @@
                 <ul th:classappend="${pageTitle eq '예방교육' ? 'slide_sub' : ''}" class="slide_sub">
                     <li><a href="/pages/activity/eduIntro">소개</a></li>
                     <li><a href="/pages/activity/preventionEdu">강의실</a></li>
-                    <li><a href="#none">자료실</a></li>
-                    <li><a href="#none">교육후기</a></li>
-                    <li><a href="#none">능력카드</a></li>
+                    <li><a href="/pages/activity/eduDataRoom">자료실</a></li>
+                    <li><a href="/pages/activity/postscript">교육후기</a></li>
+                    <li><a href="/pages/activity/abilityCardIntro">능력카드제작소</a></li>
                 </ul>
             </div>
             <div>
@@ -365,7 +365,7 @@
         </div>
     </th:block>
     <!--소식 시작-->
-    <th:block th:if="${mc eq '식'}">
+    <th:block th:if="${mc eq 'news'}">
         <div class="slider slide_menu">
             <div>
                 <div class="sm_tit">
