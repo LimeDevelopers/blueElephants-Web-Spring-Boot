@@ -11085,6 +11085,9 @@ text.shadow {
 .activity_bx img {
     left: 50% !important;
 }
+.activity_bx {
+
+}
 .activity_bx .text {
     width: 100% !important;
     padding: 40px 75px !important;
@@ -11479,6 +11482,9 @@ text.shadow {
 }
 /* 활동_도움요청_채팅상담 끝 */
 
+/* 활동_도움요청_마음나눔 끝 */
+
+
 
 
 /* 활동_진단하기_자가진단 시작 */
@@ -11523,17 +11529,38 @@ text.shadow {
 .culture_text_box .text p {
     text-align: left;
 }
+
 /* 활동_문화만들기 끝 */
 
 /* 활동_문화만들기_정책제안 시작 */
+.board_top.review_board > * {
+    margin-top: 30px;
+}
 .page_cont > .review_text_box.proposal_txt {
     margin-top: 0;
 }
 .btn_tab.pc_btn {
     display: block;
 }
+.select_2 > a.write_btn {
+    display: none;
+}
 /* 활동_문화만들기_정책제안 끝 */
 
+
+/* 활동_도움요청_마음나눔 시작 */
+.mind_tit {
+    margin-bottom: 20px;
+}
+.mind_share_box b {
+    display: block;
+    color: #8bb3ff;
+    font-size: 24px;
+}
+.help_btn.mind_btn {
+    margin-top: 30px;
+}
+/* 활동_도움요청_마음나눔 시작 */
 
 
 
@@ -11969,7 +11996,8 @@ text.shadow {
     left: 45px;
 }
 .page_cont > .sub_text_box > .text{
-    width: 72%;
+    /*width: 72%;*/
+    width: 67%;
     /*width: 100%;*/
     float: right;
     font-size: 18px;

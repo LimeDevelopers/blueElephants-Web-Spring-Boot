@@ -2516,6 +2516,9 @@
 
 
 	/* 활동_도움요청_심리상담 시작 */
+	.activity_bx .text {
+		padding: 30px !important;
+	}
 	.help_text_box {
 		height: 180px;
 	}
@@ -3140,6 +3143,10 @@
 		margin-top: 55px;
 		height: 200px;
 	}
+	.page_cont > .review_text_box.culture img {
+		width: 50%;
+		top: 15%;
+	}
 	/* 활동_문화만들기_캠페인 끝 */
 
 
@@ -3150,6 +3157,23 @@
 	}
 	.btn_tab.pc_btn {
 		display: none;
+	}
+	.select_2 .option_btn {
+		display: flex;
+		justify-content: space-between;
+	}
+	.select_2 > a.write_btn {
+		display: block;
+		color: #6d95e1;
+		border: 1px solid #6d95e1;
+		padding: 5px 10px;
+		border-radius: 3px;
+		font-size: 12px;
+		display: inline-block;
+	}
+	.select_2.proposal_btn {
+		display: flex;
+		justify-content: space-between;
 	}
 	/* 활동_문화만들기_정책제안 끝 */
 
