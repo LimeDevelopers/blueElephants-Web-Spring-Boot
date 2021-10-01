@@ -63,24 +63,38 @@
 
         <form id="form1" name="form1" method="post" th:object="${form}">
 
-            <div class="contents">
-                <div class="page_top pc">
-                    <h3 class="page_tit">치유</h3>
-                    <span>사이버폭력으로 인한 상담과 도움을 요청하세요.</span>
-                </div>
+            <div class="inner">
+<!--                <div class="page_top pc">-->
+<!--                    <h3 class="page_tit">치유</h3>-->
+<!--                    <span>사이버폭력으로 인한 상담과 도움을 요청하세요.</span>-->
+<!--                </div>-->
                 <div class="page_cont">
-                    <div class="tab_ico_area">
-                        <a href="javascript:;" class="tit">도움상담</a>
-                        <p class="mo_page_txt">사이버폭력으로 인한 상담과 도움을 요청하세요.</p>
+                    <!--<div class="tab_ico_area">
+                    <a href="javascript:;" class="tit">도움상담</a>
+                    <p class="mo_page_txt">사이버폭력으로 인한 상담과 도움을 요청하세요.</p>
+                </div>
+                    <h4 class="subtit pc">도움 요청</h4>-->
+
+
+                    <h4 class="subtit review_title">도움요청</h4>
+
+                    <div class="board_top notice_board">
+                        <div class="search_inner news">
+                            <input type="search" th:field="*{srchWord}" placeholder="검색어를 입력해 주세요"/>
+                            <button type="submit" class="btn">검색</button>
+                        </div>
+                        <a class="txt_btn" href="#none">상담하기</a>
                     </div>
-                    <h4 class="subtit pc">도움 요청</h4>
-                    <div class="board_top type01">
+
+
+                    <!--<div class="board_top type01">
                         <div class="search">
                             <input type="search" th:field="*{srchWord}" placeholder="검색어를 입력해 주세요" />
                         </div>
                         <button type="submit" class="btn btn_blue btn_pill_10">검색</button>
                         <a href="/pages/activity/helpRequestRegister" class="btn btn_skyblue btn_pill_10">상담하기</a>
-                    </div>
+                    </div>-->
+
                     <ul class="board_tbl_list">
                         <li class="thead">
                             <strong class="no">No</strong>
@@ -121,7 +135,7 @@
                             </th:block>
                         </li>
                     </ul>
-                    <p class="tip_tbl">※ 보고 계시는 리스트는 게시판 상담 내용만 해당되며, 상담하기를 누르시면 다양한 상담을 받으실 수 있습니다.</p>
+                    <!--<p class="tip_tbl">※ 보고 계시는 리스트는 게시판 상담 내용만 해당되며, 상담하기를 누르시면 다양한 상담을 받으실 수 있습니다.</p>-->
                 </div>
                 <th:block th:replace="/fragments/paging :: pagingbody(list=${adviceRequests}, link='/pages/activity/helpRequest', formId='form1')"></th:block>
             </div>

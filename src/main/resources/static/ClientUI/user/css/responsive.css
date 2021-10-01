@@ -1630,6 +1630,9 @@
 	/* ****************활동**************** */
 	/* 20210903_수강신청 시작*/
 	/* 활동_ 예방교육 시작 */
+	.edulintro_inner .page_cont > .sub_text_box > img {
+		top: 40% !important;
+	}
 	.lecture_inner {
 		padding: 40px 20px;
 	}
@@ -2167,7 +2170,7 @@
 	/* 20210903_소개_모바일수정*/
 	/* 활동_사이버폭력 예방교육_소개 시작 */
 	.page_cont > .intro_text_box .text {
-		padding: 0;
+		padding: 20px;
 	}
 	.page_cont > .intro_text_box .text p {
 		padding-left: 0;
@@ -2183,6 +2186,9 @@
 	}
 	.edu_intro_area .video_area>div.intro01 {
 		margin-right: 10px;
+	}
+	.tab_ico_area {
+		margin-bottom: 20px;
 	}
 	.tab_ico_area .tab_cont .cont .desc dt {
 		font-size: 15px;
@@ -2398,6 +2404,26 @@
 	/* 활동_도움요청_심리상담 끝 */
 
 	/* 활동_도움요청_게시판 시작 */
+	.sub_text_box {
+		margin-top: 20px;
+	}
+	.page_cont > .review_title {
+		text-align: left;
+		font-size: 20px;
+		margin-top: 0;
+	}
+	.page_cont > .sub_text_box > img {
+		width: 50%;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -120%);
+	}
+	.page_cont > .sub_text_box > .text {
+		font-size: 14px;
+		clear: both;
+		width: 100%;
+		padding: 30px 50px;
+	}
 	.notice_board {
 		flex-direction: column;
 		margin-top: 22px;
@@ -3117,7 +3143,9 @@
 	.intro_item_01 .year_inner {
 		flex-direction: column;
 	}
-
+	.sec.sec_intro_01 {
+		margin-top: 0;
+	}
 	.intro_item_01 .year_inner .years_pc {
 		display: none;
 	}
@@ -3192,7 +3220,9 @@
 
 
 	/* 소개_ 푸코사무국 시작 */
-
+	.inner.location_inner {
+		padding-top: 0;
+	}
 	.intro_item_01 .puco_office_1 .map {
 		height: 270px;
 	}
@@ -3567,7 +3597,7 @@
 	.board_tbl_list>li {
 		display: flex;
 		flex-direction: column;
-		padding: 20px 0;
+		padding: 10px 0;
 	}
 	.board_tbl_list>li.thead>strong {
 		font-size: 14px;
@@ -3580,8 +3610,7 @@
 		display: none;
 	}
 	.board_tbl_list>li .no, div .no {
-		/*display: none;*/
-		margin-bottom: 10px;
+		display: none;
 	}
 	.board_tbl_list>li .hits {
 		display: none;
@@ -3594,12 +3623,13 @@
 	}
 	.board_tbl_list>li .writer {
 		margin-top: 8px;
-		font-size: 13px;
+		font-size: 14px;
 	}
 	.board_tbl_list>li .date {
 		font-size: 12px;
-		float: right;
 	}
+
+	/* 신청_ 예방교육 끝 */
 
 
 	/* 신청_ 강사교육 시작 */
@@ -3812,7 +3842,11 @@
 		margin-top: 20px;
 	}
 	.page_cont > .sub_text_box > .text {
-		padding: 20px;
+		/*padding: 20px;*/
+		font-size: 14px;
+		clear: both;
+		width: 100%;
+		/*padding: 30px 50px;*/
 	}
 	.partners {
 		margin-top: 15px;
@@ -3998,6 +4032,8 @@
 	}
 	/* 신청_ 지지크루 끝 */
 
+
+
 	/* 활동_교육후기 시작 09/15 고선호 수정 */
 	.page_cont > .intro_text_box > img {
 		width: 65%;
@@ -4005,6 +4041,16 @@
 	}
 	.page_cont > .sub_text_box > .text {
 		/*padding: 30px 60px;*/
+	}
+	.page_cont > .sub_text_box > img {
+		/*width: 50%;
+		top: 50%;*/
+		left: 50%;
+		transform: translate(-50%, -120%);
+	}
+	.page_cont > .sub_text_box > img {
+		width: 50%;
+		top: 50%;
 	}
 	.page_cont > .intro_text_box {
 		height: 100px;
@@ -5662,6 +5708,7 @@
 	/* 활동 */
 	/* 20210903_수강신청 시작 * /
 	/* 활동_ 예방교육 시작 */
+
 	.lecture{
 		flex-direction: column;
 		top: 66%;
@@ -6154,6 +6201,7 @@
 	}
 	.page_cont > .sub_text_box > .text {
 		font-size: 16px;
+		padding: 20px;
 	}
 	.partners .friends_inner .banner_inner {
 		height: 800px;

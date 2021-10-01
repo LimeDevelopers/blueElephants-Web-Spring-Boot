@@ -11221,6 +11221,43 @@ text.shadow {
 }
 /* 활동_도움요청_가족테라피 끝 */
 
+/* 활동_도움요청_게시판 시작 */
+.notice_board {
+    display: flex;
+    justify-content: center;
+}
+.notice_board .search_inner {
+    display: flex;
+    justify-content: space-between;
+}
+.notice_board .search_inner input[type=search] {
+    width: 600px;
+    margin-right: 10px;
+}
+.board_top .search_inner button.btn {
+    padding: 0 30px;
+    height: 42px;
+    height: 42px;
+    padding: 0 20px;
+    background-color: #6d95e1;
+    color: #fff;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 500;
+}
+.notice_board .txt_btn {
+    border: 1px solid #6d95e1;
+    height: 42px;
+    padding: 0 20px;
+    color: #6d95e1;
+    border-radius: 10px;
+    display: inline-block;
+    line-height: 40px;
+    font-weight: 500;
+    font-size: 16px;
+}
+/* 활동_도움요청_게시판 끝 */
+
 
 /* 활동_도움요청_화해분쟁조정 시작 */
 .help_item_inner h2 {
@@ -11927,6 +11964,7 @@ text.shadow {
     font-weight: bold;
     line-height: 0.93;
     color: #555868;
+    margin-top: 30px;
 }
 .page_cont > .intro_text_box {
     height: 80px;
@@ -12131,8 +12169,8 @@ text.shadow {
 /* 공지사항 select박스 시작*/
 
 .page_cont > .notice_board{
-    text-align: center;
-    padding-top: 43px;
+    /*text-align: center;
+    padding-top: 43px;*/
 }
 .page_cont > .notice_board > *{
     margin-right: 10px;
