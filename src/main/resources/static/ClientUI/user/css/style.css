@@ -13682,13 +13682,17 @@ text.shadow {
 /* 신청_ 강사교육 끝 */
 
 /* 회원가입 탭메뉴 */
+.tab_type02 > li {
+    border-radius: 10px;
+    font-size: 20px;
+}
 .tab_type02 > li a {
+    padding: 8px 40px;
+    border-radius: 10px;
     font-size: 20px;
 }
 .tab_type02 > li.active a {
-    padding: 8px 20px;
-    border-radius: 10px;
-    font-size: 20px;
+
 }
 
 

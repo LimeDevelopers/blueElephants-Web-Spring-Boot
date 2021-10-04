@@ -1001,7 +1001,7 @@
     <th:block th:include="fragments/header_gnb"></th:block>
     <div id="container">
         <th:block th:include="fragments/snb"></th:block>
-        <div class="contents">
+        <div class="inner">
             <div class="page_top">
                 <h3 class="page_tit">회원가입</h3>
                 <span> 고객님께서 입력하신 정보를 안전하고 정확하게 <b></b>
@@ -1014,11 +1014,11 @@
 
                             <div class="tbl_select">
                                 <ul class="tab tab_type02">
-                                    <li class="active btn_line_default btn_pill_registerSelect"><a href="javascript:fn_chgMberDvTy('STUDENT');">학생</a></li>
-                                    <li class="btn_line_default btn_pill_registerSelect"><a href="javascript:fn_chgMberDvTy('TEACHER');">교사</a></li>
-                                    <li class="btn_line_default btn_pill_registerSelect"><a href="javascript:fn_chgMberDvTy('PARENT');">부모</a></li>
-                                    <li class="btn_line_default btn_pill_registerSelect"><a href="javascript:fn_chgMberDvTy('NORMAL');">일반</a></li>
-                                    <li class="btn_line_default btn_pill_registerSelect"><a href="javascript:fn_chgMberDvTy('CREW');">지지크루</a></li>
+                                    <li class="active btn_line_default"><a href="javascript:fn_chgMberDvTy('STUDENT');">학생</a></li>
+                                    <li class="btn_line_default"><a href="javascript:fn_chgMberDvTy('TEACHER');">교사</a></li>
+                                    <li class="btn_line_default"><a href="javascript:fn_chgMberDvTy('PARENT');">부모</a></li>
+                                    <!--<li class="btn_line_default btn_pill_registerSelect"><a href="javascript:fn_chgMberDvTy('NORMAL');">일반</a></li>
+                                    <li class="btn_line_default btn_pill_registerSelect"><a href="javascript:fn_chgMberDvTy('CREW');">지지크루</a></li>-->
                                 </ul>
                             </div>
                     <div class="sec_write">
@@ -1260,11 +1260,11 @@
                                         <input type="text" id="areaNm" name="areaNm" readonly onclick="layerShow('popSchool')"/>
                                     </div>
                                 </li>
-                                <li class="student teacher">
+                                <li class="student teacher search_school">
                                     <div class="th"><label for="schlNm">학교명</label><span class="aster">*</span></div>
                                     <div class="td">
                                         <input type="text" id="schlNm" name="schlNm" placeholder="○○초등학교" readonly onclick="layerShow('popSchool')"/>
-                                        <button type="button" class="btn btn_lg btn_line_blue btn_pill_10" onclick="layerShow('popSchool')">학교검색</button>
+                                        <button type="button" class="btn">학교검색</button>
                                     </div>
                                 </li>
                                 <li class="spt_crew">

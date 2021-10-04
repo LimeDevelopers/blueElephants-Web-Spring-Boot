@@ -4331,6 +4331,7 @@
 		display: flex;
 		margin: 0 auto;
 		text-align: center;
+		margin-bottom: 40px;
 	}
 	.btn_area .btn {
 		margin-right: 0;
@@ -5333,6 +5334,16 @@
 	li.desc .td > .select:nth-of-type(1) {
 		margin-right: 10px;
 	}
+	li.search_school .td input[type="text"] {
+		margin-right: 10px;
+	}
+	li.search_school .td {
+		display: flex;
+	}
+	.tbl_write .td input + .btn {
+		font-size: 15px;
+		margin-left: 0;
+	}
 	/* 회원가입_개인_학생 끝 */
 
 
@@ -5378,11 +5389,11 @@
 	}
 	.tab_type02 > li a {
 		font-size: 15px;
+		flex: 1;
+		padding: 0 20px;
 	}
 	.tab_type02 > li.active a {
-		padding: 0 10px;
 		font-size: 15px;
-		width: 100px;
 	}
 	.sec_write {
 		margin-top: 0;
@@ -5393,6 +5404,9 @@
 	}
 	.tbl_write .td input::placeholder {
 		font-size: 13px;
+	}
+	.btn_area #btnSave {
+		padding: 0;
 	}
 	.contour ul li.phoneAuth .td > div {
 		padding-right: 0;

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/mo_menu"></th:block>
+        <div class="sub_container">
+            <th:block th:include="fragments/dept_menu"></th:block>
+
+            <form id="form1" name="form1" method="post" th:object="${form}">
+
+                <div class="inner">
+                    <div class="page_cont">
+                        <!--<h4 class="subtit pc review_title">심리상담</h4>-->
+                        <div class="sub_text_box help_text_box help_counsel_box">
+                            <img src="/ClientUI/user/images/contents/lecture/intro_text_box.png">
+                            <div class="text">
+                                <p class="title">우리는 학급의 가디언!
+                                    <span class="sub">우리는 학급의 가디언! 학교에서 일어나는  사이버폭력을 무찌르지! 학교에서 발생하는  사이버폭력 이야기를 들려줘~
+                                </span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="btn_tab pc_btn">
+                            <th:block th:if="${#authentication.principal eq 'anonymousUser'}"> <!--로그인 X-->
+                                <a href="javascript:alert('로그인 후 이용 가능합니다.');"
+                                   class="write_btn">글쓰기</a>
+                            </th:block>
+                            <th:block th:unless="${#authentication.principal eq 'anonymousUser'}"> <!--로그인 O-->
+                                <a href="/pages/activity/"
+                                   class="write_btn">글쓰기</a>
+                            </th:block>
+                        </div>
+
+                        <!--<div class="board_top review_board">
+                            <div class="select_bx">
+                                <div class="select w160 title">
+                                    <label th:for="srchGbnParent">
+                                        <th:block th:if="*{srchGbnParent eq '' or srchGbnParent eq null}">전체</th:block>
+                                        <th:block th:each="item : ${commonCodes}">
+                                            <th:block th:if="${searchForm.srchGbnParent eq item.id}" th:text="${item.codeNm}">제목</th:block>
+                                        </th:block>
+                                    </label>
+                                    <select th:field="*{srchGbnParent}" onchange="fn_codeList(this)">
+                                        <option value="" selected>전체</option>
+                                        <th:block th:each="item : ${commonCodes}">
+                                            <option th:value="${item.id}" th:text="${item.codeNm}"></option>
+                                        </th:block>
+                                    </select>
+                                </div>
+                                <div class="select w160 subject">
+                                    <label id="srchGbnChildLabel" th:for="srchGbnChild">
+                                        <th:block th:if="*{srchGbnChild eq '' or srchGbnChild eq null}">전체</th:block>
+                                    </label>
+                                    <select th:field="*{srchGbnChild}">
+                                        <option value="" selected>전체</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="select_bx2">
+                                <div class="search news">
+                                    <input type="search" th:field="*{srchWord}" placeholder="검색어를 입력해 주세요" />
+                                </div>
+                                <button type="submit" class="btn btn_blue btn_pill_10">검색</button>
+                            </div>
+                        </div>-->
+
+
+                        <div class="select_2 counsel_btn">
+                            <div class="option_btn">
+                                <button>전체</button>
+                                <button>우리반이야기</button>
+                                <button>과제</button>
+                                <button>기타</button>
+                            </div>
+                            <a href="#none" class="write_btn">글쓰기</a>
+                        </div>
+
+
+
+                    </div>
+
+                    <!--<th:block
+                            th:replace="/fragments/paging :: pagingbody(list=${postscripts}, link='/pages/activity/postscript', formId='form1')"></th:block>-->
+                </div>
+            </form>
+        </div>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>
