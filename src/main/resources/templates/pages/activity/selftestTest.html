@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+    <script type="text/javascript">
+        $(function () {
+
+        });
+
+        function answerCheck() {
+            var msg = "";
+            var checked = true;
+
+            $("input[name=question]").each(function () {
+                var qesitm_id = $(this).val();
+                var answer_cnt = $("#answer_cnt" + qesitm_id).val();
+                var rspns_cnt = $("#rspns_cnt" + qesitm_id).val();
+                var count = $("#count" + qesitm_id).val();
+
+                if (rspns_cnt > 0) {  //필수일 경우만 체크
+                    if (answer_cnt > 0) {  //객관식
+                        var answer = $("input[name=answer" + qesitm_id + "]:checked");
+                        if (answer.length != rspns_cnt) {
+                            checked = false;
+                            msg = count + '번 문항에 답변을 ' + rspns_cnt + '개 선택해주세요.';
+                            var offset = $('#step_' + count).offset();
+                            $('html, body').animate({scrollTop: offset.top}, 400);
+                            return false;
+                        }
+                    } else {    //주관식
+                        var answer = $("#answer" + qesitm_id)
+                        if ($.trim(answer.val()) == '') {
+                            checked = false;
+                            msg = count + '번 문항에 답변을 입력해주세요.';
+                            return false;
+                        }
+                    }
+                }
+            });
+
+            if (!checked) {
+                alert(msg);
+                return false;
+            }
+
+            return true;
+        }
+
+        function fn_register() {
+            if (answerCheck()) {
+                var formData = $('#form1').serialize();
+                $.ajax({
+                    url: '/api/survey/resultRegister', // 요청 할 주소
+                    type: 'POST', // GET, POST
+                    data: formData,
+                    dataType: 'text',// xml, json, script, html
+                    success: function (data) {
+                        if (data === 'ok') {
+                            alert('제출완료 되었습니다.');
+                            var frm = $('#form1');
+                            frm.prop('action', '/pages/activity/selfTestResult');
+                            frm.submit();
+                            //location.href='/pages/activity/selfTestResult';
+                        } else {
+                            alert('실패되었습니다 관리자에게 문의 하세요');
+                        }
+                    },// 요청 완료 시
+                    error: function (xhr, status, err) {
+                        alert('시스템장애입니다. 관리자에게 문의하세요!');
+                    }// 요청 실패.
+                });
+            }
+        }
+    </script>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/mo_menu"></th:block>
+        <div class="sub_container">
+            <th:block th:include="fragments/dept_menu"></th:block>
+            <form id="form1" name="form1" method="post" th:object="${form}">
+                <input type="hidden" id="id" name="id" th:value="*{id}"/>
+                <div class="inner top">
+                    <div class="page_cont">
+                        <h4 class="subtit pc review_title" th:text="*{ttl}">자가진단</h4>
+                        <div class="test_inner">
+                            <th:block th:each="item,idx : ${list}" th:with="question = ${item.question}, caseList = ${item.caseList}">
+                                <div class="test_item test_01_inner">
+                                    <div class="question">
+                                        <div class="tit">
+                                            <b th:id="${'step_'+idx.count}" th:text="${idx.count}">01</b>
+                                            <span th:text="${question.qestnQesitm}">자가진단 질문입니다.</span>
+                                            <th:block th:if="${question.rspnsCnt >1}">
+                                                <span th:text="${'(답변 '+question.rspnsCnt+'개)'}"></span>
+                                            </th:block>
+                                        </div>
+                                        <input type="hidden" name="question" th:id="${'question'+question.id}"
+                                               th:value="${question.id}"/>
+                                        <input type="hidden" th:id="${'answer_cnt'+question.id}"
+                                               th:value="${question.answerCnt}"/>
+                                        <input type="hidden" th:id="${'rspns_cnt'+question.id}"
+                                               th:value="${question.rspnsCnt}"/>
+                                        <input type="hidden" th:id="${'count'+question.id}" th:value="${idx.count}"/>
+
+                                        <th:block th:if="${question.aswDvTy eq T(kr.or.btf.web.domain.web.enums.AnswerType).CHOICE.name()}">
+                                            <th:block th:if="${question.rspnsCnt >1}"> <!--객관식 복수선택-->
+                                                <div class="chk_inner">
+                                                    <div class="chk_btn" th:each="case, cnt: ${caseList}">
+                                                        <input type="radio" th:value="${case.id}" th:name="${'answer'+question.id}" th:id="${'answer'+question.id+'_'+case.id}">
+                                                        <label th:for="${'answer'+question.id+'_'+case.id}">
+                                                            <small th:text="${cnt.count}">0</small>
+                                                            <span th:text="${case.answerCnts}">거의없음</span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </th:block>
+                                            <th:block th:unless="${question.rspnsCnt >1}"> <!--객관식 복수선택-->
+                                                <div class="chk_inner">
+                                                    <div class="chk_btn" th:each="case, cnt: ${caseList}">
+                                                        <input type="radio" th:value="${case.id}" th:name="${'answer'+question.id}" th:id="${'answer'+question.id+'_'+case.id}" th:checked="${case.id eq case.responseAswPid}">
+                                                        <label th:for="${'answer'+question.id+'_'+case.id}">
+                                                            <small th:text="${cnt.count}">0</small>
+                                                            <span th:text="${case.answerCnts}">거의없음</span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </th:block>
+                                            <th:block
+                                                    th:unless="${question.aswDvTy eq T(kr.or.btf.web.domain.web.enums.AnswerType).CHOICE.name()}">
+                                                <div class="txt_area">
+                                            <textarea th:name="${'answer'+question.id}"
+                                                      th:id="${'answer'+question.id}"></textarea>
+                                                </div>
+                                            </th:block>
+                                        </th:block>
+                                    </div>
+                                </div>
+                            </th:block>
+                            <div class="btn_area btn_num02">
+                                <a href="/pages/activity/experienceList"
+                                   class="btn btn_lg btn_line_blue btn_pill_10">이전</a>
+                                <a href="#" onclick="return fn_register();" class="btn btn_lg btn_blue btn_pill_10">저장</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

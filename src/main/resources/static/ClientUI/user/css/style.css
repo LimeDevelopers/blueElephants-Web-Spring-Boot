@@ -6377,6 +6377,9 @@ h4.subtit.pc {
     margin-top: 67px;
 }
 
+h4.subtit.review_title {
+    margin-top: 0;
+}
 h4.submsg.mo {
     display: none
 }
