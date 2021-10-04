@@ -4584,6 +4584,17 @@
 	/* 회원가입 개인/단체 선택 끝 : SU 09/16 고선호 수정 */
 
 	/* 마이페이지_계정정보 시작 09/17 고선호 수정 */
+	.my_profile_3 .tbl_write ul li .th, .my_profile_3 .tbl_write ul li .td {
+		height: 32px;
+	}
+	.tip_tbl.mb {
+		font-size: 12px;
+	}
+	.my_profile_3 .tbl_write ul li .td.td_txt {
+		padding-top: 0;
+		padding-bottom: 0;
+		font-size: 14px;
+	}
 	.page_top>.page_tit {
 		text-align: center;
 	}
@@ -4883,6 +4894,13 @@
 	/* 마이페이지_My상담 끝 */
 
 	/* 마이페이지_My강의실_교육자료실 시작 */
+	h4.subtit+.tip_tbl {
+		font-size: 12px;
+	}
+	.board_tbl_list>li .date {
+		width: 100%;
+		text-align: left;
+	}
 	.my_item_2 .my_item_top button {
 		font-size: 14px;
 		padding: 5px 15px;
@@ -4935,6 +4953,7 @@
 	}
 	.my_item_3 .my_item_edu .item_inner table tr td .edu_item_2 {
 		padding: 15px 0;
+		margin-bottom: 40px;
 	}
 	.my_item_3 .my_item_edu .item_inner table tr td .edu_item_2 .edu_desc_2 {
 		flex: 5;
@@ -6860,6 +6879,7 @@
 	/* 회원_회원가입 끝 09/16 고선호 수정 */
 
 	/* 마이페이지_계정정보 시작 09/17 고선호 수정 */
+
 	.my_profile_2 .profile_inner > div h3 {
 		font-size: 22px;
 	}

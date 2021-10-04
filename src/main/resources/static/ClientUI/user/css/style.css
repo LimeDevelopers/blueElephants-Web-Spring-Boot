@@ -12994,6 +12994,9 @@ li.period .td span {
     border-radius: 30px;
     font-size: 18px;
 }
+.my_profile_3 .tbl_write ul li .th {
+    padding: 0;
+}
 /* 마이페이지_계정정보 끝 09/16 고선호 수정 */
 
 
@@ -13503,6 +13506,7 @@ li.period .td span {
     border-top: 2px solid #8eb3f2;
 }
 .my_item_5 .card_list .card_inner_pc{
+
 }
 .my_item_5 .card_list .card_inner_pc > div {
     display: flex;
@@ -13624,6 +13628,7 @@ li.period .td span {
 }
 .my_profile_2 .profile_inner .my_info .my_info_item table tr td:nth-of-type(2) {
     color: #9399af;
+    word-break: break-all;
 }
 .my_profile_2 .profile_inner .my_charact {
     flex: 3;
