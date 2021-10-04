@@ -2672,6 +2672,10 @@
 		font-size: 20px;
 		margin-top: 0;
 	}
+	.counsel_btn {
+		display: flex;
+		justify-content: space-between;
+	}
 	.page_cont > .sub_text_box > img {
 		width: 50%;
 		top: 50%;
@@ -2683,6 +2687,9 @@
 		clear: both;
 		width: 100%;
 		/*padding: 30px 50px;*/
+	}
+	.page_cont > .sub_text_box.help_counsel_box > .text {
+
 	}
 	.notice_board {
 		flex-direction: column;
@@ -2842,7 +2849,10 @@
 		top: 25%;
 		width: 60%;
 	}
-	.page_cont > .sub_text_box.help_text_box {
+	.page_cont > .sub_text_box.help_text_box > img {
+		top: -25%;
+	}
+	.page_cont > .sub_text_box.activity_bx {
 		margin-top: 20px;
 	}
 	.page_cont > .sub_text_box.help_text_box > .text {

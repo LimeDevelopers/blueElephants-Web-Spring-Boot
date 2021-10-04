@@ -1100,7 +1100,7 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
 .section06 .top .news_area {}
 
 .section06 .top .news_area .left_area {
-    width: 45%
+    width: 45%;
 }
 
 /* 53 -> 45*/
@@ -1110,6 +1110,8 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     background: #ffffff url('../images/main/bx_bg.png')no-repeat center bottom;
     background-size: 100% 220px;
     position: relative;
+    display: block;
+    width: 100%;
 }
 
 .section06 .top .news_area .left_area .emotion_box .puco_icon {
@@ -11246,16 +11248,23 @@ li.period .td span {
 .help_counsel_box {
     height: 100px;
 }
-.page_cont > .sub_text_box.help_counsel_box > img {
+/*.page_cont > .sub_text_box.help_counsel_box > img {
     bottom: 0;
     left: 200px;
-}
-.page_cont > .sub_text_box.help_counsel_box > .text {
+}*/
+/*.page_cont > .sub_text_box.help_counsel_box > .text {
     width: 68%;
     padding: 20px 0;
-}
+}*/
 .page_cont > .sub_text_box.help_counsel_box > .text .sub {
     margin-top: 0;
+}
+.page_cont > .sub_text_box.help_counsel_box > img {
+    left: 50%;
+}
+.page_cont > .sub_text_box.help_counsel_box > .text {
+    width: 100%;
+    padding: 30px;
 }
 .helpcounsel_list {
     margin-top: 0;
