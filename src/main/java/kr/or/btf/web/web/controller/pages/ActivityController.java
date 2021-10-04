@@ -2387,4 +2387,11 @@ public class ActivityController extends BaseCont {
         model.addAttribute("pageTitle", "도움요청");
         return "pages/activity/boardCounseling";
     }
+
+    @RequestMapping("/pages/activity/CounselingForm")
+    public String counselingForm(Model model) {
+        model.addAttribute("mc" , "activity");
+        model.addAttribute("pageTitle" , "도움요청");
+        return "/pages/activity/CounselingForm";
+    }
 }
