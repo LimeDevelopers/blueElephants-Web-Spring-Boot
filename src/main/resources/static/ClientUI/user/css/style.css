@@ -10960,13 +10960,14 @@ text.shadow {
     height: 170px;
     margin-top: 100px;
 }
-.page_cont > .help_text_box > img {
+.page_cont > .sub_text_box.help_text_box > img {
     top: -50%;
     left: 50%;
     transform: translateX(-50%);
 }
-.page_cont > .help_text_box .text {
+.page_cont > .sub_text_box.help_text_box .text {
     padding: 40px 75px;
+    width: 100%;
 }
 .page_cont > .sub_text_box > .text {
     width: 100%;
@@ -11156,6 +11157,80 @@ text.shadow {
 }
 /* 20210927 활동_도움요청_심리상담전화 끝 */
 
+/* 활동_도움요청_게시판상담 시작 */
+.board_tit {
+    margin: 20px 0;
+    margin-bottom: 50px;
+}
+.join ul li.wrap .td.pc {
+    display: block;
+}
+.join ul li.wrap .td.mobile {
+    display: none !important;
+}
+.board_info .board .tbl_write ul li.chkbox2_inner .td .checkbox2 label, .board_info .board .tbl_write ul li.baordchk_inner .td label {
+    margin-right: 20px;
+}
+.board_info .board .tbl_write ul li.baordchk_inner .td, .board_info .board .tbl_write ul li.chkbox2_inner .td {
+    display: flex;
+    align-items: center;
+}
+.board_info .board .tbl_write ul li.baordchk_inner .td label span, .board_info .board .tbl_write ul li.chkbox2_inner .td .checkbox2 label span {
+    position: relative;
+    padding-left: 30px;
+    font-size: 15px;
+    cursor: pointer;
+}
+.board_info .board .tbl_write ul li.baordchk_inner .td label span:after, .board_info .board .tbl_write ul li.chkbox2_inner .td .checkbox2 label span:after {
+    position: absolute;
+    content:'';
+    top: 50%;
+    left: 0;
+    width: 32px;
+    height: 32px;
+    transform: translateY(-50%);
+    background: url('../images/button/chk2.svg')no-repeat center right;
+    background-size: cover;
+}
+.board_info .board .tbl_write ul li.baordchk_inner .td input[type="radio"]:checked + label span:after, .board_info .board .tbl_write ul li.chkbox2_inner .td input[type="checkbox"]:checked + label span:after {
+    background: url('../images/button/chk2.svg')no-repeat center left;
+    background-size: cover;
+}
+.board_info .more_txt {
+    font-size: 15px;
+    color: #6d95e1;
+    text-align: right;
+    margin: 20px 0;
+}
+li.score_inner .td .chk_item {
+    float: left;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-right: 20px;
+}
+li.score_inner .td .chk_item > div label {
+    position: absolute;
+    width: 135px !important;
+    top: 0;
+    left: 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    color: #515564 !important;
+    font-size: 14px;
+}
+li.score_inner .td .chk_item > div {
+    width: 135px;
+    position: relative;
+    margin-left: 10px;
+}
+li.score_inner .td .chk_item > div select {
+    opacity: 0;
+    cursor: pointer;
+}
+/* 활동_도움요청_게시판상담 끝 */
+
+
 
 /* 활동_또래상담 시작 */
 .help_counsel_box {
@@ -11304,6 +11379,9 @@ text.shadow {
     font-size: 16px;
 }
 /* 활동_도움요청_게시판 끝 */
+
+
+
 
 
 /* 활동_도움요청_화해분쟁조정 시작 */

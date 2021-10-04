@@ -16,78 +16,315 @@
                 <div class="inner">
                     <div class="page_cont">
                         <!--<h4 class="subtit pc review_title">심리상담</h4>-->
-                        <div class="sub_text_box help_text_box help_counsel_box">
-                            <img src="/ClientUI/user/images/contents/lecture/intro_text_box.png">
+                        <div class="sub_text_box help_text_box">
+                            <img src="/ClientUI/user/images/contents/lecture/intro_text_box.png" alt="review.png" class="review_text_img">
                             <div class="text">
-                                <p class="title">우리는 학급의 가디언!
-                                    <span class="sub">우리는 학급의 가디언! 학교에서 일어나는  사이버폭력을 무찌르지! 학교에서 발생하는  사이버폭력 이야기를 들려줘~
+                                <p class="title">누구나 고민이 있다면 푸코에게 상담을  요청할 수 있어요.</p>
+                                <span class="sub">
+                                    상담 내용은 절대 비밀!  푸코가 다양한 전문상담과 상황에 따라 적절한 도움도 줄거게요. 기다리고 있을 테니  언제든지 편하게 이야기해주세요.<b></b>푸코는 여러분에게 꼭 필요한 도움을 주고싶어요. <b></b>구체적인 내용을 자세히 적고 증거자료를  첨부해준다면 정확한 상황을 파악하여  도움을 줄 수 있어요.
                                 </span>
+                            </div>
+                        </div>
+
+
+                        <h4 class="subtit board_tit">게시판 상담</h4>
+                        <div class="board_info">
+                            <div class="sec_write board">
+                                <div class="tbl_write join">
+                                    <ul>
+                                        <li class="baordchk_inner col">
+                                            <div class="th">
+                                                <label for="">어디에 속하나요?</label>
+                                            </div>
+                                            <div class="td">
+                                                <div>
+                                                    <input type="radio" name="boardchk2" id="chk013">
+                                                    <label for="chk013">
+                                                        <span>청소년</span>
+                                                    </label>
+                                                </div>
+                                                <div>
+                                                    <input type="radio" name="boardchk2" id="chk014">
+                                                    <label for="chk014">
+                                                        <span>교원</span>
+                                                    </label>
+                                                </div>
+                                                <div>
+                                                    <input type="radio" name="boardchk2" id="chk015">
+                                                    <label for="chk015">
+                                                        <span>학부모</span>
+                                                    </label>
+                                                </div>
+                                                <div>
+                                                    <input type="radio" name="boardchk2" id="chk016">
+                                                    <label for="chk016">
+                                                        <span>일반</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="chkbox2_inner col">
+                                            <div class="th">
+                                                <label for="">어떤 폭력을 경험하셨나요?</label>
+                                            </div>
+                                            <div class="td">
+                                                <div class="chk_inner checkbox2">
+                                                    <input type="checkbox" id="board_chk03">
+                                                    <label class="board_chk" for="board_chk03">
+                                                        <span>사이버폭력</span>
+                                                    </label>
+                                                </div>
+                                                <div class="chk_inner checkbox2">
+                                                    <input type="checkbox" id="board_chk4">
+                                                    <label class="board_chk" for="board_chk4">
+                                                        <span>학교폭력</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="chkbox2_inner col wrap">
+                                            <div class="th">
+                                                <label for="">어떤 유형의 고민인가요?</label>
+                                            </div>
+                                            <div class="td pc">
+                                                <div class="chk_inner checkbox2">
+                                                    <input type="checkbox" id="board_chk1">
+                                                    <label class="board_chk" for="board_chk1">
+                                                        <span>신체폭력</span>
+                                                    </label>
+                                                </div>
+                                                <div class="chk_inner checkbox2">
+                                                    <input type="checkbox" id="board_chk2">
+                                                    <label class="board_chk" for="board_chk2">
+                                                        <span>언어폭력</span>
+                                                    </label>
+                                                </div>
+                                                <div class="chk_inner checkbox2">
+                                                    <input type="checkbox" id="board_chk3">
+                                                    <label class="board_chk" for="board_chk3">
+                                                        <span>성폭력</span>
+                                                    </label>
+                                                </div>
+                                                <div class="chk_inner checkbox2">
+                                                    <input type="checkbox" id="board_chk4">
+                                                    <label class="board_chk" for="board_chk4">
+                                                        <span>괴롭힘</span>
+                                                    </label>
+                                                </div>
+                                                <div class="chk_inner checkbox2">
+                                                    <input type="checkbox" id="board_chk5">
+                                                    <label class="board_chk" for="board_chk5">
+                                                        <span>금품갈취</span>
+                                                    </label>
+                                                </div>
+                                                <div class="chk_inner checkbox2">
+                                                    <input type="checkbox" id="board_chk6">
+                                                    <label class="board_chk" for="board_chk6">
+                                                        <span>기타</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="td mobile">
+                                                <div class="td_inner">
+                                                    <div class="chk_inner checkbox2">
+                                                        <input type="checkbox" id="board_chk1">
+                                                        <label class="board_chk" for="board_chk1">
+                                                            <span>신체폭력</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="chk_inner checkbox2">
+                                                        <input type="checkbox" id="board_chk2">
+                                                        <label class="board_chk" for="board_chk2">
+                                                            <span>언어폭력</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="chk_inner checkbox2">
+                                                        <input type="checkbox" id="board_chk3">
+                                                        <label class="board_chk" for="board_chk3">
+                                                            <span>성폭력</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="chk_inner checkbox2">
+                                                        <input type="checkbox" id="board_chk4">
+                                                        <label class="board_chk" for="board_chk4">
+                                                            <span>괴롭힘</span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="td_inner">
+                                                    <div class="chk_inner checkbox2">
+                                                        <input type="checkbox" id="board_chk5">
+                                                        <label class="board_chk" for="board_chk5">
+                                                            <span>금품갈취</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="chk_inner checkbox2">
+                                                        <input type="checkbox" id="board_chk6">
+                                                        <label class="board_chk" for="board_chk6">
+                                                            <span>기타</span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="baordchk_inner col">
+                                            <div class="th">
+                                                <label for="">본인이 직접 경험했나요?</label>
+                                            </div>
+                                            <div class="td">
+                                                <div>
+                                                    <input type="radio" name="boardchk" id="chk011">
+                                                    <label for="chk011">
+                                                        <span>예</span>
+                                                    </label>
+                                                </div>
+                                                <div>
+                                                    <input type="radio" name="boardchk" id="chk012">
+                                                    <label for="chk012">
+                                                        <span>아니오</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <p class="more_txt">
+                                    * 모든 상담은 비공개로 진행되며, 로그인 없이도 이용 가능합니다.
                                 </p>
                             </div>
                         </div>
 
-                        <div class="btn_tab pc_btn">
-                            <th:block th:if="${#authentication.principal eq 'anonymousUser'}"> <!--로그인 X-->
-                                <a href="javascript:alert('로그인 후 이용 가능합니다.');"
-                                   class="write_btn">글쓰기</a>
-                            </th:block>
-                            <th:block th:unless="${#authentication.principal eq 'anonymousUser'}"> <!--로그인 O-->
-                                <a href="/pages/activity/"
-                                   class="write_btn">글쓰기</a>
-                            </th:block>
+
+
+
+                        <div class="sec_write join">
+                            <div class="tbl_write upload">
+                                <ul>
+                                    <li class="col">
+                                        <div class="th">
+                                            <label for="">제목</label>
+                                        </div>
+                                        <div class="td">
+                                            <input type="text" placeholder="제목을 업로드하세요">
+                                        </div>
+                                    </li>
+                                    <li class="col">
+                                        <div class="th">
+                                            <label for="">내용</label>
+                                        </div>
+                                        <div class="td">
+                                            <textarea name="" id="" cols="30" rows="10"></textarea>
+                                        </div>
+                                    </li>
+                                    <li class="col">
+                                        <div class="th">
+                                            <label for="">시작기간</label>
+                                        </div>
+                                        <div class="td">
+                                            <input type="text">
+                                        </div>
+                                    </li>
+                                    <li class="score_inner col">
+                                        <div class="th">
+                                            <label for="chargerNm">심각성</label>
+                                        </div>
+                                        <div class="td col">
+                                            <div class="chk_item">
+                                                <span>신체적 피해</span>
+                                                <div>
+                                                    <label for="item_01">점수</label>
+                                                    <select name="scorechk" id="item_01">
+                                                        <option value="">점수</option>
+                                                        <option value="">1</option>
+                                                        <option value="">2</option>
+                                                        <option value="">3</option>
+                                                        <option value="">4</option>
+                                                        <option value="">5</option>
+                                                        <option value="">6</option>
+                                                        <option value="">7</option>
+                                                        <option value="">8</option>
+                                                        <option value="">9</option>
+                                                        <option value="">10</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="chk_item">
+                                                <span>정신적 피해</span>
+                                                <div>
+                                                    <label for="item_01">점수</label>
+                                                    <select name="scorechk" id="item_01">
+                                                        <option value="">점수</option>
+                                                        <option value="">1</option>
+                                                        <option value="">2</option>
+                                                        <option value="">3</option>
+                                                        <option value="">4</option>
+                                                        <option value="">5</option>
+                                                        <option value="">6</option>
+                                                        <option value="">7</option>
+                                                        <option value="">8</option>
+                                                        <option value="">9</option>
+                                                        <option value="">10</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="chk_item">
+                                                <span>물질적 피해</span>
+                                                <div>
+                                                    <label for="item_01">점수</label>
+                                                    <select name="scorechk" id="item_01">
+                                                        <option value="">점수</option>
+                                                        <option value="">1</option>
+                                                        <option value="">2</option>
+                                                        <option value="">3</option>
+                                                        <option value="">4</option>
+                                                        <option value="">5</option>
+                                                        <option value="">6</option>
+                                                        <option value="">7</option>
+                                                        <option value="">8</option>
+                                                        <option value="">9</option>
+                                                        <option value="">10</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="col">
+                                        <div class="th">
+                                            <label for="">글 비밀번호</label>
+                                        </div>
+                                        <div class="td">
+                                            <input type="text">
+                                        </div>
+                                    </li>
+                                    <li class="m_mode col">
+                                        <div class="th">
+                                            <label for="">첨부파일</label>
+                                        </div>
+                                        <div class="td">
+                                            <input type="file" name="" id="uploadfile" >
+                                            <label for="uploadfile" id="box" ></label>
+                                            <label  for="uploadfile">찾아보기</label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
 
-                        <!--<div class="board_top review_board">
-                            <div class="select_bx">
-                                <div class="select w160 title">
-                                    <label th:for="srchGbnParent">
-                                        <th:block th:if="*{srchGbnParent eq '' or srchGbnParent eq null}">전체</th:block>
-                                        <th:block th:each="item : ${commonCodes}">
-                                            <th:block th:if="${searchForm.srchGbnParent eq item.id}" th:text="${item.codeNm}">제목</th:block>
-                                        </th:block>
-                                    </label>
-                                    <select th:field="*{srchGbnParent}" onchange="fn_codeList(this)">
-                                        <option value="" selected>전체</option>
-                                        <th:block th:each="item : ${commonCodes}">
-                                            <option th:value="${item.id}" th:text="${item.codeNm}"></option>
-                                        </th:block>
-                                    </select>
-                                </div>
-                                <div class="select w160 subject">
-                                    <label id="srchGbnChildLabel" th:for="srchGbnChild">
-                                        <th:block th:if="*{srchGbnChild eq '' or srchGbnChild eq null}">전체</th:block>
-                                    </label>
-                                    <select th:field="*{srchGbnChild}">
-                                        <option value="" selected>전체</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="select_bx2">
-                                <div class="search news">
-                                    <input type="search" th:field="*{srchWord}" placeholder="검색어를 입력해 주세요" />
-                                </div>
-                                <button type="submit" class="btn btn_blue btn_pill_10">검색</button>
-                            </div>
-                        </div>-->
 
-
-                        <div class="select_2 counsel_btn">
-                            <div class="option_btn">
-                                <button>전체</button>
-                                <button>우리반이야기</button>
-                                <button>과제</button>
-                                <button>기타</button>
-                            </div>
-                            <a href="#none" class="write_btn">글쓰기</a>
+                        <div class="partners_edu_btn">
+                            <a class="save_btn" href="#none">저장</a>
+                            <a class="join_btn" href="#none">목록</a>
                         </div>
 
 
 
                     </div>
 
+
                     <!--<th:block
                             th:replace="/fragments/paging :: pagingbody(list=${postscripts}, link='/pages/activity/postscript', formId='form1')"></th:block>-->
                 </div>
+
             </form>
         </div>
     </div>
