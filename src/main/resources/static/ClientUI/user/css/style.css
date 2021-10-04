@@ -11228,6 +11228,13 @@ li.score_inner .td .chk_item > div select {
     opacity: 0;
     cursor: pointer;
 }
+li.period .td input {
+    width: 135px;
+}
+li.period .td span {
+    padding: 0 20px;
+    display: inline-block;
+}
 /* 활동_도움요청_게시판상담 끝 */
 
 
