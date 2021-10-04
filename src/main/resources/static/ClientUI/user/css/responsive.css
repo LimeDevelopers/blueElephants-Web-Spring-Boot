@@ -3,6 +3,9 @@
 
 /* Mobile Device */
 @media (max-width:768px) {
+	.pagination {
+		padding-bottom: 30px;
+	}
 	/* 활동_진단하기_ox퀴즈_질문하기 시작 */
 	.inner.top {
 		padding-top: 20px;
@@ -71,7 +74,7 @@
 		margin-top: 3px;
 	}
 	.page_cont > .review_text_box.mt img {
-		top: 25% !important;
+		top: 15% !important;
 	}
 	.board_top.review_board+.thumb_list {
 		margin-top: 50px;
@@ -1261,7 +1264,7 @@
 		display: none;
 	}
 	#container #footer {
-		display: none;
+		display: block;
 	}
 
 
@@ -1310,7 +1313,7 @@
 	.intro_item_01 .sec_tit h1, .intro_item_02 .sec_tit h1 {
 		font-size: 22px;
 	}
-	.intro_item_01 .sec_tit h1 {
+	.intro_item_01 .sec_tit h1.middle_tit {
 		margin-top: 20px;
 	}
 	.intro_item_01 .sec_tit h1:before, .intro_item_02 .sec_tit h1:before {
@@ -1821,7 +1824,8 @@
 	.page_cont > .review_title {
 		text-align: left;
 		font-size: 20px;
-		margin-top: 10px;
+		/*margin-top: 10px;*/
+		margin-top: 0;
 	}
 	.page_cont > .sub_text_box > img {
 		width: 50%;
@@ -1837,6 +1841,7 @@
 	}
 
 	/* 활동_교육후기 시작 */
+
 	.page_cont > .intro_text_box > img {
 		width: 65%;
 		top: 40%;
@@ -1850,6 +1855,10 @@
 	.page_cont > .review_text_box {
 		height: 150px;
 		margin-top: 20px;
+	}
+	.page_cont > .review_text_box.post_box {
+		margin-top: 50px;
+		height: 180px;
 	}
 	.page_cont > .review_text_box img {
 		width: 42%;
@@ -3062,6 +3071,9 @@
 	/* 활동_도움요청_화해분쟁조정 끝 */
 
 	/* 활동_도움요청_가족테라피 시작 */
+	.page_cont > .sub_text_box.family_text_box > .text {
+		padding: 30px;
+	}
 	.program_inner {
 		padding: 40px 20px;
 	}
@@ -3102,6 +3114,8 @@
 	.family_info .family_the .contour ul li .td {
 		padding-left: 0;
 		height: auto;
+		font-size: 13px;
+		padding: 0;
 	}
 	.inquiry_box .box.mobile {
 		height: 200px;
@@ -3172,8 +3186,11 @@
 	.test_item .question .tit span {
 		font-size: 16px;
 	}
-	.test_item .chk_inner .chk_btn label small, .test_item .chk_inner .chk_btn label span {
+	.test_item .chk_inner .chk_btn label small {
 		font-size: 16px;
+	}
+	.test_item .chk_inner .chk_btn label span {
+		font-size: 12px;
 	}
 	.test_item.test_04_inner .question .chk_inner .chk_btn label {
 		width: auto;
@@ -3227,6 +3244,15 @@
 
 
 	/* 푸코소식_소식 시작 */
+	h4.subtit.pdt {
+		margin-top: 0!important;
+	}
+	.notice_select > .notice_option_select {
+		height: auto;
+	}
+	.board_tbl_list.type01 {
+		margin-top: 5px;
+	}
 	.thumb_list>li {
 		width: 100%;
 		margin: 0;
@@ -3274,6 +3300,7 @@
 	}
 	.board_tbl_list>li .writer, .board_tbl_list>li .download, .board_tbl_list>li .point {
 		width: 100%;
+
 	}
 	/* 20210927 푸코소식 공지사항 끝 */
 
@@ -3534,7 +3561,7 @@
 
 	/* 소개_ 푸코사무국 시작 */
 	.inner.location_inner {
-		padding-top: 0;
+		/*padding-top: 0;*/
 	}
 	.intro_item_01 .puco_office_1 .map {
 		height: 270px;
@@ -3937,6 +3964,7 @@
 	.board_tbl_list>li .writer {
 		margin-top: 8px;
 		font-size: 14px;
+		text-align: left;
 	}
 	.board_tbl_list>li .date {
 		font-size: 12px;
@@ -4476,6 +4504,28 @@
 		border: 1px solid #85b4f7;
 	}
 
+	/* 회원가입_이용약관 시작 */
+	.agree_area h4.subtit.pc {
+		text-align: left;
+	}
+	.simplebar-content {
+		padding: 20px 5px;
+	}
+	.join_agree_area .desc_box * {
+		font-size: 13px;
+	}
+	.btn_area {
+		padding-top: 20px;
+		justify-content: flex-start;
+	}
+	.join_agree_area .desc_box+.btn_area {
+		text-align: left;
+		justify-content: flex-start;
+	}
+	.btn_area .checkbox label {
+		font-size: 13px;
+	}
+	/* 회원가입_이용약관 끝 */
 
 
 
@@ -5292,6 +5342,9 @@
 	.email_form {
 		display: flex;
 	}
+	.email_f {
+		padding-bottom: 100px;
+	}
 	.email_form input {
 		/* width: 100px !important; */
 		flex: 2;
@@ -5334,6 +5387,42 @@
 	li.desc .td > .select:nth-of-type(1) {
 		margin-right: 10px;
 	}
+	.tbl_select {
+		border-top: 0;
+	}
+	.contour ul li.row .td {
+		display: flex;
+	}
+	.contour ul li.row .td button {
+		width: 100px;
+	}
+	.tbl_write .td input + .btn {
+		font-size: 15px;
+		margin-left: 0;
+	}
+	.tbl_write .td input {
+		font-size: 14px;
+	}
+	.contour .th {
+		width: 30%;
+		font-size: 15px;
+	}
+	li.years_inner .td {
+		justify-content: space-between;
+	}
+	li.years_inner .td .birth_form .select .year label {
+		width: 100px !important;
+	}
+	li.years_inner .td .birth_form .select label {
+		line-height: 42px;
+	}
+	li.years_inner .td .birth_form .select {
+		width: 100px;
+	}
+	li.years_inner .td .birth_form .select select {
+		width: 100px;
+		height: 44px;
+	}
 	li.search_school .td input[type="text"] {
 		margin-right: 10px;
 	}
@@ -5341,10 +5430,30 @@
 		display: flex;
 	}
 	.tbl_write .td input + .btn {
-		font-size: 15px;
+		font-size: 12px;
 		margin-left: 0;
 	}
+	li.desc .td > div {
+		display: flex;
+		width: 100%;
+	}
+	li.desc .td > div .select {
+		flex: 1;
+	}
+	li.desc .td > div .select label {
+		line-height: 42px;
+	}
+	li.desc .td > div .select:nth-of-type(1) {
+		margin-right: 10px;
+	}
+	.contour.info_bx ul li.row .td {
+		height: 350px;
+	}
 	/* 회원가입_개인_학생 끝 */
+	.email_form .select label {
+		height: 42px;
+		line-height: 42px;
+	}
 
 
 	/* 회원가입_단체_일반 시작 */
@@ -6168,6 +6277,7 @@
 	}
 	.general_education > .edu_des {
 		font-size: 18px;
+		margin-bottom: 30px;
 	}
 	.general_education > .edu_title{
 		text-align: left;

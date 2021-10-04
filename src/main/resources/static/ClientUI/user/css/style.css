@@ -1370,7 +1370,7 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
 .inner {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 40px 0;
+    padding: 50px 0;
 }
 .sub_container {
     height: auto;
@@ -11247,6 +11247,10 @@ li.period .td span {
     bottom: 0;
     left: 200px;
 }
+.page_cont > .sub_text_box.help_counsel_box > .text {
+    width: 68%;
+    padding: 20px 0;
+}
 .page_cont > .sub_text_box.help_counsel_box > .text .sub {
     margin-top: 0;
 }
@@ -11264,8 +11268,9 @@ li.period .td span {
     border-radius: 20px;
     height: 160px;
 }
-.sub_text_box.family_text_box .text {
+.page_cont > .sub_text_box.family_text_box > .text {
     padding: 40px 75px;
+    width: 100%;
 }
 .family_info {
     margin-top: 45px;
@@ -13798,6 +13803,9 @@ li.period .td span {
     border: 1px solid #85b4f7;
     color: #85b4f7;
 }
+.search_school .td button {
+    line-height: 42px;
+}
 /* 휴대폰인증 */
 .contour ul li.phoneAuth .td {
     padding-top: 20px;
@@ -13868,7 +13876,7 @@ li.period .td span {
     border: 1px solid #cccccc;
     border-radius: 0 8px 8px 8px;
     padding: 20px;
-    padding-right: 300px;
+    /*padding-right: 300px;*/
 }
 .contour ul li.notice .td small {
     display: block;
@@ -14272,7 +14280,7 @@ li.more_info2 .td label:before {
     border: 1px solid #cccccc;
     border-radius: 0 8px 8px 8px;
     padding: 20px;
-    padding-right: 300px;
+    /*padding-right: 300px;*/
 }
 .contour ul li.notice .td small {
     display: block;
