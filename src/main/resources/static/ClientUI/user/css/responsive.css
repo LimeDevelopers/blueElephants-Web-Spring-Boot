@@ -251,11 +251,35 @@
 		display: none;
 	}
 	/* Footer */
+	#footer .top .contents ul.pc_info {
+		display: none !important;
+	}
+	.info_area .m_info_inner {
+		position: absolute;
+		bottom: 15%;
+		padding-left: 20px;
+	}
+	.info_area .m_info_inner .footer_m_info {
+		display: block;
+		font-size: 11px;
+		width: 100%;
+		text-align: center;
+	}
+	.info_area .m_info_inner .footer_m_info > li {
+		color: #333333;
+		font-size: 4px;
+		border-right: 1px solid #333333;
+		float: left;
+		padding: 0 5px;
+	}
+	.info_area .m_info_inner .footer_m_info > li:last-child {
+		border: none;
+	}
 	#footer>.top {
 		height: auto;
-		padding: 16px 0;
+		padding: 10px 0;
 		text-align: center;
-		border-top: 0;
+		/*border-top: 0;*/
 	}
 
 	#footer>.top .contents {
@@ -301,38 +325,40 @@
 
 
 	#footer>.bottom .info_area>.logo_area {
-		top: 150px;
+		top: 140px;
 		left: 0;
 		width: 100%;
 		font-size: 0;
-		text-align: center
+		text-align: center;
+		display: flex;
+		justify-content: space-between;
 	}
 
 	#footer>.bottom .info_area>.logo_area li {
 		display: inline-block;
 		float: none;
-		margin-right: 3px !important;
+		margin-right: 8px !important;
 		margin-bottom: 0 !important;
 		vertical-align: top
 	}
 
 	#footer>.bottom .info_area>.logo_area li:nth-child(1) {
-		width: 72px;
-		margin-top: 2px
+		width: 60px;
+		margin-top: 4px
 	}
 
 	#footer>.bottom .info_area>.logo_area li:nth-child(2) {
-		width: 83px;
+		width: 70px;
 		margin-right: 15px
 	}
 
 	#footer>.bottom .info_area>.logo_area li:nth-child(3) {
-		width: 78px;
+		width: 70px;
 		margin-top: 5px
 	}
 
 	#footer>.bottom .info_area>.logo_area li:nth-child(4) {
-		width: 78px;
+		width: 70px;
 		margin-top: 7px
 	}
 
@@ -420,21 +446,21 @@
 		vertical-align: top;
 		font-size: 11px;
 		text-align: left;
-		line-height: 1.4;
+		line-height: 1.6;
 		padding-bottom: 5px;
 	}
 	#footer>.bottom .info_area>.txt_area p.text_m span > * {
 		float: left;
 	}
 	#footer>.bottom .info_area>.txt_area p>span small {
-		font-size: 13px;
+		font-size: 11px;
 		float: right;
 		width: 80%;
 	}
 	#footer>.bottom .info_area>.txt_area p.text_m span b {
-		width: 20%;
+		width: 17%;
 		display: inline;
-		font-size: 13px;
+		font-size: 11px;
 		float: left;
 	}
 
@@ -449,10 +475,10 @@
 	}
 
 	#footer>.bottom .info_area>.txt_area .copyright {
-		padding-top: 100px;
+		padding-top: 110px;
 		color: #555868;
 		font-weight: 300;
-		text-align: left;
+		text-align: center;
 		font-size: 10px;
 	}
 
@@ -613,13 +639,12 @@
 	}
 	#footer>.top .contents .info_item {
 		width: 100%;
-		padding-top: 10px;
 	}
 	#footer>.top .contents .info_item span b {
 		font-size: 12px;
 		padding-left: 20px;
 		text-align: left;
-		width: 200px;
+		width: 180px;
 	}
 	#footer>.top .contents .info_item span b small {
 		padding-left:5px;
@@ -4404,6 +4429,55 @@
 	}
 	/* 활동_교육후기 끝 09/15 고선호 수정 */
 
+
+	/***** 로그인 *****/
+	.input {
+		height: 42px;
+	}
+	.page_cont.login_cont {
+		padding: 0 5px;
+	}
+	.login_area {
+		width: 100%;
+	}
+	.join_form_area {
+		margin-top: 10px;
+	}
+	.login_area .login_form .row {
+		margin-bottom: 8px;
+	}
+	.login_area .login_form .row input {
+		height: 42px;
+	}
+	.login_area .login_form .btn_login {
+		height: 42px;
+		line-height: 42px;
+	}
+	.login_area .chk_area {
+		padding: 0;
+		font-size: 11px;
+		margin-top: 15px;
+	}
+	.login_area .chk_area label, .login_area .chk_area .id_pw_find li {
+		font-size: 13px;
+	}
+	.join_area {
+		width: 100%;
+		padding: 10px 0;
+		margin-top: 50px 0;
+		border-top: 1px solid #dbdbdb;
+		margin-bottom: 50px;
+	}
+	.join_area span {
+		font-size: 12px;
+	}
+	.join_area .btn {
+		border: 1px solid #85b4f7;
+	}
+
+
+
+
 	/* 회원가입 개인/단체 선택 : SU 09/16 고선호 수정 */
 	.img_join_pick li {
 		display: flex;
@@ -5444,6 +5518,7 @@
 
 
 	/*Footer*/
+
 	#footer>.bottom .info_area>.txt_area p.text_m span b {
 		font-size: 16px;
 	}
@@ -5472,6 +5547,7 @@
 	#footer>.bottom .info_area>.txt_area .copyright,
 	#footer>.bottom .info_area>.txt_area p>strong {
 		font-size: 15px;
+		text-align: center;
 	}
 	#footer>.bottom .info_area>.logo_area li:nth-child(1) {
 		width: 120px;

@@ -78,12 +78,12 @@
     <div id="container">
         <th:block th:include="fragments/snb"></th:block>
 
-        <div class="contents">
+        <div class="inner">
             <div class="page_top">
                 <h3 class="page_tit">로그인</h3>
                 <span>서비스 이용을 위하여 아이디와 비밀번호를 입력해주세요.</span>
             </div>
-            <div class="page_cont">
+            <div class="page_cont login_cont">
                 <div class="login_area">
                     <form id="form1" name="form1" method="post">
                         <input type="hidden" id="msg" th:value="${msg}"/>
@@ -126,7 +126,7 @@
                 <div class="join_area">
                     <div class="clearfix">
                         <span>아직 <strong>푸른코끼리</strong> 회원이 아니세요?</span>
-                        <a href="/pages/member/joinPick" class="btn btn_lg btn_line_blue btn_pill">회원가입</a>
+                        <a href="/pages/member/joinPick" class="btn btn_line_blue btn_pill">회원가입</a>
                     </div>
 <!--                    <div class="mt clearfix">-->
 <!--                        <span><strong>이메일 인증 시간이 초과</strong> 되었나요?</span>-->

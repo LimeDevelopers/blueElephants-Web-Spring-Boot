@@ -196,7 +196,7 @@ body{color:#54586a;font-size:14px;font-family:'Noto Sans KR', Malgun Gothic, 'ë§
 .checkbox :checked + label:after, .radio :checked + label:after{background:url("/ClientUI/user/images/button/btn_checked.png") no-repeat 50%; background-size: 18px;border-color:#8bb3ff}
 .checkbox input[disabled] + label:after, .radio input[disabled] + label:after{background-position:100% -26px}
 .checkbox.txt label, .radio.txt label{padding-left:25px;font-size:17px;line-height:18px}
-.checkbox.txt label:after, .radio.txt label:after{top:2px}
+.checkbox.txt label:after, .radio.txt label:after{top:50%;}
 
 .register_radio{display:inline-block;position:relative;vertical-align:top}
 .register_radio input[disabled] + label, .register_radio input[readonly] + label{cursor:default}

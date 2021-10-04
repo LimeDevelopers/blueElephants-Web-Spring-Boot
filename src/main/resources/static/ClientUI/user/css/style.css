@@ -417,6 +417,12 @@
 
 /* 기본 높이는 100vh - (헤더 높이 + 풋터 높이) */
 #container #footer {}
+#footer .top .contents ul.pc_info {
+    display: block;
+}
+.info_area .m_info_inner .footer_m_info {
+    display: none;
+}
 #footer>.top {
     border-top: 1px solid #dbdbdb;
     border-bottom: 1px solid #dbdbdb;
@@ -456,6 +462,7 @@
     color: #555868;
     font-weight: normal;
     padding-left: 5px;
+    opacity: 0.5;
 }
 
 #footer>.top li:after {
@@ -10033,7 +10040,7 @@ h4.subtit+.tip_tbl {
 }
 
 .join_form_area {
-    margin-top: 40px
+    margin-top: 15px;
 }
 
 .join_form_area .subtit_area {
@@ -10127,7 +10134,7 @@ h4.subtit+.tip_tbl {
     padding-right: 25px;
     padding-left: 54px;
     line-height: 50px;
-    background-color: #f7f7f7;
+    background-color: #f7f8fa;
     border-radius: 25px
 }
 
@@ -10207,8 +10214,10 @@ h4.subtit+.tip_tbl {
 .join_area {
     width: 418px;
     margin: 0 auto;
-    padding: 30px 9px 0;
-    border-top: 2px solid #dbdbdb
+    padding: 20px 5px 0;
+    border-top: 2px solid #dbdbdb;
+    margin-bottom: 100px;
+    margin-top: 65px;
 }
 
 .join_area .mt {
@@ -10222,13 +10231,14 @@ h4.subtit+.tip_tbl {
 
 .join_area span {
     float: left;
-    margin-top: 10px;
-    color: #959595;
-    font-size: 18px
+    margin-top: 5px;
+    color: #5a5a5a;
+    font-size: 15px
 }
 
 .join_area .btn {
-    float: right
+    float: right;
+    padding: 5px 20px;
 }
 
 /***** layer popup *****/
@@ -11070,6 +11080,7 @@ text.shadow {
 }
 .therapy_icon .icon_pc_inner .icon_inner .item {
     margin: 0 50px;
+    cursor: pointer;
 }
 .page_cont > .heal_tit {
     margin-top: 50px;
@@ -11144,6 +11155,26 @@ text.shadow {
     color: #55586879;
 }
 /* 20210927 활동_도움요청_심리상담전화 끝 */
+
+
+/* 활동_또래상담 시작 */
+.help_counsel_box {
+    height: 100px;
+}
+.page_cont > .sub_text_box.help_counsel_box > img {
+    bottom: 0;
+    left: 200px;
+}
+.page_cont > .sub_text_box.help_counsel_box > .text .sub {
+    margin-top: 0;
+}
+.helpcounsel_list {
+    margin-top: 0;
+}
+.counsel_btn {
+    border-bottom: 0;
+}
+/* 활동_또래상담 끝 */
 
 /* 활동_도움요청_가족테라피 시작 */
 .sub_text_box.family_text_box {
