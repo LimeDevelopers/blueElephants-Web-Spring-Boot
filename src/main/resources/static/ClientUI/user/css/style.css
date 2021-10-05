@@ -11241,7 +11241,11 @@ li.score_inner .td .chk_item form label {
     border: 1px solid #cfcfcf;
 }
 li.score_inner .td .chk_item:nth-of-type(1) {
-    display: none;
+    float: left;
+    align-items: center;
+    cursor : pointer;
+    margin-right: 20px;
+    display: flex;
 }
 li.score_inner .td .chk_item form {
     width: 135px;
