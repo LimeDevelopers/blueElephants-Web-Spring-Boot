@@ -11256,6 +11256,7 @@ li.score_inner .td .chk_item select {
     cursor: pointer;
     position: relative;
     border: 1px solid #cfcfcf;
+    background: #fff;
 }
 li.period .td input {
     width: 135px;
