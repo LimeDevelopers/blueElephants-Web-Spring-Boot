@@ -347,6 +347,20 @@
         }
 
     }
+    $(document).ready(function (e) {
+        $('#attachedFile').on('change',function (e){
+            let filename = $(this)[0].files[0].name;
+            if (filename) {
+                let ext = filename.slice(filename.lastIndexOf(".") + 1).toLowerCase();
+                if (!(ext == "jpg" || ext == "png" || ext == "jpeg" || ext == "hwp" || ext == "doc" || ext == "pdf")) {
+                    alert("이미지파일 (.jpg, .png, .jpeg ) , 문서파일(.hwp , .doc, .pdf) 만 업로드 가능합니다.");
+                    return false;
+                } else {
+                    $('#box').text(filename);
+                }
+            }
+        })
+    })
 </script>
 <body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
 <div id="wrap">
@@ -578,7 +592,6 @@
                                             <div class="chk_item">
                                                 <span>신체적 피해</span>
                                                 <div>
-                                                    <label for="bdyDmgeCodePidLabel">점수</label>
                                                     <select name="bdy_dmge_code_pid" id="bdyDmgeCodePidLabel">
                                                         <option value>점수</option>
                                                         <option value="44">1</option>
@@ -596,7 +609,6 @@
                                             </div>
                                             <div class="chk_item">
                                                 <span>정신적 피해</span>
-                                                    <label for="mindDmgeCodePidLabel">점수</label>
                                                     <select name="mindDmgeCodePid" id="mindDmgeCodePidLabel">
                                                         <option value>점수</option>
                                                         <option value="44">1</option>
@@ -614,7 +626,6 @@
                                             <div class="chk_item">
                                                 <span>물질적 피해</span>
                                                 <div>
-                                                    <label for="physiclDmgeCodePidLabel">점수</label>
                                                     <select name="physiclDmgeCodePid" id="physiclDmgeCodePidLabel">
                                                         <option value>점수</option>
                                                         <option value="44">1</option>
@@ -649,6 +660,14 @@
                                             <label for="attachedFile" id="box" ></label>
                                             <label  for="attachedFile">찾아보기</label>
                                         </div>
+                                       <!-- <div class="td">
+                                            <input type="file" id= "attachedFile" name="attachedFile" maxlength="1"/>
+                                            <label for="attachedFile" id="box">증빙서류업로드</label>
+                                            <label for="attachedFile"><span>파일검색</span></label>
+                                            <small>※ 사업자등록증 또는 공문 등 단체를 증명할 수 있는 자료를 업로드하세요.</small>
+                                            <input type="hidden" name="b_license_attc" id="b_license_attc" value="N">
+                                        </div>-->
+
                                     </li>
                                 </ul>
                             </div>

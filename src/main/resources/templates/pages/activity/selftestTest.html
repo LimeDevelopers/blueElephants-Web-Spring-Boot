@@ -80,49 +80,36 @@
         <th:block th:include="fragments/mo_menu"></th:block>
         <div class="sub_container">
             <th:block th:include="fragments/dept_menu"></th:block>
-            <form id="form1" name="form1" method="post" th:object="${form}">
-                <input type="hidden" id="id" name="id" th:value="*{id}"/>
+            <form id="form1" name="form1" method="post">
+                <input type="hidden" id="id" name="id"/>
                 <div class="inner top">
                     <div class="page_cont">
-                        <h4 class="subtit pc review_title" th:text="*{ttl}">자가진단</h4>
+                        <h4 class="subtit pc review_title">자가진단</h4>
                         <div class="test_inner">
-                            <th:block th:each="item,idx : ${list}" th:with="question = ${item.question}, caseList = ${item.caseList}">
                                 <div class="test_item test_01_inner">
                                     <div class="question">
                                         <div class="tit">
-                                            <b th:id="${'step_'+idx.count}" th:text="${idx.count}">01</b>
-                                            <span th:text="${question.qestnQesitm}">자가진단 질문입니다.</span>
-                                            <th:block th:if="${question.rspnsCnt >1}">
-                                                <span th:text="${'(답변 '+question.rspnsCnt+'개)'}"></span>
-                                            </th:block>
+                                            <span>자가진단 질문입니다.</span>
+                                                <span>답변: 개</span>
                                         </div>
-                                        <input type="hidden" name="question" th:id="${'question'+question.id}"
-                                               th:value="${question.id}"/>
-                                        <input type="hidden" th:id="${'answer_cnt'+question.id}"
-                                               th:value="${question.answerCnt}"/>
-                                        <input type="hidden" th:id="${'rspns_cnt'+question.id}"
-                                               th:value="${question.rspnsCnt}"/>
-                                        <input type="hidden" th:id="${'count'+question.id}" th:value="${idx.count}"/>
 
-                                        <th:block th:if="${question.aswDvTy eq T(kr.or.btf.web.domain.web.enums.AnswerType).CHOICE.name()}">
-                                            <th:block th:if="${question.rspnsCnt >1}"> <!--객관식 복수선택-->
+
                                                 <div class="chk_inner">
-                                                    <div class="chk_btn" th:each="case, cnt: ${caseList}">
-                                                        <input type="radio" th:value="${case.id}" th:name="${'answer'+question.id}" th:id="${'answer'+question.id+'_'+case.id}">
-                                                        <label th:for="${'answer'+question.id+'_'+case.id}">
-                                                            <small th:text="${cnt.count}">0</small>
-                                                            <span th:text="${case.answerCnts}">거의없음</span>
+                                                    <div class="chk_btn">
+                                                        <input >
+                                                        <label>
+                                                            <small>0</small>
+                                                            <span>거의없음</span>
                                                         </label>
                                                     </div>
                                                 </div>
                                             </th:block>
-                                            <th:block th:unless="${question.rspnsCnt >1}"> <!--객관식 복수선택-->
                                                 <div class="chk_inner">
-                                                    <div class="chk_btn" th:each="case, cnt: ${caseList}">
-                                                        <input type="radio" th:value="${case.id}" th:name="${'answer'+question.id}" th:id="${'answer'+question.id+'_'+case.id}" th:checked="${case.id eq case.responseAswPid}">
-                                                        <label th:for="${'answer'+question.id+'_'+case.id}">
-                                                            <small th:text="${cnt.count}">0</small>
-                                                            <span th:text="${case.answerCnts}">거의없음</span>
+                                                    <div class="chk_btn">
+                                                        <input type="radio">
+                                                        <label >
+                                                            <small >0</small>
+                                                            <span >거의없음</span>
                                                         </label>
                                                     </div>
                                                 </div>
