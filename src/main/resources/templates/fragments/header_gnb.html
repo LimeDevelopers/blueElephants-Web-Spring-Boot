@@ -269,11 +269,12 @@
                     <a href="/soulGod/dashboard" class="mo_my_icon"></a>
                     <a href="/soulGod/dashboard" class="mo_my_icon_txt">관리자모드</a>
                 </th:block>
+                <th:block sec:authorize="hasAnyRole('ROLE_NORMAL', 'ROLE_STUDENT', 'ROLE_PARENT', 'ROLE_TEACHER','ROLE_INSTRUCTOR')">
+                    <a href="/pages/myPage/profile" class="mo_my_icon"></a>
+                    <a href="/pages/myPage/profile" class="mo_my_icon_txt">마이페이지</a>
+                </th:block>
             </th:block>
-            <th:block th:if="${#authorization.getAuthentication() != null and #authorization.expression('isAuthenticated()')}">
-                <a href="/pages/myPage/profile" class="mo_my_icon"></a>
-                <a href="/pages/myPage/profile" class="mo_my_icon_txt">마이페이지</a>
-            </th:block>
+
             <th:block th:unless="${#authorization.getAuthentication() != null and #authorization.expression('isAuthenticated()')}">
                 <a href="/login" class="mo_my_icon"></a>
                 <a href="/login" class="mo_my_icon_txt">로그인</a>
