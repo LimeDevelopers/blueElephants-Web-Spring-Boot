@@ -31,11 +31,8 @@
             <th:block th:each="tp : ${T(kr.or.btf.web.domain.web.enums.UserRollType).values()}">
               <span th:if="${#authentication.principal.account.mberDvTy eq tp}" th:text="${tp.getName()}"></span>
             </th:block>
-<!--            <span class="">-->
-<!--              <th:block sec:authentication="principal.account.mberDvTy"></th:block>학생-->
-<!--            </span>-->
-<!--            <b class="level">LV.1</b>-->
-<!--            <span class="point">0p</span>-->
+            <b class="level">LV.1</b>
+            <span class="point">0p</span>
           </div>
         </div>
         <div class="btns">
