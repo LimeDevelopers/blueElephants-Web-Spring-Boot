@@ -3,6 +3,351 @@
 <head>
     <th:block th:include="fragments/header"></th:block>
 </head>
+<script type="text/javascript">
+    $(function () {
+        $(".bodyContainer").hide();
+        $("#helpType01_body").show();
+        if ([[${isMobile}]]) {
+            $("select[name=helpType]").change(function () {
+                fn_reset();
+                var value = $(this).prop("value");
+                $(".bodyContainer").hide();
+                $("#" + value + "_body").show();
+            });
+        } else {
+            $("input[name=helpType]").change(function () {
+                fn_reset();
+                var id = $(this).prop("id");
+                $(".bodyContainer").hide();
+                $("#" + id + "_body").show();
+            });
+        }
+
+        fn_setDatePicker('#incdnt_st_ymd', {
+            onShow:function( ct ){
+                this.setOptions({
+                    maxDate:$('#incdnt_end_ymd').val()?$('#incdnt_end_ymd').val():new Date().toISOString().substring(0, 10)
+                })
+            }
+        });
+
+        fn_setDatePicker('#incdnt_end_ymd', {
+            onShow:function( ct ){
+                this.setOptions({
+                    minDate:$('#incdnt_st_ymd').val()?$('#incdnt_st_ymd').val():false,
+                    maxDate:new Date().toISOString().substring(0, 10)
+                })
+            }
+        });
+
+        fn_setDatePicker('#telHopeStYmd', {
+            onShow:function( ct ){
+                this.setOptions({
+                    maxDate:$('#telHopeEndYmd').val()?$('#telHopeEndYmd').val():false
+                })
+            }
+        });
+
+        fn_setDatePicker('#telHopeEndYmd', {
+            onShow:function( ct ){
+                this.setOptions({
+                    minDate:$('#telHopeStYmd').val()?$('#telHopeStYmd').val():false
+                })
+            }
+        });
+
+        fn_setDatePicker('#faceHopeStYmd', {
+            onShow:function( ct ){
+                this.setOptions({
+                    maxDate:$('#faceHopeEndYmd').val()?$('#faceHopeEndYmd').val():false
+                })
+            }
+        });
+
+        fn_setDatePicker('#faceHopeEndYmd', {
+            onShow:function( ct ){
+                this.setOptions({
+                    minDate:$('#faceHopeStYmd').val()?$('#faceHopeStYmd').val():false
+                })
+            }
+        });
+
+    });
+    function fn_save(gbn) {
+        if(!fn_validationChk(gbn)){
+            return;
+        }
+        var frm = null;
+        if (gbn == 'board') {
+            frm = $('#helpType01_body');
+            frm.prop('action', '/api/openData/helpRequest/adviceRequest/register');
+        } else if (gbn == 'tel') {
+            frm = $('#helpType03_body');
+            frm.prop('action', '/api/openData/helpRequest/adviceReservation/register');
+        } else if (gbn == 'face') {
+            frm = $('#helpType04_body');
+            frm.prop('action', '/api/openData/helpRequest/adviceReservation/register');
+        }
+
+        if (frm) {
+            frm.prop("method", "post");
+            frm.prop("enctype", "multipart/form-data");
+            frm.submit();
+        }
+    }
+    function fn_validationChk(gbn) {
+        if ([[${isMobile}]]) {
+            if (gbn == 'board') {
+                var mberDvTy = $('select[id=mberDvTy]');
+                var worry = $('select[id=worry]');
+            } else if (gbn == 'tel') {
+                var mberDvTy = $('select[id=telMberDvTy]');
+                var worry = $('select[id=telWorry]');
+            } else if (gbn == 'face') {
+                var mberDvTy = $('select[id=faceMberDvTy]');
+                var worry = $('select[id=faceWorry]');
+            }
+        } else {
+            var mberDvTy = $('input[name=mberDvTy]:checked');
+            var worry = $('input[name=worry]:checked');
+        }
+        var ttl = $('input[name=ttl]');
+        var cn = $('textarea[name=cn]');
+        //var cnts = $('textarea[name=cnts]');
+        var incdntStYmd = $('input[name=incdntStYmd]');
+        var incdntEndYmd = $('input[name=incdntEndYmd]');
+        var bdyDmgeCodePid = $('select[name=bdyDmgeCodePid]');
+        var mindDmgeCodePid = $('select[name=mindDmgeCodePid]');
+        var physiclDmgeCodePid = $('select[name=physiclDmgeCodePid]');
+        var pwd = $('input[name=pwd]');
+        //var nm = $('input[name=nm]');
+        //var areaCodePid = $('select[name=areaCodePid]');
+        //var telno = $('input[name=telno]');
+        //var hopeStYmd = $('input[name=hopeStYmd]');
+        //var hopeEndYmd = $('input[name=hopeEndYmd]');
+        if ([[${isMobile}]]) {
+            if (gbn == 'tel') {
+                var hopeTimeCodeId = $('select[id=telHopeTimeCodeId]');
+            } else if (gbn == 'face') {
+                var hopeTimeCodeId = $('select[id=faceHopeTimeCodeId]');
+            }
+        } else {
+            var hopeTimeCodeId = $('input[name=hopeTimeCodeId]:checked');
+        }
+
+        if (mberDvTy.val() == null || mberDvTy.val() == "") {
+            alert('대상은 필수입니다.');
+            return false;
+        }
+        if ([[${isMobile}]]) {
+            if (worry.val() == null || worry.val() == "") {
+                alert('고민은 필수입니다.');
+                return false;
+            }
+        } else {
+            if (worry.length < 1) {
+                alert('고민은 필수입니다.');
+                return false;
+            }
+        }
+
+        if (gbn == 'board') {
+            if (!$.trim($('#ttl').val())) {
+                alert('제목은 필수입니다.');
+                return false;
+            }
+            if (!$.trim(cn.val())) {
+                alert('내용은 필수입니다.');
+                return false;
+            }
+            if (!incdntStYmd.val()) {
+                alert('사건시작기간은 필수입니다.');
+                incdntStYmd.focus();
+                return false;
+            }
+            if (!incdntEndYmd.val()) {
+                alert('사건시작기간은 필수입니다.');
+                incdntEndYmd.focus();
+                return false;
+            }
+            if (!bdyDmgeCodePid.val()) {
+                alert('신체적 피해는 필수입니다.');
+                bdyDmgeCodePid.focus();
+                return false;
+            }
+            if (!mindDmgeCodePid.val()) {
+                alert('정신적 피해는 필수입니다.');
+                mindDmgeCodePid.focus();
+                return false;
+            }
+            if (!physiclDmgeCodePid.val()) {
+                alert('물질적 피해는 필수입니다.');
+                physiclDmgeCodePid.focus();
+                return false;
+            }
+            if (!$.trim(pwd.val())) {
+                alert('비밀번호는 필수입니다.')
+                return false;
+            }
+        } else if (gbn == 'tel') {
+            if (!$.trim($('#telTtl').val())) {
+                alert('제목은 필수입니다.');
+                return false;
+            }
+            if (!$.trim($('#telNm').val())) {
+                alert('이름은 필수입니다.');
+                return false;
+            }
+            if (!$('#telAreaCodePid').val()) {
+                alert('지역은 필수입니다.');
+                return false;
+            }
+            if (!$.trim($('#telCnts').val())) {
+                alert('내용은 필수입니다.');
+                return false;
+            }
+            if (!$.trim($('#telTelno').val())) {
+                alert('연락처는 필수입니다.');
+                return false;
+            }
+            if (!$('#telHopeStYmd').val()) {
+                alert('희망일자는 필수입니다.');
+                $('#telHopeStYmd').focus();
+                return false;
+            }
+            if (!$('#telHopeEndYmd').val()) {
+                alert('희망일자는 필수입니다.');
+                $('#telHopeEndYmd').focus();
+                return false;
+            }
+            if ([[${isMobile}]]) {
+                if (hopeTimeCodeId.val() == null || hopeTimeCodeId.val() == "") {
+                    alert('희망시간은 필수입니다.');
+                    return false;
+                }
+            } else {
+                if (hopeTimeCodeId.length < 1) {
+                    alert('희망시간은 필수입니다.');
+                    return false;
+                }
+            }
+
+        } else if (gbn == 'face') {
+            if (!$.trim($('#faceTtl').val())) {
+                alert('제목은 필수입니다.');
+                return false;
+            }
+            if (!$.trim($('#faceNm').val())) {
+                alert('이름은 필수입니다.');
+                return false;
+            }
+            if (!$('#faceAreaCodePid').val()) {
+                alert('지역은 필수입니다.');
+                return false;
+            }
+            if (!$.trim($('#faceCnts').val())) {
+                alert('내용은 필수입니다.');
+                return false;
+            }
+            if (!$.trim($('#faceTelno').val())) {
+                alert('연락처는 필수입니다.');
+                return false;
+            }
+            if (!$('#faceHopeStYmd').val()) {
+                alert('희망일자는 필수입니다.');
+                $('#faceHopeStYmd').focus();
+                return false;
+            }
+            if (!$('#faceHopeEndYmd').val()) {
+                alert('희망일자는 필수입니다.');
+                $('#faceHopeEndYmd').focus();
+                return false;
+            }
+            if ([[${isMobile}]]) {
+                if (hopeTimeCodeId.val() == null || hopeTimeCodeId.val() == "") {
+                    alert('희망시간은 필수입니다.');
+                    return false;
+                }
+            } else {
+                if (hopeTimeCodeId.length < 1) {
+                    alert('희망시간은 필수입니다.');
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+    function fn_reset() {
+        if ([[${isMobile}]]) {
+            var mberDvTy = $('select[name=mberDvTy]');
+            var worry = $('select[name=worry]');
+        } else {
+            var mberDvTy = $('input[name=mberDvTy]:checked');
+            var worry = $('input[name=worry]:checked');
+        }
+        var ttl = $('input[name=ttl]');
+        var cn = $('textarea[name=cn]');
+        var cnts = $('textarea[name=cnts]');
+        var incdntStYmd = $('input[name=incdntStYmd]');
+        var incdntEndYmd = $('input[name=incdntEndYmd]');
+        var bdyDmgeCodePid = $('select[name=bdyDmgeCodePid]');
+        var mindDmgeCodePid = $('select[name=mindDmgeCodePid]');
+        var physiclDmgeCodePid = $('select[name=physiclDmgeCodePid]');
+        var pwd = $('input[name=pwd]');
+        var nm = $('input[name=nm][type=text]');
+        var areaCodePid = $('select[name=areaCodePid]');
+        var telno = $('input[name=telno][type=text]');
+        var hopeStYmd = $('input[name=hopeStYmd]');
+        var hopeEndYmd = $('input[name=hopeEndYmd]');
+
+        if ([[${isMobile}]]) {
+            mberDvTy.val('');
+            $('#boardMberDvTyLabel').text('선택');
+            $('#telMberDvTyLabel').text('선택');
+            $('#faceMberDvTyLabel').text('선택');
+            worry.val('');
+            $('#boardWorryLabel').text('선택');
+            $('#telWorryLabel').text('선택');
+            $('#faceWorryLabel').text('선택');
+        } else {
+            mberDvTy.prop('checked', false);
+            worry.prop('checked', false);
+        }
+        ttl.val('');
+        cn.val('');
+        cnts.val('');
+        incdntStYmd.val('');
+        incdntEndYmd.val('');
+        bdyDmgeCodePid.val('');
+        mindDmgeCodePid.val('');
+        physiclDmgeCodePid.val('');
+        if ([[${isMobile}]]) {
+            $('#bdyDmgeCodePidLabel').text('신체적피해');
+            $('#mindDmgeCodePidLabel').text('정신적피해');
+            $('#physiclDmgeCodePidLabel').text('물질적피해');
+        } else {
+            $('#bdyDmgeCodePidLabel').text('점수');
+            $('#mindDmgeCodePidLabel').text('점수');
+            $('#physiclDmgeCodePidLabel').text('점수');
+        }
+        pwd.val('');
+        nm.val('');
+        telno.val('');
+        areaCodePid.val('');
+        hopeStYmd.val('');
+        hopeEndYmd.val('');
+        if ([[${isMobile}]]) {
+            var hopeTimeCodeId = $('select[name=hopeTimeCodeId]');
+            $('#telHopeTimeCodeIdLabel').text('선택');
+            hopeTimeCodeId.val('');
+        } else {
+            var hopeTimeCodeId = $('input[name=hopeTimeCodeId]:checked');
+            hopeTimeCodeId.prop('checked', false);
+        }
+
+    }
+</script>
 <body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
 <div id="wrap">
     <th:block th:include="fragments/header_gnb"></th:block>
@@ -10,9 +355,7 @@
         <th:block th:include="fragments/mo_menu"></th:block>
         <div class="sub_container">
             <th:block th:include="fragments/dept_menu"></th:block>
-
             <form id="form1" name="form1" method="post" th:object="${form}">
-
                 <div class="inner">
                     <div class="page_cont">
                         <!--<h4 class="subtit pc review_title">심리상담</h4>-->
@@ -25,8 +368,6 @@
                                 </span>
                             </div>
                         </div>
-
-
                         <h4 class="subtit board_tit">게시판 상담</h4>
                         <div class="board_info">
                             <div class="sec_write board">
@@ -34,30 +375,30 @@
                                     <ul>
                                         <li class="baordchk_inner col">
                                             <div class="th">
-                                                <label for="">어디에 속하나요?</label>
+                                                <label>어디에 속하나요?</label>
                                             </div>
                                             <div class="td">
                                                 <div>
-                                                    <input type="radio" name="boardchk2" id="chk013">
-                                                    <label for="chk013">
+                                                    <input type="radio" name="mberDvTy" id="mberDvTy1" value="STUDENT">
+                                                    <label for="mberDvTy1">
                                                         <span>청소년</span>
                                                     </label>
                                                 </div>
                                                 <div>
-                                                    <input type="radio" name="boardchk2" id="chk014">
-                                                    <label for="chk014">
+                                                    <input type="radio" name="mberDvTy" id="mberDvTy2" value="TEACHER">
+                                                    <label for="mberDvTy2">
                                                         <span>교원</span>
                                                     </label>
                                                 </div>
                                                 <div>
-                                                    <input type="radio" name="boardchk2" id="chk015">
-                                                    <label for="chk015">
+                                                    <input type="radio" name="mberDvTy" id="mberDvTy3" value="PARENT">
+                                                    <label for="mberDvTy3">
                                                         <span>학부모</span>
                                                     </label>
                                                 </div>
                                                 <div>
-                                                    <input type="radio" name="boardchk2" id="chk016">
-                                                    <label for="chk016">
+                                                    <input type="radio" name="mberDvTy" id="mberDvTy4" value="NOMAL">
+                                                    <label for="mberDvTy4">
                                                         <span>일반</span>
                                                     </label>
                                                 </div>
@@ -65,17 +406,17 @@
                                         </li>
                                         <li class="chkbox2_inner col">
                                             <div class="th">
-                                                <label for="">어떤 폭력을 경험하셨나요?</label>
+                                                <label>어떤 폭력을 경험하셨나요?</label>
                                             </div>
                                             <div class="td">
                                                 <div class="chk_inner checkbox2">
-                                                    <input type="checkbox" id="board_chk03">
+                                                    <input type="checkbox" id="board_chk03" value="34">
                                                     <label class="board_chk" for="board_chk03">
                                                         <span>사이버폭력</span>
                                                     </label>
                                                 </div>
                                                 <div class="chk_inner checkbox2">
-                                                    <input type="checkbox" id="board_chk4">
+                                                    <input type="checkbox" id="board_chk4" value="32">
                                                     <label class="board_chk" for="board_chk4">
                                                         <span>학교폭력</span>
                                                     </label>
@@ -84,42 +425,42 @@
                                         </li>
                                         <li class="chkbox2_inner col wrap">
                                             <div class="th">
-                                                <label for="">어떤 유형의 고민인가요?</label>
+                                                <label>어떤 유형의 고민인가요?</label>
                                             </div>
                                             <div class="td pc">
                                                 <div class="chk_inner checkbox2">
-                                                    <input type="checkbox" id="board_chk1">
-                                                    <label class="board_chk" for="board_chk1">
+                                                    <input type="checkbox" id="p_worry1" name="worry" value="37">
+                                                    <label class="board_chk" for="p_worry1">
                                                         <span>신체폭력</span>
                                                     </label>
                                                 </div>
                                                 <div class="chk_inner checkbox2">
-                                                    <input type="checkbox" id="board_chk2">
-                                                    <label class="board_chk" for="board_chk2">
+                                                    <input type="checkbox" id="p_worry2" name="worry" value="38">
+                                                    <label class="board_chk" for="p_worry2">
                                                         <span>언어폭력</span>
                                                     </label>
                                                 </div>
                                                 <div class="chk_inner checkbox2">
-                                                    <input type="checkbox" id="board_chk3">
-                                                    <label class="board_chk" for="board_chk3">
+                                                    <input type="checkbox" id="p_worry3" name="worry" value="39">
+                                                    <label class="board_chk" for="p_worry3">
                                                         <span>성폭력</span>
                                                     </label>
                                                 </div>
                                                 <div class="chk_inner checkbox2">
-                                                    <input type="checkbox" id="board_chk4">
-                                                    <label class="board_chk" for="board_chk4">
+                                                    <input type="checkbox" id="p_worry4" name="worry"  value="41">
+                                                    <label class="board_chk" for="p_worry4">
                                                         <span>괴롭힘</span>
                                                     </label>
                                                 </div>
                                                 <div class="chk_inner checkbox2">
-                                                    <input type="checkbox" id="board_chk5">
-                                                    <label class="board_chk" for="board_chk5">
+                                                    <input type="checkbox" id="p_worry5" name="worry" value="40">
+                                                    <label class="board_chk" for="p_worry5">
                                                         <span>금품갈취</span>
                                                     </label>
                                                 </div>
                                                 <div class="chk_inner checkbox2">
-                                                    <input type="checkbox" id="board_chk6">
-                                                    <label class="board_chk" for="board_chk6">
+                                                    <input type="checkbox" id="p_worry6" name="worry" value="42">
+                                                    <label class="board_chk" for="p_worry6">
                                                         <span>기타</span>
                                                     </label>
                                                 </div>
@@ -127,40 +468,40 @@
                                             <div class="td mobile">
                                                 <div class="td_inner">
                                                     <div class="chk_inner checkbox2">
-                                                        <input type="checkbox" id="board_chk1">
-                                                        <label class="board_chk" for="board_chk1">
+                                                        <input type="checkbox" id="m_worry1" name="worry" value="37">
+                                                        <label class="board_chk" for="m_worry1">
                                                             <span>신체폭력</span>
                                                         </label>
                                                     </div>
                                                     <div class="chk_inner checkbox2">
-                                                        <input type="checkbox" id="board_chk2">
-                                                        <label class="board_chk" for="board_chk2">
+                                                        <input type="checkbox" id="m_worry2" name="worry" value="38">
+                                                        <label class="board_chk" for="m_worry1">
                                                             <span>언어폭력</span>
                                                         </label>
                                                     </div>
                                                     <div class="chk_inner checkbox2">
-                                                        <input type="checkbox" id="board_chk3">
-                                                        <label class="board_chk" for="board_chk3">
+                                                        <input type="checkbox" id="m_worry3" name="worry" value="39">
+                                                        <label class="board_chk" for="m_worry3">
                                                             <span>성폭력</span>
                                                         </label>
                                                     </div>
                                                     <div class="chk_inner checkbox2">
-                                                        <input type="checkbox" id="board_chk4">
-                                                        <label class="board_chk" for="board_chk4">
+                                                        <input type="checkbox" id="m_worry4" name="worry" value="41">
+                                                        <label class="board_chk" for="m_worry4">
                                                             <span>괴롭힘</span>
                                                         </label>
                                                     </div>
                                                 </div>
                                                 <div class="td_inner">
                                                     <div class="chk_inner checkbox2">
-                                                        <input type="checkbox" id="board_chk5">
-                                                        <label class="board_chk" for="board_chk5">
+                                                        <input type="checkbox" id="m_worry5" name="worry" value="40">
+                                                        <label class="board_chk" for="m_worry5">
                                                             <span>금품갈취</span>
                                                         </label>
                                                     </div>
                                                     <div class="chk_inner checkbox2">
-                                                        <input type="checkbox" id="board_chk6">
-                                                        <label class="board_chk" for="board_chk6">
+                                                        <input type="checkbox" id="m_worry6" name="worry" value="42">
+                                                        <label class="board_chk" for="m_worry6">
                                                             <span>기타</span>
                                                         </label>
                                                     </div>
@@ -169,7 +510,7 @@
                                         </li>
                                         <li class="baordchk_inner col">
                                             <div class="th">
-                                                <label for="">본인이 직접 경험했나요?</label>
+                                                <label>본인이 직접 경험했나요?</label>
                                             </div>
                                             <div class="td">
                                                 <div>
@@ -202,89 +543,89 @@
                                 <ul>
                                     <li class="col">
                                         <div class="th">
-                                            <label for="">제목</label>
+                                            <label for="ttl">제목</label>
                                         </div>
                                         <div class="td">
-                                            <input type="text" placeholder="제목을 업로드하세요">
+                                            <input id="ttl" name="ttl" type="text" placeholder="제목을 업로드하세요">
                                         </div>
                                     </li>
                                     <li class="col">
                                         <div class="th">
-                                            <label for="">내용</label>
+                                            <label for="cn">내용</label>
                                         </div>
                                         <div class="td">
-                                            <textarea name="" id="" cols="30" rows="10"></textarea>
+                                            <textarea name="cn" id="cn" cols="30" rows="10"></textarea>
                                         </div>
                                     </li>
                                     <li class="period col">
                                         <div class="th">
-                                            <label for="">시작기간</label>
+                                            <label>시작기간</label>
                                         </div>
                                         <div class="td">
-                                            <input type="text">
+                                            <input id="incdnt_st_ymd" name="incdnt_st_ymdf" type="text" readonly value="">
                                             <span>~</span>
-                                            <input type="text">
+                                            <input id="incdntEndYmd" name="incdntEndYmd" type="text" readonly value="">
                                         </div>
                                     </li>
                                     <li class="score_inner col">
                                         <div class="th">
-                                            <label for="chargerNm">심각성</label>
+                                            <label>심각성</label>
                                         </div>
                                         <div class="td col">
                                             <div class="chk_item">
                                                 <span>신체적 피해</span>
                                                 <div>
-                                                    <label for="item_01">점수</label>
-                                                    <select name="scorechk" id="item_01">
-                                                        <option value="">점수</option>
-                                                        <option value="">1</option>
-                                                        <option value="">2</option>
-                                                        <option value="">3</option>
-                                                        <option value="">4</option>
-                                                        <option value="">5</option>
-                                                        <option value="">6</option>
-                                                        <option value="">7</option>
-                                                        <option value="">8</option>
-                                                        <option value="">9</option>
-                                                        <option value="">10</option>
+                                                    <label for="bdyDmgeCodePidLabel">점수</label>
+                                                    <select name="bdy_dmge_code_pid" id="bdyDmgeCodePidLabel">
+                                                        <option value>점수</option>
+                                                        <option value="44">1</option>
+                                                        <option value="45">2</option>
+                                                        <option value="46">3</option>
+                                                        <option value="47">4</option>
+                                                        <option value="48">5</option>
+                                                        <option value="49">6</option>
+                                                        <option value="50">7</option>
+                                                        <option value="51">8</option>
+                                                        <option value="52">9</option>
+                                                        <option value="53">10</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="chk_item">
                                                 <span>정신적 피해</span>
                                                 <div>
-                                                    <label for="item_01">점수</label>
-                                                    <select name="scorechk" id="item_01">
-                                                        <option value="">점수</option>
-                                                        <option value="">1</option>
-                                                        <option value="">2</option>
-                                                        <option value="">3</option>
-                                                        <option value="">4</option>
-                                                        <option value="">5</option>
-                                                        <option value="">6</option>
-                                                        <option value="">7</option>
-                                                        <option value="">8</option>
-                                                        <option value="">9</option>
-                                                        <option value="">10</option>
+                                                    <label for="mindDmgeCodePidLabel">점수</label>
+                                                    <select name="mindDmgeCodePid" id="mindDmgeCodePidLabel">
+                                                        <option value>점수</option>
+                                                        <option value="44">1</option>
+                                                        <option value="45">2</option>
+                                                        <option value="46">3</option>
+                                                        <option value="47">4</option>
+                                                        <option value="48">5</option>
+                                                        <option value="49">6</option>
+                                                        <option value="50">7</option>
+                                                        <option value="51">8</option>
+                                                        <option value="52">9</option>
+                                                        <option value="53">10</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="chk_item">
                                                 <span>물질적 피해</span>
                                                 <div>
-                                                    <label for="item_01">점수</label>
-                                                    <select name="scorechk" id="item_01">
-                                                        <option value="">점수</option>
-                                                        <option value="">1</option>
-                                                        <option value="">2</option>
-                                                        <option value="">3</option>
-                                                        <option value="">4</option>
-                                                        <option value="">5</option>
-                                                        <option value="">6</option>
-                                                        <option value="">7</option>
-                                                        <option value="">8</option>
-                                                        <option value="">9</option>
-                                                        <option value="">10</option>
+                                                    <label for="physiclDmgeCodePidLabel">점수</label>
+                                                    <select name="physiclDmgeCodePid" id="physiclDmgeCodePidLabel">
+                                                        <option value>점수</option>
+                                                        <option value="44">1</option>
+                                                        <option value="45">2</option>
+                                                        <option value="46">3</option>
+                                                        <option value="47">4</option>
+                                                        <option value="48">5</option>
+                                                        <option value="49">6</option>
+                                                        <option value="50">7</option>
+                                                        <option value="51">8</option>
+                                                        <option value="52">9</option>
+                                                        <option value="53">10</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -292,20 +633,20 @@
                                     </li>
                                     <li class="col">
                                         <div class="th">
-                                            <label for="">글 비밀번호</label>
+                                            <label for="pwd">글 비밀번호</label>
                                         </div>
                                         <div class="td">
-                                            <input type="text">
+                                            <input name="pwd" id="pwd" type="number">
                                         </div>
                                     </li>
                                     <li class="m_mode col">
                                         <div class="th">
-                                            <label for="">첨부파일</label>
+                                            <label for="attachedFile">첨부파일</label>
                                         </div>
                                         <div class="td">
-                                            <input type="file" name="" id="uploadfile" >
-                                            <label for="uploadfile" id="box" ></label>
-                                            <label  for="uploadfile">찾아보기</label>
+                                            <input type="file" name="attachedFile" id="attachedFile" >
+                                            <label for="attachedFile" id="box" ></label>
+                                            <label  for="attachedFile">찾아보기</label>
                                         </div>
                                     </li>
                                 </ul>
@@ -314,8 +655,8 @@
 
 
                         <div class="partners_edu_btn">
-                            <a class="save_btn" href="#none">저장</a>
-                            <a class="join_btn" href="#none">목록</a>
+                            <a class="save_btn" onclick="fn_save('board')" href="#none">저장</a>
+                            <a class="join_btn" onclick="location.href='/pages/activity/helpRequest' ">목록</a>
                         </div>
 
 
