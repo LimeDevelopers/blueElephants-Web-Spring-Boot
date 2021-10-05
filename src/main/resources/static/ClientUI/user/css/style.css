@@ -11215,9 +11215,9 @@ li.score_inner .td .chk_item {
     cursor: pointer;
     margin-right: 20px;
 }
-li.score_inner .td .chk_item > div label {
+li.score_inner .td .chk_item form label {
     position: absolute;
-    width: 135px !important;
+    width: 135px;
     top: 0;
     left: 0;
     display: inline-block;
@@ -11225,14 +11225,38 @@ li.score_inner .td .chk_item > div label {
     color: #515564 !important;
     font-size: 14px;
 }
-li.score_inner .td .chk_item > div {
+.join .upload ul li.text_area .td {
+    padding-bottom: 20px;
+    height: 170px;
+}
+.join .upload ul li.text_area .td textarea {
+    height: 150px;
+}
+.join .upload ul li.score_inner .td label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    width: 135px;
+    border: 1px solid #cfcfcf;
+}
+li.score_inner .td .chk_item:nth-of-type(1) {
+    display: none;
+}
+li.score_inner .td .chk_item form {
     width: 135px;
     position: relative;
     margin-left: 10px;
 }
-li.score_inner .td .chk_item > div select {
-    opacity: 0;
+li.score_inner .td .chk_item span {
+    width: 80px;
+}
+li.score_inner .td .chk_item form select {
     cursor: pointer;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    border: 1px solid #cfcfcf;
 }
 li.period .td input {
     width: 135px;
@@ -11369,6 +11393,7 @@ li.period .td span {
 /* 활동_도움요청_가족테라피 끝 */
 
 /* 활동_도움요청_게시판 시작 */
+
 .notice_board {
     display: flex;
     justify-content: center;
@@ -11932,6 +11957,8 @@ li.period .td span {
 }
 .join .upload ul li .td input[type="file"] {
     display: none;
+    width: 500px;
+    margin-right: 12px;
 }
 .join .upload ul li .td #box {
     height: 44px;

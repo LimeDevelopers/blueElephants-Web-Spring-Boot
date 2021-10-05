@@ -2767,11 +2767,17 @@
 	}
 	li.score_inner .td {
 		height: 80px;
+		margin-left: 0;
+		width: 100%;
 	}
 	li.score_inner .td .chk_item {
 		flex: 1;
 		text-align: left;
 		margin-right: 5px;
+	}
+	li.score_inner .td .chk_item form {
+		margin-left: 0;
+		width: 100%;
 	}
 	li.score_inner .td .chk_item:last-child {
 		margin-right: 0;
@@ -2783,6 +2789,10 @@
 	}
 	li.score_inner .td .chk_item {
 		flex-direction: column;
+	}
+	.join .upload ul li.score_inner .td label {
+		width: 100%;
+		padding: 0;
 	}
 	.board_info .board .tbl_write ul li.chkbox2_inner .td .checkbox2 label, .board_info .board .tbl_write ul li.baordchk_inner .td label {
 		margin-right: 0;
