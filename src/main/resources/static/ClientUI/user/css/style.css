@@ -11248,24 +11248,24 @@ li.period .td span {
 .help_counsel_box {
     height: 100px;
 }
-/*.page_cont > .sub_text_box.help_counsel_box > img {
-    bottom: 0;
-    left: 200px;
-}*/
-/*.page_cont > .sub_text_box.help_counsel_box > .text {
+.page_cont > .sub_text_box.help_counsel_box > img {
+    bottom: 20px;
+    left: 50px;
+}
+.page_cont > .sub_text_box.help_counsel_box > .text {
     width: 68%;
     padding: 20px 0;
-}*/
+}
 .page_cont > .sub_text_box.help_counsel_box > .text .sub {
     margin-top: 0;
 }
-.page_cont > .sub_text_box.help_counsel_box > img {
+/*.page_cont > .sub_text_box.help_counsel_box > img {
     left: 50%;
 }
 .page_cont > .sub_text_box.help_counsel_box > .text {
     width: 100%;
     padding: 30px;
-}
+}*/
 .helpcounsel_list {
     margin-top: 0;
 }
