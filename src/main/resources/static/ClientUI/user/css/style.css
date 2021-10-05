@@ -11240,18 +11240,17 @@ li.score_inner .td .chk_item form label {
     width: 135px;
     border: 1px solid #cfcfcf;
 }
-li.score_inner .td .chk_item:nth-of-type(1) {
-    display: none;
-}
+/*li.score_inner .td .chk_item:nth-of-type(1) {
+}*/
 li.score_inner .td .chk_item form {
     width: 135px;
     position: relative;
     margin-left: 10px;
 }
 li.score_inner .td .chk_item span {
-    width: 80px;
+    width: 150px;
 }
-li.score_inner .td .chk_item form select {
+li.score_inner .td .chk_item select {
     cursor: pointer;
     text-align: center;
     cursor: pointer;
