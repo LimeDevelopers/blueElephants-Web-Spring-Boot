@@ -2387,4 +2387,21 @@ public class ActivityController extends BaseCont {
         model.addAttribute("pageTitle", "도움요청");
         return "pages/activity/boardCounseling";
     }
+
+    @RequestMapping("/pages/activity/CounselingForm")
+    public String counselingForm(Model model) {
+        model.addAttribute("mc" , "activity");
+        model.addAttribute("pageTitle" , "도움요청");
+        return "/pages/activity/CounselingForm";
+    }
+
+    @RequestMapping("/pages/activity/selftestTest")
+    public String selftestTest(Model model) {
+        InspectionQuestionItemForm inspectionQuestionItemForm = new InspectionQuestionItemForm();
+        List<InspectionQuestionItem> questionItemList = inspectionQuestionItemService.list(inspectionQuestionItemForm);
+        model.addAttribute("list" , questionItemList);
+        model.addAttribute("mc" , "activity");
+        model.addAttribute("pageTitle" , "도움요청");
+        return "pages/activity/selftestTest";
+    }
 }

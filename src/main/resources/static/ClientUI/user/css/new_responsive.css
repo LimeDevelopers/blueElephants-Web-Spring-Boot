@@ -11541,6 +11541,7 @@
 
 	.section06 .top .news_area .left_area .emotion_box {
 		height: 100px;
+		display: block;
 		border-radius: 10px;
 		background: #ffffff !important;
 	}

@@ -417,6 +417,12 @@
 
 /* 기본 높이는 100vh - (헤더 높이 + 풋터 높이) */
 #container #footer {}
+#footer .top .contents ul.pc_info {
+    display: block;
+}
+.info_area .m_info_inner .footer_m_info {
+    display: none;
+}
 #footer>.top {
     border-top: 1px solid #dbdbdb;
     border-bottom: 1px solid #dbdbdb;
@@ -456,6 +462,7 @@
     color: #555868;
     font-weight: normal;
     padding-left: 5px;
+    opacity: 0.5;
 }
 
 #footer>.top li:after {
@@ -1093,7 +1100,7 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
 .section06 .top .news_area {}
 
 .section06 .top .news_area .left_area {
-    width: 45%
+    width: 45%;
 }
 
 /* 53 -> 45*/
@@ -1103,6 +1110,8 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     background: #ffffff url('../images/main/bx_bg.png')no-repeat center bottom;
     background-size: 100% 220px;
     position: relative;
+    display: block;
+    width: 100%;
 }
 
 .section06 .top .news_area .left_area .emotion_box .puco_icon {
@@ -1363,7 +1372,7 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
 .inner {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 40px 0;
+    padding: 50px 0;
 }
 .sub_container {
     height: auto;
@@ -6370,6 +6379,9 @@ h4.subtit.pc {
     margin-top: 67px;
 }
 
+h4.subtit.review_title {
+    margin-top: 0;
+}
 h4.submsg.mo {
     display: none
 }
@@ -10033,7 +10045,7 @@ h4.subtit+.tip_tbl {
 }
 
 .join_form_area {
-    margin-top: 40px
+    margin-top: 15px;
 }
 
 .join_form_area .subtit_area {
@@ -10127,7 +10139,7 @@ h4.subtit+.tip_tbl {
     padding-right: 25px;
     padding-left: 54px;
     line-height: 50px;
-    background-color: #f7f7f7;
+    background-color: #f7f8fa;
     border-radius: 25px
 }
 
@@ -10207,8 +10219,10 @@ h4.subtit+.tip_tbl {
 .join_area {
     width: 418px;
     margin: 0 auto;
-    padding: 30px 9px 0;
-    border-top: 2px solid #dbdbdb
+    padding: 20px 5px 0;
+    border-top: 2px solid #dbdbdb;
+    margin-bottom: 100px;
+    margin-top: 65px;
 }
 
 .join_area .mt {
@@ -10222,13 +10236,14 @@ h4.subtit+.tip_tbl {
 
 .join_area span {
     float: left;
-    margin-top: 10px;
-    color: #959595;
-    font-size: 18px
+    margin-top: 5px;
+    color: #5a5a5a;
+    font-size: 15px
 }
 
 .join_area .btn {
-    float: right
+    float: right;
+    padding: 5px 20px;
 }
 
 /***** layer popup *****/
@@ -10946,17 +10961,19 @@ text.shadow {
 /***** e 또래지명 *****/
 
 
+/* 활동_도움요청_심리상담 시작 */
 .help_text_box {
     height: 170px;
     margin-top: 100px;
 }
-.page_cont > .help_text_box > img {
+.page_cont > .sub_text_box.help_text_box > img {
     top: -50%;
     left: 50%;
     transform: translateX(-50%);
 }
-.page_cont > .help_text_box .text {
+.page_cont > .sub_text_box.help_text_box .text {
     padding: 40px 75px;
+    width: 100%;
 }
 .page_cont > .sub_text_box > .text {
     width: 100%;
@@ -11070,6 +11087,7 @@ text.shadow {
 }
 .therapy_icon .icon_pc_inner .icon_inner .item {
     margin: 0 50px;
+    cursor: pointer;
 }
 .page_cont > .heal_tit {
     margin-top: 50px;
@@ -11145,14 +11163,151 @@ text.shadow {
 }
 /* 20210927 활동_도움요청_심리상담전화 끝 */
 
+/* 활동_도움요청_게시판상담 시작 */
+.board_tit {
+    margin: 20px 0;
+    margin-bottom: 50px;
+}
+.join ul li.wrap .td.pc {
+    display: block;
+}
+.join ul li.wrap .td.mobile {
+    display: none !important;
+}
+.board_info .board .tbl_write ul li.chkbox2_inner .td .checkbox2 label, .board_info .board .tbl_write ul li.baordchk_inner .td label {
+    margin-right: 20px;
+}
+.board_info .board .tbl_write ul li.baordchk_inner .td, .board_info .board .tbl_write ul li.chkbox2_inner .td {
+    display: flex;
+    align-items: center;
+}
+.board_info .board .tbl_write ul li.baordchk_inner .td label span, .board_info .board .tbl_write ul li.chkbox2_inner .td .checkbox2 label span {
+    position: relative;
+    padding-left: 30px;
+    font-size: 15px;
+    cursor: pointer;
+}
+.board_info .board .tbl_write ul li.baordchk_inner .td label span:after, .board_info .board .tbl_write ul li.chkbox2_inner .td .checkbox2 label span:after {
+    position: absolute;
+    content:'';
+    top: 50%;
+    left: 0;
+    width: 32px;
+    height: 32px;
+    transform: translateY(-50%);
+    background: url('../images/button/chk2.svg')no-repeat center right;
+    background-size: cover;
+}
+.board_info .board .tbl_write ul li.baordchk_inner .td input[type="radio"]:checked + label span:after, .board_info .board .tbl_write ul li.chkbox2_inner .td input[type="checkbox"]:checked + label span:after {
+    background: url('../images/button/chk2.svg')no-repeat center left;
+    background-size: cover;
+}
+.board_info .more_txt {
+    font-size: 15px;
+    color: #6d95e1;
+    text-align: right;
+    margin: 20px 0;
+}
+li.score_inner .td .chk_item {
+    float: left;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-right: 20px;
+}
+li.score_inner .td .chk_item form label {
+    position: absolute;
+    width: 135px;
+    top: 0;
+    left: 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    color: #515564 !important;
+    font-size: 14px;
+}
+.join .upload ul li.text_area .td {
+    padding-bottom: 20px;
+    height: 170px;
+}
+.join .upload ul li.text_area .td textarea {
+    height: 150px;
+}
+.join .upload ul li.score_inner .td label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    width: 135px;
+    border: 1px solid #cfcfcf;
+}
+li.score_inner .td .chk_item:nth-of-type(1) {
+    display: none;
+}
+li.score_inner .td .chk_item form {
+    width: 135px;
+    position: relative;
+    margin-left: 10px;
+}
+li.score_inner .td .chk_item span {
+    width: 80px;
+}
+li.score_inner .td .chk_item form select {
+    cursor: pointer;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    border: 1px solid #cfcfcf;
+}
+li.period .td input {
+    width: 135px;
+}
+li.period .td span {
+    padding: 0 20px;
+    display: inline-block;
+}
+/* 활동_도움요청_게시판상담 끝 */
+
+
+
+/* 활동_또래상담 시작 */
+.help_counsel_box {
+    height: 100px;
+}
+.page_cont > .sub_text_box.help_counsel_box > img {
+    bottom: 20px;
+    left: 50px;
+}
+.page_cont > .sub_text_box.help_counsel_box > .text {
+    width: 68%;
+    padding: 20px 0;
+}
+.page_cont > .sub_text_box.help_counsel_box > .text .sub {
+    margin-top: 0;
+}
+/*.page_cont > .sub_text_box.help_counsel_box > img {
+    left: 50%;
+}
+.page_cont > .sub_text_box.help_counsel_box > .text {
+    width: 100%;
+    padding: 30px;
+}*/
+.helpcounsel_list {
+    margin-top: 0;
+}
+.counsel_btn {
+    border-bottom: 0;
+}
+/* 활동_또래상담 끝 */
+
 /* 활동_도움요청_가족테라피 시작 */
 .sub_text_box.family_text_box {
     background-color: #e8ebf1;
     border-radius: 20px;
     height: 160px;
 }
-.sub_text_box.family_text_box .text {
+.page_cont > .sub_text_box.family_text_box > .text {
     padding: 40px 75px;
+    width: 100%;
 }
 .family_info {
     margin-top: 45px;
@@ -11238,6 +11393,7 @@ text.shadow {
 /* 활동_도움요청_가족테라피 끝 */
 
 /* 활동_도움요청_게시판 시작 */
+
 .notice_board {
     display: flex;
     justify-content: center;
@@ -11273,6 +11429,9 @@ text.shadow {
     font-size: 16px;
 }
 /* 활동_도움요청_게시판 끝 */
+
+
+
 
 
 /* 활동_도움요청_화해분쟁조정 시작 */
@@ -11798,6 +11957,8 @@ text.shadow {
 }
 .join .upload ul li .td input[type="file"] {
     display: none;
+    width: 500px;
+    margin-right: 12px;
 }
 .join .upload ul li .td #box {
     height: 44px;
@@ -12861,6 +13022,9 @@ text.shadow {
     border-radius: 30px;
     font-size: 18px;
 }
+.my_profile_3 .tbl_write ul li .th {
+    padding: 0;
+}
 /* 마이페이지_계정정보 끝 09/16 고선호 수정 */
 
 
@@ -13370,6 +13534,7 @@ text.shadow {
     border-top: 2px solid #8eb3f2;
 }
 .my_item_5 .card_list .card_inner_pc{
+
 }
 .my_item_5 .card_list .card_inner_pc > div {
     display: flex;
@@ -13491,6 +13656,7 @@ text.shadow {
 }
 .my_profile_2 .profile_inner .my_info .my_info_item table tr td:nth-of-type(2) {
     color: #9399af;
+    word-break: break-all;
 }
 .my_profile_2 .profile_inner .my_charact {
     flex: 3;
@@ -13651,13 +13817,17 @@ text.shadow {
 /* 신청_ 강사교육 끝 */
 
 /* 회원가입 탭메뉴 */
+.tab_type02 > li {
+    border-radius: 10px;
+    font-size: 20px;
+}
 .tab_type02 > li a {
+    padding: 8px 40px;
+    border-radius: 10px;
     font-size: 20px;
 }
 .tab_type02 > li.active a {
-    padding: 8px 20px;
-    border-radius: 10px;
-    font-size: 20px;
+
 }
 
 
@@ -13677,6 +13847,9 @@ text.shadow {
     border-radius: 8px;
     border: 1px solid #85b4f7;
     color: #85b4f7;
+}
+.search_school .td button {
+    line-height: 42px;
 }
 /* 휴대폰인증 */
 .contour ul li.phoneAuth .td {
@@ -13748,7 +13921,7 @@ text.shadow {
     border: 1px solid #cccccc;
     border-radius: 0 8px 8px 8px;
     padding: 20px;
-    padding-right: 300px;
+    /*padding-right: 300px;*/
 }
 .contour ul li.notice .td small {
     display: block;
@@ -14152,7 +14325,7 @@ li.more_info2 .td label:before {
     border: 1px solid #cccccc;
     border-radius: 0 8px 8px 8px;
     padding: 20px;
-    padding-right: 300px;
+    /*padding-right: 300px;*/
 }
 .contour ul li.notice .td small {
     display: block;
