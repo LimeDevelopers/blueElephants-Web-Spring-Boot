@@ -2714,6 +2714,11 @@
 	.board_tbl_list {
 		margin-top: 40px;
 	}
+	.board_tbl_list.request_list > li .date02 {
+		width: 100%;
+		text-align: left;
+		font-size: 13px;
+	}
 	/* 활동_도움요청_게시판 끝 */
 
 
@@ -2844,6 +2849,9 @@
 	/* 활동_도움요청_심리상담 시작 */
 	.help_text_box {
 		height: 180px;
+	}
+	.page_cont > .sub_text_box.form_text_box > .text {
+		padding: 0 30px;
 	}
 	.page_cont > .sub_text_box.help_text_box > img {
 		top: 25%;
