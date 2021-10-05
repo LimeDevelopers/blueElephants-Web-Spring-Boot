@@ -1036,9 +1036,38 @@
 	.slick-dots {
 		display: none;
 	}
+	.slick-track {
+		width: 100%;
+	}
 	.section01 .slick-dots li {
 		display: none;
 	}
+	.section01 .slick-slide {
+		overflow: hidden;
+		position: relative;
+		width: 100%;
+	}
+	.section01 .slick-slide img {
+		margin: -20px auto;
+	}
+
+	.section01 .slick-slide .btn_more {
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 50%;
+		width: 100%;
+		max-width: 1280px;
+		height: 100%;
+		font-size: 0;
+		transform: translateX(-50%);
+		outline: none
+	}
+
+	.section01 .slick-slide.slick-active {
+		z-index: 1
+	}
+
 
 	/* Section02 */
 	.section02 {
