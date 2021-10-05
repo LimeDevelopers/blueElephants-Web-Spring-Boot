@@ -36,7 +36,7 @@
     height: 198px;
 }
 
- .dp_none {
+.dp_none {
     display: none !important;
 }
 
@@ -5665,6 +5665,11 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     border-radius: 20px 5px 20px 5px;
     position: relative;
 }
+
+.page_cont > .sub_text_box.form_text_box > .text {
+    padding: 50px 30px !important;;
+}
+
 .depths_02_inner .slide_menu > div ul.slide_sub {
     display: flex;
     flex-direction: column;
@@ -12183,7 +12188,7 @@ li.period .td span {
     padding: 25px 75px;
 }
 .page_cont > .intro_text_box .text p {
-   /* padding-left: 300px;*/
+    /* padding-left: 300px;*/
 }
 .page_cont > .review_text_box {
     height: 150px;
