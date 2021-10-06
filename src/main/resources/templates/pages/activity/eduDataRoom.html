@@ -122,10 +122,10 @@
                             </div>
                             <div class="select w160 subject">
                                 <label id="srchGbnChildLabel" th:for="srchGbnChild">
-                                    <th:block th:if="*{srchGbnChild eq '' or srchGbnChild eq null}">전체</th:block>
+                                    <th:block th:if="*{srchGbnChild eq '' or srchGbnChild eq null}">제목</th:block>
                                 </label>
                                 <select th:field="*{srchGbnChild}">
-                                    <option value="" selected>전체</option>
+                                    <option value="" selected>제목</option>
                                 </select>
                             </div>
                         </div>

@@ -86,49 +86,44 @@
                     <div class="page_cont">
                         <h4 class="subtit pc review_title">자가진단</h4>
                         <div class="test_inner">
-                                <div class="test_item test_01_inner">
-                                    <div class="question">
-                                        <div class="tit">
-                                            <span>자가진단 질문입니다.</span>
-                                                <span>답변: 개</span>
+                            <div class="test_item test_01_inner">
+                                <div class="question">
+                                    <div class="tit">
+                                        <span>자가진단 질문입니다.</span>
+                                        <span>답변: 개</span>
+                                    </div>
+
+
+                                    <div class="chk_inner">
+                                        <div class="chk_btn">
+                                            <input>
+                                            <label>
+                                                <small>0</small>
+                                                <span>거의없음</span>
+                                            </label>
                                         </div>
-
-
-                                                <div class="chk_inner">
-                                                    <div class="chk_btn">
-                                                        <input >
-                                                        <label>
-                                                            <small>0</small>
-                                                            <span>거의없음</span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </th:block>
-                                                <div class="chk_inner">
-                                                    <div class="chk_btn">
-                                                        <input type="radio">
-                                                        <label >
-                                                            <small >0</small>
-                                                            <span >거의없음</span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </th:block>
-                                            <th:block
-                                                    th:unless="${question.aswDvTy eq T(kr.or.btf.web.domain.web.enums.AnswerType).CHOICE.name()}">
-                                                <div class="txt_area">
-                                            <textarea th:name="${'answer'+question.id}"
-                                                      th:id="${'answer'+question.id}"></textarea>
-                                                </div>
-                                            </th:block>
-                                        </th:block>
+                                    </div>
+                                    </th:block>
+                                    <div class="chk_inner">
+                                        <div class="chk_btn">
+                                            <input type="radio">
+                                            <label>
+                                                <small>0</small>
+                                                <span>거의없음</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="txt_area">
+                                        <textarea></textarea>
                                     </div>
                                 </div>
+                            </div>
                             </th:block>
                             <div class="btn_area btn_num02">
                                 <a href="/pages/activity/experienceList"
                                    class="btn btn_lg btn_line_blue btn_pill_10">이전</a>
-                                <a href="#" onclick="return fn_register();" class="btn btn_lg btn_blue btn_pill_10">저장</a>
+                                <a href="#" onclick="return fn_register();"
+                                   class="btn btn_lg btn_blue btn_pill_10">저장</a>
                             </div>
                         </div>
                     </div>

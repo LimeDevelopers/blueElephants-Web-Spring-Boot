@@ -9,6 +9,7 @@
     수정자 : 고선호
     수정 태그 : .btn_pill_10, .btn_blue, .btn_skyblue
     버튼 디자인, 버튼 컬러 수정, 알약 버튼 투명도 조절
+
 */
 
 /***** font *****/
@@ -236,7 +237,7 @@ body{color:#54586a;font-size:14px;font-family:'Noto Sans KR', Malgun Gothic, '�
 .btn_lightgray{color:#4a4a4a !important;border-color:#cacaca;background-color:#f8fafb}
 .btn_darkgray{color:#fff !important;border-color:#373737;background-color:#4a4a4a}
 .btn_darkgray.disabled{border-color:#808080;background-color:#808080;cursor:default}
-.btn_line_blue{color: #85b4f7!important;border: 2px solid #85b4f7;background-color: #fff;}
+.btn_line_blue{color: #85b4f7!important;border: 1px solid #85b4f7;background-color: #fff;}
 .btn_line_default{color:#8c90a5 !important;border:0; background-color:#fff}
 /* 버튼 영역 */
 .btn_area{padding-top:40px;font-size:0;text-align:center}

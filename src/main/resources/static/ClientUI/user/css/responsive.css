@@ -258,7 +258,7 @@
 		display: none !important;
 	}
 	.info_area .m_info_inner {
-		position: absolute;
+		/*position: absolute;*/
 		bottom: 15%;
 		padding-left: 20px;
 	}
@@ -322,19 +322,19 @@
 		width: 144px;
 		height: 41px;
 		margin: 0 auto;
-		margin-bottom: 20px;
+		margin-bottom: 0;
 	}
 
 
 
 	#footer>.bottom .info_area>.logo_area {
-		top: 140px;
-		left: 0;
+		position: static;
 		width: 100%;
 		font-size: 0;
 		text-align: center;
 		display: flex;
 		justify-content: space-between;
+		margin: 20px 0;
 	}
 
 	#footer>.bottom .info_area>.logo_area li {
@@ -375,22 +375,33 @@
 		width: 100%;
 		text-align: center
 	}
-
-	#footer>.bottom .info_area>.txt_area .btn_mo_open {
+	#footer>.bottom .info_area>strong {
+		position: relative;
+	}
+	#footer>.bottom .info_area>strong:after {
+		content:'';
+		position: absolute;
 		display: inline-block;
 		transition: all .4s;
 		width: 22px;
 		height: 22px;
 		font-size: 0;
 		vertical-align: top;
-		background: #f7f7f7 url(../images/common/btn_footer_summary.png) no-repeat 50% 50%;
+		background: url(../images/common/btn_footer_summary.png) no-repeat 50% 50%;
 		background-size: 10px;
-		border: 1px solid #ccc;
-		border-radius: 50%
+		right: -30px;
+		top: 20%;
 	}
 
-	#footer>.bottom .info_area>.txt_area.active .btn_mo_open {
-		transform: rotate(180deg)
+	#footer>.bottom .info_area strong.active:after {
+		transform: rotate(180deg);
+	}
+	#footer>.bottom .info_area>.txt_area .text_m {
+		display: none;
+	}
+	#footer>.bottom .info_area>.txt_area .text_m.active {
+		display: block;
+		margin-top: 20px;
 	}
 
 	#footer>.bottom .info_area>.txt_area p {
@@ -478,11 +489,24 @@
 	}
 
 	#footer>.bottom .info_area>.txt_area .copyright {
-		padding-top: 110px;
+		/*padding-top: 110px;*/
 		color: #555868;
 		font-weight: 300;
 		text-align: center;
 		font-size: 10px;
+	}
+	#footer>.bottom .info_area>.txt_area .copyright.pc_copy {
+		display: none;
+	}
+	.copyright.m_copy {
+		display: block;
+		width: 100%;
+		text-align: center;
+		color: #555868;
+		opacity: 0.5;
+		font-size: 12px;
+		margin-top: 20px;
+		margin-bottom: 50px;
 	}
 
 	#footer>.bottom .info_area>.txt_area .copyright>strong {
@@ -2704,6 +2728,7 @@
 	.counsel_btn {
 		display: flex;
 		justify-content: space-between;
+		width: 100%;
 	}
 	.page_cont > .sub_text_box > img {
 		width: 50%;
@@ -2717,8 +2742,20 @@
 		width: 100%;
 		/*padding: 30px 50px;*/
 	}
+	.help_counsel_box {
+		height: 120px;
+	}
+	.page_cont > .sub_text_box.help_counsel_box > img {
+		left: 50%;
+		top: 30%;
+	}
 	.page_cont > .sub_text_box.help_counsel_box > .text {
-
+		width: 100%;
+		padding: 30px;
+		font-size: 13px;
+	}
+	.board_tbl_list.helpcounsel_list {
+		margin-top: 0;
 	}
 	.notice_board {
 		flex-direction: column;
@@ -2889,6 +2926,7 @@
 	.help_text_box {
 		height: 180px;
 	}
+
 	.page_cont > .sub_text_box.form_text_box > .text {
 		padding: 0 30px;
 	}
@@ -3280,7 +3318,7 @@
 	}
 	.select_2 .option_btn {
 		display: flex;
-		justify-content: space-between;
+		/*justify-content: space-between;*/
 	}
 	.select_2 > a.write_btn {
 		display: block;
@@ -3308,7 +3346,8 @@
 		height: auto;
 	}
 	.board_tbl_list.type01 {
-		margin-top: 5px;
+		/*margin-top: 5px;*/
+		margin-top: 30px;
 	}
 	.thumb_list>li {
 		width: 100%;
@@ -3797,6 +3836,7 @@
 	}
 	.partner_inner .item_inner {
 		flex-direction: column;
+		width: 100%;
 	}
 	.partner_inner .pat_1 .partners_item:nth-of-type(1) {
 		background: url('../images/contents/partners_01.png')no-repeat center left 20px;
@@ -3837,6 +3877,12 @@
 		background: url('../images/contents/partners_08.png')no-repeat center left 16px;
 		background-size: auto 55%;
 		margin-bottom: 20px;
+	}
+	.page_cont .partners_text_box {
+		padding-right: 0;
+	}
+	.page_cont .sub_text_box.partners_text_box .text {
+		padding: 30px;
 	}
 	.partner_inner .item_inner .partners_item {
 		width: 100%;
@@ -4180,7 +4226,6 @@
 	.join .upload ul .sns {
 		display: flex;
 		flex-direction: column;
-		padding-bottom: 40px;
 	}
 	.join .upload ul .sns .th {
 		width: 100%;
@@ -4205,9 +4250,13 @@
 	}
 	.join .upload ul li.sns .td {
 		display: inline;
+		padding-bottom: 120px;
 	}
 	.join .upload ul .sns .sns_chk_inner label {
 		font-size: 12px;
+		width: auto;
+		padding-left: 20px;
+		text-align: left;
 	}
 	.join .upload ul .m_mode {
 		display: flex;
@@ -4349,6 +4398,9 @@
 	}
 	.info_accordion .checkbox label span {
 		padding-left: 5px;
+	}
+	.info_accordion .checkbox label:after {
+		left: 10px;
 	}
 	.info_accordion {
 		flex-direction: column;
@@ -4564,6 +4616,9 @@
 	/* 회원가입_이용약관 시작 */
 	.agree_area h4.subtit.pc {
 		text-align: left;
+	}
+	h4.subtit.review_title {
+		margin-top: 0;
 	}
 	.simplebar-content {
 		padding: 20px 5px;

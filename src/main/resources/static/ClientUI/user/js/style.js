@@ -50,7 +50,7 @@ $(document).ready(function(){
 	})
 	$('#header').on('mouseleave',function() {
 		$('#header').removeClass('over');
-		$('#header .mnu .sub_list, #header .depth').slideUp();
+		$('#header .mnu .sub_list, #header .depth').stop().slideUp();
 	})
 
 	//모바일 햄버거 메뉴
@@ -99,9 +99,9 @@ $(document).ready(function(){
 
 
 	//footer 모바일 열림&닫힘 활성화
-	var footBtn = $('#footer > .bottom .info_area > .txt_area .btn_mo_open');
+	var footBtn = $('#footer > .bottom .info_area > strong');
 	footBtn.on('click',function(){
-		footBtn.parents('.txt_area').toggleClass('active');
+		footBtn.siblings('.txt_area').children('.text_m').toggleClass('active');
 	})
 
 	//캘린더
