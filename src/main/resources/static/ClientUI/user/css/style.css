@@ -6790,7 +6790,7 @@ h4.submsg.mo {
 }
 
 .board_tbl_list>li>div.tit {
-    padding-left: 30px;
+    padding-left: 100px;
     text-align: left
 }
 
@@ -11261,6 +11261,7 @@ li.score_inner .td .chk_item select {
     cursor: pointer;
     position: relative;
     border: 1px solid #cfcfcf;
+    background: #fff;
 }
 li.period .td input {
     width: 135px;
@@ -11928,7 +11929,7 @@ li.period .td span {
     padding-left: 30px;
     padding-right: 30px;
 }
-.page_cont .partners_text_box .text {
+.page_cont .sub_text_box.partners_text_box .text {
     width: 100%;
 }
 .page_cont .partners_text_box .text b {
@@ -11998,7 +11999,7 @@ li.period .td span {
     position: relative;
     display: block;
 }
-.info_accordion .agree_inner span:after {
+.info_accordion .agree_inner ul > span:after {
     content:'';
     position: absolute;
     right: 0;
@@ -12016,7 +12017,7 @@ li.period .td span {
 }
 .info_accordion .agree_inner ul li {
     display: none;
-    padding-top: 20px;
+    padding: 30px 0;
 }
 .info_accordion .agree_inner ul.agree_on li {
     display: block;
