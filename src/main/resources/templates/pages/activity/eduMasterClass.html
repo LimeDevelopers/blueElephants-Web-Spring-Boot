@@ -147,7 +147,7 @@
                                             class="class_btn_01" th:text="|미리보기|"/>
                                 </th:block>
                                 <button th:if="${atnlcReqPid eq null}" th:onclick="|return fn_courseRequest(${form.id});|" class="class_btn_01" th:text="|수강신청|"/>
-                                <a th:href="|/pages/activity/preventionEdu/*{mberDvTy}|" class="class_btn_02">목록</a>
+                                <button th:href="|/pages/activity/preventionEdu/*{mberDvTy}|" class="class_btn_02">목록</button>
                             </div>
                             <th:block th:if="${masters == null or masters.isEmpty()}"><!--등록된 글이 없을 경우-->
                                 <div class="lecture_content">

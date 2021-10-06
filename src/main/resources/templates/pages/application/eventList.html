@@ -19,8 +19,9 @@
             <div class="inner">
                 <div class="page_cont">
                     <h4 class="subtit pc review_title">행사</h4>
-                    <div class="board_top">
-                        <div class="select w401">
+
+                    <div class="board_top review_board">
+                        <div class="select w160 title">
                             <label>
                                 전체
                             </label>
@@ -28,12 +29,14 @@
                                 <option value="">전체</option>
                             </select>
                         </div>
-
-                        <div class="select news w401_txt">
-                            <input type="search" th:field="*{srchWord}" placeholder="검색어를 입력해 주세요"/>
+                        <div class="select_bx2">
+                            <div class="search news">
+                                <input type="search" th:field="*{srchWord}" placeholder="검색어를 입력해 주세요"/>
+                            </div>
+                            <button type="submit" class="btn btn_blue btn_pill_10">검색</button>
                         </div>
-                        <button type="submit" class="btn btn_blue btn_pill_10">검색</button>
                     </div>
+
                     <ul class="board_tbl_list type01">
                         <li class="thead">
                             <strong class="no">No</strong>
