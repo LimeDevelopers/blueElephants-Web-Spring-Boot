@@ -1224,9 +1224,16 @@ public class ActivityController extends BaseCont {
     }
 
     @RequestMapping("/pages/activity/preciseDiagnosis")
-    public String preciseDiagnosis() {
+    public String preciseDiagnosis(Model model) {
+        model.addAttribute("mc", "activity");
         return "/pages/preparing";
-        }
+    }
+
+    @RequestMapping("/pages/activity/oxQuiz")
+    public String oxQuiz(Model model) {
+        model.addAttribute("mc", "activity");
+        return "/pages/preparing";
+    }
 
 
     @RequestMapping("/pages/activity/selfTest")
