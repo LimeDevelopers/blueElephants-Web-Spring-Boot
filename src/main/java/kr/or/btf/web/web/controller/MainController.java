@@ -1,10 +1,8 @@
 package kr.or.btf.web.web.controller;
 
 import kr.or.btf.web.common.Constants;
-import kr.or.btf.web.domain.web.Banner;
-import kr.or.btf.web.domain.web.BoardData;
-import kr.or.btf.web.domain.web.Campaign;
-import kr.or.btf.web.domain.web.Postscript;
+import kr.or.btf.web.common.annotation.CurrentUser;
+import kr.or.btf.web.domain.web.*;
 import kr.or.btf.web.domain.web.enums.BanDvTy;
 import kr.or.btf.web.domain.web.enums.InspectionDvType;
 import kr.or.btf.web.services.web.*;
@@ -19,9 +17,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.List;
@@ -49,6 +49,35 @@ public class MainController extends BaseCont {
     private final InspectionService inspectionService;
     private final PostscriptService postscriptService;
     private final PasswordEncoder passwordEncoder;
+    private final EmotionTrafficService emotionTrafficService;
+
+    @GetMapping("/api/emotraffic/set/{id}")
+    public String setEmoTraffic(Model model,
+                              @PathVariable(name = "id") Long eftPid,
+                              @CurrentUser Account account) {
+        boolean result = false;
+        if(account == null) {
+            // 비로그인 쿠키값 로직 구현중?
+//          Cookie cookie = new Cookie("isLogin","notLogin");
+//          cookie.setComment("비로그인 접속자");
+//          cookie.setPath("/");
+//          cookie.setMaxAge(60*60*24*7);
+            model.addAttribute("altmsg","로그인이 필요한 서비스입니다.");
+            model.addAttribute("locurl","/login");
+            return "/message";
+        } else {
+            Account account1 = new Account();
+            account1.setId(account.getId());
+            account1.setEtfPid(eftPid);
+            result = emotionTrafficService.save(account1);
+
+            if(result) {
+                return "ok";
+            } else {
+                return "fail";
+            }
+        }
+    }
 
     @GetMapping("/naver1c813a906449890c14557110ef4af25e.html")
     public String naverSiteVerification() {
@@ -110,7 +139,9 @@ public class MainController extends BaseCont {
         model.addAttribute("bannerFilePath", filePath + "/" + Constants.FOLDERNAME_BANNER);
         // 배너 데이터 [e]
 
-        //
+        // 감정신호등 평균값 [s]
+        model.addAttribute("emoTraffic", emotionTrafficService.load());
+        // 감정신호등 평균값 [e]
         model.addAttribute("mc", "main");
         return "/newIndex";
     }
