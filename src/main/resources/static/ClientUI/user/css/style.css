@@ -556,11 +556,15 @@
     border-bottom: 1px solid #e0e0e0
 }
 
-#footer>.bottom .info_area>.txt_area .copyright {
+#footer>.bottom .info_area>.txt_area .copyright.pc_copy {
     color: #555868;
     font-size: 14px;
     opacity: 0.5;
     margin-top: 22px;
+    display: block;
+}
+.copyright.m_copy {
+    display: none;
 }
 
 #footer>.bottom .info_area>.logo_area {
@@ -569,7 +573,8 @@
     top: 20px;
     right: 0;
     font-size: 0;
-    vertical-align: top
+    vertical-align: top;
+    display: block;
 }
 
 #footer>.bottom .info_area>.logo_area li {
@@ -6927,13 +6932,14 @@ h4.subtit+.tip_tbl {
 
 .thumb_list {
     overflow: hidden;
-    margin: -40px 0 0 -30px;
+    /*margin: -40px 0 0 -30px;*/
     padding-top: 20px;
+    width: 100%;
 }
 
 .thumb_list>li {
     width: calc(33.33% - 30px);
-    margin: 40px 0 0 30px;
+    /*margin: 40px 0 0 30px;*/
     text-align: center
 }
 
@@ -7807,7 +7813,9 @@ h4.subtit+.tip_tbl {
     margin-top: 20px
 }
 
-#footer>.bottom .info_area>.txt_area p.text_m {}
+#footer>.bottom .info_area>.txt_area p.text_m {
+
+}
 
 #footer>.bottom .info_area>.txt_area p.text_m span {
     display: block;
@@ -11342,11 +11350,11 @@ li.period .td span {
 .program_inner ul li .tr {
     width: 23%;
     text-align: center;
-    padding: 30px 0;
+    padding: 15px 0;
 }
 .program_inner ul li .td {
     width: 100%;
-    padding: 40px 0;
+    padding: 20px 0;
     border-bottom: 1px solid #c7c7c7;
 }
 .program_inner ul li .td p {
@@ -11528,6 +11536,7 @@ li.period .td span {
     margin-right: 10px;
     background-color: #6d95e1;
     color: #fff;
+    border: 1px solid #6d95e1;
 }
 .help_btn a.list_btn {
     border: 1px solid #6d95e1;
