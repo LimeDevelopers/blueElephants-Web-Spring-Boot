@@ -127,6 +127,8 @@ public class Account implements Serializable {
     private Long cVal;
     @Transient
     private Integer mberNo;
+    @Transient
+    private Long etfPid;
 
     // memberGroup
     @Transient
