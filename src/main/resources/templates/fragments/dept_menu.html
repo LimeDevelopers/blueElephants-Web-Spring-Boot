@@ -1,5 +1,5 @@
 <div class="gnb_tit"
-     th:classappend="${mc eq 'blueElephant' ? 'gnb01' : ''} + ${mc eq 'activity' ? 'gnb02' : ''} + ${mc eq 'news' ? 'gnb03' : ''} + ${mc eq 'classRegis' ? 'gnb04' : ''} + ${mc eq 'memberJoin' ? 'gnb05' : ''} + ${mc eq 'crewJoin' ? 'gnb05' : ''} + ${mc eq 'myPage' ? 'gnb06' : ''} + ${mc eq 'customerCenter' ? 'gnb07' : ''} + ${mc eq 'searchResult' ? 'gnb08' : ''} + ${mc eq 'privacy' ? 'gnb08' : ''} + ${mc eq 'terms' ? 'gnb08' : ''} + ${mc eq 'mailDeny' ? 'gnb08' : ''} + ${mc eq 'sitemap' ? 'gnb08' : ''} + ${mc eq 'application' ? 'gnb01' : ''}"
+     th:classappend="${mc eq 'blueElephant' ? 'gnb01' : ''} + ${mc eq 'activity' ? 'gnb02' : ''} + ${mc eq 'news' ? 'gnb03' : ''} + ${mc eq 'classRegis' ? 'gnb04' : ''} + ${mc eq 'memberJoin' ? 'gnb05' : ''} + ${mc eq 'crewJoin' ? 'gnb05' : ''} + ${mc eq 'myPage' ? 'gnb06' : ''} + ${mc eq 'customerCenter' ? 'gnb07' : ''} + ${mc eq 'searchResult' ? 'gnb08' : ''} + ${mc eq 'privacy' ? 'gnb08' : ''} + ${mc eq 'terms' ? 'gnb08' : ''} + ${mc eq 'mailDeny' ? 'gnb08' : ''} + ${mc eq 'sitemap' ? 'gnb08' : ''} + ${mc eq 'application' ? 'gnb07' : ''}"
      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <h2 th:if="${mc eq 'blueElephant'}">푸른코끼리</h2>
     <h2 th:if="${mc eq 'activity'}">활동</h2>
@@ -14,7 +14,7 @@
     <h2 th:if="${mc eq 'terms'}">이용약관</h2>
     <h2 th:if="${mc eq 'mailDeny'}">이메일무단수집거부</h2>
     <h2 th:if="${mc eq 'sitemap'}">사이트맵</h2>
-    <h2 th:if="${mc eq 'application'}">신청</h2>
+    <h2 th:if="${mc eq 'application'}">푸른코끼리 신청</h2>
 </div>
 
 <div class="depths_02_inner" xmlns:th="http://www.thymeleaf.org"

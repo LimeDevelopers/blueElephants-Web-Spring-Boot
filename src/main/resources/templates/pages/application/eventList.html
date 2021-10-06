@@ -19,7 +19,7 @@
             <div class="inner">
                 <div class="page_cont">
                     <h4 class="subtit pc review_title">행사</h4>
-                    <div class="board_top">
+                    <!--<div class="board_top">
                         <div class="select w401">
                             <label>
                                 전체
@@ -33,6 +33,39 @@
                             <input type="search" th:field="*{srchWord}" placeholder="검색어를 입력해 주세요"/>
                         </div>
                         <button type="submit" class="btn btn_blue btn_pill_10">검색</button>
+                    </div>-->
+
+                    <div class="board_top review_board">
+                        <div class="select_bx">
+                            <div class="select w160 title">
+                                <label th:for="srchGbnParent">
+                                    <th:block th:if="*{srchGbnParent eq '' or srchGbnParent eq null}">전체</th:block>
+                                    <th:block th:each="item : ${commonCodes}">
+                                        <th:block th:if="${searchForm.srchGbnParent eq item.id}" th:text="${item.codeNm}">제목</th:block>
+                                    </th:block>
+                                </label>
+                                <select th:field="*{srchGbnParent}" onchange="fn_codeList(this)">
+                                    <option value="" selected>전체</option>
+                                    <th:block th:each="item : ${commonCodes}">
+                                        <option th:value="${item.id}" th:text="${item.codeNm}"></option>
+                                    </th:block>
+                                </select>
+                            </div>
+                            <div class="select w160 subject">
+                                <label id="srchGbnChildLabel" th:for="srchGbnChild">
+                                    <th:block th:if="*{srchGbnChild eq '' or srchGbnChild eq null}">제목</th:block>
+                                </label>
+                                <select th:field="*{srchGbnChild}">
+                                    <option value="" selected>제목</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="select_bx2">
+                            <div class="search news">
+                                <input type="search" th:field="*{srchWord}" placeholder="검색어를 입력해 주세요" />
+                            </div>
+                            <button type="submit" class="btn btn_blue btn_pill_10">검색</button>
+                        </div>
                     </div>
                     <ul class="board_tbl_list type01">
                         <li class="thead">
@@ -50,7 +83,7 @@
                         <li th:each="item,idx : ${eventList}">
                             <div class="no"
                                  th:text="${eventList.totalElements - eventList.pageable.pageSize * eventList.pageable.pageNumber - idx.index}"></div>
-                            <div class="tit" style="text-align: center;">
+                            <div class="tit">
                                 <a th:href="|/pages/application/eventList/${item.id}|" th:text="|${item.ttl}|"></a>
                             </div>
                             <div class="writer">

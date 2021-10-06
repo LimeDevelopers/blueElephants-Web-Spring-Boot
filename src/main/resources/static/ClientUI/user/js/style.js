@@ -50,7 +50,7 @@ $(document).ready(function(){
 	})
 	$('#header').on('mouseleave',function() {
 		$('#header').removeClass('over');
-		$('#header .mnu .sub_list, #header .depth').slideUp();
+		$('#header .mnu .sub_list, #header .depth').stop().slideUp();
 	})
 
 	//모바일 햄버거 메뉴
