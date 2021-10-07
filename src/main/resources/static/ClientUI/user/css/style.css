@@ -843,6 +843,12 @@
     overflow: hidden;
     position: relative
 }
+.section01 .slick-slide:nth-of-type(4) {
+    margin-top: -10px;
+}
+.section01 .slick-slide:nth-of-type(4) img {
+    max-width: 102%;
+}
 
 .section01 .slick-slide img {
     margin: 0 auto
@@ -1378,6 +1384,9 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     z-index: 100;
     /* display: none; */
 }
+.join_sub .depths_02_inner {
+    display: none;
+}
 .inner {
     max-width: 1200px;
     margin: 0 auto;
@@ -1587,7 +1596,8 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
 }
 
 .page_top {
-    padding: 67px 0 0
+    /*padding: 67px 0 0*/
+    padding: 30px 0;
 }
 
 .page_top>.page_tit {
@@ -1778,12 +1788,14 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
 .tab_type_ico>li {
     display: inline-block;
     position: relative;
-    width: calc(16.6666% - 25px);
-    height: 163px;
-    margin-right: 30px;
-    vertical-align: top;
     border: 1px solid #eaeaea;
-    border-radius: 30px
+    border-radius: 20px 20px 0 0;
+    box-sizing: border-box;
+    width: 320px;
+    border-bottom: 2px solid #95b3ed;
+}
+.tab_type_ico>li.id {
+    width: auto;
 }
 
 .tab_type_ico>li:last-child {
@@ -1795,16 +1807,58 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     position: relative;
     width: 100%;
     height: 100%;
-    padding-top: 96px;
     color: #5a5a5a;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 500;
     vertical-align: top;
-    background-color: #fff;
-    border-radius: 30px
+    border-radius: 20px 20px 0 0;
+    box-sizing: border-box;
+    padding: 8px 0;
+    width: 320px;
+}
+.tab_type_ico>li:hover {
+    background-color: #8bb3ff;
+}
+.tab_type_ico>li.id a:after {
+    content:'';
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    background: url(../images/icon/id_b.png)no-repeat center center;
+    background-size: cover;
+    top: 50%;
+    left: 80px;
+    transform: translateY(-50%);
+}
+.tab_type_ico>.id.active a:after {
+    background: url(../images/icon/id_w.png)no-repeat center center;
+    background-size: cover;
+}
+.tab_type_ico>.pw.active a:after {
+    background: url(../images/icon/pw_w.png)no-repeat center center;
+    background-size: cover;
+}
+.tab_type_ico>.pw a:after {
+    content:'';
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    top: 50%;
+    left: 80px;
+    transform: translateY(-50%);
+    background: url(../images/icon/pw_b.png)no-repeat center center;
+    background-size: cover;
+}
+.tab_type_ico>.pw:hover a:after {
+    background: url(../images/icon/pw_w.png)no-repeat center center;
+    background-size: cover;
+}
+.tab_type_ico>.id:hover a:after {
+    background: url(../images/icon/id_w.png)no-repeat center center;
+    background-size: cover;
 }
 
-.tab_type_ico>li a:before {
+/*.tab_type_ico>li a:before {
     content: '';
     position: absolute;
     top: 34px;
@@ -1814,6 +1868,17 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     height: 52px;
     background: url(../images/icon/sp_ico_tab.png) no-repeat;
     transform: translateX(-50%)
+}*/
+
+.tbl_write.searchidpw {
+    width: 645px;
+    border-top: 1px solid #95b3ed;
+
+}
+
+.search_pw {
+    width: 100%;
+    text-align: center;
 }
 
 .tab_type_ico>li.normal a:before,
@@ -1991,7 +2056,7 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
 .tab_type_ico>li a:focus,
 .tab_type_ico>li.active a {
     color: #fff;
-    background-color: #8bb3ff
+    background-color: #8bb3ff;
 }
 
 .tab_type_ico>li.normal a:hover:before,
@@ -2218,7 +2283,8 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
 
 .tab_ico_area {
     overflow: hidden;
-    margin-bottom: 60px
+    /*margin-bottom: 60px*/
+    margin-bottom: 30px;
 }
 
 .tab_ico_area .tit {
@@ -2386,7 +2452,34 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
 .tab_ico_area .tab_cont .cont.mt {
     margin-top: 20px
 }
-
+.searchidpw {
+    width: 650px;
+    margin: 0 auto;
+}
+.searchidpw .tbl_write {
+    border-top: 2px solid #95b3ed;
+}
+.searchidpw .tbl_write .td input {
+    width: auto;
+}
+.email_form.search_email input {
+    width: auto !important;
+}
+.searchidpw .tbl_write .td #pwd,
+.searchidpw .tbl_write .td #pwdChg,
+.searchidpw .tbl_write .td #pwdChgChk,
+.searchidpw .tbl_write .td #btnSendTempPw {
+    width: 100%;
+}
+.searchidpw .tbl_write .td #btnSendTempPw {
+    margin-top: 10px;
+    border: 1px solid #6193f0;
+    border-radius: 8px;
+    color: #6d94e9;
+    text-align: center;
+    height: 44px;
+    font-size: 16px;
+}
 .tab_ico_area .tab_cont .cont.experience {
     background: url(../images/contents/bg_tab_cont_experience.jpg) no-repeat 100% 0;
     background-size: cover
@@ -5379,7 +5472,7 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
 /* 활동_ 예방교육 시작 */
 .sub_container > .lecture_inner{
     position: relative;
-    height: 1550px;
+   /* height: 1550px;*/
 }
 .lecture > .sub_tit_inner {
     display: flex;
@@ -5416,18 +5509,18 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     align-items: center;
     flex-wrap: wrap;
     max-width: 1200px;
-    position: absolute;
+    /*position: absolute;*/
     display: flex;
-    top: 50%;
+    /*top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);*/
 }
 .lecture > .lecture_content {
     display: flex;
     margin: 0 52px;
 }
 .sub_container > .lecture_inner2{
-    height: 748px;
+    /*height: 748px;*/
 }
 .lecture > .lecture_content:nth-child(3),.lecture_content:nth-child(6),.lecture_content:nth-child(9){
     margin: 0px 131px !important;
@@ -5449,14 +5542,18 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     left: -30px;
 }
 .lecture > .lecture_content > .lecture_item > .lecture_sumnail > .lecture_st{
-    font-size: 39px;
+    /*font-size: 39px;*/
+    font-size: 25px;
     font-weight: 500;
     line-height: 1.15;
     color: #85b4f7;
     text-align: right;
     display: block;
     padding-top: 16.6px;
-    padding-right: 32.2px;
+    padding-right: 10px;
+}
+.lecture > .lecture_content:nth-child(3) .lecture_item > .lecture_sumnail > .lecture_st {
+    font-size: 16px;
 }
 .lecture > .lecture_content > .lecture_item > .lecture_text{
     margin-top: 37.9px;
@@ -6391,6 +6488,9 @@ h4.subtit {
 h4.subtit.pc {
     line-height: 1;
     margin-top: 67px;
+}
+h4.subtit.search_tit {
+    margin-top: 40px;
 }
 
 h4.subtit.review_title {
@@ -14000,7 +14100,7 @@ li.period .td span {
     width: 320px;
     padding: 8px 0;
     font-size: 17px;
-    color: fff;
+    color: #fff;
     background-color: #6d95e1;
 }
 /* 회원가입_단체_일반 끝 */

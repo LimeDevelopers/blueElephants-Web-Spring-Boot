@@ -236,7 +236,7 @@
     <div id="container">
         <th:block th:include="fragments/snb"></th:block>
 
-        <div class="contents">
+        <div class="inner">
             <div class="page_top pc">
                 <h3 class="page_tit">아이디/비밀번호 찾기</h3>
                 <span>아이디 및 비밀번호를 잊으셨습니까?</span>
@@ -249,58 +249,60 @@
                         <li class="pw active"><a href="/pages/member/pwFind">비밀번호 찾기</a></li>
                     </ul>
                 </div>
-                <h4 class="subtit pc">비밀번호 찾기</h4>
-                <h4 class="submsg mo">아이디 및 비밀번호를 잊으셨습니까?</h4>
+                <h4 class="subtit search_tit">비밀번호 찾기</h4>
+                <h4 class="submsg mo">아이디 및 비밀번호를 잊으셨나요?</h4>
                 <form id="form1" name="form1" method="post">
                     <input type="hidden" id="id" name="id"/>
-                    <div class="tbl_write mt">
-                        <ul>
-                            <li>
-                                <div class="th"><label for="loginId">아이디</label></div>
-                                <div class="td">
-                                    <input type="text" name="loginId" id="loginId" placeholder="아이디 입력">
-                                </div>
-                            </li>
-                            <li>
-                                <div class="th">이메일 주소</div>
-                                <div class="td">
-                                    <div class="email_form clearfix"> <!-- [D] active 클래스가 있어야 직접입력 인풋이 노출 됨(style.js 에 들어가 있음) -->
-                                        <input type="text" name="email01" id="email01" title="이메일 아이디 입력">
-                                        <span class="at">@</span>
-                                        <div class="select">
-                                            <label for="email02">선택</label>
-                                            <select name="email02" id="email02">
-                                                <option value="">선택</option>
-                                                <option value="naver.com">naver.com</option>
-                                                <option value="gmail.com">gmail.com</option>
-                                                <option value="hanmail.net">hanmail.net</option>
-                                                <option value="nate.com">nate.com</option>
-                                                <option value="daum.net">daum.net</option>
-                                                <option value="직접입력">직접입력</option>
-                                            </select>
-                                        </div>
-                                        <input type="text" name="email03" id="email03" class="email_inp" title="이메일주소 직접입력">
+                    <div class="searchidpw">
+                        <div class="tbl_write mt">
+                            <ul>
+                                <li>
+                                    <div class="th"><label for="loginId">아이디</label></div>
+                                    <div class="td">
+                                        <input type="text" name="loginId" id="loginId" placeholder="아이디 입력">
                                     </div>
-                                    <button type="button" id="btnSendTempPw" class="btn btn_lg btn_line_blue btn_pill_10" onclick="return fn_sendTempPw();">임시 비밀번호 발급</button>
-                                    <input type="hidden" name="email" id="email"/>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="th"><label for="pwd">임시 비밀번호</label></div>
-                                <div class="td"><input type="password" name="pwd" id="pwd" placeholder="이메일로 전송된 임시 비밀번호를 입력하세요."></div>
-                            </li>
-                            <li>
-                                <div class="th"><label for="pwdChg">변경 비밀번호</label></div>
-                                <div class="td"><input type="password" name="pwdChg" id="pwdChg" placeholder="8~16자(특수 문자 포함)"></div>
-                            </li>
-                            <li>
-                                <div class="th"><label for="pwdChgChk">변경 비밀번호 확인</label></div>
-                                <div class="td"><input type="password" name="pwdChgChk" id="pwdChgChk" placeholder="변경 비밀번호 확인"></div>
-                            </li>
-                        </ul>
+                                </li>
+                                <li>
+                                    <div class="th">이메일 주소</div>
+                                    <div class="td">
+                                        <div class="email_form clearfix search_email"> <!-- [D] active 클래스가 있어야 직접입력 인풋이 노출 됨(style.js 에 들어가 있음) -->
+                                            <input type="text" name="email01" id="email01" title="이메일 아이디 입력">
+                                            <span class="at">@</span>
+                                            <div class="select">
+                                                <label for="email02">선택</label>
+                                                <select name="email02" id="email02">
+                                                    <option value="">선택</option>
+                                                    <option value="naver.com">naver.com</option>
+                                                    <option value="gmail.com">gmail.com</option>
+                                                    <option value="hanmail.net">hanmail.net</option>
+                                                    <option value="nate.com">nate.com</option>
+                                                    <option value="daum.net">daum.net</option>
+                                                    <option value="직접입력">직접입력</option>
+                                                </select>
+                                            </div>
+                                            <input type="text" name="email03" id="email03" class="email_inp" title="이메일주소 직접입력">
+                                        </div>
+                                        <button type="button" id="btnSendTempPw" class="btn" onclick="return fn_sendTempPw();">임시 비밀번호 발급</button>
+                                        <input type="hidden" name="email" id="email"/>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="th"><label for="pwd">임시 비밀번호</label></div>
+                                    <div class="td"><input type="password" name="pwd" id="pwd" placeholder="이메일로 전송된 임시 비밀번호를 입력하세요."></div>
+                                </li>
+                                <li>
+                                    <div class="th"><label for="pwdChg">변경 비밀번호</label></div>
+                                    <div class="td"><input type="password" name="pwdChg" id="pwdChg" placeholder="8~16자(특수 문자 포함)"></div>
+                                </li>
+                                <li>
+                                    <div class="th"><label for="pwdChgChk">변경 비밀번호 확인</label></div>
+                                    <div class="td"><input type="password" name="pwdChgChk" id="pwdChgChk" placeholder="변경 비밀번호 확인"></div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                     <div class="btn_area">
-                        <button type="button" id="btnSave" class="btn btn_hg btn_blue btn_pill_10">비밀번호 변경</button>
+                        <button type="button" id="btnSave" class="btn">확인</button>
                     </div>
                 </form>
             </div>

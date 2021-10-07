@@ -16,48 +16,50 @@
 <body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
 <div id="wrap">
     <th:block th:include="fragments/header_gnb"></th:block>
-    <div class="sub_container">
-
-        <!-- sub_inner -->
-        <th:block th:include="fragments/snb"></th:block>
-        <div class="inner">
-            <div class="page_top">
-                <h3 class="page_tit">회원가입</h3>
-                <span>푸른코끼리의 다양한 서비스를 이용하고 싶다면<b></b>
+    <div id="container">
+        <th:block th:include="fragments/mo_menu"></th:block>
+        <div class="sub_container join_sub">
+            <!-- sub_inner -->
+            <th:block th:include="fragments/snb"></th:block>
+            <div class="inner">
+                <div class="page_top">
+                    <h3 class="page_tit">회원가입</h3>
+                    <span>푸른코끼리의 다양한 서비스를 이용하고 싶다면<b></b>
                             회원가입을 해주세요.</span>
-            </div>
-            <div class="page_cont join_agree_area">
-                <div class="page_cnt join_form_area">
-                    <div class="page_top_gradient">
-                        <div>
-                            <ul class="img_join_pick">
-                                <!--<center>
-                                    <input id="emp" name="registerType" type="radio" class="employee"value="e"/>
-                                    <label for="emp"></label>
-                                    <input id="group" name="registerType" type="radio" class="group" value="g"/>
-                                    <label for="group"></label>
-                                    <input type="hidden" id="selected" value="0">
-                                </center>-->
-                                <li>
-                                    <input type="radio" id="emp" name="registerType" class="join_person" value="e" checked>
-                                    <label for="emp">
-                                        <span>개인</span>
-                                    </label>
-                                    <input type="radio" id="group" name="registerType" class="join_person" value="g">
-                                    <label for="group">
-                                        <span>단체</span>
-                                    </label>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="btn_area">
-                            <button id="rest" class="btn ">회원가입</button>
+                </div>
+                <div class="page_cont join_agree_area">
+                    <div class="page_cnt join_form_area">
+                        <div class="page_top_gradient">
+                            <div>
+                                <ul class="img_join_pick">
+                                    <!--<center>
+                                        <input id="emp" name="registerType" type="radio" class="employee"value="e"/>
+                                        <label for="emp"></label>
+                                        <input id="group" name="registerType" type="radio" class="group" value="g"/>
+                                        <label for="group"></label>
+                                        <input type="hidden" id="selected" value="0">
+                                    </center>-->
+                                    <li>
+                                        <input type="radio" id="emp" name="registerType" class="join_person" value="e" checked>
+                                        <label for="emp">
+                                            <span>개인</span>
+                                        </label>
+                                        <input type="radio" id="group" name="registerType" class="join_person" value="g">
+                                        <label for="group">
+                                            <span>단체</span>
+                                        </label>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="btn_area">
+                                <button id="rest" class="btn ">회원가입</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <th:block th:replace="fragments/footer"></th:block>
         </div>
-        <th:block th:replace="fragments/footer"></th:block>
     </div>
 </body>
 </html>

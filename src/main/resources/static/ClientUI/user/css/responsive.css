@@ -1077,6 +1077,7 @@
 	}
 	.slick-track {
 		width: 100%;
+		height: 100%;
 	}
 	.section01 .slick-dots li {
 		display: none;
@@ -1084,10 +1085,12 @@
 	.section01 .slick-slide {
 		overflow: hidden;
 		position: relative;
-		width: 100%;
+		height: 100%;
 	}
 	.section01 .slick-slide img {
 		/*margin: -20px auto;*/
+		width: auto;
+		object-fit: cover;
 	}
 
 	.section01 .slick-slide .btn_more {
@@ -1680,7 +1683,7 @@
 		height: 150px;
 		top: 50%;
 		transform: translate(-50%, -50%);
-		left: 0;
+		left: -20px;
 		background: url('../images/contents/m_obj_mascot.png')no-repeat center center;
 		background-size: contain;
 	}
@@ -1767,6 +1770,11 @@
 	}
 	.lecture > .sub_tit_inner .class_btn_inner {
 		margin: 0 auto;
+		width: 100%;
+	}
+	.lecture > .sub_tit_inner .class_btn_inner button {
+		flex: 1;
+		width: 100%;
 	}
 	.lecture > .lecture_content{
 		justify-content: space-between;
@@ -1783,8 +1791,8 @@
 		width: 100%;
 	}
 	.lecture > .lecture_content > .lecture_item > .lecture_sumnail{
-		min-width: 130px;
-		height: 130px;
+		min-width: 150px;
+		height: 150px;
 		display: inline-block;
 		border: solid 3px #8bb3ff;
 		vertical-align: middle;
@@ -1798,8 +1806,14 @@
 	.lecture > .lecture_content > .lecture_item > .lecture_sumnail > .lecture_st{
 		color: #bbd2f8;
 		font-size: 20px;
-		padding-right: 16px;
+		padding-right: 3px;
 		padding-top: 16px;
+	}
+	.lecture > .lecture_content > .lecture_item > .lecture_text > .list > li a {
+		font-size: 13px;
+	}
+	.lecture > .lecture_content:nth-child(3) .lecture_item > .lecture_sumnail > .lecture_st {
+		font-size: 11px;
 	}
 	.lecture > .lecture_content > .lecture_item > .lecture_sumnail > .sumnail_icon {
 		left: -10px;
@@ -1815,10 +1829,10 @@
 	}
 
 	.sub_container > .lecture_inner{
-		height: 1330px;
+		/*height: 1330px;*/
 	}
 	.sub_container > .lecture_inner2{
-		height: 630px;
+		/*height: 630px;*/
 	}
 	.lecture > .lecture_content > .lecture_item > .lecture_text > .lecture_sub{
 		margin-top: 22px;
@@ -4627,6 +4641,10 @@
 	.join_area .btn {
 		border: 1px solid #85b4f7;
 	}
+	.searchidpw {
+		width: 100%;
+	}
+
 
 	/* 회원가입_이용약관 시작 */
 	.agree_area h4.subtit.pc {
@@ -5489,7 +5507,7 @@
 		display: flex;
 	}
 	.email_f {
-		padding-bottom: 100px;
+		/*padding-bottom: 100px;*/
 	}
 	.email_form input {
 		/* width: 100px !important; */
@@ -6380,6 +6398,9 @@
 	.lecture > .lecture_content > .lecture_item > .lecture_sumnail > .lecture_st{
 		color: #bbd2f8;
 		font-size: 24px;
+	}
+	.lecture > .lecture_content:nth-child(3) .lecture_item > .lecture_sumnail > .lecture_st {
+		font-size: 13px;
 	}
 	.lecture > .lecture_hid_content > .lecture_item > .lecture_sumnail > .lecture_st{
 		color: #cbd2df;

@@ -164,16 +164,16 @@
                          th:alt="${item.pidNm}">
                   </a>
                   <th:block th:if="${item.sn eq 3}">
-                    <span class="lecture_st">사전학습</span>
+                    <span class="lecture_st">1차시</span>
                   </th:block>
                   <th:block th:if="${item.sn eq 4 && eduTy eq 'Y'}">
-                    <span class="lecture_st">현장학습</span>
+                    <span class="lecture_st">3차시 | 4차시 | 5차시 | 6차시</span>
                   </th:block>
                   <th:block th:if="${item.sn eq 4 && eduTy eq 'N'}">
                     <span class="lecture_st" style="color: #FFFFFF">수강불가</span>
                   </th:block>
                   <th:block th:if="${item.sn eq 5}">
-                    <span class="lecture_st">사후학습</span>
+                    <span class="lecture_st">7차시</span>
                   </th:block>
                 </div>
                 <div class="lecture_text">
