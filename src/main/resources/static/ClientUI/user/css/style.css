@@ -471,7 +471,7 @@
     width: 1px;
     height: 12px;
     margin: 0 13px 0 14px;
-    background-color: #333
+    background-color: #ddd;
 }
 
 #footer>.top li:last-child:after {
@@ -566,8 +566,10 @@
 .copyright.m_copy {
     display: none;
 }
-
-#footer>.bottom .info_area>.logo_area {
+.logo_area {
+    float: right;
+}
+#footer>.bottom .info_area>.logo_area.pc_logo_area {
     display: inline-block;
     position: absolute;
     top: 20px;
@@ -765,7 +767,9 @@
     padding-top: 130px;
 }
 
-.intro_inner .section01 .slick-list {}
+.intro_inner .section01 .slick-list {
+    height: 100%;
+}
 
 .section .tit_area h2 {
     color: #8bb3ff;
@@ -786,7 +790,7 @@
     z-index: 100;
     width: 1400px;
     margin: 0 auto;
-    height: 580px;
+    height: 570px;
     border-radius: 35px;
 }
 
@@ -11350,11 +11354,11 @@ li.period .td span {
 .program_inner ul li .tr {
     width: 23%;
     text-align: center;
-    padding: 15px 0;
+    padding: 30px 0;
 }
 .program_inner ul li .td {
     width: 100%;
-    padding: 20px 0;
+    padding: 40px 0;
     border-bottom: 1px solid #c7c7c7;
 }
 .program_inner ul li .td p {
@@ -11536,7 +11540,6 @@ li.period .td span {
     margin-right: 10px;
     background-color: #6d95e1;
     color: #fff;
-    border: 1px solid #6d95e1;
 }
 .help_btn a.list_btn {
     border: 1px solid #6d95e1;
@@ -12067,8 +12070,7 @@ li.period .td span {
 
 .partners .friends_inner .banner_inner {
     width: 560px;
-    height: 780px;
-    background-color: #ccc;
+    height: auto;
     margin: 0 auto;
 }
 .join .upload ul .sns .sns_chk_inner {
