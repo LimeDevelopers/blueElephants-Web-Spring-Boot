@@ -127,6 +127,10 @@ public class MemberJoinController extends BaseCont {
             if (load == null) {
                 log.info("휴대폰 정보 로드 에러 : " + ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getFieldErrors()));
             }
+        } else {
+            model.addAttribute("altmsg", "휴대폰 인증정보가 일치하지않습니다. \n다시 회원가입을 진행해주세요.");
+            model.addAttribute("locurl", "/pages/member/crew_register");
+            return "/message";
         }
 
         if (groupForm.getId() == null) {

@@ -31,9 +31,6 @@ public class MemberCrew {
     @Column(name="rpt_nm")
     private String rptNm;
 
-    @Column(name="rpt_email")
-    private String rptEmail;
-
     @Column(name = "attc_yn")
     private String attcYn;
 

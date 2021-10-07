@@ -118,8 +118,8 @@
             });
         }
 
-        function fn_goList(url) {
-            location.href = '/pages/activity/preventionEdu/' + url
+        function fn_goList() {
+            location.href = '/pages/activity/preventionEdu/'
         }
         function fn_msg(){
             alert('오프라인 현장교육을 수강해야 사후학습 수강이 가능합니다.')
@@ -147,7 +147,8 @@
                                             class="class_btn_01" th:text="|미리보기|"/>
                                 </th:block>
                                 <button th:if="${atnlcReqPid eq null}" th:onclick="|return fn_courseRequest(${form.id});|" class="class_btn_01" th:text="|수강신청|"/>
-                                <a th:href="|/pages/activity/preventionEdu/*{mberDvTy}|" class="class_btn_02">목록</a>
+                                <button class="class_btn_02" onclick="location.href='/pages/activity/preventionEdu'">목록</button>
+<!--                                <button onclick="fn_goList();"  class="class_btn_02">목록</button>-->
                             </div>
                             <th:block th:if="${masters == null or masters.isEmpty()}"><!--등록된 글이 없을 경우-->
                                 <div class="lecture_content">
@@ -166,7 +167,7 @@
                                         <span class="lecture_st">사전학습</span>
                                     </th:block>
                                     <th:block th:if="${item.sn eq 4 && eduTy eq 'Y'}">
-                                        <span class="lecture_st">현장교육</span>
+                                        <span class="lecture_st">현장학습</span>
                                     </th:block>
                                     <th:block th:if="${item.sn eq 4 && eduTy eq 'N'}">
                                         <span class="lecture_st" style="color: #FFFFFF">수강불가</span>

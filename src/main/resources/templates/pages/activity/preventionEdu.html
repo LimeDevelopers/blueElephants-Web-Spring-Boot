@@ -88,6 +88,11 @@
             location.href = '/pages/activity/preventionEdu/' + url
         }
     </script>
+    <style>
+        .general_education > .edu_form > .edu_list_box > .edu_btn_box > .edu_btn {
+            color: #fff;
+        }
+    </style>
 </head>
 <body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
 <div id="wrap">
@@ -136,20 +141,19 @@
                                             <p class="edu_form_title" th:text="${item.crsNm}">[청소년] 푸른코끼리 사이버폭력 예방교육</p>
                                         </div>
                                         <div class="edu_btn_box">
-
                                             <th:block th:if="${item.atnlcReqPid eq null}">
                                                 <button th:onclick="|return fn_courseRequest(${item.id});|" class="edu_btn"
                                                         th:text="|수강신청|"/>
                                             </th:block>
                                             <th:block th:unless="${item.atnlcReqPid eq null}">
                                                 <th:block th:if="${item.completeCnt < 6}">
-                                                    <a th:href="${'/pages/activity/eduMasterClass/'+item.id}" class="edu_btn_ing">
-                                                        <button>수강중</button>
+                                                    <a th:href="${'/pages/activity/eduMasterClass/'+item.id}" class="edu_btn">
+                                                        수강중
                                                     </a>
                                                 </th:block>
                                                 <th:block th:if="${item.completeCnt eq 6}">
-                                                    <a th:href="${'/pages/activity/eduMasterClass/'+item.id}" class="edu_btn_complete">
-                                                        <button>수강완료</button>
+                                                    <a th:href="${'/pages/activity/eduMasterClass/'+item.id}" class="edu_btn">
+                                                        수강완료
                                                     </a>
                                                 </th:block>
                                             </th:block>
@@ -173,18 +177,18 @@
 
                                             <th:block th:if="${item.atnlcReqPid eq null}">
                                                 <a th:href="${'/pages/activity/eduMasterClass/'+item.id}" class="edu_btn">
-                                                    <button>수강가능</button>
+                                                    수강가능
                                                 </a>
                                             </th:block>
                                             <th:block th:unless="${item.atnlcReqPid eq null}">
                                                 <th:block th:if="${item.completeCnt < 6}">
-                                                    <a th:href="${'/pages/activity/eduMasterClass/'+item.id}" class="edu_btn_ing">
-                                                        <button>수강중</button>
+                                                    <a th:href="${'/pages/activity/eduMasterClass/'+item.id}" class="edu_btn">
+                                                        수강중
                                                     </a>
                                                 </th:block>
                                                 <th:block th:if="${item.completeCnt eq 6}">
-                                                    <a th:href="${'/pages/activity/eduMasterClass/'+item.id}" class="edu_btn_complete">
-                                                        <button>수강완료</button>
+                                                    <a th:href="${'/pages/activity/eduMasterClass/'+item.id}" class="edu_btn">
+                                                        수강완료
                                                     </a>
                                                 </th:block>
                                             </th:block>
@@ -207,18 +211,18 @@
 
                                         <th:block th:if="${item.atnlcReqPid eq null}">
                                             <a th:href="${'/pages/activity/eduMasterClass/'+item.id}" class="edu_btn">
-                                                <button>수강가능</button>
+                                                수강가능
                                             </a>
                                         </th:block>
                                         <th:block th:unless="${item.atnlcReqPid eq null}">
                                             <th:block th:if="${item.completeCnt < 6}">
-                                                <a th:href="${'/pages/activity/eduMasterClass/'+item.id}" class="edu_btn_ing">
-                                                    <button>수강중</button>
+                                                <a th:href="${'/pages/activity/eduMasterClass/'+item.id}" class="edu_btn">
+                                                    수강중
                                                 </a>
                                             </th:block>
                                             <th:block th:if="${item.completeCnt eq 6}">
-                                                <a th:href="${'/pages/activity/eduMasterClass/'+item.id}" class="edu_btn_complete">
-                                                    <button>수강완료</button>
+                                                <a th:href="${'/pages/activity/eduMasterClass/'+item.id}" class="edu_btn">
+                                                    수강완료
                                                 </a>
                                             </th:block>
                                         </th:block>

@@ -658,13 +658,10 @@ public class MemberService extends _BaseService {
     public boolean groupInsert(GroupForm groupForm, MultipartFile attachedFile) throws ValidCustomException {
         try {
             verifyDuplicateLoginId(groupForm.getLoginId());
-            if(groupForm.getAuthEmailChk() == 2){
-                groupForm.setEmailAttcAt("Y");
-                verifyDuplicateEmail(groupForm.getEmail());
-                groupForm.setEmailAttcDtm(LocalDateTime.now());
-            }
 
             // approval : N -> 로그인 불가
+            groupForm.setEmailAttcAt("Y");
+            groupForm.setEmailAttcDtm(LocalDateTime.now());
             groupForm.setApproval("N");
             groupForm.setDelAt("N");
             groupForm.setPwd(passwordEncoder.encode(groupForm.getPwd()));
