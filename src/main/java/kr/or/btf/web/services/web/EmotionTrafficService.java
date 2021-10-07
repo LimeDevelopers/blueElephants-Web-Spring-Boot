@@ -35,6 +35,7 @@ public class EmotionTrafficService extends _BaseService {
     private final EmotionTrafficRepository etr;
     private final JPAQueryFactory queryFactory;
 
+    // 감정신호등 save
     @Transactional
     public Boolean save(Account account) {
         EmotionTrafficLog emotionTrafficLog = new EmotionTrafficLog();
@@ -61,8 +62,6 @@ public class EmotionTrafficService extends _BaseService {
         LocalDateTime startDatetime = LocalDateTime.of(LocalDate.now().minusDays(1), LocalTime.of(0,0,0)); //어제 00:00:00
         LocalDateTime endDatetime = LocalDateTime.of(LocalDate.now(), LocalTime.of(23,59,59)); //오늘 23:59:59
 
-        log.info("formattedDate : "+startDatetime);
-        log.info("formattedDate : "+endDatetime);
         OrderSpecifier<Long> orderSpecifier = qEmotionTrafficLog.id.desc();
         builder.and(qEmotionTrafficLog.regDtm.between(startDatetime, endDatetime));
 //        builder.and(Expressions.dateTimeTemplate(LocalDateTime.class,"CONVERT(varchar(10),{0},120)",Expressions.currentTimestamp())
@@ -88,7 +87,6 @@ public class EmotionTrafficService extends _BaseService {
         } else {
             int cnt1 = 0,cnt2 = 0,cnt3 = 0,cnt4 = 0,cnt5 = 0;
             for(int i=0; i < results.size(); i++) {
-                log.info("fdfsdfsd : "+results.get(i).getEtfPid());
                 if(results.get(i).getEtfPid() == 1) {
                     cnt1++;
                 }
@@ -125,8 +123,6 @@ public class EmotionTrafficService extends _BaseService {
                 form.setCnt(cnt4);
             }
         }
-
-        log.info("test@@@2"+ form.getEtfNm());
         return form;
     }
 }

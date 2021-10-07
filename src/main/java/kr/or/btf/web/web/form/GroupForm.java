@@ -51,6 +51,7 @@ public class GroupForm extends SearchForm{
     private String crewAffi;       // 크루 소속
     private String crewFNum;
     private String rptNm;          // 크루 대표명
+    private String rptEmail;
 
     /* 단체 정보 */
     private String groupNm;        // 단체명
