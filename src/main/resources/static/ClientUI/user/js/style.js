@@ -102,6 +102,8 @@ $(document).ready(function(){
 	var footBtn = $('#footer > .bottom .info_area > strong');
 	footBtn.on('click',function(){
 		footBtn.siblings('.txt_area').children('.text_m').toggleClass('active');
+		footBtn.siblings('.logo_area').toggleClass('active');
+		footBtn.siblings('.m_info_inner').toggleClass('active');
 	})
 
 	//캘린더

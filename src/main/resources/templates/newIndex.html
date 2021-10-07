@@ -290,10 +290,12 @@
             </th:block>
           </div>
         </th:block>
-        <th:block th:if="${isMobile}"><!--mobile-->
+        <!--mobile-->
+        <th:block th:if="${isMobile}">
           <div>
             <th:block th:if="${item.mobileFlNm ne null}">
-              <img th:src="'https://www.bepuco.or.kr'+${bannerFilePath + '/' + item.mobileFlNm}" th:alt="${item.mobileFlNm}">
+              <!--<img th:src="'https://www.bepuco.or.kr'+${bannerFilePath + '/' + item.mobileFlNm}" th:alt="${item.mobileFlNm}">-->
+              <img th:src="'https://www.bepuco.or.kr'+${bannerFilePath + '/' + item.pcFlNm}" th:alt="${item.pcFlNm}">
             </th:block>
             <th:block th:if="${item.mobileFlNm eq null}">
               <img th:src="'https://www.bepuco.or.kr'+${bannerFilePath + '/' + item.pcFlNm}" th:alt="${item.pcFlNm}">
@@ -304,6 +306,11 @@
             <th:block th:unless="${item.banLink eq '' or item.banLink eq null}">
               <a href="javascript:;" th:onclick="return fn_linkUrl([[${item.banLink}]],[[${item.linkTrgtTy eq T(kr.or.btf.web.domain.web.enums.LinkTargetType).SELF ? false : true}]])" class="btn_more">자세히보기</a>
             </th:block>
+
+
+
+
+
           </div>
         </th:block>
       </th:block>
