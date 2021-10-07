@@ -1736,8 +1736,20 @@ public class MyPageController extends BaseCont {
     @RequestMapping("/pages/myPage/management/batchManagement")
     public String batchManagement(Model model,
                                   @CurrentUser Account account) {
+
         Account load = memberService.load(account.getId());
         MemberTeacher memberTeacher = memberTeacherService.loadByMber(load.getId());
+
+        if(memberTeacher.getBan().equals("") || memberTeacher.getBan() == null ||
+           memberTeacher.getAreaNm().equals("") || memberTeacher.getAreaNm() == null ||
+           memberTeacher.getSchlNm().equals("") || memberTeacher.getSchlNm() == null ||
+           memberTeacher.getGrade().equals("") || memberTeacher.getGrade() == null ) {
+
+            model.addAttribute("altmsg", "입력 된 학교정보가 없습니다. 일괄가입 서비스는 학교정보 입력 후 이용가능 합니다.");
+            model.addAttribute("locurl", "/pages/myPage/profile");
+
+            return "/message";
+        }
         model.addAttribute("teacher", memberTeacher);
         model.addAttribute("mc", "myPage");
 
