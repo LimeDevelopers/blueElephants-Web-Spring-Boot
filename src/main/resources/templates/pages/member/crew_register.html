@@ -113,11 +113,6 @@
                 return false;
             }
 
-            if(authMobileChk == 1) {
-                alert('휴대폰 인증은 필수입니다.')
-                return false;
-            }
-
             if(gbn=='GROUP')
             {
                 if(!groupNm.val()) {
@@ -140,10 +135,18 @@
                     focusAndEmpty(bNum)
                     return false;
                 }
+                if(authMobileChk.val() == 1) {
+                    fn_alert('휴대폰 인증은 필수입니다.')
+                    return false;
+                }
                 return true;
             }
             else if(gbn=='CREW')
             {
+                if($("input:checkbox[id=agree005]").is(":checked") == false) {
+                    fn_alert('크루 약관에 동의해주세요.')
+                    return false;
+                }
                 if(!crewNm) {
                     fn_alert('크루명 입력은 필수입니다.')
                     focusAndEmpty(crewNm)
@@ -162,6 +165,10 @@
                 if(!rptName) {
                     fn_alert('대표자명을 입력하세요.')
                     focusAndEmpty(rptName)
+                    return false;
+                }
+                if(authMobileChk.val() == 1) {
+                    fn_alert('휴대폰 인증은 필수입니다.')
                     return false;
                 }
                 return true
