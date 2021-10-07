@@ -377,7 +377,7 @@ public class  ApplicationController {
         }
         model.addAttribute("mc", "application");
         model.addAttribute("pageTitle", "지지크루");
-        return "pages/application/zzcrew";
+        return "pages/preparing";
     }
 
     @GetMapping("/pages/application/partnersRegister")

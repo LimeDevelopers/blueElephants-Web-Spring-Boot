@@ -170,7 +170,7 @@
                 incdntEndYmd.focus();
                 return false;
             }
-            /*if (!bdyDmgeCodePid.val()) {
+            if (!bdyDmgeCodePid.val()) {
                 alert('신체적 피해는 필수입니다.');
                 bdyDmgeCodePid.focus();
                 return false;
@@ -184,7 +184,7 @@
                 alert('물질적 피해는 필수입니다.');
                 physiclDmgeCodePid.focus();
                 return false;
-            }*/
+            }
             if (!$.trim(pwd.val())) {
                 alert('비밀번호는 필수입니다.')
                 return false;
@@ -369,8 +369,7 @@
         <th:block th:include="fragments/mo_menu"></th:block>
         <div class="sub_container">
             <th:block th:include="fragments/dept_menu"></th:block>
-            <form id="helpType01_body" class="bodyContainer" name="helpType01_body"  th:object="${form}">
-
+            <form id="helpType01_body" class="bodyContainer" name="helpType01_body" enctype="multipart/form-data" th:object="${form}">
                 <div class="inner">
                     <div class="page_cont">
                         <!--<h4 class="subtit pc review_title">심리상담</h4>-->
@@ -552,9 +551,6 @@
                             </div>
                         </div>
 
-
-
-
                         <div class="sec_write join">
                             <div class="tbl_write upload">
                                 <ul>
@@ -628,7 +624,7 @@
                                             <div class="chk_item">
                                                 <span>물질적 피해</span>
                                                 <!--<label id="physiclDmgeCodePidLabel"></label>-->
-                                                <select name="physiclDmgeCodePid" id="physicl_dmge_code_pid">
+                                                <select name="physiclDmgeCodePid" id="physiclDmgeCodePid">
                                                     <option>점수</option>
                                                     <option value="44">1</option>
                                                     <option value="45">2</option>
