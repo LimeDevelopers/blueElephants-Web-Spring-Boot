@@ -964,6 +964,13 @@ public class MyPageController extends BaseCont {
                              @ModelAttribute SearchForm searchForm,
                              @Value("${common.code.policyProposalCdPid}") Long policyProposalCdPid) {
 
+        System.out.println("선생pid" + account.getId());
+
+        List<Account> batchList = memberService.batchList(account.getId());
+        System.out.println("일괄가입자 조인" + batchList);
+
+
+
         BoardDataForm boardDataForm = new BoardDataForm();
         boardDataForm.setMstPid(policyProposalCdPid);
         searchForm.setLoginId(account.getLoginId());
@@ -1745,7 +1752,7 @@ public class MyPageController extends BaseCont {
            memberTeacher.getSchlNm().equals("") || memberTeacher.getSchlNm() == null ||
            memberTeacher.getGrade().equals("") || memberTeacher.getGrade() == null ) {
 
-            model.addAttribute("altmsg", "입력 된 학교정보가 없습니다. 일괄가입 서비스는 학교정보 입력 후 이용가능 합니다.");
+            model.addAttribute("altmsg", "학교 정보 입력 후 학생 일괄 가입이 가능합니다. 학교 정보는 마이페이지에서 수정 가능합니다.");
             model.addAttribute("locurl", "/pages/myPage/profile");
 
             return "/message";
