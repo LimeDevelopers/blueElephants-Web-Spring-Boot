@@ -414,13 +414,15 @@
         *  이메일 전송 및 난수 생성 후 인증키를 비교하여 처리한다.
         * */
         function fn_chkEmailTempKey() {
+            $('#chkTempKeyBtn').text('');
+            $('#authEmailChk').val(1)
             if(tempKey == $('.eKey').val()) {
                 alert('인증되었습니다.');
-                $('.eKey').attr("disabled", true);
+                //$('.eKey').attr("disabled", true);
                 $('#authEmailChk').val(2)
                 $('#chkTempKeyBtn').text('인증완료');
-                $('#sendEmailBtn').attr('disabled',true);
-                $('#chkTempKeyBtn').attr('disabled',true);
+                // $('#sendEmailBtn').attr('disabled',true);
+                // $('#chkTempKeyBtn').attr('disabled',true);
                 $('input[name=authPrTy]').attr('disabled',true);
                 $('#authFiledPHONE_AUTH').hide();
                 $('#authFiledEMAIL_AUTH').hide();
@@ -500,9 +502,9 @@
                         $('.eKey').attr("disabled", false);
                         $('.eKey').focus();
                         emailDupBool = true;
-                        email01.attr("disabled", true);
-                        email02.attr("disabled", true);
-                        email03.attr("disabled", true);
+                        // email01.attr("disabled", true);
+                        // email02.attr("disabled", true);
+                        // email03.attr("disabled", true);
                     } else {
                         alert('이미 사용중인 이메일입니다.');
                         emailDupBool = false;

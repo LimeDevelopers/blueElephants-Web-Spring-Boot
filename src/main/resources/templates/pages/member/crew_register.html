@@ -40,6 +40,7 @@
         let crewAffi;
         let crewFNum;
         let rptName;
+        let rptEmail;
 
         let mberDvTy;
 
@@ -162,31 +163,32 @@
             }
             else if(gbn=='CREW')
             {
-                crewNm = $('crewNm');
-                crewAffi = $('crewNm');
-                crewFNum = $('crewNm');
-                rptName = $('crewNm');
+                crewNm = $('#crewNm');
+                crewAffi = $('#crewNm');
+                crewFNum = $('#crewNm');
+                rptName = $('#rptName');
+                rptEmail = $('#rptEmail');
                 authEmailChk = $('#authEmailChk');
                 if(!idDupBool) {
                     fn_alert('아이디 중복확인을 진행해주세요.')
                     return false;
                 }
-                if(crewNm=='' || crewNm==null) {
+                if(!crewNm) {
                     fn_alert('크루명 입력은 필수입니다.')
                     focusAndEmpty(crewNm)
                     return false;
                 }
-                if(crewAffi=='' || crewAffi==null) {
+                if(!crewAffi) {
                     fn_alert('소속명 입력은 필수입니다.')
                     focusAndEmpty(crewAffi)
                     return false;
                 }
-                if(crewFNum=='' || crewFNum==null) {
+                if(!crewFNum) {
                     fn_alert('기수를 입력하세요.')
                     focusAndEmpty(crewFNum)
                     return false;
                 }
-                if(rptName=='' || rptName==null) {
+                if(!rptName) {
                     fn_alert('대표자명을 입력하세요.')
                     focusAndEmpty(rptName)
                     return false;
@@ -642,8 +644,6 @@
                                         </div>
                                     </li>
 
-
-
                                     <li class="ggCrew">
                                         <div class="th">
                                             <label for="loginId">지지크루이름</label>
@@ -684,11 +684,11 @@
                                         <div class="th">대표이메일<span class="aster">*</span></div>
                                         <div class="td">
                                             <div class="email_form clearfix">
-                                                <input type="text" name="g_email01" id="g_email01" title="이메일 아이디 입력" oninput="fn_emailValidate(this)" onkeydown="fn_checkSpacebar(this)" />
+                                                <input type="text" name="rptEmail01" id="rptEmail01" title="이메일 아이디 입력" oninput="fn_emailValidate(this)" onkeydown="fn_checkSpacebar(this)" />
                                                 <span class="at">@</span>
                                                 <div class="select">
-                                                    <label for="g_email02" id="g_email02_label">선택</label>
-                                                    <select name="g_email02" id="g_email02">
+                                                    <label for="rptEmail02" id="rptEmail02_label">선택</label>
+                                                    <select name="rptEmail02" id="rptEmail02">
                                                         <option value="">선택</option>
                                                         <option value="naver.com">naver.com</option>
                                                         <option value="gmail.com">gmail.com</option>
@@ -698,41 +698,16 @@
                                                         <option value="직접입력">직접입력</option>
                                                     </select>
                                                 </div>
-                                                <input type="text" name="gg_email03" id="g_email03" class="email_inp" title="이메일주소 직접입력" onkeydown="fn_checkSpacebar(this)" />
+                                                <input type="text" name="rptEmail03" id="rptEmail03" class="email_inp" title="이메일주소 직접입력" onkeydown="fn_checkSpacebar(this)" />
                                             </div>
                                             <button type="button" class="btn btn_lg btn_line_blue btn_pill_10" id="g_sendEmailBtn" onclick="return fn_chkEmailDup('g');">이메일인증</button>
-                                            <input type="hidden" name="g_email" id="g_email"/>
+                                            <input type="hidden" name="rptEmail" id="rptEmail"/>
                                             <input class="eKey emph" type="text" name="g_emailKey" id="g_emailKey" placeholder="인증번호 입력" maxlength="8" disabled>
                                             <button type="button" class="btn btn_lg btn_line_blue btn_pill_10" id="g_chkTempKeyBtn" onclick="return fn_chkEmailTempKey('g');">인증번호확인</button>
                                             <p class="tip emph">※ 아이디/패스워드 찾기, 회원가입 인증에 사용됩니다. 정확하게 입력해주세요.</p>
                                         </div>
                                     </li>
 
-
-
-
-
-
-                                    <!--<li class="phoneAuth row">
-                                        <input type="hidden" id="authMobileChk" name="authMobileChk" value="0"/>
-                                        <div class="th"><label for="moblphon">본인인증</label><span class="aster" id="moblphonLabel">*</span></div>
-                                        <div class="td">
-                                            <ul class="tabs">
-                                                <li class="tab">
-                                                    <input type="radio" id="auth_01" name="tabauth" checked>
-                                                    <label for="auth_01">휴대폰인증</label>
-                                                    <div class="auth_contents_01 auth_contents">
-                                                        <b>휴대폰</b>
-                                                        <input type="text" id="moblphon" name="moblphon" placeholder="휴대폰 인증을 진행하세요" readonly>
-                                                        <input type="hidden" id="sRequestNumber" name="sRequestNumber"/>
-                                                        <input type="hidden" id="sResponseNumber" name="sResponseNumber"/>
-                                                        <button type="button" class="btn btn_lg" onclick="return fn_niceCallPopup();">휴대폰인증</button>
-                                                    </div>
-                                                <li/>
-
-                                            </ul>
-                                        </div>
-                                    </li>-->
                                     <li class="phoneAuth row email_f">
                                         <input type="hidden" id="authMobileChk" name="authMobileChk" value="1"/>
                                         <input type="hidden" id="authEmailChk" name="authEmailChk" value="0"/>
