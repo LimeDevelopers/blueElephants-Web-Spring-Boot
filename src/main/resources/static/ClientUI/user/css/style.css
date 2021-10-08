@@ -12766,7 +12766,6 @@ li.period .td span {
 
 /* 회원가입 개인/단체 선택 : SU 09/16 고선호 수정 */
 ul.img_join_pick {
-    width: 400px;
     margin:0 auto;
 }
 .img_join_pick li {
