@@ -3383,6 +3383,13 @@
 		width: 100%;
 		margin: 0;
 	}
+	.thumb_list>li.nodata div {
+		padding-left: 40px;
+		font-size: 16px;
+		background: url(../images/contents/bg_nodata.png) no-repeat 10% 50%;
+		background-size: 40px;
+		width: 100%;
+	}
 	.thumb_list.gallery li {
 		border-bottom: 1px solid #c7c7c7;
 		padding: 20px 0;
