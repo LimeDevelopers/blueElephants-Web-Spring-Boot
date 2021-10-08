@@ -964,13 +964,6 @@ public class MyPageController extends BaseCont {
                              @ModelAttribute SearchForm searchForm,
                              @Value("${common.code.policyProposalCdPid}") Long policyProposalCdPid) {
 
-        System.out.println("선생pid" + account.getId());
-
-        List<Account> batchList = memberService.batchList(account.getId());
-        System.out.println("일괄가입자 조인" + batchList);
-
-
-
         BoardDataForm boardDataForm = new BoardDataForm();
         boardDataForm.setMstPid(policyProposalCdPid);
         searchForm.setLoginId(account.getLoginId());
@@ -1760,7 +1753,6 @@ public class MyPageController extends BaseCont {
         model.addAttribute("teacher", memberTeacher);
         model.addAttribute("mc", "myPage");
 
-
         return "pages/myPage/batchManagement";
     }
 
@@ -1784,6 +1776,6 @@ public class MyPageController extends BaseCont {
         model.addAttribute("mc", "myPage");
         model.addAttribute("pageTitle", "학생관리");
 
-        return "redirect:/pages/myPage/management";
+        return "redirect:/pages/myPage/batchManagement/batchRegister";
     }
 }

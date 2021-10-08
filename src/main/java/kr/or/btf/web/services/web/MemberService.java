@@ -1615,7 +1615,7 @@ public class MemberService extends _BaseService {
             memberForm.setEduReset("N");
             memberForm.setCardReset("N");
             memberForm.setFreeCard("N");
-            memberForm.setGroupYn("N");
+            memberForm.setGroupPid(0L);
             memberForm.setCrewPid(0L);
             memberForm.setApproval("Y"); // 승인여부
             memberForm.setNm("TEST");
@@ -1665,7 +1665,8 @@ public class MemberService extends _BaseService {
             memberForm.setEduReset("N");
             memberForm.setCardReset("N");
             memberForm.setFreeCard("N");
-            memberForm.setGroupYn("N");
+            /*memberForm.setGroupYn("N");*/
+            memberForm.setGroupPid(0L);
             memberForm.setCrewPid(0L);
             memberForm.setApproval("Y"); // 승인여부
             memberForm.setPrtctorAttcAt("Y");
