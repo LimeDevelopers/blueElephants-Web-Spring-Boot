@@ -294,8 +294,7 @@
         <th:block th:if="${isMobile}">
           <div>
             <th:block th:if="${item.mobileFlNm ne null}">
-              <!--<img th:src="'https://www.bepuco.or.kr'+${bannerFilePath + '/' + item.mobileFlNm}" th:alt="${item.mobileFlNm}">-->
-              <img th:src="'https://www.bepuco.or.kr'+${bannerFilePath + '/' + item.pcFlNm}" th:alt="${item.pcFlNm}">
+              <img th:src="'https://www.bepuco.or.kr'+${bannerFilePath + '/' + item.mobileFlNm}" th:alt="${item.mobileFlNm}">
             </th:block>
             <th:block th:if="${item.mobileFlNm eq null}">
               <img th:src="'https://www.bepuco.or.kr'+${bannerFilePath + '/' + item.pcFlNm}" th:alt="${item.pcFlNm}">

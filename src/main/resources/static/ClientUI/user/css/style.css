@@ -790,7 +790,7 @@
     z-index: 100;
     width: 1400px;
     margin: 0 auto;
-    height: 570px;
+    /*height: 570px;*/
     border-radius: 35px;
 }
 
@@ -843,11 +843,8 @@
     overflow: hidden;
     position: relative
 }
-.section01 .slick-slide:nth-of-type(4) {
-    margin-top: -10px;
-}
 .section01 .slick-slide:nth-of-type(4) img {
-    max-width: 102%;
+    /*max-width: 102%;*/
 }
 
 .section01 .slick-slide img {
@@ -5773,7 +5770,7 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
 }
 
 .page_cont > .sub_text_box.form_text_box > .text {
-    padding: 50px 30px !important;;
+    padding: 50px 30px !important;
 }
 
 .depths_02_inner .slide_menu > div ul.slide_sub {
@@ -10177,7 +10174,7 @@ h4.subtit+.tip_tbl {
 }
 
 .join_form_area>.tbl_write:first-child {
-    margin-top: 30px
+    /*margin-top: 30px*/
 }
 
 /* 회원가입 개인/단체 선택 */
@@ -12768,13 +12765,14 @@ li.period .td span {
 
 
 /* 회원가입 개인/단체 선택 : SU 09/16 고선호 수정 */
+
 .img_join_pick li {
     text-align: center;
     margin-top: 80px;
 }
 .img_join_pick li label {
     border: 5px solid;
-    border-color: #D2E5FF;
+    border-color: #c7daf7;
     width: 180px;
     height: 180px;
     position: relative;
@@ -12782,6 +12780,9 @@ li.period .td span {
     border-radius: 20px;
     box-shadow: 10px 10px 20px #92A6CC;
     cursor: pointer;
+}
+.img_join_pick li label:nth-of-type(1) {
+    margin-right: 50px;
 }
 .img_join_pick li label span {
     position: absolute;
@@ -12791,44 +12792,21 @@ li.period .td span {
     font-size: 45px;
     font-weight: bold;
 }
-.img_join_pick li label:nth-of-type(1) {
-    background: url('../images/contents/join_pick_1.png')no-repeat center center;
-    background-size: 100% 100%;
-    margin-right: 50px;
-}
-.img_join_pick li label:nth-of-type(1):after {
-    content:'';
-    position: absolute;
-    background: url('../images/contents/obj_mascot_3.png')no-repeat center center;
-    background-size: contain;
-    bottom: -30px;
-    left: -50px;
-    width: 90px;
-    height: 90px;
-}
-.img_join_pick li label:nth-of-type(2) {
-    background: url('../images/contents/join_pick_2.png')no-repeat center center;
+.img_join_pick li label {
+    background: url('../images/contents/basic_bg.png')no-repeat center center;
     background-size: 100% 100%;
 }
-.img_join_pick li label:nth-of-type(2):after {
-    content:'';
-    position: absolute;
-    background: url('../images/contents/group_2.png')no-repeat center center;
-    background-size: contain;
-    bottom: -60px;
-    right: -50px;
-    width: 150px;
-    height: 150px;
-}
-.img_join_pick li label:nth-of-type(1) span {
-    color: #6d95e1;
-}
-.img_join_pick li label:nth-of-type(2) span {
+.img_join_pick li label span {
     color: #fff;
 }
 /* checked function */
 .img_join_pick li input[type="radio"]:checked + label {
     border-color: #85B4F7;
+    background: url('../images/contents/click_bg.png')no-repeat center center;
+    background-size: contain;
+}
+.img_join_pick li input[type="radio"]:checked + label span {
+    color: #6d95e1;
 }
 .page_top_gradient .btn_area #rest {
     color: #fff;
