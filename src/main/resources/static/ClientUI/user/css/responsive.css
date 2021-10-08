@@ -3376,7 +3376,8 @@
 	}
 	.board_tbl_list.type01 {
 		/*margin-top: 5px;*/
-		margin-top: 30px;
+		/*margin-top: 30px;*/
+		margin-top: 0;
 	}
 	.thumb_list>li {
 		width: 100%;

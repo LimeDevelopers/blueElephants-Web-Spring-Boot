@@ -6484,7 +6484,7 @@ h4.subtit {
 
 h4.subtit.pc {
     line-height: 1;
-    margin-top: 67px;
+    /*margin-top: 67px;*/
 }
 h4.subtit.search_tit {
     margin-top: 40px;
@@ -7040,7 +7040,7 @@ h4.subtit+.tip_tbl {
 
 .thumb_list>li {
     width: calc(33.33% - 30px);
-    /*margin: 40px 0 0 30px;*/
+    margin: 40px 0 0 30px;
     text-align: center
 }
 
@@ -12765,7 +12765,10 @@ li.period .td span {
 
 
 /* 회원가입 개인/단체 선택 : SU 09/16 고선호 수정 */
-
+ul.img_join_pick {
+    width: 400px;
+    margin:0 auto;
+}
 .img_join_pick li {
     text-align: center;
     margin-top: 80px;
