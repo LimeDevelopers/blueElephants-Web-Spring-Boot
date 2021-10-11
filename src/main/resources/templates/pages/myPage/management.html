@@ -35,9 +35,9 @@
                                 </th:block>
                                 <tr th:each="stulist,idx : ${studentList}">
                                     <td th:text="${stulist.loginId}">PUCO123456</td>
-                                    <td th:text="${stulist.nm}"></td>
+                                    <td th:text="${stulist.nm}">이름</td>
                                     <td th:text="${#temporals.format(stulist.regDtm, 'yyyy-MM-dd')}">20211011</td>
-                                    <td th:text="${stulist.mberDvTy}">학생</td>
+                                    <td th:text="${T(kr.or.btf.web.domain.web.enums.UserRollType).valueOf(stulist.mberDvTy).getName()}">학생</td>
                                 </tr>
                             </table>
                         </div>
