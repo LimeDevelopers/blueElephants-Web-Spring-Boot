@@ -843,9 +843,6 @@
     overflow: hidden;
     position: relative
 }
-.section01 .slick-slide:nth-of-type(4) img {
-    /*max-width: 102%;*/
-}
 
 .section01 .slick-slide img {
     margin: 0 auto
@@ -5557,7 +5554,7 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
 }
 .lecture > .lecture_content > .lecture_item > .lecture_text > .lecture_title{
     /* font-family: NotoSansCJKkr; */
-    font-size: 23px;
+    font-size: 21px;
     font-weight: 500;
     line-height: 1.17;
     color: #54586a;

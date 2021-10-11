@@ -327,6 +327,7 @@ function winSize(){
 		$('.sm_tit h3').on('click', function () {
 			$(this).addClass('sd_on')
 			$(this).parent().parent().siblings().children('.sm_tit').children('h3').removeClass('sd_on')
+			$(body).removeClass('sd_on')
 		})
 
 
@@ -361,7 +362,7 @@ function winSize(){
 		$('.slide_menu').slick({
 			infinite: true,
 			slidesToShow: 4,
-			slidesToScroll: 1
+			slidesToScroll: 3
 		});
 	}
 

@@ -164,7 +164,7 @@
                          th:alt="${item.pidNm}">
                   </a>
                   <th:block th:if="${item.sn eq 3}">
-                    <span class="lecture_st">1차시</span>
+                    <span class="lecture_st">사전</span>
                   </th:block>
                   <th:block th:if="${item.sn eq 4 && eduTy eq 'Y'}">
                     <span class="lecture_st">3차시 | 4차시 | 5차시 | 6차시</span>
@@ -173,7 +173,7 @@
                     <span class="lecture_st" style="color: #FFFFFF">수강불가</span>
                   </th:block>
                   <th:block th:if="${item.sn eq 5}">
-                    <span class="lecture_st">7차시</span>
+                    <span class="lecture_st">사후</span>
                   </th:block>
                 </div>
                 <div class="lecture_text">
@@ -181,7 +181,7 @@
                     <a href="#" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|" class="lecture_title">푸코와 함께하는 사전학습</a>
                   </th:block>
                   <th:block th:if="${item.sn eq 4  && eduTy eq 'Y'}">
-                    <a href="#" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|" class="lecture_title">푸코와 함께하는 현장학습</a>
+                    <a href="#" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|" class="lecture_title">푸코와 함께하는 학습</a>
                   </th:block>
                   <th:block th:if="${item.sn eq 4  && eduTy eq 'N'}">
                     <a href="#" class="lecture_title">수강불가</a>
