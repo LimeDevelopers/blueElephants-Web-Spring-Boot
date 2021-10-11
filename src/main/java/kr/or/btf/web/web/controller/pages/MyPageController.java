@@ -971,8 +971,14 @@ public class MyPageController extends BaseCont {
         Page<BoardData> boardDatas = boardDataService.listForFront(pageable, searchForm, boardDataForm);
         model.addAttribute("boardDatas", boardDatas);
 
+        Long tchrpid = account.getId();
+        Page<Account> studentList = memberService.getStudentList(pageable , tchrpid);
+
+        model.addAttribute("studentList" , studentList);
+        model.addAttribute("totCnt" , studentList.isEmpty() ? 0 : studentList.getContent().size());
         model.addAttribute("mc", "myPage");
         model.addAttribute("pageTitle", "학생관리");
+
         return "/pages/myPage/management";
     }
 
@@ -1776,6 +1782,6 @@ public class MyPageController extends BaseCont {
         model.addAttribute("mc", "myPage");
         model.addAttribute("pageTitle", "학생관리");
 
-        return "redirect:/pages/myPage/batchManagement/batchRegister";
+        return "redirect:/pages/myPage/management";
     }
 }
