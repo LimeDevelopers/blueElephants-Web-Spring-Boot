@@ -1068,7 +1068,7 @@
 	}
 	.section01 {
 		width: 100%;
-		height: 145px;
+		/*height: 145px;*/
 		border-radius: 10px;
 		box-shadow: 10px 10px 15px #7fa0cb4b;
 	}
@@ -3376,11 +3376,19 @@
 	}
 	.board_tbl_list.type01 {
 		/*margin-top: 5px;*/
-		margin-top: 30px;
+		/*margin-top: 30px;*/
+		margin-top: 0;
 	}
 	.thumb_list>li {
 		width: 100%;
 		margin: 0;
+	}
+	.thumb_list>li.nodata div {
+		padding-left: 40px;
+		font-size: 16px;
+		background: url(../images/contents/bg_nodata.png) no-repeat 10% 50%;
+		background-size: 40px;
+		width: 100%;
 	}
 	.thumb_list.gallery li {
 		border-bottom: 1px solid #c7c7c7;

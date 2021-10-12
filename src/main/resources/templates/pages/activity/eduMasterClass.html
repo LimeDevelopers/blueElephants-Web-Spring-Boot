@@ -1,308 +1,308 @@
 <!DOCTYPE html>
 <html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <th:block th:include="fragments/header"></th:block>
-  <script type="text/javascript">
-    let eduTy;
-    function fn_courseRequest(id, atnlcReqPid) {
-      eduTy = '[[${eduTy}]]';
-      var mberDvTy = '[[${form.mberDvTy}]]';
-      var userGbn = '[[${userGbn}]]'
-      var atnlcReqPid = '[[${atnlcReqPid}]]'
+    <th:block th:include="fragments/header"></th:block>
+    <script type="text/javascript">
+        let eduTy;
+        function fn_courseRequest(id, atnlcReqPid) {
+            eduTy = '[[${eduTy}]]';
+            var mberDvTy = '[[${form.mberDvTy}]]';
+            var userGbn = '[[${userGbn}]]'
+            var atnlcReqPid = '[[${atnlcReqPid}]]'
 
-      if (userGbn == '') {
-        alert('로그인 후 수강신청 할 수 있습니다.');
-        return false;
-      }
+            if (userGbn == '') {
+                alert('로그인 후 수강신청 할 수 있습니다.');
+                return false;
+            }
 
-      if(userGbn == 'STUDENT' && eduTy == 'N'){
-        if (mberDvTy == 'OFFLINE') {
+            if(userGbn == 'STUDENT' && eduTy == 'N'){
+                if (mberDvTy == 'OFFLINE') {
 
+                }
+            } else {
+                if (mberDvTy != userGbn) {
+                    alert('수강신청 대상이 아닙니다.');
+                    return false;
+                }
+            }
+
+            if (atnlcReqPid != 0) {
+                alert('이미 수강신청한 과정입니다.');
+                return false;
+            }
+
+            if (!confirm('수강신청 하시겠습니까?')) {
+                return false;
+            }
+            var jsonData = {
+                'crsMstPid': id,
+                'onlineEdu': eduTy
+            }
+            $.ajax({
+                type: 'post',
+                url: '/api/pages/courseRequest/register',
+                contentType: "application/json",
+                data: JSON.stringify(jsonData),
+                datatype: 'text',
+                success: function (data) {
+                    if (data.status == '401') {
+                        alert(data.msg);
+                    } else if (data.status == '401') {
+                        alert(data.msg);
+                    } else if (data.status == '200') {
+                        alert(data.msg);
+                        location.reload();
+                    } else {
+                        alert('error::' + error.statusText);
+                    }
+                },
+                error: function (error) {
+                    //alert('save error!!!');
+                    alert('error::' + error.statusText);
+                }
+            });
         }
-      } else {
-        if (mberDvTy != userGbn) {
-          alert('수강신청 대상이 아닙니다.');
-          return false;
-        }
-      }
 
-      if (atnlcReqPid != 0) {
-        alert('이미 수강신청한 과정입니다.');
-        return false;
-      }
-
-      if (!confirm('수강신청 하시겠습니까?')) {
-        return false;
-      }
-      var jsonData = {
-        'crsMstPid': id,
-        'onlineEdu': eduTy
-      }
-      $.ajax({
-        type: 'post',
-        url: '/api/pages/courseRequest/register',
-        contentType: "application/json",
-        data: JSON.stringify(jsonData),
-        datatype: 'text',
-        success: function (data) {
-          if (data.status == '401') {
-            alert(data.msg);
-          } else if (data.status == '401') {
-            alert(data.msg);
-          } else if (data.status == '200') {
-            alert(data.msg);
-            location.reload();
-          } else {
-            alert('error::' + error.statusText);
-          }
-        },
-        error: function (error) {
-          //alert('save error!!!');
-          alert('error::' + error.statusText);
-        }
-      });
-    }
-
-    function fn_message() {
-      alert('대상이 아닙니다.');
-      return false;
-    }
-
-    function fn_eduClass(sn, id, crsMstPid) {
-      if (sn == 1) {
-        location.href = '/pages/activity/eduTasteDetail/' + crsMstPid + '/' + id;
-        return false;
-      }
-
-      location.href = '/pages/activity/eduClass/' + crsMstPid + '/' + id + '/' + sn;
-    }
-
-    function preInspcetion(crsMstPid, sn) {
-      if (sn == 2) {
-        $('#inspctDvTy').val("BEFORE");
-      }
-
-      if (sn == 6) {
-        $('#inspctDvTy').val("AFTER");
-      }
-
-      var frm = $('#form1');
-
-      frm.prop('action', '/pages/activity/preInspection/' + crsMstPid + '/' + sn);
-      frm.submit();
-    }
-
-    function fn_satisfaction() {
-      var crsMstPid = '[[${form.id}]]';
-      var jsonData = {
-        'crsMstPid': crsMstPid
-      }
-      $.ajax({
-        type: 'post',
-        url: '/api/activity/satisfactionTest',
-        contentType: "application/json",
-        data: JSON.stringify(jsonData),
-        datatype: 'text',
-        success: function (data) {
-          if (data.id != null) {
-            alert('이미 만족도 검사에 참여하였습니다.');
+        function fn_message() {
+            alert('대상이 아닙니다.');
             return false;
-          } else {
-            location.href = '/pages/activity/satisfactionTest/' + crsMstPid;
-          }
-        },
-        error: function (error) {
-          //alert('save error!!!');
-          alert('error::' + error.statusText);
         }
-      });
-    }
 
-    function fn_goList() {
-      location.href = '/pages/activity/preventionEdu/'
-    }
-    function fn_msg(){
-      alert('오프라인 현장교육을 수강해야 사후학습 수강이 가능합니다.')
-    }
-  </script>
+        function fn_eduClass(sn, id, crsMstPid) {
+            if (sn == 1) {
+                location.href = '/pages/activity/eduTasteDetail/' + crsMstPid + '/' + id;
+                return false;
+            }
+
+            location.href = '/pages/activity/eduClass/' + crsMstPid + '/' + id + '/' + sn;
+        }
+
+        function preInspcetion(crsMstPid, sn) {
+            if (sn == 2) {
+                $('#inspctDvTy').val("BEFORE");
+            }
+
+            if (sn == 6) {
+                $('#inspctDvTy').val("AFTER");
+            }
+
+            var frm = $('#form1');
+
+            frm.prop('action', '/pages/activity/preInspection/' + crsMstPid + '/' + sn);
+            frm.submit();
+        }
+
+        function fn_satisfaction() {
+            var crsMstPid = '[[${form.id}]]';
+            var jsonData = {
+                'crsMstPid': crsMstPid
+            }
+            $.ajax({
+                type: 'post',
+                url: '/api/activity/satisfactionTest',
+                contentType: "application/json",
+                data: JSON.stringify(jsonData),
+                datatype: 'text',
+                success: function (data) {
+                    if (data.id != null) {
+                        alert('이미 만족도 검사에 참여하였습니다.');
+                        return false;
+                    } else {
+                        location.href = '/pages/activity/satisfactionTest/' + crsMstPid;
+                    }
+                },
+                error: function (error) {
+                    //alert('save error!!!');
+                    alert('error::' + error.statusText);
+                }
+            });
+        }
+
+        function fn_goList() {
+            location.href = '/pages/activity/preventionEdu/'
+        }
+        function fn_msg(){
+            alert('오프라인 현장교육을 수강해야 사후학습 수강이 가능합니다.')
+        }
+    </script>
 </head>
 <body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
 <div id="wrap">
-  <th:block th:include="fragments/header_gnb"></th:block>
-  <div id="container">
-    <th:block th:include="fragments/mo_menu"></th:block>
-    <div class="sub_container">
-      <th:block th:include="fragments/dept_menu"></th:block>
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/mo_menu"></th:block>
+        <div class="sub_container">
+            <th:block th:include="fragments/dept_menu"></th:block>
 
-      <div class="lecture_inner lecture_inner2 inner">
-        <form id="form1" name="form1" method="post" th:object="${form}">
-          <input type="hidden" id="sectionIndex" name="sectionIndex" value="0"/>
-          <input type="hidden" id="inspctDvTy" name="inspctDvTy" value=""/>
-          <div class="lecture">
-            <div class="sub_tit_inner">
-              <h1 class="sub_title" th:text="|*{crsNm} 수강|">수강신청</h1>
-              <div class="class_btn_inner">
-                <th:block th:each="item,idx:${masters}" th:if="${item.sn eq 1}">
-                  <button th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|"
-                          class="class_btn_01" th:text="|미리보기|"/>
-                </th:block>
-                <button th:if="${atnlcReqPid eq null}" th:onclick="|return fn_courseRequest(${form.id});|" class="class_btn_01" th:text="|수강신청|"/>
-                <button class="class_btn_02" onclick="location.href='/pages/activity/preventionEdu'">목록</button>
-                <!--                                <button onclick="fn_goList();"  class="class_btn_02">목록</button>-->
-              </div>
-              <th:block th:if="${masters == null or masters.isEmpty()}"><!--등록된 글이 없을 경우-->
-                <div class="lecture_content">
-                  <div>등록된 게시글이 없습니다.</div>
-                </div>
-              </th:block>
+            <div class="lecture_inner lecture_inner2 inner">
+                <form id="form1" name="form1" method="post" th:object="${form}">
+                    <input type="hidden" id="sectionIndex" name="sectionIndex" value="0"/>
+                    <input type="hidden" id="inspctDvTy" name="inspctDvTy" value=""/>
+                    <div class="lecture">
+                        <div class="sub_tit_inner">
+                            <h1 class="sub_title" th:text="|*{crsNm} 수강|">수강신청</h1>
+                            <div class="class_btn_inner">
+                                <th:block th:each="item,idx:${masters}" th:if="${item.sn eq 1}">
+                                    <button th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|"
+                                            class="class_btn_01" th:text="|미리보기|"/>
+                                </th:block>
+                                <button th:if="${atnlcReqPid eq null}" th:onclick="|return fn_courseRequest(${form.id});|" class="class_btn_01" th:text="|수강신청|"/>
+                                <button class="class_btn_02" onclick="location.href='/pages/activity/preventionEdu'">목록</button>
+                                <!--                                <button onclick="fn_goList();"  class="class_btn_02">목록</button>-->
+                            </div>
+                            <th:block th:if="${masters == null or masters.isEmpty()}"><!--등록된 글이 없을 경우-->
+                                <div class="lecture_content">
+                                    <div>등록된 게시글이 없습니다.</div>
+                                </div>
+                            </th:block>
+                        </div>
+                        <div class="lecture_content" th:each="item,idx:${masters}" th:if="${item.sn ne 1}">
+                            <div class="lecture_item" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|">
+                                <div th:class="lecture_sumnail" th:style="${item.sn eq 4 && eduTy eq 'N' ? 'border : solid 5px #9a9a9a; background-color: #bdbdbd;' : ''}">
+                                    <a class="sumnail_icon2">
+                                        <img th:src="|/ClientUI/user/images/contents/lecture/sumnail-0${idx.index}.svg|"
+                                             th:alt="${item.pidNm}">
+                                    </a>
+                                    <th:block th:if="${item.sn eq 3}">
+                                        <span class="lecture_st">1차시</span>
+                                    </th:block>
+                                    <th:block th:if="${item.sn eq 4 && eduTy eq 'Y'}">
+                                        <span class="lecture_st">3차시 | 4차시 | 5차시 | 6차시</span>
+                                    </th:block>
+                                    <th:block th:if="${item.sn eq 4 && eduTy eq 'N'}">
+                                        <span class="lecture_st" style="color: #FFFFFF">수강불가</span>
+                                    </th:block>
+                                    <th:block th:if="${item.sn eq 5}">
+                                        <span class="lecture_st">7차시</span>
+                                    </th:block>
+                                </div>
+                                <div class="lecture_text">
+                                    <th:block th:if="${item.sn eq 3}">
+                                        <a href="#" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|" class="lecture_title">푸코와 함께하는 사전학습</a>
+                                    </th:block>
+                                    <th:block th:if="${item.sn eq 4  && eduTy eq 'Y'}">
+                                        <a href="#" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|" class="lecture_title">푸코와 함께하는 현장교육</a>
+                                    </th:block>
+                                    <th:block th:if="${item.sn eq 4  && eduTy eq 'N'}">
+                                        <a href="#" class="lecture_title">수강불가</a>
+                                    </th:block>
+                                    <th:block th:if="${item.sn eq 5}">
+                                        <a href="#" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|" class="lecture_title">푸코와 함께하는 사후학습</a>
+                                    </th:block>
+                                    <ul class="list">
+                                        <th:block th:if="${item.sn eq 3}">
+                                            <li><a href="#" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|">1차시</a></li>
+                                            <li><a href="#" th:onclick="|return fn_eduClass(${item. sn},${item.crsPid}, ${form.id});|">2차시</a></li>
+                                        </th:block>
+                                        <th:block th:if="${item.sn eq 4 && eduTy eq 'Y'}">
+                                            <li><a href="#" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|">3차시</a></li>
+                                            <li><a href="#" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|">4차시</a></li>
+                                            <li><a href="#" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|">5차시</a></li>
+                                            <li><a href="#" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|">6차시</a></li>
+                                        </th:block>
+                                        <th:block th:if="${item.sn eq 4 && eduTy eq 'N'}">
+                                            <li>오프라인 학습 대상자입니다.</li>
+                                        </th:block>
+                                        <th:block th:if="${item.sn eq 5}">
+                                            <li><a href="#" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|">7차시</a></li>
+                                        </th:block>
+                                    </ul>
+                                    <th:block th:if="${item.sn eq 3}">
+                                        <!--<p class="lecture_sub" th:text="${item.pidNm}"></p>-->
+                                        <p class="lecture_sub">사전학습</p>
+                                    </th:block>
+                                    <th:block th:if="${item.sn eq 4  && eduTy eq 'Y'}">
+                                        <!--<p class="lecture_sub" th:text="${item.pidNm}"></p>-->
+                                        <p class="lecture_sub">현장교육</p>
+                                    </th:block>
+                                    <th:block th:if="${item.sn eq 4  && eduTy eq 'N'}">
+                                        <p class="lecture_sub" >&nbsp;</p>
+                                    </th:block>
+                                    <th:block th:if="${item.sn eq 5}">
+                                        <!--<p class="lecture_sub" th:text="${item.pidNm}"></p>-->
+                                        <p class="lecture_sub">사후학습</p>
+                                    </th:block>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="lecture_content" th:each="item,idx:${masters}" th:if="${item.sn ne 1}">
-              <div class="lecture_item" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|">
-                <div th:class="lecture_sumnail" th:style="${item.sn eq 4 && eduTy eq 'N' ? 'border : solid 5px #9a9a9a; background-color: #bdbdbd;' : ''}">
-                  <a class="sumnail_icon2">
-                    <img th:src="|/ClientUI/user/images/contents/lecture/sumnail-0${idx.index}.svg|"
-                         th:alt="${item.pidNm}">
-                  </a>
-                  <th:block th:if="${item.sn eq 3}">
-                    <span class="lecture_st">1차시</span>
-                  </th:block>
-                  <th:block th:if="${item.sn eq 4 && eduTy eq 'Y'}">
-                    <span class="lecture_st">3차시 | 4차시 | 5차시 | 6차시</span>
-                  </th:block>
-                  <th:block th:if="${item.sn eq 4 && eduTy eq 'N'}">
-                    <span class="lecture_st" style="color: #FFFFFF">수강불가</span>
-                  </th:block>
-                  <th:block th:if="${item.sn eq 5}">
-                    <span class="lecture_st">7차시</span>
-                  </th:block>
-                </div>
-                <div class="lecture_text">
-                  <th:block th:if="${item.sn eq 3}">
-                    <a href="#" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|" class="lecture_title">푸코와 함께하는 사전학습</a>
-                  </th:block>
-                  <th:block th:if="${item.sn eq 4  && eduTy eq 'Y'}">
-                    <a href="#" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|" class="lecture_title">푸코와 함께하는 현장교육</a>
-                  </th:block>
-                  <th:block th:if="${item.sn eq 4  && eduTy eq 'N'}">
-                    <a href="#" class="lecture_title">수강불가</a>
-                  </th:block>
-                  <th:block th:if="${item.sn eq 5}">
-                    <a href="#" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|" class="lecture_title">푸코와 함께하는 사후학습</a>
-                  </th:block>
-                  <ul class="list">
-                    <th:block th:if="${item.sn eq 3}">
-                      <li><a href="#" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|">1차시</a></li>
-                      <li><a href="#" th:onclick="|return fn_eduClass(${item. sn},${item.crsPid}, ${form.id});|">2차시</a></li>
-                    </th:block>
-                    <th:block th:if="${item.sn eq 4 && eduTy eq 'Y'}">
-                      <li><a href="#" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|">3차시</a></li>
-                      <li><a href="#" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|">4차시</a></li>
-                      <li><a href="#" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|">5차시</a></li>
-                      <li><a href="#" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|">6차시</a></li>
-                    </th:block>
-                    <th:block th:if="${item.sn eq 4 && eduTy eq 'N'}">
-                      <li>오프라인 학습 대상자입니다.</li>
-                    </th:block>
-                    <th:block th:if="${item.sn eq 5}">
-                      <li><a href="#" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|">7차시</a></li>
-                    </th:block>
-                  </ul>
-                  <th:block th:if="${item.sn eq 3}">
-                    <!--<p class="lecture_sub" th:text="${item.pidNm}"></p>-->
-                    <p class="lecture_sub">사전학습</p>
-                  </th:block>
-                  <th:block th:if="${item.sn eq 4  && eduTy eq 'Y'}">
-                    <!--<p class="lecture_sub" th:text="${item.pidNm}"></p>-->
-                    <p class="lecture_sub">현장교육</p>
-                  </th:block>
-                  <th:block th:if="${item.sn eq 4  && eduTy eq 'N'}">
-                    <p class="lecture_sub" >&nbsp;</p>
-                  </th:block>
-                  <th:block th:if="${item.sn eq 5}">
-                    <!--<p class="lecture_sub" th:text="${item.pidNm}"></p>-->
-                    <p class="lecture_sub">사후학습</p>
-                  </th:block>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
 
-      <!--            <form id="form1" name="form1" method="post" th:object="${form}">-->
-      <!--                <input type="hidden" id="sectionIndex" name="sectionIndex" value="0"/>-->
-      <!--                <input type="hidden" id="inspctDvTy" name="inspctDvTy" value=""/>-->
-      <!--                <div class="contents">-->
-      <!--                    <div class="page_top">-->
-      <!--                        <h3 class="page_tit" th:text="*{crsNm}">사이버폭력 예방 교육</h3>-->
-      <!--                        <span th:utext="*{#strings.replace(crsCn, T(System).getProperty('line.separator'), '&lt;br /&gt;')}"> 관리자에서 입력한 내용이 나오는 교육 개요 내용입니다.</span>-->
-      <!--                    </div>-->
-      <!--                    <div class="page_cont">-->
-      <!--                        <ul class="thumb_list clearfix">-->
-      <!--                            <th:block th:if="${masters == null or masters.isEmpty()}">&lt;!&ndash;등록된 글이 없을 경우&ndash;&gt;-->
-      <!--                                <li class="nodata">-->
-      <!--                                    <div>등록된 게시글이 없습니다.</div>-->
-      <!--                                </li>-->
-      <!--                            </th:block>-->
-      <!--                            <li th:each="item,idx:${masters}">-->
-      <!--                                <th:block th:if="${item.sn eq 1}">-->
-      <!--                                    <a href="#"-->
-      <!--                                       th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|">-->
-      <!--                                    <span class="thumb">-->
-      <!--                                        <img th:src="${filePath+'/'+courseTestsFolder+'/'+item.imgFl}"-->
-      <!--                                             th:alt="${item.pidNm}"-->
-      <!--                                             onerror="this.src='/ClientUI/user/images/contents/nodata01.png'"/>-->
-      <!--                                    </span>-->
-      <!--                                        <strong class="tit" th:text="${item.pidNm}">사전교육의 이해</strong>-->
-      <!--                                    </a>-->
-      <!--                                </th:block>-->
-      <!--                                <th:block th:if="${item.sn ne 1}">-->
-      <!--                                    <a href="#"-->
-      <!--                                       th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|">-->
-      <!--                                    <span class="thumb">-->
-      <!--                                        <img th:src="${filePath+'/'+courseFolder+'/'+item.imgFl}" alt="6강. 사전교육의 이해"-->
-      <!--                                             onerror="this.src='/ClientUI/user/images/contents/nodata01.png'"/>-->
-      <!--                                    </span>-->
-      <!--                                        <strong class="tit">-->
-      <!--                                            <th:block-->
-      <!--                                                    th:if="${item.stepTy eq T(kr.or.btf.web.domain.web.enums.StepType).PRIOR.name()}">-->
-      <!--                                                <em th:text="'['+${T(kr.or.btf.web.domain.web.enums.StepType).valueOf(item.stepTy).getName()}+']'"-->
-      <!--                                                    class="fc_oceanblue"></em>-->
-      <!--                                            </th:block>-->
-      <!--                                            <th:block-->
-      <!--                                                    th:if="${item.stepTy eq T(kr.or.btf.web.domain.web.enums.StepType).FIELD.name()}">-->
-      <!--                                                <em th:text="'['+${T(kr.or.btf.web.domain.web.enums.StepType).valueOf(item.stepTy).getName()}+']'"-->
-      <!--                                                    class="fc_red"></em>-->
-      <!--                                            </th:block>-->
-      <!--                                            <th:block-->
-      <!--                                                    th:if="${item.stepTy eq T(kr.or.btf.web.domain.web.enums.StepType).AFTER.name()}">-->
-      <!--                                                <em th:text="'['+${T(kr.or.btf.web.domain.web.enums.StepType).valueOf(item.stepTy).getName()}+']'"-->
-      <!--                                                    class="fc_green"></em>-->
-      <!--                                            </th:block>-->
-      <!--                                            <th:block th:text="${item.pidNm}"></th:block>-->
-      <!--                                        </strong>-->
-      <!--                                    </a>-->
-      <!--                                </th:block>-->
-      <!--                            </li>-->
-      <!--                        </ul>-->
-      <!--                        <div class="btn_area">-->
-      <!--                            <a href="#" th:if="${atnlcReqPid eq null}"-->
-      <!--                               th:onclick="|return fn_courseRequest(${form.id});|"-->
-      <!--                               class="btn btn_lg btn_blue btn_pill_10">수강신청</a>-->
-      <!--                            <a href="#" th:if="${afterInspection and !satisfaction}"-->
-      <!--                               th:onclick="|return preInspcetion(${form.id},6);|"-->
-      <!--                               class="btn btn_lg btn_blue btn_pill_10">사후검사</a>-->
-      <!--                            <a href="#" th:if="${afterInspection and satisfaction}" onclick="return fn_satisfaction();"-->
-      <!--                               class="btn btn_lg btn_blue btn_pill_10">만족도 검사</a>-->
-      <!--                            <a th:href="|/pages/activity/preventionEdu/*{mberDvTy}|"-->
-      <!--                               class="btn btn_lg btn_line_blue btn_pill_10">목록</a>-->
-      <!--                        </div>-->
-      <!--                    </div>-->
-      <!--                </div>-->
-      <!--            </form>-->
+            <!--            <form id="form1" name="form1" method="post" th:object="${form}">-->
+            <!--                <input type="hidden" id="sectionIndex" name="sectionIndex" value="0"/>-->
+            <!--                <input type="hidden" id="inspctDvTy" name="inspctDvTy" value=""/>-->
+            <!--                <div class="contents">-->
+            <!--                    <div class="page_top">-->
+            <!--                        <h3 class="page_tit" th:text="*{crsNm}">사이버폭력 예방 교육</h3>-->
+            <!--                        <span th:utext="*{#strings.replace(crsCn, T(System).getProperty('line.separator'), '&lt;br /&gt;')}"> 관리자에서 입력한 내용이 나오는 교육 개요 내용입니다.</span>-->
+            <!--                    </div>-->
+            <!--                    <div class="page_cont">-->
+            <!--                        <ul class="thumb_list clearfix">-->
+            <!--                            <th:block th:if="${masters == null or masters.isEmpty()}">&lt;!&ndash;등록된 글이 없을 경우&ndash;&gt;-->
+            <!--                                <li class="nodata">-->
+            <!--                                    <div>등록된 게시글이 없습니다.</div>-->
+            <!--                                </li>-->
+            <!--                            </th:block>-->
+            <!--                            <li th:each="item,idx:${masters}">-->
+            <!--                                <th:block th:if="${item.sn eq 1}">-->
+            <!--                                    <a href="#"-->
+            <!--                                       th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|">-->
+            <!--                                    <span class="thumb">-->
+            <!--                                        <img th:src="${filePath+'/'+courseTestsFolder+'/'+item.imgFl}"-->
+            <!--                                             th:alt="${item.pidNm}"-->
+            <!--                                             onerror="this.src='/ClientUI/user/images/contents/nodata01.png'"/>-->
+            <!--                                    </span>-->
+            <!--                                        <strong class="tit" th:text="${item.pidNm}">사전교육의 이해</strong>-->
+            <!--                                    </a>-->
+            <!--                                </th:block>-->
+            <!--                                <th:block th:if="${item.sn ne 1}">-->
+            <!--                                    <a href="#"-->
+            <!--                                       th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|">-->
+            <!--                                    <span class="thumb">-->
+            <!--                                        <img th:src="${filePath+'/'+courseFolder+'/'+item.imgFl}" alt="6강. 사전교육의 이해"-->
+            <!--                                             onerror="this.src='/ClientUI/user/images/contents/nodata01.png'"/>-->
+            <!--                                    </span>-->
+            <!--                                        <strong class="tit">-->
+            <!--                                            <th:block-->
+            <!--                                                    th:if="${item.stepTy eq T(kr.or.btf.web.domain.web.enums.StepType).PRIOR.name()}">-->
+            <!--                                                <em th:text="'['+${T(kr.or.btf.web.domain.web.enums.StepType).valueOf(item.stepTy).getName()}+']'"-->
+            <!--                                                    class="fc_oceanblue"></em>-->
+            <!--                                            </th:block>-->
+            <!--                                            <th:block-->
+            <!--                                                    th:if="${item.stepTy eq T(kr.or.btf.web.domain.web.enums.StepType).FIELD.name()}">-->
+            <!--                                                <em th:text="'['+${T(kr.or.btf.web.domain.web.enums.StepType).valueOf(item.stepTy).getName()}+']'"-->
+            <!--                                                    class="fc_red"></em>-->
+            <!--                                            </th:block>-->
+            <!--                                            <th:block-->
+            <!--                                                    th:if="${item.stepTy eq T(kr.or.btf.web.domain.web.enums.StepType).AFTER.name()}">-->
+            <!--                                                <em th:text="'['+${T(kr.or.btf.web.domain.web.enums.StepType).valueOf(item.stepTy).getName()}+']'"-->
+            <!--                                                    class="fc_green"></em>-->
+            <!--                                            </th:block>-->
+            <!--                                            <th:block th:text="${item.pidNm}"></th:block>-->
+            <!--                                        </strong>-->
+            <!--                                    </a>-->
+            <!--                                </th:block>-->
+            <!--                            </li>-->
+            <!--                        </ul>-->
+            <!--                        <div class="btn_area">-->
+            <!--                            <a href="#" th:if="${atnlcReqPid eq null}"-->
+            <!--                               th:onclick="|return fn_courseRequest(${form.id});|"-->
+            <!--                               class="btn btn_lg btn_blue btn_pill_10">수강신청</a>-->
+            <!--                            <a href="#" th:if="${afterInspection and !satisfaction}"-->
+            <!--                               th:onclick="|return preInspcetion(${form.id},6);|"-->
+            <!--                               class="btn btn_lg btn_blue btn_pill_10">사후검사</a>-->
+            <!--                            <a href="#" th:if="${afterInspection and satisfaction}" onclick="return fn_satisfaction();"-->
+            <!--                               class="btn btn_lg btn_blue btn_pill_10">만족도 검사</a>-->
+            <!--                            <a th:href="|/pages/activity/preventionEdu/*{mberDvTy}|"-->
+            <!--                               class="btn btn_lg btn_line_blue btn_pill_10">목록</a>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </form>-->
+        </div>
     </div>
-  </div>
-  <th:block th:replace="fragments/footer"></th:block>
+    <th:block th:replace="fragments/footer"></th:block>
 </div>
 </body>
 </html>

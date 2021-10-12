@@ -1615,7 +1615,7 @@ public class MemberService extends _BaseService {
             memberForm.setEduReset("N");
             memberForm.setCardReset("N");
             memberForm.setFreeCard("N");
-            memberForm.setGroupYn("N");
+            memberForm.setGroupPid(0L);
             memberForm.setCrewPid(0L);
             memberForm.setApproval("Y"); // 승인여부
             memberForm.setNm("TEST");
@@ -1665,7 +1665,8 @@ public class MemberService extends _BaseService {
             memberForm.setEduReset("N");
             memberForm.setCardReset("N");
             memberForm.setFreeCard("N");
-            memberForm.setGroupYn("N");
+            /*memberForm.setGroupYn("N");*/
+            memberForm.setGroupPid(0L);
             memberForm.setCrewPid(0L);
             memberForm.setApproval("Y"); // 승인여부
             memberForm.setPrtctorAttcAt("Y");
@@ -1718,6 +1719,34 @@ public class MemberService extends _BaseService {
                 .where(qMemberCrew.crewNm.contains(CrewNm).and(qMemberCrew.attcYn.eq("Y")))
                 .fetch();
         return memberCrewList;
+    }
+    public Page<Account> getStudentList(Pageable pageable , Long tchr_pid){
+        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
+        pageable = PageRequest.of(page, Constants.DEFAULT_PAGESIZE);
+
+        QAccount qAccount = QAccount.account;
+        QMemberSchool qMemberSchool = QMemberSchool.memberSchool;
+
+        BooleanBuilder builder = new BooleanBuilder();
+        builder.and(qMemberSchool.thcrPid.eq(tchr_pid));
+
+        QueryResults<Account> studentList = queryFactory
+                .select(Projections.fields(Account.class,
+                        qAccount.id,
+                        qAccount.approval,
+                        qAccount.nm,
+                        qAccount.delAt,
+                        qAccount.loginId,
+                        qAccount.regDtm,
+                        qAccount.mberDvTy))
+                .from(qAccount)
+                .innerJoin(qMemberSchool)
+                .on(qAccount.id.eq(qMemberSchool.mberPid).and(builder))
+                .limit(pageable.getPageSize())
+                .offset(pageable.getOffset())
+                .fetchResults();
+
+        return new PageImpl<>(studentList.getResults(), pageable, studentList.getTotal());
     }
 
     public Boolean existsByBatchLoginId(String loginId){
