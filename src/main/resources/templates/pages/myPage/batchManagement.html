@@ -194,7 +194,7 @@
         <div class="contents">
             <div class="page_top">
                 <h3 class="page_tit">일괄가입</h3>
-                <span>선생님께서 등록하신 기본 데이터로 학생 계정을 생성합니다. <br> 11개의 계정을 puco라는 계정 양식으로 생성하신다면 puco01 ~ puco11 계정이 생성 됩니다.</span>
+                <span>선생님께서 등록하신 기본 데이터로 학생 계정을 생성합니다. <br> 예를 들어, 생성할 계정 양식을 puco라고 설정할 경우 puco01~puco11로 계정이 생성됩니다.</span>
             </div>
             <div class="page_cont join_form_area">
             <form id="form1" name="form1" method="post" th:object="${teacher}">
@@ -229,14 +229,14 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <div class="th">가입할 계정 개수<span class="aster">*</span></div>
+                                        <div class="th">생성할 계정 개수<span class="aster">*</span></div>
                                         <div class="td">
-                                            <input type="number" id="batchArr" name="batchArr" placeholder="생성할 계정의 개수를 입력해주세요.">
+                                            <input type="number" id="batchArr" name="batchArr" placeholder="생성할 계정(아이디) 개수를 입력해주세요. (최대 OO개)">
                                         </div>
                                     </li>
                                     <li>
                                         <div class="th">
-                                            <label for="loginId">계정 양식</label>
+                                            <label for="loginId">생성할 계정 양식</label>
                                             <span class="aster">*</span>
                                         </div>
                                         <div>
