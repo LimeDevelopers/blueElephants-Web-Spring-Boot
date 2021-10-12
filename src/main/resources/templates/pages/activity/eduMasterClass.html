@@ -181,7 +181,7 @@
                     <a href="#" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|" class="lecture_title">푸코와 함께하는 사전학습</a>
                   </th:block>
                   <th:block th:if="${item.sn eq 4  && eduTy eq 'Y'}">
-                    <a href="#" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|" class="lecture_title">푸코와 함께하는 현장학습</a>
+                    <a href="#" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|" class="lecture_title">푸코와 함께하는 현장교육</a>
                   </th:block>
                   <th:block th:if="${item.sn eq 4  && eduTy eq 'N'}">
                     <a href="#" class="lecture_title">수강불가</a>
@@ -208,16 +208,19 @@
                     </th:block>
                   </ul>
                   <th:block th:if="${item.sn eq 3}">
-                    <p class="lecture_sub" th:text="${item.pidNm}"></p>
+                    <!--<p class="lecture_sub" th:text="${item.pidNm}"></p>-->
+                    <p class="lecture_sub">사전학습</p>
                   </th:block>
                   <th:block th:if="${item.sn eq 4  && eduTy eq 'Y'}">
-                    <p class="lecture_sub" th:text="${item.pidNm}"></p>
+                    <!--<p class="lecture_sub" th:text="${item.pidNm}"></p>-->
+                    <p class="lecture_sub">현장교육</p>
                   </th:block>
                   <th:block th:if="${item.sn eq 4  && eduTy eq 'N'}">
                     <p class="lecture_sub" >&nbsp;</p>
                   </th:block>
                   <th:block th:if="${item.sn eq 5}">
-                    <p class="lecture_sub" th:text="${item.pidNm}"></p>
+                    <!--<p class="lecture_sub" th:text="${item.pidNm}"></p>-->
+                    <p class="lecture_sub">사후학습</p>
                   </th:block>
                 </div>
               </div>

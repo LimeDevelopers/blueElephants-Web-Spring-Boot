@@ -390,13 +390,13 @@
             </div>
             <div class="page_cont join_form_area">
                 <form id="form1" name="form1" method="post" action="/api/member/groupInsert" enctype="multipart/form-data">
-                    <input type="hidden" name="mberDvTy" id="mberDvTy" value="GROUP"/>
+                    <input type="hidden" name="mberDvTy" id="mberDvTy" value="CREW"/>
                     <input type="hidden" name="emailAttcAt" id="emailAttcAt" value="N"/>
                     <input type="hidden" name="mobileAttcAt" id="mobileAttcAt" value="N"/>
                     <div class="tbl_select">
                         <ul class="tab tab_type02">
-                            <li class="btn_line_default btn_pill_registerSelect active"><a href="javascript:fn_chgCrewDvTy('GROUP');">일반</a></li>
-                            <li class="btn_line_default btn_pill_registerSelect"><a href="javascript:fn_chgCrewDvTy('CREW');">지지크루</a></li>
+                            <li class="btn_line_default btn_pill_registerSelect active"><a href="javascript:fn_chgCrewDvTy('CREW');">지지크루</a></li>
+                            <li class="btn_line_default btn_pill_registerSelect "><a href="javascript:fn_chgCrewDvTy('GROUP');">일반</a></li>
                         </ul>
                     </div>
                     <div class="agree_contents ggCrew">
@@ -525,7 +525,7 @@
                                         </div>
                                     </li>
                                     <li class="emailAuth">
-                                        <div class="th">대표이메일<span class="aster">*</span></div>
+                                        <div class="th">이메일<span class="aster">*</span></div>
                                         <div class="td">
                                             <div class="email_form clearfix">
                                                 <input type="text" name="email01" id="email01" title="이메일 아이디 입력" oninput="fn_emailValidate(this)" onkeydown="fn_checkSpacebar(this)" />
