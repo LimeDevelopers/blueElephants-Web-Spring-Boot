@@ -16,12 +16,15 @@
         return false;
       }
 
+      if (userGbn == 'STUDENT' && eduTy == 'N') {
+        if (mberDvTy == 'OFFLINE') {
 
-      if (eduTy == 'Y' && mberDvTy != userGbn) {
+        }
+      } else {
+        if (mberDvTy != userGbn) {
           alert('수강신청 대상이 아닙니다.');
           return false;
-      } else if (userGbn == 'STUDENT' && eduTy == 'N') {
-
+        }
       }
 
       if (atnlcReqPid != 0) {
