@@ -98,6 +98,14 @@
             loginId = $("#loginId");
             batchArr = $("#batchArr");
             loginId.siblings('.err.emph').remove();
+            let han = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/
+            let upper =  /[A-Z]/
+
+            if(han.test(loginId.val()) || upper.test(loginId.val())) {
+                loginId.focus();
+                alert('계정 양식엔 소문자만 입력 가능합니다.');
+                return false;
+            }
 
             if(!$.trim(batchArr.val())) {
                 alert('생성하실 계정의 개수를 먼저 입력 하세요.')
@@ -248,7 +256,7 @@
                                         <div>
                                             <label for="loginId" class="blind">로그인ID</label>
                                             <div class="td">
-                                                <input type="text" id="loginId" name="loginId" placeholder="생성할 계정의 양식을 입력해주세요.">
+                                                <input type="text" id="loginId" name="loginId" placeholder="생성할 계정의 양식을 입력해주세요." >
                                             </div>
                                             <div class="td">
                                                 <a id="btnchk" class="btn btn_lg btn_line_blue btn_pill_10" onclick="return fn_chkIdDup();">중복확인</a>
