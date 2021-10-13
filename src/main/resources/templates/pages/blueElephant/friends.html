@@ -4,6 +4,14 @@
 <head>
     <th:block th:include="fragments/header"></th:block>
 </head>
+<script>
+
+    function fn_downloads(path) {
+        location.href = path;
+        return false;
+    }
+
+</script>
 <body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
 <div id="wrap">
     <th:block th:include="fragments/header_gnb"></th:block>
@@ -235,8 +243,9 @@
                                         </div>
                                     </div>
                                     <div class="ch_down_btn">
-                                        <button>4사 캐릭터 다운로드</button>
+                                        <button onclick="fn_downloads('/upload/images/Friends.zip')">4사 캐릭터 다운로드</button>
                                     </div>
+
                                 </div>
                                 <div class="friends_inner">
                                     <h2 class="gyeonggi_tit">안전한 사이버세상을 만드는 일에 공감하는<span></span> 여러 사람들이 함께 참여합니다.</h2>
