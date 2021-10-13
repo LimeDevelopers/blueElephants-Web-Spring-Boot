@@ -393,7 +393,7 @@
                                         <td th:text="${T(kr.or.btf.web.domain.web.enums.GenderType).valueOf(item.sexPrTy).getName()}"></td>
                                         <td th:text="${T(kr.or.btf.web.domain.web.enums.UserRollType).valueOf(item.mberDvTy).getName()}"></td>
                                         <td th:text="${item.moblphon eq null || item.moblphon eq''? '등록된 휴대폰 없음' : item.moblphon}"></td>
-                                        <td th:text="${item.email eq null || item.moblphon eq ''? '등록된 이메일 없음' : item.email}"></td>
+                                        <td th:text="${item.email eq null || item.email eq ''? '등록된 이메일 없음' : item.email}"></td>
                                         <td>
                                             <select th:onchange="fn_chgEduType([[${item.id}]])" th:name="|onlineEdu${idx.index}|" th:class="|w120 ${item.id}|">
                                                 <th:block th:if="${item.onlineEdu eq 'Y'}">

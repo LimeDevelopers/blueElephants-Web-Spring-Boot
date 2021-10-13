@@ -1019,6 +1019,7 @@
                                     <li class="active btn_line_default"><a href="javascript:fn_chgMberDvTy('STUDENT');">학생</a></li>
                                     <li class="btn_line_default"><a href="javascript:fn_chgMberDvTy('TEACHER');">교사</a></li>
                                     <li class="btn_line_default"><a href="javascript:fn_chgMberDvTy('PARENT');">부모</a></li>
+                                    <li class="btn_line_default"><a href="javascript:fn_chgMberDvTy('CREW');">지지크루</a></li>
                                     <!--<li class="btn_line_default btn_pill_registerSelect"><a href="javascript:fn_chgMberDvTy('NORMAL');">일반</a></li>
                                     <li class="btn_line_default btn_pill_registerSelect"><a href="javascript:fn_chgMberDvTy('CREW');">지지크루</a></li>-->
                                 </ul>
@@ -1192,16 +1193,7 @@
                                         </ul>
                                     </div>
                                 </li>
-                                <li>
-                                    <div class="th">본인인증<span class="aster">*</span></div>
-                                    <div class="td">
-                                        <span id="resultText"></span>
-                                        <div class="register_radio" th:id="|authFiled${at}|" th:each="at, idx : ${T(kr.or.btf.web.domain.web.enums.AuthType).values()}">
-                                            <input type="radio" th:id="|authPrTy${at}|" name="authPrTy" th:value="${at}" onclick="fn_authChk(this.value);">
-                                            <label th:for="|authPrTy${at}|" th:text="${at.name}"></label>
-                                        </div>
-                                    </div>
-                                </li>
+
                               <!--  <li class="emailAuth">
                                     <input type="hidden" id="authEmailChk" name="authEmailChk" value="0"/>
                                     <div class="th">이메일 주소<span class="aster">*</span></div>

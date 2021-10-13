@@ -1331,16 +1331,16 @@ public class MyPageController extends BaseCont {
                                        @CurrentUser Account account,
                                        @ModelAttribute MemberSchoolForm memberSchoolForm) {
 
-        //List<MemberSchoolLogDto> childrenSchlLogList = new ArrayList<>();
+        List<MemberSchoolLogDto> childrenSchlLogList = new ArrayList<>();
         Peer peer = peerService.firstOne();
 
         if(account.getMberDvTy().equals(UserRollType.TEACHER)) {
-            /*childrenSchlLogList = memberSchoolLogService.childLogList(memberSchoolForm);
+            childrenSchlLogList = memberSchoolLogService.childLogList(memberSchoolForm);
 
             model.addAttribute("areaNm", memberSchoolForm.getAreaNm());
             model.addAttribute("schlNm", memberSchoolForm.getSchlNm());
             model.addAttribute("grade", memberSchoolForm.getGrade());
-            model.addAttribute("ban", memberSchoolForm.getBan());*/
+            model.addAttribute("ban", memberSchoolForm.getBan());
             PeerQuestionItemForm peerQuestionItemForm = new PeerQuestionItemForm();
             peerQuestionItemForm.setPeerPid(peer.getId());
             List<PeerQuestionItem> questionItems = peerQuestionItemService.list(peerQuestionItemForm);
@@ -1350,7 +1350,7 @@ public class MyPageController extends BaseCont {
             model.addAttribute("locurl", "/pages/myPage/profile");
             return "/message";
         }
-        //model.addAttribute("childrenSchlLogList", childrenSchlLogList);
+        model.addAttribute("childrenSchlLogList", childrenSchlLogList);
 
         model.addAttribute("mc", "myPage");
         model.addAttribute("pageTitle", "또래지명");
@@ -1651,10 +1651,14 @@ public class MyPageController extends BaseCont {
     @ResponseBody
     @PostMapping("/api/myPage/peerStatusDetail/ourClassGraph")
     public List<Map<String,String>> ourClassGraph(Model model,
-                                     @RequestBody PeerQuestionItemForm peerQuestionItemForm) {
+                                     @RequestBody PeerQuestionItemForm peerQuestionItemForm,
+                                                  @CurrentUser Account account) {
 
         List<Map<String,String>> rtnList = new ArrayList<>();
 
+        if(account!=null) {
+            MemberSchool ms = memberSchoolService.loadByTchr(account);
+        }
 
         List<PeerResponse> peerResponseList = peerResponseService.listForGraph(peerQuestionItemForm.getId());
         Map<String, String> map = new HashMap<>();

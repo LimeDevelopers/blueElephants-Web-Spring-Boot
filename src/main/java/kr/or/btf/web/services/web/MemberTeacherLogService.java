@@ -29,6 +29,22 @@ public class MemberTeacherLogService extends _BaseService {
         List<Object[]> tmpList = memberTeacherLogRepository.schlLogList(mberPid);
 
         List<MemberTeacherLogDto> rtnList = new ArrayList<>();
+//        if (tmpList != null) {
+//            for (Object[] objects : tmpList) {
+//                MemberTeacherLogDto memberTeacherLogDto = new MemberTeacherLogDto();
+//                memberTeacherLogDto.setNm((String)objects[0]);
+//                memberTeacherLogDto.setMberPid(((BigInteger)objects[1]).longValue());
+//                memberTeacherLogDto.setAreaNm((String)objects[2]);
+//                memberTeacherLogDto.setSchlNm((String)objects[3]);
+//                memberTeacherLogDto.setGrade((Integer)objects[4]);
+//                memberTeacherLogDto.setBan((String)objects[5]);
+//                memberTeacherLogDto.setStudentCnt(((BigInteger)objects[7]).intValue());
+//
+//                if(memberTeacherLogDto.getStudentCnt() > 0){
+//                    rtnList.add(memberTeacherLogDto);
+//                }
+//            }
+//        }
         if (tmpList != null) {
             for (Object[] objects : tmpList) {
                 MemberTeacherLogDto memberTeacherLogDto = new MemberTeacherLogDto();
@@ -40,12 +56,9 @@ public class MemberTeacherLogService extends _BaseService {
                 memberTeacherLogDto.setBan((String)objects[5]);
                 memberTeacherLogDto.setStudentCnt(((BigInteger)objects[7]).intValue());
 
-                if(memberTeacherLogDto.getStudentCnt() > 0){
-                    rtnList.add(memberTeacherLogDto);
-                }
+                rtnList.add(memberTeacherLogDto);
             }
         }
-
         return rtnList;
     }
 }

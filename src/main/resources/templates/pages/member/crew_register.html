@@ -577,9 +577,7 @@
                                             <span class="aster">*</span>
                                         </div>
                                         <div class="td">
-                                            <input type="text" id="crewNm" name="crewNm" readonly onclick="layerShow('popCrew')" placeholder="지지크루 이름을 입력해주세요"/>
-                                            <input type="hidden" id="crewPid" name="crewPid" readonly>
-                                            <button type="button" class="btn btn_lg btn_line_blue btn_pill_10" onclick="layerShow('popCrew')">크루검색</button>
+                                            <input type="text" id="crewNm" name="crewNm" placeholder="지지크루 이름을 입력해주세요"/>
                                         </div>
                                     </li>
                                     <li class="ggCrew">
@@ -597,7 +595,15 @@
                                             <span class="aster">*</span>
                                         </div>
                                         <div class="td">
-                                            <input type="text" id="crewFNum" name="crewFNum" placeholder="기수를 입력하세요." oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
+                                            <div class="select">
+                                                <label for="crewFNum" id="crewFNum_label">1기</label>
+                                                <select name="crewFNum" id="crewFNum">
+                                                    <option value="1">1기</option>
+                                                    <option value="2">2기</option>
+                                                    <option value="3">3기</option>
+                                                </select>
+                                            </div>
+<!--                                            <input type="text" id="crewFNum" name="crewFNum" placeholder="기수를 입력하세요." oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>-->
                                         </div>
                                     </li>
                                     <li class="ggCrew">
@@ -682,41 +688,6 @@
                     </div>
                     <div class="btn_area"><button id="btnSave" class="btn btn_lg btn_blue btn_pill_10">회원 가입</button></div>
                 </form>
-            </div>
-        </div>
-    </div>
-    <div id="popCrew" class="layer_popup">
-        <div class="dim"></div>
-        <div class="popup_area">
-            <a href="javascript:layerHide('popCrew')" class="btn_close"><span class="blind">팝업닫기</span></a>
-            <div class="popup">
-                <div class="pop_tit">크루 검색</div>
-                <div class="pop_cont">
-                    <ul class="write_form mb20">
-                        <li>
-                            <div class="th">크루명</div>
-                            <div class="td">
-                                <div class="email_form clearfix">
-                                    <input type="text" id="srchCrewNm" name="srchCrewNm" placeholder="크루명을 입력해주세요.">
-                                    <button type="button" class="btn btn_lg btn_line_blue btn_pill_10" onclick="return fn_srchCrewNm();">검색</button>
-                                </div>
-                                <ul class="write_form">
-                                    <li>
-                                        <div class="td">
-                                            <div class="scrollbar">
-                                                <span class="txt03" id="c_nodata">- 크루명을 검색해주세요. -</span>
-                                                <div id="srchCrewNmList"></div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="btn_area">
-                    <button type="button" class="btn btn_lg btn_blue btn_pill_10" onclick="return fn_selCrewNm();">적용</button>
-                </div>
             </div>
         </div>
     </div>

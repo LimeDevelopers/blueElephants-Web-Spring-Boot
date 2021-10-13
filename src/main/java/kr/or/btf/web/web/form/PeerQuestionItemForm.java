@@ -20,5 +20,7 @@ public class PeerQuestionItemForm extends SearchForm {
     private LocalDateTime updDtm;
     private String delAt;
     private Long peerPid;
+    private String SchlNm;
+    private String tchrNm;
 
 }
