@@ -594,7 +594,7 @@ public class MemberService extends _BaseService {
             Account account = modelMapper.map(memberForm, Account.class);
             account.setFreeCard("N");
             account.setCardReset("N");
-            account.setOnlineEdu("Y");
+            account.setOnlineEdu("N");
             account.setEduReset("N");
             account.setBrthdy(account.getBrthdy().replaceAll("-",""));
             if(memberForm.getMberDvTy().equals(UserRollType.CREW)){
