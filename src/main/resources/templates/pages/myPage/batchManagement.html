@@ -179,6 +179,12 @@
                 pwdChk.after('<p class="err emph">비밀번호가 일치하지 않습니다.</p>')
             }
         }
+        function onlyNum(){
+            if(event.keyCode<48 || event.keyCode>57) {
+                event.returnValue=false;
+                alert('비밀번호는 숫자 4자리만 입력해주세요.')
+            }
+        }
     </script>
     <style>
         .layer_popup .popup_area1{position:absolute;top:0;right:0;bottom:0;left:0;width:827px;max-height:calc(90% - 90px);margin:auto;border-radius:30px;background-color:#fff;box-sizing:border-box}
@@ -252,13 +258,13 @@
                                     <li>
                                         <div class="th">초기 패스워드<span class="aster">*</span></div>
                                         <div class="td">
-                                            <input type="password" id="pwd" name="pwd" placeholder="초기 패스워드를 입력해주세요." onkeyup="fn_comparePwd()">
+                                            <input type="password" id="pwd" name="pwd" placeholder="초기 패스워드는 숫자 4자리로 입력해주세요." onkeypress="onlyNum()" maxlength="4">
                                         </div>
                                     </li>
                                     <li>
                                         <div class="th">비밀번호 재확인<span class="aster">*</span></div>
                                         <div class="td">
-                                            <input type="password" id="pwdChk" name="pwdChk" placeholder="초기 패스워드를 다시 입력해주세요." onkeyup="fn_comparePwd()">
+                                            <input type="password" id="pwdChk" name="pwdChk" placeholder="초기 패스워드를 다시 입력해주세요." onkeyup="fn_comparePwd()" onkeypress="onlyNum()" maxlength="4">
                                         </div>
                                     </li>
                                 </ul>
