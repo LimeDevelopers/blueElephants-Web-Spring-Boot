@@ -4,6 +4,7 @@ import kr.or.btf.web.domain.web.enums.UserRollType;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Transient;
@@ -61,6 +62,7 @@ public class GroupForm extends SearchForm{
     private String b_license_attc;  // 사업자등록증 첨뷰여부
     @Enumerated(EnumType.STRING)
     private UserRollType mberDvTy;
+    private String groupSort;
 
     private LocalDateTime emailAttcDtm;
     private String emailAttcAt;

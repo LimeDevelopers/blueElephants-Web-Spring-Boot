@@ -34,7 +34,7 @@
         let bNum;
         let attachedFile
         let bLicenseAttc;
-
+        let groupSort;
         // 지지크루
         let crewNm;
         let crewAffi;
@@ -102,6 +102,7 @@
             crewAffi = $('#crewAffi');
             crewFNum = $('#crewFNum');
             rptName = $('#rptName');
+            groupSort = $('#groupSort');
 
             if(!idDupBool) {
                 fn_alert('아이디 중복확인을 진행해주세요.')
@@ -126,6 +127,11 @@
                     return false;
                 }
                 if(!position.val()) {
+                    fn_alert('직책 입력은 필수입니다.')
+                    focusAndEmpty(position)
+                    return false;
+                }
+                if(!groupSort.val()) {
                     fn_alert('직책 입력은 필수입니다.')
                     focusAndEmpty(position)
                     return false;
@@ -606,13 +612,27 @@
 <!--                                            <input type="text" id="crewFNum" name="crewFNum" placeholder="기수를 입력하세요." oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>-->
                                         </div>
                                     </li>
-                                    <li class="ggCrew">
+                                    <li>
                                         <div class="th">
                                             <label for="loginId">대표이름</label>
                                             <span class="aster">*</span>
                                         </div>
                                         <div class="td">
                                             <input type="text" id="rptNm" name="rptNm" placeholder="대표명을 입력하세요." />
+                                        </div>
+                                    </li>
+                                    <li class="col nmCrew">
+                                        <div class="th">
+                                            <label for="crewType">단체구분</label>
+                                            <span class="aster">*</span>
+                                        </div>
+                                        <div class="td">
+                                            <div class="select">
+                                                <label for="crewType" id="crewType_label">일반</label>
+                                                <select name="crewType" id="crewType">
+                                                    <option value="nomal">일반</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </li>
                                     <li class="emailAuth">
@@ -661,6 +681,8 @@
                                             </ul>
                                         </div>
                                     </li>
+
+
                                     <li class="col nmCrew">
                                         <div class="th">
                                             <label for="loginId">사업자(고유)등록증 번호</label>

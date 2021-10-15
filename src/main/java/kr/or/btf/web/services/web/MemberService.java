@@ -150,8 +150,8 @@ public class MemberService extends _BaseService {
         // 추가 08.26
         // 김재일
         if(searchForm.getGroupDv().equals("Y")){
-            BooleanBuilder builder1 = new BooleanBuilder();
-            builder.and(qAccount.approval.eq("N"));
+            builder.and(qAccount.mberDvTy.eq(UserRollType.CREW));
+            builder.or(qAccount.mberDvTy.eq(UserRollType.GROUP));
 
             QueryResults<Account> groupList = queryFactory
                     .select(Projections.fields(Account.class,
@@ -163,7 +163,7 @@ public class MemberService extends _BaseService {
                     .from(qAccount)
                     .leftJoin(qMemberGroup).on(qAccount.id.eq(qMemberGroup.mberPid))
                     .leftJoin(qMemberCrew).on(qAccount.id.eq(qMemberCrew.mberPid))
-                    .where(qAccount.approval.eq("N"))
+                    .where(builder)
                     .limit(pageable.getPageSize())
                     .offset(pageable.getOffset())
                     .orderBy(orderSpecifier)
@@ -217,17 +217,17 @@ public class MemberService extends _BaseService {
         return mngList;
     }
 
-    private boolean updateAttm(Long id){
+    private boolean updateAttm(Long id,String approval){
         try {
             Account account = memberRepository.findById(id).orElseGet(Account::new);
             if (account.getCrewPid() != null) {
                 MemberCrew crew = memberCrewRepository.findById(account.getCrewPid()).orElseGet(MemberCrew::new);
-                crew.setAttcYn("Y");
+                crew.setAttcYn(approval);
                 crew.setAttcDtm(LocalDateTime.now());
             }
             if (account.getGroupPid() != null){
                 MemberGroup group = memberGroupRepository.findById(account.getGroupPid()).orElseGet(MemberGroup::new);
-                group.setAttcYn("Y");
+                group.setAttcYn(approval);
                 group.setAttcDtm(LocalDateTime.now());
             }
         } catch (Exception e) {
@@ -236,10 +236,10 @@ public class MemberService extends _BaseService {
         return true;
     }
 
-    public Boolean updateApproval(String pid) {
+    public Boolean updateApproval(String pid, String approval) {
         Long chgStr = Long.parseLong(pid);
-        int rs = memberRepository.setApproval(chgStr,"Y");
-        updateAttm(chgStr);
+        int rs = memberRepository.setApproval(chgStr,approval);
+        updateAttm(chgStr,approval);
         if(rs > 0) {
             return true;
         } else {
@@ -677,7 +677,7 @@ public class MemberService extends _BaseService {
             groupForm.setSexPrTy("NONE");
             groupForm.setBrthdy("00000000");
             Account account = modelMapper.map(groupForm, Account.class);
-            account.setOnlineEdu("Y");
+            account.setOnlineEdu("N");
             account.setFreeCard("N");
             account.setCardReset("N");
             account.setEduReset("N");
@@ -701,6 +701,8 @@ public class MemberService extends _BaseService {
                     memberGroup.setBNum(groupForm.getBNum());
                     memberGroup.setRegDtm(LocalDateTime.now());
                     memberGroup.setBLicenseAttc(groupForm.getB_license_attc());
+                    memberGroup.setRptNm(groupForm.getRptNm());
+                    memberGroup.setGroupSort(groupForm.getGroupSort());
                     MemberGroup save1 = memberGroupRepository.save(memberGroup);
                     updateGroupDv(save.getId(),save1.getId(),"GROUP");
                     if (groupForm.getB_license_attc().equals("Y")) {

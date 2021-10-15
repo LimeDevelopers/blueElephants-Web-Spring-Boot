@@ -44,6 +44,12 @@ public class MemberGroup {
     @Column(name = "attc_yn")
     private String attcYn;
 
+    @Column(name = "rpt_nm")
+    private String rptNm;
+
+    @Column(name = "group_sort")
+    private String groupSort;
+
     @Column(name="attc_dtm")
     private LocalDateTime attcDtm;
 

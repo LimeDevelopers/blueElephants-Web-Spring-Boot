@@ -151,16 +151,17 @@ public class MemberController extends BaseCont{
 
 
     @ResponseBody
-    @PostMapping("/api/soulGod/member/updateApporaval/{id}")
-    public Boolean updateApporaval(@PathVariable(name = "id") String id) {
+    @PostMapping("/api/soulGod/member/updateApporaval/{id}/{approval}")
+    public Boolean updateApporaval(@PathVariable(name = "id") String id,
+                                   @PathVariable(name = "approval") String approval) {
         Boolean result = false;
         String[] pid = id.split(",");
         if (pid.length > 1) {
             for (int i = 0; i < pid.length; i++) {
-                result = memberService.updateApproval(pid[i]);
+                result = memberService.updateApproval(pid[i],approval);
             }
         } else {
-            result = memberService.updateApproval(pid[0]);
+            result = memberService.updateApproval(pid[0],approval);
         }
 
         return result;

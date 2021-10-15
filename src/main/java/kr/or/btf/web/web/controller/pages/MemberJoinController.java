@@ -142,7 +142,7 @@ public class MemberJoinController extends BaseCont {
         }
 
         if (result) {
-            msg = "가입 심사 후 가입됩니다. (소요기간 2 ~ 3일)";
+            msg = "가입 후 심사는 영업일 기준 7일 소요 예정 됩니다.";
             model.addAttribute("mc", "memberJoin");
             model.addAttribute("rsMsg", msg);
         } else {
