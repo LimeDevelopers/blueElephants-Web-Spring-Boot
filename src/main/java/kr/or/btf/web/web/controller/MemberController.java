@@ -428,6 +428,16 @@ public class MemberController extends BaseCont{
         return "/soulGod/member/register";
     }
 
+    @ResponseBody
+    @GetMapping(value = "/api/member/chkMberDvTy")
+    public Optional<Account> chkMberDvTy(@RequestParam(name = "userId") String userId) {
+        Optional<Account> mberDvTy = memberService.chkMberDvTy(userId);
+        System.out.println("셀렉트값 확인" + mberDvTy);
+
+
+        return mberDvTy;
+    }
+
     /*@PostMapping("/api/soulGod/member/delete")
     public String delete(Model model,
                          @RequestParam(name = "id") Long[] ids,
