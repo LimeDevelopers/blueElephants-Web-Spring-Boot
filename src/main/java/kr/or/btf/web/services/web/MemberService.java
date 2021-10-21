@@ -599,6 +599,7 @@ public class MemberService extends _BaseService {
             account.setBrthdy(account.getBrthdy().replaceAll("-",""));
             if(memberForm.getMberDvTy().equals(UserRollType.CREW)){
                 account.setCrewPid(memberForm.getCrewPid());
+                account.setCrewFNum(memberForm.getCrewFNum());
             }
             Account save = memberRepository.save(account);
 

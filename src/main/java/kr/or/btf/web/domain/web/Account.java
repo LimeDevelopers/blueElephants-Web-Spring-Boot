@@ -87,7 +87,8 @@ public class Account implements Serializable {
     private Long groupPid;
     @Column(name = "crew_pid")
     private Long crewPid;
-
+    @Column(name = "crew_fnum")
+    private Long crewFNum;
     @Column(name = "online_edu")
     private String onlineEdu;
     @Column(name = "edu_reset")

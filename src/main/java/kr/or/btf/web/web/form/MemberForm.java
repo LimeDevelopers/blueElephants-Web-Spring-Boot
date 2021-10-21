@@ -87,6 +87,7 @@ public class MemberForm extends SearchForm {
     private String prtctorAttcAt;
     private LocalDateTime prtctorAttcDtm;
     private Long crewPid;
+    private Long crewFNum;
     private Long groupPid;
     private String groupYn;
     private String freeCard;

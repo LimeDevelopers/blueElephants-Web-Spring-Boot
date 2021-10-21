@@ -55,8 +55,8 @@
 
         var crewNm
         var crewPid;
-        var crewAffi;
         var crewFNum;
+        var crewAffi;
         var mberPid;
         var teacherNm;
         var c_nodata;
@@ -616,11 +616,13 @@
                         let _id = data[i].id;
                         let _crewNm = data[i].crewNm;
                         let _crewAffi = data[i].crewAffi;
+                        let _fNum = data[i].crewFNum;
 
                         html += "<div class=\"radio txt\">";
                         html += "   <input type=\"radio\" name=\"srchcrewPid\" id=\"crew" + _id + "\" value=\"" + _id + "\">";
-                        html += "   <label for=\"crew" + _id + "\">" + _crewNm +  "(" + _crewAffi + ")" + "</label>";
+                        html += "   <label for=\"crew" + _id + "\">" + _crewNm + " "+ _fNum + "기"+ "(" + _crewAffi + ")" + "</label>";
                         html += "   <input type=\"hidden\" name=\"srchcrewNm\" id=\"" + _crewNm + "\" value=\"" + _crewNm + "\">";
+                        html += "   <input type=\"hidden\" name=\"srchcrewFNum\" id=\"" + _fNum + "\" value=\"" + _fNum + "\">";
                         html += "</div>";
                     }
                     $('#c_nodata').hide();
@@ -638,6 +640,7 @@
             srchCrewNm = $('#srchCrewNm');
             var chkCrew = $('input:radio[name=srchcrewPid]:checked').val();
             var _crewNm =$('input:hidden[name=srchcrewNm]').val();
+            let _crewFNum = $('input:hidden[name=srchcrewFNum]').val();
 
             if(chkCrew.length < 1) {
                 alert('크루를 선택해주세요.')
@@ -652,6 +655,7 @@
 
             crewPid.val(chkCrew)
             crewNm.val(_crewNm)
+            $('#crewFNum').val(_crewFNum)
 
             srchCrewNm.val('')
             $('#c_nodata').show()
@@ -1265,6 +1269,7 @@
                                     <div class="td">
                                         <input type="text" id="crewNm" name="crewNm" readonly onclick="layerShow('popCrew')"/>
                                         <input type="hidden" id="crewPid" name="crewPid" readonly>
+                                        <input type="hidden" id="crewFNum" name="crewFNum">
                                         <button type="button" class="btn btn_lg btn_line_blue btn_pill_10" onclick="layerShow('popCrew')">크루검색</button>
                                     </div>
                                 </li>
