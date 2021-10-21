@@ -1620,7 +1620,6 @@ public class MemberService extends _BaseService {
             memberForm.setGroupPid(0L);
             memberForm.setCrewPid(0L);
             memberForm.setApproval("Y"); // 승인여부
-            memberForm.setNm("TEST");
             memberForm.setSexPrTy("MALE");
 
 
@@ -1632,6 +1631,7 @@ public class MemberService extends _BaseService {
                 tempId += i;
             }
             memberForm.setLoginId(tempId);//변형된 계정 셋
+            memberForm.setNm(tempId);
             System.out.println(tempId);
             memberForm.setMberDvTy(UserRollType.BATCH);
             Account account = modelMapper.map(memberForm, Account.class);

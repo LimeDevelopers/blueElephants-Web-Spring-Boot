@@ -217,6 +217,23 @@ public class MyPageController extends BaseCont {
     public String profileRegister(Model model,
                                   @ModelAttribute Account inputAccount,
                                   @CurrentUser Account account) {
+        if(account.getMberDvTy() == UserRollType.BATCH) {
+
+            Account load = memberService.load(account.getId());
+
+            Account form = new Account();
+            form.setId(load.getId());
+            form.setMberDvTy(load.getMberDvTy());
+            form.setNm(load.getNm());
+            form.setLoginId(load.getLoginId());
+            form.setBrthdy(load.getBrthdy());
+            form.setSexPrTy(load.getSexPrTy());
+            form.setEmail(load.getEmail());
+            form.setMoblphon(load.getMoblphon());
+            form.setNcnm(load.getNcnm());
+            model.addAttribute("form", form);
+
+        }
 
         if (passwordEncoder.matches(inputAccount.getPwd(), account.getPwd())) {
 

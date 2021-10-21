@@ -46,6 +46,7 @@ public class LoginController extends BaseCont {
     private final PasswordEncoder passwordEncoder;
     private final LoginCnntLogsService loginCnntLogsService;
     private final PointService pointService;
+    private final MemberService memberService;
 
 
     //private final ResourceServerTokenServices tokenServices;	//kakao login 2020.03.03  fail
@@ -103,10 +104,24 @@ public class LoginController extends BaseCont {
         log.info("가나다라마"+account.getMberDvTy());
 
         if(account.getMberDvTy() == UserRollType.BATCH){
-            System.out.println("일괄가입자 로그인 함");
             model.addAttribute("mc","memberJoin");
-            model.addAttribute("rsMsg","일괄가입 회원은 정보수정 후 서비스 이용이 가능합니다.");
-            return "redirect:/pages/myPage/profileRegister";
+            model.addAttribute("rsMsg","일괄가입 회원은 기본정보를 수정 후 서비스 이용이 가능합니다.");
+
+            Account load = memberService.load(account.getId());
+            Account form = new Account();
+            form.setMberDvTy(load.getMberDvTy());
+            form.setNm(load.getNm());
+            form.setLoginId(load.getLoginId());
+            form.setBrthdy(load.getBrthdy());
+            form.setSexPrTy(load.getSexPrTy());
+            form.setEmail(load.getEmail());
+            form.setMoblphon(load.getMoblphon());
+            form.setNcnm(load.getNcnm());
+            model.addAttribute("form", form);
+            model.addAttribute("mc", "myPage");
+            model.addAttribute("pageTitle", "계정정보");
+
+            return "redirect:/pages/myPage/profile";
         }
 
         if(account.getApproval().equals("N")) {
