@@ -104,8 +104,6 @@ public class LoginController extends BaseCont {
         log.info("가나다라마"+account.getMberDvTy());
 
         if(account.getMberDvTy() == UserRollType.BATCH){
-            model.addAttribute("mc","memberJoin");
-            model.addAttribute("rsMsg","일괄가입 회원은 기본정보를 수정 후 서비스 이용이 가능합니다.");
 
             Account load = memberService.load(account.getId());
             Account form = new Account();
@@ -117,11 +115,14 @@ public class LoginController extends BaseCont {
             form.setEmail(load.getEmail());
             form.setMoblphon(load.getMoblphon());
             form.setNcnm(load.getNcnm());
+
             model.addAttribute("form", form);
             model.addAttribute("mc", "myPage");
             model.addAttribute("pageTitle", "계정정보");
+            model.addAttribute("altmsg", "일괄가입 회원은 개인정보 수정 후 서비스 이용이 가능합니다.");
+            model.addAttribute("locurl", "/pages/myPage/profile");
 
-            return "redirect:/pages/myPage/profile";
+            return "/message";
         }
 
         if(account.getApproval().equals("N")) {
