@@ -36,19 +36,41 @@
 
         function fn_chkLogin() {
             var btnLogin = $("#btnLogin");
-            userId = $("#userId");
-            userPw = $("#userPw");
+            userId  = $("#userId");
+            userPw  = $("#userPw");
+
+            /*$.ajax({
+                type: "GET",
+                url: "/api/member/chkMberDvTy",
+                contentType: "application/json",
+                datatype : 'json',
+                data: {
+                    "userId": $.trim(userId.val())
+                },
+                    success: function (data) {
+                        if(data === 'BATCH'){
+                            alert('일괄 정규식 돌릴 준비 되었음' + data);
+                            console.log(data);
+                        }
+                    },
+                    error: function (error) {
+                            alert('ajax error' + error);
+                            console.log(error)
+                    }
+                });*/
+
+
 
             if (userId.val() != 'admin') {
                 if (!loginIdCheck(userId, btnLogin)) {
                     return false;
                 }
             }
-            if (!pwdCheck(userPw, btnLogin)) {
+            /*if (!pwdCheck(userPw, btnLogin)) {
                 userPw.val("");
                 userPw.focus();
                 return false;
-            }
+            }*/
 
             var frm = $('#form1');
             frm.prop("action", "/login");
@@ -111,6 +133,7 @@
                                                 <!--<button type="button" class="btn_login" onclick="layerShow('popLoginTemp')">Login</button> test2-->
                                             </div>
                                         </div>
+                                    </fieldset>
                                 </div>
                             </div>
                             <div class="chk_area clearfix">

@@ -603,6 +603,29 @@ function loginIdCheck(loginId, errTgt) {
 	return true;
 }
 
+function batchloginIdCheck(loginId, errTgt) {
+	var errTgt;
+	if (errTgt) {
+		errTgt = errTgt;
+	} else {
+		errTgt = loginId;
+	}
+	errTgt.siblings('.err.emph').remove();
+	var regExp = /[a-z]{4,8}/;
+	if ($.trim(loginId.val()) == '') {
+		errTgt.after('<p class="err emph">아이디는 필수 값입니다.</p>');
+		loginId.focus();
+		return false;
+	}
+
+	if (regExp.test(loginId.val()) == false) {
+		errTgt.after('<p class="err emph">계정양식은 4~8자리 이내로 소문자로만 입력해주세요.</p>');
+		loginId.focus();
+		return false;
+	}
+	return true;
+}
+
 function pwdCheck(pwd, errTgt) {
 	var errTgt;
 	if (errTgt) {
@@ -622,6 +645,30 @@ function pwdCheck(pwd, errTgt) {
 	if (regExp.test(pwd.val()) == false) {
 		//alert("비밀번호는 특수문자를 포함하여 8~16자리 이내로 입력해주세요.");
 		errTgt.after('<p class="err emph">비밀번호는 특수문자를 포함하여 8~16자리 이내로 입력해주세요.</p>');
+		return false;
+	}
+	return true;
+}
+
+function batchpwdCheck(pwd, errTgt) {
+	var errTgt;
+	if (errTgt) {
+		errTgt = errTgt;
+	} else {
+		errTgt = pwd;
+	}
+	errTgt.siblings('.err.emph').remove();
+	var regExp = /[0-9]{4}$/;
+
+	if ($.trim(pwd.val()) == '') {
+		errTgt.after('<p class="err emph">비밀번호는 필수 값입니다.</p>');
+		pwd.focus();
+		return false;
+	}
+
+	if (regExp.test(pwd.val()) == false) {
+		//alert("비밀번호는 특수문자를 포함하여 8~16자리 이내로 입력해주세요.");
+		errTgt.after('<p class="err emph">초기 패스워드는 4자리의 숫자로만 입력해주세요.</p>');
 		return false;
 	}
 	return true;

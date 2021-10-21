@@ -37,7 +37,7 @@
         </div>
         <div class="btns">
           <a href="/logout" class="logout_btn">로그아웃</a>
-          <th:block sec:authorize="hasAnyRole('ROLE_NORMAL', 'ROLE_STUDENT', 'ROLE_PARENT', 'ROLE_TEACHER','ROLE_INSTRUCTOR')">
+          <th:block sec:authorize="hasAnyRole('ROLE_NORMAL', 'ROLE_STUDENT', 'ROLE_PARENT', 'ROLE_TEACHER','ROLE_INSTRUCTOR' , 'ROLE_BATCH')">
             <a href="/pages/myPage/profile" class="mypage_btn">마이페이지</a>
           </th:block>
           <th:block sec:authorize="hasAnyRole('ROLE_MASTER', 'ROLE_ADMIN', 'ROLE_LECTURER', 'ROLE_COUNSELOR')">
@@ -112,7 +112,7 @@
                     <li><a href="#none">피해자체험</a></li>
                     <li><a href="#none">피해자목소리</a></li>
                     <li><a href="#none">위로메세지</a></li>
-                    <li><a href="#none">국제(푸코글로벌)</a></li>
+                    <li><a href="#none">글로벌푸코</a></li>
                   </ul>
                 </li>
                 <li class="sub"><a href="#none"><span>제안하기</span></a>

@@ -46,6 +46,7 @@ public class LoginController extends BaseCont {
     private final PasswordEncoder passwordEncoder;
     private final LoginCnntLogsService loginCnntLogsService;
     private final PointService pointService;
+    private final MemberService memberService;
 
 
     //private final ResourceServerTokenServices tokenServices;	//kakao login 2020.03.03  fail
@@ -101,6 +102,29 @@ public class LoginController extends BaseCont {
 
         String redirect = "/";
         log.info("가나다라마"+account.getMberDvTy());
+
+        if(account.getMberDvTy() == UserRollType.BATCH){
+
+            Account load = memberService.load(account.getId());
+            Account form = new Account();
+            form.setMberDvTy(load.getMberDvTy());
+            form.setNm(load.getNm());
+            form.setLoginId(load.getLoginId());
+            form.setBrthdy(load.getBrthdy());
+            form.setSexPrTy(load.getSexPrTy());
+            form.setEmail(load.getEmail());
+            form.setMoblphon(load.getMoblphon());
+            form.setNcnm(load.getNcnm());
+
+            model.addAttribute("form", form);
+            model.addAttribute("mc", "myPage");
+            model.addAttribute("pageTitle", "계정정보");
+            model.addAttribute("altmsg", "일괄가입 회원은 개인정보 수정 후 서비스 이용이 가능합니다.");
+            model.addAttribute("locurl", "/pages/myPage/profile");
+
+            return "/message";
+        }
+
         if(account.getApproval().equals("N")) {
             model.addAttribute("mc","memberJoin");
             model.addAttribute("rsMsg","미승인 계정입니다.");

@@ -37,6 +37,9 @@ public class MemberForm extends SearchForm {
     @Pattern(regexp="^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9])(?=.*[0-9]).{8,16}$", message = "비밀번호는 특수문자를 포함하여 8~16자리 이내로 입력해주세요.")
     private String pwd;
 
+    private String tempLoginId;
+    private String tempPwd;
+
     @NotNull(message = "이름은 필수 값입니다.")
     @NotBlank(message = "이름은 필수 값입니다.")
     private String nm;

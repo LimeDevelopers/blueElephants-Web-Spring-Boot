@@ -1605,12 +1605,12 @@ public class MemberService extends _BaseService {
     @Transactional
     public void batchRegister(MemberSchoolForm memberSchoolForm) {
         MemberForm memberForm = new MemberForm();
-        String tempId = memberSchoolForm.getLoginId();
+        String tempId = memberSchoolForm.getTempLoginId();
 
         for (int i = 1; i <= memberSchoolForm.getBatchArr(); i++) {
             //계정 정보 추가
             memberForm.setDelAt("N");
-            memberForm.setPwd(passwordEncoder.encode(memberSchoolForm.getPwd())); //패스워드 셋
+            memberForm.setPwd(passwordEncoder.encode(memberSchoolForm.getTempPwd())); //패스워드 셋
             memberForm.setRegDtm(LocalDateTime.now()); //등록일
             memberForm.setPrtctorAttcAt("Y");
             memberForm.setOnlineEdu("N"); // 현장교육 N = 오프라인
@@ -1620,18 +1620,18 @@ public class MemberService extends _BaseService {
             memberForm.setGroupPid(0L);
             memberForm.setCrewPid(0L);
             memberForm.setApproval("Y"); // 승인여부
-            memberForm.setNm("TEST");
             memberForm.setSexPrTy("MALE");
 
 
             if (i < 10) {
-                tempId = memberSchoolForm.getLoginId();
+                tempId = memberSchoolForm.getTempLoginId();
                 tempId += "0" + i;
             } else {
-                memberSchoolForm.getLoginId();
+                memberSchoolForm.getTempLoginId();
                 tempId += i;
             }
             memberForm.setLoginId(tempId);//변형된 계정 셋
+            memberForm.setNm(tempId);
             System.out.println(tempId);
             memberForm.setMberDvTy(UserRollType.BATCH);
             Account account = modelMapper.map(memberForm, Account.class);
@@ -1655,13 +1655,13 @@ public class MemberService extends _BaseService {
     //관리자페이지 일괄가입 서비스
     @Transactional
     public void batchRegister(MemberForm memberForm) {
-        String temp = memberForm.getLoginId();
+        String temp = memberForm.getTempLoginId();
 
         for (int i = 1; i <= memberForm.getBatchArr(); i++) {
             log.info(temp+i);
 
             memberForm.setDelAt("N");
-            memberForm.setPwd(passwordEncoder.encode(memberForm.getPwd())); //패스워드 셋
+            memberForm.setTempPwd(passwordEncoder.encode(memberForm.getTempPwd())); //패스워드 셋
             memberForm.setRegDtm(LocalDateTime.now()); //등록일
             memberForm.setOnlineEdu("N"); // 현장교육 N = 오프라인
             memberForm.setEduReset("N");
@@ -1676,9 +1676,9 @@ public class MemberService extends _BaseService {
             memberForm.setSexPrTy("MALE");
 
             if (i < 10) {
-                memberForm.setLoginId(temp+"0"+i);//변형된 계정 셋
+                memberForm.setTempLoginId(temp+"0"+i);//변형된 계정 셋
             } else {
-                memberForm.setLoginId(temp+i);//변형된 계정 셋
+                memberForm.setTempLoginId(temp+i);//변형된 계정 셋
             }
 
             memberForm.setMberDvTy(UserRollType.BATCH);
@@ -1702,6 +1702,7 @@ public class MemberService extends _BaseService {
                     memberForm.getGrade(), memberForm.getBan(), save.getId(), LocalDateTime.now());
         }
     }
+
     //크루 검색
     public List<MemberCrew> srchCrewList(String CrewNm) {
         QMemberCrew qMemberCrew = QMemberCrew.memberCrew;
@@ -1755,4 +1756,10 @@ public class MemberService extends _BaseService {
         Account account = memberRepository.findByLoginId(loginId).orElseGet(Account::new);
         return (account != null && account.getId() != null);
     }
+
+    public Optional<Account> chkMberDvTy(String loginId){
+        Optional<Account> MberDvTy = memberRepository.findByLoginId(loginId);
+        return MberDvTy;
+    }
+
 }

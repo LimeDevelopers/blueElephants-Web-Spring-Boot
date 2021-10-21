@@ -323,7 +323,7 @@ public class SoulGodController extends BaseCont {
                                                  BindingResult bindingResult) {
 
         for (int i = 1; i <= memberForm.getBatchArr(); i++) {
-            String loginId = memberForm.getLoginId();
+            String loginId = memberForm.getTempLoginId();
 
             if (i < 10) {
                 loginId += "0" + i;
@@ -332,7 +332,7 @@ public class SoulGodController extends BaseCont {
             }
 
             if (memberService.existsByBatchLoginId(loginId)) {
-                bindingResult.rejectValue("loginId", "invalid ID", new Object[]{memberForm.getLoginId()}, "이미 사용 중인 계정 양식 입니다");
+                bindingResult.rejectValue("loginId", "invalid ID", new Object[]{memberForm.getTempLoginId()}, "이미 사용 중인 계정 양식 입니다");
             }
             if (bindingResult.hasFieldErrors("loginId")) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult.getFieldError("loginId").getDefaultMessage());
@@ -340,8 +340,8 @@ public class SoulGodController extends BaseCont {
                 return ResponseEntity.ok(memberForm);
             }
         }
-        if (memberService.existsSpace(memberForm.getLoginId())) {
-            bindingResult.rejectValue("loginId", "invalid ID", new Object[]{memberForm.getLoginId()}, "아이디에는 공백을 사용 할 수 없습니다.");
+        if (memberService.existsSpace(memberForm.getTempLoginId())) {
+            bindingResult.rejectValue("loginId", "invalid ID", new Object[]{memberForm.getTempLoginId()}, "아이디에는 공백을 사용 할 수 없습니다.");
         }
         if (bindingResult.hasFieldErrors("loginId")) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult.getFieldError("loginId").getDefaultMessage());
