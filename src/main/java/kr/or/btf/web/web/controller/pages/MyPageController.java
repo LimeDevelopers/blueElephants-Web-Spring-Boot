@@ -606,6 +606,7 @@ public class MyPageController extends BaseCont {
         boolean result = false;
 
         memberForm.setId(account.getId());
+        memberForm.setMberDvTy(account.getMberDvTy());
 
         result = memberService.updateForMyPage(memberForm, memberSchoolForm, memberTeacherForm, childIdArr);
 
