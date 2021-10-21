@@ -4,7 +4,9 @@ package kr.or.btf.web.web.controller;
 import kr.or.btf.web.common.Constants;
 import kr.or.btf.web.common.annotation.CurrentUser;
 import kr.or.btf.web.domain.web.*;
+import kr.or.btf.web.domain.web.enums.GenderType;
 import kr.or.btf.web.domain.web.enums.LoginLogMessage;
+import kr.or.btf.web.domain.web.enums.MberDvType;
 import kr.or.btf.web.domain.web.enums.UserRollType;
 import kr.or.btf.web.services.web.*;
 import kr.or.btf.web.utils.StringHelper;
@@ -61,10 +63,22 @@ public class MemberController extends BaseCont{
         cell.setCellValue("아이디");
         cell = row.createCell(2);
         cell.setCellValue("이름");
+        cell = row.createCell(3);
+        cell.setCellValue("휴대폰");
+        cell = row.createCell(4);
+        cell.setCellValue("닉네임");
+        cell = row.createCell(5);
+        cell.setCellValue("이메일");
+        cell = row.createCell(6);
+        cell.setCellValue("성별");
+        cell = row.createCell(7);
+        cell.setCellValue("구분");
 
         // Body
         List<Account> accounts = allListGet();
         for (int i=0; i<accounts.size(); i++) {
+            String gender = "";
+            String dbTy = "";
             row = sheet.createRow(rowNum++);
             cell = row.createCell(0);
             cell.setCellValue(accounts.get(i).getId());
@@ -72,6 +86,28 @@ public class MemberController extends BaseCont{
             cell.setCellValue(accounts.get(i).getLoginId());
             cell = row.createCell(2);
             cell.setCellValue(accounts.get(i).getNm());
+            cell = row.createCell(3);
+            cell.setCellValue(accounts.get(i).getMoblphon());
+            cell = row.createCell(4);
+            cell.setCellValue(accounts.get(i).getNcnm());
+            cell = row.createCell(5);
+            cell.setCellValue(accounts.get(i).getEmail( ));
+            cell = row.createCell(6);
+            if(accounts.get(i).getSexPrTy() == null) {
+                gender = "정보없음";
+                cell.setCellValue(gender);
+            } else {
+                gender = accounts.get(i).getSexPrTy();
+                cell.setCellValue(GenderType.valueOf(gender).getName());
+            }
+            cell = row.createCell(7);
+            if(accounts.get(i).getMberDvTy() == null) {
+                dbTy = "정보없음";
+                cell.setCellValue(dbTy);
+            } else {
+                dbTy = accounts.get(i).getMberDvTy().toString();
+                cell.setCellValue(UserRollType.valueOf(dbTy).getName());
+            }
         }
 
         // 컨텐츠 타입과 파일명 지정
