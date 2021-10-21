@@ -142,6 +142,9 @@
                                 <th:block th:if="${#authentication.principal == 'anonymousUser'}">
                                     <a href="javascript:fn_loginCheck();" class="btn btn_review btn_pill">작성하기</a>
                                 </th:block>
+                                <th:block th:if="${#authentication.principal != 'anonymousUser'}">
+                                    <a href="/pages/activity/postscriptRegister" class="btn btn_review btn_pill">작성하기</a>
+                                </th:block>
                                 <a href="javascript:;" class="btn btn_review btn_pill" onclick="fn_message()">교육신청</a>
                             </div>
                             <ul class="thumb_list clearfix">

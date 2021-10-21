@@ -101,8 +101,44 @@
             crewNm = $('#crewNm');
             crewAffi = $('#crewAffi');
             crewFNum = $('#crewFNum');
-            rptName = $('#rptName');
+            rptName = $('#rptNm');
             groupSort = $('#groupSort');
+
+            let emailStr = "";
+            email = $("#email");
+            email01 = $("#email01");
+            email02 = $("#email02");
+            email03 = $("#email03");
+            if ($.trim(email01.val())) {
+                emailStr += $.trim(email01.val());
+                emailStr += "@"
+            }else{
+                alert('이메일을 입력하세요');
+                email01.focus();
+                return false;
+            }
+
+            if ($.trim(email02.val()) != "직접입력") {
+                if(!$.trim(email02.val())){
+                    alert('이메일을 입력하세요');
+                    email02.focus();
+                    return false;
+                }else{
+                    emailStr += $.trim(email02.val());
+                }
+            }
+
+            if ($.trim(email02.val()) == "직접입력") {
+                if(!$.trim(email03.val())){
+                    alert('이메일을 입력하세요');
+                    email03.focus();
+                    return false;
+                }else{
+                    emailStr += $.trim(email03.val());
+                }
+            }
+
+            email.val(emailStr);
 
             if(!idDupBool) {
                 fn_alert('아이디 중복확인을 진행해주세요.')
@@ -131,9 +167,14 @@
                     focusAndEmpty(position)
                     return false;
                 }
+                if(!rptName.val()) {
+                    fn_alert('대표자명 입력은 필수입니다.')
+                    focusAndEmpty(rptName)
+                    return false;
+                }
                 if(!groupSort.val()) {
-                    fn_alert('직책 입력은 필수입니다.')
-                    focusAndEmpty(position)
+                    fn_alert('단체 구분은 필수입니다.')
+                    focusAndEmpty(groupSort)
                     return false;
                 }
                 if(!bNum.val()) {
@@ -179,7 +220,6 @@
                 }
                 return true
             }
-            rptEmailChk();
         }
 
         function rptEmailChk(){
@@ -623,13 +663,13 @@
                                     </li>
                                     <li class="col nmCrew">
                                         <div class="th">
-                                            <label for="crewType">단체구분</label>
+                                            <label for="groupSort">단체구분</label>
                                             <span class="aster">*</span>
                                         </div>
                                         <div class="td">
                                             <div class="select">
-                                                <label for="crewType" id="crewType_label">일반</label>
-                                                <select name="crewType" id="crewType">
+                                                <label for="groupSort" id="groupSort_label">일반</label>
+                                                <select name="groupSort" id="groupSort">
                                                     <option value="nomal">일반</option>
                                                 </select>
                                             </div>

@@ -128,7 +128,7 @@
                         };
                         $.ajax({
                             cache : false,
-                            url: "/api/soulGod/member/updateApporaval/"+chkedVal+"/N",
+                            url: "/api/soulGod/member/updateApporaval/"+chkedVal+"/Y",
                             type : 'POST',
                             contentType: "application/json",
                             success : function(data) {
@@ -191,7 +191,8 @@
                     dataType : 'JSON',
                     success : function(data) {
                         crewForm.hide()
-                        $('#group_nm').text(data.groupNm+'단체 정보')
+                        $('#group_nm').text('단체 상세정보')
+                        $('#bGroupNm').text(data.groupNm)
                         $('#groupNm').text(data.groupNm)
                         $('#group_id').text(data.id)
                         $('#chrNm').text(data.chrNm)
@@ -224,7 +225,8 @@
                     type : 'POST',
                     success : function(data) {
                         groupForm.hide()
-                        $('#crew_nm').text(data.crewNm+'크루 정보')
+                        $('#crew_nm').text('크루 상세정보')
+                        $('#bCrewNm').text(data.crewNm)
                         $('#crewNm').text(data.crewNm)
                         $('#crew_id').text(data.id)
                         $('#crewAffi').text(data.crewAffi)
@@ -538,15 +540,25 @@
                             </div>
                             <th:block th:replace="/soulGod/fragments/paging :: pagingbody(list=${members},
                                             link='/soulGod/member/groupList', formId='form1')"></th:block>
-                            <div class="fr">
-                                <a href="/soulGod/member/register" class="btn btn_sm btn_blue">
-                                    <i class="material-icons mt0">add</i>관리자/푸코강사/상담사 추가
-                                </a>
-                            </div>
+
                         </div>
 
                         <div class="board_list detailGroupForm">
                             <h4 class="sec_tit" id="group_nm">--단체 정보</h4>
+                            <div class="board_top clearfix">
+                                <div class="fl">
+                                    <div class="total_num">
+                                        <b id="bGroupNm">
+                                        </b>
+                                    </div>
+                                </div>
+                                <div class="fr">
+                                    <a href="/soulGod/member/register" class="btn btn_sm btn_blue">
+                                        <i class="material-icons mt0">add</i>excel 다운로드
+                                    </a>
+                                </div>
+                            </div>
+
                             <div class="board_detail clearfix">
                                 <table class="tbl_list">
                                     <colgroup>
@@ -580,6 +592,19 @@
 
                         <div class="board_list detailCrewForm">
                             <h4 class="sec_tit" id="crew_nm">--크루 정보</h4>
+                            <div class="board_top clearfix">
+                                <div class="fl">
+                                    <div class="total_num">
+                                        <b id="bCrewNm">
+                                        </b>
+                                    </div>
+                                </div>
+                                <div class="fr">
+                                    <a href="/soulGod/member/register" class="btn btn_sm btn_blue">
+                                        <i class="material-icons mt0">add</i>excel 다운로드
+                                    </a>
+                                </div>
+                            </div>
                             <div class="board_detail clearfix">
                                 <table class="tbl_list">
                                     <colgroup>
