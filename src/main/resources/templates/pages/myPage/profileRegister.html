@@ -8,8 +8,11 @@
         var day;
 
 
+
+
         $(function () {
             characSize();
+            appendYear();
             $(window).resize(function () {
                 characSize();
             });
@@ -23,6 +26,24 @@
                 }
             })*/
         });
+
+        function appendYear() {
+            var date = new Date();
+            var crrntYear = date.getFullYear();
+            year = $("#year");
+            year.append("<option value=''>선택</option>");
+            // 올해 기준으로 -1년부터 -70년을 보여준다.
+            for (var y = (crrntYear - 1); (crrntYear - 70) <= y; y--) {
+                year.append("<option value='" + y + "'>" + y + "년" + "</option>");
+            }
+
+            prtctorYear = $("#prtctorYear");
+            prtctorYear.append("<option value=''>선택</option>");
+            // 올해 기준으로 -1년부터 -70년을 보여준다.
+            for (var y = (crrntYear - 1); (crrntYear - 70) <= y; y--) {
+                prtctorYear.append("<option value='" + y + "'>" + y + "년" + "</option>");
+            }
+        }
 
         function fn_memberRemove() {
             if (!confirm("회원탈퇴시 연결된 모든 정보가 사라질 수 있습니다.\n 회원을 탈퇴하시겠습니까?")) {
@@ -219,24 +240,6 @@
                     alert('error::' + error.statusText);
                 }
             });
-        }
-
-        function appendYear() {
-            var date = new Date();
-            var crrntYear = date.getFullYear();
-            year = $("#year");
-            year.append("<option value=''>선택</option>");
-            // 올해 기준으로 -1년부터 -70년을 보여준다.
-            for (var y = (crrntYear - 1); (crrntYear - 70) <= y; y--) {
-                year.append("<option value='" + y + "'>" + y + "년" + "</option>");
-            }
-
-            prtctorYear = $("#prtctorYear");
-            prtctorYear.append("<option value=''>선택</option>");
-            // 올해 기준으로 -1년부터 -70년을 보여준다.
-            for (var y = (crrntYear - 1); (crrntYear - 70) <= y; y--) {
-                prtctorYear.append("<option value='" + y + "'>" + y + "년" + "</option>");
-            }
         }
 
         function fn_srchSchlNm() {
