@@ -103,7 +103,7 @@ public class LoginController extends BaseCont {
         String redirect = "/";
         log.info("가나다라마"+account.getMberDvTy());
 
-        if(account.getMberDvTy() == UserRollType.BATCH){
+        if(account.getEmail() == null && account.getMoblphon() == null || account.getEmail().equals("") && account.getMoblphon().equals("")){
 
             Account load = memberService.load(account.getId());
             Account form = new Account();
@@ -119,7 +119,7 @@ public class LoginController extends BaseCont {
             model.addAttribute("form", form);
             model.addAttribute("mc", "myPage");
             model.addAttribute("pageTitle", "계정정보");
-            model.addAttribute("altmsg", "일괄가입 회원은 개인정보 수정 후 서비스 이용이 가능합니다.");
+            model.addAttribute("altmsg", "일괄가입 회원은 휴대전화 등록이나 이메일 인증 후 서비스 이용이 가능합니다.");
             model.addAttribute("locurl", "/pages/myPage/profile");
 
             return "/message";

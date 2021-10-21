@@ -1018,6 +1018,12 @@ public class MemberService extends _BaseService {
             }
             account.setMoblphon(form.getMoblphon());
             account.setUpdDtm(LocalDateTime.now());
+            if(form.getMberDvTy().equals(UserRollType.BATCH)) {
+                account.setNm(form.getNm());
+                account.setBrthdy(form.getBrthdy());
+                account.setSexPrTy(form.getSexPrTy());
+                account.setNcnm(form.getNcnm());
+            }
 
             if (account.getMberDvTy().equals(UserRollType.STUDENT)) {
                 //log 저장

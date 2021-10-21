@@ -16,6 +16,12 @@
         return false;
       }
 
+      if (userGbn == 'BATCH'){
+        alert('회원정보 수정 후 이용할 수 있습니다.');
+        location.href="/pages/myPage/profile";
+        return false;
+      }
+
       if (userGbn == 'STUDENT' && eduTy == 'N') {
         if (mberDvTy == 'OFFLINE') {
 
