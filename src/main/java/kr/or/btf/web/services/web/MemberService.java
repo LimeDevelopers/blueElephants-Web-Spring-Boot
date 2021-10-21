@@ -1640,7 +1640,7 @@ public class MemberService extends _BaseService {
             memberForm.setLoginId(tempId);//변형된 계정 셋
             memberForm.setNm(tempId);
             System.out.println(tempId);
-            memberForm.setMberDvTy(UserRollType.BATCH);
+            memberForm.setMberDvTy(UserRollType.STUDENT);
             Account account = modelMapper.map(memberForm, Account.class);
             Account save = memberRepository.save(account);
             ApplicationForm applicationForm = new ApplicationForm();
@@ -1650,7 +1650,7 @@ public class MemberService extends _BaseService {
 
             MemberRoll memberRoll = new MemberRoll();
             memberRoll.setMberPid(save.getId());
-            memberRoll.setMberDvTy(UserRollType.BATCH);
+            memberRoll.setMberDvTy(UserRollType.STUDENT);
             memberRoll.setRegDtm(LocalDateTime.now());
             memberRoll.setRegPsId(save.getRegPsId());
             memberRollRepository.save(memberRoll);
@@ -1688,14 +1688,14 @@ public class MemberService extends _BaseService {
                 memberForm.setTempLoginId(temp+i);//변형된 계정 셋
             }
 
-            memberForm.setMberDvTy(UserRollType.BATCH);
+            memberForm.setMberDvTy(UserRollType.STUDENT);
             Account account = modelMapper.map(memberForm, Account.class);
             Account save = memberRepository.save(account);
 
 
             MemberRoll memberRoll = new MemberRoll();
             memberRoll.setMberPid(save.getId());
-            memberRoll.setMberDvTy(UserRollType.BATCH);
+            memberRoll.setMberDvTy(UserRollType.STUDENT);
             memberRoll.setRegDtm(LocalDateTime.now());
             memberRoll.setRegPsId(save.getRegPsId());
             memberRollRepository.save(memberRoll);
