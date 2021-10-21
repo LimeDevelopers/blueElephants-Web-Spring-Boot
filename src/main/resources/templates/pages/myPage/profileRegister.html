@@ -3,6 +3,11 @@
 <head>
     <th:block th:include="fragments/header"></th:block>
     <script>
+        var year;
+        var month;
+        var day;
+
+
         $(function () {
             characSize();
             $(window).resize(function () {
@@ -214,6 +219,24 @@
                     alert('error::' + error.statusText);
                 }
             });
+        }
+
+        function appendYear() {
+            var date = new Date();
+            var crrntYear = date.getFullYear();
+            year = $("#year");
+            year.append("<option value=''>선택</option>");
+            // 올해 기준으로 -1년부터 -70년을 보여준다.
+            for (var y = (crrntYear - 1); (crrntYear - 70) <= y; y--) {
+                year.append("<option value='" + y + "'>" + y + "년" + "</option>");
+            }
+
+            prtctorYear = $("#prtctorYear");
+            prtctorYear.append("<option value=''>선택</option>");
+            // 올해 기준으로 -1년부터 -70년을 보여준다.
+            for (var y = (crrntYear - 1); (crrntYear - 70) <= y; y--) {
+                prtctorYear.append("<option value='" + y + "'>" + y + "년" + "</option>");
+            }
         }
 
         function fn_srchSchlNm() {
@@ -516,18 +539,19 @@
                         <h3 class="page_tit">계정정보</h3>
                         <span>회원정보를 최신정보로 관리해주세요. <br class="mo"/>새로운 푸코소식과 보안을 위해 회원정보를 최신으로 업데이트 해주세요.</span>
                     </div>
-                    <div class="page_cont my_profile">
+                    <div class="page_cont my_profile ">
                         <div class="sec_write_area clearfix">
                             <div class="sec_write info">
                                 <h4 class="subtit">회원 기본정보</h4>
                                 <input type="hidden" th:field="*{id}">
                                 <input type="hidden" th:field="*{mberDvTy}">
-                                <div class="tbl_write">
+                                <div class="tbl_write contour info_bx">
                                     <ul>
-                                        <li>`
+                                        <li>
                                             <div class="th">이름</div>
-                                            <div class="td td_txt" th:text="*{nm}">홍길동</div>
-                                            `
+                                            <div class="td">
+                                                <input th:field="*{nm}"></input>
+                                            </div>
                                             <!--<input type="hidden" th:field="*{nm}">-->
                                         </li>
                                         <li>
@@ -547,18 +571,93 @@
                                                 </button>
                                             </div>
                                         </li>
-                                        <li>
+                                        <li class="years_inner col">
                                             <div class="th">생년월일</div>
-                                            <div class="td td_txt" th:text="*{brthdy}">2007.01.15</div>
+                                            <th:block th:if="*{brthdy ne null}">
+                                                <div class="td td_txt" th:text="*{brthdy}">2007.01.15</div>
+                                            </th:block>
+                                            <th:block th:if="*{brthdy eq null}">
+                                                <div class="td col">
+                                                    <div class="birth_form clearfix">
+                                                        <div class="select">
+                                                            <label for="year">선택</label>
+                                                            <select name="year" id="year">
+                                                            </select>
+                                                        </div>
+                                                        <div class="select">
+                                                            <label for="month">선택</label>
+                                                            <select name="month" id="month">
+                                                                <option value="">선택</option>
+                                                                <option value="01">1월</option>
+                                                                <option value="02">2월</option>
+                                                                <option value="03">3월</option>
+                                                                <option value="04">4월</option>
+                                                                <option value="05">5월</option>
+                                                                <option value="06">6월</option>
+                                                                <option value="07">7월</option>
+                                                                <option value="08">8월</option>
+                                                                <option value="09">9월</option>
+                                                                <option value="10">10월</option>
+                                                                <option value="11">11월</option>
+                                                                <option value="12">12월</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="select">
+                                                            <label for="day">선택</label>
+                                                            <select name="day" id="day">
+                                                                <option value="">선택</option>
+                                                                <option value="01">1일</option>
+                                                                <option value="02">2일</option>
+                                                                <option value="03">3일</option>
+                                                                <option value="04">4일</option>
+                                                                <option value="05">5일</option>
+                                                                <option value="06">6일</option>
+                                                                <option value="07">7일</option>
+                                                                <option value="08">8일</option>
+                                                                <option value="09">9일</option>
+                                                                <option value="10">10일</option>
+                                                                <option value="11">11일</option>
+                                                                <option value="12">12일</option>
+                                                                <option value="13">13일</option>
+                                                                <option value="14">14일</option>
+                                                                <option value="15">15일</option>
+                                                                <option value="16">16일</option>
+                                                                <option value="17">17일</option>
+                                                                <option value="18">18일</option>
+                                                                <option value="19">19일</option>
+                                                                <option value="20">20일</option>
+                                                                <option value="21">21일</option>
+                                                                <option value="22">22일</option>
+                                                                <option value="23">23일</option>
+                                                                <option value="24">24일</option>
+                                                                <option value="25">25일</option>
+                                                                <option value="26">26일</option>
+                                                                <option value="27">27일</option>
+                                                                <option value="28">28일</option>
+                                                                <option value="29">29일</option>
+                                                                <option value="30">30일</option>
+                                                                <option value="31">31일</option>
+                                                            </select>
+                                                        </div>
+                                                        <input type="hidden" name="brthdy" id="brthdy"/>
+                                                    </div>
+                                                </div>
+                                            </th:block>
                                         </li>
                                         <li>
                                             <div class="th">성별</div>
                                             <div class="td td_txt">
-                                                <th:block
-                                                        th:each="tp : ${T(kr.or.btf.web.domain.web.enums.GenderType).values()}">
-                                                    <th:block th:if="${form.sexPrTy eq tp.name()}"
-                                                              th:text="${tp.getName()}"></th:block>
-                                                </th:block>
+                                                <div class="register_radio">
+                                                    <input type="radio" id="sexPrTyMALE" name="sexPrTy" value="MALE" checked>
+                                                    <label for="sexPrTyMALE">남자</label>
+                                                </div>
+                                                <div class="register_radio">
+                                                    <input type="radio" id="sexPrTyFEMALE" name="sexPrTy" value="FEMALE">
+                                                    <label for="sexPrTyFEMALE">여자</label>
+                                                </div>
+                                                <!--<th:block th:each="tp : ${T(kr.or.btf.web.domain.web.enums.GenderType).values()}">
+                                                    <th:block th:if="${form.sexPrTy eq tp.name()}" th:text="${tp.getName()}"></th:block>
+                                                </th:block>-->
                                             </div>
                                         </li>
                                         <li>
@@ -600,7 +699,9 @@
                                         </li>
                                         <li>
                                             <div class="th">닉네임</div>
-                                            <div class="td td_txt" th:text="*{ncnm}">푸꼬</div>
+                                            <div class="td">
+                                                <input th:field="*{ncnm}"/>
+                                            </div>
                                         </li>
                                     </ul>
                                 </div>
