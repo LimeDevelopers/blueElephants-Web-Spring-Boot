@@ -101,6 +101,14 @@ public class LoginController extends BaseCont {
 
         String redirect = "/";
         log.info("가나다라마"+account.getMberDvTy());
+
+        if(account.getMberDvTy() == UserRollType.BATCH){
+            System.out.println("일괄가입자 로그인 함");
+            model.addAttribute("mc","memberJoin");
+            model.addAttribute("rsMsg","일괄가입 회원은 정보수정 후 서비스 이용이 가능합니다.");
+            return "redirect:/pages/myPage/profileRegister";
+        }
+
         if(account.getApproval().equals("N")) {
             model.addAttribute("mc","memberJoin");
             model.addAttribute("rsMsg","미승인 계정입니다.");
