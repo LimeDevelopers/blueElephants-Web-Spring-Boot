@@ -607,6 +607,7 @@ public class MyPageController extends BaseCont {
 
         memberForm.setId(account.getId());
 
+
         result = memberService.updateForMyPage(memberForm, memberSchoolForm, memberTeacherForm, childIdArr);
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(account.getLoginId());

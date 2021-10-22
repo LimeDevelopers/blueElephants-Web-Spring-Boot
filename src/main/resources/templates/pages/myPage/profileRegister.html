@@ -15,8 +15,10 @@
 
 
         $(function () {
+
             characSize();
             appendYear();
+
             $(window).resize(function () {
                 characSize();
             });
@@ -394,7 +396,6 @@
         function fn_chkPwdDup() {
             var pwd = $("#pwd");
             var pwdChk = $('#pwdChk');
-
             pwd.siblings('.err.emph').remove();
             if (!$.trim(pwd.val())) {
                 //alert('비밀번호를 입력하세요');
@@ -570,7 +571,6 @@
                 $('#pwdChg').hide();
                 $('#pwdChangeYn').val(gbn);
             }
-
         }
     </script>
 </head>
@@ -624,7 +624,7 @@
                                             <div class="th">생년월일</div>
                                             <!--<th:block th:if="*{brthdy ne null}">
                                                 <div class="td">
-                                                    <input name="brthdy" th:placeholder="*{brthdy}" th:value="*{brthdy}"/>
+                                                    <input name="brthdy" th:placeholder="*b{rthdy}" th:value="*{brthdy}"/>
                                                 </div>
                                             </th:block>-->
                                             <!--<th:block th:if="*{brthdy eq null}">-->
@@ -776,7 +776,7 @@
                                     <li>
                                         <div class="th"><label for="pwd">신규 비밀번호</label></div>
                                         <div class="td">
-                                            <input type="hidden" id="pwdChangeYn" value=""/>
+                                            <input type="hidden" id="pwdChangeYn" name="pwdChangeYn" value=""/>
                                             <input type="password" id="pwd" name="pwd" placeholder="8~16자(특수 문자 포함)"/>
                                         </div>
                                     </li>

@@ -127,6 +127,7 @@ public class MemberForm extends SearchForm {
     @Transient
     private String cardReset;
     private String values;
+    private String pwdChangeYn;
 
     private String approval = "N";
     private int authEmailChk;
