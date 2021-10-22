@@ -350,6 +350,7 @@ public class MemberJoinController extends BaseCont {
         log.info("이메일 : " + memberForm.getEmail());
         if (memberService.existsByEmail(memberForm.getEmail())) {
             bindingResult.rejectValue("email", "invalid EMAIL", new Object[]{memberForm.getEmail()}, "이미 사용중인 이메일입니다.");
+            log.info("사용중인 이메일");
         } else {
 
         }

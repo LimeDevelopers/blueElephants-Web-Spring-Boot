@@ -1023,6 +1023,7 @@ public class MemberService extends _BaseService {
             account.setSexPrTy(form.getSexPrTy());
             account.setBrthdy(form.getBrthdy());
             account.setNcnm(form.getNcnm());
+            account.setEmail(form.getEmail());
             account.setUpdDtm(LocalDateTime.now());
 
 

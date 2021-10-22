@@ -7,7 +7,10 @@
         var month;
         var day;
         var brthday;
-
+        var email;
+        var email01;
+        var email02;
+        var email03;
 
 
 
@@ -530,13 +533,13 @@
 
             $.ajax({
                 type: "POST",
-                url: "/api/myPage/isExistsByEmailAndAuth",
+                url: "/api/member/isExistsByEmail",
                 data: {
                     "email": email.val()
                 },
                 success: function (data) {
                     if (email.val() != '') {
-                        alert('이메일 변경 인증메일이 발송되었습니다.\n인증 가능 시간(1시간)이내에 인증완료 후 이메일주소가 변경됩니다.');
+                        alert('등록 가능한 이메일 입니다.');
                         emailDupBool = true;
                         email01.props("disabled", true);
                         email02.props("disabled", true);
@@ -713,14 +716,11 @@
                                             <div class="td">
                                                 <div class="email_form clearfix">
                                                     <!-- [D] active 클래스가 있어야 직접입력 인풋이 노출 됨(style.js 에 들어가 있음) -->
-                                                    <input type="text" name="email01" id="email01" title="이메일 아이디 입력"
-                                                           th:value="*{#strings.substringBefore(email, '@')}"/>
+                                                    <input type="text" name="email01" id="email01" title="이메일 아이디 입력" th:value="*{#strings.substringBefore(email, '@')}"/>
                                                     <span class="at">@</span>
                                                     <div class="select">
-                                                        <label for="email02"
-                                                               th:text="*{#strings.substringAfter(email, '@')}">선택</label>
-                                                        <select name="email02" id="email02"
-                                                                th:value="*{#strings.substringAfter(email, '@')}">
+                                                        <label for="email02" th:text="*{#strings.substringAfter(email, '@')}">선택</label>
+                                                        <select name="email02" id="email02" th:value="*{#strings.substringAfter(email, '@')}">
                                                             <option value="">선택</option>
                                                             <option value="naver.com">naver.com</option>
                                                             <option value="gmail.com">gmail.com</option>
@@ -734,7 +734,7 @@
                                                            title="이메일주소 직접입력"/>
                                                     <input type="hidden" name="email" id="email"/>
                                                     <button type="button" class="btn btn_lg btn_line_blue btn_pill_10"
-                                                            onclick="return fn_chkEmailDupAndAuth()">인증요청
+                                                            onclick="return fn_chkEmailDupAndAuth()">중복확인
                                                     </button>
                                                 </div>
                                             </div>
