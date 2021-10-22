@@ -1016,14 +1016,11 @@ public class MemberService extends _BaseService {
             if (form.getPwd() != "") {
                 account.setPwd(passwordEncoder.encode(form.getPwd()));
             }
+            System.out.println("생년월일 넘어온거 확인 : " + form.getBrthdy());
             account.setMoblphon(form.getMoblphon());
+            account.setSexPrTy(form.getSexPrTy());
             account.setUpdDtm(LocalDateTime.now());
-            if(form.getMberDvTy().equals(UserRollType.BATCH)) {
-                account.setNm(form.getNm());
-                account.setBrthdy(form.getBrthdy());
-                account.setSexPrTy(form.getSexPrTy());
-                account.setNcnm(form.getNcnm());
-            }
+
 
             if (account.getMberDvTy().equals(UserRollType.STUDENT)) {
                 //log 저장
@@ -1768,5 +1765,4 @@ public class MemberService extends _BaseService {
         Optional<Account> MberDvTy = memberRepository.findByLoginId(loginId);
         return MberDvTy;
     }
-
 }
