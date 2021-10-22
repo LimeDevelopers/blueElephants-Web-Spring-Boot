@@ -1018,13 +1018,10 @@ public class MemberService extends _BaseService {
             }*/
 
             //패스워드 변경여부 체크하여 패스워드 업데이트.
-            if(form.getPwdChangeYn() == "Y") {
+            if(form.getPwdChangeYn().equals("Y")) {
                 account.setPwd(passwordEncoder.encode(form.getPwd()));
             }
-            System.out.println("생년월일 넘어온거 확인 : " + form.getBrthdy());
 
-            String Yn = form.getPwdChangeYn();
-            System.out.println("PassWordChangeYn : " + Yn);
 
             account.setMoblphon(form.getMoblphon());
             account.setNm(form.getNm());
