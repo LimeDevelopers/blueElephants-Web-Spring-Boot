@@ -1017,8 +1017,12 @@ public class MemberService extends _BaseService {
                 account.setPwd(passwordEncoder.encode(form.getPwd()));
             }
             System.out.println("생년월일 넘어온거 확인 : " + form.getBrthdy());
+
             account.setMoblphon(form.getMoblphon());
+            account.setNm(form.getNm());
             account.setSexPrTy(form.getSexPrTy());
+            account.setBrthdy(form.getBrthdy());
+            account.setNcnm(form.getNcnm());
             account.setUpdDtm(LocalDateTime.now());
 
 

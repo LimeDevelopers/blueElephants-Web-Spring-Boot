@@ -6,6 +6,7 @@
         var year;
         var month;
         var day;
+        var brthday;
 
 
 
@@ -369,16 +370,17 @@
         }
 
         function fn_modify() {
-            /*var pwdChangeYn = $('#pwdChangeYn').val();
+            var pwdChangeYn = $('#pwdChangeYn').val();
 
             if (pwdChangeYn == 'Y') {
                 if (!fn_chkPwdDup()) {
                     return false;
                 }
             }
+
             if (!fn_chkField()) {
                 return false;
-            }*/
+            }
 
             var frm = $('#form1');
 
@@ -430,6 +432,47 @@
 
         function fn_chkField() {
             var moblphon = $('#moblphon');
+            var brthdyStr = "";
+            brthdy = $("#brthdy");
+            year = $("#year");
+            month = $("#month");
+            day = $("#day");
+
+            if ($.trim(year.val())) {
+                brthdyStr += $.trim(year.val());
+            } /*else{
+                alert('출생년도를 입력하세요');
+                brthdy.after('<p class="err emph">생년월일은 필수 값입니다.</p>');
+                year.focus();
+                return false;
+            }*/
+
+            if ($.trim(month.val())) {
+                brthdyStr += $.trim(month.val());
+            } /*else{
+                alert('생년월일을 선택하세요');
+                brthdy.after('<p class="err emph">생년월일은 필수 값입니다.</p>');
+                month.focus();
+                return false;
+            }*/
+
+            if ($.trim(day.val())) {
+                brthdyStr += $.trim(day.val());
+            } /*else{
+                alert('생년월일을 선택하세요');
+                brthdy.after('<p class="err emph">생년월일은 필수 값입니다.</p>');
+                day.focus();
+                return false;
+            }*/
+
+            brthdy.val(brthdyStr);
+
+            if($('input[name=sexPrTy]:checked').length < 1){
+                alert('성별을 선택하세요');
+                $('#sexPrTy').after('<p class="err emph">성별은 필수 값입니다.</p>');
+                sexPrTy.focus();
+                return false;
+            }
 
             if (!moblphon.val()) {
                 moblphon.after('<p class="err emph">휴대전화번호는 필수 값입니다.</p>');
