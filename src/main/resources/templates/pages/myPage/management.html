@@ -28,11 +28,6 @@
                                     <th>가입일</th>
                                     <th>구분</th>
                                 </tr>
-                                <th:block th:if="${studentList == null or studentList.isEmpty()}">
-                                    <tr>
-                                        <div>나의 학생이 없습니다.</div>
-                                    </tr>
-                                </th:block>
                                 <tr th:each="stulist,idx : ${studentList}">
                                     <td th:text="${stulist.loginId}">PUCO123456</td>
                                     <td th:text="${stulist.nm}">이름</td>

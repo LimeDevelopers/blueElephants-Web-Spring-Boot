@@ -103,7 +103,7 @@ public class LoginController extends BaseCont {
         String redirect = "/";
         log.info("가나다라마"+account.getMberDvTy());
 
-        if(account.getEmail() == null && account.getMoblphon() == null || account.getEmail().equals("") && account.getMoblphon().equals("")){
+        if(account.getEmail() == null && account.getMoblphon() == null){
 
             Account load = memberService.load(account.getId());
             Account form = new Account();

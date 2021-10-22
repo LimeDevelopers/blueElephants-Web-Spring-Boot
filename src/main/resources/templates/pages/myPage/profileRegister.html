@@ -6,10 +6,17 @@
         var year;
         var month;
         var day;
+        var brthday;
+        var email;
+        var email01;
+        var email02;
+        var email03;
+
 
 
         $(function () {
             characSize();
+            appendYear();
             $(window).resize(function () {
                 characSize();
             });
@@ -23,6 +30,24 @@
                 }
             })*/
         });
+
+        function appendYear() {
+            var date = new Date();
+            var crrntYear = date.getFullYear();
+            year = $("#year");
+            year.append("<option value=''>선택</option>");
+            // 올해 기준으로 -1년부터 -70년을 보여준다.
+            for (var y = (crrntYear - 1); (crrntYear - 70) <= y; y--) {
+                year.append("<option value='" + y + "'>" + y + "년" + "</option>");
+            }
+
+            prtctorYear = $("#prtctorYear");
+            prtctorYear.append("<option value=''>선택</option>");
+            // 올해 기준으로 -1년부터 -70년을 보여준다.
+            for (var y = (crrntYear - 1); (crrntYear - 70) <= y; y--) {
+                prtctorYear.append("<option value='" + y + "'>" + y + "년" + "</option>");
+            }
+        }
 
         function fn_memberRemove() {
             if (!confirm("회원탈퇴시 연결된 모든 정보가 사라질 수 있습니다.\n 회원을 탈퇴하시겠습니까?")) {
@@ -221,24 +246,6 @@
             });
         }
 
-        function appendYear() {
-            var date = new Date();
-            var crrntYear = date.getFullYear();
-            year = $("#year");
-            year.append("<option value=''>선택</option>");
-            // 올해 기준으로 -1년부터 -70년을 보여준다.
-            for (var y = (crrntYear - 1); (crrntYear - 70) <= y; y--) {
-                year.append("<option value='" + y + "'>" + y + "년" + "</option>");
-            }
-
-            prtctorYear = $("#prtctorYear");
-            prtctorYear.append("<option value=''>선택</option>");
-            // 올해 기준으로 -1년부터 -70년을 보여준다.
-            for (var y = (crrntYear - 1); (crrntYear - 70) <= y; y--) {
-                prtctorYear.append("<option value='" + y + "'>" + y + "년" + "</option>");
-            }
-        }
-
         function fn_srchSchlNm() {
             srchSchlNm = $('#srchSchlNm');
             if (!$.trim(srchSchlNm.val())) {
@@ -373,6 +380,7 @@
                     return false;
                 }
             }
+
             if (!fn_chkField()) {
                 return false;
             }
@@ -427,6 +435,47 @@
 
         function fn_chkField() {
             var moblphon = $('#moblphon');
+            var brthdyStr = "";
+            brthdy = $("#brthdy");
+            year = $("#year");
+            month = $("#month");
+            day = $("#day");
+
+            if ($.trim(year.val())) {
+                brthdyStr += $.trim(year.val());
+            }else{
+                alert('출생년도를 입력하세요');
+                brthdy.after('<p class="err emph">생년월일은 필수 값입니다.</p>');
+                year.focus();
+                return false;
+            }
+
+            if ($.trim(month.val())) {
+                brthdyStr += $.trim(month.val());
+            }else{
+                alert('생년월일을 선택하세요');
+                brthdy.after('<p class="err emph">생년월일은 필수 값입니다.</p>');g
+                month.focus();
+                return false;
+            }
+
+            if ($.trim(day.val())) {
+                brthdyStr += $.trim(day.val());
+            }else{
+                alert('생년월일을 선택하세요');
+                brthdy.after('<p class="err emph">생년월일은 필수 값입니다.</p>');
+                day.focus();
+                return false;
+            }
+
+            brthdy.val(brthdyStr);
+
+            if($('input[name=sexPrTy]:checked').length < 1){
+                alert('성별을 선택하세요');
+                $('#sexPrTy').after('<p class="err emph">성별은 필수 값입니다.</p>');
+                sexPrTy.focus();
+                return false;
+            }
 
             if (!moblphon.val()) {
                 moblphon.after('<p class="err emph">휴대전화번호는 필수 값입니다.</p>');
@@ -484,13 +533,13 @@
 
             $.ajax({
                 type: "POST",
-                url: "/api/myPage/isExistsByEmailAndAuth",
+                url: "/api/member/isExistsByEmail",
                 data: {
                     "email": email.val()
                 },
                 success: function (data) {
                     if (email.val() != '') {
-                        alert('이메일 변경 인증메일이 발송되었습니다.\n인증 가능 시간(1시간)이내에 인증완료 후 이메일주소가 변경됩니다.');
+                        alert('등록 가능한 이메일 입니다.');
                         emailDupBool = true;
                         email01.props("disabled", true);
                         email02.props("disabled", true);
@@ -573,10 +622,12 @@
                                         </li>
                                         <li class="years_inner col">
                                             <div class="th">생년월일</div>
-                                            <th:block th:if="*{brthdy ne null}">
-                                                <div class="td td_txt" th:text="*{brthdy}">2007.01.15</div>
-                                            </th:block>
-                                            <th:block th:if="*{brthdy eq null}">
+                                            <!--<th:block th:if="*{brthdy ne null}">
+                                                <div class="td">
+                                                    <input name="brthdy" th:placeholder="*{brthdy}" th:value="*{brthdy}"/>
+                                                </div>
+                                            </th:block>-->
+                                            <!--<th:block th:if="*{brthdy eq null}">-->
                                                 <div class="td col">
                                                     <div class="birth_form clearfix">
                                                         <div class="select">
@@ -642,7 +693,7 @@
                                                         <input type="hidden" name="brthdy" id="brthdy"/>
                                                     </div>
                                                 </div>
-                                            </th:block>
+                                            <!--</th:block>-->
                                         </li>
                                         <li>
                                             <div class="th">성별</div>
@@ -665,14 +716,11 @@
                                             <div class="td">
                                                 <div class="email_form clearfix">
                                                     <!-- [D] active 클래스가 있어야 직접입력 인풋이 노출 됨(style.js 에 들어가 있음) -->
-                                                    <input type="text" name="email01" id="email01" title="이메일 아이디 입력"
-                                                           th:value="*{#strings.substringBefore(email, '@')}"/>
+                                                    <input type="text" name="email01" id="email01" title="이메일 아이디 입력" th:value="*{#strings.substringBefore(email, '@')}"/>
                                                     <span class="at">@</span>
                                                     <div class="select">
-                                                        <label for="email02"
-                                                               th:text="*{#strings.substringAfter(email, '@')}">선택</label>
-                                                        <select name="email02" id="email02"
-                                                                th:value="*{#strings.substringAfter(email, '@')}">
+                                                        <label for="email02" th:text="*{#strings.substringAfter(email, '@')}">선택</label>
+                                                        <select name="email02" id="email02" th:value="*{#strings.substringAfter(email, '@')}">
                                                             <option value="">선택</option>
                                                             <option value="naver.com">naver.com</option>
                                                             <option value="gmail.com">gmail.com</option>
@@ -686,7 +734,7 @@
                                                            title="이메일주소 직접입력"/>
                                                     <input type="hidden" name="email" id="email"/>
                                                     <button type="button" class="btn btn_lg btn_line_blue btn_pill_10"
-                                                            onclick="return fn_chkEmailDupAndAuth()">인증요청
+                                                            onclick="return fn_chkEmailDupAndAuth()">중복확인
                                                     </button>
                                                 </div>
                                             </div>
