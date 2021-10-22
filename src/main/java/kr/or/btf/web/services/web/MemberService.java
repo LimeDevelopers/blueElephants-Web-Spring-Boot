@@ -1770,7 +1770,6 @@ public class MemberService extends _BaseService {
         Optional<Account> MberDvTy = memberRepository.findByLoginId(loginId);
         return MberDvTy;
     }
-<<<<<<< HEAD
 
     public Account getGroupData(String idx) {
         Long id = Long.parseLong(idx);
@@ -1819,6 +1818,4 @@ public class MemberService extends _BaseService {
         }
         return rs;
     }
-=======
->>>>>>> d3fb9f83916fee27cd2f3b2b8041f47e3c866e8f
 }
