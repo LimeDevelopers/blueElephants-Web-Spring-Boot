@@ -1769,4 +1769,51 @@ public class MemberService extends _BaseService {
         return MberDvTy;
     }
 
+    public Account getGroupData(String idx) {
+        Long id = Long.parseLong(idx);
+        Account result = memberRepository.findById(id).orElseGet(Account::new);
+        QAccount qAccount = QAccount.account;
+        QMemberGroup qMemberGroup = QMemberGroup.memberGroup;
+        QMemberCrew qMemberCrew = QMemberCrew.memberCrew;
+
+        OrderSpecifier<LocalDateTime> orderSpecifier = qAccount.regDtm.desc();
+
+        BooleanBuilder builder = new BooleanBuilder();
+        builder.and(qAccount.id.eq(id));
+        Account rs = null;
+        if(result.getMberDvTy().equals(UserRollType.CREW)){
+            rs = queryFactory
+                    .select(Projections.fields(Account.class,
+                            qAccount.id,
+                            qAccount.loginId,
+                            qAccount.nm,
+                            qAccount.mberDvTy,
+                            qAccount.moblphon,
+                            qAccount.email,
+                            qAccount.approval
+                    ))
+                    .from(qAccount)
+                    .where(builder)
+                    .orderBy(orderSpecifier)
+                    .fetchFirst();
+        }
+
+        if(result.getMberDvTy().equals(UserRollType.GROUP)){
+            rs = queryFactory
+                    .select(Projections.fields(Account.class,
+                            qAccount.id,
+                            qAccount.loginId,
+                            qAccount.nm,
+                            qAccount.mberDvTy,
+                            qAccount.moblphon,
+                            qAccount.email,
+                            qAccount.approval
+                    ))
+                    .from(qAccount)
+                    .where(builder)
+                    .orderBy(orderSpecifier)
+                    .fetchFirst();
+        }
+        return rs;
+    }
 }

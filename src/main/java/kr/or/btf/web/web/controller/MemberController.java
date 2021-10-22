@@ -121,6 +121,89 @@ public class MemberController extends BaseCont{
     // 엑셀 다운로드 끝
 
 
+    // 엑셀 다운로드
+    @GetMapping("/api/soulGod/excelDownload/{id}")
+    public void excelDownloads(HttpServletResponse response,
+                                  @PathVariable(name = "id") String id) throws IOException {
+        Workbook wb = new XSSFWorkbook();
+        Sheet sheet = wb.createSheet("단체 리스트");
+        Row row;
+        Cell cell;
+        int rowNum = 0;
+
+        // Header
+        row = sheet.createRow(rowNum++);
+        cell = row.createCell(0);
+        cell.setCellValue("고유번호");
+        cell = row.createCell(1);
+        cell.setCellValue("아이디");
+        cell = row.createCell(2);
+        cell.setCellValue("이름");
+        cell = row.createCell(3);
+        cell.setCellValue("휴대폰");
+        cell = row.createCell(4);
+        cell.setCellValue("이메일");
+        cell = row.createCell(5);
+        cell.setCellValue("가입 구분");
+
+        // Body
+        String[] pid = id.split(",");
+        if (pid.length > 1) {
+            for (int i = 0; i < pid.length; i++) {
+                Account data = memberService.getGroupData(pid[i]);
+                String dbTy = "";
+                if(data.getMberDvTy().equals(UserRollType.GROUP)){
+                    dbTy = "일반단체";
+                } else if(data.getMberDvTy().equals(UserRollType.CREW)){
+                    dbTy = "지지크루";
+                }
+                row = sheet.createRow(rowNum++);
+                cell = row.createCell(0);
+                cell.setCellValue(data.getId());
+                cell = row.createCell(1);
+                cell.setCellValue(data.getLoginId());
+                cell = row.createCell(2);
+                cell.setCellValue(data.getNm());
+                cell = row.createCell(3);
+                cell.setCellValue(data.getMoblphon());
+                cell = row.createCell(4);
+                cell.setCellValue(data.getEmail());
+                cell = row.createCell(5);
+                cell.setCellValue(dbTy);
+            }
+        } else {
+            Account data = memberService.getGroupData(pid[0]);
+            String dbTy = "";
+            if(data.getMberDvTy().equals(UserRollType.GROUP)){
+                dbTy = "일반단체";
+            } else if(data.getMberDvTy().equals(UserRollType.CREW)){
+                dbTy = "지지크루";
+            }
+            row = sheet.createRow(rowNum++);
+            cell = row.createCell(0);
+            cell.setCellValue(data.getId());
+            cell = row.createCell(1);
+            cell.setCellValue(data.getLoginId());
+            cell = row.createCell(2);
+            cell.setCellValue(data.getNm());
+            cell = row.createCell(3);
+            cell.setCellValue(data.getMoblphon());
+            cell = row.createCell(4);
+            cell.setCellValue(data.getEmail());
+            cell = row.createCell(5);
+            cell.setCellValue(dbTy);
+        }
+
+        // 컨텐츠 타입과 파일명 지정
+        response.setContentType("ms-vnd/excel");
+        response.setHeader("Content-Disposition", "attachment;filename=groupData.xlsx");
+
+        // Excel File Output
+        wb.write(response.getOutputStream());
+        wb.close();
+    }
+    // 엑셀 다운로드 끝
+
     public List<Account> allListGet() {
         List<Account> accounts = memberService.findAll();
         return accounts;
