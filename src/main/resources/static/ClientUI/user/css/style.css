@@ -12297,10 +12297,10 @@ li.period .td span {
     /* padding-left: 300px;*/
 }
 .page_cont > .review_text_box {
-    height: 150px;
+    height: 185px;
 }
 .page_cont > .sub_text_box > img {
-    bottom: 30px;
+    bottom: 0px;
 }
 .page_cont > .review_text_box .text {
     /*padding-left: 350px;*/
@@ -12320,10 +12320,11 @@ li.period .td span {
     padding: 25px 0px; */
 }
 .page_cont > .review_text_box > .text > .title {
+    font-size: 22px;
     color: #555868;
 }
 .page_cont > .review_text_box > .text > .sub {
-    color: #9499ad;
+    color: #555868;
 }
 .page_cont > .review_text_box > .text > .sub b {
     display: block;
