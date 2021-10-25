@@ -3196,7 +3196,7 @@
 
 	/* 활동_도움요청_가족테라피 시작 */
 	.page_cont > .sub_text_box.family_text_box > .text {
-		padding: 30px;
+		padding: 10px;
 	}
 	.program_inner {
 		padding: 40px 20px;
