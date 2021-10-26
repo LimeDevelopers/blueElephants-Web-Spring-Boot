@@ -5499,7 +5499,7 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
 }
 .lecture{
     flex-direction: row;
-    justify-content: end;
+    justify-content: center;
     align-items: center;
     flex-wrap: wrap;
     max-width: 1200px;
