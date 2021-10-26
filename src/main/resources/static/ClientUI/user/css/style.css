@@ -6489,6 +6489,7 @@ h4.subtit.search_tit {
 
 h4.subtit.review_title {
     margin-top: 0;
+    padding : 20px;
 }
 h4.submsg.mo {
     display: none
@@ -11412,13 +11413,14 @@ li.period .td span {
 
 /* 활동_도움요청_가족테라피 시작 */
 .sub_text_box.family_text_box {
-    background-color: #e8ebf1;
+    background-color: #bbd2f6;
     border-radius: 20px;
-    height: 160px;
+    height: 200px;
 }
 .page_cont > .sub_text_box.family_text_box > .text {
-    padding: 40px 75px;
+    padding: 0px 75px;
     width: 100%;
+    text-align: center;
 }
 .family_info {
     margin-top: 45px;
