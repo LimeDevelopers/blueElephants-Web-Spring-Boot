@@ -603,6 +603,8 @@ public class ActivityController extends BaseCont {
                 satisfaction = checkCourseSn(account.getId(), masterSeqLoad.getId(), 7);
             }
         }
+
+
         model.addAttribute("afterInspection", afterInspection);
         model.addAttribute("satisfaction", satisfaction);
         model.addAttribute("atnlcReqPid", atnlcReqPid);
@@ -695,7 +697,6 @@ public class ActivityController extends BaseCont {
 
         model.addAttribute("prior", StepType.PRIOR.name());
         model.addAttribute("filePath", filePath + "/" + Constants.FOLDERNAME_COURSEITEM);
-
         model.addAttribute("mc", "activity");
         model.addAttribute("pageTitle", "예방교육");
         return "/pages/activity/eduClass";
@@ -749,6 +750,8 @@ public class ActivityController extends BaseCont {
         model.addAttribute("crssqPid", id);
         model.addAttribute("sn", sn);
 
+
+
         boolean isRestudy = false;
         Long cntntsLen = null;
         CourseItem courseItem = courseItemService.load(id);
@@ -795,6 +798,9 @@ public class ActivityController extends BaseCont {
 
         model.addAttribute("mc", "activity");
         model.addAttribute("pageTitle", "예방교육");
+
+        System.out.println("========= detail Chk ============"+ atnlcReqPid  + " + "  + sn + " + "  + crsMstPid + " + "  + id + " + "  + sn);
+
         return "/pages/activity/eduClassDetail";
     }
 
