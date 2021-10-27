@@ -461,4 +461,9 @@ public class CourseRequestService extends _BaseService {
 
         return list;
     }
+
+    public Long existByMberPid(Long MberPid){
+        Long Result = courseRequestRepository.countByMberPid(MberPid);
+        return Result;
+    }
 }

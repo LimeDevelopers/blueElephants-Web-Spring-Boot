@@ -16,27 +16,29 @@
         return false;
       }
 
-      if (userGbn == 'BATCH'){
+      /*if (userGbn == 'BATCH'){
         alert('회원정보 수정 후 이용할 수 있습니다.');
         location.href="/pages/myPage/profile";
         return false;
-      }
+      }*/
 
       if (userGbn == 'STUDENT' && eduTy == 'N') {
         if (mberDvTy == 'OFFLINE') {
 
         }
       } else {
-        if (mberDvTy != userGbn) {
+
+        /*if (mberDvTy != userGbn) {
           alert('수강신청 대상이 아닙니다.');
           return false;
-        }
+        }*/
       }
 
-      if (atnlcReqPid != 0) {
+
+      /*if (atnlcReqPid != 0) {
         alert('이미 수강신청한 과정입니다.');
         return false;
-      }
+      }*/
 
       if (!confirm('수강신청 하시겠습니까?')) {
         return false;
@@ -59,6 +61,8 @@
           } else if (data.status == '200') {
             alert(data.msg);
             location.reload();
+          } else if (data.status == '403') {
+            alert(data.msg);
           } else {
             alert('error::' + error.statusText);
           }

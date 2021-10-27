@@ -8,6 +8,7 @@ import kr.or.btf.web.common.aurora.AuroraForm;
 import kr.or.btf.web.domain.web.*;
 import kr.or.btf.web.domain.web.dto.CourseItemDto;
 import kr.or.btf.web.domain.web.enums.*;
+import kr.or.btf.web.repository.web.MemberRepository;
 import kr.or.btf.web.services.web.*;
 import kr.or.btf.web.utils.FileUtilHelper;
 import kr.or.btf.web.utils.StringHelper;
@@ -355,6 +356,9 @@ public class ActivityController extends BaseCont {
                                             @RequestBody CourseRequestForm courseRequestForm,
                                             @CurrentUser Account account) {
         HashMap<String, String> rest = new HashMap<>();
+        Long Result = courseRequestService.existByMberPid(account.getId());
+
+
         if (account.getMberDvTy().equals(UserRollType.STUDENT)) {
             // 수정중 김재일
             MemberSchool memberSchool = memberSchoolService.loadByMber(account.getId());
@@ -389,6 +393,11 @@ public class ActivityController extends BaseCont {
                 rest.put("msg", "학교 정보가 등록되있지않습니다.");
                 response.setStatus(200);
             }
+        } else if(Result > 0) {
+            log.info("AcitiController Result IF Run  ~~~~~ " + Result);
+            rest.put("status" , "403");
+            rest.put("msg", "이미 신청하신 강좌입니다.");
+            response.setStatus(200);
         } else {
             rest.put("status", "401");
             rest.put("msg", "학생만 수강신청이 가능합니다.");
@@ -840,11 +849,14 @@ public class ActivityController extends BaseCont {
                                   @PathVariable(name = "crsMstPid") Long crsMstPid,
                                   @PathVariable(name = "sn") Integer sn) {
 
+
+
         if (account == null) {
             model.addAttribute("altmsg", "로그인이 필요한 서비스입니다.");
             model.addAttribute("locurl", "/login");
             return "/message";
         }
+
 
         //url치고 들어오는것을 방지하기위해 유효성검사 완료상태인지 체크 (이전단계가 완료되었는지를 확인하는 함수여서 sn에 1을 더해줌)
         boolean b = checkCourseSn(account.getId(), crsMstPid, sn + 1);
