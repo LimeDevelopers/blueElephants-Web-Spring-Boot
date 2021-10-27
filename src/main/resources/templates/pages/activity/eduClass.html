@@ -16,13 +16,13 @@
         <th:block th:include="fragments/mo_menu"></th:block>
         <div class="sub_container">
             <th:block th:include="fragments/dept_menu"></th:block>
-            <div class="lecture_inner lecture_inner2"th:object="${form}">
+            <div class="lecture_inner lecture_inner2 inner" th:object="${form}">
                 <div class="lecture">
                     <div class="sub_tit_inner">
                         <h1 class="sub_title" th:text="*{crsNm}">수강신청</h1>
                         <div class="class_btn_inner">
-                            <a href="/pages/activity/preventionEdu" class="class_btn_01">교육 처음으로</a>
-                            <a th:href="|/pages/activity/eduMasterClass/${crsMstPid}|" class="class_btn_02">목록</a>
+                            <button class="class_btn_01" onclick="location.href='/pages/activity/preventionEdu'">교육 처음으로</button>
+                            <button th:href="|/pages/activity/eduMasterClass/${crsMstPid}|" class="class_btn_02">목록</button>
                         </div>
                     </div>
                     <th:block th:if="${courseItems == null or courseItems.isEmpty()}"><!--등록된 글이 없을 경우-->
