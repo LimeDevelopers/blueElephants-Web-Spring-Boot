@@ -172,8 +172,8 @@
                   </div>
                 </th:block>
               </th:block>
-              <th:block th:if="${eduAt == 'Y'}">
-                <th:block th:if="${item.mberDvTy == 'STUDENT'}">
+              <th:block th:if="${eduAt == 'N'}">
+                <th:block th:if="${item.mberDvTy == 'TEACHER'}">
                   <div class="edu_list_box">
                     <a th:href="${'/pages/activity/eduMasterClass/'+item.id}" class="lecture_sumnail">
                       <img src="/ClientUI/user/images/contents/lecture/lecture.jpg" alt="lecture_sumnail"
@@ -206,6 +206,40 @@
                     </div>
                   </div>
                 </th:block>
+              </th:block>
+
+              <th:block th:if="${eduAt == 'X'}">
+                <div class="edu_list_box">
+                  <a th:href="${'/pages/activity/eduMasterClass/'+item.id}" class="lecture_sumnail">
+                    <img src="/ClientUI/user/images/contents/lecture/lecture.jpg" alt="lecture_sumnail"
+                         class="sumnail">
+                  </a>
+                  <div class="edu_text_box">
+                    <span class="edu_tag">온라인교육</span>
+                    <p class="edu_form_title" th:text="${item.crsNm}">[청소년] 푸른코끼리 사이버폭력 예방교육</p>
+                  </div>
+                  <div class="edu_btn_box">
+
+                    <th:block th:if="${item.atnlcReqPid eq null}">
+                      <a th:href="${'/pages/activity/eduMasterClass/'+item.id}" class="edu_btn">
+                        수강가능
+                      </a>
+                    </th:block>
+                    <th:block th:unless="${item.atnlcReqPid eq null}">
+                      <th:block th:if="${item.completeCnt < 6}">
+                        <a th:href="${'/pages/activity/eduMasterClass/'+item.id}" class="edu_btn">
+                          수강중
+                        </a>
+                      </th:block>
+                      <th:block th:if="${item.completeCnt eq 6}">
+                        <a th:href="${'/pages/activity/eduMasterClass/'+item.id}" class="edu_btn">
+                          수강완료
+                        </a>
+                      </th:block>
+                    </th:block>
+
+                  </div>
+                </div>
               </th:block>
               <th:block th:if="${eduAt == 'X'}">
                 <div class="edu_list_box">
@@ -241,6 +275,7 @@
                 </div>
               </th:block>
             </div>
+
             <th:block th:if="${masterSeqs != null}"><!--등록된 글이 없을 경우-->
               <th:block  th:replace="/fragments/paging :: pagingbody(list=${masterSeqs}, link='/pages/activity/preventionEdu/' + ${userGbn}, formId='form1')"></th:block>
             </th:block>

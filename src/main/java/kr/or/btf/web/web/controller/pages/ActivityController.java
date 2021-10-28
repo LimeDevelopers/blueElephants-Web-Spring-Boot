@@ -13,6 +13,7 @@ import kr.or.btf.web.services.web.*;
 import kr.or.btf.web.utils.FileUtilHelper;
 import kr.or.btf.web.utils.StringHelper;
 import kr.or.btf.web.web.controller.BaseCont;
+import kr.or.btf.web.web.controller.CounselingController;
 import kr.or.btf.web.web.form.*;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.ArrayUtils;
@@ -328,6 +329,16 @@ public class ActivityController extends BaseCont {
             // 수정중 김재일
             searchForm.setPageSize(Constants.DEFAULT_PAGESIZE_3);
             searchForm.setApplyAble(true);
+
+            if(account.getMberDvTy() == UserRollType.TEACHER) {
+                searchForm.setUserPid(account.getId());
+                searchForm.setUseAt("Y");
+                searchForm.setMberDvType(MberDvType.TEACHER);
+                log.info("********* 선생권한 으로 분류됨 *********");
+                Page<CourseMaster> masterSeqs = courseMasterService.listTchr(pageable, searchForm);
+                model.addAttribute("masterSeqs" , masterSeqs);
+            }
+
             if (account != null) {
                 searchForm.setUserPid(account.getId());
                 searchForm.setUseAt("Y");
@@ -339,9 +350,10 @@ public class ActivityController extends BaseCont {
                 model.addAttribute("masterSeqs", masterSeqs);
             }
         }
+        log.info("RESULT ======== " + account != null ? account.getOnlineEdu() : "Y");
 
         model.addAttribute("filePath", filePath + "/" + Constants.FOLDERNAME_COURSEMASTERSEQ);
-        model.addAttribute("eduAt", account != null ? account.getOnlineEdu() : "X");
+        model.addAttribute("eduAt", account != null ? account.getOnlineEdu() : "Y");
         model.addAttribute("userGbn", account != null ? account.getMberDvTy() : "");
 
         model.addAttribute("mc", "activity");

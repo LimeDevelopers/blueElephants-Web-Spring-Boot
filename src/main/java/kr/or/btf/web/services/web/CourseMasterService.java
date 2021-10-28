@@ -59,7 +59,6 @@ public class CourseMasterService extends _BaseService {
                     .from(qCourseMasterRel)
                     .where(qCourseMasterRel.crsMstPid.eq(qCourseMaster.id)).eq(Constants.satisfSvySn.longValue()));
         }
-
         if (searchForm.getSrchGbn() != null && searchForm.getSrchGbn() != "") {
             builder.and(qCourseMaster.mberDvTy.eq(searchForm.getSrchGbn()));
         }
@@ -107,6 +106,81 @@ public class CourseMasterService extends _BaseService {
                 .orderBy(orderSpecifier)
                 .fetchResults();
 
+        return new PageImpl<>(mngList.getResults(), pageable, mngList.getTotal());
+    }
+
+    public Page<CourseMaster> listTchr(Pageable pageable , SearchForm searchForm) {
+
+        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
+
+        pageable = PageRequest.of(page, Constants.DEFAULT_PAGESIZE_3); // <- Sort 추가
+
+        QCourseMaster qCourseMaster = QCourseMaster.courseMaster;
+        QCourseMasterRel qCourseMasterRel = QCourseMasterRel.courseMasterRel;
+        QCourseRequest qCourseRequest = QCourseRequest.courseRequest;
+        QCourseRequestComplete qCourseRequestComplete = QCourseRequestComplete.courseRequestComplete;
+        QSurvey qSurvey = QSurvey.survey;
+        QAccount qAccount = QAccount.account;
+
+        OrderSpecifier<Long> orderSpecifier = qCourseMaster.id.desc();
+
+        BooleanBuilder builder = new BooleanBuilder();
+        builder.and(qCourseMaster.delAt.eq("N")); // 삭제여부
+
+        if (searchForm.getApplyAble() != null && searchForm.getApplyAble()) {
+            builder.and(JPAExpressions.select(qCourseMasterRel.count())
+                    .from(qCourseMasterRel)
+                    .where(qCourseMasterRel.crsMstPid.eq(qCourseMaster.id)).eq(Constants.satisfSvySn.longValue()));
+            log.info("********* 선생권한 으로 분류됨 *********" + builder);
+        }
+
+        if (searchForm.getMberDvType() != null) {
+            builder.and(qCourseMaster.mberDvTy.eq(searchForm.getMberDvType().name()));
+            log.info("********* 선생권한 으로 분류됨 *********" + builder);
+        }
+        if (searchForm.getUseAt() != null) {
+            builder.and(qCourseMaster.openAt.eq(searchForm.getUseAt()));
+            log.info("********* 선생권한 으로 분류됨 *********" + builder);
+        }
+
+        QueryResults<CourseMaster> mngList = queryFactory
+                .select(Projections.fields(CourseMaster.class,
+                        qCourseMaster.id,
+                        qCourseMaster.mberDvTy,
+                        qCourseMaster.crsNm,
+                        qCourseMaster.crsCn,
+                        qCourseMaster.imgFl,
+                        qCourseMaster.regPsId,
+                        qCourseMaster.regDtm,
+                        qCourseMaster.updPsId,
+                        qCourseMaster.updDtm,
+                        qCourseMaster.openAt,
+                        qCourseRequest.id.as("atnlcReqPid"),
+                        ///qCourseRequestComplete.count().as("completeCnt"),
+                        ExpressionUtils.as(
+                                JPAExpressions.select(qAccount.nm)
+                                        .from(qAccount)
+                                        .where(qAccount.loginId.eq(qCourseMaster.regPsId)),
+                                "regPsNm"),
+                        ExpressionUtils.as(
+                                JPAExpressions.select(qCourseRequestComplete.count())
+                                        .from(qCourseRequestComplete)
+                                        .where(qCourseRequestComplete.cmplSttTy.eq(CompleteStatusType.COMPLETE.name()).and(qCourseRequestComplete.atnlcReqPid.eq(qCourseRequest.id)).and(qCourseRequestComplete.crsMstPid.eq(qCourseMaster.id))),
+                                "completeCnt")
+
+                ))
+                .from(qCourseMaster)
+                .leftJoin(qCourseRequest).on(qCourseMaster.id.eq(qCourseRequest.crsMstPid)
+                        .and(qCourseRequest.mberPid.eq(searchForm.getUserPid())))
+                .where(builder)
+
+                .limit(pageable.getPageSize())
+                .offset(pageable.getOffset())
+
+                .orderBy(orderSpecifier)
+                .fetchResults();
+
+        System.out.println("mngList : " + mngList.getResults());
         return new PageImpl<>(mngList.getResults(), pageable, mngList.getTotal());
     }
 
