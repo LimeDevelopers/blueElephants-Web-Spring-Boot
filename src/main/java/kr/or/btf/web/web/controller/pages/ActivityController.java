@@ -74,6 +74,7 @@ public class ActivityController extends BaseCont {
     private final InspectionAnswerItemService inspectionAnswerItemService;
     private final InspectionResponseService inspectionResponseService;
     private final MemberSchoolService memberSchoolService;
+    private final MemberTeacherService memberTeacherService;
     private final AdviceRequestTypeService adviceRequestTypeService;
     private final InspectionResponsePersonService inspectionResponsePersonService;
     private final CourseRequestCompleteService courseRequestCompleteService;
@@ -379,18 +380,27 @@ public class ActivityController extends BaseCont {
         HashMap<String, String> rest = new HashMap<>();
         Long cnt = courseRequestService.existByMberPid(account.getId());
 
+
+
         if(account != null) {
 
-            MemberSchool memberSchool = memberSchoolService.loadByMber(account.getId());
+            Account load = memberService.load(account.getId());
+            MemberTeacher memberSchool = memberTeacherService.loadByMber(load.getId());
+            if(account.getMberDvTy().equals(UserRollType.TEACHER)){
+
+            }
             //선생,학생 권한자
             if(account.getMberDvTy().equals(UserRollType.TEACHER) || account.getMberDvTy().equals(UserRollType.STUDENT)) {
-                log.info("선생권한자");
+
+                log.info("학교정보 체크" + load.getSchlNm());
+
                 if(memberSchool != null) {
+
                     courseRequestForm.setAreaNm(memberSchool.getAreaNm());
                     courseRequestForm.setSchlNm(memberSchool.getSchlNm());
                     courseRequestForm.setGrade(memberSchool.getGrade());
                     courseRequestForm.setBan(memberSchool.getBan());
-                    courseRequestForm.setNo(memberSchool.getNo());
+                    //courseRequestForm.setNo(memberSchool.getNo());
                     courseRequestForm.setRegDtm(LocalDateTime.now());
                     courseRequestForm.setConfmAt("Y");
                     courseRequestForm.setMberPid(account.getId());
@@ -399,7 +409,9 @@ public class ActivityController extends BaseCont {
                     List<CourseMasterRel> courseMasterRels = courseMasterRelService.list(courseMasterRelForm);
                     boolean result = false;
                     result = courseRequestService.insert(courseRequestForm, courseMasterRels);
+
                     if(result) {
+                        log.info("신청완료 if문 걸림");
                         rest.put("status" , "200");
                         rest.put("msg" , "신청되었습니다.");
                         response.setStatus(200);
@@ -803,6 +815,11 @@ public class ActivityController extends BaseCont {
             completeBool = checkCourseSn(account.getId(), crsMstPid, sn);
             if (!completeBool && atnlcReqPid != null && atnlcReqPid != 0L) {
                 if (sn == 3) {
+                    //김진욱 수정 중
+                    /*if(account.getMberDvTy().equals(UserRollType.TEACHER)){
+
+                    }*/
+
                     model.addAttribute("altmsg", "사전예방교육을 수강하기 전 \n사전검사를 먼저 수행해야 합니다.");
                     model.addAttribute("locurl", "/pages/activity/preInspection/" + crsMstPid + "/" + (sn - 1));
                 } else if (sn == 4) {
