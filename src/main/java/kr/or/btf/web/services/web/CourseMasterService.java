@@ -10,6 +10,8 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.or.btf.web.common.Constants;
 import kr.or.btf.web.domain.web.*;
 import kr.or.btf.web.domain.web.enums.CompleteStatusType;
+import kr.or.btf.web.domain.web.enums.MberDvType;
+import kr.or.btf.web.domain.web.enums.UserRollType;
 import kr.or.btf.web.repository.web.CourseMasterRepository;
 import kr.or.btf.web.repository.web.MemberRepository;
 import kr.or.btf.web.utils.FileUtilHelper;
@@ -131,16 +133,13 @@ public class CourseMasterService extends _BaseService {
             builder.and(JPAExpressions.select(qCourseMasterRel.count())
                     .from(qCourseMasterRel)
                     .where(qCourseMasterRel.crsMstPid.eq(qCourseMaster.id)).eq(Constants.satisfSvySn.longValue()));
-            log.info("********* 선생권한 으로 분류됨 *********" + builder);
         }
 
         if (searchForm.getMberDvType() != null) {
             builder.and(qCourseMaster.mberDvTy.eq(searchForm.getMberDvType().name()));
-            log.info("********* 선생권한 으로 분류됨 *********" + builder);
         }
         if (searchForm.getUseAt() != null) {
             builder.and(qCourseMaster.openAt.eq(searchForm.getUseAt()));
-            log.info("********* 선생권한 으로 분류됨 *********" + builder);
         }
 
         QueryResults<CourseMaster> mngList = queryFactory
@@ -210,10 +209,13 @@ public class CourseMasterService extends _BaseService {
         }
         if (searchForm.getMberDvType() != null) {
             builder.and(qCourseMaster.mberDvTy.eq(searchForm.getMberDvType().name()));
+            builder.or(qCourseMaster.mberDvTy.eq("OFFLINE"));
+
         }
         if (searchForm.getUseAt() != null) {
             builder.and(qCourseMaster.openAt.eq(searchForm.getUseAt()));
         }
+        log.info("Builder Chk ===== " + builder);
 
 
 
@@ -234,7 +236,8 @@ public class CourseMasterService extends _BaseService {
                         ExpressionUtils.as(
                                 JPAExpressions.select(qAccount.nm)
                                         .from(qAccount)
-                                        .where(qAccount.loginId.eq(qCourseMaster.regPsId)),
+                                        .where(qAccount.loginId.eq(qCourseMaster.regPsId))
+                                        .where(qCourseMaster.mberDvTy.eq("OFFLINE")),
                                 "regPsNm"),
                         ExpressionUtils.as(
                                 JPAExpressions.select(qCourseRequestComplete.count())

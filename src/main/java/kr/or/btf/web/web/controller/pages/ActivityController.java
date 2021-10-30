@@ -330,37 +330,30 @@ public class ActivityController extends BaseCont {
             // 수정중 김재일
             searchForm.setPageSize(Constants.DEFAULT_PAGESIZE_3);
             searchForm.setApplyAble(true);
-
+            //선생 권한자 수강 list
             if(account.getMberDvTy() == UserRollType.TEACHER) {
                 searchForm.setUserPid(account.getId());
                 searchForm.setUseAt("Y");
                 searchForm.setMberDvType(MberDvType.TEACHER);
-                log.info("********* 선생권한 으로 분류됨 *********");
                 Page<CourseMaster> masterSeqs = courseMasterService.listTchr(pageable, searchForm);
                 model.addAttribute("masterSeqs" , masterSeqs);
             }
-
+            //학생 권한자 수강 list
             if(account.getMberDvTy() == UserRollType.STUDENT) {
                 searchForm.setUserPid(account.getId());
                 searchForm.setUseAt("Y");
                 searchForm.setMberDvType(MberDvType.STUDENT);
-                log.info("********* 학생권한 으로 분류됨 *********");
                 Page<CourseMaster> masterSeqs = courseMasterService.listByRequest(pageable, searchForm);
                 model.addAttribute("masterSeqs" , masterSeqs);
             }
-
-            /*if (account != null) {
-                searchForm.setUserPid(account.getId());
-                searchForm.setUseAt("Y");
-                Page<CourseMaster> masterSeqs = courseMasterService.listByRequest(pageable, searchForm);
-                model.addAttribute("masterSeqs", masterSeqs);
-            } else {
-                searchForm.setUseAt("Y");
-                Page<CourseMaster> masterSeqs = courseMasterService.list(pageable, searchForm);
-                model.addAttribute("masterSeqs", masterSeqs);
-            }*/
+            if(account.getMberDvTy() == UserRollType.PARENT) {
+                log.info("부모권한자 list");
+            }
+            if(account.getMberDvTy() == UserRollType.NORMAL) {
+                log.info("일반권한자 list");
+            }
         }
-        log.info("RESULT ======== " + account != null ? account.getOnlineEdu() : "Y");
+
 
         model.addAttribute("filePath", filePath + "/" + Constants.FOLDERNAME_COURSEMASTERSEQ);
         model.addAttribute("eduAt", account != null ? account.getOnlineEdu() : "Y");
@@ -380,22 +373,17 @@ public class ActivityController extends BaseCont {
         HashMap<String, String> rest = new HashMap<>();
         Long cnt = courseRequestService.existByMberPid(account.getId());
 
-
-
         if(account != null) {
-
-            Account load = memberService.load(account.getId());
-            MemberTeacher memberSchool = memberTeacherService.loadByMber(load.getId());
-            if(account.getMberDvTy().equals(UserRollType.TEACHER)){
-
-            }
-            //선생,학생 권한자
-            if(account.getMberDvTy().equals(UserRollType.TEACHER) || account.getMberDvTy().equals(UserRollType.STUDENT)) {
-
+            rest.put("status","404");
+            rest.put("msg","로그인 후 이용 가능한 서비스 입니다.");
+            response.setStatus(200);
+            //선생권한자 수강신청
+            if(account.getMberDvTy().equals(UserRollType.TEACHER)) {
+                Account load = memberService.load(account.getId());
+                MemberTeacher memberSchool = memberTeacherService.loadByMber(load.getId());
                 log.info("학교정보 체크" + load.getSchlNm());
 
                 if(memberSchool != null) {
-
                     courseRequestForm.setAreaNm(memberSchool.getAreaNm());
                     courseRequestForm.setSchlNm(memberSchool.getSchlNm());
                     courseRequestForm.setGrade(memberSchool.getGrade());
@@ -412,8 +400,8 @@ public class ActivityController extends BaseCont {
 
                     if(result) {
                         log.info("신청완료 if문 걸림");
-                        rest.put("status" , "200");
-                        rest.put("msg" , "신청되었습니다.");
+                        rest.put("status", "200");
+                        rest.put("msg", "신청되었습니다");
                         response.setStatus(200);
                     } else {
                         rest.put("status" , "402");
@@ -431,64 +419,68 @@ public class ActivityController extends BaseCont {
                 rest.put("msg", "이미 신청하신 강좌입니다.");
                 response.setStatus(200);
             }
-            //부모권한자
+            //학생권한자 수강신청
+            if(account.getMberDvTy().equals(UserRollType.STUDENT)){
+                Account load = memberService.load(account.getId());
+                MemberSchool memberSchool = memberSchoolService.loadByMber(load.getId());
+                log.info("학교정보 체크" + load.getSchlNm());
+
+                if(memberSchool != null) {
+                    courseRequestForm.setAreaNm(memberSchool.getAreaNm());
+                    courseRequestForm.setSchlNm(memberSchool.getSchlNm());
+                    courseRequestForm.setGrade(memberSchool.getGrade());
+                    courseRequestForm.setBan(memberSchool.getBan());
+                    courseRequestForm.setNo(memberSchool.getNo());
+                    courseRequestForm.setRegDtm(LocalDateTime.now());
+                    courseRequestForm.setConfmAt("Y");
+                    courseRequestForm.setMberPid(account.getId());
+                    CourseMasterRelForm courseMasterRelForm = new CourseMasterRelForm();
+                    courseMasterRelForm.setCrsMstPid(courseRequestForm.getCrsMstPid());
+                    List<CourseMasterRel> courseMasterRels = courseMasterRelService.list(courseMasterRelForm);
+                    boolean result = false;
+                    result = courseRequestService.insert(courseRequestForm, courseMasterRels);
+
+                    if(result) {
+                        log.info("신청완료 if문 걸림");
+                        rest.put("status", "200");
+                        rest.put("msg", "신청되었습니다");
+                        response.setStatus(200);
+                    } else {
+                        rest.put("status" , "402");
+                        rest.put("msg" , "신청 중 에러가 발생하였습니다. 관리자에게 문의하세요.");
+                        response.setStatus(200);
+                    }
+                } else {
+                    rest.put("status", "401");
+                    rest.put("msg", "학교 정보가 등록되있지않습니다.");
+                    response.setStatus(200);
+                }
+            } else if(cnt > 0) {
+                log.info("수강강좌 수 Log " + cnt);
+                rest.put("status" , "403");
+                rest.put("msg", "이미 신청하신 강좌입니다.");
+                response.setStatus(200);
+            }
+
+            //부모권한자 수강신청
             if(account.getMberDvTy().equals(UserRollType.PARENT)){
                 log.info("부모권한자");
+                rest.put("status" , "403");
+                rest.put("msg" , "부모님 강좌는 현재 준비 중 입니다.");
+                response.setStatus(200);
             }
-            //일반권한자
+            //일반권한자 수강신청
             if(account.getMberDvTy().equals(UserRollType.NORMAL)){
                 log.info("일반권한자");
+                rest.put("status" , "403");
+                rest.put("msg" , "일반회원 강좌는 현재 준비 중 입니다.");
+                response.setStatus(200);
             }
         } else {
             rest.put("status" , "404");
             rest.put("msg", "푸른코끼리 회원만 이용가능한 서비스입니다.");
             response.setStatus(200);
         }
-
-        /*if (account.getMberDvTy().equals(UserRollType.STUDENT)) {
-            // 수정중 김재일
-            MemberSchool memberSchool = memberSchoolService.loadByMber(account.getId());
-            if (memberSchool != null) {
-                log.info("테스트@@" + memberSchool.getAreaNm());
-                courseRequestForm.setAreaNm(memberSchool.getAreaNm());
-                courseRequestForm.setSchlNm(memberSchool.getSchlNm());
-                courseRequestForm.setGrade(memberSchool.getGrade());
-                courseRequestForm.setBan(memberSchool.getBan());
-                courseRequestForm.setNo(memberSchool.getNo());
-                courseRequestForm.setRegDtm(LocalDateTime.now());
-                courseRequestForm.setConfmAt("Y");
-                courseRequestForm.setMberPid(account.getId());
-
-                CourseMasterRelForm courseMasterRelForm = new CourseMasterRelForm();
-                courseMasterRelForm.setCrsMstPid(courseRequestForm.getCrsMstPid());
-                List<CourseMasterRel> courseMasterRels = courseMasterRelService.list(courseMasterRelForm);
-
-                boolean result = false;
-                result = courseRequestService.insert(courseRequestForm, courseMasterRels);
-                if (result) {
-                    log.info("수강처리 if문 거쳐감" + result);
-                    rest.put("status", "200");
-                    rest.put("msg", "신청되었습니다");
-                    response.setStatus(200);
-                } else {
-                    rest.put("status", "402");
-                    rest.put("msg", "에러, 관리자에게 문의하세요 ");
-                    response.setStatus(200);
-                }
-            } else {
-                rest.put("status", "401");
-                rest.put("msg", "학교 정보가 등록되있지않습니다.");
-                response.setStatus(200);
-            }
-        } else if(cnt > 0) {
-            rest.put("status" , "403");
-            rest.put("msg", "이미 신청하신 강좌입니다.");
-            response.setStatus(200);
-        } else {
-            rest.put("status", "401");
-            rest.put("msg", "학생만 수강신청이 가능합니다.");
-            response.setStatus(200);
-        }*/
 
         response.setContentType("text/html");
         response.setCharacterEncoding("utf-8");
