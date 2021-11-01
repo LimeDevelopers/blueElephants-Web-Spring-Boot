@@ -316,6 +316,10 @@ public class EventService extends _BaseService {
             event.setCntntsDvTy(eventForm.getCntntsDvTy());
             event.setCntntsUrl(eventForm.getCntntsUrl());
             event.setStYmd(eventForm.getStYmd());
+
+            event.setFxSeTy(eventForm.getFxSeTy());
+            event.setSpotDtl(eventForm.getSpotDtl());
+
             event.setEdYmd(eventForm.getEdYmd());
             event.setUpdPsId(eventForm.getUpdPsId());
             event.setUpdDtm(LocalDateTime.now());
