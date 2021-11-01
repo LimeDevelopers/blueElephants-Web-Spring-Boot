@@ -744,7 +744,7 @@ public class ActivityController extends BaseCont {
                 return "/message";
             } else {
                 if (sn == 4 && account.getOnlineEdu().equals("N")) {
-                    model.addAttribute("altmsg", "오프라인 현장교육 대상자입니다.");
+                    model.addAttribute("altmsg", "푸른코끼리 탐험가 선생님이 찾아갑니다! 학교에서 만나요!");
                     model.addAttribute("locurl", "/pages/activity/eduMasterClass/" + crsMstPid);
                     return "/message";
                 }
