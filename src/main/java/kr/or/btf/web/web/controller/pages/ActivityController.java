@@ -338,6 +338,7 @@ public class ActivityController extends BaseCont {
                 Page<CourseMaster> masterSeqs = courseMasterService.listTchr(pageable, searchForm);
                 model.addAttribute("masterSeqs" , masterSeqs);
             }
+
             //학생 권한자 수강 list
             if(account.getMberDvTy() == UserRollType.STUDENT) {
                 searchForm.setUserPid(account.getId());
@@ -356,7 +357,8 @@ public class ActivityController extends BaseCont {
 
 
         model.addAttribute("filePath", filePath + "/" + Constants.FOLDERNAME_COURSEMASTERSEQ);
-        model.addAttribute("eduAt", account != null ? account.getOnlineEdu() : "Y");
+        /*model.addAttribute("eduAt", account != null ? account.getOnlineEdu() : "Y");*/
+        model.addAttribute("eduAt" , account.getOnlineEdu());
         model.addAttribute("userGbn", account != null ? account.getMberDvTy() : "");
 
         model.addAttribute("mc", "activity");
@@ -372,8 +374,9 @@ public class ActivityController extends BaseCont {
                                             @CurrentUser Account account) {
         HashMap<String, String> rest = new HashMap<>();
         Long cnt = courseRequestService.existByMberPid(account.getId());
-
+        log.info("authSave 컨트롤러 실행 됨.");
         if(account != null) {
+            log.info("로그인 후 이용 가능한 서비스 입니다.");
             rest.put("status","404");
             rest.put("msg","로그인 후 이용 가능한 서비스 입니다.");
             response.setStatus(200);
@@ -400,7 +403,7 @@ public class ActivityController extends BaseCont {
 
                     if(result) {
                         log.info("신청완료 if문 걸림");
-                        rest.put("status", "200");
+                        rest.put("status", "401");
                         rest.put("msg", "신청되었습니다");
                         response.setStatus(200);
                     } else {
@@ -442,22 +445,24 @@ public class ActivityController extends BaseCont {
 
                     if(result) {
                         log.info("신청완료 if문 걸림");
-                        rest.put("status", "200");
+                        rest.put("status", "401");
                         rest.put("msg", "신청되었습니다");
                         response.setStatus(200);
                     } else {
+                        log.info("에러 ifans");
                         rest.put("status" , "402");
                         rest.put("msg" , "신청 중 에러가 발생하였습니다. 관리자에게 문의하세요.");
                         response.setStatus(200);
                     }
                 } else {
-                    rest.put("status", "401");
+                    log.info("학교정보 if문 걸림");
+                    rest.put("status", "403");
                     rest.put("msg", "학교 정보가 등록되있지않습니다.");
                     response.setStatus(200);
                 }
             } else if(cnt > 0) {
                 log.info("수강강좌 수 Log " + cnt);
-                rest.put("status" , "403");
+                rest.put("status" , "404");
                 rest.put("msg", "이미 신청하신 강좌입니다.");
                 response.setStatus(200);
             }
@@ -476,6 +481,7 @@ public class ActivityController extends BaseCont {
                 rest.put("msg" , "일반회원 강좌는 현재 준비 중 입니다.");
                 response.setStatus(200);
             }
+
         } else {
             rest.put("status" , "404");
             rest.put("msg", "푸른코끼리 회원만 이용가능한 서비스입니다.");
@@ -725,8 +731,10 @@ public class ActivityController extends BaseCont {
             boolean b = checkCourseSn(account.getId(), crsMstPid, sn);
             if (!b && atnlcReqPid != null) {
                 if (sn == 3) {
-                    model.addAttribute("altmsg", "사전예방교육을 수강하기 전 \n사전검사를 먼저 수행해야 합니다.");
-                    model.addAttribute("locurl", "/pages/activity/preInspection/" + crsMstPid + "/" + (sn - 1));
+
+                        model.addAttribute("altmsg", "사전예방교육을 수강하기 전 \n사전검사를 먼저 수행해야 합니다.");
+                        model.addAttribute("locurl", "/pages/activity/preInspection/" + crsMstPid + "/" + (sn - 1));
+
                 } else if (sn == 4) {
                     if (account.getOnlineEdu().equals("N")) {
                         model.addAttribute("altmsg", "오프라인 현장교육 대상자입니다.");
@@ -949,8 +957,10 @@ public class ActivityController extends BaseCont {
             return "/message";
         }
         if (sn == 2) {
+            log.info("case == 1");
             inspectionForm.setInspctDvTy(InspectionDvType.BEFORE.name());
         } else {
+            log.info("case == 2");
             inspectionForm.setInspctDvTy(InspectionDvType.AFTER.name());
         }
 
@@ -1003,48 +1013,58 @@ public class ActivityController extends BaseCont {
         List<Map<String, Object>> questionList = new ArrayList<>();
         List<InspectionQuestionItem> list = inspectionQuestionItemService.list(inspectionQuestionItemForm);
         if (list != null && list.size() > 0) {
-
+            log.info("case == 4");
             List<Long> upperQesitmPid = new ArrayList<>();
             for (InspectionQuestionItem qItem : list) {
                 Map<String, Object> questionItem = new HashMap<>();
-
+                log.info("case == 5");
                 if (qItem.getUpperQesitmPid() == null) {        //하위문항 없음
                     questionItem.put("question", qItem);
-
+                    log.info("case == 6");
                     if (AnswerType.CHOICE.name().equals(qItem.getAswDvTy())) {
+                        log.info("case == 7");
                         questionItem.put("caseList", getCaseList(qItem, account, inspctDvTy.name(), courseRequest.getId()));
                     } else {
+                        log.info("case == 8");
                         questionItem.put("answer", getAnswer(qItem, account, inspctDvTy.name(), courseRequest.getId()));
                     }
-
+                    log.info("case == 9");
                     questionList.add(questionItem);
                 } else {
+                    log.info("case == 10");
                     if (!upperQesitmPid.contains(qItem.getUpperQesitmPid())) {
+                        log.info("case == 11");
                         upperQesitmPid.add(qItem.getUpperQesitmPid());
 
                         List<Map<String, Object>> subQuestionList = new ArrayList<>();
                         InspectionQuestionItem load = inspectionQuestionItemService.load(qItem.getUpperQesitmPid());
                         questionItem.put("question", load);
                         for (InspectionQuestionItem subItem : list) {
+                            log.info("case == 12");
                             Map<String, Object> subQuestionItem = new HashMap<>();
                             if (subItem.getUpperQesitmPid() != null
                                     && subItem.getUpperQesitmPid().equals(qItem.getUpperQesitmPid())) {
+                                log.info("case == 13");
                                 subQuestionItem.put("question", subItem);
                                 if (AnswerType.CHOICE.name().equals(subItem.getAswDvTy())) {
+                                    log.info("case == 14");
                                     subQuestionItem.put("caseList", getCaseList(subItem, account, inspctDvTy.name(), courseRequest.getId()));
                                 } else {
+                                    log.info("case == 15");
                                     subQuestionItem.put("answer", getAnswer(subItem, account, inspctDvTy.name(), courseRequest.getId()));
                                 }
-
+                                log.info("case == 16");
                                 subQuestionList.add(subQuestionItem);
                             }
                         }
+                        log.info("case == 17");
                         questionItem.put("subList", subQuestionList);
                         questionList.add(questionItem);
                     }
                 }
             }
         }
+        log.info("case == 18");
 
         rtnMap.put("questionList", questionList);
 

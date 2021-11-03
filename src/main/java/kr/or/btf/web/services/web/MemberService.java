@@ -69,6 +69,10 @@ public class MemberService extends _BaseService {
     private final FileInfoRepository fileInfoRepository;
     private final MemberGroupRepository memberGroupRepository;
     private final MemberCrewRepository memberCrewRepository;
+    private final CourseRequestRepository courseRequestRepository;
+    private final CourseRequestService courseRequestService;
+    private final CourseMasterRelService courseMasterRelService;
+
 
     public List<Account> findAll(){
         return memberRepository.findAll();
@@ -1659,12 +1663,42 @@ public class MemberService extends _BaseService {
             //로그인아이디 초기화
             tempId = "";
 
+            CourseRequestForm courseRequestForm = new CourseRequestForm();
+            courseRequestForm.setAreaNm(memberSchoolForm.getAreaNm());
+            courseRequestForm.setSchlNm(memberSchoolForm.getSchlNm());
+            courseRequestForm.setGrade(memberSchoolForm.getGrade());
+            courseRequestForm.setBan(memberSchoolForm.getBan());
+            //courseRequestForm.setNo(memberSchool.getNo());
+            courseRequestForm.setRegDtm(LocalDateTime.now());
+            courseRequestForm.setConfmAt("Y");
+            courseRequestForm.setCrsMstPid(15L);
+            courseRequestForm.setMberPid(account.getId());
+
+            CourseMasterRelForm courseMasterRelForm = new CourseMasterRelForm();
+            courseMasterRelForm.setCrsMstPid(15L);
+            List<CourseMasterRel> courseMasterRels = courseMasterRelService.list(courseMasterRelForm);
+            courseRequestService.insert(courseRequestForm, courseMasterRels);
+
+            /*CourseRequest courseRequest = new CourseRequest();
+            courseRequest.setRegDtm(LocalDateTime.now());
+            courseRequest.setConfmAt("Y");
+            courseRequest.setAreaNm(memberSchoolForm.getAreaNm());
+            courseRequest.setSchlNm(memberSchoolForm.getSchlNm());
+            courseRequest.setGrade(memberSchoolForm.getGrade());
+            courseRequest.setBan(memberSchoolForm.getBan());
+            courseRequest.setMberPid(save.getId());
+            courseRequestRepository.save(courseRequest);*/
+
+
             MemberRoll memberRoll = new MemberRoll();
             memberRoll.setMberPid(save.getId());
             memberRoll.setMberDvTy(UserRollType.STUDENT);
             memberRoll.setRegDtm(LocalDateTime.now());
             memberRoll.setRegPsId(save.getRegPsId());
             memberRollRepository.save(memberRoll);
+
+
+
             //memberSchool에 인서트 해주는 프로시저 호출
             memberSchoolRepository.pr_findTID(memberSchoolForm.getAreaNm(), memberSchoolForm.getSchlNm(),
                     memberSchoolForm.getGrade(), memberSchoolForm.getBan(), save.getId(), LocalDateTime.now());

@@ -54,22 +54,23 @@
         data: JSON.stringify(jsonData),
         datatype: 'text',
         success: function (data) {
-          <!--
-          Key : Value
+          console.log(data)
+
+          /*Key : Value
           200 : 신청되었습니다.
           402 : 신청 중 에러가 발생 ~
           401 : 학교정보가 등록되어있지 않습니다.
           403 : 이미 신청하신 ~
-          404 : 로그인 후 이용 가능한 ~
-           -->
+          404 : 로그인 후 이용 가능한 ~*/
+
           if (data.status == '401') {
             alert(data.msg);
-          } else if (data.status == '401') {
+          } else if (data.status == '402') {
             alert(data.msg);
-          } else if (data.status == '200') {
+          } else if (data.status == '403') {
             alert(data.msg);
             location.reload();
-          } else if (data.status == '403') {
+          } else if (data.status == '404') {
             alert(data.msg);
           } else {
             alert('error::' + error.statusText);
@@ -147,7 +148,7 @@
             <!--<a th:href="${'/pages/activity/eduMasterClass/'+item.id}" class="lecture_sumnail">-->
             <div class="edu_form" th:each="item,idx:${masterSeqs}">
               <input type="hidden" id="dvTy" th:value="${item.mberDvTy}">
-              <th:block th:if="${eduAt == 'N'}">
+              <th:block th:if="${eduAt == 'Y'}">
                 <th:block th:if="${item.mberDvTy == 'STUDENT'}">
                   <div class="edu_list_box">
                     <a class="lecture_sumnail">
