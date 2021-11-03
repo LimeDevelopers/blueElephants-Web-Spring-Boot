@@ -242,12 +242,93 @@
                                         </ul>
                                     </div>
                                 </div>
+
+
+                                <h2>신청 교사 정보<span class="aster">*</span></h2>
+                                <div class="sec_write join">
+                                    <div class="tbl_write">
+                                        <ul>
+                                            <li class="row">
+                                                <div class="th">
+                                                    <label for="schlNm">성명</label>
+                                                    <span class="aster">*</span>
+                                                </div>
+                                                <div class="td">
+                                                    <th:block th:if="${preventionMst == null}">
+                                                        <input type="text" id="Nm" name="Nm" placeholder="성함을 입력해주세요.">
+                                                    </th:block>
+                                                    <!--<th:block th:if="${schlData == null}">
+                                                        <input type="text" id="Nm" name="Nm">
+                                                    </th:block>-->
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="th">
+                                                    <label for="tel">이메일</label>
+                                                    <span class="aster">*</span>
+                                                </div>
+                                                <div class="td">
+                                                    <th:block th:if="${preventionMst == null}">
+                                                        <input type="text" id="Email" name="Email" placeholder="이메일을 입력해주세요.">
+                                                    </th:block>
+                                                    <!--<th:block th:if="${schlData == null}">
+                                                        <input type="text" id="Email" name="Email" >
+                                                    </th:block>-->
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="th">
+                                                    <label for="address">직통번호</label>
+                                                    <span class="aster">*</span>
+                                                </div>
+                                                <div class="td">
+                                                    <th:block th:if="${preventionMst == null}">
+                                                        <input type="text" id="directNum" name="directNum" placeholder="직통번호를 입력해주세요.">
+                                                    </th:block>
+                                                    <!--<th:block th:if="${schlData == null}">
+                                                        <input type="text" id="directNum" name="directNum" th:value="${preventionMst.address}" >
+                                                    </th:block>-->
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="th">
+                                                    <label for="address">담당업무</label>
+                                                    <span class="aster">*</span>
+                                                </div>
+                                                <div class="td">
+                                                    <th:block th:if="${preventionMst == null}">
+                                                        <input type="text" id="task" name="task" placeholder="담당업무를 입력해주세요.">
+                                                    </th:block>
+                                                    <!--<th:block th:if="${schlData == null}">
+                                                        <input type="text" id="task" name="task" th:value="${preventionMst.address}" >
+                                                    </th:block>-->
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+
                             </div>
                             <div class="school_info">
                                 <h2>교육 신청 정보<span class="aster">*</span></h2>
                                 <div class="sec_write join">
                                     <div class="tbl_write">
                                         <ul>
+                                            <li>
+                                                <div class="th">
+                                                    <label for="personnel">학년</label>
+                                                    <span class="aster">*</span>
+                                                </div>
+                                                <div class="td">
+                                                    <th:block th:if="${preventionMst == null}">
+                                                        <input type="text" id="grade" name="grade" placeholder="학년을 입력해주세요.">
+                                                    </th:block>
+                                                    <th:block th:if="${schlData == null}">
+                                                        <input type="text" id="grade" name="grade" th:value="${preventionMst.personnel}" placeholder="학년을 입력해주세요.">
+                                                    </th:block>
+                                                </div>
+                                            </li>
                                             <li>
                                                 <div class="th">
                                                     <label for="classesNum">학급수</label>
@@ -269,10 +350,10 @@
                                                 </div>
                                                 <div class="td">
                                                     <th:block th:if="${preventionMst == null}">
-                                                        <input type="text" id="personnel" name="personnel">
+                                                        <input type="text" id="personnel" name="personnel" placeholder="총 인원수를 입력해주세요.">
                                                     </th:block>
                                                     <th:block th:if="${schlData == null}">
-                                                        <input type="text" id="personnel" name="personnel" th:value="${preventionMst.personnel}" >
+                                                        <input type="text" id="personnel" name="personnel" th:value="${preventionMst.personnel}" placeholder="총 인원수를 입력해주세요.">
                                                     </th:block>
                                                 </div>
                                             </li>
