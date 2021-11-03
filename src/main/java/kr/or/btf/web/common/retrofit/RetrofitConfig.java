@@ -1,8 +1,6 @@
 package kr.or.btf.web.common.retrofit;
 
-import kr.or.btf.web.domain.web.enums.ApiURL;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import retrofit2.Retrofit;

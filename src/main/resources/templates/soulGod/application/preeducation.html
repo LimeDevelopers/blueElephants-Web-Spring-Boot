@@ -10,18 +10,6 @@
         let groupForm;
         let selectedVal;
 
-        // let group_id;
-        // let groupNm;
-        // let chrNm;
-        // let position;
-        // let bNum;
-        // let bLicenseAttc;
-        // let flPid;
-        //
-        // let crew_id;
-        // let crewNm;
-        // let rptNm;
-        // let crewAffi;
         ////-------- page load
         $(document).ready(function() {
             groupForm = $('.detailGroupForm');
@@ -73,44 +61,6 @@
                 }
             });
 
-            $('#resBtn').on('click',function(){
-                chkedVal = [];
-
-                if(0 < $("input[id^=agree]:checked").length){
-                    $("input[id^=agree]:checked").each(function(){
-                        if(this.checked){
-                            chkedVal[i] = $(this).val();
-                            i++
-                        }
-                    });
-                    let result = confirm($("input[id^=agree]:checked").length+" 인 처리하겠습니까?");
-                    if(result){
-                        let jsonData = {
-                            'dvCodePidArr' : chkedVal
-                        };
-                        $.ajax({
-                            cache : false,
-                            url: "/api/soulGod/application/updateApporaval/"+chkedVal,
-                            type : 'POST',
-                            contentType: "application/json",
-                            success : function(data) {
-                                if(data == false) {
-                                    alert('통신 에러')
-                                } else {
-                                    alert('변경되었습니다.')
-                                    location.reload()
-                                }
-                            }
-                        });
-                    }else{
-                        return false
-                    }
-                } else {
-                    alert("확인할 파트너스를 선택하세요.")
-                }
-
-            });
-
             fn_setDatePicker('#srchStDt', {
                 onShow:function( ct ){
                     this.setOptions({
@@ -143,7 +93,6 @@
             });
         }
 
-
         function fn_search() {
             var frm = $('#form1');
             frm.prop('action', '?');
@@ -158,10 +107,6 @@
             $('#srchWord').val('');
             fn_search();
         }
-
-
-
-
     </script>
 </head>
 <body>
@@ -176,69 +121,16 @@
                     <ul class="breadcrumb">
                         <li><i class="material-icons">home</i></li>
                         <li>신청관리</li>
-                        <li>파트너스</li>
+                        <li>예방강의</li>
                     </ul>
-
-                    <!--                    <th:block th:if="${dv == 'application'}">-->
-                    <!--                    <div class="search_area clearfix">-->
-                    <!--                        <dl class="col">-->
-                    <!--                            <dt>구분</dt>-->
-                    <!--                            <dd>-->
-                    <!--                            <th:block th:if="${dv == 'application'}">-->
-                    <!--                                <select th:field="*{srchGbn}">-->
-                    <!--                                    <option value="">전체</option>-->
-                    <!--                                    <option th:each="tp : ${T(kr.or.btf.web.domain.web.enums.UserRollType).values()}"-->
-                    <!--                                            th:value="${tp}"-->
-                    <!--                                            th:text="${tp.getName()}"></option>-->
-                    <!--                                </select>-->
-                    <!--                            </th:block>-->
-                    <!--                            </dd>-->
-                    <!--                        </dl>-->
-                    <!--                        <dl class="col">-->
-                    <!--                            <dt>가입일</dt>-->
-                    <!--                            <dd>-->
-                    <!--                                <div class="term_form">-->
-                    <!--                                    <input type="text" th:field="*{srchStDt}" class="form_date" readonly />-->
-                    <!--                                    <span class="swung">~</span>-->
-                    <!--                                    <input type="text" th:field="*{srchEdDt}" class="form_date" readonly />-->
-                    <!--                                </div>-->
-                    <!--                            </dd>-->
-                    <!--                        </dl>-->
-                    <!--                        <div class="col">-->
-                    <!--                            <select th:field="*{srchField}" class="w120">-->
-                    <!--                                <option value="1" selected>전체</option>-->
-                    <!--                                <option value="2" selected>이름</option>-->
-                    <!--                                <option value="3" selected>아이디</option>-->
-                    <!--                                <option value="4" selected>이메일</option>-->
-                    <!--                            </select>-->
-                    <!--                            <input type="text" th:field="*{srchWord}" placeholder="검색어를 입력하세요." style="width:313px"  />-->
-                    <!--                            <button type="button" class="btn btn_sm btn_gray" onclick="fn_search()">-->
-                    <!--                                <i class="material-icons">search</i>조회-->
-                    <!--                            </button>-->
-                    <!--                            <button type="button" class="btn btn_sm btn_gray" onclick="fn_reset()">-->
-                    <!--                                <i class="material-icons">refresh</i>초기화-->
-                    <!--                            </button>-->
-                    <!--                        </div>-->
-                    <!--                    </div>-->
-                    <!--                    </th:block>-->
                     <div class="board_list">
-                        <h4 class="sec_tit">회원 리스트</h4>
+                        <h4 class="sec_tit">학교 리스트</h4>
                         <div class="board_top clearfix">
                             <div class="fl">
                                 <div class="total_num">
                                     <b>
-                                        신청수:
-                                        <th:block
-                                                th:text="${#numbers.formatInteger(partners.totalElements, 0, 'COMMA')}">
-                                            000
-                                        </th:block>
-                                        명
+                                        학교명을 클릭하면 상세보기페이지로 이동합니다.
                                     </b>
-                                </div>
-                                <div class="fr">
-                                    <a href="javascript:" class="btn btn_sm btn_r_blue" id="resBtn">
-                                        <i class="material-icons mt0">check</i>승인
-                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -251,125 +143,38 @@
                                 <tr>
                                     <th><input type="checkbox" id="allChk"></th>
                                     <th>No</th>
-                                    <th>이름</th>
-                                    <th>소속명</th>
-                                    <th>휴대폰</th>
+                                    <th>학교명</th>
+                                    <th>주소지</th>
+                                    <th>학급수</th>
                                     <th>신청일</th>
                                     <th>승인여부</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <!-- 등록된 데이터가 없을 때만 노출 : s -->
-                                <tr th:if="${partners == null or partners.isEmpty()}">
+                                <tr th:if="${preeducation == null or preeducation.isEmpty()}">
                                     <td colspan="9">등록된 정보 없습니다.</td>
                                 </tr>
                                 <!-- 등록된 이벤트가 없을 때만 노출 : e -->
-                                <tr th:each="item,idx:${partners}">
+                                <tr th:each="item,idx:${preeducation}">
                                     <td><input type="checkbox" id="agree" name="agree" th:value="${item.id}"></td>
-                                    <td th:text="${partners.totalElements - partners.pageable.pageSize * partners.pageable.pageNumber - idx.index}"></td>
-                                    <td th:text="${item.nm}"></td>
-                                    <td th:text="${item.affi eq null || item.affi eq ''? '소속 없음' : item.affi}"></td>
-                                    <td th:text="${item.moblphon eq null || item.moblphon eq ''? '등록된 휴대폰 없음' : item.moblphon}"></td>
+                                    <td th:text="${preeducation.totalElements - preeducation.pageable.pageSize * preeducation.pageable.pageNumber - idx.index}"></td>
+                                    <td >
+                                        <a th:text="${item.schlNm}" th:href="|/soulGod/application/preeduDetail/${item.id}|"></a>
+                                    </td>
+                                    <td th:text="${item.address}"></td>
+                                    <td th:text="${item.classesNum}"></td>
                                     <td>
                                         <th:block th:text="${#temporals.format(item.regDtm, 'yyyy-MM-dd')}"></th:block>
                                     </td>
-
-
                                     <td th:text="${item.approval == 'Y' ? '승인' : '미승인'}" th:style="${item.approval == 'Y' ? 'font-weight: bold; color:#8bb3ff' : 'font-weight: bold; color:red'}"></td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <th:block th:replace="/soulGod/fragments/paging :: pagingbody(list=${partners},
-                                            link='/soulGod/application/partners', formId='form1')"></th:block>
+                        <th:block th:replace="/soulGod/fragments/paging :: pagingbody(list=${preeducation},
+                                            link='/soulGod/application/preeducation', formId='form1')"></th:block>
                     </div>
-
-                    <th:block th:if="${dv == 'group'}">
-                        <div class="board_list">
-                            <h4 class="sec_tit">가입 승인 대기 리스트</h4>
-                            <div class="board_top clearfix">
-                                <div class="fl">
-                                    <div class="total_num">
-                                        <b>
-                                            승인 대기 인원 :
-                                            <th:block
-                                                    th:text="${#numbers.formatInteger(members.totalElements, 0, 'COMMA')}">
-                                                000
-                                            </th:block>
-                                            명
-                                        </b>
-                                    </div>
-                                </div>
-                                <div class="fr">
-                                    <a href="javascript:" class="btn btn_sm btn_r_blue" id="resBtn">
-                                        <i class="material-icons mt0">check</i>승인
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="board_detail clearfix">
-                                <table class="tbl_list">
-                                    <colgroup>
-                                        <col style="width: 60px"/>
-                                        <col style="width: 60px"/>
-                                        <col style="width: 100px"/>
-                                    </colgroup>
-                                    <thead>
-                                    <tr>
-                                        <th><input type="checkbox" id="allChk"></th>
-                                        <th>No</th>
-                                        <th>담당자</th>
-                                        <th>아이디</th>
-                                        <th>이메일</th>
-                                        <th>구분</th>
-                                        <th>가입(탈퇴)일</th>
-                                        <th>승인여부</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    &lt;!&ndash; 등록된 데이터가 없을 때만 노출 : s &ndash;&gt;
-                                    <tr th:if="${members == null or members.isEmpty()}">
-                                        <td colspan="9">등록된 정보 없습니다.</td>
-                                    </tr>
-                                    &lt;!&ndash; 등록된 이벤트가 없을 때만 노출 : e &ndash;&gt;
-                                    <tr th:each="item,idx:${members}">
-                                        <th:block th:if="${item.approval == 'N'}">
-                                            <td><input type="checkbox" id="agree" name="agree" th:value="${item.id}">
-                                            </td>
-                                            <td th:text="${members.totalElements - members.pageable.pageSize * members.pageable.pageNumber - idx.index}"></td>
-                                            <td th:text="${item.nm}"></td>
-                                            <td>
-                                                <a th:href="|/soulGod/member/detail/${item.id}|">
-                                                    <b th:text="${item.loginId}"></b>
-                                                </a>
-                                            </td>
-                                            <td th:text="${item.email}"></td>
-                                            <td>
-                                                <a href="javascript:void(0);"
-                                                   th:onclick="fn_detail([[${item.id}]],[[${item.mberDvTy}]]);">
-                                                    <b th:text="${T(kr.or.btf.web.domain.web.enums.UserRollType).valueOf(item.mberDvTy).getName()}"></b>
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <th:block
-                                                        th:text="${#temporals.format(item.regDtm, 'yyyy-MM-dd')}"></th:block>
-                                                <br/>
-                                                <th:block th:if="${item.secsnDtm ne null}">
-                                                    <span style="color: red">(<th:block
-                                                            th:text="${#strings.substring(item.secsnDtm,0,10)}"></th:block>)</span>
-                                                </th:block>
-                                            </td>
-                                            <td th:text="${item.approval == 'Y' ? '승인' : '미승인'}"
-                                                th:style="${item.approval == 'Y' ? 'font-weight: bold; color:#8bb3ff' : 'font-weight: bold; color:red'}"></td>
-                                        </th:block>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <th:block th:replace="/soulGod/fragments/paging :: pagingbody(list=${members},
-                                            link='/soulGod/member/groupList', formId='form1')"></th:block>
-                        </div>
-                    </th:block>
-
                 </div>
             </form>
         </div>

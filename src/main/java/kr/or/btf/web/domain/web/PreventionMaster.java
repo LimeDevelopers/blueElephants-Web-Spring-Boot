@@ -41,6 +41,9 @@ public class PreventionMaster {
     @Column(name="tel")
     private String tel;
 
+//    @Column(name="grade")
+//    private String grade;
+
     @Column(name="classes_num")
     private Integer classesNum;
 

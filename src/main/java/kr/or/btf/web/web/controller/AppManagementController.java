@@ -8,6 +8,7 @@ import kr.or.btf.web.domain.web.PreventionMaster;
 import kr.or.btf.web.domain.web.enums.InstructorDvTy;
 import kr.or.btf.web.domain.web.enums.UserRollType;
 import kr.or.btf.web.services.web.AppManagementService;
+import kr.or.btf.web.services.web.ApplicationService;
 import kr.or.btf.web.web.form.SearchForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -17,10 +18,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 public class AppManagementController extends BaseCont  {
     private final AppManagementService appManagementService;
+    private final ApplicationService applicationService;
 
     @ResponseBody
     @PostMapping("/api/soulGod/application/updateInsType/{id}/{gbn}")
@@ -67,6 +71,18 @@ public class AppManagementController extends BaseCont  {
         return "soulGod/application/inseducation";
     }
 
+    @GetMapping("/soulGod/application/preeduDetail/{id}")
+    public String preeduDetail(Model model,
+                           @PathVariable(name = "id") Long id,
+                           @CurrentUser Account account) {
+
+        List<PreventionInstructor> applyList = appManagementService.getApplyList(id);
+        PreventionMaster load = appManagementService.preeduDetail(id);
+        model.addAttribute("form", load);
+        model.addAttribute("applyList", applyList);
+        return "/soulGod/application/preeduDetail";
+    }
+
     @GetMapping("/soulGod/application/preeducation")
     public String preeducationPage(Model model,
                                @PageableDefault Pageable pageable,
@@ -76,13 +92,13 @@ public class AppManagementController extends BaseCont  {
         model.addAttribute("form", searchForm);
 
         searchForm.setUserRollType(account.getMberDvTy());
-        Page<PreventionMaster> preeducation = appManagementService.getPreMasterList(pageable, searchForm);
+        Page<PreventionMaster> preeducation = applicationService.getPreEduMstList(pageable);
         model.addAttribute("preeducation", preeducation);
         model.addAttribute("totCnt", preeducation.isEmpty() ? 0 : preeducation.getContent().size());
 
         model.addAttribute("mc", "application");
         model.addAttribute("dv", "application");
-        return "soulGod/application/partners";
+        return "soulGod/application/preeducation";
     }
 
     @GetMapping("/soulGod/application/partners")

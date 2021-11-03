@@ -26,6 +26,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Service
@@ -82,6 +83,82 @@ public class AppManagementService extends _BaseService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    // 신청강사 상세정보 load..
+    public PreventionMaster preeduDetail(Long id) {
+        QPreventionMaster qPreventionMaster = QPreventionMaster.preventionMaster;
+        OrderSpecifier<LocalDateTime> orderSpecifier = qPreventionMaster.regDtm.desc();
+        BooleanBuilder builder = new BooleanBuilder();
+        builder.and(qPreventionMaster.id.eq(id));
+        PreventionMaster instructor = queryFactory
+                .select(Projections.fields(PreventionMaster.class,
+                        qPreventionMaster.schlNm,
+                        qPreventionMaster.address,
+                        qPreventionMaster.regDtm,
+                        qPreventionMaster.id,
+                        qPreventionMaster.mberPid,
+                        qPreventionMaster.approval,
+                        qPreventionMaster.tel,
+                        qPreventionMaster.hpSchd1Et,
+                        qPreventionMaster.hpSchd1Wt,
+                        qPreventionMaster.hpSchd2Et,
+                        qPreventionMaster.hpSchd2Wt,
+                        qPreventionMaster.resultQna1,
+                        qPreventionMaster.resultQna2,
+                        qPreventionMaster.resultQna3,
+                        qPreventionMaster.resultQna4,
+                        qPreventionMaster.resultQna5,
+                        qPreventionMaster.tempSave,
+                        qPreventionMaster.personnel
+                ))
+                .from(qPreventionMaster)
+                .where(builder)
+                .orderBy(orderSpecifier)
+                .fetchFirst();
+        return instructor;
+    }
+
+    public List<PreventionInstructor> getApplyList (Long id) {
+        QPrevention qPrevention = QPrevention.prevention;
+        QPreventionInstructor qPreventionInstructor = QPreventionInstructor.preventionInstructor;
+        QAccount qAccount = QAccount.account;
+        OrderSpecifier<LocalDateTime> orderSpecifier = qPrevention.regDtm.desc();
+        BooleanBuilder builder = new BooleanBuilder();
+        //builder.and(qPreventionInstructor.preMstPid.eq(id));
+
+        QueryResults<PreventionInstructor> list = queryFactory
+                .select(Projections.fields(PreventionInstructor.class,
+                        qPreventionInstructor.regDtm,
+                        qPreventionInstructor.id,
+                        qPreventionInstructor.mberPid,
+                        qPreventionInstructor.approval,
+                        qPreventionInstructor.awards,
+                        qPreventionInstructor.eduMatters,
+                        qPreventionInstructor.qualifications,
+                        qPreventionInstructor.enrollPeriod,
+                        qPreventionInstructor.expPeriod,
+                        qPreventionInstructor.expContent,
+                        qPreventionInstructor.expNm,
+                        qPreventionInstructor.expPosition,
+                        qPreventionInstructor.grdStatus,
+                        qPreventionInstructor.major,
+                        qPreventionInstructor.schlNm,
+                        qPreventionInstructor.selfDrivingAt,
+                        qPreventionInstructor.snsStatus,
+                        qPreventionInstructor.snsUrl,
+                        qPreventionInstructor.thumbImg,
+                        qPreventionInstructor.updDtm,
+                        qPreventionInstructor.InsType
+                ))
+                .from(qPreventionInstructor)
+                .leftJoin(qPrevention).on(qPreventionInstructor.mberPid.eq(
+                                JPAExpressions.select(qPrevention.mberPid)
+                                        .from(qPrevention)
+                                        .where(qPrevention.preMstPid.eq(id))))
+                .orderBy(orderSpecifier)
+                .fetchResults();
+        return list.getResults();
     }
 
     // 신청강사 상세정보 load..
@@ -174,14 +251,26 @@ public class AppManagementService extends _BaseService {
 
         QueryResults<PreventionMaster> mngList = queryFactory
                 .select(Projections.fields(PreventionMaster.class,
-                        qPreventionMaster.id, qPreventionMaster.mberPid
+                        qPreventionMaster.id,
+                        qPreventionMaster.tel,
+                        qPreventionMaster.address,
+                        qPreventionMaster.approval,
+                        qPreventionMaster.mberPid,
+                        qPreventionMaster.classesNum,
+                        qPreventionMaster.schlNm,
+                        qPreventionMaster.tempSave,
+                        qPreventionMaster.personnel,
+                        qPreventionMaster.prePid,
+                        qPreventionMaster.regDtm,
+                        qPreventionMaster.updDtm
                 ))
                 .from(qPreventionMaster)
-                .where(builder)
+                .where(qPreventionMaster.approval.eq("N"))
                 .limit(pageable.getPageSize())
                 .offset(pageable.getOffset())
                 .orderBy(orderSpecifier)
                 .fetchResults();
+
         return new PageImpl<>(mngList.getResults(), pageable, mngList.getTotal());
     }
 
