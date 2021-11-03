@@ -158,20 +158,20 @@
                         </div>
                         <div class="lecture_content" th:each="item,idx:${masters}" th:if="${item.sn ne 1}">
                             <div class="lecture_item" th:onclick="|return fn_eduClass(${item.sn},${item.crsPid}, ${form.id});|">
-                                <div th:class="lecture_sumnail" th:style="${item.sn eq 4 && eduTy eq 'N' ? 'border : solid 5px #9a9a9a; background-color: #bdbdbd;' : ''}">
+                                <div th:class="lecture_sumnail" >
                                     <a class="sumnail_icon2">
                                         <img th:src="|/ClientUI/user/images/contents/lecture/sumnail-0${idx.index}.svg|"
                                              th:alt="${item.pidNm}">
                                     </a>
                                     <th:block th:if="${item.sn eq 3}">
-                                        <span class="lecture_st">1차시</span>
+                                        <span class="lecture_st">1차시 | 2차시</span>
                                     </th:block>
-                                    <th:block th:if="${item.sn eq 4 && eduTy eq 'Y'}">
+                                    <th:block th:if="${item.sn eq 4}">
                                         <span class="lecture_st">3차시 | 4차시 | 5차시 | 6차시</span>
                                     </th:block>
-                                    <th:block th:if="${item.sn eq 4 && eduTy eq 'N'}">
+                                    <!--<th:block th:if="${item.sn eq 4 && eduTy eq 'N'}">
                                         <span class="lecture_st" style="color: #FFFFFF">수강불가</span>
-                                    </th:block>
+                                    </th:block>-->
                                     <th:block th:if="${item.sn eq 5}">
                                         <span class="lecture_st">7차시</span>
                                     </th:block>
