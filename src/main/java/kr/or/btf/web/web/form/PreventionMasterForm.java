@@ -33,4 +33,10 @@ public class PreventionMasterForm extends SearchForm{
     private String delAt;
     private String approval;
     private String tempSave;
+    
+    private String Nm;
+    private String Email;
+    private String directNum;
+    private String task;
+    private String moblphon;
 }

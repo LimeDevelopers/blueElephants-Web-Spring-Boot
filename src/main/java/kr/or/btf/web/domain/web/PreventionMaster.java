@@ -95,12 +95,30 @@ public class PreventionMaster {
     @Column(name = "temp_save")
     private String tempSave;
 
-    @Transient
+
+
+    @Column(name = "nm")
+    private String nm;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "direct_num")
+    private String directNum;
+
+    @Column(name = "task")
+    private String task;
+
+    @Column(name = "moblphon")
+    private String moblphon;
+
+
+    /*@Transient
     private String nm;
     @Transient
     private String moblphon;
     @Transient
-    private String email;
+    private String email;*/
     @Transient
     private Long preCnt;
 
