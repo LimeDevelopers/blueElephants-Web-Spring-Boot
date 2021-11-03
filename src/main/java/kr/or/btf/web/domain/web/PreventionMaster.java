@@ -35,6 +35,9 @@ public class PreventionMaster {
     @Column(name="schl_nm")
     private String schlNm;
 
+    @Column(name = "grade")
+    private Integer grade;
+
     @Column(name="address")
     private String address;
 
