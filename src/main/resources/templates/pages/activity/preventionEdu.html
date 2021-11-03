@@ -35,10 +35,10 @@
       }
 
 
-      /*if (atnlcReqPid != 0) {
+      if (atnlcReqPid != 0) {
         alert('이미 수강신청한 과정입니다.');
         return false;
-      }*/
+      }
 
       if (!confirm('수강신청 하시겠습니까?')) {
         return false;
@@ -248,7 +248,7 @@
                   </div>
                 </th:block>
 
-              <th:block th:if="${eduAt == 'X'}">
+              <!--<th:block th:if="${eduAt == 'X'}">
                 <div class="edu_list_box">
                   <a th:href="${'/pages/activity/eduMasterClass/'+item.id}" class="lecture_sumnail">
                     <img src="/ClientUI/user/images/contents/lecture/lecture.jpg" alt="lecture_sumnail"
@@ -280,8 +280,8 @@
 
                   </div>
                 </div>
-              </th:block>
-              <th:block th:if="${eduAt == 'X'}">
+              </th:block>-->
+              <!--<th:block th:if="${eduAt == 'X'}">
                 <div class="edu_list_box">
                   <a th:href="${'/pages/activity/eduMasterClass/'+item.id}" class="lecture_sumnail">
                     <img src="/ClientUI/user/images/contents/lecture/lecture.jpg" alt="lecture_sumnail"
@@ -313,7 +313,7 @@
 
                   </div>
                 </div>
-              </th:block>
+              </th:block>-->
             </div>
 
             <th:block th:if="${masterSeqs != null}"><!--등록된 글이 없을 경우-->

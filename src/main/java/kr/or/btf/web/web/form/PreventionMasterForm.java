@@ -14,6 +14,7 @@ public class PreventionMasterForm extends SearchForm{
     private Long prePid;
     private String schlNm;
     private String address;
+    private Integer grade;
     private String tel;
     private Integer classesNum;
     private Integer personnel;
@@ -33,4 +34,10 @@ public class PreventionMasterForm extends SearchForm{
     private String delAt;
     private String approval;
     private String tempSave;
+    
+    private String Nm;
+    private String Email;
+    private String directNum;
+    private String task;
+    private String moblphon;
 }

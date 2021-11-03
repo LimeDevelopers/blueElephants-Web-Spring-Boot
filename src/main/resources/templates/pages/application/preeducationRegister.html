@@ -292,6 +292,20 @@
                                             </li>
                                             <li>
                                                 <div class="th">
+                                                    <label for="address">휴대폰</label>
+                                                    <span class="aster">*</span>
+                                                </div>
+                                                <div class="td">
+                                                    <th:block th:if="${preventionMst == null}">
+                                                        <input type="text" id="moblphon" name="moblphon" placeholder="신청자 휴대폰번호를 입력해주세요.">
+                                                    </th:block>
+                                                    <!--<th:block th:if="${schlData == null}">
+                                                        <input type="text" id="directNum" name="directNum" th:value="${preventionMst.address}" >
+                                                    </th:block>-->
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="th">
                                                     <label for="address">담당업무</label>
                                                     <span class="aster">*</span>
                                                 </div>
