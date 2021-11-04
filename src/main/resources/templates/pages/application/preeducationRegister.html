@@ -8,8 +8,17 @@
     let schlNm;
     let tel;
     let address;
+
+    let nm;
+    let email
+    let directNum;
+    let moblphon;
+    let task;
+    let grade;
+
     let classesNum;
     let personnel;
+
 
     let hp_schd1_personnel;
     let hp_schd1_et;
@@ -32,10 +41,53 @@
 
     let preMstPid;
 
+    $(function (){
+        fn_setDateTimePicker('#hp_schd1_et' , {
+            onShow:function (ct){
+                this.setOptions({
+                    minDate: ('2020-01-01') ,
+                    maxDate: ('2030-12-31')
+                })
+            }
+        });
+        fn_setDateTimePicker('#hp_schd1_wt' , {
+            onShow:function (ct){
+                this.setOptions({
+                    minDate: ('2020-01-01') ,
+                    maxDate: ('2030-12-31')
+                })
+            }
+        });
+        fn_setDateTimePicker('#hp_schd2_et' , {
+            onShow:function (ct){
+                this.setOptions({
+                    minDate: ('2020-01-01') ,
+                    maxDate: ('2030-12-31')
+                })
+            }
+        });
+        fn_setDateTimePicker('#hp_schd2_wt' , {
+            onShow:function (ct){
+                this.setOptions({
+                    minDate: ('2020-01-01') ,
+                    maxDate: ('2030-12-31')
+                })
+            }
+        });
+    })
+
     function fn_chkFiled() {
         schlNm = $('#schlNm');
         tel = $('#tel');
         address = $('#address');
+
+        nm = $('#nm');
+        email = $('#email');
+        directNum = $('#directNum');
+        moblphon = $('#moblphon');
+        task = $('#task');
+        grade = $('#grade');
+
         classesNum = $('#classesNum');
         personnel = $('#personnel');
 
@@ -73,6 +125,39 @@
             return false;
         }
 
+        if(!nm.val()){
+            alert('신청자 성함을 입력하세요.')
+            nm.focus()
+            return false
+        }
+
+        if(!email.val()){
+            alert('신청자 이메일을 입력하세요.')
+            email.focus()
+            return false
+        }
+        if(!directNum.val()){
+            alert('직통번호를 입력하세요.')
+            directNum.focus()
+            return false
+        }
+        if(!moblphon.val()){
+            alert('신청자 휴대폰 번호를 입력하세요.')
+            moblphon.focus()
+            return false
+        }
+        if(!task.val()){
+            alert('신청자의 담당업무를 입력하세요.')
+            task.focus()
+            return false
+        }
+
+
+        if(!grade.val()){
+            alert('학년을 입력하세요.')
+            grade.focus()
+            return false;
+        }
         if(!classesNum.val()) {
             alert('학급수를 입력하세요.')
             classesNum.focus()
@@ -156,6 +241,33 @@
     }
 
     $(document).ready(function () {
+
+
+
+        /*fn_setDateTimePicker('#hp_schd1_wt' , {
+            onShow:function (ct){
+                this.setOption({
+                    maxDate:new Date().toISOString().substring(0, 10)
+                })
+            }
+        })
+
+        fn_setDateTimePicker('#hp_schd2_et' , {
+            onShow:function (ct){
+                this.setOption({
+                    maxDate:new Date().toISOString().substring(0, 10)
+                })
+            }
+        })
+
+        fn_setDateTimePicker('#hp_schd2_wt' , {
+            onShow:function (ct){
+                this.setOption({
+                    maxDate:new Date().toISOString().substring(0, 10)
+                })
+            }
+        })*/
+
         preMstPid = $('#preMstPid');
         if(preMstPid > 0){
             alert("임시 저장된 데이터가 로드됩니다.");
@@ -255,7 +367,7 @@
                                                 </div>
                                                 <div class="td">
                                                     <th:block th:if="${preventionMst == null}">
-                                                        <input type="text" id="Nm" name="Nm" placeholder="성함을 입력해주세요.">
+                                                        <input type="text" id="nm" name="nm" placeholder="성함을 입력해주세요.">
                                                     </th:block>
                                                     <!--<th:block th:if="${schlData == null}">
                                                         <input type="text" id="Nm" name="Nm">
@@ -269,7 +381,7 @@
                                                 </div>
                                                 <div class="td">
                                                     <th:block th:if="${preventionMst == null}">
-                                                        <input type="text" id="Email" name="Email" placeholder="이메일을 입력해주세요.">
+                                                        <input type="text" id="email" name="email" placeholder="이메일을 입력해주세요.">
                                                     </th:block>
                                                     <!--<th:block th:if="${schlData == null}">
                                                         <input type="text" id="Email" name="Email" >
@@ -389,28 +501,28 @@
                                                     <div>
                                                         <span>인원</span>
                                                         <th:block th:if="${preventionMst == null}">
-                                                            <input type="text" id="hp_schd1_personnel" name="hpSchd1Personnel" placeholder="희망 인원을 입력하세요.">
+                                                            <input type="number" id="hp_schd1_personnel" name="hpSchd1Personnel" placeholder="희망 인원을 입력하세요.">
                                                         </th:block>
                                                         <th:block th:if="${schlData == null}">
-                                                            <input type="text" id="hp_schd1_personnel" name="hpSchd1Personnel" placeholder="희망 인원을 입력하세요." th:value="${preventionMst.hpSchd1Personnel}">
+                                                            <input type="number" id="hp_schd1_personnel" name="hpSchd1Personnel" placeholder="희망 인원을 입력하세요." th:value="${preventionMst.hpSchd1Personnel}">
                                                         </th:block>
                                                     </div>
                                                     <div>
                                                         <span>교육시간</span>
                                                         <th:block th:if="${preventionMst == null}">
-                                                            <input type="text" id="hp_schd1_et" name="hpSchd1Et" placeholder="ex) 09:00 ~ 12:00">
+                                                            <input type="text" id="hp_schd1_et" name="hpSchd1Et" placeholder="ex) 09:00 ~ 12:00" readonly>
                                                         </th:block>
                                                         <th:block th:if="${schlData == null}">
-                                                            <input type="text" id="hp_schd1_et" name="hpSchd1Et" placeholder="희망 인원을 입력하세요." th:value="${preventionMst.hpSchd1Et}">
+                                                            <input type="text" id="hp_schd1_et" name="hpSchd1Et" placeholder="희망 인원을 입력하세요." th:value="${preventionMst.hpSchd1Et}" readonly>
                                                         </th:block>
                                                     </div>
                                                     <div>
                                                         <span>일과시간</span>
                                                         <th:block th:if="${preventionMst == null}">
-                                                            <input type="text" id="hp_schd1_wt" name="hpSchd1Wt" placeholder="ex) 09:00 ~ 12:00">
+                                                            <input type="text" id="hp_schd1_wt" name="hpSchd1Wt" placeholder="ex) 09:00 ~ 12:00" readonly>
                                                         </th:block>
                                                         <th:block th:if="${schlData == null}">
-                                                            <input type="text" id="hp_schd1_wt" name="hpSchd1Wt" placeholder="희망 인원을 입력하세요." th:value="${preventionMst.hpSchd1Wt}">
+                                                            <input type="text" id="hp_schd1_wt" name="hpSchd1Wt" placeholder="희망 인원을 입력하세요." th:value="${preventionMst.hpSchd1Wt}" readonly>
                                                         </th:block>
                                                     </div>
                                                 </div>
@@ -424,28 +536,28 @@
                                                     <div>
                                                         <span>인원</span>
                                                         <th:block th:if="${preventionMst == null}">
-                                                            <input type="text" id="hp_schd2_personnel" name="hpSchd2Personnel" placeholder="희망 인원을 입력하세요.">
+                                                            <input type="number" id="hp_schd2_personnel" name="hpSchd2Personnel" placeholder="희망 인원을 입력하세요.">
                                                         </th:block>
                                                         <th:block th:if="${schlData == null}">
-                                                            <input type="text" id="hp_schd2_personnel" name="hpSchd2Personnel" placeholder="희망 인원을 입력하세요." th:value="${preventionMst.hpSchd2Personnel}">
+                                                            <input type="number" id="hp_schd2_personnel" name="hpSchd2Personnel" placeholder="희망 인원을 입력하세요." th:value="${preventionMst.hpSchd2Personnel}">
                                                         </th:block>
                                                     </div>
                                                     <div>
                                                         <span>교육시간</span>
                                                         <th:block th:if="${preventionMst == null}">
-                                                            <input type="text" id="hp_schd2_et" name="hpSchd2Et" placeholder="ex) 09:00 ~ 12:00">
+                                                            <input type="text" id="hp_schd2_et" name="hpSchd2Et" placeholder="ex) 09:00 ~ 12:00" readonly>
                                                         </th:block>
                                                         <th:block th:if="${schlData == null}">
-                                                            <input type="text" id="hp_schd2_et" name="hpSchd2Et" placeholder="희망 인원을 입력하세요." th:value="${preventionMst.hpSchd2Et}">
+                                                            <input type="text" id="hp_schd2_et" name="hpSchd2Et" placeholder="희망 인원을 입력하세요." th:value="${preventionMst.hpSchd2Et}" readonly>
                                                         </th:block>
                                                     </div>
                                                     <div>
                                                         <span>일과시간</span>
                                                         <th:block th:if="${preventionMst == null}">
-                                                            <input type="text" id="hp_schd2_wt" name="hpSchd2Wt" placeholder="ex) 09:00 ~ 12:00">
+                                                            <input type="text" id="hp_schd2_wt" name="hpSchd2Wt" placeholder="ex) 09:00 ~ 12:00" readonly>
                                                         </th:block>
                                                         <th:block th:if="${schlData == null}">
-                                                            <input type="text" id="hp_schd2_wt" name="hpSchd2Wt" placeholder="희망 인원을 입력하세요." th:value="${preventionMst.hpSchd2Wt}">
+                                                            <input type="text" id="hp_schd2_wt" name="hpSchd2Wt" placeholder="희망 인원을 입력하세요." th:value="${preventionMst.hpSchd2Wt}" readonly>
                                                         </th:block>
                                                     </div>
                                                 </div>

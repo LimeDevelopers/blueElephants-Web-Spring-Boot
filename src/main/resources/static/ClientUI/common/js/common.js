@@ -543,7 +543,7 @@ function osCheck() {
         return "ANDROID";
     } else if (userAgent.indexOf("iphone") > -1 || userAgent.indexOf("ipad") > -1 || userAgent.indexOf("ipod") > -1) {
         return "IOS";
-    } else {02
+    } else {
         return "";
     }
 }
@@ -563,6 +563,7 @@ function fn_setDateTimePicker(selector, option) {
     }
     option.format = 'Y-m-d H:i';
     option.scrollMonth = false;
+    option.step = 10;
     $(selector).datetimepicker(option);
 }
 function fn_setTimePicker(selector, option) {
