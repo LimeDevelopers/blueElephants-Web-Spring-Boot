@@ -93,15 +93,24 @@ public class AppManagementService extends _BaseService {
         builder.and(qPreventionMaster.id.eq(id));
         PreventionMaster instructor = queryFactory
                 .select(Projections.fields(PreventionMaster.class,
+                        qPreventionMaster.id,
+                        qPreventionMaster.mberPid,
                         qPreventionMaster.schlNm,
                         qPreventionMaster.address,
                         qPreventionMaster.regDtm,
-                        qPreventionMaster.id,
-                        qPreventionMaster.mberPid,
-                        qPreventionMaster.approval,
                         qPreventionMaster.tel,
+                        qPreventionMaster.nm,
+                        qPreventionMaster.email,
+                        qPreventionMaster.moblphon,
+                        qPreventionMaster.task,
+                        qPreventionMaster.approval,
+                        qPreventionMaster.grade,
+                        qPreventionMaster.classesNum,
+                        qPreventionMaster.personnel,
+                        qPreventionMaster.hpSchd1Personnel,
                         qPreventionMaster.hpSchd1Et,
                         qPreventionMaster.hpSchd1Wt,
+                        qPreventionMaster.hpSchd2Personnel,
                         qPreventionMaster.hpSchd2Et,
                         qPreventionMaster.hpSchd2Wt,
                         qPreventionMaster.resultQna1,
@@ -109,8 +118,7 @@ public class AppManagementService extends _BaseService {
                         qPreventionMaster.resultQna3,
                         qPreventionMaster.resultQna4,
                         qPreventionMaster.resultQna5,
-                        qPreventionMaster.tempSave,
-                        qPreventionMaster.personnel
+                        qPreventionMaster.tempSave
                 ))
                 .from(qPreventionMaster)
                 .where(builder)

@@ -89,6 +89,7 @@ public class CourseHisService extends _BaseService {
                 //차시 완료 체크
                 CourseItemForm courseItemForm = new CourseItemForm();
                 courseItemForm.setCrsPid(courseHisForm.getCrsPid());
+                log.info("sErVicE ====== 2");
                 List<CourseItemDto> courseItems = courseItemService.listForProcNm(courseItemForm.getCrsPid(), courseHisForm.getMberPid());
                 for (CourseItemDto courseItem : courseItems) {
                     if ((courseItem.getProcNm() == null) || (courseItem.getProcNm() != null && CompleteStatusType.COMPLETE.equals(courseItem.getProcNm()))) {
@@ -99,13 +100,23 @@ public class CourseHisService extends _BaseService {
 
                 if (crssqDone && procPer >= 100) { // 진도율 완료처리
                     if (courseRequest != null && courseRequest.getId() != null) {
+
                         CourseRequestCompleteForm courseRequestCompleteForm = new CourseRequestCompleteForm();
+                        //ReqeustId Get
                         courseRequestCompleteForm.setAtnlcReqPid(courseRequest.getId());
+                        //CrsMstPid Get
                         courseRequestCompleteForm.setCrsMstPid(courseHisForm.getCrsMstPid());
+                        //CrsPid Get
                         courseRequestCompleteForm.setCrsPid(courseHisForm.getCrsPid());
+                        //Sn Get
                         courseRequestCompleteForm.setSn(courseHisForm.getSn());
                         courseRequestCompleteForm.setCmplPrsDtm(LocalDateTime.now());
+                        log.info("crssqDone ======= " + crssqDone);
+                        log.info("procPer ======= " + procPer);
+                        log.info("sErVicE ====== 1");
+                        //update ReqComple Form , set CompleStt.Complete
                         courseRequestCompleteService.updateSttTy(courseRequestCompleteForm, CompleteStatusType.COMPLETE);
+
                     }
                 }
             } else {

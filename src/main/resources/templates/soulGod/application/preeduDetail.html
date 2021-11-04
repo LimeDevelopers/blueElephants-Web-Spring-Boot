@@ -3,17 +3,17 @@
 <head>
     <th:block th:include="soulGod/fragments/header"></th:block>
     <script>
-        function fn_setStatus(id,gbn,uid) {
-            if(gbn == 'N') {
+        function fn_setStatus(id, gbn, uid) {
+            if (gbn == 'N') {
                 let result = confirm("반려 처리하시겠습니까?");
-                if(result){
+                if (result) {
                     $.ajax({
-                        cache : false,
-                        url: "/api/soulGod/application/updateInsApporaval/"+id+"/"+gbn+"/"+uid,
-                        type : 'GET',
+                        cache: false,
+                        url: "/api/soulGod/application/updateInsApporaval/" + id + "/" + gbn + "/" + uid,
+                        type: 'GET',
                         contentType: "application/json",
-                        success : function(data) {
-                            if(data == false) {
+                        success: function (data) {
+                            if (data == false) {
                                 alert('통신 에러')
                             } else {
                                 alert('변경되었습니다.')
@@ -25,16 +25,16 @@
                     return false;
                 }
             }
-            if(gbn == 'W') {
+            if (gbn == 'W') {
                 let result = confirm("대기 처리하시겠습니까?");
-                if(result){
+                if (result) {
                     $.ajax({
-                        cache : false,
-                        url: "/api/soulGod/application/updateInsApporaval/"+id+"/"+gbn+"/"+uid,
-                        type : 'GET',
+                        cache: false,
+                        url: "/api/soulGod/application/updateInsApporaval/" + id + "/" + gbn + "/" + uid,
+                        type: 'GET',
                         contentType: "application/json",
-                        success : function(data) {
-                            if(data == false) {
+                        success: function (data) {
+                            if (data == false) {
                                 alert('통신 에러')
                             } else {
                                 alert('변경되었습니다.')
@@ -46,16 +46,16 @@
                     return false;
                 }
             }
-            if(gbn == 'Y') {
+            if (gbn == 'Y') {
                 let result = confirm("승인 처리하시겠습니까?");
-                if(result){
+                if (result) {
                     $.ajax({
-                        cache : false,
-                        url: "/api/soulGod/application/updateInsApporaval/"+id+"/"+gbn+"/"+uid,
-                        type : 'GET',
+                        cache: false,
+                        url: "/api/soulGod/application/updateInsApporaval/" + id + "/" + gbn + "/" + uid,
+                        type: 'GET',
                         contentType: "application/json",
-                        success : function(data) {
-                            if(data == false) {
+                        success: function (data) {
+                            if (data == false) {
                                 alert('통신 에러')
                             } else {
                                 alert('변경되었습니다.')
@@ -68,19 +68,20 @@
                 }
             }
         }
-        function fn_chgEduType(t){
-            selectedVal = $('.'+t).children('.list').children('.option.selected').data('value');
+
+        function fn_chgEduType(t) {
+            selectedVal = $('.' + t).children('.list').children('.option.selected').data('value');
             let jsonData = {
-                'id' : t,
-                'InsDvTy' : selectedVal
+                'id': t,
+                'InsDvTy': selectedVal
             }
             $.ajax({
-                cache : false,
-                url: "/api/soulGod/application/updateInsType/"+t+"/"+selectedVal,
-                type : 'POST',
+                cache: false,
+                url: "/api/soulGod/application/updateInsType/" + t + "/" + selectedVal,
+                type: 'POST',
                 contentType: "application/json",
                 datatype: 'json',
-                success : function(data) {
+                success: function (data) {
                     alert('변경되었습니다.')
                 }
             });
@@ -93,7 +94,7 @@
     <div id="container">
         <div class="container_box">
             <form id="form1" name="form1" method="post" enctype="multipart/form-data" th:object="${form}">
-                <input type="hidden" th:fiedl />
+                <input type="hidden" th:fiedl/>
                 <div class="contents">
                     <ul class="breadcrumb">
                         <li><i class="material-icons">home</i></li>
@@ -101,141 +102,190 @@
                         <li><a href="/soulGod/application/inseducation"> 예방교육</a></li>
                     </ul>
                     <div class="board_detail clearfix">
+
                         <div class="sec">
                             <div class="board_top clearfix">
                                 <div class="fl">
-                                    <h4 class="sec_tit" th:text="|*{schlNm}님 기본정보|">상세정보</h4>
+                                    <h4 class="sec_tit" th:text="|신청학교 기본정보 (*{schlNm})|">상세정보</h4>
                                 </div>
                             </div>
 
                             <table class="tbl_write">
                                 <colgroup>
-                                    <col style="width:5%"/>
-                                    <col style="width:15%"/>
-                                    <col style="width:20%"/>
+                                    <col style="width:10%"/>
+                                    <col style="width:10%"/>
+                                    <col style="width:10%"/>
                                     <col style="width:20%"/>
                                     <col style="width:10%"/>
+                                    <col style="width:15%"/>
                                     <col style="width:auto"/>
                                 </colgroup>
                                 <tbody>
                                 <tr>
                                     <th scope="row"><label>학교명</label></th>
                                     <td th:text="*{schlNm}"></td>
+
                                     <th scope="row"><label>주소</label></th>
                                     <td th:text="*{address}"></td>
-                                    <th scope="row"><label>전화번호</label></th>
+
+                                    <th scope="row"><label>대표번호</label></th>
                                     <td th:text="*{tel}"></td>
+
                                     <th scope="row"><label>처리</label></th>
                                     <td colspan="2">
-                                        <a class="btn btn_sm btn_blue" href="#" th:onclick="|fn_setStatus(*{id},'Y',*{mberPid});|">
+                                        <a class="btn btn_sm btn_blue" href="#"
+                                           th:onclick="|fn_setStatus(*{id},'Y',*{mberPid});|">
                                             <i class="material-icons fz17">done</i>승인
                                         </a>
-                                        <a class="btn btn_sm btn_blue" href="#" th:onclick="|fn_setStatus(*{id},'Y',*{mberPid});|">
+                                        <a class="btn btn_sm btn_blue" href="#"
+                                           th:onclick="|fn_setStatus(*{id},'Y',*{mberPid});|">
                                             <i class="material-icons fz17">done</i>승인
                                         </a>
                                     </td>
                                 </tr>
+                                </tbody>
+                            </table>
+                        </div>
 
+                        <div class="sec">
+                            <div class="board_top clearfix">
+                                <div class="fl">
+                                    <h4 class="sec_tit" th:text="|교육 신청정보|">상세정보</h4>
+                                </div>
+                            </div>
+
+                            <table class="tbl_write">
+                                <colgroup>
+                                    <col style="width:10%"/>
+                                    <col style="width:auto"/>
+                                </colgroup>
+                                <tbody>
+                                <th scope="row"><label>학년</label></th>
+                                <td th:text="*{grade}"></td>
+                                <th scope="row"><label>학급수</label></th>
+                                <td th:text="*{classesNum}"></td>
+                                <th scope="row">인원</th>
+                                <td th:text="|*{personnel} 명|"></td>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+
+
+                        <div class="sec">
+                            <div class="board_top clearfix">
+                                <div class="fl">
+                                    <h4 class="sec_tit" th:text="|신청자 정보|">상세정보</h4>
+                                </div>
+                            </div>
+
+
+                            <table class="tbl_write">
+                                <colgroup>
+                                    <col style="width:10%"/>
+                                    <col style="width:10%"/>
+                                    <col style="width:10%"/>
+                                    <col style="width:13%"/>
+                                    <col style="width:10%"/>
+                                    <col style="width:10%"/>
+                                    <col style="width:auto"/>
+                                </colgroup>
+
+                                <tbody>
                                 <tr>
+
                                     <th scope="row"><label>성명</label></th>
-                                    <td th:text="*{schlNm}"></td>
+                                    <td th:text="*{nm}"></td>
+
                                     <th scope="row"><label>이메일</label></th>
-                                    <td th:text="*{address}"></td>
+                                    <td th:text="*{email}"></td>
+
                                     <th scope="row"><label>직통번호</label></th>
                                     <td th:text="*{tel}"></td>
+
                                     <th scope="row"><label>휴대폰</label></th>
-                                    <td th:text="*{tel}"></td>
+                                    <td th:text="*{moblphon}"></td>
+
                                     <th scope="row"><label>담당업무</label></th>
-                                    <td th:text="*{tel}"></td>
-                                </tr>
+                                    <td th:text="*{task}"></td>
 
-                                <tr>
-                                    <th scope="row"><label>이름</label></th>
-                                    <td th:text="*{schlNm}"></td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">생년월일</th>
-                                    <td th:text="*{schlNm}"></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">휴대전화</th>
-                                    <td th:text="*{schlNm}"></td>
-                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
 
-                                <tr>
-                                    <th scope="row">이메일</th>
-                                    <td th:text="*{schlNm}"></td>
-                                </tr>
+
+
+
+                        <div class="sec">
+                            <div class="board_top clearfix">
+                                <div class="fl">
+                                    <h4 class="sec_tit" th:text="|희망일정 (1안)|"></h4>
+                                </div>
+                            </div>
+
+                            <table class="tbl_write">
+
+                                <colgroup>
+                                    <col style="width:10%"/>
+                                    <col style="width:auto"/>
+                                </colgroup>
+
+                                <tbody>
+                                    <tr>
+                                        <th scope="row"><label>1안 인원</label></th>
+                                        <td th:text="|*{hpSchd1Personnel} 명|"></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row"><label>1안 교육시간</label></th>
+                                        <td th:text="|*{hpSchd1Et}|"></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">1안 일과시간</th>
+                                        <td th:text="|*{hpSchd1Wt}|"></td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
                         <div class="sec">
                             <div class="board_top clearfix">
                                 <div class="fl">
-                                    <h4 class="sec_tit" th:text="|*{schlNm}님 예방강사 신청정보|">상세정보</h4>
+                                    <h4 class="sec_tit" th:text="|희망일정 (2안)|"></h4>
                                 </div>
                             </div>
-
                             <table class="tbl_write">
+
                                 <colgroup>
                                     <col style="width:10%"/>
                                     <col style="width:auto"/>
                                 </colgroup>
+
                                 <tbody>
-
                                 <tr>
-                                    <th scope="row"><label>재학기간</label></th>
-                                    <td th:text="*{schlNm}"></td>
+                                    <th scope="row"><label>2안 인원</label></th>
+                                    <td th:text="|*{hpSchd2Personnel} 명|"></td>
                                 </tr>
                                 <tr>
-                                    <th scope="row"><label>학교명</label></th>
-                                    <td th:text="*{schlNm}"></td>
+                                    <th scope="row"><label>2안 교육시간</label></th>
+                                    <td th:text="|*{hpSchd2Et}|"></td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">전공</th>
-                                    <td th:text="*{schlNm}"></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">졸업여부</th>
-                                    <td th:text="*{schlNm}"></td>
-                                </tr>
-
-                                <tr>
-                                    <th scope="row"><label>근무기간</label></th>
-                                    <td th:text="*{schlNm}"></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><label>근무처명</label></th>
-                                    <td th:text="*{schlNm}"></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">직책</th>
-                                    <td th:text="*{schlNm}"></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">직무내용</th>
-                                    <td th:text="*{schlNm}"></td>
-                                </tr>
-
-                                <tr>
-                                    <th scope="row"><label>자격사항</label></th>
-                                    <td th:text="*{schlNm}"></td>
-                                </tr>
-
-                                <tr>
-                                    <th scope="row">최종 등록일</th>
-                                    <td th:text="*{regDtm}"></td>
+                                    <th scope="row">2안 일과시간</th>
+                                    <td th:text="|*{hpSchd2Wt}|"></td>
                                 </tr>
                                 </tbody>
                             </table>
                             <div class="btn_area">
-                                <a class="btn btn_sm btn_red" href="#" th:onclick="|fn_setStatus(*{id},'N',*{mberPid});|">
+                                <a class="btn btn_sm btn_red" href="#"
+                                   th:onclick="|fn_setStatus(*{id},'N',*{mberPid});|">
                                     <i class="material-icons fz17">done</i>반려
                                 </a>
                                 <a class="btn btn_sm" href="#" th:onclick="|fn_setStatus(*{id},'W',*{mberPid});|">
                                     <i class="material-icons fz17">done</i>대기
                                 </a>
-                                <a class="btn btn_sm btn_blue" href="#" th:onclick="|fn_setStatus(*{id},'Y',*{mberPid});|">
+                                <a class="btn btn_sm btn_blue" href="#"
+                                   th:onclick="|fn_setStatus(*{id},'Y',*{mberPid});|">
                                     <i class="material-icons fz17">done</i>승인
                                 </a>
                             </div>
