@@ -1254,14 +1254,16 @@
                                 <li class="student teacher">
                                     <div class="th mo_bdt_0"><label for="areaNm">지역명</label><span class="aster">*</span></div>
                                     <div class="td">
-                                        <input type="text" id="areaNm" name="areaNm" readonly onclick="layerShow('popSchool')"/>
+                                        <input type="text" id="areaNm" name="areaNm" placeholder="서울특별시">
+                                        <!--<input type="text" id="areaNm" name="areaNm" readonly onclick="layerShow('popSchool')"/>-->
                                     </div>
                                 </li>
                                 <li class="student teacher search_school">
                                     <div class="th"><label for="schlNm">학교명</label><span class="aster">*</span></div>
                                     <div class="td">
-                                        <input type="text" id="schlNm" name="schlNm" placeholder="○○초등학교" readonly onclick="layerShow('popSchool')"/>
-                                        <button type="button" class="btn">학교검색</button>
+                                        <input type="text" id="schlNm" name="schlNm" placeholder="○○초등학교">
+                                        <!--<input type="text" id="schlNm" name="schlNm" placeholder="○○초등학교" readonly onclick="layerShow('popSchool')"/>-->
+                                        <!--<button type="button" class="btn">학교검색</button>-->
                                     </div>
                                 </li>
                                 <li class="spt_crew">
@@ -1273,7 +1275,7 @@
                                         <button type="button" class="btn btn_lg btn_line_blue btn_pill_10" onclick="layerShow('popCrew')">크루검색</button>
                                     </div>
                                 </li>
-                                <li class="student teacher desc">
+                                <!--<li class="student teacher desc">
                                     <div class="th">학년/반<span class="aster">*</span></div>
                                     <div class="td">
                                         <div>
@@ -1291,6 +1293,15 @@
                                             </div>
                                         </div>
                                     </div>
+                                </li>-->
+                                <li class="student teacher desc">
+                                    <div class="th">학년<span class="aster">*</span></div>
+                                    <div class="td"><input type="text" id="grade" name="grade" onkeydown="fn_checkSpacebar()" placeholder="학년"/></div>
+                                </li>
+
+                                <li class="student teacher desc">
+                                    <div class="th">반<span class="aster">*</span></div>
+                                    <div class="td"><input type="text" id="ban" name="ban" onkeydown="fn_checkSpacebar()" placeholder="반"/></div>
                                 </li>
                                 <!--<li class="student teacher">
                                     <div class="th">반</div>
