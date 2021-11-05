@@ -110,7 +110,7 @@
 .board_top .price{margin-left:7px;color:#0d203f;font-size:19px;font-weight:700}
 .board_top > .fl > *{display:inline-block;margin-left:10px;vertical-align:top}
 .board_top > .fr > *{margin-right:5px}
-.board_top > div > *:last-child{margin-left:0}
+.board_top > div > *:last-child{margin-left:0 }
 .board_top > div > .sec_tit{margin:4px 0}
 .board_top > div > .tip{margin-top:9px;color:#0d203f;font-size:14px;font-weight:700}
 .board_top > div > .sec_tit + .tip{margin-left:5px}

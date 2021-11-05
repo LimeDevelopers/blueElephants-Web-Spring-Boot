@@ -447,6 +447,7 @@ public class AppManagementService extends _BaseService {
                 pre.setApproval("N");
             }
             log.info("!@#!@#" + pre.getApproval());
+            
             pre.setApproval(gbn);
             return true;
         } catch (Exception e) {

@@ -1,5 +1,6 @@
 $(document).ready(function(){
 
+
 	/*
 	* 수정일 : 21.08.09
 	* 수정자 : 김재일

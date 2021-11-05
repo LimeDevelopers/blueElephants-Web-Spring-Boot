@@ -3,8 +3,16 @@
 <head>
     <th:block th:include="soulGod/fragments/header"></th:block>
     <script>
+        /*let hp1
+        let hp2*/
 
         function fn_setStatus(id, gbn, uid) {
+
+            var jsonData = {
+                'hp1' : hp1.val() ,
+                'hp2' : hp2.val()
+            }
+
             if (gbn == 'N') {
                 let result = confirm("반려 처리하시겠습니까?");
                 if (result) {
@@ -48,12 +56,19 @@
                 }
             }
             if (gbn == 'Y') {
+
+                if($(':radio[name="hp"]:checked').length < 1){
+                    alert('희망일정을 선택해주세요.');
+                    return false;
+                }
+
                 let result = confirm("승인 처리하시겠습니까?");
                 if (result) {
                     $.ajax({
                         cache: false,
                         url: "/api/soulGod/application/updatePreApporaval/" + id + "/" + gbn + "/" + uid,
                         type: 'GET',
+                        data: JSON.stringify(jsonData),
                         contentType: "application/json",
                         success: function (data) {
                             if (data == false) {
@@ -87,6 +102,19 @@
                 }
             });
         }
+        function fn_chkcontroll(){
+
+            if(hp1.isChecked()){
+                hp2.checked(false)
+            }
+            if(hp2.isChecked()){
+                hp1.checked(false)
+            }
+        }
+
+        $(document).ready(function () {
+            fn_chkcontroll();
+        })
     </script>
 </head>
 <body>
@@ -216,6 +244,7 @@
                             <div class="board_top clearfix">
                                 <div class="fl">
                                     <h4 class="sec_tit" th:text="|희망일정 (1안)|"></h4>
+                                    <input id="hp1" name="hp" type="radio" th:value="|*{hpSchd1Et}|" th:radiogroup="hp2" style="margin: 6px"/>
                                 </div>
                             </div>
 
@@ -246,6 +275,7 @@
                             <div class="board_top clearfix">
                                 <div class="fl">
                                     <h4 class="sec_tit" th:text="|희망일정 (2안)|"></h4>
+                                    <input id="hp2" name="hp" type="radio" th:value="|*{hpSchd1Et}|" th:radiogroup="hp2" style="margin: 6px"/>
                                 </div>
                             </div>
                             <table class="tbl_write">
