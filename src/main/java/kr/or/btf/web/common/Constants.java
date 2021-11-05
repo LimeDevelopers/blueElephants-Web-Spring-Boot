@@ -46,7 +46,7 @@ public class Constants {
     /**
      * 초기 비밀번호
      */
-    public static final String DEFAULT_PASSWORD = "btf123$%^";
+    public static final String DEFAULT_PASSWORD = "puco123!";
 
     /**
      * 과정마스터 순번
