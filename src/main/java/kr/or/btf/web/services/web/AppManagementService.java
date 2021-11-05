@@ -36,6 +36,7 @@ public class AppManagementService extends _BaseService {
     private final PreventionInstructorRepository preventionInstructorRepository;
     private final MemberRollRepository memberRollRepository;
     private final PreventionMasterRepository preventionMasterRepository;
+    private final PreventionApprovalRepository preventionApprovalRepository;
 
     // 강사 유형 update..
     public boolean updateInsDyTy(Long id, String gbn) {
@@ -447,11 +448,31 @@ public class AppManagementService extends _BaseService {
                 pre.setApproval("N");
             }
             log.info("!@#!@#" + pre.getApproval());
-            
+
             pre.setApproval(gbn);
             return true;
         } catch (Exception e) {
             return false;
         }
+    }
+    //예방강좌 승인 시 insert
+    public boolean approvalUpdate(Long mstId , Long mberId , String hopeDtm , String gbn) {
+
+        /*log.info("id =======" + mstId);
+        log.info("uid =======" + mberId);
+        log.info("hopeDtm =======" + hopeDtm);
+        log.info("gbn =======" + gbn);*/
+
+
+        PreventionApproval preventionApproval = new PreventionApproval();
+
+        preventionApproval.setPreMstpid(mstId);
+        preventionApproval.setMberPid(mberId);
+        preventionApproval.setHopeDtm(hopeDtm);
+        preventionApproval.setApproval(gbn);
+        preventionApproval.setApprovalDtm(LocalDateTime.now());
+        preventionApprovalRepository.save(preventionApproval);
+
+        return true;
     }
 }

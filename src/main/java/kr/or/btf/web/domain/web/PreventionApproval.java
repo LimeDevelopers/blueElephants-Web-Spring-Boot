@@ -32,4 +32,7 @@ public class PreventionApproval {
 
     @Column(name = "approval")
     private String approval;
+
+    @Column(name = "approval_dtm")
+    private LocalDateTime approvalDtm;
 }

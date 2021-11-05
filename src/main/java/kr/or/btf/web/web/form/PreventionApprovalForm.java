@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -16,4 +17,5 @@ public class PreventionApprovalForm extends SearchForm{
     private Long mberPid;
     private String hopeDtm;
     private String approval;
+    private LocalDateTime approvalDtm;
 }

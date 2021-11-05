@@ -199,11 +199,9 @@ public class AppManagementController extends BaseCont  {
                                       @PathVariable("gbn") String gbn,
                                       @RequestParam(name = "hp") String hopeDtm) {
 
-        log.info("id =======" + id);
-        log.info("uid =======" + uid);
-        log.info("hopeDtm =======" + hopeDtm);
-        log.info("gbn =======" + gbn);
-
+        if(gbn.equals("Y")){
+            appManagementService.approvalUpdate(uid,id,hopeDtm,gbn);
+        }
 
         return appManagementService.updatePreApporaval(id,gbn,uid);
     }
