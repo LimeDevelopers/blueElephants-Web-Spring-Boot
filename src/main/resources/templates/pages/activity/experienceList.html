@@ -60,7 +60,7 @@
                 <div class="page_cont">
                     <!--<h4 class="subtit pc review_title">교육후기</h4>-->
                     <div class="sub_text_box review_text_box mt">
-                        <img src="/ClientUI/user/images/contents/culture_02.png">
+                        <img src="/ClientUI/user/images/contents/culture_intro.png">
                         <div class="text">
                             <p class="title">우리 친구들이 탐험을 통해 획득한 6가지 친사회적 능력을 마음껏 발휘해보세요.</p>
                             <span class="sub">
@@ -124,40 +124,39 @@
                 </li>
             </ul>-->
 
-                    <ul class="thumb_list clearfix">
-                        <th:block th:if="${boardDatas == null or boardDatas.isEmpty()}"><!--등록된 글이 없을 경우-->
+                    <ul class="thumb_list clearfix" th:if="${dvCodePid ne null}">
+                        <th:block th:if="${experiences == null or experiences.isEmpty()}"><!--등록된 글이 없을 경우-->
                             <li class="nodata">
                                 <div>등록된 게시글이 없습니다.</div>
                             </li>
                         </th:block>
-                        <li th:each="item : ${boardDatas}">
-                            <a th:href="|/pages/news/detail/${item.id}|">
-                                    <span class="thumb"><img th:src="${filePath} + '/' + ${item.thumbFileNm}"
-                                                             th:alt="${item.thumbFileNm}"
-                                                             onerror="this.src='/ClientUI/user/images/contents/nodata01.png'"/></span>
-                                <th:block th:if="${item.sntncHead ne ''}">
-                                    <strong class="tit" th:text="|[${item.sntncHead}]  ${item.ttl}|"></strong>
+                        <li th:each="item:${experiences}">
+                            <a th:href="${'/pages/activity/experienceDetail/'+item.id}">
+                                <span class="thumb">
+                                    <img th:src="${filePath+'/'+item.imgFl}" th:alt="${item.ttl}"
+                                         onerror="this.src='/ClientUI/user/images/contents/nodata01.png'" />
+                                </span>
+                                <strong class="tit">
+                                    <th:block th:if="${dvCodePid eq messagePid}">
+                                        <em class="fc_red" th:if="${item.imgFl ne null and item.cntntsUrl ne ''
+                                                                        and item.flNm eq null}">[영상]</em>
+                                        <em class="fc_oceanblue" th:if="${item.imgFl ne null and item.flNm ne null
+                                                                            and item.cntntsUrl eq ''}">[음성]</em>
+                                        <em class="fc_green" th:if="${item.imgFl ne null and item.cn eq ''
+                                                                        and item.cntntsUrl eq '' and item.flNm eq null}">[썸네일]</em>
+                                        <em class="fc_blue" th:if="${item.imgFl ne null and item.cn ne ''
+                                                                        and item.cntntsUrl eq '' and item.flNm eq null}" >[텍스트]</em>
+                                    </th:block>
+                                    <th:block th:text="${item.ttl}"></th:block>
+                                </strong>
+                                <th:block th:if="${dvCodePid eq videoPid}">
+                                    <span class="lbl">체험하기</span>
                                 </th:block>
-                                <th:block th:unless="${item.sntncHead ne ''}">
-                                    <strong class="tit" th:text="${item.ttl}"></strong>
+                                <th:block th:if="${dvCodePid eq voicePid}">
+                                    <span class="lbl">목소리 듣기</span>
                                 </th:block>
-                                <span class="date" th:text="${#temporals.format(item.ntceDt,'yyyy.MM.dd')}">2020.01.22</span>
                             </a>
                         </li>
-                        <!--<li>
-                            <a href="/pages/news/detail">
-                                <span class="thumb"><img src="/ClientUI/user/images/contents/nodata01.png" alt="사이버폭력의 실제 모습이 궁금한가요?" onerror="this.src='/ClientUI/user/images/contents/nodata01.png'" /></span>
-                                <strong class="tit">OO중학교 사이버 폭력 근절단</strong>
-                                <span class="date">2020.01.22</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/pages/news/detail">
-                                <span class="thumb"><img src="/ClientUI/user/images/contents/nodata01.png" alt="사이버폭력의 실제 모습이 궁금한가요?" onerror="this.src='/ClientUI/user/images/contents/nodata01.png'" /></span>
-                                <strong class="tit">OO중학교 사이버 폭력 근절단</strong>
-                                <span class="date">2020.01.22</span>
-                            </a>
-                        </li>-->
                     </ul>
                 </div>
                 <!-- <th:block

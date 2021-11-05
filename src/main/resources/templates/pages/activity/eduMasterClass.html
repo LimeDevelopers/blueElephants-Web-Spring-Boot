@@ -223,17 +223,23 @@
                                         </th:block>
                                     </ul>
 
-                                    <th:block th:if="${item.sn eq 3}">
+                                    <th:block th:if="${item.sn eq 3  && eduTy eq 'Y'}">
                                         <p class="lecture_sub"></p>
+                                    </th:block>
+                                    <th:block th:if="${item.sn eq 3  && eduTy eq 'N'}">
+                                        <p class="lecture_sub" th:text="${item.pidNm}"></p>
                                     </th:block>
                                     <th:block th:if="${item.sn eq 4  && eduTy eq 'Y'}">
                                         <p class="lecture_sub"></p>
                                     </th:block>
                                     <th:block th:if="${item.sn eq 4  && eduTy eq 'N'}">
-                                        <p class="lecture_sub" ></p>
+                                        <p class="lecture_sub" th:text="${item.pidNm}"></p>
                                     </th:block>
-                                    <th:block th:if="${item.sn eq 5}">
+                                    <th:block th:if="${item.sn eq 5  && eduTy eq 'Y'}">
                                         <p class="lecture_sub"></p>
+                                    </th:block>
+                                    <th:block th:if="${item.sn eq 5  && eduTy eq 'N'}">
+                                        <p class="lecture_sub" th:text="${item.pidNm}"></p>
                                     </th:block>
 
                                 </div>
