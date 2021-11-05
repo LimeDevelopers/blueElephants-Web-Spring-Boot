@@ -200,7 +200,7 @@ public class AppManagementController extends BaseCont  {
                                       @RequestParam(name = "hp") String hopeDtm) {
 
         if(gbn.equals("Y")){
-            appManagementService.approvalUpdate(uid,id,hopeDtm,gbn);
+            appManagementService.approvalUpdate(id,uid,hopeDtm,gbn);
         }
 
         return appManagementService.updatePreApporaval(id,gbn,uid);
