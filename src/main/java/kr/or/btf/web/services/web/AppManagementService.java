@@ -12,10 +12,7 @@ import kr.or.btf.web.domain.web.*;
 import kr.or.btf.web.domain.web.enums.AppRollType;
 import kr.or.btf.web.domain.web.enums.InstructorDvTy;
 import kr.or.btf.web.domain.web.enums.UserRollType;
-import kr.or.btf.web.repository.web.ApplicationRepository;
-import kr.or.btf.web.repository.web.MemberRepository;
-import kr.or.btf.web.repository.web.MemberRollRepository;
-import kr.or.btf.web.repository.web.PreventionInstructorRepository;
+import kr.or.btf.web.repository.web.*;
 import kr.or.btf.web.web.form.SearchForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -38,6 +35,7 @@ public class AppManagementService extends _BaseService {
     private final ApplicationRepository applicationRepository;
     private final PreventionInstructorRepository preventionInstructorRepository;
     private final MemberRollRepository memberRollRepository;
+    private final PreventionMasterRepository preventionMasterRepository;
 
     // 강사 유형 update..
     public boolean updateInsDyTy(Long id, String gbn) {
@@ -99,14 +97,17 @@ public class AppManagementService extends _BaseService {
                         qPreventionMaster.address,
                         qPreventionMaster.regDtm,
                         qPreventionMaster.tel,
+
                         qPreventionMaster.nm,
                         qPreventionMaster.email,
                         qPreventionMaster.moblphon,
                         qPreventionMaster.task,
+
                         qPreventionMaster.approval,
                         qPreventionMaster.grade,
                         qPreventionMaster.classesNum,
                         qPreventionMaster.personnel,
+
                         qPreventionMaster.hpSchd1Personnel,
                         qPreventionMaster.hpSchd1Et,
                         qPreventionMaster.hpSchd1Wt,
@@ -433,5 +434,23 @@ public class AppManagementService extends _BaseService {
                 .orderBy(orderSpecifier)
                 .fetchResults();
         return new PageImpl<>(mngList.getResults(), pageable, mngList.getTotal());
+    }
+    public boolean updatePreApporaval(Long id, String gbn, Long uid) {
+        updateMemberDvType(gbn, uid);
+        try {
+            PreventionMaster pre = preventionMasterRepository.findById(id).orElseGet(PreventionMaster::new);
+            if (gbn.equals("Y")) {
+                pre.setApproval("Y");
+            } else if (gbn.equals("W")) {
+                pre.setApproval("W");
+            } else {
+                pre.setApproval("N");
+            }
+            log.info("!@#!@#" + pre.getApproval());
+            pre.setApproval(gbn);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

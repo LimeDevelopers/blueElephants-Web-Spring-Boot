@@ -3,13 +3,14 @@
 <head>
     <th:block th:include="soulGod/fragments/header"></th:block>
     <script>
+
         function fn_setStatus(id, gbn, uid) {
             if (gbn == 'N') {
                 let result = confirm("반려 처리하시겠습니까?");
                 if (result) {
                     $.ajax({
                         cache: false,
-                        url: "/api/soulGod/application/updateInsApporaval/" + id + "/" + gbn + "/" + uid,
+                        url: "/api/soulGod/application/updatePreApporaval/" + id + "/" + gbn + "/" + uid,
                         type: 'GET',
                         contentType: "application/json",
                         success: function (data) {
@@ -30,7 +31,7 @@
                 if (result) {
                     $.ajax({
                         cache: false,
-                        url: "/api/soulGod/application/updateInsApporaval/" + id + "/" + gbn + "/" + uid,
+                        url: "/api/soulGod/application/updatePreApporaval/" + id + "/" + gbn + "/" + uid,
                         type: 'GET',
                         contentType: "application/json",
                         success: function (data) {
@@ -51,7 +52,7 @@
                 if (result) {
                     $.ajax({
                         cache: false,
-                        url: "/api/soulGod/application/updateInsApporaval/" + id + "/" + gbn + "/" + uid,
+                        url: "/api/soulGod/application/updatePreApporaval/" + id + "/" + gbn + "/" + uid,
                         type: 'GET',
                         contentType: "application/json",
                         success: function (data) {
@@ -132,16 +133,9 @@
                                     <td th:text="*{tel}"></td>
 
                                     <th scope="row"><label>처리</label></th>
-                                    <td colspan="2">
-                                        <a class="btn btn_sm btn_blue" href="#"
-                                           th:onclick="|fn_setStatus(*{id},'Y',*{mberPid});|">
-                                            <i class="material-icons fz17">done</i>승인
-                                        </a>
-                                        <a class="btn btn_sm btn_blue" href="#"
-                                           th:onclick="|fn_setStatus(*{id},'Y',*{mberPid});|">
-                                            <i class="material-icons fz17">done</i>승인
-                                        </a>
-                                    </td>
+                                    <td th:if="*{approval == 'N'}" th:text="|반려|" style="font-weight: bold; color:red;"></td>
+                                    <td th:if="*{approval == 'W'}" th:text="|승인대기|" style="font-weight: bold; color:#9a9a9a;"></td>
+                                    <td th:if="*{approval == 'Y'}" th:text="|승인|" style="font-weight: bold; color:#8bb3ff;"></td>
                                 </tr>
                                 </tbody>
                             </table>
