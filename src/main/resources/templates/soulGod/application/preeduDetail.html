@@ -3,15 +3,15 @@
 <head>
     <th:block th:include="soulGod/fragments/header"></th:block>
     <script>
-        /*let hp1
-        let hp2*/
+        let hp1
+        let hp2
 
         function fn_setStatus(id, gbn, uid) {
 
-            var jsonData = {
+            /*var jsonData = {
                 'hp1' : hp1.val() ,
                 'hp2' : hp2.val()
-            }
+            }*/
 
             if (gbn == 'N') {
                 let result = confirm("반려 처리하시겠습니까?");
@@ -57,30 +57,54 @@
             }
             if (gbn == 'Y') {
 
+                hp1 = $('#hp1')
+                hp2 = $('#hp2')
+
                 if($(':radio[name="hp"]:checked').length < 1){
                     alert('희망일정을 선택해주세요.');
+                    hp1.focus();
                     return false;
                 }
 
                 let result = confirm("승인 처리하시겠습니까?");
                 if (result) {
-                    $.ajax({
-                        cache: false,
-                        url: "/api/soulGod/application/updatePreApporaval/" + id + "/" + gbn + "/" + uid,
-                        type: 'GET',
-                        data: JSON.stringify(jsonData),
-                        contentType: "application/json",
-                        success: function (data) {
-                            if (data == false) {
-                                alert('통신 에러')
-                            } else {
-                                alert('변경되었습니다.')
-                                location.reload()
+                    if($(hp1).is(':checked')) {
+                        $.ajax({
+                            cache: false,
+                            url: "/api/soulGod/application/updatePreApporaval/" + id + "/" + gbn + "/" + uid,
+                            type: 'GET',
+                            data:  {'hp' : hp1.val()},
+                            contentType: "application/json",
+                            success: function (data) {
+                                if (data == false) {
+                                    alert('통신 에러')
+                                } else {
+                                    alert('변경되었습니다.')
+                                    location.reload()
+                                }
                             }
-                        }
-                    });
-                } else {
-                    return false;
+                        });
+                    }
+
+                    if($(hp2).is(':checked')){
+                        $.ajax({
+                            cache: false,
+                            url: "/api/soulGod/application/updatePreApporaval/" + id + "/" + gbn + "/" + uid,
+                            type: 'GET',
+                            data:  {'hp' : hp2.val()},
+                            contentType: "application/json",
+                            success: function (data) {
+                                if (data == false) {
+                                    alert('통신 에러')
+                                } else {
+                                    alert('변경되었습니다.')
+                                    location.reload()
+                                }
+                            }
+                        });
+                    }
+                    } else {
+                        return false;
                 }
             }
         }
@@ -275,7 +299,7 @@
                             <div class="board_top clearfix">
                                 <div class="fl">
                                     <h4 class="sec_tit" th:text="|희망일정 (2안)|"></h4>
-                                    <input id="hp2" name="hp" type="radio" th:value="|*{hpSchd1Et}|" th:radiogroup="hp2" style="margin: 6px"/>
+                                    <input id="hp2" name="hp" type="radio" th:value="|*{hpSchd2Et}|" th:radiogroup="hp2" style="margin: 6px"/>
                                 </div>
                             </div>
                             <table class="tbl_write">

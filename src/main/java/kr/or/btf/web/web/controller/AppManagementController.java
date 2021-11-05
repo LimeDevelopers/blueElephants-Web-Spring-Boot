@@ -196,9 +196,15 @@ public class AppManagementController extends BaseCont  {
     @GetMapping("/api/soulGod/application/updatePreApporaval/{id}/{gbn}/{uid}")
     public boolean updatePreApporaval(@PathVariable("id") Long id,
                                       @PathVariable("uid") Long uid,
-                                      @PathVariable("gbn") String gbn) {
+                                      @PathVariable("gbn") String gbn,
+                                      @RequestParam(name = "hp") String hopeDtm) {
+
+        log.info("id =======" + id);
+        log.info("uid =======" + uid);
+        log.info("hopeDtm =======" + hopeDtm);
+        log.info("gbn =======" + gbn);
+
 
         return appManagementService.updatePreApporaval(id,gbn,uid);
-
     }
 }

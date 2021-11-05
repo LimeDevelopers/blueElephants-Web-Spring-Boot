@@ -24,6 +24,9 @@ public class PreventionApproval {
     @Column(name = "pre_mst_pid")
     private Long preMstpid;
 
+    @Column(name = "mber_pid")
+    private Long mberPid;
+
     @Column(name = "hope_dtm")
     private String hopeDtm;
 

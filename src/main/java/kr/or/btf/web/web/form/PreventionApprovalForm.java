@@ -13,6 +13,7 @@ import javax.persistence.Id;
 public class PreventionApprovalForm extends SearchForm{
     private Long praPid;
     private Long preMstpid;
+    private Long mberPid;
     private String hopeDtm;
     private String approval;
 }
