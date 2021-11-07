@@ -18,4 +18,5 @@ public class PreventionApprovalForm extends SearchForm{
     private String hopeDtm;
     private String approval;
     private LocalDateTime approvalDtm;
+    private String schlNm;
 }

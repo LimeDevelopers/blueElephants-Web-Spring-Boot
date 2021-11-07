@@ -35,4 +35,7 @@ public class PreventionApproval {
 
     @Column(name = "approval_dtm")
     private LocalDateTime approvalDtm;
+
+    @Column(name = "schl_nm")
+    private String schlNm;
 }

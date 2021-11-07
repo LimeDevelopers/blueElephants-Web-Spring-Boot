@@ -13,6 +13,7 @@ import kr.or.btf.web.domain.web.enums.AppRollType;
 import kr.or.btf.web.domain.web.enums.InstructorDvTy;
 import kr.or.btf.web.domain.web.enums.UserRollType;
 import kr.or.btf.web.repository.web.*;
+import kr.or.btf.web.web.form.PreventionApprovalForm;
 import kr.or.btf.web.web.form.SearchForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -24,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -139,9 +141,9 @@ public class AppManagementService extends _BaseService {
 
         QueryResults<PreventionInstructor> list = queryFactory
                 .select(Projections.fields(PreventionInstructor.class,
+                        qPrevention.mberPid,
                         qPreventionInstructor.regDtm,
                         qPreventionInstructor.id,
-                        qPreventionInstructor.mberPid,
                         qPreventionInstructor.approval,
                         qPreventionInstructor.awards,
                         qPreventionInstructor.eduMatters,
@@ -159,13 +161,16 @@ public class AppManagementService extends _BaseService {
                         qPreventionInstructor.snsUrl,
                         qPreventionInstructor.thumbImg,
                         qPreventionInstructor.updDtm,
-                        qPreventionInstructor.InsType
+                        qPreventionInstructor.InsType,
+                        ExpressionUtils.as(
+                                JPAExpressions.select(qAccount.nm)
+                                        .from(qAccount)
+                                        .where(qAccount.id.eq(qPreventionInstructor.mberPid)),
+                                "nm")
                 ))
-                .from(qPreventionInstructor)
-                .leftJoin(qPrevention).on(qPreventionInstructor.mberPid.eq(
-                                JPAExpressions.select(qPrevention.mberPid)
-                                        .from(qPrevention)
-                                        .where(qPrevention.preMstPid.eq(id))))
+                .from(qPrevention)
+                .leftJoin(qPreventionInstructor).on(qPrevention.mberPid.eq(qPreventionInstructor.mberPid))
+                .where(qPrevention.preMstPid.eq(id))
                 .orderBy(orderSpecifier)
                 .fetchResults();
         return list.getResults();
@@ -436,43 +441,57 @@ public class AppManagementService extends _BaseService {
                 .fetchResults();
         return new PageImpl<>(mngList.getResults(), pageable, mngList.getTotal());
     }
-    public boolean updatePreApporaval(Long id, String gbn, Long uid) {
-        updateMemberDvType(gbn, uid);
+    public void updatePreApporaval(PreventionApprovalForm form) {
+        updateMemberDvType(form.getApproval(), form.getPreMstpid());
         try {
-            PreventionMaster pre = preventionMasterRepository.findById(id).orElseGet(PreventionMaster::new);
-            if (gbn.equals("Y")) {
+            PreventionMaster pre = preventionMasterRepository.findById(form.getPreMstpid()).orElseGet(PreventionMaster::new);
+            if (form.getApproval().equals("Y")) {
                 pre.setApproval("Y");
-            } else if (gbn.equals("W")) {
+            } else if (form.getApproval().equals("W")) {
                 pre.setApproval("W");
             } else {
                 pre.setApproval("N");
             }
             log.info("!@#!@#" + pre.getApproval());
 
-            pre.setApproval(gbn);
-            return true;
+            pre.setApproval(form.getApproval());
         } catch (Exception e) {
-            return false;
         }
     }
     //예방강좌 승인 시 insert
-    public boolean approvalUpdate(Long mstId , Long mberId , String hopeDtm , String gbn) {
+    public boolean approvalUpdate(PreventionApprovalForm form) {
 
         /*log.info("id =======" + mstId);
         log.info("uid =======" + mberId);
         log.info("hopeDtm =======" + hopeDtm);
         log.info("gbn =======" + gbn);*/
-
-
+        boolean rs = false;
         PreventionApproval preventionApproval = new PreventionApproval();
-
-        preventionApproval.setPreMstpid(mstId);
-        preventionApproval.setMberPid(mberId);
-        preventionApproval.setHopeDtm(hopeDtm);
-        preventionApproval.setApproval(gbn);
-        preventionApproval.setApprovalDtm(LocalDateTime.now());
-        preventionApprovalRepository.save(preventionApproval);
-
-        return true;
+        PreventionApproval a = preventionApprovalRepository.findByPreMstpid(form.getPreMstpid()).orElseGet(PreventionApproval::new);
+        if(a != null){
+            try {
+                PreventionApproval update = preventionApprovalRepository.findById(a.getId()).orElseGet(PreventionApproval::new);
+                update.setHopeDtm(form.getHopeDtm());
+                update.setApproval(form.getApproval());
+                update.setApprovalDtm(LocalDateTime.now());
+                update.setSchlNm(form.getSchlNm());
+                update.setMberPid(form.getMberPid());
+                rs = true;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            preventionApproval.setPreMstpid(form.getPreMstpid());
+            preventionApproval.setMberPid(form.getMberPid());
+            preventionApproval.setHopeDtm(form.getHopeDtm());
+            preventionApproval.setApproval(form.getApproval());
+            preventionApproval.setApprovalDtm(LocalDateTime.now());
+            log.info("서비스 학교이름 ===== " + form.getSchlNm());
+            preventionApproval.setSchlNm(form.getSchlNm());
+            preventionApprovalRepository.save(preventionApproval);
+        }
+        rs = true;
+        updatePreApporaval(form);
+        return rs;
     }
 }

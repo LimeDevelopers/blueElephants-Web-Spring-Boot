@@ -9,6 +9,7 @@ import kr.or.btf.web.domain.web.enums.InstructorDvTy;
 import kr.or.btf.web.domain.web.enums.UserRollType;
 import kr.or.btf.web.services.web.AppManagementService;
 import kr.or.btf.web.services.web.ApplicationService;
+import kr.or.btf.web.web.form.PreventionApprovalForm;
 import kr.or.btf.web.web.form.SearchForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -193,16 +194,8 @@ public class AppManagementController extends BaseCont  {
         return "soulGod/application/contest";
     }
     @ResponseBody
-    @GetMapping("/api/soulGod/application/updatePreApporaval/{id}/{gbn}/{uid}")
-    public boolean updatePreApporaval(@PathVariable("id") Long id,
-                                      @PathVariable("uid") Long uid,
-                                      @PathVariable("gbn") String gbn,
-                                      @RequestParam(name = "hp") String hopeDtm) {
-
-        if(gbn.equals("Y")){
-            appManagementService.approvalUpdate(id,uid,hopeDtm,gbn);
-        }
-
-        return appManagementService.updatePreApporaval(id,gbn,uid);
+    @PostMapping("/api/soulGod/application/updatePreApporaval")
+    public boolean updatePreApporaval(@ModelAttribute PreventionApprovalForm form) {
+        return appManagementService.approvalUpdate(form);
     }
 }
