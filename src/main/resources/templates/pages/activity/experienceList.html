@@ -99,58 +99,7 @@
                                 </span>
                         </div>
                     </div>-->
-                    <div class="board_top pt0" th:if="${dvCodePid ne null}">
-                        <div class="select w190" th:if="${dvCodePid eq messagePid}">
-                            <label th:for="*{srchFile}">
-                                <th:block th:if="*{srchFile eq '' or srchFile eq null}">파일형태 전체</th:block>
-                                <th:block th:if="*{srchFile eq '1'}">영상</th:block>
-                                <th:block th:if="*{srchFile eq '2'}">음성</th:block>
-                                <th:block th:if="*{srchFile eq '3'}">썸네일</th:block>
-                                <th:block th:if="*{srchFile eq '4'}">텍스트</th:block>
-                            </label>
-                            <select th:field="*{srchFile}">
-                                <option value="">파일형태 전체</option>
-                                <option value="1">영상</option>
-                                <option value="2">음성</option>
-                                <option value="3">썸네일</option>
-                                <option value="4">텍스트</option>
-                            </select>
-                        </div>
-                        <div class="select w160">
-                            <label th:for="srchField">
-                                <!--<th:block th:if="*{srchField eq '' or srchField eq null}">전체</th:block>-->
-                                <th:block th:if="*{srchField eq 'title' or srchField eq '' or srchField eq null}">제목</th:block>
-                                <th:block th:if="*{srchField eq 'cn'}">내용</th:block>
-                                <th:block th:if="*{srchField eq 'titleCn'}">제목+내용</th:block>
-                                <th:block th:if="*{srchField eq 'wrterNm'}">작성자</th:block>
-                            </label>
-                            <select th:field="*{srchField}">
-                                <!--<option value="" selected>전체</option>-->
-                                <option value="title">제목</option>
-                                <option value="cn">내용</option>
-                                <option value="titleCn">제목+내용</option>
-                                <option value="wrterNm">작성자</option>
-                            </select>
-                        </div>
-                        <div class="search" th:classappend="${dvCodePid eq messagePid ? 'experience' : 'news'}">
-                            <input type="search" th:field="*{srchWord}" placeholder="검색어를 입력해 주세요" />
-                        </div>
-                        <button type="submit" class="btn btn_blue btn_pill_10">검색</button>
-                        <div class="select w160">
-                            <label th:for="sorting">
-                                <th:block th:if="*{sorting eq '' or sorting eq null}">최신순</th:block>
-                                <th:block th:if="*{sorting eq 'old'}">오래된순</th:block>
-                                <th:block th:if="*{sorting eq 'readCnt'}">조회순</th:block>
-                                <th:block th:if="*{sorting eq 'alphabetically'}">가나다순</th:block>
-                            </label>
-                            <select th:field="*{sorting}" onchange="fn_search()">
-                                <option value="" selected>최신순</option>
-                                <option value="old">오래된순</option>
-                                <option value="readCnt">조회순</option>
-                                <option value="alphabetically">가나다순</option>
-                            </select>
-                        </div>
-                    </div>
+
 
                     <ul class="thumb_list clearfix" th:if="${dvCodePid ne null}">
                         <th:block th:if="${experiences == null or experiences.isEmpty()}"><!--등록된 글이 없을 경우-->
