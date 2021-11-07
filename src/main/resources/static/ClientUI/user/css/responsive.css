@@ -3336,6 +3336,28 @@
 	}
 	/* 활동_문화만들기_캠페인 끝 */
 
+	/* 활동_문화만들기_지지선언 시작 */
+	.page_cont > .review_text_box.declaration {
+		margin-top: 55px;
+		height: 200px;
+	}
+	.page_cont > .review_text_box.declaration img {
+		width: 20%;
+		top: 15%;
+	}
+	/* 활동_문화만들기_지지선언 끝 */
+
+	/* 활동_문화만들기_지지크루 시작 */
+	.page_cont > .review_text_box.culture_crew {
+		margin-top: 55px;
+		height: 200px;
+	}
+	.page_cont > .review_text_box.culture_crew img {
+		width: 50%;
+		top: 15%;
+	}
+	/* 활동_문화만들기_지지크루 끝 */
+
 
 
 	/* 활동_문화만들기_정책제안 시작 */

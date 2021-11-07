@@ -18,133 +18,174 @@
         <div class="sub_container">
             <th:block th:include="fragments/dept_menu"></th:block>
 
-        <form id="form1" name="form1" method="post" th:object="${form}">
-
-            <div class="inner">
-                <div class="page_cont">
-                    <!--<h4 class="subtit pc review_title">교육후기</h4>-->
-                    <div class="sub_text_box review_text_box mt culture">
-                        <img src="/ClientUI/user/images/contents/culture_intro.png">
-                        <div class="text">
-                            <p class="title">푸코와 함께 사이버폭력의 심각성을 알리고 비폭력 문화를 만들어가요!</p>
-                            <span class="sub">
+            <form id="form1" name="form1" method="post" th:object="${form}">
+                <div class="inner">
+                    <div class="page_cont">
+                        <!--<h4 class="subtit pc review_title">교육후기</h4>-->
+                        <div class="sub_text_box review_text_box mt"
+                             th:classappend="${dvCodePid eq campaignCdPid ? 'active' : ''}" th:if="${dvCodePid eq campaignCdPid}">
+                            <img src="/ClientUI/user/images/contents/culture_intro.png"/>
+                            <div class="text">
+                                <p class="title">푸코와 함께 사이버폭력의 심각성을 알리고 비폭력 문화를 만들어가요!</p>
+                                <span class="sub">
                                     누구나 쉽게 참여할 수 있는 대국민 비폭력 캠페인을 진행해요. <b></b> SNS 또는 거리에 모여 사이버폭력을 예방하고 근절할 수 있도록 저 푸코와 함께 해주세요.
                             </span>
+                            </div>
                         </div>
-                    </div>
+                        <div class="sub_text_box review_text_box mt"
+                             th:classappend="${dvCodePid eq declarationCdPid ? 'active' : ''}" th:if="${dvCodePid eq declarationCdPid}">
+                            <img class="declaration" src="/ClientUI/user/images/contents/declaration.png"/>
+                            <div class="text">
+                                <p class="title">학교부터 시작되는 안전한 사이버세상!</p>
+                                <span class="sub">
+                                    지지크루는 푸른코끼리와 함께 자발적으로 비폭력 예방교육을 운영하고 있어요.사이버폭력 예방문화 확산을 지지하고, 사이버폭력 피해자를 지원하는 지지크루 활동을 확인해봐요.
+                            </span>
+                            </div>
+                        </div>
+                        <div class="sub_text_box review_text_box mt"
+                             th:classappend="${dvCodePid eq crewGalleryCdPid ? 'active' : ''}" th:if="${dvCodePid eq crewGalleryCdPid}">
+                            <img class="culture_crew" src="/ClientUI/user/images/contents/crew.png"/>
+                            <div class="text">
+                                <p class="title">청소년이 직접 기획하고 운영하는 비폭력 예방교육 동아리 ‘지지크루’!</p>
+                                <span class="sub">
+                                    누구나 쉽게 참여할 수 있는 대국민 비폭력 캠페인을 진행해요. <b></b> SNS 또는 거리에 모여 사이버폭력을 예방하고 근절할 수 있도록 저 푸코와 함께 해주세요.
+                            </span>
+                            </div>
+                        </div>
 
-                    <!--<ul class="thumb_list clearfix">
-                        <th:block th:if="${boardDatas == null or boardDatas.isEmpty()}">&lt;!&ndash;등록된 글이 없을 경우&ndash;&gt;
-                            <li class="nodata">
-                                <div>등록된 게시글이 없습니다.</div>
-                            </li>
-                        </th:block>
-                        <li th:each="item : ${boardDatas}">
-                            <a th:href="|/pages/news/detail/${item.id}|">
-                                    <span class="thumb"><img th:src="${filePath} + '/' + ${item.thumbFileNm}"
-                                                             th:alt="${item.thumbFileNm}"
-                                                             onerror="this.src='/ClientUI/user/images/contents/nodata01.png'"/></span>
-                                <th:block th:if="${item.sntncHead ne ''}">
-                                    <strong class="tit" th:text="|[${item.sntncHead}]  ${item.ttl}|"></strong>
-                                </th:block>
-                                <th:block th:unless="${item.sntncHead ne ''}">
-                                    <strong class="tit" th:text="${item.ttl}"></strong>
-                                </th:block>
-                                <span class="date" th:text="${#temporals.format(item.ntceDt,'yyyy.MM.dd')}">2020.01.22</span>
-                            </a>
-                        </li>
-                    </ul>-->
-                    <div class="btn_tab" th:if="${dvCodePid eq crewGalleryCdPid or dvCodePid eq crewBoardCdPid}"> <!-- TODO: 활성화 버튼에 active 별도 클래스 추가 필요 -->
-                        <a th:href="|/pages/activity/cultureList/${@environment.getProperty('common.code.crewGalleryCdPid')}|" class="btn btn_pill btn_gallery active">갤러리</a>
-                        <a th:href="|/pages/activity/cultureList/${@environment.getProperty('common.code.crewBoardCdPid')}|" class="btn btn_pill btn_board">게시판</a>
-                    </div>
-
-                    <div class="board_top pt0">
-                        <div class="select w160">
-                            <label th:for="srchField">
-                                <!--<th:block th:if="*{srchField eq '' or srchField eq null}">전체</th:block>-->
-                                <th:block th:if="*{srchField eq 'title' or srchField eq '' or srchField eq null}">제목</th:block>
-                                <th:block th:if="*{srchField eq 'cn'}">내용</th:block>
-                                <th:block th:if="*{srchField eq 'titleCn'}">제목+내용</th:block>
-                                <th:block th:if="*{srchField eq 'wrterNm'}">작성자</th:block>
-                            </label>
-                            <select th:field="*{srchField}">
-                                <!--<option value="" selected>전체</option>-->
-                                <option value="title">제목</option>
-                                <option value="cn">내용</option>
-                                <option value="titleCn">제목+내용</option>
-                                <option value="wrterNm">작성자</option>
-                            </select>
-                        </div>
-                        <div class="search" th:classappend="${dvCodePid eq messagePid ? '' : 'news'}">
-                            <input type="search" th:field="*{srchWord}" placeholder="검색어를 입력해 주세요" />
-                        </div>
-                        <button type="submit" class="btn btn_blue btn_pill_10">검색</button>
-                        <div class="select w160">
-                            <label th:for="sorting">
-                                <th:block th:if="*{sorting eq 'latest' or sorting eq null or sorting eq ''}">최신순</th:block>
-                                <th:block th:if="*{sorting eq 'old'}">오래된순</th:block>
-                                <th:block th:if="*{sorting eq 'readCnt'}">조회순</th:block>
-                                <th:block th:if="*{sorting eq 'alphabetically'}">가나다순</th:block>
-                            </label>
-                            <select th:field="*{sorting}" onchange="fn_search()">
-                                <option value="" selected>최신순</option>
-                                <option value="old">오래된순</option>
-                                <option value="readCnt">조회순</option>
-                                <option value="alphabetically">가나다순</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <th:block th:if="${#numbers.formatInteger(dvCodePid, 0) ne @environment.getProperty('common.code.crewBoardCdPid')}">
-                        <ul class="thumb_list clearfix">
-                            <th:block th:if="${campaigns == null or campaigns.isEmpty()}"><!--등록된 글 없을경우-->
-                                <li class="nodata">
-                                    <div><strong>서비스 준비 중</strong> 입니다.</div>
-                                </li>
-                            </th:block>
-                            <li th:each="item : ${campaigns}">
-                                <a th:href="|/pages/activity/cultureDetail/${item.id}|">
-                                    <span class="thumb"><img th:src="|${filePath}/${item.imgFl}|" th:alt="${item.imgFl}" onerror="this.src='/ClientUI/user/images/contents/nodata01.png'" /></span>
-                                    <strong class="tit" th:text="${item.ttl}">사이버폭력이 사라지는 그날까지</strong>
-                                    <span th:if="${dvCodePid ne crewGalleryCdPid}" class="date" th:text="${#temporals.format(item.regDtm,'yyyy.MM.dd')}">2020.06.30</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </th:block>
-                    <th:block th:if="${#numbers.formatInteger(dvCodePid, 0) eq @environment.getProperty('common.code.crewBoardCdPid')}">
-                        <ul class="board_tbl_list type01">
-                            <li class="thead">
-                                <strong class="no">No</strong>
-                                <strong class="tit">제목</strong>
-                                <strong class="writer">등록자</strong>
-                                <strong class="date">등록일</strong>
-                                <strong class="hits">조회수</strong>
-                            </li>
-                            <th:block th:if="${campaigns == null or campaigns.isEmpty()}">
+                        <!--<ul class="thumb_list clearfix">
+                            <th:block th:if="${boardDatas == null or boardDatas.isEmpty()}">&lt;!&ndash;등록된 글이 없을 경우&ndash;&gt;
                                 <li class="nodata">
                                     <div>등록된 게시글이 없습니다.</div>
                                 </li>
                             </th:block>
-                            <li th:each="item,idx : ${campaigns}">
-                                <div class="no" th:text="${campaigns.totalElements - campaigns.pageable.pageSize * campaigns.pageable.pageNumber - idx.index}"></div>
-                                <div class="tit">
-                                    <a th:href="|/pages/activity/cultureDetail/${item.id}|" th:text="${item.ttl}">공지사항 공지사항 공지사항 공지사항 공지사항 공지사항 공지사항 공지사항 공지사항 공지사항 공지사항 공지사항</a>
-                                </div>
-                                <div class="writer"><span class="th">등록자 : </span><th:block th:text="${item.regPsNm}">홍길동</th:block></div>
-                                <div class="date"><span class="th">등록일 : </span><th:block th:text="${#temporals.format(item.regDtm,'yyyy.MM.dd')}">2020.10.15</th:block></div>
-                                <div class="hits"><span class="th">조회수 : </span><th:block th:text="${item.readCnt eq null ? '0' : item.readCnt}">20</th:block></div>
+                            <li th:each="item : ${boardDatas}">
+                                <a th:href="|/pages/news/detail/${item.id}|">
+                                        <span class="thumb"><img th:src="${filePath} + '/' + ${item.thumbFileNm}"
+                                                                 th:alt="${item.thumbFileNm}"
+                                                                 onerror="this.src='/ClientUI/user/images/contents/nodata01.png'"/></span>
+                                    <th:block th:if="${item.sntncHead ne ''}">
+                                        <strong class="tit" th:text="|[${item.sntncHead}]  ${item.ttl}|"></strong>
+                                    </th:block>
+                                    <th:block th:unless="${item.sntncHead ne ''}">
+                                        <strong class="tit" th:text="${item.ttl}"></strong>
+                                    </th:block>
+                                    <span class="date" th:text="${#temporals.format(item.ntceDt,'yyyy.MM.dd')}">2020.01.22</span>
+                                </a>
                             </li>
-                        </ul>
+                        </ul>-->
+                        <div class="btn_tab" th:if="${dvCodePid eq crewGalleryCdPid or dvCodePid eq crewBoardCdPid}">
+                            <!-- TODO: 활성화 버튼에 active 별도 클래스 추가 필요 -->
+                            <a th:href="|/pages/activity/cultureList/${@environment.getProperty('common.code.crewGalleryCdPid')}|"
+                               class="btn btn_pill btn_gallery active">갤러리</a>
+                            <a th:href="|/pages/activity/cultureList/${@environment.getProperty('common.code.crewBoardCdPid')}|"
+                               class="btn btn_pill btn_board">게시판</a>
+                        </div>
+
+                        <div class="board_top pt0">
+                            <div class="select w160">
+                                <label th:for="srchField">
+                                    <!--<th:block th:if="*{srchField eq '' or srchField eq null}">전체</th:block>-->
+                                    <th:block th:if="*{srchField eq 'title' or srchField eq '' or srchField eq null}">
+                                        제목
+                                    </th:block>
+                                    <th:block th:if="*{srchField eq 'cn'}">내용</th:block>
+                                    <th:block th:if="*{srchField eq 'titleCn'}">제목+내용</th:block>
+                                    <th:block th:if="*{srchField eq 'wrterNm'}">작성자</th:block>
+                                </label>
+                                <select th:field="*{srchField}">
+                                    <!--<option value="" selected>전체</option>-->
+                                    <option value="title">제목</option>
+                                    <option value="cn">내용</option>
+                                    <option value="titleCn">제목+내용</option>
+                                    <option value="wrterNm">작성자</option>
+                                </select>
+                            </div>
+                            <div class="search" th:classappend="${dvCodePid eq messagePid ? '' : 'news'}">
+                                <input type="search" th:field="*{srchWord}" placeholder="검색어를 입력해 주세요"/>
+                            </div>
+                            <button type="submit" class="btn btn_blue btn_pill_10">검색</button>
+                            <div class="select w160">
+                                <label th:for="sorting">
+                                    <th:block th:if="*{sorting eq 'latest' or sorting eq null or sorting eq ''}">최신순
+                                    </th:block>
+                                    <th:block th:if="*{sorting eq 'old'}">오래된순</th:block>
+                                    <th:block th:if="*{sorting eq 'readCnt'}">조회순</th:block>
+                                    <th:block th:if="*{sorting eq 'alphabetically'}">가나다순</th:block>
+                                </label>
+                                <select th:field="*{sorting}" onchange="fn_search()">
+                                    <option value="" selected>최신순</option>
+                                    <option value="old">오래된순</option>
+                                    <option value="readCnt">조회순</option>
+                                    <option value="alphabetically">가나다순</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <th:block
+                                th:if="${#numbers.formatInteger(dvCodePid, 0) ne @environment.getProperty('common.code.crewBoardCdPid')}">
+                            <ul class="thumb_list clearfix">
+                                <th:block th:if="${campaigns == null or campaigns.isEmpty()}"><!--등록된 글 없을경우-->
+                                    <li class="nodata">
+                                        <div><strong>서비스 준비 중</strong> 입니다.</div>
+                                    </li>
+                                </th:block>
+                                <li th:each="item : ${campaigns}">
+                                    <a th:href="|/pages/activity/cultureDetail/${item.id}|">
+                                        <span class="thumb"><img th:src="|${filePath}/${item.imgFl}|"
+                                                                 th:alt="${item.imgFl}"
+                                                                 onerror="this.src='/ClientUI/user/images/contents/nodata01.png'"/></span>
+                                        <strong class="tit" th:text="${item.ttl}">사이버폭력이 사라지는 그날까지</strong>
+                                        <span th:if="${dvCodePid ne crewGalleryCdPid}" class="date"
+                                              th:text="${#temporals.format(item.regDtm,'yyyy.MM.dd')}">2020.06.30</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </th:block>
+                        <th:block
+                                th:if="${#numbers.formatInteger(dvCodePid, 0) eq @environment.getProperty('common.code.crewBoardCdPid')}">
+                            <ul class="board_tbl_list type01">
+                                <li class="thead">
+                                    <strong class="no">No</strong>
+                                    <strong class="tit">제목</strong>
+                                    <strong class="writer">등록자</strong>
+                                    <strong class="date">등록일</strong>
+                                    <strong class="hits">조회수</strong>
+                                </li>
+                                <th:block th:if="${campaigns == null or campaigns.isEmpty()}">
+                                    <li class="nodata">
+                                        <div>등록된 게시글이 없습니다.</div>
+                                    </li>
+                                </th:block>
+                                <li th:each="item,idx : ${campaigns}">
+                                    <div class="no"
+                                         th:text="${campaigns.totalElements - campaigns.pageable.pageSize * campaigns.pageable.pageNumber - idx.index}"></div>
+                                    <div class="tit">
+                                        <a th:href="|/pages/activity/cultureDetail/${item.id}|" th:text="${item.ttl}">공지사항
+                                            공지사항 공지사항 공지사항 공지사항 공지사항 공지사항 공지사항 공지사항 공지사항 공지사항 공지사항</a>
+                                    </div>
+                                    <div class="writer"><span class="th">등록자 : </span>
+                                        <th:block th:text="${item.regPsNm}">홍길동</th:block>
+                                    </div>
+                                    <div class="date"><span class="th">등록일 : </span>
+                                        <th:block th:text="${#temporals.format(item.regDtm,'yyyy.MM.dd')}">2020.10.15
+                                        </th:block>
+                                    </div>
+                                    <div class="hits"><span class="th">조회수 : </span>
+                                        <th:block th:text="${item.readCnt eq null ? '0' : item.readCnt}">20</th:block>
+                                    </div>
+                                </li>
+                            </ul>
+                    </div>
+                    <th:block
+                            th:replace="/fragments/paging :: pagingbody(list=${campaigns}, link='/pages/activity/cultureList/' + ${dvCodePid}, formId='form1')"></th:block>
                 </div>
-                <th:block th:replace="/fragments/paging :: pagingbody(list=${campaigns}, link='/pages/activity/cultureList/' + ${dvCodePid}, formId='form1')"></th:block>
-                </div>
-            </div>
+        </div>
 
         </form>
-        </div>
     </div>
-    <th:block th:replace="fragments/footer"></th:block>
+</div>
+<th:block th:replace="fragments/footer"></th:block>
 </div>
 </body>
 </html>

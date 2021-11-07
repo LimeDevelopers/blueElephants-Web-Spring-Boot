@@ -12302,8 +12302,24 @@ li.period .td span {
     height: 185px;
 }
 .page_cont > .sub_text_box > img {
-    bottom: 0px;
+    bottom: 25px;
 }
+.page_cont > .sub_text_box > img.declaration {
+    bottom: 25px;
+    width : 20%;
+}
+.page_cont > .sub_text_box > img.culture_crew {
+    bottom: 30px;
+    width : 25%;
+}
+
+.page_cont > .sub_text_box > img.experienceList {
+    bottom: 30px;
+    width : 15%;
+    margin-left: 30px;
+}
+
+
 .page_cont > .review_text_box .text {
     /*padding-left: 350px;*/
 }

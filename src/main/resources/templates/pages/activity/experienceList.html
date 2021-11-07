@@ -58,8 +58,38 @@
             <input type="hidden" id="id" name="id" />
             <div class="inner">
                 <div class="page_cont">
+                    <div class="sub_text_box review_text_box mt"
+                         th:classappend="${dvCodePid eq videoPid ? 'active' : ''}" th:if="${dvCodePid eq videoPid}">
+                        <img class="experienceList" src="/ClientUI/user/images/contents/experienceList.png"/>
+                        <div class="text">
+                            <p class="title">푸코와 함께 사이버폭력의 심각성을 알리고 비폭력 문화를 만들어가요!</p>
+                            <span class="sub">
+                                    실제로 사이버폭력을 당한다면, 어떨까요? 피해상황을 재구성한 영상입니다. ※ 시청시 마음이 불편하다면, 언제든 종료할 수 있습니다.
+                            </span>
+                        </div>
+                    </div>
+                    <div class="sub_text_box review_text_box mt"
+                         th:classappend="${dvCodePid eq voicePid ? 'active' : ''}" th:if="${dvCodePid eq voicePid}">
+                        <img class="experienceList" src="/ClientUI/user/images/contents/experienceList.png"/>
+                        <div class="text">
+                            <p class="title">사이버폭력</p>
+                            <span class="sub">
+                                    피해 학생들의 실제 목소리를 담았습니다.
+                            </span>
+                        </div>
+                    </div>
+                    <div class="sub_text_box review_text_box mt"
+                         th:classappend="${dvCodePid eq messagePid ? 'active' : ''}" th:if="${dvCodePid eq messagePid}">
+                        <img class="experienceList" src="/ClientUI/user/images/contents/experienceList.png"/>
+                        <div class="text">
+                            <p class="title">푸른코끼리는 폭력과 불안, 유혹이 난무하는 사이버정글에서 상처받고 소외된 이웃을 돕는 우리의 친구압니다. 서로의 푸른코끼리가 되어주세요!</p>
+                            <span class="sub">
+                                    말할 수 없는 고민으로 힘들다면, 익명의 푸른코끼리에게 위로를 청해요. 또는 말할 수 없는 고민으로 힘들어하는 누군가에게, 익명의 푸른코끼리가 되어 위로를 전해요. 이 글을 읽고 있는 모두 참여할 수 있습니다.
+                            </span>
+                        </div>
+                    </div>
                     <!--<h4 class="subtit pc review_title">교육후기</h4>-->
-                    <div class="sub_text_box review_text_box mt">
+                    <!--<div class="sub_text_box review_text_box mt">
                         <img src="/ClientUI/user/images/contents/culture_intro.png">
                         <div class="text">
                             <p class="title">우리 친구들이 탐험을 통해 획득한 6가지 친사회적 능력을 마음껏 발휘해보세요.</p>
@@ -68,7 +98,7 @@
                                     인증샷(사진 또는 동영상)을 찍어 푸른코끼리 앱에 업로드 해주세요!
                                 </span>
                         </div>
-                    </div>
+                    </div>-->
                     <div class="board_top review_board">
                         <div class="select_bx">
                             <div class="select w160 title">
