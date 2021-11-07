@@ -82,7 +82,7 @@
                          th:classappend="${dvCodePid eq messagePid ? 'active' : ''}" th:if="${dvCodePid eq messagePid}">
                         <img class="experienceList" src="/ClientUI/user/images/contents/experienceList.png"/>
                         <div class="text">
-                            <p class="title">푸른코끼리는 폭력과 불안, 유혹이 난무하는 사이버정글에서 상처받고 소외된 이웃을 돕는 우리의 친구압니다. 서로의 푸른코끼리가 되어주세요!</p>
+                            <p class="title">푸른코끼리는 폭력과 불안, 유혹이 난무하는 사이버정글에서 상처받고 소외된 이웃을 돕는 우리의 친구입니다. 서로의 푸른코끼리가 되어주세요!</p>
                             <span class="sub">
                                     말할 수 없는 고민으로 힘들다면, 익명의 푸른코끼리에게 위로를 청해요. 또는 말할 수 없는 고민으로 힘들어하는 누군가에게, 익명의 푸른코끼리가 되어 위로를 전해요. 이 글을 읽고 있는 모두 참여할 수 있습니다.
                             </span>
@@ -99,60 +99,58 @@
                                 </span>
                         </div>
                     </div>-->
-                    <div class="board_top review_board">
-                        <div class="select_bx">
-                            <div class="select w160 title">
-                                <label th:for="srchGbnParent">
-                                    <th:block th:if="*{srchGbnParent eq '' or srchGbnParent eq null}">전체</th:block>
-                                    <th:block th:each="item : ${commonCodes}">
-                                        <th:block th:if="${searchForm.srchGbnParent eq item.id}" th:text="${item.codeNm}">제목</th:block>
-                                    </th:block>
-                                </label>
-                                <select th:field="*{srchGbnParent}" onchange="fn_codeList(this)">
-                                    <option value="" selected>전체</option>
-                                    <th:block th:each="item : ${commonCodes}">
-                                        <option th:value="${item.id}" th:text="${item.codeNm}"></option>
-                                    </th:block>
-                                </select>
-                            </div>
-                            <div class="select w160 subject">
-                                <label id="srchGbnChildLabel" th:for="srchGbnChild">
-                                    <th:block th:if="*{srchGbnChild eq '' or srchGbnChild eq null}">전체</th:block>
-                                </label>
-                                <select th:field="*{srchGbnChild}">
-                                    <option value="" selected>전체</option>
-                                </select>
-                            </div>
+                    <div class="board_top pt0" th:if="${dvCodePid ne null}">
+                        <div class="select w190" th:if="${dvCodePid eq messagePid}">
+                            <label th:for="*{srchFile}">
+                                <th:block th:if="*{srchFile eq '' or srchFile eq null}">파일형태 전체</th:block>
+                                <th:block th:if="*{srchFile eq '1'}">영상</th:block>
+                                <th:block th:if="*{srchFile eq '2'}">음성</th:block>
+                                <th:block th:if="*{srchFile eq '3'}">썸네일</th:block>
+                                <th:block th:if="*{srchFile eq '4'}">텍스트</th:block>
+                            </label>
+                            <select th:field="*{srchFile}">
+                                <option value="">파일형태 전체</option>
+                                <option value="1">영상</option>
+                                <option value="2">음성</option>
+                                <option value="3">썸네일</option>
+                                <option value="4">텍스트</option>
+                            </select>
                         </div>
-                        <div class="select_bx2">
-                            <div class="search news">
-                                <input type="search" th:field="*{srchWord}" placeholder="검색어를 입력해 주세요" />
-                            </div>
-                            <button type="submit" class="btn btn_blue btn_pill_10">검색</button>
+                        <div class="select w160">
+                            <label th:for="srchField">
+                                <!--<th:block th:if="*{srchField eq '' or srchField eq null}">전체</th:block>-->
+                                <th:block th:if="*{srchField eq 'title' or srchField eq '' or srchField eq null}">제목</th:block>
+                                <th:block th:if="*{srchField eq 'cn'}">내용</th:block>
+                                <th:block th:if="*{srchField eq 'titleCn'}">제목+내용</th:block>
+                                <th:block th:if="*{srchField eq 'wrterNm'}">작성자</th:block>
+                            </label>
+                            <select th:field="*{srchField}">
+                                <!--<option value="" selected>전체</option>-->
+                                <option value="title">제목</option>
+                                <option value="cn">내용</option>
+                                <option value="titleCn">제목+내용</option>
+                                <option value="wrterNm">작성자</option>
+                            </select>
+                        </div>
+                        <div class="search" th:classappend="${dvCodePid eq messagePid ? 'experience' : 'news'}">
+                            <input type="search" th:field="*{srchWord}" placeholder="검색어를 입력해 주세요" />
+                        </div>
+                        <button type="submit" class="btn btn_blue btn_pill_10">검색</button>
+                        <div class="select w160">
+                            <label th:for="sorting">
+                                <th:block th:if="*{sorting eq '' or sorting eq null}">최신순</th:block>
+                                <th:block th:if="*{sorting eq 'old'}">오래된순</th:block>
+                                <th:block th:if="*{sorting eq 'readCnt'}">조회순</th:block>
+                                <th:block th:if="*{sorting eq 'alphabetically'}">가나다순</th:block>
+                            </label>
+                            <select th:field="*{sorting}" onchange="fn_search()">
+                                <option value="" selected>최신순</option>
+                                <option value="old">오래된순</option>
+                                <option value="readCnt">조회순</option>
+                                <option value="alphabetically">가나다순</option>
+                            </select>
                         </div>
                     </div>
-                    <!-- <div class="btn_tab">
-                        <th:block th:if="${#authentication.principal == 'anonymousUser'}">
-                            <a href="javascript:fn_loginCheck();" class="btn btn_review btn_pill">작성하기</a>
-                        </th:block>
-                        <a href="javascript:;" class="btn btn_review btn_pill" onclick="fn_message()">교육신청</a>
-                    </div> -->
-                    <!--<ul class="thumb_list clearfix">
-                        <th:block th:if="${postscripts == null or postscripts.isEmpty()}"> <!--등록된 글 없을경우-->
-                    <!--<li class="nodata">
-                        <div>등록된 게시글이 없습니다.</div>
-                    </li>
-                </th:block>
-                <li th:each="item : ${postscripts}">
-                    <a th:href="|/pages/activity/postscriptDetail/${item.id}|">
-                            <span class="thumb"><img th:src="|${filePath}/${item.imgFl}|" th:alt="${item.imgFl}"
-                                                     onerror="this.src='/ClientUI/user/images/contents/nodata01.png'"/></span>
-                        <strong class="tit" th:text="${item.ttl}">사이버폭력이 사라지는 그날까지</strong>
-                        <span class="date"
-                              th:text="${#temporals.format(item.regDtm,'yyyy.MM.dd')}">2020.06.30</span>
-                    </a>
-                </li>
-            </ul>-->
 
                     <ul class="thumb_list clearfix" th:if="${dvCodePid ne null}">
                         <th:block th:if="${experiences == null or experiences.isEmpty()}"><!--등록된 글이 없을 경우-->
