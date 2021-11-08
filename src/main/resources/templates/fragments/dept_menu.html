@@ -210,10 +210,19 @@
     <th:block th:if="${mc eq 'application'}">
         <div class="slider slide_menu">
             <div>
+                <th:block  th:if="${#authentication.principal.account.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).TEACHER}">
                 <div class="sm_tit">
                     <h3 th:classappend="${pageTitle eq '예방교육' ? 'sd_on pageon' : ''}">
-                        <a href="/pages/application/preeducationList">예방교육</a></h3>
+                        <a href="/pages/application/preeducation">예방교육(교사)</a></h3>
                 </div>
+                </th:block>
+                <th:block  th:if="${#authentication.principal.account.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).INSTRUCTOR}">
+                <div class="sm_tit">
+                    <h3 th:classappend="${pageTitle eq '예방교육' ? 'sd_on pageon' : ''}">
+                        <a href="/pages/application/preeducationList">예방교육(강사)</a></h3>
+                </div>
+                    </th:block>
+
             </div>
             <div>
                 <div class="sm_tit">
@@ -340,9 +349,16 @@
     <th:block th:if="${mc eq 'application'}">
         <div class="pc_menu">
             <ul class="pc_menu_inner">
+                <th:block  th:if="${#authentication.principal.account.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).TEACHER}">
                 <li th:class="${pageTitle eq '예방교육' ? 'pc_on' : ''}">
-                    <a href="/pages/application/preeducationList">예방교육</a>
+                    <a href="/pages/application/preeducation">예방교육(교사)</a>
                 </li>
+                </th:block>
+                <th:block  th:if="${#authentication.principal.account.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).INSTRUCTOR}">
+                <li th:class="${pageTitle eq '예방교육' ? 'pc_on' : ''}">
+                    <a href="/pages/application/preeducationList">예방교육(강사)</a>
+                </li>
+    </th:block>
                 <li th:class="${pageTitle eq '강사교육' ? 'pc_on' : ''}">
                     <a href="/pages/application/insInfo">강사교육</a>
                 </li>

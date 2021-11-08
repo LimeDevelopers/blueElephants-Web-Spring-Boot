@@ -158,7 +158,7 @@ public class  ApplicationController {
                                  PreventionInstructorForm preventionInstructorForm) {
         boolean result = false;
         if(account!=null) {
-            if(account.getMberDvTy().equals(UserRollType.TEACHER)) {
+            if(account.getMberDvTy().equals(UserRollType.NORMAL)) {
                 PreventionInstructor preventionInstructor = applicationService.getPreIns(account.getId());
                 if(preventionInstructor != null) {
                     if(preventionInstructor.getTempSave().equals("W")){
