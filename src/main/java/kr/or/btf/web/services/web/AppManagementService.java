@@ -103,6 +103,7 @@ public class AppManagementService extends _BaseService {
 
                         qPreventionMaster.nm,
                         qPreventionMaster.email,
+                        qPreventionMaster.directNum,
                         qPreventionMaster.moblphon,
                         qPreventionMaster.task,
 

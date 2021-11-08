@@ -139,6 +139,38 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div class="sec">
+                            <div class="board_top clearfix">
+                                <div class="fl">
+                                    <h4 class="sec_tit">관리자 정보</h4>
+                                </div>
+                            </div>
+                            <table class="tbl_write">
+                                <colgroup>
+                                    <col style="width:7%"/>
+                                    <col style="width:9%"/>
+                                    <col style="width:7%"/>
+                                    <col style="width:15%"/>
+                                    <col style="width:10%"/>
+                                    <col style="width:15%"/>
+                                    <col style="width:auto"/>
+                                </colgroup>
+                                <tbody>
+                                <tr>
+                                    <th scope="row"><label>성명</label></th>
+                                    <td th:text="*{nm}"></td>
+                                    <th scope="row"><label>이메일</label></th>
+                                    <td th:text="*{email}"></td>
+                                    <th scope="row"><label>직통번호</label></th>
+                                    <td th:text="*{directNum}"></td>
+                                    <th scope="row"><label>휴대전화</label></th>
+                                    <td th:text="*{moblphon}"></td>
+                                    <th scope="row"><label>담당업무</label></th>
+                                    <td th:text="*{task}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
 
                         <div class="sec">
                             <div class="board_top clearfix">
