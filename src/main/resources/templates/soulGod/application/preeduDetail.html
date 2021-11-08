@@ -22,30 +22,26 @@
             }
             if (gbn == 'Y') {
                 result = confirm("승인 처리하시겠습니까?");
+                if($(':radio[name="hp"]:checked').length < 1){
+                    alert('희망일정을 선택해주세요.');
+                    hp1.focus();
+                    return false;
+                }
+
+                if($(':radio[name="mberPid"]:checked').length < 1){
+                    alert("강사를 선택해주세요. \n신청한 강사가 없을 경우 승인할 수 없습니다.");
+                    mberPid.focus();
+                    return false;
+                }
             }
             schlNm = $('#schlNm').text()
-
-            if($(':radio[name="hp"]:checked').length < 1){
-                alert('희망일정을 선택해주세요.');
-                hp1.focus();
-                return false;
-            }
-
-            if($(':radio[name="mberPid"]:checked').length < 1){
-                alert("강사를 선택해주세요. \n신청한 강사가 없을 경우 승인할 수 없습니다.");
-                mberPid.focus();
-                return false;
-            }
-
-
-
 
             if (result) {
 
                 if($('#hp1').is(':checked')) {
                     hopeDtm = $('#hp1').val();
                 }
-                if($('#hp2').is(':checked')){
+                if($('#hp2').is(':checked')) {
                     hopeDtm = $('#hp2').val();
                 }
                 console.log("html" + schlNm);
@@ -102,14 +98,12 @@
                         <li><a href="/soulGod/application/inseducation"> 예방교육</a></li>
                     </ul>
                     <div class="board_detail clearfix">
-
                         <div class="sec">
                             <div class="board_top clearfix">
                                 <div class="fl">
                                     <h4 class="sec_tit" th:text="|신청학교 기본정보 (*{schlNm})|">상세정보</h4>
                                 </div>
                             </div>
-
                             <table class="tbl_write">
                                 <colgroup>
                                     <col style="width:10%"/>
@@ -171,7 +165,6 @@
                                 </tbody>
                             </table>
                         </div>
-
                         <div class="sec">
                             <div class="board_top clearfix">
                                 <div class="fl">
@@ -194,13 +187,6 @@
                                 </tbody>
                             </table>
                         </div>
-
-
-
-
-
-
-
                         <div class="sec">
                             <div class="board_top clearfix">
                                 <div class="fl">
@@ -283,31 +269,28 @@
                                 </colgroup>
 
                                 <tbody>
-                                <tr th:if="${applyList == null or applyList.isEmpty()}" >
-                                    <td colspan="5">등록된 정보 없습니다.</td>
-                                </tr>
-                                <tr th:each="item,idx:${applyList}">
+                                    <tr th:if="${applyList == null or applyList.isEmpty()}" >
+                                        <td colspan="5">등록된 정보 없습니다.</td>
+                                    </tr>
+                                    <tr th:each="item,idx:${applyList}">
+                                        <th scope="row"><label>성명</label></th>
+                                        <td>
+                                            <b>
+                                                <a th:href="|/soulGod/application/inseduDetail/${item.id}|" th:text="${item.nm}"></a>
+                                            </b>
+                                        </td>
+                                        <th scope="row"><label>전공과목</label></th>
+                                        <td th:text="${item.major}"></td>
 
-                                    <th scope="row"><label>성명</label></th>
-                                    <td>
-                                        <b>
-                                            <a th:href="|/soulGod/application/inseduDetail/${item.id}|" th:text="${item.nm}"></a>
-                                        </b>
-                                    </td>
+                                        <th scope="row"><label>직장명</label></th>
+                                        <td th:text="${item.expNm}"></td>
 
-                                    <th scope="row"><label>전공과목</label></th>
-                                    <td th:text="${item.major}"></td>
+                                        <th scope="row"><label>담당업무</label></th>
+                                        <td th:text="${item.expContent}"></td>
 
-                                    <th scope="row"><label>직장명</label></th>
-                                    <td th:text="${item.expNm}"></td>
-
-                                    <th scope="row"><label>담당업무</label></th>
-                                    <td th:text="${item.expContent}"></td>
-
-                                    <th scope="row"><label>선택</label></th>
-                                    <td><input id="mberPid" name="mberPid" type="radio"/></td>
-                                    <!--<td><input id="mberPid" name="mberPid" type="radio" th:value="${item.mberPid}"/></td>-->
-                                </tr>
+                                        <th scope="row"><label>선택</label></th>
+                                        <td><input id="mberPid" name="mberPid" type="radio" th:value="${item.mberPid}"/></td>
+                                    </tr>
                                 </tbody>
                             </table>
                             <div class="btn_area">
@@ -324,7 +307,6 @@
                                 </a>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </form>
