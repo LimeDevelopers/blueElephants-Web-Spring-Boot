@@ -1648,8 +1648,9 @@ public class MemberService extends _BaseService {
             if (i < 10) {
                 tempId = memberSchoolForm.getTempLoginId();
                 tempId += "0" + i;
-            } else {
-                memberSchoolForm.getTempLoginId();
+
+             }else {
+                tempId = memberSchoolForm.getTempLoginId();
                 tempId += i;
             }
             memberForm.setLoginId(tempId);//변형된 계정 셋
