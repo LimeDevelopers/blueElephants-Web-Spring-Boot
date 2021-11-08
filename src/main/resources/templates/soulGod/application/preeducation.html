@@ -160,7 +160,7 @@
                                     <td><input type="checkbox" id="agree" name="agree" th:value="${item.id}"></td>
                                     <td th:text="${preeducation.totalElements - preeducation.pageable.pageSize * preeducation.pageable.pageNumber - idx.index}"></td>
                                     <td>
-                                        <a th:text="${item.schlNm}" th:href="|/soulGod/application/preeduDetail/${item.id}|"></a>
+                                        <b><a th:text="${item.schlNm}" th:href="|/soulGod/application/preeduDetail/${item.id}|"></a></b>
                                     </td>
                                     <td th:text="${item.address}"></td>
                                     <td th:text="${item.classesNum}"></td>

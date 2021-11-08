@@ -1670,10 +1670,12 @@ public class MemberService extends _BaseService {
             //courseRequestForm.setNo(memberSchool.getNo());
             courseRequestForm.setRegDtm(LocalDateTime.now());
             courseRequestForm.setConfmAt("Y");
+            //본서버 배포시 18로 수정
             courseRequestForm.setCrsMstPid(15L);
             courseRequestForm.setMberPid(account.getId());
 
             CourseMasterRelForm courseMasterRelForm = new CourseMasterRelForm();
+            //본서버 배포시 18로 수정
             courseMasterRelForm.setCrsMstPid(15L);
             List<CourseMasterRel> courseMasterRels = courseMasterRelService.list(courseMasterRelForm);
             courseRequestService.insert(courseRequestForm, courseMasterRels);
@@ -1692,8 +1694,6 @@ public class MemberService extends _BaseService {
             memberRoll.setRegDtm(LocalDateTime.now());
             memberRoll.setRegPsId(save.getRegPsId());
             memberRollRepository.save(memberRoll);
-
-
 
             //memberSchool에 인서트 해주는 프로시저 호출
             memberSchoolRepository.pr_findTID(memberSchoolForm.getAreaNm(), memberSchoolForm.getSchlNm(),
