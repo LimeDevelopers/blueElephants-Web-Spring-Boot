@@ -1644,12 +1644,11 @@ public class MemberService extends _BaseService {
             memberForm.setApproval("Y"); // 승인여부
             memberForm.setSexPrTy("MALE");
 
-
             if (i < 10) {
                 tempId = memberSchoolForm.getTempLoginId();
                 tempId += "0" + i;
             } else {
-                memberSchoolForm.getTempLoginId();
+                tempId = memberSchoolForm.getTempLoginId();
                 tempId += i;
             }
             memberForm.setLoginId(tempId);//변형된 계정 셋
@@ -1678,7 +1677,6 @@ public class MemberService extends _BaseService {
             courseMasterRelForm.setCrsMstPid(15L);
             List<CourseMasterRel> courseMasterRels = courseMasterRelService.list(courseMasterRelForm);
             courseRequestService.insert(courseRequestForm, courseMasterRels);
-
             /*CourseRequest courseRequest = new CourseRequest();
             courseRequest.setRegDtm(LocalDateTime.now());
             courseRequest.setConfmAt("Y");
@@ -1688,8 +1686,6 @@ public class MemberService extends _BaseService {
             courseRequest.setBan(memberSchoolForm.getBan());
             courseRequest.setMberPid(save.getId());
             courseRequestRepository.save(courseRequest);*/
-
-
             MemberRoll memberRoll = new MemberRoll();
             memberRoll.setMberPid(save.getId());
             memberRoll.setMberDvTy(UserRollType.STUDENT);

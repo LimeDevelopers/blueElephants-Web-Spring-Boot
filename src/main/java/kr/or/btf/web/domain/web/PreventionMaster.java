@@ -44,9 +44,6 @@ public class PreventionMaster {
     @Column(name="tel")
     private String tel;
 
-//    @Column(name="grade")
-//    private String grade;
-
     @Column(name="classes_num")
     private Integer classesNum;
 
@@ -100,8 +97,6 @@ public class PreventionMaster {
 
     @Column(name = "temp_save")
     private String tempSave;
-
-
 
     @Column(name = "nm")
     private String nm;
