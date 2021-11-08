@@ -122,7 +122,8 @@
                         <!--                        <a href="/pages/activity/preventionEdu/NORMAL">신청</a>-->
                         <a href="/pages/application/preeducationList">신청</a>
                         <ul class="sub_list">
-                            <li><a href="/pages/application/preeducationList">예방교육</a></li>
+                            <li th:if="${#authorization.getAuthentication() != null and #authorization.expression('isAuthenticated()') and #authentication.principal.account.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).TEACHER}"><a href="/pages/application/preeducation">예방교육(교사)</a></li>
+                            <li th:if="${#authorization.getAuthentication() != null and #authorization.expression('isAuthenticated()') and #authentication.principal.account.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).INSTRUCTOR}"><a href="/pages/application/preeducationList">예방교육(강사)</a></li>
                             <li><a href="/pages/application/insInfo">강사교육</a></li>
                             <li><a href="/pages/application/zzcrew">지지크루</a></li>
                             <li><a href="/pages/application/zzdeclaration">지지선언</a></li>
