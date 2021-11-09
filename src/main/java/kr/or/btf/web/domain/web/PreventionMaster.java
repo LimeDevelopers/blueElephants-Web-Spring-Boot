@@ -56,6 +56,9 @@ public class PreventionMaster {
     @Column(name = "hp_schd1_et")
     private String hpSchd1Et;
 
+    @Column(name = "hp_schd1_et_end")
+    private String hpSchd1EtEnd;
+
     @Column(name = "hp_schd1_wt")
     private String hpSchd1Wt;
 
@@ -64,6 +67,9 @@ public class PreventionMaster {
 
     @Column(name = "hp_schd2_et")
     private String hpSchd2Et;
+
+    @Column(name = "hp_schd2_et_end")
+    private String hpSchd2EtEnd;
 
     @Column(name = "hp_schd2_wt")
     private String hpSchd2Wt;

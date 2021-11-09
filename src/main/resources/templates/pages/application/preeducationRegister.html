@@ -458,7 +458,7 @@
                                             <li>
                                                 <div class="th">
                                                     <label for="classesNum">학급수</label>
-                                                    <span class="aster"></span>
+                                                    <span class="aster">*</span>
                                                 </div>
                                                 <div class="td">
                                                     <th:block th:if="${preventionMst == null}">
@@ -498,19 +498,21 @@
                                                     <span class="aster"></span>
                                                 </div>
                                                 <div class="td">
-                                                    <div>
+                                                    <div style="display: inline-block;">
                                                         <span>인원</span>
                                                         <th:block th:if="${preventionMst == null}">
-                                                            <input type="number" id="hp_schd1_personnel" name="hpSchd1Personnel" placeholder="희망 인원을 입력하세요.">
+                                                            <input class="" type="number" id="hp_schd1_personnel" name="hpSchd1Personnel" placeholder="희망 인원을 입력하세요.">
                                                         </th:block>
                                                         <th:block th:if="${schlData == null}">
-                                                            <input type="number" id="hp_schd1_personnel" name="hpSchd1Personnel" placeholder="희망 인원을 입력하세요." th:value="${preventionMst.hpSchd1Personnel}">
+                                                            <input type="number" id="hp_schd1_personnel" name="hpSchd1Personnel" placeholder="희망 인원을 입력하세요." th:value="${preventionMst.hpSchd1Personnel} ">
                                                         </th:block>
                                                     </div>
                                                     <div>
                                                         <span>교육시간</span>
                                                         <th:block th:if="${preventionMst == null}">
-                                                            <input type="text" id="hp_schd1_et" name="hpSchd1Et" placeholder="ex) 09:00 ~ 12:00" readonly>
+                                                            <input type="text" id="hp_schd1_et" name="hpSchd1Et" placeholder="ex) 09:00 ~ 12:00" readonly >
+                                                            <b><p>/</p></b>
+                                                            <input type="text" id="hp_schd1_et_end" name="hpSchd1Et" placeholder="ex) 09:00 ~ 12:00" readonly>
                                                         </th:block>
                                                         <th:block th:if="${schlData == null}">
                                                             <input type="text" id="hp_schd1_et" name="hpSchd1Et" placeholder="희망 인원을 입력하세요." th:value="${preventionMst.hpSchd1Et}" readonly>
@@ -519,10 +521,10 @@
                                                     <div>
                                                         <span>일과시간</span>
                                                         <th:block th:if="${preventionMst == null}">
-                                                            <input type="text" id="hp_schd1_wt" name="hpSchd1Wt" placeholder="ex) 09:00 ~ 12:00" readonly>
+                                                            <input type="text" id="hp_schd1_wt" name="hpSchd1Wt" placeholder="ex) 정규수업 후 40분" readonly>
                                                         </th:block>
                                                         <th:block th:if="${schlData == null}">
-                                                            <input type="text" id="hp_schd1_wt" name="hpSchd1Wt" placeholder="희망 인원을 입력하세요." th:value="${preventionMst.hpSchd1Wt}" readonly>
+                                                            <input type="text" id="hp_schd1_wt" name="hpSchd1Wt" placeholder="희망 인원을 입력하세요." th:value="${preventionMst.hpSchd1Wt}">
                                                         </th:block>
                                                     </div>
                                                 </div>
@@ -554,7 +556,7 @@
                                                     <div>
                                                         <span>일과시간</span>
                                                         <th:block th:if="${preventionMst == null}">
-                                                            <input type="text" id="hp_schd2_wt" name="hpSchd2Wt" placeholder="ex) 09:00 ~ 12:00" readonly>
+                                                            <input type="text" id="hp_schd2_wt" name="hpSchd2Wt" placeholder="ex) 정규수업 후 40분" readonly>
                                                         </th:block>
                                                         <th:block th:if="${schlData == null}">
                                                             <input type="text" id="hp_schd2_wt" name="hpSchd2Wt" placeholder="희망 인원을 입력하세요." th:value="${preventionMst.hpSchd2Wt}" readonly>

@@ -20,9 +20,15 @@ public class PreventionMasterForm extends SearchForm{
     private Integer personnel;
     private String hpSchd1Personnel;
     private String hpSchd1Et;
+
+    private String hpSchd1EtEnd;
+
     private String hpSchd1Wt;
     private String hpSchd2Personnel;
     private String hpSchd2Et;
+
+    private String hpSchd2EtEnd;
+
     private String hpSchd2Wt;
     private String resultQna1;
     private String resultQna2;
