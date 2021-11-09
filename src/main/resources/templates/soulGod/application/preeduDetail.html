@@ -209,7 +209,10 @@
                                     </tr>
                                     <tr>
                                         <th scope="row"><label>1안 교육시간</label></th>
-                                        <td th:text="|*{hpSchd1Et}|"></td>
+                                        <td>
+                                            <a th:text="|*{hpSchd1Et} 부터 |"></a>
+                                            <a th:text="|*{hpSchd1EtEnd} 까지|"></a>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th scope="row">1안 일과시간</th>
@@ -239,7 +242,10 @@
                                 </tr>
                                 <tr>
                                     <th scope="row"><label>2안 교육시간</label></th>
-                                    <td th:text="|*{hpSchd2Et}|"></td>
+                                    <td>
+                                        <a th:text="|*{hpSchd2Et} 부터 |"></a>
+                                        <a th:text="|*{hpSchd2EtEnd} 까지|"></a>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">2안 일과시간</th>
