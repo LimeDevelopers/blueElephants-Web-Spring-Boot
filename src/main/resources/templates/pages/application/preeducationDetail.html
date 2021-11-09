@@ -44,31 +44,52 @@
                             </p>
                         </div>
                     </div>
-                    <div class="bottom editor">
-                        <p>
-                            <span>학교이름 : </span>
-                            <span th:text="${preventionMaster.schlNm}"></span>
-                        </p>
-                        <p>
-                            <span>주소 : </span>
-                            <span th:text="${preventionMaster.address}"></span>
-                        </p>
-                        <p>
-                            <span>전화번호 : </span>
-                            <span th:text="${preventionMaster.tel}"></span>
-                        </p>
-                        <p>
-                            <span>학급 수 : </span>
-                            <span th:text="${preventionMaster.classesNum}"></span>
-                        </p>
-                        <p>
-                            <span>인원 : </span>
-                            <span th:text="${preventionMaster.personnel}"></span>
-                        </p>
-                        <p>
-                            <span>모집상태 : </span>
-                            <span th:text="${preventionMaster.approval}"></span>
-                        </p>
+
+                    <div class="sec_write join">
+                        <div class="tbl_write">
+                            <ul>
+                                <li class="row">
+                                    <div class="th">
+                                        <label>날짜(1안)</label>
+                                    </div>
+                                    <div class="td">
+                                        <span th:text="${preventionMaster.hpSchd1Et}"></span> ~ <span th:text="${preventionMaster.hpSchd1EtEnd}"></span>
+                                    </div>
+                                </li>
+                                <li class="row">
+                                    <div class="th">
+                                        <label>날짜(2안)</label>
+                                    </div>
+                                    <div class="td">
+                                        <span th:text="${preventionMaster.hpSchd2Et}"></span> ~ <span th:text="${preventionMaster.hpSchd2EtEnd}"></span>
+                                    </div>
+                                </li>
+                                <li class="row">
+                                    <div class="th">
+                                        <label>학교</label>
+                                    </div>
+                                    <div class="td">
+                                        <span th:text="${preventionMaster.schlNm}"></span>
+                                    </div>
+                                </li>
+                                <li class="row">
+                                    <div class="th">
+                                        <label>위치(시군구)</label>
+                                    </div>
+                                    <div class="td">
+                                        <span th:text="${preventionMaster.address}"></span>
+                                    </div>
+                                </li>
+                                <li class="row">
+                                    <div class="th">
+                                        <label>학년</label>
+                                    </div>
+                                    <div class="td">
+                                        <span th:text="${preventionMaster.grade}"></span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                     <div class="btn_area">
                         <th:block sec:authorize="hasAnyRole('ROLE_INSTRUCTOR')">
