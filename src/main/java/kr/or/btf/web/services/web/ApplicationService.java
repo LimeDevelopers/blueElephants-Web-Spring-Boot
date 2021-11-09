@@ -332,9 +332,11 @@ public class ApplicationService extends _BaseService {
             pre.setHpSchd1Personnel(preventionMasterForm.getHpSchd1Personnel());
             pre.setHpSchd1Wt(preventionMasterForm.getHpSchd1Wt());
             pre.setHpSchd1Et(preventionMasterForm.getHpSchd1Et());
+            pre.setHpSchd1EtEnd(preventionMasterForm.getHpSchd1EtEnd());
             pre.setHpSchd2Personnel(preventionMasterForm.getHpSchd2Personnel());
             pre.setHpSchd2Wt(preventionMasterForm.getHpSchd2Wt());
             pre.setHpSchd2Et(preventionMasterForm.getHpSchd2Et());
+            pre.setHpSchd2EtEnd(preventionMasterForm.getHpSchd2EtEnd());
             pre.setUpdDtm(LocalDateTime.now());
             pre.setApproval(preventionMasterForm.getApproval());
             pre.setDelAt(preventionMasterForm.getDelAt());

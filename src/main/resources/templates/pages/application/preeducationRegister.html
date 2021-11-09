@@ -22,10 +22,12 @@
 
     let hp_schd1_personnel;
     let hp_schd1_et;
+    let hp_schd1_et_end;
     let hp_schd1_wt;
 
     let hp_schd2_personnel;
     let hp_schd2_et;
+    let hp_schd2_et_end;
     let hp_schd2_wt;
 
     let result_qna1;
@@ -50,7 +52,7 @@
                 })
             }
         });
-        fn_setDateTimePicker('#hp_schd1_wt' , {
+        fn_setTimePicker('#hp_schd1_et_end' , {
             onShow:function (ct){
                 this.setOptions({
                     minDate: ('2020-01-01') ,
@@ -66,7 +68,7 @@
                 })
             }
         });
-        fn_setDateTimePicker('#hp_schd2_wt' , {
+        fn_setTimePicker('#hp_schd2_et_end' , {
             onShow:function (ct){
                 this.setOptions({
                     minDate: ('2020-01-01') ,
@@ -93,10 +95,12 @@
 
         hp_schd1_personnel = $('#hp_schd1_personnel');
         hp_schd1_et = $('#hp_schd1_et');
+        hp_schd1_et_end = $('#hp_schd1_et_end');
         hp_schd1_wt = $('#hp_schd1_wt');
 
         hp_schd2_personnel = $('#hp_schd2_personnel');
         hp_schd2_et = $('#hp_schd2_et');
+        hp_schd2_et_end = $('#hp_schd2_et_end');
         hp_schd2_wt = $('#hp_schd2_wt');
 
         result_qna1 = $('input[name=resultQna1]');
@@ -171,18 +175,44 @@
         }
 
         if(!hp_schd1_personnel.val()) {
-            alert('희망 1안 작성은 필수입니다.')
+            alert('1안 인원수를 입력해주세요.')
             hp_schd1_personnel.focus()
             return false;
         }
         if(!hp_schd1_et.val()) {
-            alert('희망 1안 작성은 필수입니다.')
+            alert('1안 교육시작 시간을 선택해주세요.')
             hp_schd1_et.focus()
             return false;
         }
+        if(!hp_schd1_et_end.val()) {
+            alert('1안 교육종료 시간을 선택해주세요.')
+            hp_schd1_et_end.focus()
+            return false;
+        }
         if(!hp_schd1_wt.val()) {
-            alert('희망 1안 작성은 필수입니다.')
+            alert('1안 일과시간을 입력해주세요.')
             hp_schd1_wt.focus()
+            return false;
+        }
+
+        if(!hp_schd2_personnel.val()) {
+            alert('2안 인원수를 입력해주세요.')
+            hp_schd2_personnel.focus()
+            return false;
+        }
+        if(!hp_schd2_et.val()) {
+            alert('1안 교육시작 시간을 선택해주세요.')
+            hp_schd2_et.focus()
+            return false;
+        }
+        if(!hp_schd2_et_end.val()) {
+            alert('2안 교육종료 시간을 선택해주세요.')
+            hp_schd2_et_end.focus()
+            return false;
+        }
+        if(!hp_schd2_wt.val()) {
+            alert('2안 일과시간을 입력해주세요.')
+            hp_schd2_wt.focus()
             return false;
         }
 
@@ -501,7 +531,7 @@
                                                     <div style="display: inline-block;">
                                                         <span>인원</span>
                                                         <th:block th:if="${preventionMst == null}">
-                                                            <input class="" type="number" id="hp_schd1_personnel" name="hpSchd1Personnel" placeholder="희망 인원을 입력하세요.">
+                                                            <input class="number" type="number" id="hp_schd1_personnel" name="hpSchd1Personnel" placeholder="희망 인원을 입력하세요.">
                                                         </th:block>
                                                         <th:block th:if="${schlData == null}">
                                                             <input type="number" id="hp_schd1_personnel" name="hpSchd1Personnel" placeholder="희망 인원을 입력하세요." th:value="${preventionMst.hpSchd1Personnel} ">
@@ -510,9 +540,11 @@
                                                     <div>
                                                         <span>교육시간</span>
                                                         <th:block th:if="${preventionMst == null}">
-                                                            <input type="text" id="hp_schd1_et" name="hpSchd1Et" placeholder="ex) 09:00 ~ 12:00" readonly >
-                                                            <b><p>/</p></b>
-                                                            <input type="text" id="hp_schd1_et_end" name="hpSchd1Et" placeholder="ex) 09:00 ~ 12:00" readonly>
+
+                                                            <input class="preventionInput" type="text" id="hp_schd1_et" name="hpSchd1Et" placeholder="시작은 날짜와 시간을 선택합니다." readonly >
+                                                            <b><p class="preventionSlash">~</p></b>
+                                                            <input class="preventionInput" type="text" id="hp_schd1_et_end" name="hpSchd1EtEnd" placeholder="종료는 시간만 선택합니다." readonly>
+
                                                         </th:block>
                                                         <th:block th:if="${schlData == null}">
                                                             <input type="text" id="hp_schd1_et" name="hpSchd1Et" placeholder="희망 인원을 입력하세요." th:value="${preventionMst.hpSchd1Et}" readonly>
@@ -521,7 +553,7 @@
                                                     <div>
                                                         <span>일과시간</span>
                                                         <th:block th:if="${preventionMst == null}">
-                                                            <input type="text" id="hp_schd1_wt" name="hpSchd1Wt" placeholder="ex) 정규수업 후 40분" readonly>
+                                                            <input type="text" id="hp_schd1_wt" name="hpSchd1Wt" placeholder="ex) 정규수업 후 40분">
                                                         </th:block>
                                                         <th:block th:if="${schlData == null}">
                                                             <input type="text" id="hp_schd1_wt" name="hpSchd1Wt" placeholder="희망 인원을 입력하세요." th:value="${preventionMst.hpSchd1Wt}">
@@ -547,7 +579,9 @@
                                                     <div>
                                                         <span>교육시간</span>
                                                         <th:block th:if="${preventionMst == null}">
-                                                            <input type="text" id="hp_schd2_et" name="hpSchd2Et" placeholder="ex) 09:00 ~ 12:00" readonly>
+                                                            <input class="preventionInput" type="text" id="hp_schd2_et" name="hpSchd2Et" placeholder="시작은 날짜와 시간을 선택합니다." readonly >
+                                                            <b><p class="preventionSlash">~</p></b>
+                                                            <input class="preventionInput" type="text" id="hp_schd2_et_end" name="hpSchd2EtEnd" placeholder="종료는 시간만 선택합니다." readonly>
                                                         </th:block>
                                                         <th:block th:if="${schlData == null}">
                                                             <input type="text" id="hp_schd2_et" name="hpSchd2Et" placeholder="희망 인원을 입력하세요." th:value="${preventionMst.hpSchd2Et}" readonly>
@@ -556,7 +590,7 @@
                                                     <div>
                                                         <span>일과시간</span>
                                                         <th:block th:if="${preventionMst == null}">
-                                                            <input type="text" id="hp_schd2_wt" name="hpSchd2Wt" placeholder="ex) 정규수업 후 40분" readonly>
+                                                            <input type="text" id="hp_schd2_wt" name="hpSchd2Wt" placeholder="ex) 정규수업 후 40분">
                                                         </th:block>
                                                         <th:block th:if="${schlData == null}">
                                                             <input type="text" id="hp_schd2_wt" name="hpSchd2Wt" placeholder="희망 인원을 입력하세요." th:value="${preventionMst.hpSchd2Wt}" readonly>

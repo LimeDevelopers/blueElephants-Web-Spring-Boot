@@ -21,6 +21,13 @@
 .page_cont > .intro_text_box .text p {
     /*padding-left: 300px;*/
 }
+.preventionInput {
+    display: inline-block;
+    width: 27% !important;
+}
+.preventionSlash {
+    display: inline-block !important;
+}
 
 #resultText {
     font-weight: 500;
@@ -11864,7 +11871,7 @@ li.period .td span {
 }
 .school_info .join .chk_item {
     width: 33.3333%;
-    float: left;
+    margin-left: 38%;
     margin-top: 40px;
     padding: 0 10px;
     padding-left: 10px;
