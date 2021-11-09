@@ -290,15 +290,6 @@ public class  ApplicationController {
         return "pages/application/preeducationDetail";
     }
 
-    @GetMapping(value = "/12")
-    public String asdf(Model model ,
-                       @CurrentUser Account account){
-        MemberTeacher mt = applicationService.getSchoolData(account.getId());
-        model.addAttribute("schlData", mt);
-        model.addAttribute("mc", "application");
-        model.addAttribute("pageTitle", "예방교육");
-        return "pages/application/preeducationRegister";
-    }
     // 학교 신청 등록
     @GetMapping(value = "/pages/application/preeducation")
     public String PreEducation(Model model,
