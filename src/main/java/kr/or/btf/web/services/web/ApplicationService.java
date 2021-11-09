@@ -152,16 +152,19 @@ public class ApplicationService extends _BaseService {
                         qPreventionMaster.tempSave,
                         qPreventionMaster.updDtm,
                         qPreventionMaster.hpSchd1Et,
+                        qPreventionMaster.hpSchd1EtEnd,
                         qPreventionMaster.hpSchd1Personnel,
                         qPreventionMaster.hpSchd1Wt,
                         qPreventionMaster.hpSchd2Wt,
                         qPreventionMaster.hpSchd2Personnel,
                         qPreventionMaster.hpSchd2Et,
+                        qPreventionMaster.hpSchd2EtEnd,
                         qPreventionMaster.resultQna1,
                         qPreventionMaster.resultQna2,
                         qPreventionMaster.resultQna3,
                         qPreventionMaster.resultQna4,
-                        qPreventionMaster.resultQna5
+                        qPreventionMaster.resultQna5,
+                        qPreventionMaster.grade
                 ))
                 .from(qPreventionMaster)
                 .where(qPreventionMaster.id.eq(id))
