@@ -24,7 +24,7 @@ public class MailService {
     private final JavaMailSender mailSender;
     private final SpringTemplateEngine templateEngine;
 
-    private static final String FROM_ADDRESS = "cybersoscenter@btf.or.kr";
+    private static final String FROM_ADDRESS = "puco9128@naver.com";
 
     public void mailSend(Mail mail) throws MessagingException {
 
@@ -32,7 +32,7 @@ public class MailService {
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
         InternetAddress from = new InternetAddress();
 
-        from = new InternetAddress("푸른코끼리<btf0098@naver.com>");
+        from = new InternetAddress("푸른코끼리<puco9128@naver.com>");
         helper.setFrom(from);
         //메일 세팅
         //helper.setFrom(new InternetAddress(MailService.FROM_ADDRESS));
