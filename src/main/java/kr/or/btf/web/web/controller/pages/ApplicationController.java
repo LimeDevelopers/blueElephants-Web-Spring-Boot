@@ -432,7 +432,7 @@ public class  ApplicationController {
 
 
     //리스트 페이지 이동 컨트롤러
-    @RequestMapping("/pages/application/eventList")
+    /*@RequestMapping("/pages/application/eventList")
     public String EventList(Model model ,
                             @CurrentUser Account account,
                             Pageable pageable,
@@ -443,7 +443,21 @@ public class  ApplicationController {
         model.addAttribute("mc", "application");
         model.addAttribute("pageTitle", "행사");
         return "pages/application/eventList";
+    }*/
+
+    // 행사 페이지 임시 공사중 페이지 이동
+    @GetMapping("/pages/application/eventList")
+    public String EventList(Model model ,
+                         @ModelAttribute ApplicationForm applicationForm) {
+        if(AppRollType.CREW.getName().equals(applicationForm.getAppDvTy())) {
+
+        }
+        model.addAttribute("mc", "application");
+        model.addAttribute("pageTitle", "행사");
+        return "pages/preparing";
     }
+
+
 
     @GetMapping("/pages/application/eventList/{id}")
     public String eventDetail(Model model,
