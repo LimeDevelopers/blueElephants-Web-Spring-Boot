@@ -336,11 +336,20 @@ public class  ApplicationController {
         return "pages/application/insInfo";
     }
 
-    @GetMapping("/pages/application/zzdeclaration")
+    /*@GetMapping("/pages/application/zzdeclaration")
     public String zzdeclaration(Model model) {
         model.addAttribute("mc", "application");
         model.addAttribute("pageTitle", "지지선언");
         return "pages/application/zzdeclaration";
+    }*/
+
+    // 지지선언 페이지 임시 공사중 페이지 이동
+    @GetMapping("/pages/application/zzdeclaration")
+    public String zzdeclaration(Model model ,
+                            @ModelAttribute ApplicationForm applicationForm) {
+        model.addAttribute("mc", "application");
+        model.addAttribute("pageTitle", "지지선언");
+        return "pages/preparing";
     }
 
     @GetMapping("/pages/application/contest")
@@ -357,12 +366,23 @@ public class  ApplicationController {
         return "pages/application/event";
     }
 
-    @GetMapping("/pages/application/partners")
+    /*@GetMapping("/pages/application/partners")
     public String partnersPage(Model model) {
         model.addAttribute("mc", "application");
         model.addAttribute("pageTitle", "파트너스");
         return "pages/application/partners";
+    }*/
+
+    // 파트너스 페이지 임시 공사중 페이지 이동
+    @GetMapping("/pages/application/partners")
+    public String partnersPage(Model model ,
+                                @ModelAttribute ApplicationForm applicationForm) {
+        model.addAttribute("mc", "application");
+        model.addAttribute("pageTitle", "파트너스");
+        return "pages/preparing";
     }
+
+
     @GetMapping("/pages/application/zzcrewRegister")
     public String zzcrewRegister(Model model) {
         model.addAttribute("mc", "application");
@@ -449,9 +469,6 @@ public class  ApplicationController {
     @GetMapping("/pages/application/eventList")
     public String EventList(Model model ,
                          @ModelAttribute ApplicationForm applicationForm) {
-        if(AppRollType.CREW.getName().equals(applicationForm.getAppDvTy())) {
-
-        }
         model.addAttribute("mc", "application");
         model.addAttribute("pageTitle", "행사");
         return "pages/preparing";

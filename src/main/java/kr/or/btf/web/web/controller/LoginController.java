@@ -119,7 +119,7 @@ public class LoginController extends BaseCont {
             model.addAttribute("form", form);
             model.addAttribute("mc", "myPage");
             model.addAttribute("pageTitle", "계정정보");
-            model.addAttribute("altmsg", "일괄가입 회원은 휴대전화 혹은 이메일 등록 후 서비스 이용이 가능합니다.");
+            model.addAttribute("altmsg", "일괄가입 회원은 개인정보 수정 후 서비스 이용이 가능합니다.");
             model.addAttribute("locurl", "/pages/myPage/profile");
 
             return "/message";
