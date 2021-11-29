@@ -108,8 +108,11 @@ $(document).ready(function(){
 	})
 
 	//연혁 이미지
-	$('.year_inner .years_desc .detail_desc.accordion').on('click', function(){
+	$('.years_desc label').on('click', function(){
 		$(this).parents().siblings().children().toggleClass('years')
+	})
+	$('.years_desc label').on('click', function(){
+		$(this).siblings('.detail_desc').toggleClass('accordion')
 	})
 
 	//캘린더
