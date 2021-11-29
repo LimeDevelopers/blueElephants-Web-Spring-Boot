@@ -181,6 +181,22 @@
                             </select>
                         </div>
 
+                        <div class="select w160">
+                            <label th:for="sorting">
+                                <th:block th:if="*{sorting eq 'latest' or sorting eq null or sorting eq ''}">최신순
+                                </th:block>
+                                <th:block th:if="*{sorting eq 'old'}">오래된순</th:block>
+                                <th:block th:if="*{sorting eq 'readCnt'}">조회순</th:block>
+                                <th:block th:if="*{sorting eq 'alphabetically'}">가나다순</th:block>
+                            </label>
+                            <div th:field="*{sorting}" onchange="fn_search()">
+                                <button value="" selected>최신순</button>
+                                <button value="old">오래된순</button>
+                                <button value="readCnt">조회순</button>
+                                <button value="alphabetically">가나다순</button>
+                            </div>
+                        </div>
+
 
                         <th:block
                                 th:if="${#numbers.formatInteger(dvCodePid, 0) ne @environment.getProperty('common.code.crewBoardCdPid')}">
