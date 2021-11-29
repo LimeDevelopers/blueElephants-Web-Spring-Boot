@@ -108,7 +108,7 @@ $(document).ready(function(){
 	})
 
 	//연혁 이미지
-	$('.years_desc label').on('click', function(){
+	$('.year_inner .years_desc .detail_desc.accordion').on('click', function(){
 		$(this).parents().siblings().children().toggleClass('years')
 	})
 
