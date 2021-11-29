@@ -4859,10 +4859,6 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     width: 220px;
 }
 
-.intro_item_01 .year_inner .years_mobile {
-    display: none;
-}
-
 .intro_item_01 .year_inner .years_pc {
     display: none;
     height: 220px;
