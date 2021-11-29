@@ -4856,6 +4856,7 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     display: flex;
     justify-content: space-between;
     flex-direction: column;
+    width: 220px;
 }
 
 .intro_item_01 .year_inner .years_mobile {
@@ -4993,6 +4994,7 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
 .intro_item_01 .year_inner .years_desc input[type="checkbox"]:checked+.detail_desc:before {
     display: block;
 }
+.intro_item_01 .year_inner .years_desc input[type="checkbox"]:checked+
 /* 소개_ 푸코연혁 끝 */
 
 

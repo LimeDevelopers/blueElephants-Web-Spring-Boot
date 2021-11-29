@@ -107,6 +107,11 @@ $(document).ready(function(){
 		footBtn.siblings('.m_info_inner').toggleClass('active');
 	})
 
+	//연혁 이미지
+	$('.years_desc label').on('click', function(){
+		$('.years_img_wrapper img').toggleClass().show()
+	})
+
 	//캘린더
 	/*$('.form_date').datetimepicker({
          timepicker:false,
