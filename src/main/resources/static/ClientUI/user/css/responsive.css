@@ -3408,7 +3408,7 @@
 	}
 	.thumb_list>li {
 		width: 100%;
-		margin: 0;
+		margin: 10px 0;
 	}
 	.thumb_list>li.nodata div {
 		padding-left: 40px;

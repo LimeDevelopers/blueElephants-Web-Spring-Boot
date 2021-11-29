@@ -12365,7 +12365,7 @@ li.period .td span {
     display: block;
 }
 .page_cont > .btn_tab{
-    margin-top: 30px;
+    /*margin-top: 30px;*/
     /*padding-bottom: 60px;*/
     text-align: right;
 }
