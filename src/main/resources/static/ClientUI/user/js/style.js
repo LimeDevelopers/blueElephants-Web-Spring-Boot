@@ -109,7 +109,7 @@ $(document).ready(function(){
 
 	//연혁 이미지
 	$('.years_desc label').on('click', function(){
-		$('.intro_item_01 .year_inner .years_pc').toggleClass('years')
+		$(this).parents().siblings().children().toggleClass('years')
 	})
 
 	//캘린더
