@@ -125,7 +125,7 @@
                             </div>
                         </div>
 
-                        <div class="board_top pt0">
+                        <!--<div class="board_top pt0">
                             <div class="select w160 title">
                                 <label th:for="srchGbnParent">
                                     <th:block th:if="*{srchGbnParent eq '' or srchGbnParent eq null}">전체</th:block>
@@ -142,7 +142,7 @@
                             </div>
                             <div class="select w160">
                                 <label th:for="srchField">
-                                    <!--<th:block th:if="*{srchField eq '' or srchField eq null}">전체</th:block>-->
+                                    <th:block th:if="*{srchField eq '' or srchField eq null}">전체</th:block>
                                     <th:block th:if="*{srchField eq 'title' or srchField eq '' or srchField eq null}">
                                         제목
                                     </th:block>
@@ -151,7 +151,7 @@
                                     <th:block th:if="*{srchField eq 'wrterNm'}">작성자</th:block>
                                 </label>
                                 <select th:field="*{srchField}">
-                                    <!--<option value="" selected>전체</option>-->
+                                    <option value="" selected>전체</option>
                                     <option value="title">제목</option>
                                     <option value="cn">내용</option>
                                     <option value="titleCn">제목+내용</option>
@@ -162,7 +162,7 @@
                                 <input type="search" th:field="*{srchWord}" placeholder="검색어를 입력해 주세요"/>
                             </div>
                             <button type="submit" class="btn btn_blue btn_pill_10">검색</button>
-                        </div>
+                        </div>-->
 
 
                         <div class="select w160">
