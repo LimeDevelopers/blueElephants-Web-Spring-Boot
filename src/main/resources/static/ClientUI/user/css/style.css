@@ -4856,7 +4856,7 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    width: 220px;
+   /* width: 220px;*/
 }
 
 .intro_item_01 .year_inner .years_mobile {
@@ -4867,6 +4867,9 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     display: block;
     height: 220px;
     margin-right: 55px;
+}
+.intro_item_01 .year_inner .years_pc.years {
+    display: none;
 }
 
 .intro_item_01 .year_inner .years_sum01 {
