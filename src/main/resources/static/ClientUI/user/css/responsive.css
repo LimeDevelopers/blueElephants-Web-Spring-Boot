@@ -4,9 +4,9 @@
 /* Mobile Device */
 @media (max-width:768px) {
 
-	a:link { color: red; text-decoration: none;}
-	a:visited { color: black; text-decoration: none;}
-	a:hover { color: blue; text-decoration: underline;}
+	a:link { text-decoration: none;}
+	a:visited { text-decoration: none;}
+	a:hover { text-decoration: none;}
 
 	.pagination {
 		padding-bottom: 30px;
