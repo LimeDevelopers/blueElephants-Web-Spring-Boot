@@ -6692,6 +6692,12 @@
 	.intro_item_01 .year_inner .years_pc {
 		display: none;
 	}
+	.intro_item_01 .inner_21 .years_pc {
+		display: none;
+	}
+	.intro_item_01 .inner_21 .years_mobile.years {
+		display: block;
+	}
 
 	.intro_item_01 .year_inner .years_mobile {
 		display: block;
