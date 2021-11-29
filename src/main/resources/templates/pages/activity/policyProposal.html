@@ -69,16 +69,16 @@
 
 
 
-                        <div class="btn_tab pc_btn">
-                            <th:block th:if="${#authentication.principal eq 'anonymousUser'}"> <!--로그인 X-->
+                        <!--<div class="btn_tab pc_btn">
+                            <th:block th:if="${#authentication.principal eq 'anonymousUser'}"> &lt;!&ndash;로그인 X&ndash;&gt;
                                 <a href="javascript:alert('로그인 후 이용 가능합니다.');"
                                    class="write_btn">글쓰기</a>
                             </th:block>
-                            <th:block th:unless="${#authentication.principal eq 'anonymousUser'}"> <!--로그인 O-->
+                            <th:block th:unless="${#authentication.principal eq 'anonymousUser'}"> &lt;!&ndash;로그인 O&ndash;&gt;
                                 <a href="/pages/activity/policyProposalRegister"
                                    class="write_btn">글쓰기</a>
                             </th:block>
-                        </div>
+                        </div>-->
 
                         <div class="board_top review_board">
                             <div class="select_bx">
@@ -110,6 +110,16 @@
                                     <input type="search" th:field="*{srchWord}" placeholder="검색어를 입력해 주세요" />
                                 </div>
                                 <button type="submit" class="btn btn_blue btn_pill_10">검색</button>
+                            </div>
+                            <div class="btn_tab pc_btn">
+                                <th:block th:if="${#authentication.principal eq 'anonymousUser'}"> <!--로그인 X-->
+                                    <a href="javascript:alert('로그인 후 이용 가능합니다.');"
+                                       class="write_btn">글쓰기</a>
+                                </th:block>
+                                <th:block th:unless="${#authentication.principal eq 'anonymousUser'}"> <!--로그인 O-->
+                                    <a href="/pages/activity/policyProposalRegister"
+                                       class="write_btn">글쓰기</a>
+                                </th:block>
                             </div>
                         </div>
 
