@@ -273,7 +273,7 @@
 	}
 	.info_area .m_info_inner .footer_m_info > li {
 		color: #333333;
-		font-size: 4px;
+		font-size: 13px;
 		border-right: 1px solid #333333;
 		float: left;
 		padding: 0 5px;
@@ -915,19 +915,19 @@
 		z-index: 100;
 	}
 	.menu_modal .modal_inner .menu_inner .tab_inner .btns label:nth-of-type(1):before {
-		background: url('../images/common/menu_01.svg')no-repeat center center;
-		background-size: contain;
-	}
-	.menu_modal .modal_inner .menu_inner .tab_inner .btns label:nth-of-type(2):before {
-		background: url('../images/common/menu_02.svg')no-repeat center center;
-		background-size: contain;
-	}
-	.menu_modal .modal_inner .menu_inner .tab_inner .btns label:nth-of-type(3):before {
 		background: url('../images/common/menu_03.svg')no-repeat center center;
 		background-size: contain;
 	}
-	.menu_modal .modal_inner .menu_inner .tab_inner .btns label:nth-of-type(4):before {
+	.menu_modal .modal_inner .menu_inner .tab_inner .btns label:nth-of-type(2):before {
+		background: url('../images/common/menu_01.svg')no-repeat center center;
+		background-size: contain;
+	}
+	.menu_modal .modal_inner .menu_inner .tab_inner .btns label:nth-of-type(3):before {
 		background: url('../images/common/menu_04.svg')no-repeat center center;
+		background-size: contain;
+	}
+	.menu_modal .modal_inner .menu_inner .tab_inner .btns label:nth-of-type(4):before {
+		background: url('../images/common/menu_02.svg')no-repeat center center;
 		background-size: contain;
 	}
 
@@ -6238,6 +6238,7 @@
 	/* 소개_ 푸른코끼리 시작 (09/12 고선호 수정) */
 	.pucoabout_inner .puco_items {
 		top: 1350px;
+		padding: 80px 0;
 	}
 	.gyeonggi_tit {
 		font-size: 24px;
@@ -6247,11 +6248,25 @@
 		font-size: 18px;
 		width: 200px;
 	}
-	.pucoabout_inner .puco_items .bg_inner .item_inner .item {
-		height: 700px;
+	.pucoabout_inner .puco_items .bg_inner .item_inner {
+		margin: 0 20px;
 	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item {
+		/*height: 700px;*/
+	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item > .item_01,
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item > .item_02,
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item > .item_03,
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item > .item_04 {
+		background-size: cover;
+	}
+	.pucoabout_inner .puco_items .bg_inner .item_inner .item > div .desc {
+		padding-left: 150px;
+		width: 95%;
+	}
+
 	.pucoabout_inner .puco_items .bg_inner .item_inner .item > div .desc p {
-		font-size: 20px;
+		font-size: 16px;
 		margin-bottom: 25px;
 	}
 	.bg_inner .item_inner_m .item_m > div {

@@ -4534,6 +4534,9 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     right: 80px;
     color: #7d859b;
 }
+.pucoabout_inner .puco_items .bg_inner .item_inner .item > div.item_05 .more_btn {
+    right: 50%;
+}
 .pucoabout_inner .puco_items .bg_inner .item_inner .item > div .item_tit {
     color: #fff;
     font-weight: bold;
@@ -4579,31 +4582,45 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
 .pucoabout_inner .puco_items .bg_inner .item_inner .item .item_05 .item_tit {
     background-color: #fbcb3a;
 }
-.pucoabout_inner .puco_items .bg_inner .item_inner .item .item_01 {
-    background: url('../images/contents/puco_banner_1.png')no-repeat center center;
-    background-size: contain;
+.pucoabout_inner .puco_items .bg_inner .item_inner .item .item_01 .desc {
+    background: #fff url('../images/contents/puco_ban_01.png')no-repeat bottom left;
+    background-size: 30%;
 }
-.pucoabout_inner .puco_items .bg_inner .item_inner .item .item_02 {
-    background: url('../images/contents/puco_banner_2.png')no-repeat center center;
-    background-size: contain;
+.pucoabout_inner .puco_items .bg_inner .item_inner .item .item_02 .desc {
+    background: #fff url('../images/contents/puco_ban_02.png')no-repeat bottom -5px left;
+    background-size: 30%;
 }
-.pucoabout_inner .puco_items .bg_inner .item_inner .item .item_03 {
-    background: url('../images/contents/puco_banner_3.png')no-repeat center center;
-    background-size: contain;
+.pucoabout_inner .puco_items .bg_inner .item_inner .item .item_03 .desc {
+    background: #fff url('../images/contents/puco_ban_03.png')no-repeat bottom left;
+    background-size: 30%;
 }
-.pucoabout_inner .puco_items .bg_inner .item_inner .item .item_04 {
-    background: url('../images/contents/puco_banner_4.png')no-repeat center center;
-    background-size: contain;
+.pucoabout_inner .puco_items .bg_inner .item_inner .item .item_04 .desc {
+    background: #fff url('../images/contents/puco_ban_04.png')no-repeat bottom left;
+    background-size: 30%;
 }
-.pucoabout_inner .puco_items .bg_inner .item_inner .item .item_05 {
-    background: url('../images/contents/puco_banner_5.png')no-repeat center center;
+.pucoabout_inner .puco_items .bg_inner .item_inner .item .item_05 .desc {
+    background: #fff url('../images/contents/puco_ban_05.png')no-repeat bottom -5px left;
     background-size: 100% auto;
     display: block;
+    width: 100%;
+    padding: 60px 0;
+    padding-left: 250px;
 }
 .pucoabout_inner .puco_items .bg_inner .item_inner .item > div .desc {
-    position: absolute;
+    /*position: absolute;
     top: 25%;
-    left: 38%;
+    left: 38%;*/
+    padding: 30px;
+    padding-left: 200px;
+    border-radius: 50px;
+    background-color: #fff;
+    margin-top: 40px;
+    width: 90%;
+    box-shadow: 10px 10px 40px #4e5f9614;
+}
+.pucoabout_inner .puco_items .bg_inner .item_inner .item > div.item_02 .desc,
+.pucoabout_inner .puco_items .bg_inner .item_inner .item > div.item_04 .desc {
+    margin-left: auto;
 }
 .pucoabout_inner .puco_items .bg_inner .item_inner .item > div .desc span {
     display: block;
@@ -6509,7 +6526,7 @@ h4.submsg.mo {
 
 .btn_tab {
     margin-top: -30px;
-    padding-bottom: 30px
+    /*padding-bottom: 30px*/
 }
 
 .btn_tab .btn {
@@ -12369,11 +12386,15 @@ li.period .td span {
     /*padding-bottom: 60px;*/
     text-align: right;
 }
-.page_cont > .btn_tab .write_btn {
+.btn_tab .write_btn {
     padding: 10px 25px;
     border: 1px solid #6d95e1;
     border-radius: 10px;
     color: #6d95e1;
+    font-size: 16px;
+    display: inline-block;
+    padding-top: 15px;
+    height: 54px;
 }
 .page_cont > .btn_tab .btn_review{
     border-radius: 10px;
@@ -12436,6 +12457,7 @@ li.period .td span {
     width: 150px;
     border-radius: 8px;
     margin-left: 10px;
+    font-size: 16px;
 }
 .page_cont > .review_board > .title label {
     max-width: 132px;
