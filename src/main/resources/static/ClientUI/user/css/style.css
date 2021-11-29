@@ -4856,7 +4856,7 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-   /* width: 220px;*/
+    width: 220px;
 }
 
 .intro_item_01 .year_inner .years_mobile {
