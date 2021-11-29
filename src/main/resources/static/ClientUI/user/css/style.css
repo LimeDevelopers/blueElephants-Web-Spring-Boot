@@ -4864,12 +4864,12 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
 }
 
 .intro_item_01 .year_inner .years_pc {
-    display: block;
+    display: none;
     height: 220px;
     margin-right: 55px;
 }
 .intro_item_01 .year_inner .years_pc.years {
-    display: none;
+    display: block;
 }
 
 .intro_item_01 .year_inner .years_sum01 {
