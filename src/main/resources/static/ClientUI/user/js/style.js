@@ -108,12 +108,12 @@ $(document).ready(function(){
 	})
 
 	//연혁 이미지
-	$('.years_desc label').on('click', function(){
+	/*$('.years_desc label').on('click', function(){
 		$(this).parents().siblings().children().toggleClass('years')
 	})
 	$('.years_desc label').on('click', function(){
 		$(this).siblings('.detail_desc').toggleClass('accordion')
-	})
+	})*/
 
 	//캘린더
 	/*$('.form_date').datetimepicker({

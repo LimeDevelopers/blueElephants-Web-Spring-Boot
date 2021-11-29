@@ -4935,18 +4935,15 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
 .intro_item_01 .year_inner .years_desc .detail_desc input[name="year_chk"] {
     display: none;
 }
-.intro_item_01 .year_inner .years_desc .detail_desc.intro_item_01 .year_inner .years_desc .detail_desc {
+.intro_item_01 .year_inner .years_desc .detail_desc {
     position: relative;
     padding-left: 50px;
     overflow: hidden;
-    /*height: 0;*/
+    height: 0;
     margin-top: -10px;
     padding-top: 60px;
-    display: none;
 }
-.intro_item_01 .year_inner .years_desc .detail_desc.accordion {
-    display: block;
-}
+
 .intro_item_01 .year_inner .years_desc .detail_desc > li {
     color: #555868;
     position: relative;
@@ -4994,9 +4991,9 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
 }
 
 /* checked function */
-/*.intro_item_01 .year_inner .years_desc input[type="checkbox"]:checked+.detail_desc {
-    display: block;
-}*/
+.intro_item_01 .year_inner .years_desc input[type="checkbox"]:checked+.detail_desc {
+    height: auto;
+}
 .intro_item_01 .year_inner .years_desc input[type="checkbox"]:checked+.detail_desc:before {
     display: block;
 }
