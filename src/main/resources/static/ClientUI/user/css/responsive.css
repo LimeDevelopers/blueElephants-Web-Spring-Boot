@@ -3777,7 +3777,7 @@
 	.tel_m {
 		display: block;
 		background: url('../images/contents/box_3_m.png')no-repeat center center;
-		background-size: contain;
+		background-size: 100% 100%;
 		margin-top: 10px;
 		height: 150px;
 		padding: 0 20px;
