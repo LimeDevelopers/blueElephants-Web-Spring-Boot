@@ -11464,6 +11464,10 @@ li.period .td span {
     text-align: center;
     padding: 10px 0;
 }
+.program_inner ul li .tr img {
+    width: 40%;
+    margin-top: 10px;
+}
 .program_inner ul li .td {
     width: 100%;
     padding: 15px 0;
@@ -11648,6 +11652,7 @@ li.period .td span {
     margin-right: 10px;
     background-color: #6d95e1;
     color: #fff;
+    border: 1px solid #6d95e1;
 }
 .help_btn a.list_btn {
     border: 1px solid #6d95e1;
