@@ -4401,6 +4401,12 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     font-size: 18px;
     color: #555868;
 }
+.box_item_2 .list_inner ul.list li span {
+    display: inline-block;
+    margin-bottom: 15px;
+    margin-top: 20px;
+    font-size: 22px;
+}
 .box_item_2 .list_inner ul.list li:before {
     content:'';
     position: absolute;
