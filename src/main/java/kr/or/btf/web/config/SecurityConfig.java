@@ -85,7 +85,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // 수정중 김재일 인증강사 추가
         http.authorizeRequests()
-                .mvcMatchers("/pages/myPage/**").hasAnyRole("NORMAL,STUDENT,PARENT,TEACHER,INSTRUCTOR,BATCH")
+                .mvcMatchers("/pages/myPage/**").hasAnyRole("NORMAL,STUDENT,PARENT,TEACHER,INSTRUCTOR,BATCH,CREW")
                 .mvcMatchers("/naver1c813a906449890c14557110ef4af25e.html", "/ClientUI/**","/node_modules/**","/loginFailure","/message","/error"
                         ,"/fragments/**","/popup/**","/","/index","/login","/api/common/download").permitAll()
                 .mvcMatchers("/pages/**","/api/member/**","/api/nice/**","/api/openData/**","/upload/**","/api/commonCode/listForUppCdPid").permitAll()

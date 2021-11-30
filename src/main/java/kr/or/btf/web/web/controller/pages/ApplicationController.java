@@ -131,7 +131,7 @@ public class  ApplicationController {
             model.addAttribute("locurl", "/login");
             return "/message";
         } else {
-            if(!account.getMberDvTy().equals(UserRollType.NORMAL)){
+            if(account.getMberDvTy().equals(UserRollType.NORMAL) || account.getMberDvTy().equals(UserRollType.MASTER)){
                 model.addAttribute("altmsg", "일반회원만 이용 가능합니다.");
                 model.addAttribute("locurl", "/");
                 return "/message";

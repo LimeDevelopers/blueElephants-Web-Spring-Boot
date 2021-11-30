@@ -19,6 +19,12 @@
         $("#totalSearchForm").submit();
     }
 
+    /*$('.btn_tab .btn').click(function(){
+        $(this).addClass('active')
+        $(this).siblings().removeClass('active')
+    })*/
+
+
 </script>
 
 <div id="skipnav">
@@ -53,7 +59,7 @@
                     <th:block th:if="${#authorization.getAuthentication() != null and #authorization.expression('isAuthenticated()')}">
                         <a href="javascript:;" class="btn_login btn_user"><th:block sec:authentication="principal.account.ncnm"></th:block>님</a>
                         <ul class="user_mnu">
-                            <li class="pc" sec:authorize="hasAnyRole('ROLE_NORMAL', 'ROLE_STUDENT', 'ROLE_PARENT', 'ROLE_TEACHER','ROLE_INSTRUCTOR' , 'ROLE_BATCH')">
+                            <li class="pc" sec:authorize="hasAnyRole('ROLE_NORMAL', 'ROLE_STUDENT', 'ROLE_PARENT', 'ROLE_TEACHER','ROLE_INSTRUCTOR' , 'ROLE_BATCH', 'ROLE_CREW')">
                                 <a href="/pages/myPage/profile">마이페이지</a>
                             </li>
                             <li sec:authorize="hasAnyRole('ROLE_MASTER', 'ROLE_ADMIN', 'ROLE_LECTURER', 'ROLE_COUNSELOR')">
@@ -122,6 +128,7 @@
                         <!--                        <a href="/pages/activity/preventionEdu/NORMAL">신청</a>-->
                         <a href="/pages/application/preeducationList">신청</a>
                         <ul class="sub_list">
+                            <!--<li th:if="${#authorization.getAuthentication() != null and #authorization.expression('isAuthenticated()') and #authentication.principal.account.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).TEACHER}"><a href="/pages/application/preeducation">예방교육(교사)</a></li>-->
                             <li th:if="${#authorization.getAuthentication() != null and #authorization.expression('isAuthenticated()') and #authentication.principal.account.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).TEACHER}"><a href="/pages/application/preeducation">예방교육(교사)</a></li>
                             <li th:if="${#authorization.getAuthentication() != null and #authorization.expression('isAuthenticated()') and #authentication.principal.account.mberDvTy eq T(kr.or.btf.web.domain.web.enums.UserRollType).INSTRUCTOR}"><a href="/pages/application/preeducationList">예방교육(강사)</a></li>
                             <li><a href="/pages/application/insInfo">강사교육</a></li>

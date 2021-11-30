@@ -45,7 +45,7 @@
                     <th:block th:if="${#authorization.getAuthentication() != null and #authorization.expression('isAuthenticated()')}">
                         <a href="javascript:;" class="btn_login btn_user"><th:block sec:authentication="principal.account.ncnm"></th:block>님</a>
                         <ul class="user_mnu">
-                            <li class="pc" sec:authorize="hasAnyRole('ROLE_NORMAL', 'ROLE_STUDENT', 'ROLE_PARENT', 'ROLE_TEACHER', 'ROLE_BATCH')">
+                            <li class="pc" sec:authorize="hasAnyRole('ROLE_NORMAL', 'ROLE_STUDENT', 'ROLE_PARENT', 'ROLE_TEACHER', 'ROLE_BATCH', 'ROLE_CREW')">
                                 <a href="/pages/myPage/profile">마이페이지</a>
                             </li>
                             <li sec:authorize="hasAnyRole('ROLE_MASTER', 'ROLE_ADMIN', 'ROLE_LECTURER', 'ROLE_COUNSELOR')">

@@ -4366,6 +4366,11 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     margin-top: 50px;
     margin-bottom: 100px;
 }
+.box_item_2 .list_inner span {
+    font-size: 22px;
+    margin: 15px 0;
+    display: inline-block;
+}
 .box_item_2 .list_inner {
     border: 2px solid #85b4f7;
     border-radius: 35px;
@@ -4880,6 +4885,9 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     justify-content: space-between;
     flex-direction: column;
     width: 220px;
+}
+.intro_item_01 .year_inner.inner_21 .years_pc {
+    display: none;
 }
 
 .intro_item_01 .year_inner .years_mobile {
@@ -6548,16 +6556,14 @@ h4.submsg.mo {
     margin-right: 0
 }
 
-.btn_tab .btn.active {
-    font-weight: 700
-}
-
-.btn_tab .btn_gallery {
+.btn_tab .btn.option, .btn_tab .btn.active {
     color: #8bb3ff;
-    background-color: #d5dfee
+    background-color: #d5dfee;
+    font-weight: 700;
 }
 
-.btn_tab .btn_board {
+.btn_tab .btn_board,
+.btn_tab .btn_gallery {
     color: #767676;
     background-color: #eaeaea
 }
@@ -11261,6 +11267,12 @@ text.shadow {
 
 
 /* 활동_도움요청_심리상담전화 시작 */
+.time_chk_inner {
+    margin-right: 20px;
+}
+.time_chk_inner label {
+    padding-left: 20px;
+}
 .heal_content {
     padding: 40px 100px;
     border-top: 2px solid #95b3ed;
@@ -11448,14 +11460,14 @@ li.period .td span {
 
 /* 활동_도움요청_가족테라피 시작 */
 .sub_text_box.family_text_box {
-    background-color: #bbd2f6;
+    background-color: #e8ebf1;
     border-radius: 20px;
     height: 200px;
 }
 .page_cont > .sub_text_box.family_text_box > .text {
-    padding: 0px 75px;
+    padding: 50px 75px;
     width: 100%;
-    text-align: center;
+    text-align: left;
 }
 .family_info {
     margin-top: 45px;
@@ -11902,9 +11914,12 @@ li.period .td span {
 .school_info .join {
     overflow: hidden;
 }
+.school_info .join.teacher_more_info {
+    display: flex;
+}
 .school_info .join .chk_item {
     width: 33.3333%;
-    margin-left: 38%;
+   /* margin-left: 38%;*/
     margin-top: 40px;
     padding: 0 10px;
     padding-left: 10px;
@@ -12233,6 +12248,7 @@ li.period .td span {
 .school_info .sec_write {
     margin-top: 20px;
 }
+
 .school_info .tbl_write ul li.small_bx .td input {
     width: 150px;
 }
@@ -12300,7 +12316,7 @@ li.period .td span {
     width: 100%;
     border-radius: 20px;
     background-color: #e8ebf1;
-    margin: 53px 0;
+    margin: 30px 0;
     position: relative;
 }
 .page_cont > .sub_text_box > img {
@@ -12388,7 +12404,7 @@ li.period .td span {
     display: block;
 }
 .page_cont > .btn_tab{
-    /*margin-top: 30px;*/
+    margin-top: 30px;
     /*padding-bottom: 60px;*/
     text-align: right;
 }
@@ -12886,6 +12902,10 @@ ul.img_join_pick {
 
 
 /* 20210915 마이페이지_계정정보 시작 09/16 고선호 수정 */
+.info_more {
+    color: #8c90a5;
+    font-size: 15px;
+}
 .mypage_menu > li.pc_on > a {
     padding: 10px 6px;
 }

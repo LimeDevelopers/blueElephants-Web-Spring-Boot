@@ -3,11 +3,20 @@
 <head>
     <th:block th:include="fragments/header"></th:block>
     <script type="text/javascript">
+        $(function () {
+            var tab = $(".btn_tab"), btn = tab.children(".btn");
+            btn.on("click", function () {
+                var btn = $(this);
+                btn.addClass('active').siblings().removeClass('active')
+            });
+
         function fn_search() {
             var frm = $('#form1');
             //frm.prop("action", "?");
             frm.submit();
-        }
+        };
+
+
     </script>
 </head>
 <body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
@@ -76,9 +85,9 @@
                         </ul>-->
                         <div class="btn_tab" th:if="${dvCodePid eq crewGalleryCdPid or dvCodePid eq crewBoardCdPid}">
                             <!-- TODO: 활성화 버튼에 active 별도 클래스 추가 필요 -->
-                            <a th:href="|/pages/activity/cultureList/${@environment.getProperty('common.code.crewGalleryCdPid')}|"
+                            <a href="javascript:;" th:href="|/pages/activity/cultureList/${@environment.getProperty('common.code.crewGalleryCdPid')}|"
                                class="btn btn_pill btn_gallery active">갤러리</a>
-                            <a th:href="|/pages/activity/cultureList/${@environment.getProperty('common.code.crewBoardCdPid')}|"
+                            <a href="javascript:;" th:href="|/pages/activity/cultureList/${@environment.getProperty('common.code.crewBoardCdPid')}|"
                                class="btn btn_pill btn_board">게시판</a>
                         </div>
 
