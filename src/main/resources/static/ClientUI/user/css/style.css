@@ -6005,11 +6005,11 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     height: 48px;
 }
 .user_type .user_type_01:before {
-    background: url('../images/icon/user_type_02.png')no-repeat center center;
+    background: url('../images/icon/user_type_01.png')no-repeat center center;
     background-size: contain;
 }
 .user_type .user_type_02:before {
-    background: url('../images/icon/user_type_01.png')no-repeat center center;
+    background: url('../images/icon/user_type_02.png')no-repeat center center;
     background-size: contain;
 }
 
@@ -9966,7 +9966,7 @@ h4.subtit+.tip_tbl {
 .list_type dl {
     position: relative;
     margin-bottom: 20px;
-    padding: 32px 157px 32px 40px;
+    padding: 32px 40px 32px 40px;
     background-color: #fff;
     border-bottom: 1px solid #dddddd;
     display: flex;
@@ -9975,6 +9975,7 @@ h4.subtit+.tip_tbl {
 .list_type dl:last-child {
     margin-bottom: 0
 }
+
 
 .list_type dt {
     margin-right: 130px;
@@ -10028,6 +10029,9 @@ h4.subtit+.tip_tbl {
     display: flex;
     justify-content: space-between;
 }
+.list_type dl .list_bull {
+    flex: 3;
+}
 .list_type dd .list_bull li {
     padding: 0 0 8px 10px;
     color: #767676;
@@ -10065,7 +10069,7 @@ h4.subtit+.tip_tbl {
     padding: 10px 40px;
     border-radius: 30px;
     font-size: 15px;
-    align-self: flex-end;
+    align-self: flex-start;
 }
 
 /***** 준비중 페이지 *****/
@@ -12358,7 +12362,7 @@ li.period .td span {
     /* padding-left: 300px;*/
 }
 .page_cont > .review_text_box {
-    height: 185px;
+    height: 220px;
 }
 .page_cont > .sub_text_box > img {
     bottom: 25px;
@@ -12441,6 +12445,7 @@ li.period .td span {
     justify-content: center;
     /*padding-top: 43px;*/
     margin-bottom: 40px;
+    width: 100%;
 }
 .page_cont > .review_board .select_bx {
     display: inline-block;
@@ -12876,7 +12881,8 @@ ul.img_join_pick {
     font-weight: bold;
 }
 .img_join_pick li label {
-    background: url('../images/contents/basic_bg.png')no-repeat center center;
+    /*background: url('../images/contents/basic_bg.png')no-repeat center center;*/
+    background-color: #D8E1F5;
     background-size: 100% 100%;
 }
 .img_join_pick li label span {
@@ -12885,7 +12891,8 @@ ul.img_join_pick {
 /* checked function */
 .img_join_pick li input[type="radio"]:checked + label {
     border-color: #85B4F7;
-    background: url('../images/contents/click_bg.png')no-repeat center center;
+    /*background: url('../images/contents/click_bg.png')no-repeat center center;*/
+    background-color: #EEF4FE;
     background-size: contain;
 }
 .img_join_pick li input[type="radio"]:checked + label span {

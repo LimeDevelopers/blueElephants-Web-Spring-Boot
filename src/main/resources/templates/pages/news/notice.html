@@ -35,6 +35,14 @@
                                         <th:block th:each="item : ${commonCodes}">
                                             <option th:value="${item.id}" th:text="${item.codeNm}"></option>
                                         </th:block>
+                                        <option value="" selected>모집</option>
+                                        <th:block th:each="item : ${commonCodes}">
+                                            <option th:value="${item.id}" th:text="${item.codeNm}"></option>
+                                        </th:block>
+                                        <option value="" selected>안내</option>
+                                        <th:block th:each="item : ${commonCodes}">
+                                            <option th:value="${item.id}" th:text="${item.codeNm}"></option>
+                                        </th:block>
                                     </select>
                                 </div>
                                 <div class="select w160 subject">
