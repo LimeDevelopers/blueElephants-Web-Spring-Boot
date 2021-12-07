@@ -455,19 +455,32 @@ body{color:#54586a;font-size:14px;font-family:'Noto Sans KR', Malgun Gothic, '�
 }
 
 /* notice 셀렉트 작업*/
-.notice_select > .notice_option_select{
+.notice_select {
+	text-align: right;
+}
+.notice_select > .notice_option_select {
 	overflow: inherit;
 	height: 22px;
-	margin-top: 55px;
+	margin-top: 40px;
 	border: 0px solid #fff;
+	width: auto;
 }
-.notice_select > .notice_option_select > option{
+.notice_select > .notice_option_select > option {
 	 display: inline-block;
+	position: relative;
+	padding: 0 5px;
 }
-.notice_select > .notice_option_select > option::after{
-	content: '|';
+.notice_select > .notice_option_select > option::after {
+	content: '';
+	position: absolute;
+	right: 0;
+	width: 1px;
+	height: 70%;
+	background-color: #cccccc;
+	top: 50%;
+	transform: translateY(-50%);
 }
-.notice_select > .notice_option_select > option:last-child::after{
+.notice_select > .notice_option_select > option:last-child::after {
 	content: '';
 }
 

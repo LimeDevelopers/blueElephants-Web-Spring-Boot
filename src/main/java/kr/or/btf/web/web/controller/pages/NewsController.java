@@ -210,7 +210,7 @@ public class NewsController {
         boardDataService.updateByReadCnt(boardDataForm);
 
         model.addAttribute("mc", "news");
-        model.addAttribute("pageTitle", "언론보도");
+        model.addAttribute("pageTitle", "공지사항");
         return "/pages/news/detail";
     }
 

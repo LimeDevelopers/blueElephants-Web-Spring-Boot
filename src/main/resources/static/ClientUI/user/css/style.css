@@ -4700,7 +4700,7 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
 }
 .ci_inner .ci_sum {
     border: 1px solid #ddd;
-    margin-right: 60px;
+    margin-right: 30px;
     box-sizing: border-box;
     padding: 70px;
     width: 800px;
@@ -6518,7 +6518,8 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
 
 h4.subtit {
     font-size: 28px;
-    font-weight: 500;
+    /*font-weight: 500;*/
+    font-weight: bold;
     text-align: center
 }
 
@@ -6721,28 +6722,28 @@ h4.submsg.mo {
 }
 
 .board_list>li .info_area .sort.normal {
-    color: #7232d8;
-    border-color: #7232d8
+    color: #765cc1;
+    border-color: #765cc1
 }
 
 .board_list>li .sort.teenager {
-    color: #176de4;
-    border-color: #176de4
+    color: #6d95e1;
+    border-color: #6d95e1
 }
 
 .board_list>li .sort.parent {
-    color: #004a80;
-    border-color: #004a80
+    color: #1386d0;
+    border-color: #1386d0
 }
 
 .board_list>li .sort.teacher {
-    color: #e56300;
-    border-color: #e56300
+    color: #e89e3b;
+    border-color: #e89e3b
 }
 
 .board_list>li .sort.lecturer {
-    color: #005e20;
-    border-color: #005e20
+    color: #31af40;
+    border-color: #31af40
 }
 
 .board_list>li .delete_area {
@@ -6788,7 +6789,7 @@ h4.submsg.mo {
 }
 
 .board_tbl_list {
-    margin-top: 20px;
+    margin-top: 10px;
     border-top: 2px solid #8bb3ff
 }
 
@@ -7073,13 +7074,14 @@ h4.subtit+.tip_tbl {
 .thumb_list {
     overflow: hidden;
     /*margin: -40px 0 0 -30px;*/
-    padding-top: 20px;
     width: 100%;
+    border-top: 2px solid #8bb3ff;
+    margin-top: 10px;
 }
 
 .thumb_list>li {
     width: calc(33.33% - 30px);
-    margin: 40px 0 0 30px;
+    margin: 40px 0 0 20px;
     text-align: center
 }
 
@@ -9990,7 +9992,7 @@ h4.subtit+.tip_tbl {
     display: inline-block;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    /*white-space: nowrap;*/
     width: calc(100% - 50px)
 }
 
@@ -12373,7 +12375,7 @@ li.period .td span {
 }
 .page_cont > .sub_text_box > img.culture_crew {
     bottom: 30px;
-    width : 25%;
+    width : 22%;
 }
 
 .page_cont > .sub_text_box > img.experienceList {
@@ -12385,8 +12387,9 @@ li.period .td span {
 
 .page_cont > .review_text_box .text {
     /*padding-left: 350px;*/
+    /*padding-left: 100px;*/
 }
-.page_cont > .review_text_box > .review_text_img{
+.page_cont > .review_text_box > .review_text_img {
     /* position: absolute;
     bottom: 10px;
     left: 45px; */
@@ -12444,7 +12447,7 @@ li.period .td span {
     display: flex;
     justify-content: center;
     /*padding-top: 43px;*/
-    margin-bottom: 40px;
+    /*margin-bottom: 40px;*/
     width: 100%;
 }
 .page_cont > .review_board .select_bx {
@@ -12482,6 +12485,7 @@ li.period .td span {
     height: 54px;
     width: 100%;
     margin-right: 10px;
+    font-size: 15px;
 }
 .page_cont > .review_board > .select_bx2 button {
     width: auto;
@@ -12577,6 +12581,9 @@ li.period .td span {
 }
 
 /* 공지사항 select박스 시작*/
+.notice_option_select select.notice_option_select {
+    width: auto;
+}
 
 .page_cont > .notice_board{
     /*text-align: center;
@@ -13841,6 +13848,9 @@ ul.img_join_pick {
 }
 .my_profile_2 .profile_inner .my_info .my_info_item table tr td:nth-of-type(1) {
     width: 200px;
+}
+.my_profile_2 .profile_inner .my_info .my_info_item table tr.info td:nth-of-type(1) {
+    width: 100%;
 }
 .my_profile_2 .profile_inner .my_info .my_info_item table tr td:nth-of-type(2) {
     color: #9399af;

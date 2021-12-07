@@ -1484,9 +1484,13 @@
 	.box_item_2 {
 		padding: 20px 10px;
 		margin-bottom: 50px;
+		margin-top: 30px;
 	}
 	.box_item_2 .list_inner {
 		padding: 30px 10px;
+	}
+	.box_item_2 .list_inner span {
+		font-size: 16px;
 	}
 	.box_item_2 .list_inner ul.list {
 		width: 80%;
@@ -1594,7 +1598,7 @@
 		display: block;
 	}
 	.bg_inner .item_inner_m .item_m > div {
-		height: 200px;
+		height: 220px;
 		width: 100%;
 		position: relative;
 	}
@@ -3484,7 +3488,8 @@
 	}
 	.list_type dl {
 		flex-direction: column;
-		padding: 20px 0;
+		padding: 30px 0;
+		margin-bottom: 0;
 	}
 	#calendar .fc-toolbar button {
 		width: 25px;
@@ -3509,10 +3514,16 @@
 		width: 100%;
 		font-size: 16px;
 		padding: 5px 0;
+		margin-top: 10px;
 	}
 	.list_type dt {
 		margin: 0;
 		font-size: 18px;
+		width: 100%;
+		-webkit-line-clamp: 1;
+		overflow: hidden;
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
 	}
 	.list_type dt .sort {
 		float: none;
@@ -3521,7 +3532,7 @@
 	}
 	.list_type dt .tit {
 		font-size: 18px;
-		width: auto;
+		/*width: auto;*/
 		margin-right: 10px;
 	}
 	/*  푸코소식 캘린더 끝 */

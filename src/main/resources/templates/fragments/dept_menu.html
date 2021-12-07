@@ -370,7 +370,7 @@
             <div>
                 <div class="sm_tit">
                     <h3 th:classappend="${pageTitle eq '공지사항' ? 'sd_on pageon' : ''}">
-                        <a href="/pages/news/notice">공지사항</a></h3>
+                        <a th:href="|/pages/news/notice/${@environment.getProperty('common.code.noticeCdPid')}|">공지사항</a></h3>
                 </div>
             </div>
             <div>
