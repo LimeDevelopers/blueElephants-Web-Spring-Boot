@@ -337,8 +337,8 @@ body{color:#54586a;font-size:14px;font-family:'Noto Sans KR', Malgun Gothic, '�
 .phone_form .select{width:84px}
 .phone_form .bar{margin:0 10px;line-height:33px}
 /* 이메일 폼 */
-.email_form{display:inline-block;margin-right:12px;vertical-align:top}
-.email_form input{width:230px !important}
+.email_form{display:inline-block;margin-right:12px;vertical-align:top;}
+.email_form input{width:40% !important}
 .email_form .select{width:230px}
 .email_form .at{margin:0 12px;line-height:44px}
 .email_form .email_inp{display:none;margin-left:10px}

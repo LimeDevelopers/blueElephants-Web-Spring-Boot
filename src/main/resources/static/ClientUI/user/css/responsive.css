@@ -273,7 +273,7 @@
 	}
 	.info_area .m_info_inner .footer_m_info > li {
 		color: #333333;
-		font-size: 13px;
+		font-size: 16px;
 		border-right: 1px solid #333333;
 		float: left;
 		padding: 0 5px;
@@ -2007,6 +2007,7 @@
 	}
 	.select label {
 		line-height: 30px;
+		height: 44px;
 	}
 	.page_cont > .review_board > .subject label {
 		/* height: 30px; */
@@ -3659,12 +3660,18 @@
 	.sec.sec_intro_01 {
 		margin-top: 0;
 	}
+	.intro_item_01 .year_inner.inner_21 .years_pc {
+		display: none !important;
+	}
 	.intro_item_01 .year_inner .years_pc {
 		display: none;
 	}
+	.intro_item_01 .year_inner .years_mobile.years {
+		display: block;
+	}
 
 	.intro_item_01 .year_inner .years_mobile {
-		display: block;
+		display: none;
 		width: 100%;
 		margin-bottom: 10px;
 	}
@@ -3725,7 +3732,7 @@
 	}
 	/*.intro_item_01 .inner_21,*/
 	.intro_item_01 .inner_19 {
-		margin-top: 70px;
+		margin-top: 30px;
 	}
 	/* 소개_ 푸코연혁 끝 */
 
@@ -4605,6 +4612,7 @@
 	}
 	.select label {
 		line-height: 30px;
+		height: 44px;
 	}
 	.page_cont > .review_board > .subject label {
 		/* height: 30px; */
@@ -5550,6 +5558,7 @@
 	.contour ul li.phoneAuth .td span.at {
 		width: 50px;
 		flex: 1;
+		text-align: center;
 	}
 	.email_form {
 		display: flex;
@@ -5661,6 +5670,9 @@
 	.contour.info_bx ul li.row .td {
 		height: 350px;
 	}
+
+
+
 	/* 회원가입_개인_학생 끝 */
 	.email_form .select label {
 		height: 42px;
@@ -5806,6 +5818,20 @@
 	}
 	/* 회원가입_단체_일반 끝 09/29 고선호 추가 */
 
+}
+@media (min-width:769px) and (max-width:796px) {
+	.email_form {
+		display: flex;
+	}
+}
+@media (min-width:769px) and (max-width:934px) {
+	.contour ul li.phoneAuth .td .tabs .tab .auth_contents_02 > button {
+		margin-top: 10px;
+		margin-right: 14px;
+	}
+	.tbl_write .td input.eKey {
+		width: auto;
+	}
 }
 
 /* Tablet Device */
@@ -7017,7 +7043,8 @@
 		padding-top: 0;
 	}
 	.select label {
-		line-height: 30px;
+		line-height: 42px;
+		height: 44px;
 	}
 	.page_cont > .review_board > .subject label {
 		/* height: 30px; */
