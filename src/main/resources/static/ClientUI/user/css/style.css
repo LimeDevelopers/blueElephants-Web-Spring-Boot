@@ -7099,6 +7099,7 @@ h4.subtit+.tip_tbl {
     text-align: left;
     padding: 10px 0;
     margin-top: 30px !important;
+    text-align: right;
 }
 .select_2 button {
     font-size: 15px;
@@ -11467,14 +11468,16 @@ li.period .td span {
 
 /* 활동_도움요청_가족테라피 시작 */
 .sub_text_box.family_text_box {
-    background-color: #e8ebf1;
+    /*background-color: #e8ebf1;*/
+    background: url('../images/contents/banner_02.png')no-repeat center center;
+    background-size: cover;
     border-radius: 20px;
     height: 200px;
 }
 .page_cont > .sub_text_box.family_text_box > .text {
     padding: 50px 75px;
-    width: 100%;
     text-align: left;
+    padding-left: 20px;
 }
 .family_info {
     margin-top: 45px;
@@ -12316,6 +12319,10 @@ li.period .td span {
 }
 /**2021/09/14 kjw 예방교육 리스트, 지지크루, 강사교육, 교육 후기**/
 /* 활동_교육후기 시작 */
+.post_box {
+    background: url('../images/contents/banner_01.png')no-repeat center center;
+    background-size: cover;
+}
 .review_text_box2 {
     background-color: #e8ebf1;
     max-width: 1200px;
@@ -12329,7 +12336,7 @@ li.period .td span {
     max-width: 1200px;
     width: 100%;
     border-radius: 20px;
-    background-color: #e8ebf1;
+    /*background-color: #e8ebf1;*/
     margin: 30px 0;
     position: relative;
 }
