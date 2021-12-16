@@ -11,6 +11,17 @@
 	.pagination {
 		padding-bottom: 30px;
 	}
+
+	/* 20211216_배너 */
+	.post_box {
+		background: url('../images/contents/m_banner_01.png')no-repeat center center;
+		background-size: contain;
+	}
+	.experience {
+		margin-bottom: 30px;
+	}
+
+
 	/* 활동_진단하기_ox퀴즈_질문하기 시작 */
 	.inner.top {
 		padding-top: 20px;
@@ -1950,9 +1961,16 @@
 		margin-top: 20px;
 	}
 	.page_cont > .review_text_box.post_box {
-		margin-top: 50px;
-		height: 180px;
+		margin-top: 0 !important;
+		height: 330px;
 	}
+	.pc_banner {
+		display: none;
+	}
+	.m_banner {
+		display: block;
+	}
+
 	.page_cont > .review_text_box img {
 		width: 42%;
 		top: 30%;
@@ -2668,9 +2686,6 @@
 	.activity_bx .text {
 		padding: 30px !important;
 	}
-	.help_text_box {
-		height: 180px;
-	}
 	.page_cont > .sub_text_box.help_text_box > img {
 		top: 25%;
 		width: 60%;
@@ -2782,9 +2797,6 @@
 		clear: both;
 		width: 100%;
 		/*padding: 30px 50px;*/
-	}
-	.help_counsel_box {
-		height: 120px;
 	}
 	.page_cont > .sub_text_box.help_counsel_box > img {
 		left: 50%;
@@ -2964,10 +2976,6 @@
 	/* 활동_도움요청_채팅상담 끝 */
 
 	/* 활동_도움요청_심리상담 시작 */
-	.help_text_box {
-		height: 180px;
-	}
-
 	.page_cont > .sub_text_box.form_text_box > .text {
 		padding: 0 30px;
 	}
@@ -3373,9 +3381,9 @@
 
 
 	/* 활동_문화만들기_정책제안 시작 */
-	.page_cont > .review_text_box.proposal_txt {
+	/*.page_cont > .review_text_box.proposal_txt {
 		margin-top: 60px;
-	}
+	}*/
 	.btn_tab.pc_btn {
 		display: none;
 	}
@@ -4589,14 +4597,6 @@
 	}
 	.page_cont > .intro_text_box {
 		height: 100px;
-	}
-	.page_cont > .review_text_box {
-		height: 150px;
-		margin-top: 20px;
-	}
-	.page_cont > .review_text_box img {
-		width: 42%;
-		top: 30%;
 	}
 	.page_cont > .review_text_box > .text {
 		padding: 30px;
@@ -5849,6 +5849,8 @@
 	}
 
 
+
+
 	/* Common CSS */
 	/*Header*/
 	#header {
@@ -5874,7 +5876,6 @@
 		margin: 0;
 		padding: 0 20px;
 	}
-
 
 
 
@@ -6185,6 +6186,13 @@
 
 	.section06 .top .news_area .left_area .emotion_box .emt_inner a.emotion_btn span {
 		line-height: 120px;
+	}
+
+
+
+	/* 20211216_배너 */
+	.experience {
+		margin-bottom: 30px;
 	}
 
 
@@ -6507,6 +6515,7 @@
 	/* 20210903_수강신청 끝 * /
 
 	/* 활동_교육후기 시작 */
+
 	.page_cont > .sub_text_box {
 		position: relative;
 	}

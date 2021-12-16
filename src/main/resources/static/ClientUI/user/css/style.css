@@ -7077,7 +7077,7 @@ h4.subtit+.tip_tbl {
     /*margin: -40px 0 0 -30px;*/
     width: 100%;
     border-top: 2px solid #8bb3ff;
-    margin-top: 10px;
+    margin-top: 50px;
 }
 
 .thumb_list>li {
@@ -11123,10 +11123,6 @@ text.shadow {
 
 
 /* 활동_도움요청_심리상담 시작 */
-.help_text_box {
-    height: 170px;
-    margin-top: 100px;
-}
 .page_cont > .sub_text_box.help_text_box > img {
     top: -50%;
     left: 50%;
@@ -11141,7 +11137,7 @@ text.shadow {
 }
 .page_cont > .sub_text_box > .text .sub {
     color: #9499ad;
-    margin-top: 15px;
+    margin-top: 7px;
     display: inline-block;
 }
 .therapy_info {
@@ -11263,9 +11259,6 @@ text.shadow {
 }
 .activity_bx img {
     left: 50% !important;
-}
-.activity_bx {
-
 }
 .activity_bx .text {
     width: 100% !important;
@@ -11437,9 +11430,6 @@ li.period .td span {
 
 
 /* 활동_또래상담 시작 */
-.help_counsel_box {
-    height: 100px;
-}
 .page_cont > .sub_text_box.help_counsel_box > img {
     bottom: 20px;
     left: 50px;
@@ -11468,16 +11458,10 @@ li.period .td span {
 
 /* 활동_도움요청_가족테라피 시작 */
 .sub_text_box.family_text_box {
-    /*background-color: #e8ebf1;*/
-    background: url('../images/contents/banner_02.png')no-repeat center center;
-    background-size: cover;
-    border-radius: 20px;
-    height: 200px;
+    display: block;
 }
-.page_cont > .sub_text_box.family_text_box > .text {
-    padding: 50px 75px;
-    text-align: left;
-    padding-left: 20px;
+.m_banner {
+    display: none;
 }
 .family_info {
     margin-top: 45px;
@@ -12097,14 +12081,14 @@ li.period .td span {
  kjw
  파트너 css 추가
  */
-.page_cont .partners_text_box {
+/*.page_cont .partners_text_box {
     width: 100%;
     max-width: 1200px;
     background-color: #e8ebf1;
     height: 110px;
     padding-left: 30px;
     padding-right: 30px;
-}
+}*/
 .page_cont .sub_text_box.partners_text_box .text {
     width: 100%;
 }
@@ -12320,9 +12304,10 @@ li.period .td span {
 /**2021/09/14 kjw 예방교육 리스트, 지지크루, 강사교육, 교육 후기**/
 /* 활동_교육후기 시작 */
 .post_box {
-    background: url('../images/contents/banner_01.png')no-repeat center center;
-    background-size: cover;
+    background: url('../images/contents/pc_banner_01.png')no-repeat center center;
+    background-size: contain;
 }
+
 .review_text_box2 {
     background-color: #e8ebf1;
     max-width: 1200px;
@@ -12372,34 +12357,45 @@ li.period .td span {
 .page_cont > .intro_text_box .text {
     padding: 25px 75px;
 }
+.page_cont > .intro_text_box.intro .text {
+    float: left;
+}
 .page_cont > .intro_text_box .text p {
     /* padding-left: 300px;*/
 }
-.page_cont > .review_text_box {
-    height: 220px;
+.message_banner, .ex8 {
+    margin-bottom: 30px;
 }
+
+
 .page_cont > .sub_text_box > img {
     bottom: 25px;
 }
 .page_cont > .sub_text_box > img.declaration {
-    bottom: 25px;
+    bottom: 50px;
     width : 20%;
 }
 .page_cont > .sub_text_box > img.culture_crew {
-    bottom: 30px;
+    bottom: 50px;
     width : 22%;
 }
 
 .page_cont > .sub_text_box > img.experienceList {
     bottom: 30px;
-    width : 15%;
+    width : 18%;
     margin-left: 30px;
 }
 
 
 .page_cont > .review_text_box .text {
-    /*padding-left: 350px;*/
+    padding-left: 80px;
     /*padding-left: 100px;*/
+}
+.page_cont > .review_text_box.ex8 .text {
+    padding-left: 30px;
+}
+.page_cont > .review_text_box.post_box .text {
+    padding-left: 0;
 }
 .page_cont > .review_text_box > .review_text_img {
     /* position: absolute;

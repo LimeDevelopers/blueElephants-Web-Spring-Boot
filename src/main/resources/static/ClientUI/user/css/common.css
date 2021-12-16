@@ -377,7 +377,7 @@ body{color:#54586a;font-size:14px;font-family:'Noto Sans KR', Malgun Gothic, 'ë§
 .search input{width:100%;padding-right:34px;padding-left:10px;border-color:#ccc;background-color:#fff}
 .search .btn_search{position:absolute;top:1px;right:1px;width:34px;height:33px;background:url(../images/button/search.png) no-repeat 50% 50%}
 /*** pagination ***/
-.pagination{width:100%;max-width:1280px;margin:0 auto;padding-top:40px;text-align:center}
+.pagination{width:100%;max-width:1280px;margin:0 auto;padding:40px 0;text-align:center}
 .pagination a{display:inline-block;width:39px;height:39px;margin:0 5.5px;color:#767676;font-size:15px;line-height:37px;vertical-align:top;border:1px solid #ccc;	border-radius:50%}
 .pagination a.active{color:#fff;font-weight:700;background-color:#8bb3ff;border-color:#8bb3ff}
 .pagination .arr{height:12px;margin:14px 0 0 0;background:url(../images/button/sp_pagination.png) no-repeat;border:0;border-radius:0}
