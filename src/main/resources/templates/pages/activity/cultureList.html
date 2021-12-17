@@ -180,7 +180,7 @@
                         </div>-->
 
 
-                        <div class="select w160">
+                        <!--<div class="select w160">
                             <label th:for="sorting">
                                 <th:block th:if="*{sorting eq 'latest' or sorting eq null or sorting eq ''}">최신순
                                 </th:block>
@@ -194,7 +194,24 @@
                                 <option value="readCnt">조회순</option>
                                 <option value="alphabetically">가나다순</option>
                             </select>
+                        </div>-->
+
+                        <div role="option" class="option notice_select">
+                            <!--<label th:for="sorting">
+                                <th:block th:if="*{sorting eq 'latest' or sorting eq null or sorting eq ''}">최신순</th:block>
+                                <th:block th:if="*{sorting eq 'old'}">오래된순</th:block>
+                                <th:block th:if="*{sorting eq 'readCnt'}">조회순</th:block>
+                                <th:block th:if="*{sorting eq 'alphabetically'}">가나다순</th:block>
+                            </label>-->
+                            <select class="select notice_option_select" th:field="*{sorting}" onchange="fn_search()"
+                                    size='2'>
+                                <option value="latest" selected>최신순</option>
+                                <option value="old">오래된순</option>
+                                <option value="readCnt">조회순</option>
+                                <option value="alphabetically">가나다순</option>
+                            </select>
                         </div>
+
 
 
                         <th:block
