@@ -1609,6 +1609,10 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     font-weight: 700;
     text-align: center
 }
+.page_top>.page_tit.privacy {
+    padding: 10px 0;
+    padding-top: 50px;
+}
 
 .page_top>.page_tit+span {
     display: block;
@@ -1637,6 +1641,9 @@ left: 50%; transform: translateX(-50%);z-index: -1;} */
     height: 15px;
     margin: 11px auto 5px;
     background: url(../images/contents/bg_page_tit.png) no-repeat 0 0
+}
+.page_tit.pre_tit {
+    padding-top: 50px;
 }
 
 .mo_page_txt {
@@ -10084,7 +10091,7 @@ h4.subtit+.tip_tbl {
 .preparing {
     width: 800px;
     margin: 0 auto;
-    padding: 100px 0
+    padding: 50px 0;
 }
 
 .preparing:after {
