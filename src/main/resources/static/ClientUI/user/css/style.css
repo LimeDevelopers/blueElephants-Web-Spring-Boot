@@ -7096,10 +7096,12 @@ h4.subtit+.tip_tbl {
 .thumb_list>li .thumb {
     display: block;
     overflow: hidden;
+    height: 280px;
 }
 
 .thumb_list>li .thumb img {
     width: 100%;
+    height: inherit !important;
 }
 .select_2 {
     /*border-bottom: 2px solid #8eb3f2;*/

@@ -3503,7 +3503,8 @@
 		margin-bottom: 0;
 	}
 	.calendar_area {
-		margin-top: 30px;
+		/*margin-top: 30px;*/
+		margin-top: 0;
 	}
 	.calendar_area .calendar_tab {
 		display: none;
@@ -3526,16 +3527,20 @@
 	.list_type dd {
 		flex-direction: column;
 	}
+	.list_type dd .list_bull li:before {
+		top: 50%;
+		transform: translateY(-50%);
+	}
 	.list_type dd .list_bull li {
 		padding: 0;
 		padding-left: 10px;
 		font-size: 14px;
-		padding: 0 0 0px 10px;
+		padding: 2px 0 2px 10px;
 	}
 	.list_type dd .btn_blue {
 		width: 100%;
-		font-size: 16px;
-		padding: 5px 0;
+		font-size: 14px;
+		padding: 7px 0;
 		margin-top: 10px;
 	}
 	.list_type dt {
@@ -3557,10 +3562,22 @@
 		/*width: auto;*/
 		margin-right: 10px;
 	}
+
 	/*  푸코소식 캘린더 끝 */
-
-
-
+	.preparing {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+	}
+	.preparing .img {
+		width: 50%;
+		margin: 0 auto;
+	}
+	.preparing .word {
+		font-size: 14px;
+		width: 100%;
+		padding: 0 20px;
+	}
 	/* SubPage 끝*/
 
 
