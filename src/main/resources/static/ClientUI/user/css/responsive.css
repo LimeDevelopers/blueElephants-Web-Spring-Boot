@@ -1995,6 +1995,7 @@
 		display: flex;
 		flex-direction: column;
 		width: 100%;
+		padding-top: 17px;
 	}
 	.page_cont > .review_board .select_bx .title select {
 		vertical-align: top;
@@ -3425,7 +3426,8 @@
 		margin-top: 0!important;
 	}
 	.notice_select > .notice_option_select {
-		height: auto;
+		/*height: auto;*/
+		height: 30px;
 	}
 	.board_tbl_list.type01 {
 		/*margin-top: 5px;*/
