@@ -461,7 +461,7 @@ body{color:#54586a;font-size:14px;font-family:'Noto Sans KR', Malgun Gothic, 'ë§
 .notice_select > .notice_option_select {
 	overflow: inherit;
 	height: 22px;
-	margin-top: 40px;
+	margin-top: 25px;
 	border: 0px solid #fff;
 	width: auto;
 }

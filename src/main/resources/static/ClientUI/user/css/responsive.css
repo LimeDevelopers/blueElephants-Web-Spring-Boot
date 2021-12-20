@@ -77,6 +77,17 @@
 		height: 1px;
 		top: 24%;
 	}
+	.test_01 h1 {
+		font-size: 15px;
+		margin-bottom: 15px;
+	}
+	.test_01 p {
+		text-align: left;
+		font-size: 14px;
+		width: 80%;
+		margin: 0 auto;
+		padding-top: 15px;
+	}
 	/* 활동_진단하기_자가진단 끝 */
 
 	/* 활동_피해자체험 시작 */
@@ -1923,8 +1934,8 @@
 	/* .sub_text_box {
 		margin-top: 80px;
 	} */
-	.sub_text_box {
-		margin-top: 20px;
+	.sub_text_box.intro {
+		/*margin-top: 20px;*/
 	}
 	.page_cont > .review_title {
 		text-align: left;
@@ -1984,6 +1995,7 @@
 		display: flex;
 		flex-direction: column;
 		width: 100%;
+		padding-top: 17px;
 	}
 	.page_cont > .review_board .select_bx .title select {
 		vertical-align: top;
@@ -2481,7 +2493,7 @@
 	}
 	.page_cont > .intro_text_box .text p {
 		padding-left: 0;
-		padding-top: 10px;
+		/*padding-top: 10px;*/
 	}
 	.edu_intro_area .video_area {
 		margin-bottom: 30px;
@@ -2775,7 +2787,7 @@
 
 	/* 활동_도움요청_게시판 시작 */
 	.sub_text_box {
-		margin-top: 20px;
+		/*margin-top: 20px;*/
 	}
 	.page_cont > .review_title {
 		text-align: left;
@@ -2813,7 +2825,6 @@
 	}
 	.notice_board {
 		flex-direction: column;
-		margin-top: 22px;
 	}
 	.notice_board .search_inner {
 		margin-top: 0;
@@ -2832,7 +2843,7 @@
 		text-align: center;
 	}
 	.board_tbl_list {
-		margin-top: 40px;
+		margin-top: 20px;
 	}
 	.board_tbl_list.request_list > li .date02 {
 		width: 100%;
@@ -3217,7 +3228,7 @@
 
 	/* 활동_도움요청_가족테라피 시작 */
 	.page_cont > .sub_text_box.family_text_box > .text {
-		padding: 10px;
+		padding: 10px 20px;
 	}
 	.program_inner {
 		padding: 40px 20px;
@@ -3415,7 +3426,8 @@
 		margin-top: 0!important;
 	}
 	.notice_select > .notice_option_select {
-		height: auto;
+		/*height: auto;*/
+		height: 30px;
 	}
 	.board_tbl_list.type01 {
 		/*margin-top: 5px;*/
@@ -3491,7 +3503,8 @@
 		margin-bottom: 0;
 	}
 	.calendar_area {
-		margin-top: 30px;
+		/*margin-top: 30px;*/
+		margin-top: 0;
 	}
 	.calendar_area .calendar_tab {
 		display: none;
@@ -3514,16 +3527,20 @@
 	.list_type dd {
 		flex-direction: column;
 	}
+	.list_type dd .list_bull li:before {
+		top: 50%;
+		transform: translateY(-50%);
+	}
 	.list_type dd .list_bull li {
 		padding: 0;
 		padding-left: 10px;
 		font-size: 14px;
-		padding: 0 0 0px 10px;
+		padding: 2px 0 2px 10px;
 	}
 	.list_type dd .btn_blue {
 		width: 100%;
-		font-size: 16px;
-		padding: 5px 0;
+		font-size: 14px;
+		padding: 7px 0;
 		margin-top: 10px;
 	}
 	.list_type dt {
@@ -3545,10 +3562,22 @@
 		/*width: auto;*/
 		margin-right: 10px;
 	}
+
 	/*  푸코소식 캘린더 끝 */
-
-
-
+	.preparing {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+	}
+	.preparing .img {
+		width: 50%;
+		margin: 0 auto;
+	}
+	.preparing .word {
+		font-size: 14px;
+		width: 100%;
+		padding: 0 20px;
+	}
 	/* SubPage 끝*/
 
 
@@ -4103,6 +4132,7 @@
 	/* 예방교육 리스트 게시판 */
 	.board_top {
 		text-align: left;
+		padding: 0;
 	}
 	.board_top > * {
 		margin-right: 6px;
@@ -4379,7 +4409,7 @@
 
 	/* 신청_ 파트너스 시작 */
 	.sub_text_box {
-		margin-top: 20px;
+		margin-top: 0;
 	}
 	.page_cont > .sub_text_box > .text {
 		/*padding: 20px;*/
@@ -4709,6 +4739,7 @@
 	}
 	h4.subtit.review_title {
 		margin-top: 0;
+		text-align: left;
 	}
 	.simplebar-content {
 		padding: 20px 5px;
@@ -6556,12 +6587,6 @@
 		margin-bottom: 60px;
 	}
 	/* 활동_강의실 끝 */
-
-
-
-
-
-
 
 
 
