@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/header"></th:block>
+    <script type="text/javascript">
+        $(function () {
+
+        });
+
+        function fn_search() {
+            var frm = $('#form1');
+            //frm.prop("action", "?");
+            frm.submit();
+        }
+    </script>
+</head>
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+<div id="wrap">
+    <th:block th:include="fragments/header_gnb"></th:block>
+    <div id="container">
+        <th:block th:include="fragments/mo_menu"></th:block>
+        <div class="sub_container">
+            <th:block th:include="fragments/dept_menu"></th:block>
+
+            <form id="form1" name="form1" method="post" th:object="${form}">
+                <div class="inner">
+                    <!--<div class="page_top pc">
+                        <h3 class="page_tit" th:text="${pageTitle}">제안</h3>
+                        <span th:if="${pageTitle eq '공모전'}" th:text="|공모전을 통해 푸른코끼리를 만들어갑니다.|">연구결과를 바탕으로 국내법 개정과 정책 입안을 이끌어 갑니다.</span>
+                        <span th:if="${pageTitle eq '제안하기'}" th:text="|연구결과를 바탕으로 국내법 개정과 정책 입안을 이끌어 갑니다.|">연구결과를 바탕으로 국내법 개정과 정책 입안을 이끌어 갑니다.</span>
+                    </div>-->
+                    <div class="page_cont">
+                        <div class="tab_ico_area">
+                            <p class="mo_page_txt" th:if="${pageTitle eq '공모전'}" th:text="|공모전을 통해 푸른코끼리를 만들어갑니다.|">1</p>
+                            <p class="mo_page_txt" th:if="${pageTitle eq '제안하기'}" th:text="|연구결과를 바탕으로 국내법 개정과 정책 입안을 이끌어 갑니다.|">2</p>
+                            <!--<div class="tab_cont mo_thumb">
+                                <div class="cont proposal active">
+                                    <div class="thumb">
+                                        <p th:text="${pageTitle}">정책제안</p>
+                                    </div>
+                                    <dl class="desc">
+                                        <dt th:if="${pageTitle eq '공모전'}" th:text="|목표: 사이버 폭력 예방법 공모|">1</dt>
+                                        <dt th:if="${pageTitle eq '제안하기'}" th:text="|목표: 사이버폭력 예방 및 대응 제안 정책 도입|">2</dt>
+                                        <dd th:if="${pageTitle eq '공모전'}" th:text="|기타: 사이버 폭력 예방법 공모|">1</dd>
+                                        <dd th:if="${pageTitle eq '제안하기'}" th:text="|기타: 사이버폭력 예방 및 대책에 관한 법률 기반 - 사이버폭력 법적 정의, 사이버폭력 예방 교육 명시, 사이버폭력 대응 예산 수립, 국내외 우수사례 적용|">2</dd>
+&lt;!&ndash;                                        <dt>목표: 사이버폭력 예방 및 대응 제안 정책 도입</dt>&ndash;&gt;
+&lt;!&ndash;                                        <dd>기타: 사이버폭력 예방 및 대책에 관한 법률 기반 - 사이버폭력 법적 정의, 사이버폭력 예방 교육 명시,&ndash;&gt;
+&lt;!&ndash;                                            <br class="pc"/>사이버폭력&ndash;&gt;
+&lt;!&ndash;                                            대응 예산 수립, 국내외 우수사례 적용&ndash;&gt;
+&lt;!&ndash;                                        </dd>&ndash;&gt;
+                                    </dl>
+                                </div>
+                            </div>-->
+                        </div>
+<!--                        <h4 class="subtit pc" th:text="${pageTitle}">정책제안</h4>-->
+
+
+                        <div class="proposal_txt">
+                            <img class="pc_banner" src="/ClientUI/user/images/contents/pc_banner_14.png">
+                            <img class="m_banner" src="/ClientUI/user/images/contents/m_banner_14.png">
+                            <!--<img src="/ClientUI/user/images/contents/proposal_03.png">-->
+                            <!--<div class="text">
+                                <p class="title">정책제안
+                                </p>
+                                <span class="sub">
+                                    함께 할수록 사이버세상은 변화합니다.<b></b>사이버폭력과 관련된 청소년 정책을 제안해주세요.<b></b>여러분과 함께 하면 할수록 사이버세상은 변화하고, 새로운 정책으로 반영될 수 있는 기회가 만들어집니다.
+                                </span>
+                            </div>-->
+                        </div>
+
+
+
+
+                        <!--<div class="btn_tab pc_btn">
+                            <th:block th:if="${#authentication.principal eq 'anonymousUser'}"> &lt;!&ndash;로그인 X&ndash;&gt;
+                                <a href="javascript:alert('로그인 후 이용 가능합니다.');"
+                                   class="write_btn">글쓰기</a>
+                            </th:block>
+                            <th:block th:unless="${#authentication.principal eq 'anonymousUser'}"> &lt;!&ndash;로그인 O&ndash;&gt;
+                                <a href="/pages/activity/policyProposalRegister"
+                                   class="write_btn">글쓰기</a>
+                            </th:block>
+                        </div>-->
+
+                        <div class="board_top review_board">
+                            <div class="select_bx">
+                                <div class="select w160 title">
+                                    <label th:for="srchGbnParent">
+                                        <th:block th:if="*{srchGbnParent eq '' or srchGbnParent eq null}">전체</th:block>
+                                        <th:block th:each="item : ${commonCodes}">
+                                            <th:block th:if="${searchForm.srchGbnParent eq item.id}" th:text="${item.codeNm}">제목</th:block>
+                                        </th:block>
+                                    </label>
+                                    <select th:field="*{srchGbnParent}" onchange="fn_codeList(this)">
+                                        <option value="" selected>전체</option>
+                                        <th:block th:each="item : ${commonCodes}">
+                                            <option th:value="${item.id}" th:text="${item.codeNm}"></option>
+                                        </th:block>
+                                    </select>
+                                </div>
+                                <div class="select w160 subject">
+                                    <label id="srchGbnChildLabel" th:for="srchGbnChild">
+                                        <th:block th:if="*{srchGbnChild eq '' or srchGbnChild eq null}">전체</th:block>
+                                    </label>
+                                    <select th:field="*{srchGbnChild}">
+                                        <option value="" selected>전체</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="select_bx2">
+                                <div class="search news">
+                                    <input type="search" th:field="*{srchWord}" placeholder="검색어를 입력해 주세요" />
+                                </div>
+                                <button type="submit" class="btn btn_blue btn_pill_10">검색</button>
+                            </div>
+                            <div class="btn_tab pc_btn">
+                                <th:block th:if="${#authentication.principal eq 'anonymousUser'}"> <!--로그인 X-->
+                                    <a href="javascript:alert('로그인 후 이용 가능합니다.');"
+                                       class="write_btn">글쓰기</a>
+                                </th:block>
+                                <th:block th:unless="${#authentication.principal eq 'anonymousUser'}"> <!--로그인 O-->
+                                    <a href="/pages/activity/policyProposalRegister"
+                                       class="write_btn">글쓰기</a>
+                                </th:block>
+                            </div>
+                        </div>
+
+
+                        <!--<div class="select w160">
+                            <label th:for="sorting">
+                                <th:block th:if="*{sorting eq 'latest' or sorting eq null or sorting eq ''}">최신순
+                                </th:block>
+                                <th:block th:if="*{sorting eq 'old'}">오래된순</th:block>
+                                <th:block th:if="*{sorting eq 'readCnt'}">조회순</th:block>
+                                <th:block th:if="*{sorting eq 'alphabetically'}">가나다순</th:block>
+                            </label>
+                            <select th:field="*{sorting}" onchange="fn_search()">
+                                <option value="latest" selected>최신순</option>
+                                <option value="old">오래된순</option>
+                                <option value="readCnt">조회순</option>
+                                <option value="alphabetically">가나다순</option>
+                            </select>
+                        </div>-->
+
+
+                        <div class="select_2 proposal_btn">
+                            <div class="option_btn">
+                                <button>최신순</button>
+                                <button>오래된순</button>
+                                <button>조회순</button>
+                                <button>가나다순</button>
+                            </div>
+                            <a href="/pages/activity/policyProposalRegister" class="write_btn">글쓰기</a>
+                        </div>
+
+
+                        <ul class="thumb_list clearfix gallery">
+                            <th:block th:if="${boardDatas == null or boardDatas.isEmpty()}"><!--등록된 글이 없을 경우-->
+                                <li class="nodata">
+                                    <div>등록된 게시글이 없습니다.</div>
+                                </li>
+                            </th:block>
+                            <li th:each="item : ${boardDatas}">
+                                <a th:href="|/pages/news/detail/${item.id}|">
+                                    <span class="thumb"><img th:src="${filePath} + '/' + ${item.thumbFileNm}"
+                                                             th:alt="${item.thumbFileNm}"
+                                                             onerror="this.src='/ClientUI/user/images/contents/nodata01.png'"/></span>
+                                    <th:block th:if="${item.sntncHead ne ''}">
+                                        <strong class="tit" th:text="|[${item.sntncHead}]  ${item.ttl}|"></strong>
+                                    </th:block>
+                                    <th:block th:unless="${item.sntncHead ne ''}">
+                                        <strong class="tit" th:text="${item.ttl}"></strong>
+                                    </th:block>
+                                    <span class="date" th:text="${#temporals.format(item.ntceDt,'yyyy.MM.dd')}">2020.01.22</span>
+                                </a>
+                            </li>
+                            <!--<li>
+                                <a href="/pages/news/detail">
+                                    <span class="thumb"><img src="/ClientUI/user/images/contents/nodata01.png" alt="사이버폭력의 실제 모습이 궁금한가요?" onerror="this.src='/ClientUI/user/images/contents/nodata01.png'" /></span>
+                                    <strong class="tit">OO중학교 사이버 폭력 근절단</strong>
+                                    <span class="date">2020.01.22</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/pages/news/detail">
+                                    <span class="thumb"><img src="/ClientUI/user/images/contents/nodata01.png" alt="사이버폭력의 실제 모습이 궁금한가요?" onerror="this.src='/ClientUI/user/images/contents/nodata01.png'" /></span>
+                                    <strong class="tit">OO중학교 사이버 폭력 근절단</strong>
+                                    <span class="date">2020.01.22</span>
+                                </a>
+                            </li>-->
+                        </ul>
+                    </div>
+
+                        <!--<div class="board_top">
+                            <div class="select w160">
+                                <label th:for="sntncHead">
+                                    <th:block th:if="*{sntncHead eq null or sntncHead eq ''}">전체</th:block>
+                                    <th:block th:each="item: ${#strings.arraySplit(boardMaster.sntncHead,',')}">
+                                        <th:block th:if="${form.sntncHead eq item}" th:text="${item}"></th:block>
+                                    </th:block>
+                                </label>
+                                <select th:field="*{sntncHead}">
+                                    <option value="">전체</option>
+                                    <option th:each="item : ${#strings.arraySplit(boardMaster.sntncHead,',')}"
+                                            th:text="${item}" th:value="${item}"></option>
+                                </select>
+                            </div>
+                            <div class="select w160">
+                                <label th:for="srchField">
+                                    &lt;!&ndash;<th:block th:if="*{srchField eq '' or srchField eq null}">전체</th:block>&ndash;&gt;
+                                    <th:block th:if="*{srchField eq 'title' or srchField eq '' or srchField eq null}">
+                                        제목
+                                    </th:block>
+                                    <th:block th:if="*{srchField eq 'cn'}">내용</th:block>
+                                    <th:block th:if="*{srchField eq 'titleCn'}">제목+내용</th:block>
+                                    <th:block th:if="*{srchField eq 'wrterNm'}">제안자</th:block>
+                                </label>
+                                <select th:field="*{srchField}">
+                                    &lt;!&ndash;<option value="" selected>전체</option>&ndash;&gt;
+                                    <option value="title">제목</option>
+                                    <option value="cn">내용</option>
+                                    <option value="titleCn">제목+내용</option>
+                                    <option value="wrterNm">제안자</option>
+                                </select>
+                            </div>
+                            <div class="search policy">
+                                <input type="search" th:field="*{srchWord}" placeholder="검색어를 입력해 주세요"/>
+                            </div>
+                            <button type="submit" class="btn btn_blue btn_pill_10">검색</button>
+                            <div class="select w160">
+                                <label th:for="sorting">
+                                    <th:block th:if="*{sorting eq 'latest' or sorting eq null or sorting eq ''}">최신순
+                                    </th:block>
+                                    <th:block th:if="*{sorting eq 'old'}">오래된순</th:block>
+                                    <th:block th:if="*{sorting eq 'readCnt'}">조회순</th:block>
+                                    <th:block th:if="*{sorting eq 'like'}">공감순</th:block>
+                                    <th:block th:if="*{sorting eq 'alphabetically'}">가나다순</th:block>
+                                </label>
+                                <select th:field="*{sorting}" onchange="fn_search()">
+                                    <option value="latest" selected>최신순</option>
+                                    <option value="old">오래된순</option>
+                                    <option value="readCnt">조회순</option>
+                                    <option value="like">공감순</option>
+                                    <option value="alphabetically">가나다순</option>
+                                </select>
+                            </div>
+                        </div>
+                        <ul class="board_tbl_list type01">
+                            <li class="thead">
+                                <strong class="no">No</strong>
+                                <strong class="tit">제목</strong>
+                                <strong class="writer">제안자</strong>
+                                <strong class="date">등록일</strong>
+                                <strong class="sympathy">공감수</strong>
+                                <strong class="hits">조회수</strong>
+                            </li>
+                            &lt;!&ndash;등록된 글 없을경우 : s&ndash;&gt;
+                            <th:block th:if="${boardDatas == null or boardDatas.isEmpty()}">
+                                <li class="nodata">
+                                    <div>등록된 게시글이 없습니다.</div>
+                                </li>
+                            </th:block>
+                            &lt;!&ndash;등록된 글 없을경우 : e&ndash;&gt;
+                            <li th:each="item,idx:${boardDatas}">
+                                <div class="no"
+                                     th:text="${boardDatas.totalElements - boardDatas.pageable.pageSize * boardDatas.pageable.pageNumber - idx.index}"></div>
+                                <div class="tit">
+                                    <th:block th:if="${item.sntncHead ne ''}">
+                                        <a th:href="|/pages/activity/policyProposalDetail/${item.id}|"
+                                           th:text="|[${item.sntncHead}]  ${item.ttl}|">제안합니다</a>
+                                    </th:block>
+                                    <th:block th:unless="${item.sntncHead ne ''}">
+                                        <a th:href="|/pages/activity/policyProposalDetail/${item.id}|"
+                                           th:text="${item.ttl}">제안합니다</a>
+                                    </th:block>
+                                </div>
+                                <div class="writer"><span class="th">제안자 : </span>
+                                    <th:block th:text="${item.wrterNm}"></th:block>
+                                </div>
+                                <div class="date"><span class="th">등록일 : </span>
+                                    <th:block th:text="${#temporals.format(item.regDtm,'yyyy.MM.dd')}"></th:block>
+                                </div>
+                                <div class="sympathy"><span class="th">공감수 : </span>
+                                    <th:block th:text="${#numbers.formatInteger(item.likeCnt, 0, 'COMMA')}"></th:block>
+                                </div>
+                                <div class="hits"><span class="th">조회수 : </span>
+                                    <th:block th:text="${#numbers.formatInteger(item.readCnt, 0, 'COMMA')}"></th:block>
+                                </div>
+                            </li>
+                        </ul>-->
+                    </div>
+                    <th:block
+                            th:replace="/fragments/paging :: pagingbody(list=${boardDatas}, link='/pages/activity/policyProposal', formId='form1')"></th:block>
+            </form>
+        </div>
+    </div>
+    <th:block th:replace="fragments/footer"></th:block>
+</div>
+</body>
+</html>

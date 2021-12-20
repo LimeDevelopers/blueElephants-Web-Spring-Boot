@@ -2034,7 +2034,7 @@ public class ActivityController extends BaseCont {
     @RequestMapping("/pages/activity/networking")
     public String networking(Model model) {
         model.addAttribute("mc", "activity");
-        model.addAttribute("pageTitle", "푸코포럼");
+        model.addAttribute("pageTitle", "문화만들기");
         return "/pages/activity/networking";
     }
 
