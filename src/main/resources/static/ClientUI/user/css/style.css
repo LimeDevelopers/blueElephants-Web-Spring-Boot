@@ -12359,7 +12359,7 @@ li.period .td span {
 }
 .page_cont > .intro_text_box.intro .text {
     float: left;
-    padding-left: 400px;
+    /*padding-left: 400px;*/
     width: 100%;
 }
 .page_cont > .intro_text_box .text p {
