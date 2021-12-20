@@ -9365,6 +9365,10 @@ h4.subtit+.tip_tbl {
     font-size: 17px
 }
 
+.desc_box .join_info {
+    margin-top: 50px;
+}
+
 .policy_area .desc_box .tit {
     display: block
 }
