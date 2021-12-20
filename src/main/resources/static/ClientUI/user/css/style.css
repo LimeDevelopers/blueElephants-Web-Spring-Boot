@@ -6534,7 +6534,7 @@ h4.subtit.search_tit {
 
 h4.subtit.review_title {
     margin-top: 0;
-    padding : 20px;
+    padding : 20px 0;
 }
 h4.submsg.mo {
     display: none
@@ -6571,7 +6571,7 @@ h4.submsg.mo {
 }
 
 .board_top {
-    padding-top: 17px;
+    padding: 17px 0;
     font-size: 0
 }
 
@@ -7069,7 +7069,7 @@ h4.subtit+.tip_tbl {
 .board_top+.thumb_list {
     margin-top: -20px;
     margin-bottom: 80px;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .thumb_list {
@@ -7077,7 +7077,7 @@ h4.subtit+.tip_tbl {
     /*margin: -40px 0 0 -30px;*/
     width: 100%;
     border-top: 2px solid #8bb3ff;
-    margin-top: 50px;
+    margin-top: 10px;
 }
 
 .thumb_list>li {
@@ -9635,7 +9635,7 @@ h4.subtit+.tip_tbl {
 /* 행사 - 캘린더 */
 .calendar_area {
     position: relative;
-    margin-top: 50px;
+    margin-top: 20px;
 }
 
 .calendar_area .tab_conts>.calendar_type .fc-view-container {
@@ -11123,6 +11123,9 @@ text.shadow {
 
 
 /* 활동_도움요청_심리상담 시작 */
+.page_cont > .help_text_box {
+    margin-bottom: 30px;
+}
 .page_cont > .sub_text_box.help_text_box > img {
     top: -50%;
     left: 50%;
@@ -11132,13 +11135,11 @@ text.shadow {
     padding: 40px 75px;
     width: 100%;
 }
-.page_cont > .sub_text_box > .text {
-    width: 100%;
-}
 .page_cont > .sub_text_box > .text .sub {
     color: #9499ad;
     margin-top: 7px;
-    display: inline-block;
+    /*display: inline-block;*/
+    display: block;
 }
 .therapy_info {
     display: flex;
@@ -11459,6 +11460,9 @@ li.period .td span {
 /* 활동_도움요청_가족테라피 시작 */
 .sub_text_box.family_text_box {
     display: block;
+}
+.sub_text_box.family_text_box .text {
+    padding-left: 50px;
 }
 .m_banner {
     display: none;
@@ -11811,7 +11815,7 @@ li.period .td span {
 /* 활동_진단하기_자가진단 시작 */
 .test_01 {
     text-align: center;
-    margin: 60px 0;
+    margin: 30px 0;
 }
 .test_01 h1 {
     font-weight: normal;
@@ -11823,7 +11827,7 @@ li.period .td span {
 }
 .test_01 p {
     color: #555868;
-    font-size: 16px;
+    font-size: 18px;
     margin: 20px 0;
     margin-bottom: 30px;
 }
@@ -12284,23 +12288,14 @@ li.period .td span {
     border-radius: 20px;
     background-color: #e8ebf1;
     margin-top: 53px;
-    position: relative;
+    /*position: relative;*/
 }
 .page_cont > .sub_text_box > img {
     position: absolute;
     bottom: 10px;
     left: 45px;
 }
-.page_cont > .sub_text_box > .text{
-    width: 100%;
-    /* float: right; */
-    font-size: 18px;
-    font-weight: normal;
-    line-height: 1.56;
-    letter-spacing: -1.62px;
-    text-align: center;
-    /*padding: 25px 0px;*/
-}
+
 /**2021/09/14 kjw 예방교육 리스트, 지지크루, 강사교육, 교육 후기**/
 /* 활동_교육후기 시작 */
 .post_box {
@@ -12330,17 +12325,16 @@ li.period .td span {
     bottom: 10px;
     left: 45px;
 }
-.page_cont > .sub_text_box > .text{
-    width: 75%;
-    /*width: 67%;*/
-    /*width: 100%;*/
-    float: right;
+.page_cont > .sub_text_box > .text {
+    /*float: right;*/
+    width: 100%;
     font-size: 18px;
     font-weight: normal;
     line-height: 1.56;
     letter-spacing: -1.62px;
     padding: 40px 0px;
     text-align: left;
+    padding-left: 50px;
 }
 
 
@@ -12435,7 +12429,7 @@ li.period .td span {
     color: #6d95e1;
     font-size: 16px;
     display: inline-block;
-    padding-top: 15px;
+    padding-top: 14px;
     height: 54px;
 }
 .page_cont > .btn_tab .btn_review{
