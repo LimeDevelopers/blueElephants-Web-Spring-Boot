@@ -110,8 +110,9 @@
                             <li><a href="/pages/activity/eduIntro">예방교육</a></li>
                             <li><a href="/pages/activity/healIntro">도움요청</a></li>
                             <li><a href="/pages/activity/factualSurvey">진단하기</a></li>
-                            <li><a href="/pages/activity/cultureIntro">문화만들기</a></li>
+                            <li><a href="/pages/activity/cultureList/8">문화만들기</a></li>
                             <li><a href="/pages/activity/policyProposal">제안하기</a></li>
+                            <li><a href="/pages/activity/networking">푸코포럼</a></li>
                         </ul>
                     </li>
                     <li th:classappend="${mc eq 'news' ? 'active' : ''}">
@@ -141,6 +142,7 @@
                         </ul>
                     </li>
                 </ul>
+<!-- 모바일 메뉴 작동하지 않음 mo_menu 참조-->
                 <div class="mo_mnu_area mo">
                     <div class="mo_mnu" th:classappend="${mc eq 'blueElephant' || mc != 'activity' && mc != 'news' ? 'active' : ''}">
                         <strong>소개</strong>
@@ -159,7 +161,7 @@
                             <li>
                                 <a href="javascript:;" class="arr">예방교육</a>
                                 <ul class="depth">
-                                    <li><a href="/pages/activity/eduIntro">소개</a></li>
+                                    <!-- <li><a href="/pages/activity/eduIntro">소개</a></li> -->
                                     <li><a href="/pages/activity/preventionEdu/STUDENT">청소년</a></li>
                                     <li><a href="/pages/activity/preventionEdu/PARENT">부모</a></li>
                                     <li><a href="/pages/activity/preventionEdu/TEACHER">교원</a></li>
