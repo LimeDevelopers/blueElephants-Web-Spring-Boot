@@ -336,21 +336,21 @@ public class  ApplicationController {
         return "pages/application/insInfo";
     }
 
-    /*@GetMapping("/pages/application/zzdeclaration")
+    @GetMapping("/pages/application/zzdeclaration")
     public String zzdeclaration(Model model) {
         model.addAttribute("mc", "application");
         model.addAttribute("pageTitle", "지지선언");
         return "pages/application/zzdeclaration";
-    }*/
+    }
 
     // 지지선언 페이지 임시 공사중 페이지 이동
-    @GetMapping("/pages/application/zzdeclaration")
+    /*@GetMapping("/pages/application/zzdeclaration")
     public String zzdeclaration(Model model ,
                             @ModelAttribute ApplicationForm applicationForm) {
         model.addAttribute("mc", "application");
         model.addAttribute("pageTitle", "지지선언");
         return "pages/preparing";
-    }
+    }*/
 
     @GetMapping("/pages/application/contest")
     public String contest(Model model) {
@@ -366,21 +366,21 @@ public class  ApplicationController {
         return "pages/application/event";
     }
 
-    /*@GetMapping("/pages/application/partners")
+    @GetMapping("/pages/application/partners")
     public String partnersPage(Model model) {
         model.addAttribute("mc", "application");
         model.addAttribute("pageTitle", "파트너스");
         return "pages/application/partners";
-    }*/
+    }
 
     // 파트너스 페이지 임시 공사중 페이지 이동
-    @GetMapping("/pages/application/partners")
+    /*@GetMapping("/pages/application/partners")
     public String partnersPage(Model model ,
                                 @ModelAttribute ApplicationForm applicationForm) {
         model.addAttribute("mc", "application");
         model.addAttribute("pageTitle", "파트너스");
         return "pages/preparing";
-    }
+    }*/
 
 
     @GetMapping("/pages/application/zzcrewRegister")
@@ -399,7 +399,9 @@ public class  ApplicationController {
         }
         model.addAttribute("mc", "application");
         model.addAttribute("pageTitle", "지지크루");
-        return "pages/preparing";
+        return "pages/application/zzcrew";
+        //준비중 페이지 이동
+        //return "pages/preparing";
     }
 
     @GetMapping("/pages/application/partnersRegister")
