@@ -322,7 +322,8 @@ public class ActivityController extends BaseCont {
                        @CurrentUser Account account,
                        @ModelAttribute SearchForm searchForm) {
         if (account == null) {
-            model.addAttribute("altmsg" , "로그인 후 이용 가능합니다.");
+            model.addAttribute("altmsg", "로그인 후 이용 가능합니다.");
+            model.addAttribute("locurl", "/login");
             return "/message";
         } else {
             if (userGbn != null) {
