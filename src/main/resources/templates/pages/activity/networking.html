@@ -134,7 +134,7 @@
                     </div>-->
 
 
-                    <div class="select w160">
+                    <!--<div class="select w160">
                         <label th:for="sorting">
                             <th:block th:if="*{sorting eq 'latest' or sorting eq null or sorting eq ''}">최신순
                             </th:block>
@@ -148,7 +148,7 @@
                             <option value="readCnt">조회순</option>
                             <option value="alphabetically">가나다순</option>
                         </select>
-                    </div>
+                    </div>-->
 
 
                    <div class="select_2 proposal_btn">
@@ -163,7 +163,7 @@
 
 
                     <ul class="thumb_list clearfix gallery">
-                        <th:block th:if="${boardDatas == null or boardDatas.isEmpty()}">&lt;!&ndash;등록된 글이 없을 경우&ndash;&gt;
+                        <th:block th:if="${boardDatas == null or boardDatas.isEmpty()}">
                             <li class="nodata">
                                 <div>등록된 게시글이 없습니다.</div>
                             </li>
@@ -182,7 +182,7 @@
                                 <span class="date" th:text="${#temporals.format(item.ntceDt,'yyyy.MM.dd')}">2020.01.22</span>
                             </a>
                         </li>
-                        &lt;!&ndash;<li>
+                        <!--&lt;!&ndash;<li>
                             <a href="/pages/news/detail">
                                 <span class="thumb"><img src="/ClientUI/user/images/contents/nodata01.png" alt="사이버폭력의 실제 모습이 궁금한가요?" onerror="this.src='/ClientUI/user/images/contents/nodata01.png'" /></span>
                                 <strong class="tit">OO중학교 사이버 폭력 근절단</strong>
@@ -195,11 +195,13 @@
                                 <strong class="tit">OO중학교 사이버 폭력 근절단</strong>
                                 <span class="date">2020.01.22</span>
                             </a>
-                        </li>&ndash;&gt;
+                        </li>&ndash;&gt;-->
                     </ul>
 
                 </div>
             </div>
+            <!--<th:block
+                                    th:replace="/fragments/paging :: pagingbody(list=${boardDatas}, link='/pages/activity/globalpuco', formId='form1')"></th:block>-->
         </form>
         </div>
     </div>
