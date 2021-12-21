@@ -2034,8 +2034,15 @@ public class ActivityController extends BaseCont {
     @RequestMapping("/pages/activity/networking")
     public String networking(Model model) {
         model.addAttribute("mc", "activity");
-        model.addAttribute("pageTitle", "문화만들기");
+        model.addAttribute("pageTitle", "푸코포럼");
         return "/pages/activity/networking";
+    }
+
+    @RequestMapping("/pages/activity/globalpuco")
+    public String globalpuco(Model model) {
+        model.addAttribute("mc", "activity");
+        model.addAttribute("pageTitle", "문화만들기");
+        return "/pages/activity/globalpuco";
     }
 
     @ResponseBody
